@@ -8,6 +8,7 @@
         <meta name="language" content="de" />
         <meta name="keywords" content="OSM Public Transport PTv2" />
         <meta name="description" content="PTNA - Public Transport Network Analysis" />
+        <meta name="robots" content="noindex,nofollow" />
         <link rel="stylesheet" href="css/main.css" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
@@ -15,7 +16,8 @@
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
     </head>
     <body>
-        <div id="headerblock">
+      <div id="wrapper">
+        <header id="headerblock">
             <div id="headerimg" class="logo">
                 <a href="/"><img src="img/logo.png" alt="logo" /></a>
             </div>
@@ -29,18 +31,21 @@
               <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> | 
               <a target="_blank" href="https://www.fossgis.de/datenschutzerklaerung">Datenschutzerklärung</a>
             </div>
-        </div>
+        </header>
+        <nav id="navigation">
+            <h2>Navigation</h2>
+            <ul>
+                <li><a href="motivation.html">Motivation</a></li>
+                <li><strong><a href="results.html">Auswertungen</a></strong></li>
+                <li><a href="documentation.html">Dokumentation</a></li>
+                <li><a href="https://github.com/osm-ToniE/analyze-routes">Code</a></li>
+            </ul>
+        </nav>
+    
+        <main id="main">
+        </main>
+        
+      </div> <!-- wrapper -->
     </body>
-    
-    <div id="navigation">
-        <h2>Navigation</h2>
-        <ul>
-            <li><a href="motivation.html">Motivation</a></li>
-            <li><strong><a href="results.html">Auswertungen</a></strong></li>
-            <li><a href="documentation.html">Dokumentation</a></li>
-            <li><a href="https://github.com/osm-ToniE/analyze-routes">Code</a></li>
-        </ul>
-    </div>
-    
 </html>
     

@@ -8,6 +8,7 @@
         <meta name="language" content="de" />
         <meta name="keywords" content="OSM Public Transport PTv2" />
         <meta name="description" content="PTNA - Public Transport Network Analysis" />
+        <meta name="robots" content="noindex,nofollow" />
         <link rel="stylesheet" href="css/main.css" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
@@ -15,9 +16,10 @@
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
     </head>
     <body>
+      <div id="wrapper">
         <div id="headerblock">
             <div id="headerimg" class="logo">
-                <a href="/"><img src="img/logo.png" sizes="90x90" alt="logo" /></a>
+                <a href="/"><img src="img/logo.png" alt="logo" /></a>
             </div>
             <div id="headertext">
               <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
@@ -36,17 +38,21 @@
     
             <h3><a class="a" href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Analysierte_Verbunde">Analysierte Verbünde</a></h3>
 
-            Die ersten Spalte der Tabelle enthält jeweils einen Link auf das Ergebnis der Analyse.<br /><br />
-            In der Spalte "Letzte Änderung" stehen Links auf HTML-Seiten, in der die Änderungen zur vorangegangenen Auswertung farblich markiert sind - 
-            siehe dort die Navigationsbuttons rechts unten, mit der man sich von Differenz zu Differenz "vorhangeln" kann.
-            Diese Spalte enthält das Datum der letzten Auswertung bei der relevante Änderungen an den Daten vorlagen.
-            Ältere Datumsangaben bedeuten, dass sich am Ergebnis der Auswertung seit diesem Datum nichts geändert hat, die Daten selber stammen jedoch vom Tag der Auswertung.
-            <br /><br />
-            Die Daten werden nur aktualisiert, wenn sich das Ergebnis der Analyse geändert hat.
-            <br /><br />
+            <p>
+                Die ersten Spalte der Tabelle enthält jeweils einen Link auf das Ergebnis der Analyse.
+            </p>
+            <p>
+                In der Spalte "Letzte Änderung" stehen Links auf HTML-Seiten, in der die Änderungen zur vorangegangenen Auswertung farblich markiert sind - 
+                siehe dort die Navigationsbuttons rechts unten, mit der man sich von Differenz zu Differenz "vorhangeln" kann.
+                Diese Spalte enthält das Datum der letzten Auswertung bei der relevante Änderungen an den Daten vorlagen.
+                Ältere Datumsangaben bedeuten, dass sich am Ergebnis der Auswertung seit diesem Datum nichts geändert hat, die Daten selber stammen jedoch vom Tag der Auswertung.
+            </p>
+            <p>
+                Die Daten werden nur aktualisiert, wenn sich das Ergebnis der Analyse geändert hat.
+            </p>
 
-<div id="construction">
-<h1>Under Construction ...</h1>
+            <div id="construction">
+            <h1>Under Construction ...</h1>
             <table id="networks" summary="Table of Networks" class="fixed_header">
                 <thead>
                     <tr class="results-tableheaderrow">
@@ -368,8 +374,9 @@
                     </tr>
                 </tbody>
             </table>
-</div>
-        </div>
+            </div> <!-- Construction -->
+        </div> <!-- main -->
+      </div> <!-- wrapper -->
     </body>
 </html>
     
