@@ -44,7 +44,7 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 
 #navigation a             { text-decoration: none; color: #000; }
 
-#construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-roight: 50px; }
+#construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
 
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
@@ -61,5 +61,7 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .results-analyzed-new     { text-align:center; background-color: orange; }
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
+
+.indent                   { padding-left: 20px; }
               
 
