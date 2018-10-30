@@ -35,15 +35,19 @@
             <h2>Dokumentation</h2>
             <ul>
                 <li><a href="#overview">Überblick</a></li>
-                <li><a href="#web">Die Web-site</a></li>
+                <li><a href="#web">Die Web-site</a>
+                    <ul>
+                        <li><a href="#analysislist">Die Auswertungen</a></li>
+                    </ul>
+                </li>
                 <li><a href="#networkroutes">Die zum Verkehrsverbund gehörigen Linien</a></li>
                 <li><a href="#analysis">Die Analyse</a>
                     <ul>
                         <li><a href="#routesdescription">Beschreibung der erwarteten Linien</a></li>
                         <li><a href="#overpass">Download der Daten aus OSM</a></li>
+                        <li><a href="#analysissettings">Definition von Auswertungsoptionen</a></li>
                         <li><a href="#dataanalysis">Analyse der Daten</a>
                             <ul>
-                                <li><a href="#analysissettings">Definition von Auswertungsoptionen</a></li>
                                 <li><a href="#analysisdate">Datum der Daten</a></li>
                                 <li><a href="#analysisroutes">Überblick über die ÖPNV-Linien ...</a></li>
                                 <li><a href="#analysisnotassigned">Nicht eindeutig zugeordnete Linien</a></li>
@@ -58,7 +62,19 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#htmldiff">Anzeige der Änderungen seit der letzten Auswertung</a></li>
+                        <li><a href="#checks">Prüfungen</a>
+                            <ul>
+                                <li><a href="#scheme">Verwendetes Schema</a>
+                                   <ul>
+                                      <li><a href="#deviations">Abweichungen</a></li>
+                                      <li><a href="#specials">Besonderheiten</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#approach">Vorgehensweise</a></li>
+                                <li><a href="#messages">Meldungen</a></li>
+                                <li><a href="#plannedmessages">Geplante Meldungen</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="#code">Der Code</a>
@@ -71,24 +87,28 @@
             </ul>
         </nav>
 
+        <hr />
+
         <main id="main">
 
             <h2 id="overview">Überblick</h2>
             <div class="indent">
                 <p>
-                    lore ipsum
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
             </div> <!-- "overview" -->
+
+            <hr />
  
             <h2 id="web">Die Web-site</h2>
             <div class="indent">
                 <p>
-                    lore ipsum
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
                 <h3 id="analysislist">Die Auswertungen</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
                     <ul>
                         <li>Name</li>
@@ -102,50 +122,66 @@
                 </div> <!-- "analysislist" -->
             </div> <!-- "web" -->
 
+            <hr />
+ 
             <h2 id="networkroutes">Die zum Verkehrsverbund gehörigen Linien</h2>
             <div class="indent">
                 <p>
-                    lore ipsum
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
             </div> <!-- "networkroutes" -->
 
+            <hr />
+ 
             <h2 id="analysis">Die Analyse</h2>
             <div class="indent">
                 <p>
-                    lore ipsum
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
-
-                <h3 id="#analysissettings">Definition von Auswertungsoptionen</h3>
-                <div class="indent">
-                    <p>
-                        lore ipsum
-                    </p>
-                </div> <!-- "#analysissettings" -->
 
                 <h3 id="routesdescription">Beschreibung der erwarteten Linien</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Beispiel: Linien des <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">Münchner Verkehrs- und Tarifverbund</a> im OSM Wiki
                     </p>
                 </div> <!-- "routesdescription" -->
 
                 <h3 id="overpass">Download der Daten aus OSM</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Download_der_Daten_via_Overpass-API_Abfrage">OSM Wiki</a>
+                    </p>
+                    <p>
+                        Beispiel: Overpass-API query für <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse#Overpass-API_Abfrage">Münchner Verkehrs- und Tarifverbund</a>
                     </p>
                 </div> <!-- "overpass" -->
+
+                <h3 id="analysissettings">Definition von Auswertungsoptionen</h3>
+                <div class="indent">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Beispiel: Optionen für <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse#Auswertungsoptionen">Münchner Verkehrs- und Tarifverbund</a>
+                    </p>
+                </div> <!-- "#analysissettings" -->
 
                 <h3 id="dataanalysis">Analyse der Daten</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
 
                     <h4 id="analysisdate">Datum der Daten</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
                         <p>
                             Beispiel: <a href="results/DE/BY/DE-BY-MVV-Analysis.html#A1">Münchner Verkehrs- und Tarifverbund</a>
@@ -155,7 +191,7 @@
                     <h4 id="analysisroutes">Überblick über die ÖPNV-Linien ... </h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
                         <p>
                             Beispiel: <a href="results/DE/BY/DE-BY-MVV-Analysis.html#A2">Münchner Verkehrs- und Tarifverbund</a>
@@ -165,7 +201,7 @@
                     <h4 id="analysisnotassigned">Nicht eindeutig zugeordnete Linien</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
                         <p>
                             Beispiel: <a href="results/DE/SN/DE-SN-VMS-Analysis.html#A3">Verkehrsverbund Mittelsachsen</a>
@@ -175,8 +211,35 @@
                     <h4 id="analysisother">Andere ÖPNV Linien</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Übrig bleiben die Linien, die
                         </p>
+                        <ul> 
+                            <li>den network-Tag Kriterien entsprechen und</li>
+                            <li>eben nicht in der Liste (CSV-Datei) "Beschreibung der erwarteten Linien" vorkommen.</li>
+                        </ul>
+
+                        <p>
+                            Taucht in dieser Liste ("Andere ÖPNV Linien") z.B. eine Linie 724 auf, und 
+                        </p>
+                        <ul>
+                            <li>das 'network' tag ist gesetzt und passt zum analysierten Verkehrsverbund?
+                                <ul>
+                                    <li>Die Linie wurde u.U. eingestellt - denn sonst würde sie bei der Liste "Überblick über die ÖPNV-Linien ... " auftauchen.</li>
+                                    <li>Die Linie existiert tatsächlich und fehlt in der Liste (CSV-Datei) "Beschreibung der erwarteten Linien".</li>
+                                </ul>
+                            </li>
+                            <li>das 'network' tag ist nicht gesetzt und müsste eigentlich zum analysierten Verkehrsverbund passen?
+                                <ul>
+                                    <li>Die Linie wurde u.U. eingestellt - denn sonst würde sie bei der Liste "Überblick über die ÖPNV-Linien ... " auftauchen.</li>
+                                    <li>Die Linie existiert tatsächlich und fehlt in der Liste (CSV-Datei) "Beschreibung der erwarteten Linien".</li>
+                                </ul>
+                            </li>
+                            <li>das 'network' tag ist nicht gesetzt und müsste eigentlich zu einem anderen Verkehrsverbund passen?
+                                <ul>
+                                    <li>Das 'network' tag mit dem korrekten Wert des anderen Verkehrsverbundes zu belegen lässt die Linie aus der Auswertung verschwinden.</li>
+                                </ul>
+                            </li>
+                        </ul>
                         <p>
                             Beispiel: <a href="results/DE/BY/DE-BY-RVO-Analysis.html#A3">Regionalverkehr Oberbayern</a>
                         </p>
@@ -185,8 +248,15 @@
                     <h4 id="analysisnoref">ÖPNV Linien ohne 'ref'</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Hierzu zählen alle Linien, die
                         </p>
+                        <ul> 
+                            <li>keinen ref-Tag haben
+                                <ul>
+                                    <li>egal, ob sie den network-Tag Kriterien entsprechen oder nicht</li>
+                                </ul>
+                            </li>
+                        </ul>
                         <p>
                             Beispiel: <a href="results/DE/NI/DE-NI-VEJ-Analysis.html#A4">Verkehrsverbund Ens-Jade</a>
                         </p>
@@ -195,7 +265,23 @@
                     <h4 id="analysisrelations">Weitere Relationen</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Dieser Abschnitt enthält weitere Relationen aus dem Umfeld der Linien:
+                        </p>
+                        <ul> 
+                            <li>evtl. falsche 'route' oder 'route_master' Werte?
+                                <ul>
+                                    <li>z.B. 'route' = "suspended_bus" statt 'route' = "bus"</li>
+                                </ul>
+                            </li>
+                            <li>aber auch 'type' = 'network' oder 'route' = "network", d.h. eine Sammlung aller zum 'network' gehörenden Route und Route-Master.
+                                <ul>
+                                    <li>solche <strong>Sammlungen sind streng genommen Fehler</strong>, da Relationen keinen Sammlungen darstellen sollen: Relationen sind keine Kategorien</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p>
+                            Die Darstellung erfolgt in diesem Abschnitt lediglich mit der Relation-ID und markanten Tags. 
                         </p>
                         <p>
                             Beispiel: <a href="results/DE/NW/DE-NW-VRS-Analysis.html#A5">Verkehrsverbund Rhein-Sieg (VRS)</a>
@@ -205,13 +291,18 @@
                     <h4 id="analysisnetwork">Details zu 'network'-Werten</h4>
                     <div class="indent">
                         <p>
-                            lore ipsum
+                            Das 'network' Tag wird nach den folgenden Werten durchsucht:
                         </p>
+                        <ul> 
+                            <li>"langer" Name des Verkehrsverbundes</li>
+                            <li>"kurzer" Name des Verkehrsverbundes</li>
+                            <li>'network' ist nicht gesetzt</li>
+                        </ul>
 
                         <h5 id="analysisnetworkconsidered">Berücksichtigte 'network' Werte</h5>
                         <div class="indent">
                             <p>
-                                lore ipsum
+                                Dieser Abschnitt listet die 'network'-Werte auf, die berücksichtigt wurden, d.h. einen der oben genannten Werte enthält. 
                             </p>
                             <p>
                                 Beispiel: <a href="results/DE/SN/DE-SN-VMS-Analysis.html#A7.1">Verkehrsverbund Mittelsachsen (VMS)</a>
@@ -221,54 +312,126 @@
                         <h5 id="analysisnetworknotconsidered">Nicht berücksichtigte 'network' Werte</h5>
                         <div class="indent">
                             <p>
-                                lore ipsum
+                                Dieser Abschnitt listet die 'network'-Werte auf, die nicht berücksichtigt wurden. Darunter können auch Tippfehler in ansonsten zu berücksichtigenden Werten sein. 
                             </p>
                             <p>
-                                Beispiel: <a href="results/DE/SN/DE-SN-VMS-Analysis.html#A7.1">Verkehrsverbund Mittelsachsen (VMS)</a>
+                                Beispiel: <a href="results/DE/SN/DE-SN-VMS-Analysis.html#A7.2">Verkehrsverbund Mittelsachsen (VMS)</a>
                             </p>
                         </div> <!-- "analysisnetworknotconsidered" -->
                     </div> <!-- "analysisnetwork" -->
                 </div> <!-- "dataanalysis" -->
-
-                <h3 id="htmldiff">Anzeige der Änderungen seit der letzten Auswertung</h3>
+     
+                <h3 id="checks">Prüfungen</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
-                </div> <!-- "htmldiff" -->
+     
+                    <h4 id="scheme">Verwendetes Schema</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+                        <p>
+                            Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Verwendetes_Schema">OSM Wiki</a>
+                        </p>
+     
+                        <h5 id="deviations">Abweichungen</h5>
+                        <div class="indent">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                            </p>
+                            <p>
+                                Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Abweichungen">OSM Wiki</a>
+                            </p>
+                        </div> <!-- "deviations" -->
+     
+                        <h5 id="specials">Besonderheiten</h5>
+                        <div class="indent">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                            </p>
+                            <p>
+                                Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Besonderheiten">OSM Wiki</a>
+                            </p>
+                        </div> <!-- "specials" -->
+                    </div> <!-- "scheme" -->
+     
+                    <h4 id="approach">Vorgehensweise</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+                        <p>
+                            Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Vorgehensweise">OSM Wiki</a>
+                        </p>
+                    </div> <!-- "approach" -->
+     
+                    <h4 id="messages">Meldungen</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+                        <p>
+                            Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Momentane_Pr.C3.BCfungen">OSM Wiki</a>
+                        </p>
+                    </div> <!-- "messages" -->
+     
+                    <h4 id="plannedmessages">Geplante Meldungen</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+                        <p>
+                            Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Geplante_Pr.C3.BCfungen">OSM Wiki</a>
+                        </p>
+                    </div> <!-- "plannedmessages" -->
+                </div> <!-- "checks" -->
             </div> <!-- "analysis" -->
 
+            <hr />
+ 
             <h2 id="code">Der Code</h2>
             <div class="indent">
                 <p>
-                    lore ipsum
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
-
+     
                 <h3 id="ptna">ptna</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/ptna">ptna auf GitHub</a>
                     </p>
                 </div> <!-- "ptna" -->
-
+     
                 <h3 id="ptnanetworks">ptna-networks</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/ptna-networks">ptna-networks auf GitHub</a>
                     </p>
                 </div> <!-- "ptnanetworks" -->
-
+     
                 <h3 id="ptnawww">ptna-www</h3>
                 <div class="indent">
                     <p>
-                        lore ipsum
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/ptna-www">ptna-www auf GitHub</a>
                     </p>
                 </div> <!-- "ptnawww" -->
             </div> <!-- "code" -->
         </main>
-        
+
+        <hr />
+ 
         <footer id="footer">
-            <hr />
 			      <p>
                 All geographic data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
             </p>
@@ -280,4 +443,4 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-    
+     
