@@ -44,6 +44,8 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 
 #navigation a             { text-decoration: none; color: #000; }
 
+#main li                  { padding-bottom: 5px; padding-top: 3px; }
+
 #construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
 
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }

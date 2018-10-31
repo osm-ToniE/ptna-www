@@ -34,6 +34,7 @@
         <nav id="navigation">
             <h2>Dokumentation</h2>
             <ul>
+                <li><a href="#motivation">Motivation</a></li>
                 <li><a href="#overview">Überblick</a></li>
                 <li><a href="#web">Die Web-site</a>
                     <ul>
@@ -91,6 +92,15 @@
 
         <main id="main">
 
+            <h2 id="motivation">Motivation</h2>
+            <div class="indent">
+                <p>
+                    Erste <a class="a" href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation#Qualit.C3.A4tssicherung_-_M.C3.BCnchen.2FTransportation">Diskussionen</a> fanden auf einem Münchner Stammtisch im Februar 2017 statt.
+                </p>
+            </div> <!-- "motivation" -->
+
+            <hr />
+
             <h2 id="overview">Überblick</h2>
             <div class="indent">
                 <p>
@@ -127,7 +137,11 @@
             <h2 id="networkroutes">Die zum Verkehrsverbund gehörigen Linien</h2>
             <div class="indent">
                 <p>
+                    <strong>Wichtig: Beachte das Copyright &copy; des Verkehrsverbundes bzw. die Herkunft der Daten!</strong><br /><br />
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                </p>
+                <p>
+                    <strong>Beachte: Die Liste wird auf <a href="https://github.com/osm-ToniE/ptna-networks">GitHub</a> unter der <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> veröffentlicht.</strong> 
                 </p>
             </div> <!-- "networkroutes" -->
 
@@ -142,7 +156,11 @@
                 <h3 id="routesdescription">Beschreibung der erwarteten Linien</h3>
                 <div class="indent">
                     <p>
+                        <strong>Wichtig: Beachte das Copyright &copy; des Verkehrsverbundes bzw. die Herkunft der Daten!</strong><br /><br />
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        <strong>Beachte: Die Liste wird auf <a href="https://github.com/osm-ToniE/ptna-networks">GitHub</a> unter der <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> veröffentlicht.</strong> 
                     </p>
                     <p>
                         Beispiel: Linien des <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">Münchner Verkehrs- und Tarifverbund</a> im OSM Wiki
@@ -157,6 +175,13 @@
                     <p>
                         Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Download_der_Daten_via_Overpass-API_Abfrage">OSM Wiki</a>
                     </p>
+                    <p>
+                        Hinweis: Die Definition mittels poly:'...' ist der aufwändigste aber zugleich auch der sicherste Weg:
+                    </p>
+                    <ul>
+                       <li>er ist eindeutig, denn z.b. einen admin_level=6 mit name="Birmingham" mag es weltweit mehrfach geben.</li>
+                       <li>eine Relation  mit type=boundary kann Lücken enthalten, es werden dann keine Daten runter geladen.</li>
+                    </ul>
                     <p>
                         Beispiel: Overpass-API query für <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse#Overpass-API_Abfrage">Münchner Verkehrs- und Tarifverbund</a>
                     </p>
@@ -432,12 +457,14 @@
         <hr />
  
         <footer id="footer">
-			      <p>
-                All geographic data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
-            </p>
-			      <p>
-                This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl.html">GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Get the source code via <a href="https://github.com/osm-ToniE">GitHub</a>.
-            </p>
+            <div id="footer">
+                <p>
+                    All geographic data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
+                </p>
+                <p>
+                    This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl.html">GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Get the source code via <a href="https://github.com/osm-ToniE">GitHub</a>.
+                </p>
+            </div> <!-- "footer" -->
         </footer>
         
       </div> <!-- wrapper -->
