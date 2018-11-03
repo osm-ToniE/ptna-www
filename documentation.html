@@ -95,7 +95,98 @@
             <h2 id="motivation">Motivation</h2>
             <div class="indent">
                 <p>
-                    Erste <a class="a" href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation#Qualit.C3.A4tssicherung_-_M.C3.BCnchen.2FTransportation">Diskussionen</a> fanden auf einem Münchner Stammtisch im Februar 2017 statt.
+                    Erste <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation#Qualit.C3.A4tssicherung_-_M.C3.BCnchen.2FTransportation">Diskussionen</a> fanden auf einem Münchner Stammtisch im Februar 2017 statt.
+                </p>
+                <p>
+                    Ausgelöst wurde die ganze Diskussion durch unbeabsichtigtes Löschen von Bus-Relationen im Münchener Umfeld (es wurden aber neue Relationen erstellt).
+                    Dadurch waren viele Links auf der Seite <a href="https://wiki.openstreetmap.org/wiki/München/Transportation#Verkehrsmittel">München/Transportation</a> nicht mehr aktuell.
+                    Allerdings muss man auch sagen, dass die Seite in der Vergangenheit eh nicht gut gepflegt war, z.T. gar nicht bekannt war.
+                    Die Qualität und Aktualität der Seite scheint also ein generelles Problem zu sein.
+                </p>
+                <p>
+                    <strong>Problem:</strong> es hapert mit der Qualität der <a class="a" href="https://wiki.openstreetmap.org/wiki/München/Transportation#Verkehrsmittel">München/Transportation</a> Seite:
+                </p>
+                <ul>
+                    <li>Vollständig:
+                        <ul>
+                            <li>wir wissen nicht, ob wir alle existierenden Buslinien des MVV auf der Seite aufgelistet haben</li>
+                            <li>wir wissen nicht, ob wir Artefakte, d.h. Buslinien gemapped haben die bereits (wieder) eingestellt oder umnummeriert worden sind</li>
+                            <li>S-Bahn, U-Bahn und Tram sind in ihrer Anzahl überschaubar, da besteht die Chance, dass wir vollständig sind</li>
+                        </ul>
+                    </li>
+                    <li>PTv2:
+                        <ul>
+                            <li>wir wissen nicht, welche der Linien schon auf "Public-Transport Version 2" umgestellt sind.</li>
+                            <li><a href="https://wiki.openstreetmap.org/wiki/DE:Public_Transport">DE:Public_transport</a>. Den originalen Wortlaut des Proposals findet man unter
+                                <a href="https://wiki.openstreetmap.org/w/index.php?title=Proposed_features/Public_Transport&amp;oldid=625726">Approved Feature Public Transport (approved Version 625726)</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Korrekt:
+                        <ul>
+                            <li>wir wissen nicht, ob die auf PTv2 umgestellten Linien durchgängig und sortiert sind</li>
+                            <li>d.h. ob die Ways komplett, in der richtigen Reihenfolge, ohne Lücken, ohne Fortsätze und bei Kreisverkehren korrekt erfasst sind</li>
+                            <li>ob die "stop" und "platform" Member komplett und in der richtigen Reihenfolge erfasst sind</li>
+                        </ul>
+                    </li>
+                    <li>Einheitlich:
+                        <ul>
+                            <li>wir wissen nicht, ob alle Relationen mit ihren Tags komplett und korrekt sind</li>
+                            <li>d.h. mit vorhanden, korrekten und gegebenenfalls einheitlichen "network", "operator", 
+                                "public_transport:version", "name", "ref", "from", "to" (und "via"), ...
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Übersichtlich:
+                        <ul>
+                            <li>wir haben keine Seite, auf der uns all das, <strong>vor allem aber die Probleme damit</strong>, übersichtlich angezeigt wird
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Automatisierbar:
+                        <ul>
+                            <li>wir haben keine Möglichkeit eine solche Übersichtsseite automatisiert zu erstellen (wöchentlich, ...)
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    <strong>Ursachen</strong> gibt es viele:
+                </p>
+                <ul>
+                    <li>Vollständig:
+                        <ul>
+                            <li>woher sollen wir die Informationen bekommen? Wir erhalten u.U. vom MVV eine Liste (CSV, ...)</li>
+                        </ul>
+                    </li>
+                    <li>PTv2:
+                        <ul>
+                            <li>einige Linien haben weder "Version" 1 noch 2 als Tag: vergessen, Unkenntnis der Existenz ...</li>
+                         </ul>
+                    </li>
+                    <li>Korrekt:
+                        <ul>
+                            <li>das ist eine mühsame Kleinarbeit, die immer wieder und wieder angestoßen werden muss, da Relationen schnell mal (unbeabsichtigt) mit Lücken "versehen werden", ...</li>
+                        </ul>
+                    </li>
+                    <li>Einheitlich:
+                        <ul>
+                            <li>was ist denn der Standard? network=MVV oder network="Münchner Verkehrs- und Tarif-Verbund" und so weiter? <a href="https://wiki.openstreetmap.org/wiki/München/Transportation#Vorschlag_für_vereinheitliches_Tagging">München/Transportation Vorschlag_für_vereinheitliches_Tagging</a></li>
+                        </ul>
+                    </li>
+                    <li>Übersichtlich:
+                        <ul>
+                            <li>Teile der Seite sind schon übersichtlicher gestaltet, wie könnte eine übersichtlichere Seite aussehen (Layout?)</li>
+                        </ul>
+                    </li>
+                    <li>Automatisierbar:
+                        <ul>
+                            <li>da gibt es nichts</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>
+                    Ein nicht repräsentativer Blick auf Berlin, Hamburg und Aachen zeigt, dass andere Städte u.U. das gleiche Problem haben.
                 </p>
             </div> <!-- "motivation" -->
 
@@ -170,18 +261,144 @@
                 <h3 id="overpass">Download der Daten aus OSM</h3>
                 <div class="indent">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        Für den Download der Daten wird das Overpass-API verwendet.
+                        Die Abfrage erfolgt außerhalb des eigentlichen Analysetools durch einen <code>wget</code>-Aufruf unter Linux.<br />
                     </p>
+                        Die Abfrage selber gliedert sich in 3 große Teile:
+                        <ol>
+                            <li><strong>Eingrenzung und Abspeichern des Gebietes</strong><br />
+                                   Folgenden Möglichkeiten gibt es:
+                                <ul>
+                                    <li>Namen der Kreise oder/und Landkreise<br />
+                                        Beispiel: boundary=administrative und admin_level=6 und name~'(Dachau|München|Ebersberg|Erding|Starnberg|Freising|Tölz|Wolfratshausen|Fürstenfeldbruck)'
+                                    </li>
+                                    <li>Name des Regierungsbezirks<br />
+                                        Beispiel: boundary=administrative und admin_level=5 und name='Oberbayern'
+                                    </li>
+                                    <li>Name des Verkehrsverbundes, sofern es dazu einen Relation gibt<br />
+                                        Beispiel: boundary=public_transport und name='Verkehrsverbund Rhein-Sieg'
+                                    </li>
+                                    <li>Oder die Liste von Geokoordinaten eines umschließenden Polygons<br />
+                                        Beispiel, einfaches Rechteck: poly:'48.0770 11.6378 48.0436 11.6378 48.0436 11.7024 48.0770 11.7024'<br />
+                                    </li>
+                                </ul>
+                                    Hinweis: Die Definition mittels poly:'...' ist der aufwändigste aber zugleich auch der sicherste Weg:
+                                <ul>
+                                   <li>er ist eindeutig, denn z.b. einen Landkreis: admin_level=6 mit name="Coburg" mag es weltweit mehrfach geben.</li>
+                                   <li>eine Relation mit type=boundary kann Lücken enthalten, es werden dann keine Daten runter geladen.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Auswahl und Abspeichern aller relevanten Route und deren Route-Master Relationen</strong></li>
+                            <li><strong>Ausgabe der relevanten Informationen</strong></li>
+                        </ol>
+<!--
+=== Auswahl und Abspeichern aller relevanten Route und deren Route-Master Relationen ===
+* <code>(rel(area)[route~'(bus|tram|train|subway|light_rail|trolleybus|ferry|monorail|aerialway|share_taxi|funicular)'];rel(br);rel[type='route'](r);)->.routes;</code>
+==== Auswahl und Abspeichern der Routen innerhalb des Gebietes ====
+Es erfolgt eine unscharfe Auswahl durch Verwendung von '~'. Das stellt sicher, dass auch "verdächtige" Relationen mit z.B. <code>route='suspended_bus'</code>
+gefunden werden.<br />
+Es wird absichtlich nach 'route' und nicht nach 'route_master' gesucht, da PTv1 keine Route-Master kennt und wir eine Bestandsaufnahme aller ÖPNV Linien anstreben.<br />
+Nur Busse
+* <code>rel(area)[route~'(bus)'];</code>
+Busse und Bahnen
+* <code>rel(area)[route~'(bus|train)'];</code>
+Alle bekannten ÖPNV Typen
+* <code>rel(area)[route~'(bus|tram|train|subway|light_rail|trolleybus|ferry|monorail|aerialway|share_taxi|funicular)'];</code>
+
+==== Auswahl und Abspeichern der zugehörigen Route-Master (Eltern-Relationen) ====
+Die Tags der Eltern-Relationen sowie die IDs der Member der Eltern-Relationen
+* <code>rel(br);</code>
+
+==== Auswahl und Abspeichern aller Route Relationen die zu den Route-Master Relationen gehören ====
+Diese extra Abfrage stell sicher, dass auch diejenigen Route-Relationen ausgewählt werden, die sich außerhalb des Suchgebietes befinden, aber zum eigentlichen Suchumfang gehören sollten
+* <code>rel[type='route'](r);</code>
+
+=== Ausgabe der relevanten Informationen ===
+* <code>(.routes;<<;rel(r.routes);way(r.routes);node(r.routes););out;</code>
+==== Ausgabe aller abgespeicherten Route-Master und Route Relationen ====
+* <code>.routes;</code>
+==== Ausgabe aller Eltern-Relationen, Großeltern-Relationen, ... der Route-Master und Route Relationen====
+* <code><<;</code>
+==== Ausgabe der Member der Routen, die Relationen sind ====
+Platforms, ... und deren Tags sowie deren Ways (nur deren IDs)
+* <code>rel(r.routes);</code>
+** gelegentlich werden hierdurch wieder weitere Route-Relationen geladen. Das führt zu Fehlermeldungen bei der Analyse 
+*** "Error in input data: ...", da deren Relation-, Way- und Node-Memmber nicht nachgeladen werden.
+** das Nachladen von Route-Relationen an dieser Stelle deutet auf Fehler beim Mapping hin:
+*** die nachgeledenen Route-Relationen sind Member von Route-Relationen oder Network-Relationen
+*** die nachgeledenen Route-Relationen liegen zudem außerhalb des Suchgebietes, sind also für die Analyse nicht relevant.
+
+==== Ausgabe der Member der Routen, die Ways sind ====
+Straßen, Platforms, ... und deren Tags sowie die IDs ihrer Nodes (nicht die Tags der Nodes)
+* <code>way(r.routes);</code>
+==== Ausgabe der Member der Routen, die Nodes sind ====
+Stop-Positions, Platforms, ... und deren Tags
+* <code>node(r.routes);</code>
+
+== Die Overpass-API-Abfrage liefert ==
+* Die Overpass-API Abfrage liefert alle Routen für ÖPNV sowie deren Route-Master für den angegebenen Ort (die angegebene Region).
+* Zusätzlich werden indirekt noch Routen außerhalb des Ortes, der Region über die Member-Ship der Route-Master Relationen geliefert.
+* Des Weiteren werden alle Eltern-Relationen, Großeltern-Relationen, ... der Route-Relationen und Route-Master -Relationen gefunden.
+* danach liefert die Abfrage noch alle Ways und Nodes der Routen (d.h. Member der Relationen mit ihren Details, sowie die Ids aller Nodes der Ways).
+
+== Die Overpass-API-Abfrage liefert nicht ==
+* Die Suche erfolgt absichtlich nicht nach "route_master"-Relationen und deren Mitgliedern.
+** PTv1 relation haben keinen Route-Master, sie würden nicht gefunden werden, eine Bestandsaufnahme wäre somit unvollständig,
+** Route-Master haben keine physischen Objekte, die Suche in einem Gebiet scheitert und liefert keine Daten.
+* Route-Master ohne Routen (leere Route-Master) werden hiermit nicht gefunden.
+* "stop_area"-Relationen werden nicht gesucht und somit auch nicht analysiert.
+** sie haben keine Bedeutung für Linien des ÖPNV.
+** dafür und für die Analyse von 'stop_position" und 'platform" Objekten könnte
+*** evtl ein weiteres Tool geschrieben werden oder
+*** das selbe Tool eine zweite Output-Datei erzeugen
+*** oder schaut mal bei Ilya Zveriks [http://osmz.ru/subways/ Subway Validator] vorbei. [https://www.openstreetmap.org/user/Zverik/diary/43526 Blog].
+
+
+== Die Overpass-API-Abfrage erlaubt ==
+Diese Abfrage erlaubt eine Analyse der ÖPNV-Linien dahingehend, dass auch die Wegstrecke auf Vollständigkeit geprüft werden kann.
+Nodes, Ways und Relationen (Stops und Platforms) und deren Tags können nun auch gegen deren Rolle 'role' in der Relation geprüft werden.
+Die Abfrage liefert XML-Daten zwischen 1.1 MB und ~93 MB, je nach Größe des Gebietes und des Verkehrsverbundes (Gemeinde Ottobrunn: 1.1 MB, Verkehrsverbund Rhein-Nekar: ~93 MB).
+
+== Beispiele ==
+=== Suche nach dem (Land-)Kreis ===
+Als Beispiel wird Landshut verwendet
+Es werden alle Busse analysiert, die durch das Gebiet fahren.
+* der Landkreis Landshut (name="Landkreis Landshut") hat den "admin_level" 6 und existiert weltweit als Kreis mit diesem Namen nur ein einziges mal - das ist zu beachten!
+* die Kreisfreise Stadt Landshut (name="Landshut") hat den "admin_level" 6 und existiert weltweit als Kreis mit diesem Namen nur ein einziges mal - das ist zu beachten!
+Da hier beide Kreise erfasst werden sollen wird die unscharfe Suche nach "Landshut" verwendet.
+<pre>
+http://overpass-api.de/api/interpreter?data=area[boundary=administrative][admin_level=6][name~'Landshut'];(rel(area)[route~'(bus)'];rel(br);rel[type='route'](r);)->.routes;(.routes;<<;rel(r.routes);way(r.routes);node(r.routes););out;
+</pre>
+
+=== Suche nach der Gemeinde ===
+Als Beispiel wird hier die Gemeinde Ottobrunn südöstlich am Stadtrand von München verwendet.
+Es werden alle Busse und Züge (S-Bahn) analysiert, die durch das Gemeindegebiet fahren.
+* Die Gemeinde Ottobrunn hat den "admin_level" 8 und existiert weltweit als Gemeinde mit diesem Namen nur ein einziges mal - das ist zu beachten!
+<pre>
+http://overpass-api.de/api/interpreter?data=area[boundary=administrative][admin_level=8][name='Ottobrunn'];(rel(area)[route~'(bus|train)'];rel(br);rel[type='route'](r);)->.routes;(.routes;<<;rel(r.routes);way(r.routes);node(r.routes););out;
+</pre>
+
+=== Suche per Polygon ===
+Als Beispiel hier eine Gegend um Augsburg herum definiert. Die Definition erfolgt per Polygon.
+Es werden alle Busse und Züge (S-Bahn) analysiert, die durch das Gebiet fahren.<br />
+Hier wurde der Einfachheit halber ein Rechteck gewählt mit: oben links, unten links, unten rechts, oben rechts. 
+Es sind jedoch beliebige Polygone realisierbar - durch Hinzufügen von weiteren Breitengrad/Längengrad-Paaren.
+Siehe auch: [[Talk:Augsburg/Transportation/Analyse#Overpass-API_Abfrage|Overpass-API Abfrage für Augsburger Verkehrs- und Tarifverbund]]
+<pre>
+http://overpass-api.de/api/interpreter?data=(rel(poly:'48.0770 11.6378 48.0436 11.6378 48.0436 11.7024 48.0770 11.7024')[route~'(bus|train)'];rel(br);rel[type='route'](r);)->.routes;(.routes;<<;rel(r.routes);way(r.routes);node(r.routes););out;
+</pre>
+
+=== Suche per Verkehrsverbund ===
+Als Beispiel wird hier ein Verkehrsverbund, für den es eine boundary=public_transport Relation gibt.
+Es werden alle ÖPNV-Transportmittel analysiert, die durch das Gebiet fahren.<br />
+Hier werden die Grenzen des [[Talk:VRS/Analyse#Overpass-API_Abfrage|VRS, Verkehrsverbund Rhein-Sieg]], benutzt.
+<pre>
+http://overpass-api.de/api/interpreter?data=area[boundary=public_transport][name='Verkehrsverbund Rhein-Sieg'];(rel(area)[route~'(bus|tram|train|subway|light_rail|trolleybus|ferry|monorail|aerialway|share_taxi|funicular)'];rel(br);rel[type='route'](r);)->.routes;(.routes;<<;rel(r.routes);way(r.routes);node(r.routes););out;
+</pre>
+-->
                     <p>
                         Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Download_der_Daten_via_Overpass-API_Abfrage">OSM Wiki</a>
                     </p>
-                    <p>
-                        Hinweis: Die Definition mittels poly:'...' ist der aufwändigste aber zugleich auch der sicherste Weg:
-                    </p>
-                    <ul>
-                       <li>er ist eindeutig, denn z.b. einen admin_level=6 mit name="Birmingham" mag es weltweit mehrfach geben.</li>
-                       <li>eine Relation  mit type=boundary kann Lücken enthalten, es werden dann keine Daten runter geladen.</li>
-                    </ul>
                     <p>
                         Beispiel: Overpass-API query für <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse#Overpass-API_Abfrage">Münchner Verkehrs- und Tarifverbund</a>
                     </p>
@@ -360,6 +577,11 @@
                     <div class="indent">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+<!--        Die Daten durchlaufen mehrere Prüfungen, wobei der Fokus auf dem Schema: '''Public Transport Version 2''' liegt. Dieses Schema wird beschrieben unter:
+* [[DE:Public_transport|Public Transport]]
+* [http://wiki.openstreetmap.org/w/index.php?title=Proposed_features/Public_Transport&oldid=625726 Approved Feature Public Transport (approved Version 625726)]
+wobei ich mich vornehmlich auf das '''Approved Feature Public Transport''' beziehe, da die einzelnen Tags dort weitaus besser beschrieben sind.
+-->
                         </p>
                         <p>
                             Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Verwendetes_Schema">OSM Wiki</a>

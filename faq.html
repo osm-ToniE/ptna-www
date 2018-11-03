@@ -66,7 +66,9 @@
                     <h4 id="faqothertools">Ja, was ist denn mit den anderen Tools zur Qualitätsicherung von ÖPNV in OSM?</h4>
                     <div class="indent">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                            Natürlich gibt es in OSM schon eine Reihe Qualitässicherungs-Tools zum Thema ÖPNV.
+                            Einige betrachten einzelne Relationen (Routen), andere ein Gebiet (OSM Inspector).
+                            Das "pt_assistant" Plugin des JOSM ist wärmstens zu empfehlen, da es bereits bei der Erstellung oder Erweiterung von Routen hilft Fehler zu beheben, zu vermeiden.
                         </p>
                         <ul>
                             <li><strong>pt_assistant</strong> <a href="https://josm.openstreetmap.de/wiki/Plugins">Plugin von JOSM</a></li>
@@ -107,38 +109,23 @@
                         Dafür benötige ich die folgenden Informationen:
                     </p>
                     <ul>
-                        <li>Wie heißt der Verkehrsverbund (heißen die Verbünde) in Lang- und in Kurzform?<br />
+                        <li><strong>Wie heißt der Verkehrsverbund</strong> in Lang- und in Kurzform?<br />
                             Beispiel: "Münchner Verkehrs- und Tarifverbund" und "MVV"
                         </li>
-                        <li>In welchem Gebiet befindet/befinden sich dieser/diese?<br />
-                            Folgenden Möglichkeiten gibt es:
-                            <ul>
-                                <li>Namen der Kreise oder/und Landkreise<br />
-                                    Beispiel: boundary=administrative und admin_level=6 und name='Dachau, München, Ebersberg, Erding, Starnberg, Freising, Tölz, Wolfratshausen, Fürstenfeldbruck'
-                                </li>
-                                <li>Name des Regierungsbezirks<br />
-                                    Beispiel: boundary=administrative und admin_level=5 und name='Oberbayern'
-                                </li>
-                                <li>Name des Verkehrsverbundes, sofern es dazu einen Relation gibt<br />
-                                    Beispiel: boundary=public_transport und name='Verkehrsverbund Rhein-Sieg'
-                                </li>
-                                <li>Oder die Liste von Geokoordinaten eines umschließenden Polygons<br />
-                                    Beispiel, einfaches Rechteck: poly:'48.0770 11.6378 48.0436 11.6378 48.0436 11.7024 48.0770 11.7024'<br />
-                                    Beispiel, siehe Overpass-API query <a href="https://wiki.openstreetmap.org/wiki/Talk:Europa/Transportation/Analyse/Flixbus">Europa als Kontinent</a>
-                                </li>
-                            </ul>
-                            Siehe hierzu auch: <a href="documentation.html#overpass">Download der Daten aus OSM</a><br />
+                        <li><strong>Welches Gebiet</strong> ist von Interesse?<br />
+                            Siehe hierzu: <a href="documentation.html#overpass">Download der Daten aus OSM</a><br />
                         </li>
-                        <li>Eine Liste der zugehörigen ÖPNV (und auch SPNV) Linien - die Liste kann am Anfang auch einfach leer sein<br />
-                            Siehe hierzu auch: <a href="documentation.html#networkroutes">Die zum Verkehrsverbund gehörigen Linien</a> 
+                        <li><strong>Eine Liste der zugehörigen ÖPNV Linien</strong><br />
+                            Die Liste kann am Anfang auch einfach leer sein<br />
+                            Siehe hierzu: <a href="documentation.html#networkroutes">Die zum Verkehrsverbund gehörigen Linien</a> 
                             sowie <a href="documentation.html#networkroutes">Beschreibung der erwarteten Linien</a><br />
                             Beispiel: <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">Münchner Verkehrs- und Tarifverbund</a><br />
                             <strong>Wichtig: Beachte das Copyright &copy; des Verkehrsverbundes bzw. die Herkunft der Daten!</strong><br />
                             <strong>Beachte: Die Liste wird auf <a href="https://github.com/osm-ToniE/ptna-networks">GitHub</a> unter der <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> veröffentlicht.</strong> 
                         </li>
-                        <li>Wo im OSM Wiki sollen die zugehörigen Seiten (für Diskussionen und für die Liste der Linien) abgelegt werden?<br />
-                            Beispiel: <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse">Diskussionsseite zur Analyse des Münchner Verkehrs- und Tarifverbund</a><br />
-                            Beispiel: <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">Linien des Münchner Verkehrs- und Tarifverbund</a>
+                        <li><strong>Wo im OSM Wiki sollen die zugehörigen Seiten abgelegt werden?</strong><br />
+                            Beispiel: Diskussionsseite für den MVV <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse">https://wiki.openstreetmap.org/wiki/Talk:München/Transportation/Analyse</a><br />
+                            Beispiel: Liste der Linien des MVV <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">https://wiki.openstreetmap.org/wiki/München/Transportation/MVV-Linien-gesamt</a>
                         </li>
                     </ul>
                 </div> <!-- "faqaddnetwork" -->
