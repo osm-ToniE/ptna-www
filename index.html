@@ -48,7 +48,7 @@
             <h2 id="intro">Public Transport ... was?</h2>
             <div class="indent">
                 <p>
-                    Im OSM Wiki gibt es für viele Städte eine Beschreibung der dort tätigen Nahverkehrsverbünde nebest einer
+                    Im OSM Wiki gibt es für viele Städte eine Beschreibung der dort tätigen Nahverkehrsverbünde nebst einer
                     tabellarischen Auflistung der diversen Zug-, U-Bahn-, Tram- und Bus-Linien.
                     Es hat sich jedoch, zumindest für München, gezeigt, dass die Tabellen nie so richtig aktuell sind.
                     Beispiele: <a href="https://wiki.openstreetmap.org/wiki/München/Transportation#Verkehrsmittel">München (MVV)</a>,
@@ -58,12 +58,18 @@
                                <a href="https://wiki.openstreetmap.org/wiki/Verkehrsverbund_Berlin-Brandenburg">Berlin (VBB)</a>,
                                <a href="https://wiki.openstreetmap.org/wiki/Hamburger_Verkehrsverbund">Hamburg</a>
                     <br />
-                    Das war <a href="documentation.html#motivation">Motivation</a>, sich des Themas mal anzunehmen.
+                    Das war für den Münchner Stammtisch <a href="documentation.html#motivation">Motivation</a>, sich des Themas mal anzunehmen.
                                
                 </p>
                 <p>
-                    PTNA - Public Transport Network Analysis soll helfen dieses Problem zu lösen, indem es diese Tabellen automatisiert erstellt - und das täglich.
-                    Täglich deshalb, weil neben dem reinen Auflisten der Linien auch noch eine Fehleranalyse der Route- und Route-Master-Relationen erfolgt.
+                    PTNA - Public Transport Network Analysis soll helfen dieses Problem zu lösen, indem es diese Tabellen automatisiert erstellt und dabei eine <strong>Soll-Ist-Analyse</strong> durchführt.
+                </p>
+                <ul>
+                    <li>"Soll" = das was der örtliche Verkehrsverbund anbietet,</li>
+                    <li>"Ist" = das, was wir in OSM gemapped haben.</li>
+                </ul>
+                <p>
+                    Neben dem reinen Auflisten der Linien erfolgt auch eine Fehleranalyse der Route- und Route-Master-Relationen.
                 </p>
                 <p>
                     Derzeit werden die OSM-Daten von <a href="results.html">34 Verkehrsverbünden</a> durch PTNA analysiert.
