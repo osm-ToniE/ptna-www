@@ -64,6 +64,14 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
+.message-tableheaderrow   { background-color: #dddddd; }
+.message-tablerow         { background-color: white;   }
+.message-text             { text-align:left; }
+.message-type             { text-align:left;   }
+.message-option           { text-align:left;   }
+.message-description      { text-align:left; }
+.message-treatment        { text-align:left; }
+
 .indent                   { padding-left: 20px; }
               
 
