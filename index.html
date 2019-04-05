@@ -2,7 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="utf-8" />
-        <title>PTNA - Startseite</title>
+        <title>PTNA - Home</title>
         <meta name="generator" content="PTNA" />
         <meta name="keywords" content="OSM Public Transport PTv2" />
         <meta name="description" content="PTNA - Public Transport Network Analysis" />
@@ -17,68 +17,64 @@
       <div id="wrapper">
         <header id="headerblock">
             <div id="headerimg" class="logo">
-                <a href="/"><img src="img/logo.png" alt="logo" /></a>
+                <a href=""><img src="img/logo.png" alt="logo" /></a>
             </div>
             <div id="headertext">
               <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-              <h2>Statische Auswertungen für OpenStreetMap</h2>
+              <h2>Static Analysis for OpenStreetMap</h2>
             </div>
             <div id="headernav">
-              Startseite | 
-              <a href="contact.html">Kontakt</a> | 
-              <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> | 
-              <a target="_blank" href="https://www.fossgis.de/datenschutzerklaerung">Datenschutzerklärung</a>
+                Home | 
+                <a href="contact.html">Contact</a> | 
+                <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> | 
+                <a target="_blank" href="https://www.fossgis.de/datenschutzerklaerung">Datenschutzerklärung</a> |
+                <a href="en/index.html" title="english"><img src="img/GreatBritain16.png" alt="Union Jack" /></a>
+                <a href="de/index.html" title="deutsch"><img src="img/Germany16.png" alt="deutsche Flagge" /></a>
+                <!-- <a href="fr/index.html" title="français"><img src="img/France16.png" alt="Tricolore Française" /></a> -->
             </div>
         </header>
 
         <nav id="navigation">
-            <h2>Startseite</h2>
-            <ul>
-                <li><a href="#intro">Public Transport ... was?</a></li>
-                <li><strong><a href="results/index.html">Hier geht es zu den Auswertungen</a></strong></li>
-                <li><a href="doc/index.html">Dokumentation</a></li>
-                <li><a href="doc/faq.html">FAQ</a></li>
-            </ul>
+            <h2>Home</h2>
+            <div class="indent">
+            <table>
+                <tr><td>Public Transport ... what?</td>
+                    <td><a href="en/index.html#intro" title="english"><img src="img/GreatBritain16.png" alt="Union Jack" /></a>
+                        <a href="de/index.html#intro" title="deutsch"><img src="img/Germany16.png" alt="deutsche Flagge" /></a>
+                    </td>
+                </tr>
+                <tr><td><strong>Take me to the results ...</strong></td>
+                    <td>
+                        <a href="results/index.html#EU" title="Europe"><img src="img/Europe32.png" alt="Europe" /></a>
+                        <a href="results/index.html#FR" title="La France"><img src="img/France32.png" alt="France" /></a>
+                        <a href="results/index.html#LU" title="Lëtzebuerg"><img src="img/Luxembourg32.png" alt="Lëtzebuerg / Luxemburg / Luxembourg" /></a>
+                        <a href="results/index.html#DE" title="Deutschland"><img src="img/Germany32.png" alt="Deutschland" /></a>
+                    </td>
+                </tr>
+                <tr><td>Documentation</td>
+                    <td>
+                        <a href="en/doc_toc.html" title="english"><img src="img/GreatBritain16.png" alt="Union Jack" /></a>
+                        <a href="de/doc_toc.html" title="deutsch"><img src="img/Germany16.png" alt="deutsche Flagge" /></a>
+                    </td>
+                </tr>
+                <tr><td>FAQ</td>
+                    <td>
+                        <a href="en/faq.html" title="english"><img src="img/GreatBritain16.png" alt="Union Jack" /></a>
+                        <a href="de/faq.html" title="deutsch"><img src="img/Germany16.png" alt="deutsche Flagge" /></a>
+                    </td>
+                </tr>
+            </table>
+            </div>
         </nav>
 
         <hr />
  
         <main id="main">
         
-            <h2 id="intro">Public Transport ... was?</h2>
+            <h2 id="intro">Public Transport Network Analysis</h2>
             <div class="indent">
                 <p>
-                    Im OSM Wiki gibt es für viele Städte eine Beschreibung der dort tätigen Nahverkehrsverbünde nebst einer
-                    tabellarischen Auflistung der diversen Zug-, U-Bahn-, Tram- und Bus-Linien.
-                    <br />
-                    Beispiele: <a href="https://wiki.openstreetmap.org/wiki/München/Transportation#Verkehrsmittel">München (MVV)</a>,
-                               <a href="https://wiki.openstreetmap.org/wiki/VRS">Verkehrsverbund Rhein-Sieg</a>,
-                               <a href="https://wiki.openstreetmap.org/wiki/DE:Aachener_Verkehrsverbund#.C3.9Cbersicht_aller_Linien_im_AVV">Aachen (AVV)</a>,
-                               <a href="https://wiki.openstreetmap.org/wiki/Berlin/Transportation">Berlin</a>,
-                               <a href="https://wiki.openstreetmap.org/wiki/Verkehrsverbund_Berlin-Brandenburg">Berlin (VBB)</a>,
-                               <a href="https://wiki.openstreetmap.org/wiki/Hamburger_Verkehrsverbund">Hamburg</a>
-                    <br /><br />
-                    Es hat sich jedoch, zumindest für München, gezeigt, dass die Tabellen nie so richtig aktuell sind.
-                    <br /><br />
-                    Das war für den Münchner Stammtisch <a href="doc/index.html#motivation">Motivation</a>, sich des Themas mal anzunehmen.
-                               
-                </p>
-                <p>
-                    PTNA - Public Transport Network Analysis soll helfen dieses Problem zu lösen, indem es diese Tabellen automatisiert erstellt und dabei eine <strong>Soll-Ist-Analyse</strong> durchführt.
-                </p>
-                <ul>
-                    <li>"Soll" = das was der <a href="doc/index.html#networkroutes">örtliche Verkehrsverbund anbietet</a> (basierend auf einer <a href="doc/index.html#routesdescription">CSV-Liste</a>, die von lokalen Mappern gepflegt wird),</li>
-                    <li>"Ist" = das, was wir in <a href="doc/index.html#overpass">OSM gemapped</a> haben.</li>
-                </ul>
-                <p>
-                    Neben dem reinen Auflisten der Linien erfolgt auch eine Fehleranalyse der Route- und Route-Master-Relationen.
-                </p>
-                <p>
-                    Derzeit werden die OSM-Daten von <a href="results/index.html">47 Verkehrsverbünden</a> durch PTNA analysiert.
-                    Weitere <a href="doc/faq.html#faqaddnetwork">Verkehrsverbünde hinzuzufügen</a> ist recht einfach und geht mehr oder weniger schnell.
-                </p>
-                <p>
-                    Was noch ziemlich am Anfang steht ist die <a href="doc/index.html">Dokumentation</a>. Ich bitte daher um Geduld, das wird noch.
+                    Provides ...
                 </p>
             </div> <!-- "intro" -->
 

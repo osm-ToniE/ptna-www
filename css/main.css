@@ -22,7 +22,7 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
   height: 100px;
   position: relative;
   padding-left: 100px;
-  padding-right: 10px;
+  padding-right: 5px;
   display: block;
   overflow: hidden;
   clear: both;
@@ -37,12 +37,16 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 #headertext a:hover       { outline: 0; color: #444; }
 #headertext a:active      { outline: 0; color: #444; }
 #headertext a:focus       { outline: 0; color: #444; }
-#headertext h1            { font-size: 40px; font-weight: 700; line-height: 50px; padding: 0px; margin: 0px; background-repeat: no-repeat; text-shadow: 0px 3px 0px #EEE; }
-#headertext h2            { font-size: 20px; font-weight: 700; margin: 0px; padding: 0px; line-height: 30px; }
+#headertext h1            { white-space:nowrap; font-size: 40px; font-weight: 700; line-height: 50px; padding: 0px; margin: 0px; background-repeat: no-repeat; text-shadow: 0px 3px 0px #EEE; }
+#headertext h2            { white-space:nowrap; font-size: 20px; font-weight: 700; margin: 0px; padding: 0px; line-height: 30px; }
 
-#headernav                { text-align: right; line-height: 20px;  }
+#headernav                { position: absolute; top: 78px; right: 5px; text-align: right; line-height: 20px;  }
 
 #navigation a             { text-decoration: none; color: #000; }
+#navigation table         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+#navigation th            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+#navigation td            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+
 
 #main li                  { padding-bottom: 5px; padding-top: 3px; }
 
