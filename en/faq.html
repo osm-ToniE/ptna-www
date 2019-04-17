@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>PTNA - FAQ</title>
@@ -37,14 +37,14 @@
         <nav id="navigation">
             <h2>FAQ</h2>
             <ul>
-                <li><a href="#faqtool">I have questions and remarks ...</a>
+                <li><a href="#faqtool">I have general questions and remarks ...</a>
                     <ul>
                         <li><a href="#faqothertools">Are there other tools on OSM which support Quality Assurance for Public Transport?</a></li>
                         <li><a href="#faqmessages">Where do I find a description of the errors and notes?</a></li>
                     </ul>
                 </li>
-                <li><a href="#faqnetwork">I have questions and remarks regarding a specific 'network'</a></li>
-                <li><a href="#faqaddnetwork">How can I add an analysis for a specific 'network'?</a></li>
+                <li><a href="#faqnetwork">I have questions and remarks regarding a specific 'network' (transport association)</a></li>
+                <li><a href="#faqaddnetwork">How can I add an analysis for a specific 'network' (transport association)?</a></li>
             </ul>
         </nav>
 
@@ -56,19 +56,17 @@
             <div class="indent">
 
                 <p>
-                    General questions and remarks can be <a href="/contact.html">sent to me.</a> I usually answer quite quickly.<br />
+                    In general, comments can be <a href="/contact.html">sent to me.</a> I usually answer quite quickly.<br />
                     For questions and remarks regarding a specific 'network' please read the following sections.
                 </p>
 
-                <h3 id="faqtool">I have questions and remarks ...</h3>
+                <h3 id="faqtool">I have general questions and remarks ...</h3>
                 <div class="indent">
-                    <p>
-                        in preparation ...
-                    </p>
                     <h4 id="faqothertools">Are there other tools on OSM which support Quality Assurance for Public Transport?</h4>
                     <div class="indent">
                         <p>
-                            Sure there are ...
+                            Sure there are a lot of QA tools for OSM taking care of Public Transport. Some of them analyse a single route relation, others provide data for a region (OSM Inspector).
+                            I recommend the "pt_assistant" plugin of JOSM, errors can be avoided while creating or modifying a route relation. 
                         </p>
                         <ul>
                             <li><strong>pt_assistant</strong> <a href="https://josm.openstreetmap.de/wiki/Plugins">Plugin of JOSM</a></li>
@@ -85,45 +83,60 @@
                             <li><a href="https://wiki.openstreetmap.org/wiki/Quality_assurance">Quality Assurance</a> in the OSM Wiki</li>
                         </ul>
                     </div> <!-- "faqothertools" -->
-                    <h4 id="faqmessages">Where do I find a description of the errors and notes?</h4>
+                    <h4 id="faqmessages">Where can I find a description of the errors and notes?</h4>
                     <div class="indent">
                         <p>
-                            in preparation ...
+                            An exhaustive list of error and note messages and how to fix the problems is in preparation and will be provided in the documentation: '<a href="/en/doc_toc.html#messages">Messages</a>'.
                         </p>
                     </div> <!-- "faqmessages" -->
                 </div> <!-- "faqtool" -->
 
-                <h3 id="faqnetwork">I have questions and remarks regarding a specific 'network'</h3>
+                <h3 id="faqnetwork">I have questions and remarks regarding a specific 'network' (transport association)</h3>
                 <div class="indent">
                     <p>
-                        in preparation ...
+                        For each specific transport association, there is usually a PTNA related page in the OSM-Wiki for discussions, questions and remarks.
+                        You can find the corresponding link in the column "Discussion" of the <a href="/results/LU/index.html#networksLU">table</a> on the <a href="/results/LU/index.html">result</a> page of <a href="/results/index.html">your country</a>.
+                        There you can find also more information about the area of interest and the options/checks used for the analysis.<br />
+                        Example: Discussion page for all transport associations in <a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis">Luxembourg</a> in the OSM-Wiki
                     </p>
                 </div> <!-- "faqnetwork" -->
 
-                <h3 id="faqaddnetwork">How can I add an analysis for a specific 'network'?</h3>
+                <h3 id="faqaddnetwork">How can I add an analysis for a specific 'network' (transport association)?</h3>
                 <div class="indent">
                     <p>
-                        in preparation ...
+                        This can be done quite easily and quickly.
+                        For sure, I will assist but I need some information from you.
                     </p>
                     <ul>
-                        <li><strong>Name of the 'network'</strong> in long and in short form?<br />
-                            Example: "Münchner Verkehrs- und Tarifverbund" und "MVV"
+                        <li><strong>What is the name of the transport association</strong> in long and in short form?<br />
+                            Examples: "Münchner Verkehrs- und Tarifverbund" and "MVV" or "Transport for London" and "TfL".
+                            <br /><br />
                         </li>
                         <li><strong>Which area</strong> is of interest?<br />
-                            in preparation ...<br />
+                            What is the geographic region where the tool will seach for the routes?<br />
+                            Example: The "MVV" provides services in <a href="http://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D6%5D%5Bname~%27(Dachau%7CM%C3%BCnchen%7CEbersberg%7CErding%7CStarnberg%7CFreising%7CT%C3%B6lz%7CWolfratshausen%7CF%C3%BCrstenfeldbruck)%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B">several counties around Munich, Germany</a>.
+                            <br /><br />
                         </li>
-                        <li><strong>A list of the PT lines operated by the 'network'</strong><br />
-                            in preparation ...<br />
+                        <li><strong>A list of the PT lines operated by the transport association</strong><br />
+                            Which services are provided by the transport association? The bus, train, subway, ... services expected being mapped in OSM.<br />
+                            Example: Provided <a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-All-Routes">services for busses</a> by all transport associations in Luxembourg.<br />
                             <strong>Important: Consider the Copyright &copy; and origin of the data!</strong><br />
-                            <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong> 
+                            <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong>
+                            <br /><br />
                         </li>
                         <li><strong>Where do you want to store the list of PT lines in the OSM wiki?</strong><br />
-                            Example: Page for discussions about the MVV <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse">https://wiki.openstreetmap.org/wiki/Talk:München/Transportation/Analyse</a><br />
-                            Example: List of PT lines of the MVV <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">https://wiki.openstreetmap.org/wiki/München/Transportation/MVV-Linien-gesamt</a>
+                            Example: Discussion page in the OSM-Wiki for all transport associations in Luxembourg: <a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis">Talk:WikiProject_Luxembourg/Public_Transport/Analysis</a>.<br />
+                            Example: Description of provided services: <a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-All-Routes">WikiProject_Luxembourg/Public_Transport/Analysis/LU-All-Routes</a>.
                         </li>
                     </ul>
                     <p>
-                        in preparation ...
+                        The information will be stored in the OSM-Wiki.
+                        This has the advantage that every OSM user can modify and update the data - which is required at least once a year, with the annual change of the timetables of the transport association.
+                    </p>
+                    <p>
+                        The easiest and quickest way is to provide me the data in two pages in the OSM-Wiki. You may copy&paste from the links below and choose an appropriate location in the OSM-Wiki to store your copies.<br />
+                        Discussion page: <a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis">https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis</a><br />
+                        List of lines: <a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-All-Routes">https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-All-Routes</a>
                     </p>
                 </div> <!-- "faqaddnetwork" -->
 
