@@ -56,6 +56,8 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 .contact td               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
+.highlight                { text-align:center; background-color: yellow; }
+
 .results-tableheaderrow   { background-color: #dddddd; }
 .results-tablerow         { background-color: white;   }
 .results-name             { text-align:left; white-space:nowrap; }
