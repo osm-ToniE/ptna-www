@@ -229,7 +229,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: '%s' is not part of 'name' (derived from '%s' = '%s')</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -237,7 +237,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'from' is not set</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -245,7 +245,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' has more than one '=>' but 'via' is not set</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -253,7 +253,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' includes deprecated '&lt;=&gt;'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -261,7 +261,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' includes deprecated '==&gt;'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -269,7 +269,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' of Route is identical to 'name' of other Route(s), consider setting an appropriate 'via' value and include that into 'name'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -277,7 +277,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' should (at least) be of the form '... ref ...: from => to'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -285,7 +285,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'name' should be similar to the form '... ref ...: from => to'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -309,7 +309,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'ref' is not part of 'name'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -317,7 +317,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'role' = '%s' and %s: consider setting 'public_transport' = 'platform'</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--ptv1-compatibility=show</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -325,7 +325,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'role' = '%s' and %s: consider setting 'public_transport' = 'stop_position'</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--ptv1-compatibility=show</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -341,7 +341,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'to' is not set</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -349,7 +349,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'via' is set: %d. via-part ('%s') of 'name' is not equal to %d. via-value = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -357,7 +357,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: 'via' is set: %d. via-part ('%s') of 'name' is not part of %d. via-value = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -365,7 +365,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: consider removing the first way of the route from the relation, it is a way before the first stop position: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -373,7 +373,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: consider removing the last way of the route from the relation, it is a way after the last stop position: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -389,7 +389,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first node of oneway way has 'role' = 'stop_exit_only'</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -397,7 +397,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first node of way has 'role' = 'stop_exit_only'. Is the route sorted in reverse order?</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -405,7 +405,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first node of way is not a stop position of this route: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -413,7 +413,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first node of way is not the first stop position of this route: %s versus %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -421,7 +421,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first stop position on first way is not the first stop position of this route: %s versus %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -429,7 +429,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first way is a oneway road and ends in a 'stop_position' of this route and there is no exit. Is the route sorted in reverse order?</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -437,7 +437,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: from-part ('%s') of 'name' is not equal to 'from' = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -445,7 +445,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: from-part ('%s') of 'name' is not part of 'from' = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -453,7 +453,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: has a gap, consists of %d segments. Gap appears at way</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -461,7 +461,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: includes %d entire roundabout but uses only segments</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence<br />--check-roundabout</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -477,7 +477,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last node of oneway way has 'role' = 'stop_entry_only'</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -485,7 +485,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last node of way has 'role' = 'stop_entry_only'. Is the route sorted in reverse order?</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -493,7 +493,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last node of way is not a stop position of this route: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -501,7 +501,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last node of way is not the last stop position of this route: %s versus %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -509,7 +509,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last stop position on last way is not the last stop position of this route: %s versus %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -533,7 +533,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: roundabout appears twice, following itself</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -541,7 +541,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there are less via-parts in 'name' (%d) than in 'via' (%d)</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -549,7 +549,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there are more via-parts in 'name' (%d) than in 'via' (%d)</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -581,7 +581,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there is no stop position of this route on the first way: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -589,7 +589,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there is no stop position of this route on the last way: %s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -613,7 +613,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: to-part ('%s') of 'name' is not equal to 'to' = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -621,7 +621,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: to-part ('%s') of 'name' is not part of 'to' = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -629,7 +629,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: using motorway_link way without entering a motorway way</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-motorway-link</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -637,7 +637,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: using oneway way in wrong direction</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -877,7 +877,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: '%s' = '%s' of stop should be deleted, 'route_ref' = '%s' exists</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -885,7 +885,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: '%s' = '%s' of stop should be replaced by 'route_ref' = '%s'</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -893,7 +893,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: 'highway' = 'bus_stop' is set on way. Allowed on nodes only!</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-bus-stop</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -901,7 +901,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: 'ref' = '%s' of stop should represent the reference of the stop, but includes the 'ref' = '%s' of this route %s</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -909,7 +909,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: 'route_ref' = '%s' of stop does not include 'ref' = '%s' value of this route%s</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -917,7 +917,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: 'route_ref' = '%s' of stop includes the separator value ';' (semi-colon) with sourrounding blank</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -925,7 +925,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: 'route_ref' = '%s' of stop: ',' (comma) as separator value should be replaced by ';' (semi-colon) without blank</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -933,7 +933,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: restricted access (%s) to way without 'psv'='yes', '%s'='yes', '%s'='designated', or ...</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-access</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -941,7 +941,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: restricted access at barrier (%s) without 'psv'='yes', '%s'='yes', '%s'='designated', or ...</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
+                <td class="message-option">--check-access</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -949,9 +949,9 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: unclear access (%s) to way</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-option">--check-access</td>
+                <td class="message-description">A conditional access is mapped to a way. PTNA will not analyze the value of the tag.<br />Example: 'psv:conditional=yes @ (Mo-Fr 05:00-22:00)'.</td>
+                <td class="message-fix">Please evaluate the value manually.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

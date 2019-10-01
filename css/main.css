@@ -70,14 +70,14 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
-.message-tableheaderrow   { background-color: #dddddd; }
-.message-tablerow         { background-color: white;   }
-.message-text             { text-align:left; }
-.message-type             { text-align:left; }
-.message-option           { text-align:left; }
-.message-description      { text-align:left; }
-.message-fix              { text-align:left; }
-.message-image            { text-align:left; }
+.message-tableheaderrow   { background-color: #dddddd; text-align:left; }
+.message-tablerow         { background-color: white;   text-align:left; vertical-align:top;   }
+.message-text             { }
+.message-type             { }
+.message-option           { white-space:nowrap; }
+.message-description      { }
+.message-fix              { }
+.message-image            { }
 
 .indent                   { padding-left: 20px; }
               
