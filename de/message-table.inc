@@ -931,7 +931,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'highway' = 'bus_stop' ist auf einem 'way' gesetzt. Dieses Tag ist nur auf Nodes erlaubt.</td>
+                <td class="message-text">Route: 'highway' = 'bus_stop' ist auf einem 'way' gesetzt. Dieses Tag ist nur auf Nodes erlaubt!</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">--check-bus-stop</td>
                 <td class="message-description"></td>
@@ -992,6 +992,14 @@
                 <td class="message-option">--check-access</td>
                 <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.<br />Beispiel: 'psv:conditional=yes @ (Mo-Fr 05:00-22:00)'.</td>
                 <td class="message-fix">Den Wert der bedingten Befahrbarkeit bitte gegebenenfalls manuell auswerten.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: verdächtige '%s' zusammen mit 'highway' ungleich 'construction' auf Weg</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option">--check-access</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
