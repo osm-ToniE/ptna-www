@@ -995,7 +995,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: verdächtige '%s' zusammen mit 'highway' ungleich 'construction' auf Weg</td>
+                <td class="message-text">Route: verdächtige %s zusammen mit 'highway' ungleich 'construction' auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">--check-access</td>
                 <td class="message-description"></td>
