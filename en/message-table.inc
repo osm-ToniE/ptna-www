@@ -182,7 +182,7 @@
                 <td class="message-text">Error in input data: insufficient data for nodes</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the member ways and member nodes of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -190,7 +190,7 @@
                 <td class="message-text">Error in input data: insufficient data for ways</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the member ways and member nodes of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -958,8 +958,8 @@
                 <td class="message-text">Route: suspicious %s along with 'highway' unequal to 'construction' on way</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">--check-access</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">The key 'construction' is set and the key 'highway' is not set to 'construction'. Construction works on ways are usually mapped as the combination of 'higway'='construction' and 'construction'='xxx', where 'xxx' is the former value of the 'highway' key. When the construction works are finished, the key 'highway' is set to its former or a different value while the key 'construction' gets delete. Sometimes, deleting the key 'construction' is not carried out, which leaves an artifact and can be seen as an error.<br />Example: 'construction'='primary' and 'highway'='primary' instead of 'highway'='construction'.</td>
+                <td class="message-fix">Check whether the construction works are finished or not. If yes, delete the key 'construction'. If no, check for an appropriate value of the key 'highway'.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -967,14 +967,14 @@
                 <td class="message-type">Notes</td>
                 <td class="message-option">--check-access</td>
                 <td class="message-description">A conditional access is mapped to a way. PTNA will not analyze the value of the tag.<br />Example: 'psv:conditional=yes @ (Mo-Fr 05:00-22:00)'.</td>
-                <td class="message-fix">Please evaluate the value manually.</td>
+                <td class="message-fix">Please evaluate the value manually and decide whether a fix is needed or not.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Skipping further analysis ...</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This error is related to: "Error in input data: insufficient data for nodes" and "Error in input data: insufficient data for ways". Further analysis of this Route relation does not make sense without the data for ways and nodes.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

@@ -238,7 +238,7 @@
                 <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für 'nodes'</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Ways und Nodes sind nicht in den Input-Daten enthalten.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -246,7 +246,7 @@
                 <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für 'ways'</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Ways und Nodes sind nicht in den Input-Daten enthalten.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -991,22 +991,22 @@
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">--check-access</td>
                 <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.<br />Beispiel: 'psv:conditional=yes @ (Mo-Fr 05:00-22:00)'.</td>
-                <td class="message-fix">Den Wert der bedingten Befahrbarkeit bitte gegebenenfalls manuell auswerten.</td>
+                <td class="message-fix">Den Wert der bedingten Befahrbarkeit bitte gegebenenfalls manuell auswerten und entscheiden ob eine Korrektur notwendig ist oder nicht.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: verdächtige %s zusammen mit 'highway' ungleich 'construction' auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">--check-access</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">Der Schlüssel 'construction' ist gesetzt und der Schlüssel 'highway' hat nicht den Wert 'construction'. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von 'highway'='construction' und 'construction='xxx' gekennzeichnet, wobei 'xxx' dem vorherigen Wert des Schlüssels 'highway' entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel 'highway' seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel 'construction' gelöscht. Manchmal wird vergessen, den Schlüssel 'construction' zu löschen, was als Fehler angesehen werden kann.<br />Beispiel: 'construction'='primary' und 'highway'='primary' anstatt 'highway'='construction'.</td>
+                <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel 'construction'. Wenn nein, prüfe, welcher Wert für den Schlüssel 'highway' passend ist.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Weitere Analyse wird übersprungen ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Der Fehler bezieht sich auf: "Fehler in den Inputdaten: nicht genügend Daten für 'nodes'" und "Fehler in den Inputdaten: nicht genügend Daten für 'ways'". Ohne Daten für Ways und Nodes macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
