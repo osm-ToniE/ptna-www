@@ -21,7 +21,7 @@
             </div>
             <div id="headertext">
                 <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Static Analyis for OpenStreetMap</h2>
+                <h2>Static Analysis for OpenStreetMap</h2>
             </div>
             <div id="headernav">
                 <a href="/">Home</a> | 
