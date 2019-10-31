@@ -58,6 +58,10 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 
 .highlight                { text-align:center; background-color: yellow; }
 
+.indent                   { padding-left: 20px; }
+
+.diff-navigate            { height: 20px; vertical-align: top; }
+
 .results-tableheaderrow   { background-color: #dddddd; }
 .results-tablerow         { background-color: white;   }
 .results-name             { text-align:left; white-space:nowrap; }
@@ -79,6 +83,18 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .message-fix              { }
 .message-image            { }
 
-.indent                   { padding-left: 20px; }
-              
+#analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+#analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+#analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+#analysis ol              { list-style: none; }
+#analysis img             { width: 20px; vertical-align: top; }
+#analysis .tableheaderrow { background-color: LightSteelBlue;   }
+#analysis .sketchline     { background-color: LightBlue;        }
+#analysis .sketch         { text-align:left;  font-weight: 500; }
+#analysis .csvinfo        { text-align:right; font-size: 0.8em; }
+#analysis .ref            { white-space:nowrap; }
+#analysis .relation       { white-space:nowrap; }
+#analysis .PTv            { text-align:center; }
+#analysis .number         { text-align:right; }
+#analysis .attention      { background-color: yellow; font-weight: 500; font-size: 1.2em; }
 
