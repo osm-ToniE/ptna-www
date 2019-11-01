@@ -84,8 +84,8 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .message-image            { }
 
 #analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: center; }
-#analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
-#analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+#analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
+#analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis ol              { list-style: none; }
 #analysis img             { width: 20px; vertical-align: top; }
 #analysis .tableheaderrow { background-color: LightSteelBlue;   }
