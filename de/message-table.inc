@@ -5,7 +5,7 @@
                 <th class="message-type">Typ</th>
                 <th class="message-option">Option</th>
                 <th class="message-description">Beschreibung</th>
-                <th class="message-fix">Wie zu korrigieren</th>
+                <th class="message-fix">Wie man es repariert</th>
                 <th class="message-image">Bild</th>
             </tr>
         </thead>
