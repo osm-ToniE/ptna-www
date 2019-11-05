@@ -255,7 +255,7 @@
                         <td data-ref="FR-IDF-les-cars-bleus-name" class="results-name"><a href="/results/FR/IDF/FR-IDF-les-cars-bleus-Analysis.html" title="aux résultats">FR-IDF-les-cars-bleus</a></td>
                         <td data-ref="FR-IDF-les-cars-bleus-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%0A(%0A%0A%20%20relation%5B%22wikidata%22%3D%22Q13917%22%5D%3B%0A)%3B%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B%7B%7Bdata%3Aoverpass%2Cserver%3D%2F%2Foverpass.openstreetmap.fr%2Fapi%2F%7D%7D" title="voir sur map OSM">Île-de-France</a></td>
                         <td data-ref="FR-IDF-les-cars-bleus-network" class="results-network">LES CARS BLEUS</td>
-                        <?php CreateEntry("FR-IDF-les-cars"); ?>
+                        <?php CreateEntry("FR-IDF-les-cars-bleus"); ?>
                         <td data-ref="FR-IDF-les-cars-bleus-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_France/xxx/Analysis" title="OSM-Wiki">en préparation</a></td>
                         <td data-ref="FR-IDF-les-cars-bleus-route" class="results-route"><a href="https://github.com/osm-ToniE/ptna-networks/raw/master/FR-IDF-les-cars-bleus/FR-IDF-les-cars-bleus-Routes.txt" title="GitHub">LES CARS BLEUS lignes</a></td>
                     </tr>
@@ -287,7 +287,7 @@
                         <td data-ref="FR-IDF-ormont-transport-name" class="results-name"><a href="/results/FR/IDF/FR-IDF-ormont-transport-Analysis.html" title="aux résultats">FR-IDF-ormont-transport</a></td>
                         <td data-ref="FR-IDF-ormont-transport-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%0A(%0A%0A%20%20relation%5B%22wikidata%22%3D%22Q13917%22%5D%3B%0A)%3B%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B%7B%7Bdata%3Aoverpass%2Cserver%3D%2F%2Foverpass.openstreetmap.fr%2Fapi%2F%7D%7D" title="voir sur map OSM">Île-de-France</a></td>
                         <td data-ref="FR-IDF-ormont-transport-network" class="results-network">ORMONT TRANSPORT</td>
-                        <?php CreateEntry("FR-IDF-ormont"); ?>
+                        <?php CreateEntry("FR-IDF-ormont-transport"); ?>
                         <td data-ref="FR-IDF-ormont-transport-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_France/xxx/Analysis" title="OSM-Wiki">en préparation</a></td>
                         <td data-ref="FR-IDF-ormont-transport-route" class="results-route"><a href="https://github.com/osm-ToniE/ptna-networks/raw/master/FR-IDF-ormont-transport/FR-IDF-ormont-transport-Routes.txt" title="GitHub">ORMONT TRANSPORT lignes</a></td>
                     </tr>
@@ -399,7 +399,7 @@
                         <td data-ref="FR-IDF-seine-et-marne-express-name" class="results-name"><a href="/results/FR/IDF/FR-IDF-seine-et-marne-express-Analysis.html" title="aux résultats">FR-IDF-seine-et-marne-express</a></td>
                         <td data-ref="FR-IDF-seine-et-marne-express-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%0A(%0A%0A%20%20relation%5B%22wikidata%22%3D%22Q13917%22%5D%3B%0A)%3B%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B%7B%7Bdata%3Aoverpass%2Cserver%3D%2F%2Foverpass.openstreetmap.fr%2Fapi%2F%7D%7D" title="voir sur map OSM">Île-de-France</a></td>
                         <td data-ref="FR-IDF-seine-et-marne-express-network" class="results-network">Seine et Marne Express</td>
-                        <?php CreateEntry("FR-IDF-seine-et-marne"); ?>
+                        <?php CreateEntry("FR-IDF-seine-et-marne-express"); ?>
                         <td data-ref="FR-IDF-seine-et-marne-express-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_France/xxx/Analysis" title="OSM-Wiki">en préparation</a></td>
                         <td data-ref="FR-IDF-seine-et-marne-express-route" class="results-route"><a href="https://github.com/osm-ToniE/ptna-networks/raw/master/FR-IDF-seine-et-marne-express/FR-IDF-seine-et-marne-express-Routes.txt" title="GitHub">Seine et Marne Express lignes</a></td>
                     </tr>
