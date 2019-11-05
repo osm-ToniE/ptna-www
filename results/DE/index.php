@@ -164,7 +164,7 @@
                     <tr class="results-tablerow">
                         <td data-ref="DE-BW-KV.SHA-name" class="results-name"><a href="/results/DE/BW/DE-BW-KV.SHA-Analysis.html" title="zur Auswertung">DE-BW-KV.SHA</a></td>
                         <td data-ref="DE-BW-KV.SHA-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D6%5D%5Bname~%27Landkreis%20Schwäbisch%20Hall%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="auf der Karte anzeigen">Landkreis Schwäbisch Hall</a></td>
-                        <td data-ref="DE-BW-KV.SHA-network" class="results-network"><a href="https://kreisverkehr-sha.de/">KreisVerkehr Schwäbisch Hall</a></td>
+                        <td data-ref="DE-BW-KV.SHA-network" class="results-network"><a href="https://kreisverkehr-sha.de/">Kreisverkehr Schwäbisch Hall</a></td>
                         <?php CreateEntry("DE-BW-KV.SHA"); ?>
                         <td data-ref="DE-BW-KV.SHA-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:Landkreis_Schwäbisch_Hall/KV.SHA/Analyse" title="im OSM-Wiki">Diskussion</a></td>
                         <td data-ref="DE-BW-KV.SHA-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/Landkreis_Schwäbisch_Hall/KV.SHA/Analyse/DE-BW-KV.SHA-Linien" title="im OSM-Wiki">KV.SHA Linien</a></td>
