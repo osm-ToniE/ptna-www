@@ -12,44 +12,7 @@
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
-        <?php
-            function CreateEntry( $network ) {
-                $prefixparts = explode( '-', $network );
-                $countrydir  = array_shift( $prefixparts );
-                if ( count($prefixparts) > 1 ) {
-                    $subdir = array_shift( $prefixparts );
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $subdir . '/' . $network . '-Analysis.diff.html';
-                } else {
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $network . '-Analysis.diff.html';  
-                }
-                $data_hash = [];
-                $data_hash['OLD_OR_NEW'] = 'old';
-                if ( file_exists($detailsfilename) ) {
-                    $lines = file( $detailsfilename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
-    
-                    foreach ( $lines as $line ) {
-                        list($key,$value) = explode( '=', $line, 2 );
-                        $key              = rtrim(ltrim($key));
-                        $data_hash[$key]  = rtrim(ltrim($value));
-                    }
-                }
-                if ( $data_hash['NEW_DATE_UTC'] && $data_hash['NEW_DATE_LOC'] ) {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate"><time datetime="'.$data_hash['NEW_DATE_UTC'].'">'.$data_hash['NEW_DATE_LOC'].'</time></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate">&nbsp;</td>';
-                }
-                echo "\n                        ";
-                if ( $data_hash['OLD_DATE_UTC'] && $data_hash['OLD_DATE_LOC'] && $data_hash['OLD_OR_NEW'] ) {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-'.$data_hash['OLD_OR_NEW'].'"><a href="'.$diff_filename.'"><time datetime="'.$data_hash['OLD_DATE_UTC'].'">'.$data_hash['OLD_DATE_LOC'].'</time></a></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-old">&nbsp;</time></a></td>';
-                }
-                echo "\n";
-            }
-        ?>
-
+        <?php include('../../script/entries.php'); ?>
     </head>
     <body>
       <div id="wrapper">

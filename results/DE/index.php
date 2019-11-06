@@ -12,44 +12,7 @@
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
-        <?php
-            function CreateEntry( $network ) {
-                $prefixparts = explode( '-', $network );
-                $countrydir  = array_shift( $prefixparts );
-                if ( count($prefixparts) > 1 ) {
-                    $subdir = array_shift( $prefixparts );
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $subdir . '/' . $network . '-Analysis.diff.html';
-                } else {
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $network . '-Analysis.diff.html';  
-                }
-                $data_hash = [];
-                $data_hash['OLD_OR_NEW'] = 'old';
-                if ( file_exists($detailsfilename) ) {
-                    $lines = file( $detailsfilename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
-    
-                    foreach ( $lines as $line ) {
-                        list($key,$value) = explode( '=', $line, 2 );
-                        $key              = rtrim(ltrim($key));
-                        $data_hash[$key]  = rtrim(ltrim($value));
-                    }
-                }
-                if ( $data_hash['NEW_DATE_UTC'] && $data_hash['NEW_DATE_LOC'] ) {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate"><time datetime="'.$data_hash['NEW_DATE_UTC'].'">'.$data_hash['NEW_DATE_LOC'].'</time></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate">&nbsp;</td>';
-                }
-                echo "\n                        ";
-                if ( $data_hash['OLD_DATE_UTC'] && $data_hash['OLD_DATE_LOC'] && $data_hash['OLD_OR_NEW'] ) {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-'.$data_hash['OLD_OR_NEW'].'"><a href="'.$diff_filename.'"><time datetime="'.$data_hash['OLD_DATE_UTC'].'">'.$data_hash['OLD_DATE_LOC'].'</time></a></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-old">&nbsp;</time></a></td>';
-                }
-                echo "\n";
-            }
-        ?>
-
+        <?php include('../../script/entries.php'); ?>
     </head>
     <body>
       <div id="wrapper">
@@ -217,14 +180,9 @@
                         <td data-ref="DE-BY-LAVV-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:Landshut/Transportation/Analyse" title="im OSM-Wiki">Diskussion</a></td>
                         <td data-ref="DE-BY-LAVV-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/Landshut/Transportation/Analyse/DE-BY-LAVV-Linien" title="im OSM-Wiki">LAVV Linien</a></td>
                     </tr>
-                    <tr class="results-tablerow">
-                        <td data-ref="DE-BY-MVV-name" class="results-name"><a href="/results/DE/BY/DE-BY-MVV-Analysis.html" title="zur Auswertung">DE-BY-MVV</a></td>
-                        <td data-ref="DE-BY-MVV-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D6%5D%5Bname~%27(Dachau%7CM%C3%BCnchen%7CEbersberg%7CErding%7CStarnberg%7CFreising%7CT%C3%B6lz%7CWolfratshausen%7CF%C3%BCrstenfeldbruck)%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="auf der Karte anzeigen">Region München</a></td>
-                        <td data-ref="DE-BY-MVV-network" class="results-network"><a href="https://www.mvv-muenchen.de">Münchner Verkehrs- und Tarifverbund</a> und weitere</td>
-                        <?php CreateEntry("DE-BY-MVV"); ?>
-                        <td data-ref="DE-BY-MVV-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:München/Transportation/Analyse" title="im OSM-Wiki">Diskussion</a></td>
-                        <td data-ref="DE-BY-MVV-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/München/Transportation/MVV-Linien-gesamt" title="im OSM-Wiki">MVV Linien</a></td>
-                    </tr>
+
+                    <?php CreateFullEntry( "DE-BY-MVV" ); ?>
+
                     <tr class="results-tablerow">
                         <td data-ref="DE-BY-PAF-name" class="results-name"><a href="/results/DE/BY/DE-BY-PAF-Analysis.html" title="zur Auswertung">DE-BY-PAF</a></td>
                         <td data-ref="DE-BY-PAF-region" class="results-region"><a href="http://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D6%5D%5Bname%3D%27Landkreis%20Pfaffenhofen%20an%20der%20Ilm%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="auf der Karte anzeigen">Landkreis Pfaffenhofen an der Ilm</a></td>

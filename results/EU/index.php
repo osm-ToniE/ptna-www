@@ -12,44 +12,7 @@
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
         <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
-        <?php
-            function CreateEntry( $network ) {
-                $prefixparts = explode( '-', $network );
-                $countrydir  = array_shift( $prefixparts );
-                if ( count($prefixparts) > 1 ) {
-                    $subdir = array_shift( $prefixparts );
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $subdir . '/' . $network . '-Analysis.diff.html';
-                } else {
-                    $detailsfilename  = '/osm/ptna/work/' . $countrydir . '/' . $network . '-Analysis-details.txt';
-                    $diff_filename    = $network . '-Analysis.diff.html';  
-                }
-                $data_hash = [];
-                $data_hash['OLD_OR_NEW'] = 'old';
-                if ( file_exists($detailsfilename) ) {
-                    $lines = file( $detailsfilename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
-    
-                    foreach ( $lines as $line ) {
-                        list($key,$value) = explode( '=', $line, 2 );
-                        $key              = rtrim(ltrim($key));
-                        $data_hash[$key]  = rtrim(ltrim($value));
-                    }
-                }
-                if ( $data_hash['NEW_DATE_UTC'] && $data_hash['NEW_DATE_LOC'] ) {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate"><time datetime="'.$data_hash['NEW_DATE_UTC'].'">'.$data_hash['NEW_DATE_LOC'].'</time></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-datadate" class="results-datadate">&nbsp;</td>';
-                }
-                echo "\n                        ";
-                if ( $data_hash['OLD_DATE_UTC'] && $data_hash['OLD_DATE_LOC'] && $data_hash['OLD_OR_NEW'] ) {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-'.$data_hash['OLD_OR_NEW'].'"><a href="'.$diff_filename.'"><time datetime="'.$data_hash['OLD_DATE_UTC'].'">'.$data_hash['OLD_DATE_LOC'].'</time></a></td>';
-                } else {
-                    echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-old">&nbsp;</time></a></td>';
-                }
-                echo "\n";
-            }
-        ?>
-
+        <?php include('../../script/entries.php'); ?>
     </head>
     <body>
       <div id="wrapper">
@@ -98,14 +61,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="results-tablerow">
-                        <td data-ref="EU-Flixbus-name" class="results-name"><a href="/results/EU/EU-Flixbus-Analysis.html" title="to results">EU-Flixbus</a></td>
-                        <td data-ref="EU-Flixbus-region" class="results-region">Europe</td>
-                        <td data-ref="EU-Flixbus-network" class="results-network">Flixbus;FlixTrain</td>
-                        <?php CreateEntry("EU-Flixbus"); ?>
-                        <td data-ref="EU-Flixbus-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:Europa/Transportation/Analyse/Flixbus" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="EU-Flixbus-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/Europa/Transportation/Analyse/Flixbuslinien" title="in OSM-Wiki">Flixbus Lines</a></td>
-                    </tr>
+
+                    <?php CreateFullEntry( "EU-Flixbus" ); ?>
+
                 </tbody>
             </table>
 
