@@ -61,46 +61,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="results-tablerow">
-                        <td data-ref="LU-AVL-name" class="results-name"><a href="/results/LU/LU-AVL-Analysis.html" title="to results">LU-AVL</a></td>
-                        <td data-ref="LU-AVL-region" class="results-region"><a href="https://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D2%5D%5Bint_name~%27Luxembourg%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="show on OSM map">Lëtzebuerg</a></td>
-                        <td data-ref="LU-AVL-network" class="results-network"><a href="http://autobus.lu">AVL</a></td>
-                        <?php CreateEntry("LU-AVL"); ?>
-                        <td data-ref="LU-AVL-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis/AVL" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="LU-AVL-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-AVL-Routes" title="in OSM-Wiki">AVL Lines</a></td>
-                    </tr>
-                    <tr class="results-tablerow">
-                        <td data-ref="LU-CFL-name" class="results-name"><a href="/results/LU/LU-CFL-Analysis.html" title="to results">LU-CFL</a></td>
-                        <td data-ref="LU-CFL-region" class="results-region"><a href="https://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D2%5D%5Bint_name~%27Luxembourg%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="show on OSM map">Lëtzebuerg</a></td>
-                        <td data-ref="LU-CFL-network" class="results-network"><a href="http://www.cfl.lu">CFL</a></td>
-                        <?php CreateEntry("LU-CFL"); ?>
-                        <td data-ref="LU-CFL-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis/CFL" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="LU-CFL-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-CFL-Routes" title="in OSM-Wiki">CFL Lines</a></td>
-                    </tr>
-                    <tr class="results-tablerow">
-                        <td data-ref="LU-Luxtram-name" class="results-name"><a href="/results/LU/LU-Luxtram-Analysis.html" title="to results">LU-Luxtram</a></td>
-                        <td data-ref="LU-Luxtram-region" class="results-region"><a href="https://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D2%5D%5Bint_name~%27Luxembourg%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="show on OSM map">Lëtzebuerg</a></td>
-                        <td data-ref="LU-Luxtram-network" class="results-network"><a href="http://luxtram.lu">Luxtram</a></td>
-                        <?php CreateEntry("LU-Luxtram"); ?>
-                        <td data-ref="LU-Luxtram-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis/Luxtram" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="LU-Luxtram-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-Luxtram-Routes" title="in OSM-Wiki">Luxtram Lines</a></td>
-                    </tr>
-                    <tr class="results-tablerow">
-                        <td data-ref="LU-RGTR-name" class="results-name"><a href="/results/LU/LU-RGTR-Analysis.html" title="to results">LU-RGTR</a></td>
-                        <td data-ref="LU-RGTR-region" class="results-region"><a href="https://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D2%5D%5Bint_name~%27Luxembourg%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="show on OSM map">Lëtzebuerg</a></td>
-                        <td data-ref="LU-RGTR-network" class="results-network"><a href="http://mobiliteit.lu">RGTR</a></td>
-                        <?php CreateEntry("LU-RGTR"); ?>
-                        <td data-ref="LU-RGTR-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis/RGTR" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="LU-RGTR-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-RGTR-Routes" title="in OSM-Wiki">RGTR Lines</a></td>
-                    </tr>
-                    <tr class="results-tablerow">
-                        <td data-ref="LU-TICE-name" class="results-name"><a href="/results/LU/LU-TICE-Analysis.html" title="to results">LU-TICE</a></td>
-                        <td data-ref="LU-TICE-region" class="results-region"><a href="https://overpass-turbo.eu/map.html?Q=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B(relation%5Bboundary%3Dadministrative%5D%5Badmin_level%3D2%5D%5Bint_name~%27Luxembourg%27%5D%3B)%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B" title="show on OSM map">Lëtzebuerg</a></td>
-                        <td data-ref="LU-TICE-network" class="results-network"><a href="http://tice.lu">TICE</a></td>
-                        <?php CreateEntry("LU-TICE"); ?>
-                        <td data-ref="LU-TICE-discussion" class="results-discussion"><a href="https://wiki.openstreetmap.org/wiki/Talk:WikiProject_Luxembourg/Public_Transport/Analysis/TICE" title="in OSM-Wiki">Discussion</a></td>
-                        <td data-ref="LU-TICE-route" class="results-route"><a href="https://wiki.openstreetmap.org/wiki/WikiProject_Luxembourg/Public_Transport/Analysis/LU-TICE-Routes" title="in OSM-Wiki">TICE Lines</a></td>
-                    </tr>
+
+                    <?php CreateFullEntry( "LU-AVL" ); ?>
+
+                    <?php CreateFullEntry( "LU-CFL" ); ?>
+
+                    <?php CreateFullEntry( "LU-Luxtram" ); ?>
+
+                    <?php CreateFullEntry( "LU-RGTR" ); ?>
+
+                    <?php CreateFullEntry( "LU-TICE" ); ?>
+
                 </tbody>
             </table>
 
