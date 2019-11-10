@@ -79,7 +79,7 @@
         if ( $link && $name ) {
             echo '<td data-ref="'.$network.'-discussion" class="results-discussion"><a href="'.$link.'" title="in OSM Wiki">'.$name.'</a></td>';
         } else if ( $name ) {
-            echo '<td data-ref="'.$network.'-discussion" class="results-discussion">'.$name.'</td>';
+            echo '<td data-ref="'.$network.'-discussion" class="results-discussion">&nbsp;</td>';
         } else {
             echo '<td data-ref="'.$network.'-discussion" class="results-discussion">&nbsp;</td>';
         }
