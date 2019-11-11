@@ -158,6 +158,8 @@
 
                     <?php CreateFullEntry( "DE-HE-NVV" ); ?>
 
+                    <?php CreateFullEntry( "DE-HE-RMV" ); ?>
+
                     <?php CreateFullEntry( "DE-HH-HVV" ); ?>
 
                     <?php CreateFullEntry( "DE-MV-MVVG" ); ?>
