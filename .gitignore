@@ -1,0 +1,6 @@
+# ignore created HTML pages
+*Analysis*.html
+
+# ignore gtfs sub pages
+gtfs
+
