@@ -130,6 +130,8 @@
 
                     <?php CreateFullEntry( "DE-BY-RVV" ); ?>
 
+                    <?php CreateFullEntry( "DE-BY-VAB" ); ?>
+
                     <?php CreateFullEntry( "DE-BY-VGA" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-VGN" ); ?>
