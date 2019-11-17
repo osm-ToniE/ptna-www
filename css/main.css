@@ -74,6 +74,7 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
+#message-table img        { }
 .message-tableheaderrow   { background-color: #dddddd; text-align:left; }
 .message-tablerow         { background-color: white;   text-align:left; vertical-align:top;   }
 .message-text             { }
