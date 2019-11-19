@@ -456,7 +456,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-has_gaps.png" alt="has gaps" /></td>
+                <td class="message-image"><img src="/img/message-has_gaps.png" alt="PTv2 route: has a gap, consists of %d segments. Gap appears at way" title="PTv2 route: has a gap, consists of %d segments. Gap appears at way" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: includes %d entire roundabout but uses only segments</td>
@@ -472,7 +472,7 @@
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="incorrect order of stop platform and way" /></td>
+                <td class="message-image"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="PTv2 route: incorrect order of 'stop_position', 'platform' and 'way' (stop/platform after way)" title="PTv2 route: incorrect order of 'stop_position', 'platform' and 'way' (stop/platform after way)" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: last node of oneway way has 'role' = 'stop_entry_only'</td>
@@ -536,7 +536,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-roundabout_appears_twice.png" alt="roundabout appears twice" /></td>
+                <td class="message-image"><img src="/img/message-roundabout_appears_twice.png" alt="PTv2 route: roundabout appears twice, following itself" title="PTv2 route: roundabout appears twice, following itself" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there are less via-parts in 'name' (%d) than in 'via' (%d)</td>
@@ -640,7 +640,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="using oneway way in wrong direction" /></td>
+                <td class="message-image"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="PTv2 route: using oneway way in wrong direction" title="PTv2 route: using oneway way in wrong direction" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: wrong 'role' = '%s'</td>

@@ -416,7 +416,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="using oneway way in wrong direction" /></td>
+                <td class="message-image"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt" title="PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: Konflikt zwischen 'role' = '%s' und 'public_transport' = '%s'</td>
@@ -432,7 +432,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-roundabout_appears_twice.png" alt="roundabout appears twice" /></td>
+                <td class="message-image"><img src="/img/message-roundabout_appears_twice.png" alt="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" title="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: befährt %d kompletten Kreisverkehr von dem aber nur Teile benutzt werden</td>
@@ -672,7 +672,7 @@
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="incorrect order of stop platform and way" /></td>
+                <td class="message-image"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="PTv2 Route: falsche Reihenfolge von 'stop_position', 'platform' und 'way': 'stop_position'/'platform' müssen vor allen 'way' kommen" title="PTv2 Route: falsche Reihenfolge von 'stop_position', 'platform' und 'way': 'stop_position'/'platform' müssen vor allen 'way' kommen" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: fehlende Angabe '%s' = 'yes' an 'public_transport' = 'stop_position'</td>
@@ -688,7 +688,7 @@
                 <td class="message-option">--check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-has_gaps.png" alt="has gaps" /></td>
+                <td class="message-image"><img src="/img/message-has_gaps.png" alt="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" title="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" /></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: leere 'role'</td>
