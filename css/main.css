@@ -74,8 +74,8 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
-#message-table img        { width: 100px; }
-#message-table img:hover  { transform: translate(-295px,250px) scale(7.0); }
+#message-table img        { width: 100px; z-index: 1; }
+#message-table img:hover  { transform: translate(-295%,295%) scale(7.0); z-index: 2; }
 .message-tableheaderrow   { background-color: #dddddd; text-align:left; }
 .message-tablerow         { background-color: white;   text-align:left; vertical-align:top;   }
 .message-text             { }
@@ -84,6 +84,11 @@ td               { border-width: 1px; border-style: solid; border-collapse: coll
 .message-description      { }
 .message-fix              { }
 .message-image            { }
+
+.message-tooltip                            { position: relative;  display: inline-block; }
+.message-tooltip       .message-tooltiptext { visibility: hidden;  background-color: black; width: 700px; color: #fff; text-align: center; padding: 3px 0; top: -5px;right: -5px; position: absolute; z-index: 3; }
+.message-tooltip:hover .message-tooltiptext { visibility: visible; }
+
 
 #analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: center; }
 #analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }

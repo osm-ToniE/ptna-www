@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             <tr class="message-tablerow">
-                <td class="message-text">'colour' der Route ist gesetzt aber 'colour' des Route-Masters ist nicht gesetzt: %s</td>
+                <td class="message-text">&#039;colour&#039; der Route ist gesetzt aber &#039;colour&#039; des Route-Masters ist nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -19,7 +19,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'colour' der Route ist nicht gesetzt aber 'colour' des Route-Masters ist gesetzt: %s</td>
+                <td class="message-text">&#039;colour&#039; der Route ist nicht gesetzt aber &#039;colour&#039; des Route-Masters ist gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -27,7 +27,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'colour' der Route passt nicht zu 'colour' des Route-Masters: %s</td>
+                <td class="message-text">&#039;colour&#039; der Route passt nicht zu &#039;colour&#039; des Route-Masters: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -35,7 +35,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'colour' hat einen unbekannten Wert '%s'</td>
+                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -43,7 +43,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'name' ist nicht gesetzt</td>
+                <td class="message-text">&#039;name&#039; ist nicht gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -51,7 +51,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' = '%s' der Route passt nicht zu 'network' = '%s' des Route-Masters: %s</td>
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; der Route passt nicht zu &#039;network&#039; = &#039;%s&#039; des Route-Masters: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -59,7 +59,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' = '%s' enthält das Trennzeichen ';' (Semikolon) mit umgebendem Leerzeichen</td>
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -67,7 +67,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' = '%s' sollte in Kurzform angegeben werden</td>
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Kurzform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -75,7 +75,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' = '%s' sollte in Langform angegeben werden</td>
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Langform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -83,7 +83,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' = '%s': ',' (Komma) als Trennzeichen sollte durch ';' (Semikolon, ohne Leerzeichen) ersetzt werden</td>
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039;: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -91,7 +91,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network' ist nicht gesetzt</td>
+                <td class="message-text">&#039;network&#039; ist nicht gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -99,7 +99,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network:long' ist Langform</td>
+                <td class="message-text">&#039;network:long&#039; ist Langform</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -107,7 +107,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'network:long' passt zur Langform</td>
+                <td class="message-text">&#039;network:long&#039; passt zur Langform</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -115,7 +115,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'public_transport:version' ist nicht '2'</td>
+                <td class="message-text">&#039;public_transport:version&#039; ist nicht &#039;2&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -123,7 +123,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'public_transport:version' ist nicht gesetzt</td>
+                <td class="message-text">&#039;public_transport:version&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -131,7 +131,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'public_transport:version' ist weder '1' noch '2'</td>
+                <td class="message-text">&#039;public_transport:version&#039; ist weder &#039;1&#039; noch &#039;2&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -139,7 +139,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'ref' ist nicht gesetzt</td>
+                <td class="message-text">&#039;ref&#039; ist nicht gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -147,7 +147,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'route' = '%s' der Route passt nicht zu 'route_master' = '%s' des Route-Masters: %s</td>
+                <td class="message-text">&#039;route&#039; = &#039;%s&#039; der Route passt nicht zu &#039;route_master&#039; = &#039;%s&#039; des Route-Masters: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -155,7 +155,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'route' ist nicht gesetzt: %s</td>
+                <td class="message-text">&#039;route&#039; ist nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -163,7 +163,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'type' = '%s' ist nicht 'route': %s</td>
+                <td class="message-text">&#039;type&#039; = &#039;%s&#039; ist nicht &#039;route&#039;: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -171,7 +171,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">'type' ist nicht gesetzt: %s</td>
+                <td class="message-text">&#039;type&#039; ist nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -179,7 +179,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Das Tag 'line' (='%s') ist reserviert für 'power' = 'line' spezifisches Tagging. Für Public Transport werden 'route_master' und 'route' genutzt. </td>
+                <td class="message-text">Das Tag &#039;line&#039; (=&#039;%s&#039;) ist reserviert für &#039;power&#039; = &#039;line&#039; spezifisches Tagging. Für Public Transport werden &#039;route_master&#039; und &#039;route&#039; genutzt. </td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -211,7 +211,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fahrzeugtyp ist nicht definiert. Zeile %s der Routen-Daten. Inhalt der Zeile: '%s'</td>
+                <td class="message-text">Fahrzeugtyp ist nicht definiert. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -219,7 +219,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fahrzeugtyp wird nicht unterstützt: '%s'. Zeile %s der Routen-Daten. Inhalt der Zeile: '%s'</td>
+                <td class="message-text">Fahrzeugtyp wird nicht unterstützt: &#039;%s&#039;. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -227,7 +227,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehlende Linie für 'ref' = '%s' und 'route' = '%s'</td>
+                <td class="message-text">Fehlende Linie für &#039;ref&#039; = &#039;%s&#039; und &#039;route&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -235,7 +235,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für 'nodes'</td>
+                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Ways und Nodes sind nicht in den Input-Daten enthalten.</td>
@@ -243,7 +243,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für 'ways'</td>
+                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Ways und Nodes sind nicht in den Input-Daten enthalten.</td>
@@ -251,7 +251,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Mehrere Routen aber 'public_transport:version' ist nicht auf '2' gesetzt</td>
+                <td class="message-text">Mehrere Routen aber &#039;public_transport:version&#039; ist nicht auf &#039;2&#039; gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -275,71 +275,71 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: '%s' ist nicht Teil von 'name' (hergeleitet von '%s' = '%s')</td>
+                <td class="message-text">PTv2 Route: &#039;%s&#039; ist nicht Teil von &#039;name&#039; (hergeleitet von &#039;%s&#039; = &#039;%s&#039;)</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'from' ist nicht gesetzt</td>
+                <td class="message-text">PTv2 Route: &#039;from&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' der Route ist identisch zu 'name' anderer Route(n). Setze gegebenenfalls einen passenden 'via' Wert und nehme ihn in 'name' auf.</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; der Route ist identisch zu &#039;name&#039; anderer Route(n). Setze gegebenenfalls einen passenden &#039;via&#039; Wert und nehme ihn in &#039;name&#039; auf.</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' enthält mehr als ein '=>', aber 'via' ist nicht gesetzt</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; enthält mehr als ein &#039;=&gt;&#039;, aber &#039;via&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' enthält unübliches '&lt;=&gt;'</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; enthält unübliches &#039;&amp;lt;=&amp;gt;&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' enthält unübliches '==&gt;'</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; enthält unübliches &#039;==&amp;gt;&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' sollte (mindest) von der Form '... ref ...: from => to' sein</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; sollte (mindest) von der Form &#039;... ref ...: from =&gt; to&#039; sein</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'name' sollte annähernd die Form '... ref ...: from => to' haben</td>
+                <td class="message-text">PTv2 Route: &#039;name&#039; sollte annähernd die Form &#039;... ref ...: from =&gt; to&#039; haben</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name-relaxed</td>
+                <td class="message-option">&#045;&#045;check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'public_transport' = 'platform' liegt auf dem Fahrweg</td>
+                <td class="message-text">PTv2 Route: &#039;public_transport&#039; = &#039;platform&#039; liegt auf dem Fahrweg</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -347,7 +347,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'public_transport' = 'stop_position' liegt nicht auf dem Fahrweg</td>
+                <td class="message-text">PTv2 Route: &#039;public_transport&#039; = &#039;stop_position&#039; liegt nicht auf dem Fahrweg</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -355,15 +355,15 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'ref' ist nicht Teil von 'name'</td>
+                <td class="message-text">PTv2 Route: &#039;ref&#039; ist nicht Teil von &#039;name&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'role' = '%s' aber 'public_transport' ist nicht gesetzt</td>
+                <td class="message-text">PTv2 Route: &#039;role&#039; = &#039;%s&#039; aber &#039;public_transport&#039; ist nicht gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -371,41 +371,41 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'role' = '%s' und %s: 'public_transport' = 'platform' sollte gesetzt werden</td>
+                <td class="message-text">PTv2 Route: &#039;role&#039; = &#039;%s&#039; und %s: &#039;public_transport&#039; = &#039;platform&#039; sollte gesetzt werden</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--ptv1-compatibility=show</td>
+                <td class="message-option">&#045;&#045;ptv1-compatibility=show</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'role' = '%s' und %s: 'public_transport' = 'stop_position' sollte gesetzt werden</td>
+                <td class="message-text">PTv2 Route: &#039;role&#039; = &#039;%s&#039; und %s: &#039;public_transport&#039; = &#039;stop_position&#039; sollte gesetzt werden</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--ptv1-compatibility=show</td>
+                <td class="message-option">&#045;&#045;ptv1-compatibility=show</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'to' ist nicht gesetzt</td>
+                <td class="message-text">PTv2 Route: &#039;to&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'via' ist gesetzt: der %d. 'Über'-Anteil ('%s') von 'name' ist nicht Teil von %d. via-Teil = '%s'</td>
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von %d. via-Teil = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name-relaxed</td>
+                <td class="message-option">&#045;&#045;check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: 'via' ist gesetzt: der %d. 'Über'-Anteil ('%s') von 'name' ist nicht gleich dem %d. via-Teil = '%s'</td>
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht gleich dem %d. via-Teil = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
@@ -413,13 +413,13 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt" title="PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt" /></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt" /><span class="message-tooltiptext">PTv2 Route: Einbahnstraße wird in der falschen Richtung benutzt</span></div></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: Konflikt zwischen 'role' = '%s' und 'public_transport' = '%s'</td>
+                <td class="message-text">PTv2 Route: Konflikt zwischen &#039;role&#039; = &#039;%s&#039; und &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -429,165 +429,157 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-roundabout_appears_twice.png" alt="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" title="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" /></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-roundabout_appears_twice.png" alt="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" /><span class="message-tooltiptext">PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst</span></div></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: befährt %d kompletten Kreisverkehr von dem aber nur Teile benutzt werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-sequence<br />--check-roundabout</td>
+                <td class="message-option">&#045;&#045;check-sequence<br />&#045;&#045;check-roundabout</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der 'Nach'-Anteil ('%s') von 'name' ist nicht Teil von 'to' = '%s'</td>
+                <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name-relaxed</td>
+                <td class="message-option">&#045;&#045;check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der 'Nach'-Anteil ('%s') von 'name' ist nicht identisch zu 'to' = '%s'</td>
+                <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht identisch zu &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der 'Von'-Anteil ('%s') von 'name' ist nicht Teil von 'from' = '%s'</td>
+                <td class="message-text">PTv2 Route: der &#039;Von&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von &#039;from&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name-relaxed</td>
+                <td class="message-option">&#045;&#045;check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der 'Von'-Anteil ('%s') von 'name' ist nicht identisch zu 'from' = '%s'</td>
+                <td class="message-text">PTv2 Route: der &#039;Von&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht identisch zu &#039;from&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Punkt des Fahrweges hat die 'role' = 'stop_exit_only'. Sind die Wege der Route falsch herum sortiert?</td>
+                <td class="message-text">PTv2 Route: der erste Punkt des Fahrweges hat die &#039;role&#039; = &#039;stop_exit_only&#039;. Sind die Wege der Route falsch herum sortiert?</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Punkt des Fahrweges ist nicht die erste 'stop_position' der Route: %s gegenüber %s</td>
+                <td class="message-text">PTv2 Route: der erste Punkt des Fahrweges ist nicht die erste &#039;stop_position&#039; der Route: %s gegenüber %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Punkt des Weges ist keine 'stop_position' dieser Route: %s</td>
+                <td class="message-text">PTv2 Route: der erste Punkt des Weges ist keine &#039;stop_position&#039; dieser Route: %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Punkt einer Einbahnstraße hat die 'role' = 'stop_exit_only'</td>
+                <td class="message-text">PTv2 Route: der erste Punkt einer Einbahnstraße hat die &#039;role&#039; = &#039;stop_exit_only&#039;</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Weg ist eine Einbahnstraße und endet in einer 'stop_position' und es geht nicht mehr weiter. Sind die Wege der Route falsch herum sortiert?</td>
+                <td class="message-text">PTv2 Route: der erste Weg ist eine Einbahnstraße und endet in einer &#039;stop_position&#039; und es geht nicht mehr weiter. Sind die Wege der Route falsch herum sortiert?</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der letzte Punkt des Fahrweges hat die 'role' = 'stop_entry_only'. Sind die Wege der Route falsch herum sortiert?</td>
+                <td class="message-text">PTv2 Route: der letzte Punkt des Fahrweges hat die &#039;role&#039; = &#039;stop_entry_only&#039;. Sind die Wege der Route falsch herum sortiert?</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der letzte Punkt des Fahrweges ist nicht die letzte 'stop_position' der Route: %s gegenüber %s</td>
+                <td class="message-text">PTv2 Route: der letzte Punkt des Fahrweges ist nicht die letzte &#039;stop_position&#039; der Route: %s gegenüber %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der letzte Punkt des Weges ist keine 'stop_position' dieser Route: %s</td>
+                <td class="message-text">PTv2 Route: der letzte Punkt des Weges ist keine &#039;stop_position&#039; dieser Route: %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der letzte Punkt einer Einbahnstraße hat die 'role' = 'stop_entry_only'</td>
+                <td class="message-text">PTv2 Route: der letzte Punkt einer Einbahnstraße hat die &#039;role&#039; = &#039;stop_entry_only&#039;</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: die erste 'stop_position' auf dem ersten Weg ist nicht die erste 'stop_position' der Route: %s gegenüber %s</td>
+                <td class="message-text">PTv2 Route: die erste &#039;stop_position&#039; auf dem ersten Weg ist nicht die erste &#039;stop_position&#039; der Route: %s gegenüber %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: die letzte 'stop_position' auf dem letzten Weg ist nicht die letzte 'stop_position' der Route: %s gegenüber %s</td>
+                <td class="message-text">PTv2 Route: die letzte &#039;stop_position&#039; auf dem letzten Weg ist nicht die letzte &#039;stop_position&#039; der Route: %s gegenüber %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: entferne gegebenenfalls den ersten Weg des Fahrweges aus der Relation, es ist ein Weg vor der ersten 'stop_position': %s</td>
+                <td class="message-text">PTv2 Route: entferne gegebenenfalls den ersten Weg des Fahrweges aus der Relation, es ist ein Weg vor der ersten &#039;stop_position&#039;: %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: entferne gegebenenfalls den letzten Weg des Fahrweges aus der Relation, es ist ein Weg nach der letzten 'stop_position': %s</td>
+                <td class="message-text">PTv2 Route: entferne gegebenenfalls den letzten Weg des Fahrweges aus der Relation, es ist ein Weg nach der letzten &#039;stop_position&#039;: %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine 'public_transport' = 'platform'</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image">&nbsp;</td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine 'public_transport' = 'stop_position'</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;platform&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -595,39 +587,15 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine 'public_transport' = 'stop_position' und keine 'public_transport' = 'platform'</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image">&nbsp;</td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine 'stop_position' auf dem ersten Weg der Route: %s</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image">&nbsp;</td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine 'stop_position' auf dem letzten Weg der Route: %s</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image">&nbsp;</td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt mehr 'Über'-Anteile in 'name (%d) als in 'via' (%d)</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt nur eine 'public_transport' = 'platform'</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; und keine &#039;public_transport&#039; = &#039;platform&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -635,31 +603,31 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt nur eine 'public_transport' = 'stop_position'</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;stop_position&#039; auf dem ersten Weg der Route: %s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt weniger 'Über'-Anteile in 'name (%d) als in 'via' (%d)</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;stop_position&#039; auf dem letzten Weg der Route: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: es gibt mehr &#039;Über&#039;-Anteile in &#039;name (%d) als in &#039;via&#039; (%d)</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-name</td>
+                <td class="message-option">&#045;&#045;check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es wird eine 'motorway_link' Straße benutzt ohne vorher oder nachher eine 'motorway' Straße benutzt zu haben</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">--check-motorway-link</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image">&nbsp;</td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: falsche 'role' = '%s'</td>
+                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;platform&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -667,15 +635,47 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: falsche Reihenfolge von 'stop_position', 'platform' und 'way': 'stop_position'/'platform' müssen vor allen 'way' kommen</td>
+                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;stop_position&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="PTv2 Route: falsche Reihenfolge von 'stop_position', 'platform' und 'way': 'stop_position'/'platform' müssen vor allen 'way' kommen" title="PTv2 Route: falsche Reihenfolge von 'stop_position', 'platform' und 'way': 'stop_position'/'platform' müssen vor allen 'way' kommen" /></td>
+                <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: fehlende Angabe '%s' = 'yes' an 'public_transport' = 'stop_position'</td>
+                <td class="message-text">PTv2 Route: es gibt weniger &#039;Über&#039;-Anteile in &#039;name (%d) als in &#039;via&#039; (%d)</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option">&#045;&#045;check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: es wird eine &#039;motorway_link&#039; Straße benutzt ohne vorher oder nachher eine &#039;motorway&#039; Straße benutzt zu haben</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">&#045;&#045;check-motorway-link</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche &#039;role&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen" /><span class="message-tooltiptext">PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen</span></div></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: fehlende Angabe &#039;%s&#039; = &#039;yes&#039; an &#039;public_transport&#039; = &#039;stop_position&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -685,13 +685,13 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-sequence</td>
+                <td class="message-option">&#045;&#045;check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><img src="/img/message-has_gaps.png" alt="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" title="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" /></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" /><span class="message-tooltiptext">PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg</span></div></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: leere 'role'</td>
+                <td class="message-text">PTv2 Route: leere &#039;role&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -699,7 +699,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route existiert im geladenen Datensatz, 'ref' ist aber nicht gesetzt: %s</td>
+                <td class="message-text">Route existiert im geladenen Datensatz, &#039;ref&#039; ist aber nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -707,7 +707,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen 'network' = '%s' Wert, der als nicht relevant betrachtet wird: %s</td>
+                <td class="message-text">Route hat einen &#039;network&#039; = &#039;%s&#039; Wert, der als nicht relevant betrachtet wird: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -715,7 +715,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen 'operator' = '%s' Wert, der als nicht relevant betrachtet wird: %s</td>
+                <td class="message-text">Route hat einen &#039;operator&#039; = &#039;%s&#039; Wert, der als nicht relevant betrachtet wird: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -723,7 +723,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen 'route' = '%s' Wert, der als nicht relevant betrachtet wird: %s</td>
+                <td class="message-text">Route hat einen &#039;route&#039; = &#039;%s&#039; Wert, der als nicht relevant betrachtet wird: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -731,7 +731,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen anderen 'network' = '%s' Wert als der Route-Master 'network' = '%s': %s</td>
+                <td class="message-text">Route hat einen anderen &#039;network&#039; = &#039;%s&#039; Wert als der Route-Master &#039;network&#039; = &#039;%s&#039;: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -739,7 +739,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen anderen 'operator' = '%s' Wert als der Route-Master 'operator' = '%s': %s</td>
+                <td class="message-text">Route hat einen anderen &#039;operator&#039; = &#039;%s&#039; Wert als der Route-Master &#039;operator&#039; = &#039;%s&#039;: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -747,7 +747,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen anderen 'ref' = '%s' Wert als der Route-Master 'ref' = '%s - das sollte vermieden werden': %s</td>
+                <td class="message-text">Route hat einen anderen &#039;ref&#039; = &#039;%s&#039; Wert als der Route-Master &#039;ref&#039; = &#039;%s - das sollte vermieden werden&#039;: %s</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -755,7 +755,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen anderen 'route' = '%s' Wert als der Route-Master 'route' = '%s': %s</td>
+                <td class="message-text">Route hat einen anderen &#039;route&#039; = &#039;%s&#039; Wert als der Route-Master &#039;route&#039; = &#039;%s&#039;: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -763,7 +763,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat unpassenden 'ref' = '%s' Wert: %s</td>
+                <td class="message-text">Route hat unpassenden &#039;ref&#039; = &#039;%s&#039; Wert: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -779,7 +779,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route ist unter der 'ref' = '%s' möglicherweise in einem anderen Abschnitt oder im Abschnitt 'Nicht eindeutig zugeordnete Linien' gelistet: %s</td>
+                <td class="message-text">Route ist unter der &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -835,7 +835,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master existiert im geladenen Datensatz, 'ref' ist aber nicht gesetzt: %s</td>
+                <td class="message-text">Route-Master existiert im geladenen Datensatz, &#039;ref&#039; ist aber nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -851,7 +851,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master hat unpassenden  'ref' = '%s' Wert: %s</td>
+                <td class="message-text">Route-Master hat unpassenden  &#039;ref&#039; = &#039;%s&#039; Wert: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -867,7 +867,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master ist mit undefiniertem 'ref' Wert möglicherweise im Abschnitt 'ÖPNV Linien ohne 'ref'-Wert' gelistet: %s</td>
+                <td class="message-text">Route-Master ist mit undefiniertem &#039;ref&#039; Wert möglicherweise im Abschnitt &#039;ÖPNV Linien ohne &#039;ref&#039;-Wert&#039; gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -875,7 +875,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master ist unter der selben 'ref' = '%s' möglicherweise in einem anderen Abschnitt oder im Abschnitt 'Nicht eindeutig zugeordnete Linien' gelistet: %s</td>
+                <td class="message-text">Route-Master ist unter der selben &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -891,7 +891,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master mit Relation(en) ungleich 'route'</td>
+                <td class="message-text">Route-Master mit Relation(en) ungleich &#039;route&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -915,73 +915,73 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: '%s' = '%s' der Haltestelle sollte durch 'route_ref' = '%s' ersetzt werden</td>
+                <td class="message-text">Route: &#039;%s&#039; = &#039;%s&#039; der Haltestelle sollte durch &#039;route_ref&#039; = &#039;%s&#039; ersetzt werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: '%s' = '%s' der Haltestelle sollte gelöscht werden, 'route_ref' = '%s' existiert</td>
+                <td class="message-text">Route: &#039;%s&#039; = &#039;%s&#039; der Haltestelle sollte gelöscht werden, &#039;route_ref&#039; = &#039;%s&#039; existiert</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'highway' = 'bus_stop' ist auf einem 'way' gesetzt. Dieses Tag ist nur auf Nodes erlaubt!</td>
+                <td class="message-text">Route: &#039;highway&#039; = &#039;bus_stop&#039; ist auf einem &#039;way&#039; gesetzt. Dieses Tag ist nur auf Nodes erlaubt!</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-bus-stop</td>
+                <td class="message-option">&#045;&#045;check-bus-stop</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'ref' = '%s' der Haltestelle sollte die Referenz der Haltestelle sein, enthält aber die 'ref' = '%s' dieser Route %s</td>
+                <td class="message-text">Route: &#039;ref&#039; = &#039;%s&#039; der Haltestelle sollte die Referenz der Haltestelle sein, enthält aber die &#039;ref&#039; = &#039;%s&#039; dieser Route %s</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'route_ref' = '%s' der Haltestelle enthält das Trennzeichen ';' (Semikolon) mit umgebendem Leerzeichen</td>
+                <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'route_ref' = '%s' der Haltestelle enthält nicht den 'ref' = '%s' Wert dieser Route%s</td>
+                <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle enthält nicht den &#039;ref&#039; = &#039;%s&#039; Wert dieser Route%s</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: 'route_ref' = '%s' der Haltestelle: ',' (Komma) als Trennzeichen sollte durch ';' (Semikolon, ohne Leerzeichen) ersetzt werden</td>
+                <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-route-ref</td>
+                <td class="message-option">&#045;&#045;check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne dass 'psv' = 'yes', '%s' = 'yes', '%s' = 'designated', oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-access</td>
+                <td class="message-option">&#045;&#045;check-access</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass 'psv' = 'yes', '%s' = 'yes', '%s' = 'designated', oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
                 <td class="message-type">Fehler</td>
-                <td class="message-option">--check-access</td>
+                <td class="message-option">&#045;&#045;check-access</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
@@ -989,24 +989,24 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: unklare Befahrbarkeit (%s) auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-access</td>
-                <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.<br />Beispiel: 'psv:conditional=yes @ (Mo-Fr 05:00-22:00)'.</td>
+                <td class="message-option">&#045;&#045;check-access</td>
+                <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.<br />Beispiel: &#039;psv:conditional=yes @ (Mo-Fr 05:00-22:00)&#039;.</td>
                 <td class="message-fix">Den Wert der bedingten Befahrbarkeit bitte gegebenenfalls manuell auswerten und entscheiden ob eine Korrektur notwendig ist oder nicht.</td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: verdächtige %s zusammen mit 'highway' ungleich 'construction' auf Weg</td>
+                <td class="message-text">Route: verdächtige %s zusammen mit &#039;highway&#039; ungleich &#039;construction&#039; auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">--check-access</td>
-                <td class="message-description">Der Schlüssel 'construction' ist gesetzt und der Schlüssel 'highway' hat nicht den Wert 'construction'. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von 'highway'='construction' und 'construction='xxx' gekennzeichnet, wobei 'xxx' dem vorherigen Wert des Schlüssels 'highway' entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel 'highway' seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel 'construction' gelöscht. Manchmal wird vergessen, den Schlüssel 'construction' zu löschen, was als Fehler angesehen werden kann.<br />Beispiel: 'construction'='primary' und 'highway'='primary' anstatt 'highway'='construction'.</td>
-                <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel 'construction'. Wenn nein, prüfe, welcher Wert für den Schlüssel 'highway' passend ist.</td>
+                <td class="message-option">&#045;&#045;check-access</td>
+                <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von &#039;highway&#039;=&#039;construction&#039; und &#039;construction=&#039;xxx&#039; gekennzeichnet, wobei &#039;xxx&#039; dem vorherigen Wert des Schlüssels &#039;highway&#039; entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann.<br />Beispiel: &#039;construction&#039;=&#039;primary&#039; und &#039;highway&#039;=&#039;primary&#039; anstatt &#039;highway&#039;=&#039;construction&#039;.</td>
+                <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel &#039;construction&#039;. Wenn nein, prüfe, welcher Wert für den Schlüssel &#039;highway&#039; passend ist.</td>
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Weitere Analyse wird übersprungen ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">Der Fehler bezieht sich auf: "Fehler in den Inputdaten: nicht genügend Daten für 'nodes'" und "Fehler in den Inputdaten: nicht genügend Daten für 'ways'". Ohne Daten für Ways und Nodes macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
+                <td class="message-description">Der Fehler bezieht sich auf: &quot;Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;&quot; und &quot;Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;&quot;. Ohne Daten für Ways und Nodes macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
                 <td class="message-fix"></td>
                 <td class="message-image">&nbsp;</td>
             </tr>
