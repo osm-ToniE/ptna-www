@@ -132,6 +132,8 @@
 
                     <?php CreateFullEntry( "DE-BY-VAB" ); ?>
 
+                    <?php CreateFullEntry( "DE-BY-VBP-VLP" ); ?>
+
                     <?php CreateFullEntry( "DE-BY-VGA" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-VGN" ); ?>
@@ -147,8 +149,6 @@
                     <?php CreateFullEntry( "DE-BY-VLK" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-VLMÜ" ); ?>
-
-                    <?php CreateFullEntry( "DE-BY-VLP" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-VSL" ); ?>
 
