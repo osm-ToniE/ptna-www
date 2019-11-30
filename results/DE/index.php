@@ -104,6 +104,8 @@
 
                     <?php CreateFullEntry( "DE-BW-KV.SHA" ); ?>
 
+                    <?php CreateFullEntry( "DE-BW-RVF" ); ?>
+
                     <?php CreateFullEntry( "DE-BW-VVS" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-AVV" ); ?>
