@@ -110,6 +110,8 @@
 
                     <?php CreateFullEntry( "DE-BY-AVV" ); ?>
 
+                    <?php CreateFullEntry( "DE-BY-CBB" ); ?>
+
                     <?php CreateFullEntry( "DE-BY-DGF" ); ?>
 
                     <?php CreateFullEntry( "DE-BY-FRG" ); ?>
