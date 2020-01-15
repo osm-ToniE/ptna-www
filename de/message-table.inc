@@ -747,7 +747,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route hat einen anderen &#039;ref&#039; = &#039;%s&#039; Wert als der Route-Master &#039;ref&#039; = &#039;%s - das sollte vermieden werden&#039;: %s</td>
+                <td class="message-text">Route hat einen anderen &#039;ref&#039; = &#039;%s&#039; Wert als der Route-Master &#039;ref&#039; = &#039;%s&#039; - das sollte vermieden werden: %s</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
