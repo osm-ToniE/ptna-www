@@ -55,8 +55,8 @@
                                 <li><a href="#analysisdate">Datum der Daten</a></li>
                                 <li><a href="#analysisroutes">Überblick über die ÖPNV-Linien ...</a></li>
                                 <li><a href="#analysisnotassigned">Nicht eindeutig zugeordnete Linien</a></li>
-                                <li><a href="#analysisother">Andere ÖPNV Linien</a></li>
-                                <li><a href="#analysisnoref">ÖPNV Linien ohne 'ref'</a></li>
+                                <li><a href="#analysisother">Andere ÖPNV-Linien</a></li>
+                                <li><a href="#analysisnoref">ÖPNV-Linien ohne 'ref'</a></li>
                                 <li><a href="#analysisrelations">Weitere Relationen</a></li>
                                 <li><a href="#analysisnetwork">Details zu 'network'-Werten</a>
                                     <ul>
@@ -300,7 +300,7 @@
 ==== Auswahl und Abspeichern der Routen innerhalb des Gebietes ====
 Es erfolgt eine unscharfe Auswahl durch Verwendung von '~'. Das stellt sicher, dass auch "verdächtige" Relationen mit z.B. <code>route='suspended_bus'</code>
 gefunden werden.<br />
-Es wird absichtlich nach 'route' und nicht nach 'route_master' gesucht, da PTv1 keine Route-Master kennt und wir eine Bestandsaufnahme aller ÖPNV Linien anstreben.<br />
+Es wird absichtlich nach 'route' und nicht nach 'route_master' gesucht, da PTv1 keine Route-Master kennt und wir eine Bestandsaufnahme aller ÖPNV-Linien anstreben.<br />
 Nur Busse
 * <code>rel(area)[route~'(bus)'];</code>
 Busse und Bahnen
@@ -453,7 +453,7 @@ http://overpass-api.de/api/interpreter?data=area[boundary=public_transport][name
                         </p>
                     </div> <!-- "analysisnotassigned" -->
 
-                    <h4 id="analysisother">Andere ÖPNV Linien</h4>
+                    <h4 id="analysisother">Andere ÖPNV-Linien</h4>
                     <div class="indent">
                         <p>
                             Übrig bleiben die Linien, die
@@ -464,7 +464,7 @@ http://overpass-api.de/api/interpreter?data=area[boundary=public_transport][name
                         </ul>
 
                         <p>
-                            Taucht in dieser Liste ("Andere ÖPNV Linien") z.B. eine Linie 724 auf, und
+                            Taucht in dieser Liste ("Andere ÖPNV-Linien") z.B. eine Linie 724 auf, und
                         </p>
                         <ul>
                             <li>das 'network' tag ist gesetzt und passt zum analysierten Verkehrsverbund?
@@ -490,7 +490,7 @@ http://overpass-api.de/api/interpreter?data=area[boundary=public_transport][name
                         </p>
                     </div> <!-- "analysisother" -->
 
-                    <h4 id="analysisnoref">ÖPNV Linien ohne 'ref'</h4>
+                    <h4 id="analysisnoref">ÖPNV-Linien ohne 'ref'</h4>
                     <div class="indent">
                         <p>
                             Hierzu zählen alle Linien, die
