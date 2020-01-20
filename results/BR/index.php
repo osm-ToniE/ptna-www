@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_BR">
     <head>
         <meta charset="utf-8" />
         <title>PTNA - Results</title>
