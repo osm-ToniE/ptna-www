@@ -867,7 +867,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master ist mit undefiniertem &#039;ref&#039; Wert möglicherweise im Abschnitt &#039;ÖPNV Linien ohne &#039;ref&#039;-Wert&#039; gelistet: %s</td>
+                <td class="message-text">Route-Master ist mit undefiniertem &#039;ref&#039; Wert möglicherweise im Abschnitt &#039;ÖPNV-Linien ohne &#039;ref&#039;-Wert&#039; gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
