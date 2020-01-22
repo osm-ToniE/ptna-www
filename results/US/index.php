@@ -48,7 +48,7 @@
                 Older dates mean that there were no changes in the results. Nevertheless, the data has been analyzed as denoted in the column "Date of Analysis".
             </p>
 
-            <table id="networksEU">
+            <table id="networksUSA">
                 <thead>
                     <tr class="results-tableheaderrow">
                         <th class="results-name">Name</th>
