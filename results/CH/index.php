@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>PTNA - Results</title>
@@ -22,11 +22,11 @@
             </div>
             <div id="headertext">
                 <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Statische Auswertungen für OpenStreetMap</h2>
+                <h2>Static Analysis for OpenStreetMap</h2>
             </div>
             <div id="headernav">
                 <a href="/">Home</a> |
-                <a href="/contact.html">Kontakt</a> |
+                <a href="/contact.html">Contact</a> |
                 <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
                 <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
                 <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
@@ -35,93 +35,37 @@
             </div>
         </header>
 
-        <nav id="navigation">
-            <h2 id="DE"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Auswertungen für die Schweiz</h2>
-            <ul>
-                <!-- <li><a href="#bahnverkehr">Bahnverkehr in der Schweiz</a></li> -->
-                <li><a href="#uebergreifend">Kanton-übergreifende Verkehrsverbünde in der Schweiz</a></li>
-                <li><a href="#verkehrsverbuende">Verkehrsverbünde in der Schweiz</a></li>
-             </ul>
-        </nav>
-
-        <hr />
-
         <main id="main" class="results">
 
+            <h2 id="DE"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Results for Switzerland </h2>
             <p>
-                Die erste Spalte der Tabelle enthält jeweils einen Link auf das Ergebnis der Analyse.
+                The first column includes a link to the results of the analysis.
             </p>
             <p>
-                In der Spalte "Letzte Änderung" stehen Links auf HTML-Seiten, in der die Änderungen zur vorangegangenen Auswertung farblich markiert sind -
-                siehe dort die Navigationsbuttons <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> unten rechts bzw. die Zeichen 'j' (vorwärts) und 'k' (rückwärts), mit denen man sich von Differenz zu Differenz "vorhangeln" kann.
-                Diese Spalte enthält das Datum der letzten Auswertung bei der relevante Änderungen an den Daten vorlagen.
-                Ältere Datumsangaben bedeuten, dass sich am Ergebnis der Auswertung seit diesem Datum nichts geändert hat, die Daten selber stammen jedoch vom Tag der Auswertung.
+                The column "Latest Changes" links to an HTML page which shows the differences to the last analysis results.
+                These are coloured, you can use navigation buttons <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> at the bottom right or the characters 'j' (forward) and 'k' (backward) to jump from difference to difference.
+                This column includes the date of the last analysis where relevant changes have emerged.
+                Older dates mean that there were no changes in the results. Nevertheless, the data has been analyzed as denoted in the column "Date of Analysis".
             </p>
 
-            <hr />
-
-<!--            <h3 id="bahnverkehr">Bahnverkehr in der Schweiz</h3>
-            <table id="networksCHBahn">
+            <table id="networksCH">
                 <thead>
                     <tr class="results-tableheaderrow">
                         <th class="results-name">Name</th>
-                        <th class="results-region">Stadt/Kanton</th>
-                        <th class="results-network">Verkehrsverbund</th>
-                        <th class="results-datadate">Datum der Auswertung</th>
-                        <th class="results-analyzed">Letzte Änderung</th>
-                        <th class="results-discussion">Diskussion</th>
-                        <th class="results-route">Linien</th>
+                        <th class="results-region">City/Region</th>
+                        <th class="results-network">Network</th>
+                        <th class="results-datadate">Date of Analysis</th>
+                        <th class="results-analyzed">Latest Changes</th>
+                        <th class="results-discussion">Discussion</th>
+                        <th class="results-route">Lines</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "CH-Bahnverkehr" ); ?>
+                    <?php CreateFullEntry( "CH-OTV" ); ?>
 
-                </tbody>
-            </table>
-
-            <hr />
--->
-
-            <h3 id="uebergreifend">Kanton-übergreifende Verkehrsverbünde in der Schweiz</h3>
-            <table id="networksCHuebergreifend">
-                <thead>
-                    <tr class="results-tableheaderrow">
-                        <th class="results-name">Name</th>
-                        <th class="results-region">Stadt/Kanton</th>
-                        <th class="results-network">Verkehrsverbund</th>
-                        <th class="results-datadate">Datum der Auswertung</th>
-                        <th class="results-analyzed">Letzte Änderung</th>
-                        <th class="results-discussion">Diskussion</th>
-                        <th class="results-route">Linien</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <?php CreateFullEntry( "CH-Ostwind" ); ?>
-
-                </tbody>
-            </table>
-
-            <hr />
-
-            <h3 id="verkehrsverbuende">Verkehrsverbünde in der Schweiz</h3>
-            <table id="networksCHVerbund">
-                <thead>
-                    <tr class="results-tableheaderrow">
-                        <th class="results-name">Name</th>
-                        <th class="results-region">Stadt/Kanton</th>
-                        <th class="results-network">Verkehrsverbund</th>
-                        <th class="results-datadate">Datum der Auswertung</th>
-                        <th class="results-analyzed">Letzte Änderung</th>
-                        <th class="results-discussion">Diskussion</th>
-                        <th class="results-route">Linien</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <!-- <?php CreateFullEntry( "CH-ZH-VZZ" ); ?> -->
-
+                    <?php CreateFullEntry( "CH-ZVV" ); ?>
+                    
                 </tbody>
             </table>
 
