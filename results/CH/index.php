@@ -36,7 +36,7 @@
         </header>
 
         <nav id="navigation">
-            <h2 id="DE"><img src="/img/Switzerland32.png" alt="Schweizer Flagge" /> Auswertungen für die Schweiz</h2>
+            <h2 id="DE"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Auswertungen für die Schweiz</h2>
             <ul>
                 <!-- <li><a href="#bahnverkehr">Bahnverkehr in der Schweiz</a></li> -->
                 <li><a href="#uebergreifend">Kanton-übergreifende Verkehrsverbünde in der Schweiz</a></li>
