@@ -64,6 +64,8 @@
 
                     <?php CreateFullEntry( "CH-OTV" ); ?>
 
+                    <?php CreateFullEntry( "CH-TNW" ); ?>
+
                     <?php CreateFullEntry( "CH-ZVV" ); ?>
                     
                 </tbody>
