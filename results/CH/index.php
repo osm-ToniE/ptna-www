@@ -64,6 +64,8 @@
 
                     <?php CreateFullEntry( "CH-CTGE" ); ?>
 
+                    <?php CreateFullEntry( "CH-CTIFR" ); ?>
+
                     <?php CreateFullEntry( "CH-CTM" ); ?>
 
                     <?php CreateFullEntry( "CH-CTNE" ); ?>
@@ -76,13 +78,13 @@
 
                     <?php CreateFullEntry( "CH-TV-BE+SO" ); ?>
                     
-                    <?php CreateFullEntry( "CH-TVA" ); ?>
-
-                    <?php CreateFullEntry( "CH-TVF" ); ?>
+                    <?php CreateFullEntry( "CH-TVAG" ); ?>
 
                     <?php CreateFullEntry( "CH-TVLU" ); ?>
 
                     <?php CreateFullEntry( "CH-TVSZ" ); ?>
+
+                    <?php CreateFullEntry( "CH-TVOEng" ); ?>
 
                     <?php CreateFullEntry( "CH-TVZG" ); ?>
 
