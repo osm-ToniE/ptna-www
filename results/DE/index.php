@@ -98,8 +98,10 @@
 
                     <?php CreateFullEntry( "DE-BE-VBB" ); ?>
 
+                    <?php CreateFullEntry( "DE-BW-bodo" ); ?>
+                    
                     <?php CreateFullEntry( "DE-BW-DING" ); ?>
-
+                    
                     <?php CreateFullEntry( "DE-BW-DING-SWU" ); ?>
 
                     <?php CreateFullEntry( "DE-BW-KV.SHA" ); ?>
