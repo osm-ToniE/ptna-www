@@ -62,9 +62,29 @@
                 </thead>
                 <tbody>
 
+                    <?php CreateFullEntry( "CH-CTGE" ); ?>
+
+                    <?php CreateFullEntry( "CH-CTM" ); ?>
+
+                    <?php CreateFullEntry( "CH-CTNE" ); ?>
+
+                    <?php CreateFullEntry( "CH-CTV" ); ?>
+
                     <?php CreateFullEntry( "CH-OTV" ); ?>
 
                     <?php CreateFullEntry( "CH-TNW" ); ?>
+
+                    <?php CreateFullEntry( "CH-TV-BE+SO" ); ?>
+                    
+                    <?php CreateFullEntry( "CH-TVA" ); ?>
+
+                    <?php CreateFullEntry( "CH-TVF" ); ?>
+
+                    <?php CreateFullEntry( "CH-TVLU" ); ?>
+
+                    <?php CreateFullEntry( "CH-TVSZ" ); ?>
+
+                    <?php CreateFullEntry( "CH-TVZG" ); ?>
 
                     <?php CreateFullEntry( "CH-ZVV" ); ?>
                     
