@@ -46,7 +46,15 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;</td>
+                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;. Füge &#039;#&#039; als erstes Zeichen hinzu.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;. PTNA unterstützt die 16 definierten HTML Farben (VGA Farbpalette) und den HTML Hex Farben Code &#039;#......&#039;.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -190,7 +198,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Das Tag &#039;line&#039; (=&#039;%s&#039;) ist reserviert für &#039;power&#039; = &#039;line&#039; spezifisches Tagging. Für Public Transport werden &#039;route_master&#039; und &#039;route&#039; genutzt. </td>
+                <td class="message-text">Das Tag &#039;line&#039; (=&#039;%s&#039;) ist reserviert für &#039;power&#039; = &#039;line&#039; spezifisches Tagging. Für Public Transport werden &#039;route_master&#039; und &#039;route&#039; genutzt.</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -982,7 +990,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">&#045;&#045;check-access</td>
                 <td class="message-description"></td>
@@ -990,7 +998,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">&#045;&#045;check-access</td>
                 <td class="message-description"></td>

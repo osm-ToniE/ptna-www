@@ -22,7 +22,15 @@
         </thead>
         <tbody>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;</td>
+                <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. Add &#039;#&#039; as first character.</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image">&nbsp;</td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. PTNA supports the 16 well defined HTML colours (VGA Color Palettes) and the HTML Hex color code &#039;#......&#039;.</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
