@@ -30,7 +30,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. PTNA supports the 16 well defined HTML colours (VGA Color Palettes) and the HTML Hex color code &#039;#......&#039;.</td>
+                <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. Choose one of the 140 well defined HTML/CSS colour names or the HTML Hex colour codes &#039;#...&#039; or &#039;#......&#039;.</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
