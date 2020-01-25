@@ -998,7 +998,7 @@
                 <td class="message-image">&nbsp;</td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist.</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">&#045;&#045;check-access</td>
                 <td class="message-description"></td>
