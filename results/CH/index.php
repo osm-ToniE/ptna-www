@@ -80,8 +80,6 @@
                     
                     <?php CreateFullEntry( "CH-TVAG" ); ?>
 
-                    <?php CreateFullEntry( "CH-TVF" ); ?>
-
                     <?php CreateFullEntry( "CH-TVLU" ); ?>
 
                     <?php CreateFullEntry( "CH-TVOEng" ); ?>
