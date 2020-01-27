@@ -72,7 +72,7 @@
         if ( $time_utc && $time_local && $old_or_new && $filename && file_exists($filename) ) {
             echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-'.$old_or_new.'"><a href="'.$filename.'" title="show changes"><time datetime="'.$time_utc.'">'.$time_local.'</time></a></td>';
         } else {
-            echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-old">&nbsp;</time></td>';
+            echo '<td data-ref="'.$network.'-analyzed" class="results-analyzed-old">&nbsp;</td>';
         }
     }
     function PrintDiscussion( $network, $link, $name ) {
