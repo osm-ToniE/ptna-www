@@ -68,13 +68,13 @@
                         <th class="results-network">Verkehrsverbund</th>
                         <th class="results-datadate">Datum der Auswertung</th>
                         <th class="results-analyzed">Letzte Änderung</th>
-                        <th class="results-discussion">Diskussion</th>
+                        <th class="results-discussion">Konfiguration</th>
                         <th class="results-route">Linien</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "DE-Bahnverkehr" ); ?>
+                    <?php CreateNewFullEntry( "DE-Bahnverkehr", "de", "Konfiguration" ); ?>
 
                 </tbody>
             </table>
@@ -90,125 +90,125 @@
                         <th class="results-network">Verkehrsverbund</th>
                         <th class="results-datadate">Datum der Auswertung</th>
                         <th class="results-analyzed">Letzte Änderung</th>
-                        <th class="results-discussion">Diskussion</th>
+                        <th class="results-discussion">Konfiguration</th>
                         <th class="results-route">Linien</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "DE-BE-VBB" ); ?>
+                    <?php CreateNewFullEntry( "DE-BE-VBB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BW-bodo" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
                     
-                    <?php CreateFullEntry( "DE-BW-DING" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-DING", "de", "Konfiguration" ); ?>
                     
-                    <?php CreateFullEntry( "DE-BW-DING-SWU" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-DING-SWU", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BW-KV.SHA" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-KV.SHA", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BW-RVF" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-RVF", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BW-VHB" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BW-VVS" ); ?>
+                    <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-AVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-AVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-CBB" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-CBB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-DGF" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-DGF", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-FRG" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-FRG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-INVG" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-INVG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-LAVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-LAVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-MVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-MVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-PAF" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-PAF", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-RBA" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-RBA", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-RBO" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-RBO", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-REG" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-REG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-RVO" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-RVO", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-RVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-RVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VAB" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VAB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VBP-VLP" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VBP-VLP", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VGA" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VGA", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VGN" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VGN", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VGND" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VGND", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VGRI" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VGRI", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VLC" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VLC", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VLD" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VLD", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VLK" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VLK", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VLMÜ" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VLMÜ", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VSL" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VSL", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VVM-Mainfranken" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VVM-Mainfranken", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-BY-VVM-Mittelschwaben" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VVM-Mittelschwaben", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-HB-VBN" ); ?>
+                    <?php CreateNewFullEntry( "DE-HB-VBN", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-HE-NVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-HE-NVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-HE-RMV" ); ?>
+                    <?php CreateNewFullEntry( "DE-HE-RMV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-HH-HVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-HH-HVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-MV-MVVG" ); ?>
+                    <?php CreateNewFullEntry( "DE-MV-MVVG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-BVE" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-BVE", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-VEJ" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-VEJ", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-VGC" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-VGC", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-VGE" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-VGE", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-VOS" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-VOS", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NI-VRB" ); ?>
+                    <?php CreateNewFullEntry( "DE-NI-VRB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NW-AVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-NW-AVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NW-VRR" ); ?>
+                    <?php CreateNewFullEntry( "DE-NW-VRR", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NW-VRS" ); ?>
+                    <?php CreateNewFullEntry( "DE-NW-VRS", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-NW-WT" ); ?>
+                    <?php CreateNewFullEntry( "DE-NW-WT", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-RP-VRM" ); ?>
+                    <?php CreateNewFullEntry( "DE-RP-VRM", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-RP-VRN" ); ?>
+                    <?php CreateNewFullEntry( "DE-RP-VRN", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-RP-VRT" ); ?>
+                    <?php CreateNewFullEntry( "DE-RP-VRT", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-SH-NAH.SH" ); ?>
+                    <?php CreateNewFullEntry( "DE-SH-NAH.SH", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-SL-saarVV" ); ?>
+                    <?php CreateNewFullEntry( "DE-SL-saarVV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-SN-MDV" ); ?>
+                    <?php CreateNewFullEntry( "DE-SN-MDV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-SN-VMS" ); ?>
+                    <?php CreateNewFullEntry( "DE-SN-VMS", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "DE-ST-VTO" ); ?>
+                    <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
 
                 </tbody>
             </table>

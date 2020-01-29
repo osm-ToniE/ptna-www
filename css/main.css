@@ -10,6 +10,7 @@ table            { border-width: 1px; border-style: solid; border-collapse: coll
 th               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 td               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
+code             { font-weight: 500; font-size: 1.1em; }
 
 #headerblock {
   background: #eeeeee; 

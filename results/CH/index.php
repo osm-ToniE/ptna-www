@@ -72,23 +72,23 @@
 
                     <?php CreateFullEntry( "CH-CTV" ); ?>
 
-                    <?php CreateFullEntry( "CH-OTV" ); ?>
+                    <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-TNW" ); ?>
+                    <?php CreateNewFullEntry( "CH-TNW", "de", "Konfiguration" ); ?>
 
                     <?php CreateFullEntry( "CH-TV-BE+SO" ); ?>
                     
-                    <?php CreateFullEntry( "CH-TVAG" ); ?>
+                    <?php CreateNewFullEntry( "CH-TVAG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-TVLU" ); ?>
+                    <?php CreateNewFullEntry( "CH-TVLU", "de", "Konfiguration" ); ?>
 
                     <?php CreateFullEntry( "CH-TVOEng" ); ?>
 
-                    <?php CreateFullEntry( "CH-TVSZ" ); ?>
+                    <?php CreateNewFullEntry( "CH-TVSZ", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-TVZG" ); ?>
+                    <?php CreateNewFullEntry( "CH-TVZG", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-ZVV" ); ?>
+                    <?php CreateNewFullEntry( "CH-ZVV", "de", "Konfiguration" ); ?>
                     
                 </tbody>
             </table>

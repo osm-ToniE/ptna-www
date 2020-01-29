@@ -1,41 +1,6 @@
 <?php
-    $path_to_work  = '/osm/ptna/work/';
-    $details_hash  = [];
-    $filename_hash = [];
-
-    function ReadDetails( $network ) {
-        global $path_to_work;
-        global $details_hash;
-        global $filename_hash;
-
-        $prefixparts = explode( '-', $network );
-        $countrydir  = array_shift( $prefixparts );
-        if ( count($prefixparts) > 1 ) {
-            $subdir = array_shift( $prefixparts );
-            $details_filename  = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
-            $analysis_filename = $subdir . '/' . $network . '-Analysis.html';
-            $diff_filename     = $subdir . '/' . $network . '-Analysis.diff.html';
-        } else {
-            $details_filename  = $path_to_work . $countrydir . '/' . $network . '-Analysis-details.txt';
-            $analysis_filename = $network . '-Analysis.html';
-            $diff_filename     = $network . '-Analysis.diff.html';
-        }
-
-        $details_hash = [];
-        $details_hash['OLD_OR_NEW'] = 'old';
-        if ( file_exists($details_filename) ) {
-            $lines = file( $details_filename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
-            foreach ( $lines as $line ) {
-                list($key,$value)    = explode( '=', $line, 2 );
-                $key                 = rtrim(ltrim($key));
-                $details_hash[$key]  = rtrim(ltrim($value));
-            }
-        }
-        $filename_hash = [];
-        $filename_hash['DETAILS']  = $details_filename;
-        $filename_hash['ANALYSIS'] = $analysis_filename;
-        $filename_hash['DIFF']     = $diff_filename;
-    }
+    include('../../script/details.php');
+    
     function PrintAnalysis( $network, $filename ) {
         if ( $filename && file_exists($filename) ) {
             echo '<td data-ref="'.$network.'-name" class="results-name"><a href="'.$filename.'" title="analysis data">'.$network.'</a></td>';
@@ -45,7 +10,13 @@
     }
     function PrintRegion( $network, $link, $name ) {
         if ( $link && $name ) {
-            echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link.'" title="show on map">'.$name.'</a></td>';
+            $link_array = explode( '=', $link, 2 );
+            if ( count($link_array) > 1 ) {
+                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link_array[0].'='.urlencode(urldecode($link_array[1])).'" title="show on map">'.$name.'</a></td>';
+            } else {
+                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link.'" title="show on map">'.$name.'</a></td>';
+            }
+
         } else if ( $name ) {
             echo '<td data-ref="'.$network.'-region" class="results-region">'.$name.'</td>';
         } else {
@@ -83,6 +54,11 @@
         } else {
             echo '<td data-ref="'.$network.'-discussion" class="results-discussion">&nbsp;</td>';
         }
+    }
+    function PrintConfiguration( $network, $lang, $name ) {
+        if ( !isset($lang) ) { $lang = 'en'; }
+        if ( !isset($name) ) { $lang = 'Configuration'; }
+        echo '<td data-ref="'.$network.'-discussion" class="results-discussion"><a href="/'.$lang.'/config.php?network='.$network.'">'.$name.'</a></td>';
     }
     function PrintRoutes( $network, $link, $name ) {
         if ( $link && $name ) {
@@ -125,6 +101,31 @@
         PrintOldDate( $network, $details_hash['OLD_DATE_UTC'], $details_hash['OLD_DATE_LOC'], $details_hash['OLD_OR_NEW'], $filename_hash['DIFF'] );
         echo "\n                        ";
         PrintDiscussion( $network, $details_hash['DISCUSSION_LINK'], $details_hash['DISCUSSION_NAME'] );
+        echo "\n                        ";
+        PrintRoutes( $network, $details_hash['ROUTES_LINK'], $details_hash['ROUTES_NAME'] );
+        echo "\n";
+        echo '                    </tr>' . "\n";
+    }
+
+    function CreateNewFullEntry( $network, $lang, $name ) {
+        global $details_hash;
+        global $filename_hash;
+
+        ReadDetails( $network );
+
+        echo '<tr class="results-tablerow">';
+        echo "\n                        ";
+        PrintAnalysis( $network, $filename_hash['ANALYSIS'] );
+        echo "\n                        ";
+        PrintRegion( $network, $details_hash['REGION_LINK'], $details_hash['REGION_NAME'] );
+        echo "\n                        ";
+        PrintNetwork( $network, $details_hash['NETWORK_LINK'], $details_hash['NETWORK_NAME'] );
+        echo "\n                        ";
+        PrintNewDate( $network, $details_hash['NEW_DATE_UTC'], $details_hash['NEW_DATE_LOC'] );
+        echo "\n                        ";
+        PrintOldDate( $network, $details_hash['OLD_DATE_UTC'], $details_hash['OLD_DATE_LOC'], $details_hash['OLD_OR_NEW'], $filename_hash['DIFF'] );
+        echo "\n                        ";
+        PrintConfiguration( $network, $lang, $name );
         echo "\n                        ";
         PrintRoutes( $network, $details_hash['ROUTES_LINK'], $details_hash['ROUTES_NAME'] );
         echo "\n";
