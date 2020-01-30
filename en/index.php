@@ -75,8 +75,8 @@
                                     </ul>
                                 </li>
                                 <li><a href="#approach">Approach</a></li>
+                                <li><a href="#options">Analysis Options</a></li>
                                 <li><a href="#messages">Messages</a></li>
-                                <li><a href="#plannedmessages">Planned Messages</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -270,6 +270,29 @@
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
+	                <h4 id="searcharea">Definition of the search area</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+		            </div> <!-- searcharea -->
+
+		            <h4 id="searchdata">Seletion of relevant routes, ways and nodes</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+		            </div> <!-- searchdata -->
+		    
+		            <h4 id="searchoutput">Output of data</h4>
+                    <div class="indent">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+		            </div> <!-- searchoutput -->
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
                 </div> <!-- "overpass" -->
 
                 <h3 id="analysissettings">Definition of Analysis Options</h3>
@@ -419,25 +442,26 @@
                         </p>
                     </div> <!-- "approach" -->
      
+                    <h4 id="options">Analysis options</h4>
+                    <div class="indent">
+                        <p>
+                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                        </p>
+
+                        <!-- <?php include "option-table.inc" ?> -->
+
+                    </div> <!-- "options" -->
+      
                     <h4 id="messages">Messages</h4>
                     <div class="indent">
                         <p>
-                            <!-- See: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Momentane_Pr.C3.BCfungen">OSM Wiki</a> -->
+                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 
                         <?php include "message-table.inc" ?>
 
                     </div> <!-- "messages" -->
       
-                    <h4 id="plannedmessages">Planned Messages</h4>
-                    <div class="indent">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisici elit, …
-                        </p>
-                        <p>
-                            See: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Geplante_Pr.C3.BCfungen">OSM Wiki</a>
-                        </p>
-                    </div> <!-- "plannedmessages" -->
                 </div> <!-- "checks" -->
             </div> <!-- "analysis" -->
       
