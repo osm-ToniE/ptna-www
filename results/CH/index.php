@@ -56,7 +56,7 @@
                         <th class="results-network">Network</th>
                         <th class="results-datadate">Date of Analysis</th>
                         <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Konfiguration / Configuration / Configurazione</th>
+                        <th class="results-discussion">Konfiguration<br />Configuration<br />Configurazione</th>
                         <th class="results-route">Lines</th>
                     </tr>
                 </thead>
