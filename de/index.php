@@ -75,7 +75,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="#approach">Vorgehensweise</a></li>
-                                <li><a href="#options">Aswertungsoptionen</a></li>
+                                <li><a href="#options">Auswertungsoptionen</a></li>
                                 <li><a href="#messages">Meldungen</a></li>
                             </ul>
                         </li>
@@ -269,7 +269,7 @@
                     </p>
                     Die Abfrage selber gliedert sich in 3 große Teile:
 
-		    <h4 id="searcharea">Definition des Suchgebietesebietes</h4>
+		    <h4 id="searcharea">Definition des Suchgebietes</h4>
                     <div class="indent">
                         Folgenden Möglichkeiten gibt es:
                                 <ul>
