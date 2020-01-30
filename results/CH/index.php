@@ -56,33 +56,33 @@
                         <th class="results-network">Network</th>
                         <th class="results-datadate">Date of Analysis</th>
                         <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Discussion</th>
+                        <th class="results-discussion">Konfiguration / Configuration / Configurazione</th>
                         <th class="results-route">Lines</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "CH-CTGE" ); ?>
+                    <?php CreateNewFullEntry( "CH-CTGE", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "CH-CTIFR" ); ?>
+                    <?php CreateNewFullEntry( "CH-CTIFR", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "CH-CTM" ); ?>
+                    <?php CreateNewFullEntry( "CH-CTM", "it", "Configurazione" ); ?>
 
-                    <?php CreateFullEntry( "CH-CTNE" ); ?>
+                    <?php CreateNewFullEntry( "CH-CTNE", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "CH-CTV" ); ?>
+                    <?php CreateNewFullEntry( "CH-CTV", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TNW", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-TV-BE+SO" ); ?>
+                    <?php CreateNewFullEntry( "CH-TV-BE+SO", "de", "Konfiguration" ); ?>
                     
                     <?php CreateNewFullEntry( "CH-TVAG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TVLU", "de", "Konfiguration" ); ?>
 
-                    <?php CreateFullEntry( "CH-TVOEng" ); ?>
+                    <?php CreateNewFullEntry( "CH-TVOEng", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TVSZ", "de", "Konfiguration" ); ?>
 
