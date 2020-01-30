@@ -38,7 +38,7 @@
         </header>
 
         <nav id="navigation">
-            <h2 id="de">Configuration details <?php if ( $found ) { printf( "fpr %s", $_GET['network'] ); } ?></h2>
+            <h2 id="de">Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
             <ul>
                 <li><a href="#overpass-api">Overpass-API Query</a></li>
                 <li><a href="#options">Analysis options</a></li>
@@ -69,7 +69,7 @@
             <h2 id="options">Analysis options</h2>
 
             <p>
-                The output of errors and comments can be influenced by a variety of analysis options. <br />
+                The output of errors and comments can be controlled by a variety of analysis options. <br />
                 Here is a <a href="/en/index.php#messages">list of the error messages and comments</a>.<br />
             </p>
 
