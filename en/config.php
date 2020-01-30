@@ -57,10 +57,13 @@
                 Nodes, ways and relations (stops and platforms) and their tags can be checked against their 'role' in the relation.
             </p>
             
-            <?php if ( $found ) { 
-                      printf( "<p><code>%s</code></p>\n", htmlentities(GetOverpassQuery()) );
-                      printf( "<p>This query currently delivers approximately %.1f MB.\n</p>", GetOsmXmlFileSize() );
-                      printf( "<p>Show the search area on the <a href=\"%s\">OSM map</a>.</p>\n", GetRegionLink() );
+            <?php if ( $found ) {
+                      $query = htmlentities( GetOverpassQuery() );
+                      $fsize = GetOsmXmlFileSize();
+                      $rlink = GetRegionLink();
+                      if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
+                      if ( $fsize ) { printf( "<p>This query currently delivers approximately %.1f MB.\n</p>", $fsize ); }
+                      if ( $rlink ) { printf( "<p>Show the search area on the <a href=\"%s\">OSM map</a>.</p>\n", $rlink ); }
                   }
             ?>
 
