@@ -57,13 +57,13 @@
                         <th class="results-network">Asociación de transporte</th>
                         <th class="results-datadate">Fecha de análisis</th>
                         <th class="results-analyzed">Cambios recientes</th>
-                        <th class="results-discussion">Discusiones</th>
+                        <th class="results-discussion">Configuración</th>
                         <th class="results-route">Líneas</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "NI-MN-IRTRAMMA" ); ?>
+                    <?php CreateNewFullEntry( "NI-MN-IRTRAMMA", "es", "Configuración" ); ?>
 
                 </tbody>
             </table>
