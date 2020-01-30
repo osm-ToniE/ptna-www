@@ -56,13 +56,13 @@
                         <th class="results-network">Network</th>
                         <th class="results-datadate">Date of Analysis</th>
                         <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Discussion</th>
+                        <th class="results-discussion">Configuration</th>
                         <th class="results-route">Lines</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "EU-Flixbus" ); ?>
+                    <?php CreateNewFullEntry( "EU-Flixbus", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
