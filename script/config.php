@@ -105,7 +105,11 @@
     
     function GetOsmXmlFileSize() {
         global $details_hash;
-        return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
+        if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
+            return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
+        } else {
+            return 0;
+        }
     }
     
     function GetOsmXmlFileDate() {
