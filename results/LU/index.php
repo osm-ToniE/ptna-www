@@ -56,21 +56,21 @@
                         <th class="results-network">Network</th>
                         <th class="results-datadate">Date of Analysis</th>
                         <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Discussion</th>
+                        <th class="results-discussion">Configuration</th>
                         <th class="results-route">Lines</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry( "LU-AVL" ); ?>
+                    <?php CreateNewFullEntry( "LU-AVL", "en", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "LU-CFL" ); ?>
+                    <?php CreateNewFullEntry( "LU-CFL", "en", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "LU-Luxtram" ); ?>
+                    <?php CreateNewFullEntry( "LU-Luxtram", "en", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "LU-RGTR" ); ?>
+                    <?php CreateNewFullEntry( "LU-RGTR", "en", "Configuration" ); ?>
 
-                    <?php CreateFullEntry( "LU-TICE" ); ?>
+                    <?php CreateNewFullEntry( "LU-TICE", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
