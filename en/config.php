@@ -52,7 +52,7 @@
             <h2 id="overpass-api">Overpass-API Query</h2>
             <p>
                 The <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">Overpass API</a> is used to download the OSM data.
-                <a href="/en/index.php#overpass">The query used</a> returns all ways and nodes of the routes (their members with their details) from a defined search area.
+                <a href="/en/index.php#overpass">The query used</a> returns all ways and nodes of the routes (their members with their details) from a defined <a href="/en/index.php#searcharea">search area</a>.
                 The data thus obtained allow an analysis of the public transport lines to the effect that e.g. the route can also be checked for completeness.
                 Nodes, ways and relations (stops and platforms) and their tags can be checked against their 'role' in the relation.
             </p>
@@ -73,7 +73,7 @@
 
             <p>
                 The output of <a href="/en/index.php#messages">errors and comments</a> can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
-                Here is a list of analysis options adn their values.<br />
+                Here is a list of analysis options and their values.<br />
             </p>
 
             <table id="message-table">
