@@ -69,7 +69,11 @@
                     }
                 }
             }
+            
+            return 1;
         }
+        
+        return 0;
         
     }
     
@@ -127,22 +131,18 @@
     function PrintOptionDetails( $lang ) {
         global $options_hash;
         
-        ReadOptionDetails();
+        if ( ReadOptionDetails() ) {
         
-        if ( !isset($lang) ) { $lang = 'en'; }
+            if ( !isset($lang) ) { $lang = 'en'; }
         
-        foreach ( $options_hash as $option => $value ) {
-            printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
-            $value = htmlentities($value);
-            printf( "<a href=\"/%s/index.php#option-%s\">%s</a></td>", $lang, $option, $option );
-            printf( "<td class=\"message-option\">%s</td></tr>\n", $value );
+            foreach ( $options_hash as $option => $value ) {
+                printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
+                $value = htmlentities($value);
+                printf( "<a href=\"/%s/index.php#option-%s\">%s</a></td>", $lang, $option, $option );
+                printf( "<td class=\"message-option\">%s</td></tr>\n", $value );
+            }
         }
     }
-    
-
-        
-
-
 
 ?>
 
