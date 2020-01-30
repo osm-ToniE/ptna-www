@@ -38,7 +38,7 @@
         </header>
 
         <nav id="navigation">
-            <h2 id="de"><img src="img/GreatBritain16.png" alt="Union Jack" /> Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
+            <h2 id="de"><img src="/img/GreatBritain16.png" alt="Union Jack" /> Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
             <ul>
                 <li><a href="#overpass-api">Overpass-API Query</a></li>
                 <li><a href="#options">Analysis options</a></li>
