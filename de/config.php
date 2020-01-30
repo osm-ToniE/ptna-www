@@ -52,15 +52,18 @@
             <h2 id="overpass-api">Overpass-API Abfrage</h2>
             <p>
                 Für den Download der OSM-Daten wird das <a href="https://wiki.openstreetmap.org/wiki/DE:Overpass_API">Overpass-API</a> verwendet.
-                <a href="/de/index.php#overpass">Die verwendete Abfrage</a> liefert alle Ways und Nodes der Routen (deren Member mit ihren Details) aus einem definierten Suchgebiet.
+                <a href="/de/index.php#overpass">Die verwendete Abfrage</a> liefert alle Ways und Nodes der Routen (deren Member mit ihren Details) aus einem definierten <a href="/de/index.php#searcharea">Suchgebiet</a>.
                 Die so erhaltenen Daten erlauben eine Analyse der ÖPNV-Linien dahingehend, dass z.B. auch die Wegstrecke auf Vollständigkeit geprüft werden kann.
                 Nodes, Ways und Relationen (Stops und Platforms) und deren Tags können gegen deren Rolle 'role' in der Relation geprüft werden.
             </p>
             
             <?php if ( $found ) { 
-                      printf( "<p><code>%s</code></p>\n", htmlentities(GetOverpassQuery()) );
-                      printf( "<p>Diese Abfrage liefert derzeit etwa %.1f MB.\n</p>", GetOsmXmlFileSize() );
-                      printf( "<p>Das Suchgebiet auf der <a href=\"%s\">OSM-Karte</a> anzeigen.</p>\n", GetRegionLink() );
+                      $query = htmlentities( GetOverpassQuery() );
+                      $fsize = GetOsmXmlFileSize();
+                      $rlink = GetRegionLink();
+                      if ( $query ) { printf( "<p><code>%s</code></p>\n", $query );
+                      if ( $fsize ) { printf( "<p>Diese Abfrage liefert derzeit etwa %.1f MB.\n</p>", $fsize );
+                      if ( $rlink ) { printf( "<p>Das Suchgebiet auf der <a href=\"%s\">OSM-Karte</a> anzeigen.</p>\n", $rlink );
                   }
             ?>
 
@@ -69,8 +72,8 @@
             <h2 id="options">Auswertungsoptionen</h2>
 
             <p>
-                Die Ausgabe von Fehlern und Anmerkungen kann durch eine Vielzahl von Auswertungsoptionen beeinflusst werden.<br />
-                Hier ist eine <a href="/de/index.php#messages">Auflistung der Texte der Fehlermeldungen und Anmerkungen</a>.<br />
+                Die Ausgabe von <a href="/de/index.php#messages">Fehlern und Anmerkungen</a> kann durch eine Vielzahl von <a href="/de/index.php#options">Auswertungsoptionen</a> beeinflusst werden.<br />
+                Hier ist eine Auflistung der Auswertungsoptionen und deren Werte.<br />
             </p>
  
             <table id="message-table">
