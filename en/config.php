@@ -72,8 +72,8 @@
             <h2 id="options">Analysis options</h2>
 
             <p>
-                The output of errors and comments can be controlled by a variety of analysis options. <br />
-                Here is a <a href="/en/index.php#messages">list of the error messages and comments</a>.<br />
+                The output of <a href="/en/index.php#messages">errors and comments</a> can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
+                Here is a list of analysis options adn their values.<br />
             </p>
 
             <table id="message-table">
