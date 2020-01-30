@@ -57,123 +57,123 @@
                         <th class="results-network">Réseau</th>
                         <th class="results-datadate">Date de l'Analyse</th>
                         <th class="results-analyzed">Dernière Modification</th>
-                        <th class="results-discussion">Discussion</th>
+                        <th class="results-discussion">Configuration</th>
                         <th class="results-route">Lignes</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <?php CreateFullEntry("FR-IDF-aerial"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-aerial", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-albatrans"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-albatrans", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-apolo-7"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-apolo-7", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-arlequin"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-arlequin", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-bus-en-seine"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-bus-en-seine", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-busval-d-oise"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-busval-d-oise", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-cars-moreau"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-cars-moreau", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-ceat"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-ceat", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-cif"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-cif", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-com-bus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-com-bus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-comete"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-comete", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-cso"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-cso", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-entre-seine-et-foret"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-entre-seine-et-foret", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-fileo"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-fileo", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-goelys"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-goelys", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-houdanais"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-houdanais", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-hourtoule"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-hourtoule", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-lacroix"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-lacroix", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-les-cars-bleus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-les-cars-bleus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-melibus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-melibus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-mobicaps"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-mobicaps", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-noctilien"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-noctilien", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-ormont-transport"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-ormont-transport", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-Peps"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-Peps", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-paladin"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-paladin", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-parisis"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-parisis", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-pays-crecois"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-pays-crecois", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-pays-de-l-ourcq"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-pays-de-l-ourcq", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-pays-de-meaux"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-pays-de-meaux", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-pays-fertois"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-pays-fertois", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-phebus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-phebus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-poissy-aval-deux-rives-de-seine"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-poissy-aval-deux-rives-de-seine", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-procars"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-procars", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-r-bus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-r-bus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-rambouillet-interurbain"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-rambouillet-interurbain", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-reseau-du-canton-de-perthes"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-reseau-du-canton-de-perthes", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-savac"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-savac", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-seine-et-marne-express"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-seine-et-marne-express", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-seine-saint-denis"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-seine-saint-denis", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-seine-senart-bus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-seine-senart-bus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-senart-bus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-senart-bus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-situs"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-situs", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-siyonne"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-siyonne", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-sol-r"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-sol-r", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-sqybus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-sqybus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-still"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-still", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-stivo"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-stivo", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-tam"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-tam", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-tice"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-tice", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-tramy"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-tramy", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-trans-essonne"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-trans-essonne", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-transdev-ile-de-france-conflans"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-transdev-ile-de-france-conflans", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-transports-daniel-meyer"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-transports-daniel-meyer", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-val-de-seine"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-val-de-seine", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-vybus"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-vybus", "fr", "Configuration" ); ?>
 
-                    <?php CreateFullEntry("FR-IDF-yerres"); ?>
+                    <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
 
                 </tbody>
             </table>
