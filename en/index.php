@@ -422,7 +422,7 @@
                              Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 
-                        <!-- <?php include "option-table.inc" ?> -->
+                        <?php include "option-table.inc" ?>
 
                     </div> <!-- "options" -->
       
