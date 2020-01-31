@@ -71,7 +71,6 @@
                           if ( $edate ) { printf( "<br />Download beendet&nbsp;&nbsp;: %s\n", $edate ); }
                           printf( "</p>", $fsize );
                       }
-                      if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                       if ( $rlink ) { 
                           printf( "<p>Das <a href=\"/de/index.php#searcharea\">Suchgebiet</a> " );
                           if ( $rname ) { printf( "\"%s\" ", $rname ); }
