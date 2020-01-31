@@ -51,7 +51,7 @@
 
             <h2 id="overpass-api">Consulta de API Overpass</h2>
             <p>
-                A <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">API Overpass</a> é usada para baixar os dados do OSM.
+                A <a href="https://wiki.openstreetmap.org/wiki/Pt:API_de_Overpass">API Overpass</a> é usada para baixar os dados do OSM.
                 <a href="/en/index.php#overpass">A consulta usada</a> retorna todas as formas e nós das rotas (seus membros com seus detalhes) de um <a href="/en/index.php#searcharea">área de pesquisa</a>.
                 Os dados assim obtidos permitem uma análise das linhas de transporte público para o efeito que, por exemplo, a rota também pode ser verificada quanto à integridade.
                 Nós, formas e relações (paradas e plataformas) e suas tags podem ser verificados em relação ao seu 'papel' na relação.
