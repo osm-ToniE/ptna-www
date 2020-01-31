@@ -60,17 +60,10 @@
             <?php if ( $found ) { 
                       $query = htmlentities( GetOverpassQuery() );
                       $fsize = GetOsmXmlFileSize();
-                      $sdate = GetStartDownloadDate();
-                      $edate = GetEndDownloadDate();
                       $rlink = GetRegionLink();
                       $rname = GetRegionName();
                       if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
-                      if ( $fsize ) { 
-                          printf( "<p>Diese Abfrage liefert derzeit etwa %.1f MB.\n", $fsize );
-                          if ( $sdate ) { printf( "<br />Download gestartet: %s\n", $sdate ); }
-                          if ( $edate ) { printf( "<br />Download beendet&nbsp;&nbsp;: %s\n", $edate ); }
-                          printf( "</p>", $fsize );
-                      }
+                      if ( $fsize ) { printf( "<p>Diese Abfrage liefert derzeit etwa %.1f MB.</p>\n", $fsize ); }
                       if ( $rlink ) { 
                           printf( "<p>Das <a href=\"/de/index.php#searcharea\">Suchgebiet</a> " );
                           if ( $rname ) { printf( "\"%s\" ", $rname ); }
