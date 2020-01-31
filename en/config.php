@@ -72,7 +72,7 @@
             <h2 id="options">Analysis options</h2>
 
             <p>
-                The output of <a href="/en/index.php#messages">errors and comments</a> can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
+                The <a href="/en/index.php#messages">errors and comments</a> reported by PTNA can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
                 Here is a list of analysis options and their values.<br />
             </p>
 
