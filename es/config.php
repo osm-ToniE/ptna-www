@@ -40,7 +40,7 @@
         <nav id="navigation">
             <h2 id="de">Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
             <ul>
-                <li><a href="#overpass-api">Consulta API Overpass</a></li>
+                <li><a href="#overpass-api">Consulta API de Overpass</a></li>
                 <li><a href="#options">Opciones de análisis</a></li>
              </ul>
         </nav>
@@ -49,9 +49,9 @@
 
         <main id="main" class="results">
 
-            <h2 id="overpass-api">Consulta API Overpass</h2>
+            <h2 id="overpass-api">Consulta API de Overpass</h2>
             <p>
-                La <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">Overpass API</a> se usa para descargar los datos de OSM.
+                La <a href="https://wiki.openstreetmap.org/wiki/ES:API_de_Overpass">Overpass de API</a> se usa para descargar los datos de OSM.
                 <a href="/en/index.php#overpass">La consulta utilizada</a> devuelve todas las formas y nodos de las rutas (sus miembros con sus detalles) desde un <a href="/en/index.php#searcharea"> área de búsqueda</a>.
                 Los datos así obtenidos permiten un análisis de las líneas de transporte público en el sentido de que, p. la ruta también se puede verificar para completar.
                 Los nodos, formas y relaciones (paradas y plataformas) y sus etiquetas pueden verificarse con respecto a su 'rol' en la relación.
