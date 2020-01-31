@@ -101,7 +101,7 @@
                 Obtenez le code source via <a href="https://github.com/osm-ToniE"> GitHub </a>.
             </p>
             <p>
-                Cette page a été traduite avec l'aide de Google translate. Les commentaires pour améliorer la traduction sont les bienvenus.
+                Cette page a été traduite avec l'aide de Google translate. Les commentaires pour améliorer la traduction sont bienvenus.
             </p>
         </footer>
 
