@@ -151,8 +151,8 @@
                 <td class="message-description"></td>
                 <td class="message-image"></td>
             </tr>
-            <tr class="message-tablerow" id="option-multiperef-type-entries">
-                <td class="message-option">multiperef-type-entries</td>
+            <tr class="message-tablerow" id="option-multiple-ref-type-entries">
+                <td class="message-option">multiple-ref-type-entries</td>
                 <td class="message-default">analyze</td>
                 <td class="message-description">allow|analyze|no</td>
                 <td class="message-image"></td>
