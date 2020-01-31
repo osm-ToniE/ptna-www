@@ -26,7 +26,7 @@
 
             <hr />
 
-            <h3 id="bahnverkehr">Bahnverkehr in Deutschland</h3>
+            <h2 id="bahnverkehr">Bahnverkehr in Deutschland</h2>
             <table id="networksDEBahn">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
@@ -40,7 +40,7 @@
 
             <hr />
 
-            <h3 id="verkehrsverbuende">Verkehrsverbünde in Deutschland</h3>
+            <h2 id="verkehrsverbuende">Verkehrsverbünde in Deutschland</h2>
             <table id="networksDEVerbund">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
