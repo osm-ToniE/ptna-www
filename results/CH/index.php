@@ -1,76 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>PTNA - Results</title>
-        <meta name="generator" content="PTNA" />
-        <meta name="keywords" content="OSM Public Transport PTv2" />
-        <meta name="description" content="PTNA - Results of the Analysis of various Networks" />
-        <meta name="robots" content="noindex,nofollow" />
-        <link rel="stylesheet" href="/css/main.css" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
-        <?php include('../../script/entries.php'); ?>
-    </head>
+
+<?php $inc_lang='../../en/'; include $inc_lang.'html-head.inc'; ?>
+
+<?php include('../../script/entries.php'); ?>
+
     <body>
       <div id="wrapper">
-        <header id="headerblock">
-            <div id="headerimg" class="logo">
-                <a href="/"><img src="/img/logo.png" alt="logo" /></a>
-            </div>
-            <div id="headertext">
-                <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Static Analysis for OpenStreetMap</h2>
-            </div>
-            <div id="headernav">
-                <a href="/">Home</a> |
-                <a href="/contact.html">Contact</a> |
-                <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
-                <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
-                <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
-                <a href="/de/index.html" title="deutsch"><img src="/img/Germany16.png" alt="deutsche Flagge" /></a>
-                <!-- <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="Tricolore Française" /></a> -->
-            </div>
-        </header>
+      
+<?php include $inc_lang.'header.inc' ?>
+
+        <nav id="navigation">
+            <h2 id="CH"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Schweiz / Suisse / Svizzera</h2>
+            <ul>
+                <li><a href="#CH-de">Ergebnisse für die deutsch-sprachige Schweiz</a></li>
+                <li><a href="#CH-fr">Résultats pour la Suisse romande</a></li>
+                <li><a href="#CH-it">Risultati per la Svizzera italiana</a></li>
+             </ul>
+        </nav>
+
+        <hr />
 
         <main id="main" class="results">
 
-            <h2 id="DE"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Results for Switzerland </h2>
-            <p>
-                The first column includes a link to the results of the analysis.
-            </p>
-            <p>
-                The column "Latest Changes" links to an HTML page which shows the differences to the last analysis results.
-                These are coloured, you can use navigation buttons <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> at the bottom right or the characters 'j' (forward) and 'k' (backward) to jump from difference to difference.
-                This column includes the date of the last analysis where relevant changes have emerged.
-                Older dates mean that there were no changes in the results. Nevertheless, the data has been analyzed as denoted in the column "Date of Analysis".
-            </p>
+            <h2 id="CH-de"><img src="/img/Germany16.png" alt="deutsche Flagge" /> Ergebnisse für die deutsch-sprachige Schweiz</h2>
 
-            <table id="networksCH">
+<?php $inc_lang='../../de/'; include $inc_lang.'results-head.inc' ?>
+
+            <table id="networksCH-de">
                 <thead>
-                    <tr class="results-tableheaderrow">
-                        <th class="results-name">Name</th>
-                        <th class="results-region">City/Region</th>
-                        <th class="results-network">Network</th>
-                        <th class="results-datadate">Date of Analysis</th>
-                        <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Konfiguration<br />Configuration<br />Configurazione</th>
-                        <th class="results-route">Lines</th>
-                    </tr>
+<?php $inc_lang='../../de/'; include $inc_lang.'results-trth.inc' ?>
                 </thead>
                 <tbody>
-
-                    <?php CreateNewFullEntry( "CH-CTGE", "fr", "Configuration" ); ?>
-
-                    <?php CreateNewFullEntry( "CH-CTIFR", "fr", "Configuration" ); ?>
-
-                    <?php CreateNewFullEntry( "CH-CTM", "it", "Configurazione" ); ?>
-
-                    <?php CreateNewFullEntry( "CH-CTNE", "fr", "Configuration" ); ?>
-
-                    <?php CreateNewFullEntry( "CH-CTV", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
 
@@ -93,18 +54,61 @@
                 </tbody>
             </table>
 
+            <hr />
+            
+            <h2 id="CH-fr"><img src="/img/France16.png" alt="La France" /> Résultats pour la Suisse romande</h2>
+
+<?php $inc_lang='../../fr/'; include $inc_lang.'results-head.inc' ?>
+
+            <table id="networksCH-fr">
+                <thead>
+<?php $inc_lang='../../fr/'; include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
+
+                    <?php CreateNewFullEntry( "CH-CTGE", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry( "CH-CTIFR", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry( "CH-CTNE", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry( "CH-CTV", "fr", "Configuration" ); ?>
+
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="CH-it"><img src="/img/Italy16.png" alt="Italia" /> Risultati per la Svizzera italiana</h2>
+
+<?php $inc_lang='../../it/'; include $inc_lang.'results-head.inc' ?>
+
+            <table id="networksCH-it">
+                <thead>
+<?php $inc_lang='../../it/'; include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
+
+                    <?php CreateNewFullEntry( "CH-CTM", "it", "Configurazione" ); ?>
+                    
+                </tbody>
+            </table>
+
         </main> <!-- main -->
+
+        <br />
+        <hr />
+        <br />
+
+<?php $inc_lang='../../de/'; include $inc_lang.'footer.inc' ?>
 
         <hr />
 
-        <footer id="footer">
-            <p>
-                All geographic data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
-            </p>
-            <p>
-                This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl.html">GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Get the source code via <a href="https://github.com/osm-ToniE">GitHub</a>.
-            </p>
-        </footer>
+<?php $inc_lang='../../fr/'; include $inc_lang.'footer.inc' ?>
+
+        <hr />
+
+<?php $inc_lang='../../it/'; include $inc_lang.'footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>

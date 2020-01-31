@@ -1,0 +1,14 @@
+        <footer id="footer-es">
+            <p>
+                Todos los datos geográficos <a href="https://www.openstreetmap.org/copyright">© colaboradores de OpenStreetMap</a>.
+            </p>
+            <p>
+                Este programa es software libre: puede redistribuirlo y / o modificarlo bajo los términos de la <a href="https://www.gnu.org/licenses/gpl.html">LICENCIA PÚBLICA GENERAL GNU, Versión 3, 29 de junio de 2007</a> según lo publicado por la Free Software Foundation, ya sea la versión 3 de la Licencia o (a su elección) cualquier versión posterior.
+                Obtenga el código fuente a través de <a href="https://github.com/osm-ToniE">GitHub</a>.
+            </p>
+            <p>
+                Esta página ha sido traducida al español con la ayuda de Google translate.
+                Los comentarios para mejorar la traducción son bienvenidos.
+            </p>
+        </footer>
+

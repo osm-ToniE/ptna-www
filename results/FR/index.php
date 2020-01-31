@@ -1,65 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <title>PTNA - Results</title>
-        <meta name="generator" content="PTNA" />
-        <meta name="keywords" content="OSM Public Transport PTv2" />
-        <meta name="description" content="PTNA - Results of the Analysis of various Networks" />
-        <meta name="robots" content="noindex,nofollow" />
-        <link rel="stylesheet" href="/css/main.css" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
-        <?php include('../../script/entries.php'); ?>
-    </head>
+
+<?php $inc_lang='../../fr/'; include $inc_lang.'html-head.inc'; ?>
+
+<?php include('../../script/entries.php'); ?>
+
     <body>
       <div id="wrapper">
-        <header id="headerblock">
-            <div id="headerimg" class="logo">
-                <a href="/"><img src="/img/logo.png" alt="logo" /></a>
-            </div>
-            <div id="headertext">
-                <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Analyse statique pour OpenStreetMap</h2>
-            </div>
-            <div id="headernav">
-                <a href="/">Home</a> |
-                <a href="/contact.html">Contact</a> |
-                <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
-                <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
-                <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
-                <a href="/de/index.html" title="deutsch"><img src="/img/Germany16.png" alt="deutsche Flagge" /></a>
-                <!-- <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="Tricolore Française" /></a> -->
-            </div>
-        </header>
+      
+<?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="FR"><img src="/img/France32.png" alt="Tricolore Française" /> Des Résultats pour la France</h2>
-            <p>
-                La première colonne comprend des liens vers les résultats de l'analyse.
-            </p>
-            <p>
-                La colonne "Dernière modification" renvoie aux pages HTML indiquant les différences par rapport aux derniers résultats d'analyse.
-                Celles-ci sont colorées, vous pouvez utiliser les boutons de navigation <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> en bas à droite ou les caractères 'j' (avant) et 'k' (arrière) pour passer de différence á différence.
-                Cette colonne comprend la date de la dernière analyse où des changements pertinents sont apparus.
-                Les dates plus anciennes signifient qu'il n'y a pas eu de changement dans les résultats.
-                Néanmoins, les données ont été analysées comme indiqué dans la colonne "Date de l'analyse".
-            </p>
+
+<?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksFR">
                 <thead>
-                    <tr class="results-tableheaderrow">
-                        <th class="results-name">Nom</th>
-                        <th class="results-region">Ville / Départment / Région</th>
-                        <th class="results-network">Réseau</th>
-                        <th class="results-datadate">Date de l'Analyse</th>
-                        <th class="results-analyzed">Dernière Modification</th>
-                        <th class="results-discussion">Configuration</th>
-                        <th class="results-route">Lignes</th>
-                    </tr>
+<?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
                 <tbody>
 
@@ -182,18 +141,7 @@
 
         <hr />
 
-        <footer id="footer">
-            <p>
-                Toutes les données géographiques <a href="https://www.openstreetmap.org/copyright"> © OpenStreetMap contributors </a>.
-            </p>
-            <p>
-                Ce programme est un logiciel libre: vous pouvez le redistribuer et / ou le modifier selon les termes de la <a href="https://www.gnu.org/licenses/gpl.html"> LICENCE PUBLIQUE GÉNÉRALE GNU, Version 3, 29 juin 2007 </a> telle que publiée par la Free Software Foundation, version 3 de la licence ou (à votre choix) toute version ultérieure.
-                Obtenez le code source via <a href="https://github.com/osm-ToniE"> GitHub </a>.
-            </p>
-            <p>
-                Cette page a été traduite avec l'aide de Google translate. Les commentaires pour améliorer la traduction sont bienvenus.
-            </p>
-        </footer>
+<?php include $inc_lang.'footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>
