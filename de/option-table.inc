@@ -67,6 +67,12 @@
                 <td class="message-description"></td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-roundabouts">
+                <td class="message-option">check-roundabouts</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description"></td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-check-route-ref">
                 <td class="message-option">check-route-ref</td>
                 <td class="message-default">OFF</td>
@@ -75,12 +81,6 @@
             </tr>
             <tr class="message-tablerow" id="option-check-sequence">
                 <td class="message-option">check-sequence</td>
-                <td class="message-default">OFF</td>
-                <td class="message-description"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow" id="option-check-soundabouts">
-                <td class="message-option">check-soundabouts</td>
                 <td class="message-default">OFF</td>
                 <td class="message-description"></td>
                 <td class="message-image"></td>
