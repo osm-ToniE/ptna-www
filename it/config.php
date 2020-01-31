@@ -61,9 +61,14 @@
                       $query = htmlentities( GetOverpassQuery() );
                       $fsize = GetOsmXmlFileSize();
                       $rlink = GetRegionLink();
+                      $rname = htmlentities( GetRegionName() );
                       if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                       if ( $fsize ) { printf( "<p>Questa query attualmente recapita approssimativamente %.1f MB.\n</p>", $fsize ); }
-                      if ( $rlink ) { printf( "<p>Mostra l'area di ricerca sulla <a href=\"%s\">mappa OSM</a>.</p>\n", $rlink ); }
+                      if ( $rlink ) { 
+                          printf( "<p>Mostra <a href=\"/de/index.php#searcharea\">l'area di ricerca</a> " );
+                          if ( $rname ) { printf( "\"%s\" ", $rname ); }
+                          printf( "sulla <a href=\"%s\">mappa OSM</a>.</p>\n", $rlink );
+                      }
                   }
             ?>
 
