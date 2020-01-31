@@ -38,7 +38,7 @@
         </header>
 
         <nav id="navigation">
-            <h2 id="de">Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
+            <h2 id="es">Detalles de configuración <?php if ( $found ) { printf( "para %s", $_GET['network'] ); } ?></h2>
             <ul>
                 <li><a href="#overpass-api">Consulta API de Overpass</a></li>
                 <li><a href="#options">Opciones de análisis</a></li>
