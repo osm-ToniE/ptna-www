@@ -189,8 +189,8 @@
             </tr>
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
-                <td class="message-default">allow|no|show</td>
-                <td class="message-description"></td>
+                <td class="message-default">no</td>
+                <td class="message-description">allow|no|show</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">
@@ -219,7 +219,7 @@
             </tr>
             <tr class="message-tablerow" id="option-strict-operator">
                 <td class="message-option">strict-operator</td>
-                <td class="message-default">en</td>
+                <td class="message-default">OFF</td>
                 <td class="message-description"></td>
                 <td class="message-image"></td>
             </tr>
