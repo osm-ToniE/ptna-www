@@ -61,7 +61,7 @@
                       $query = htmlentities( GetOverpassQuery() );
                       $fsize = GetOsmXmlFileSize();
                       $rlink = GetRegionLink();
-                      $rname = GetRegionName();
+                      $rname = htmlentities( GetRegionName() );
                       if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                       if ( $fsize ) { printf( "<p>Diese Abfrage liefert derzeit etwa %.1f MB.</p>\n", $fsize ); }
                       if ( $rlink ) { 
