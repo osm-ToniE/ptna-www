@@ -103,33 +103,60 @@
         return( '' );
     }
     
+    function GetRegionName() {
+        global $details_hash;
+        if ( isset($details_hash['REGION_NAME']) ) {
+            return( $details_hash['REGION_NAME'] );
+        }
+        return( '' );
+    }
+    
     function GetOsmXmlFileSize() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
             return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
-        } else {
-            return 0;
         }
+        return( '' );
     }
     
     function GetOsmXmlFileDate() {
         global $details_hash;
+        if ( isset($details_hash['OSM_XML_FILE_DATE']) ) {
+            return( $details_hash['OSM_XML_FILE_DATE'] );
+        }
+        return( '' );
     }
     
     function GetStartDownloadDate() {
         global $details_hash;
+        if ( isset($details_hash['START_DOWNLOAD']) ) {
+            return( $details_hash['START_DOWNLOAD'] );
+        }
+        return( '' );
     }
     
     function GetEndDownloadDate() {
         global $details_hash;
+        if ( isset($details_hash['END_DOWNLOAD']) ) {
+            return( $details_hash['END_DOWNLOAD'] );
+        }
+        return( '' );
     }
     
     function GetStartAnalysisDate() {
         global $details_hash;
+        if ( isset($details_hash['START_ANALYSIS']) ) {
+            return( $details_hash['START_ANALYSIS'] );
+        }
+        return( '' );
     }
     
     function GetEndAnalysisDate() {
         global $details_hash;
+        if ( isset($details_hash['END_ANALYSIS']) ) {
+            return( $details_hash['END_ANALYSIS'] );
+        }
+        return( '' );
     }
     
     function PrintOptionDetails( $lang ) {
