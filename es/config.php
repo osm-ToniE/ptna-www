@@ -72,7 +72,7 @@
             <h2 id="options">Opciones de análisis</h2>
 
             <p>
-                El contenido de <a href="/en/index.php#messages">errores y comentarios</a> puede controlarse mediante una variedad de <a href="/en/index.php#options">opciones de análisis< / a>. <br />
+                Los <a href="/en/index.php#messages">errores y comentarios</a> puede controlarse mediante una variedad de <a href="/en/index.php#options">opciones de análisis< / a>. <br />
                 Aquí hay una lista de opciones de análisis y sus valores.<br />
             </p>
 
