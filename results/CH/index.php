@@ -96,9 +96,7 @@
 
         </main> <!-- main -->
 
-        <br />
         <hr />
-        <br />
 
 <?php $inc_lang='../../de/'; include $inc_lang.'footer.inc' ?>
 
