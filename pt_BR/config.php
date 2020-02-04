@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html lang="pt">
 
 <?php include('html-head.inc'); ?>
 
