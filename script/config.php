@@ -77,6 +77,25 @@
         
     }
     
+    function GetAllNetworks() {
+        global $path_to_work;
+        $networks = [];
+        $files  = glob( $path_to_work."*/*-details.txt" );
+        foreach ( $files as $file ) {
+            $filename = basename( $file );
+            $filename = str_replace( "-Analysis-details.txt", "", $filename );
+            array_push( $networks, $filename );
+        }
+        $files = glob( $path_to_work."*/*/*-details.txt" );
+        foreach ( $files as $file ) {
+            $filename = basename( $file );
+            $filename = str_replace( "-Analysis-details.txt", "", $filename );
+            array_push( $networks, $filename );
+        }
+        sort( $networks );
+        return( $networks );
+    }
+    
     function GetOverpassQuery() {
         global $details_hash;
         if ( isset($details_hash['OVERPASS_QUERY']) ) {
@@ -107,6 +126,14 @@
         global $details_hash;
         if ( isset($details_hash['REGION_NAME']) ) {
             return( $details_hash['REGION_NAME'] );
+        }
+        return( '' );
+    }
+    
+    function GetOsmXmlFileName() {
+        global $details_hash;
+        if ( isset($details_hash['OSM_XML_FILE']) ) {
+            return( $details_hash['OSM_XML_FILE'] );
         }
         return( '' );
     }

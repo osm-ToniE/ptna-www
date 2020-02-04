@@ -456,7 +456,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: befährt %d kompletten Kreisverkehr von dem aber nur Teile benutzt werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">check-sequence<br />&#045;&#045;check-roundabout</td>
+                <td class="message-option">check-sequence check-roundabout</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -640,7 +640,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: es gibt mehr &#039;Über&#039;-Anteile in &#039;name (%d) als in &#039;via&#039; (%d)</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">&#045;&#045;check-name</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -944,7 +944,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;%s&#039; = &#039;%s&#039; der Haltestelle sollte gelöscht werden, &#039;route_ref&#039; = &#039;%s&#039; existiert</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">&#045;&#045;check-route-ref</td>
+                <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>

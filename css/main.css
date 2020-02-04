@@ -106,3 +106,12 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis .number         { text-align:right; }
 #analysis .attention      { background-color: yellow; font-weight: 500; font-size: 1.2em; }
 
+.statistics-tableheaderrow   { background-color: #dddddd; }
+.statistics-tablerow         { background-color: white;   }
+.statistics-name             { text-align:left; white-space:nowrap; }
+.statistics-network          { text-align:left;   }
+.statistics-date             { text-align:center; }
+.statistics-duration         { text-align:right; }
+.statistics-size             { text-align:right; }
+
+

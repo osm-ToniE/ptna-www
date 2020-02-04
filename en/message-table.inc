@@ -480,7 +480,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: includes %d entire roundabout but uses only segments</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-sequence<br />&#045;&#045;check-roundabout</td>
+                <td class="message-option">check-sequence check-roundabout</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -568,7 +568,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: there are more via-parts in &#039;name&#039; (%d) than in &#039;via&#039; (%d)</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">&#045;&#045;check-name</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -904,7 +904,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;%s&#039; = &#039;%s&#039; of stop should be deleted, &#039;route_ref&#039; = &#039;%s&#039; exists</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">&#045;&#045;check-route-ref</td>
+                <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
