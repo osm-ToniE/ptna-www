@@ -57,18 +57,20 @@
          }
     }
 
-    function PrintNetworkStatisticsTotals() {
+    function PrintNetworkStatisticsTotals( $count ) {
         global $download_total_secs;
         global $analysis_total_secs;
         global $size_total_files;
 
         $size_total = 0;
+        $file_total = 0;
         
         foreach ( $size_total_files as $file => $size ) {
             $size_total += $size;
+            $file_total++;
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
-        printf( "    <th class=\"statistics-network\"></th>\n" );
+        printf( "    <th class=\"statistics-network\">networks %d, downloads %d</th>\n", $count, $file_total );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total );

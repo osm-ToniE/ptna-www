@@ -22,15 +22,16 @@
 <?php include 'statistics-trth.inc' ?>
                 </thead>
                 <tbody>
-<?php  $network_array = GetAllNetworks();
+<?php $network_array = GetAllNetworks();
 
       foreach ( $network_array as $network ) {
-          echo "<!-- $network -->\n";
           PrintNetworkStatistics( $network );
       }
-      PrintNetworkStatisticsTotals( );
 ?>
                 </tbody>
+                <tfoot>
+<?php PrintNetworkStatisticsTotals( count($network_array) ); ?>
+                </tfoot>
             </table>
 
         </main> <!-- main -->
