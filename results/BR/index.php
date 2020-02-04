@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html lang="pt">
 
 <?php $inc_lang='../../pt_BR/'; include $inc_lang.'html-head.inc'; ?>
 
