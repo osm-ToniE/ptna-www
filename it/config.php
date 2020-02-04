@@ -9,9 +9,6 @@
 
 <?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
         
-    <body>
-      <?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
-        
       <div id="wrapper">
       
 <?php include "header.inc" ?>
