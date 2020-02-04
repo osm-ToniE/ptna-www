@@ -57,7 +57,7 @@
     }
     function PrintConfiguration( $network, $lang, $name ) {
         if ( !isset($lang) ) { $lang = 'en'; }
-        if ( !isset($name) ) { $lang = 'Configuration'; }
+        if ( !isset($name) ) { $name = 'Configuration'; }
         echo '<td data-ref="'.$network.'-discussion" class="results-discussion"><a href="/'.$lang.'/config.php?network='.$network.'">'.$name.'</a></td>';
     }
     function PrintRoutes( $network, $link, $name ) {
