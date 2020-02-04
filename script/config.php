@@ -37,9 +37,9 @@
         $options_hash['relaxed-begin-end-for']      = '';
         $options_hash['strict-network']             = 'OFF';
         $options_hash['strict-operator']            = 'OFF';
-        $options_hash['separator']                  = '\;';
-        $options_hash['or-separator']               = '\|';
-        $options_hash['ref-separator']              = '\/';
+        $options_hash['separator']                  = ';';
+        $options_hash['or-separator']               = '|';
+        $options_hash['ref-separator']              = '/';
     }
     
     function ReadOptionDetails() {
