@@ -41,6 +41,8 @@
                     printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download     );
                 }
                 $size_total_files[$osm_xml_file_name] = $size_download;
+            } else {
+                printf( "    <td class=\"statistics-size\"></td>\n" );
             }
             if ( $start_analysis && $end_analysis ) {
                 $sabs                 = strtotime( $start_analysis );
