@@ -15,7 +15,8 @@
                 <li><a href="#overview">Überblick</a></li>
                 <li><a href="#web">Die Web-site</a>
                     <ul>
-                        <li><a href="#analysislist">Die Auswertungen</a></li>
+                        <li><a href="#analysislist">Auswertungen</a></li>
+                        <li><a href="#statistics">Statistiken</a></li>
                     </ul>
                 </li>
                 <li><a href="#networkroutes">Die zum Verkehrsverbund gehörigen Linien</a></li>
@@ -183,7 +184,7 @@
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
-                <h3 id="analysislist">Die Auswertungen</h3>
+                <h3 id="analysislist">Auswertungen</h3>
                 <div class="indent">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
@@ -198,6 +199,12 @@
                         <li>Linien</li>
                     </ul>
                 </div> <!-- "analysislist" -->
+                <h3 id="statistics">Statistiken</h3>
+                <div class="indent">
+                    <p>
+                        <a href="/en/statistics.php">Statistiken</a> ... Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                </div> <!-- "statistics" -->
             </div> <!-- "web" -->
 
             <hr />

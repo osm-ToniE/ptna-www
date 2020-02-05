@@ -16,6 +16,7 @@
                 <li><a href="#web">The Web-site</a>
                     <ul>
                         <li><a href="#analysislist">Results</a></li>
+                        <li><a href="#statistics">Statistics</a></li>
                     </ul>
                 </li>
                 <li><a href="#networkroutes">Lines belonging to the 'network'</a></li>
@@ -198,6 +199,12 @@
                         <li>Lines</li>
                     </ul>
                 </div> <!-- "analysislist" -->
+                <h3 id="statistics">Statistics</h3>
+                <div class="indent">
+                    <p>
+                        <a href="/en/statistics.php">Statistics</a> ... Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                </div> <!-- "statistics" -->
             </div> <!-- "web" -->
 
             <hr />
