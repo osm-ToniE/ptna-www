@@ -34,7 +34,7 @@
             <tr class="message-tablerow" id="option-check-bus-stop">
                 <td class="message-option">check-bus-stop</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">&#039;highway&#039; = &#039;bus_stop&#039; can be set on nodes only, not on ways or areas.</td>
+                <td class="message-description">&#039;highway&#039; = &#039;bus_stop&#039; ist nur auf Nodes erlaubt, nicht auf Ways oder Areas.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-motorway-link">
@@ -64,7 +64,7 @@
             <tr class="message-tablerow" id="option-check-platform">
                 <td class="message-option">check-platform</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Missing &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; or &#039;share_taxi&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;platform&#039;.</td>
+                <td class="message-description">Fehlendes &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; oder &#039;share_taxi&#039; = &#039;yes&#039; bei einer Platform: &#039;public_transport&#039; = &#039;platform&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-roundabouts">
@@ -90,13 +90,13 @@ Check also for tags &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#
             <tr class="message-tablerow" id="option-check-stop-position">
                 <td class="message-option">check-stop-position</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Missing &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; or &#039;share_taxi&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
+                <td class="message-description">Fehlendes &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; oder &#039;share_taxi&#039; = &#039;yes&#039; bei einer Haltestelle: &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-version">
                 <td class="message-option">check-version</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Check of &#039;public_transport:version&#039; = &#039;...&#039; on Route-Master and Route.</td>
+                <td class="message-description">Prüfung von &#039;public_transport:version&#039; = &#039;...&#039; bei Route-Master und Route.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-coloured-sketchline">

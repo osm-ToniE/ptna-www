@@ -209,7 +209,7 @@
                 <td class="message-text">Die Route ist direktes Element von mehr als einem Route-Master: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route has more than one parent Route-Master (%s = list of Route-Masters).</td>
+                <td class="message-description">Die Route hat mehr als einen Route-Master als Elternteil (%s = Liste der Route-Master).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -725,7 +725,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">The Route is member of this Route-Master, but has no &#039;ref&#039; tag (%s = ID of the route).</td>
-                <td class="message-fix">See section: &quot;Public Transport Lines without &#039;ref&#039;&quot; of the analysis.</td>
+                <td class="message-fix">Siehe Abschnitt: &quot;ÖPNV Linien ohne &#039;ref&#039;-Wert&quot; der Auswertung.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -801,7 +801,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route might be listed with &#039;ref&#039; = &#039;%s&#039; in a different section or in section &#039;Not clearly assigned routes&#039; of the analysis: %s</td>
+                <td class="message-text">Route ist unter der &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -897,7 +897,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Master ist unter der selben &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; gelistet: %s</td>
+                <td class="message-text">Route-Master ist unter der selben &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; dieser Auswertung gelistet: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -916,7 +916,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-text">Route-Master mit Relation(en) ungleich &#039;route&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">The Route-Master relation contains relation(s) that are not of type &#039;route&#039;.</td>
+                <td class="message-description">Der Route-Master enthält Relation(en) ungleich Typ &#039;route&#039;.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -993,7 +993,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne Angabe von &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description"></td>
@@ -1001,7 +1001,7 @@ Precondition: the route is without gap(s).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne dass &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ... angegeben ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit an Barriere (%s) ohne Angabe von &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description"></td>
@@ -1021,7 +1021,7 @@ Beispiel: &#039;psv:conditional&#039; = &#039;yes @ (Mo-Fr 05:00-22:00)&#039;.</
                 <td class="message-text">Route: verdächtige %s zusammen mit &#039;highway&#039; ungleich &#039;construction&#039; auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-access</td>
-                <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Construction works on ways are usually mapped as the combination of &#039;higway&#039; = &#039;construction&#039; and &#039;construction&#039; = &#039;xxx&#039;, where &#039;xxx&#039; is the former value of the &#039;highway&#039; key. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann. 
+                <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von &#039;highway&#039; = &#039;construction&#039; und &#039;construction = &#039;xxx&#039; gekennzeichnet, wobei &#039;xxx&#039; dem vorherigen Wert des Schlüssels &#039;highway&#039; entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann. 
 Beispiel: &#039;construction&#039; = &#039;primary&#039; und &#039;highway&#039; = &#039;primary&#039; anstatt &#039;highway&#039; = &#039;construction&#039;.</td>
                 <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel &#039;construction&#039;. Wenn nein, prüfe, welcher Wert für den Schlüssel &#039;highway&#039; passend ist.</td>
                 <td class="message-image"></td>
