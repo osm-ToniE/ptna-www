@@ -146,6 +146,30 @@
         return( '' );
     }
     
+    function GetOsmXmlFileSizeMB() {
+        global $details_hash;
+        if ( isset($details_hash['OSM_XML_FILE_SIZE_BYTE']) ) {
+            return( $details_hash['OSM_XML_FILE_SIZE_BYTE'] / 1024 / 1024 );
+        } else {
+            if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
+                return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
+            }
+        }
+        return( '' );
+    }
+    
+    function GetOsmXmlFileSizeByte() {
+        global $details_hash;
+        if ( isset($details_hash['OSM_XML_FILE_SIZE_BYTE']) ) {
+            return( $details_hash['OSM_XML_FILE_SIZE_BYTE'] );
+        } else {
+            if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
+                return( $details_hash['OSM_XML_FILE_SIZE'] * 1024 );
+            }
+        }
+        return( '' );
+    }
+    
     function GetOsmXmlFileDate() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_DATE']) ) {
