@@ -76,9 +76,7 @@
             <tr class="message-tablerow" id="option-check-route-ref">
                 <td class="message-option">check-route-ref</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Check whether the tag &#039;route_ref&#039; on the stops of a route includes the value of &#039;ref&#039; of the route (provided &#039;route_ref&#039; exists).
-Check also whether the tag &#039;ref&#039; on the stops of a route accidentially includes the value of &#039;ref&#039; of the route.
-Check also for tags &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#039;, &#039;routes&#039; on the stops of a route. Those should be replaced by the tag &#039;route_ref&#039;.</td>
+                <td class="message-description">Check whether the tag &#039;route_ref&#039; on the stops of a route includes the value of &#039;ref&#039; of the route (provided &#039;route_ref&#039; exists).<br />Check also whether the tag &#039;ref&#039; on the stops of a route accidentially includes the value of &#039;ref&#039; of the route.<br />Check also for tags &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#039;, &#039;routes&#039; on the stops of a route. Those should be replaced by the tag &#039;route_ref&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-sequence">
@@ -156,8 +154,7 @@ Check also for tags &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#
             <tr class="message-tablerow" id="option-multiple-ref-type-entries">
                 <td class="message-option">multiple-ref-type-entries</td>
                 <td class="message-default">analyze</td>
-                <td class="message-description">allow|analyze|no
-If the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears more than once in the route data, the tool expects that there are separate routes with identical &#039;ref&#039; and &#039;type&#039; in different cities/villages and that those can be distinguished by also checking &#039;operator&#039;, &#039;to&#039; and &#039;from&#039;.</td>
+                <td class="message-description">allow|analyze|no<br />If the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears more than once in the route data, the tool expects that there are separate routes with identical &#039;ref&#039; and &#039;type&#039; in different cities/villages and that those can be distinguished by also checking &#039;operator&#039;, &#039;to&#039; and &#039;from&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-long-regex">
@@ -193,11 +190,7 @@ If the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears mor
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
                 <td class="message-default">no</td>
-                <td class="message-description">allow|no|show
-&#039;highway&#039; = &#039;bus_stop&#039; on a point beside the road is treated as &#039;public_transport&#039; = &#039;platform&#039; if &#039;role&#039; = &#039;platform&#039;.
-allow: silently assume compatibility with legacy bus-stops (aka: PTv1)
-no: no compatibility with legacy bus-stops (aka: PTv1)
-show: assume and show compatibility with legacy bus-stops (aka: PTv1)</td>
+                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; on a point beside the road is treated as &#039;public_transport&#039; = &#039;platform&#039; if &#039;role&#039; = &#039;platform&#039;.<br />allow: silently assume compatibility with legacy bus-stops (aka: PTv1)<br />no: no compatibility with legacy bus-stops (aka: PTv1)<br />show: assume and show compatibility with legacy bus-stops (aka: PTv1)</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">
