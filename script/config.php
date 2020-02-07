@@ -143,7 +143,7 @@
         if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
             return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
         }
-        return( '' );
+        return( 0 );
     }
     
     function GetOsmXmlFileSizeMB() {
@@ -155,7 +155,7 @@
                 return( $details_hash['OSM_XML_FILE_SIZE'] / 1024 );
             }
         }
-        return( '' );
+        return( 0 );
     }
     
     function GetOsmXmlFileSizeByte() {
@@ -167,7 +167,7 @@
                 return( $details_hash['OSM_XML_FILE_SIZE'] * 1024 );
             }
         }
-        return( '' );
+        return( 0 );
     }
     
     function GetOsmXmlFileDate() {
