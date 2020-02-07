@@ -38,7 +38,7 @@
                 if ( isset($size_total_files[$osm_xml_file_name]) ) {
                     if ( $start_download && $end_download ) {
                         printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download     );
-                        $size_total_files[$osm_xml_file_name.'-2'] = $size_download;
+                        $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
                     } else {
                         printf( "    <td class=\"statistics-size\">reused</td>\n" );
                     }
