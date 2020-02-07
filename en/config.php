@@ -41,7 +41,7 @@
                       if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                       if ( $fsize ) { printf( "<p>This query currently delivers approximately %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
                       if ( $rlink ) { 
-                          printf( "<p>Show the <a href=\"/de/index.php#searcharea\">search area</a> " );
+                          printf( "<p>Show the <a href=\"/en/index.php#searcharea\">search area</a> " );
                           if ( $rname ) { printf( "\"%s\" ", $rname ); }
                           printf( "on the <a href=\"%s\">OSM map</a>.</p>\n", $rlink );
                       }
