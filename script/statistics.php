@@ -17,7 +17,7 @@
             $start_download    = GetStartDownloadDate();
             $end_download      = GetEndDownloadDate();
             $duration_download = 0;
-            $size_download     = GetOsmXmlFileSize();
+            $size_download     = GetOsmXmlFileSizeByte();
             $start_analysis    = GetStartAnalysisDate();
             $end_analysis      = GetEndAnalysisDate();
             $duration_analysis = 0;
@@ -37,14 +37,14 @@
             if ( $osm_xml_file_name && $size_download ) {
                 if ( isset($size_total_files[$osm_xml_file_name]) ) {
                     if ( $start_download && $end_download ) {
-                        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download     );
+                        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download / 1024 / 1024 );
                         $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
                     } else {
                         printf( "    <td class=\"statistics-size\">reused</td>\n" );
                     }
                 } else {
                     if ( $start_download && $end_download ) {
-                        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download     );
+                        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download / 1024 / 1024 );
                         $size_total_files[$osm_xml_file_name] = $size_download;
                     } else {
                         printf( "    <td class=\"statistics-size\"></td>\n" );
@@ -84,7 +84,7 @@
         printf( "    <th class=\"statistics-network\">networks %d, downloads %d</th>\n", $count, $file_total );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
-        printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total );
+        printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
         printf( "</tr>\n" );
