@@ -1,9 +1,9 @@
     <head>
         <meta charset="utf-8" />
-        <title>PTNA - Dokumentation</title>
+        <title>PTNA<?php if ( $title ) { echo " - " . $title; } ?></title>
         <meta name="generator" content="PTNA" />
         <meta name="keywords" content="OSM Public Transport PTv2" />
-        <meta name="description" content="PTNA - Dokumentation" />
+        <meta name="description" content="PTNA - Public Transport Network Analysis" />
         <meta name="robots" content="noindex,nofollow" />
         <link rel="stylesheet" href="/css/main.css" />
         <link rel="shortcut icon" href="/favicon.ico" />

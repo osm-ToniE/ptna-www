@@ -22,121 +22,123 @@
             <tr class="message-tablerow" id="option-allow-coach">
                 <td class="message-option">allow-coach</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Allow &#039;route_master&#039; = &#039;coach&#039; und &#039;route&#039; = &#039;coach&#039; (although they are inofficial).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-access">
                 <td class="message-option">check-access</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Ways are used which cannot be used explicitly or implicitly (&#039;construction&#039;, &#039;access&#039;, ...) and where &#039;bus&#039; = &#039;yes&#039;, &#039;bus&#039; = &#039;designated&#039;, &#039;bus&#039; = &#039;official&#039;, &#039;psv&#039; =&#039; yes&#039;, ... is not set. This applies to &#039;barrier&#039; = &#039;...&#039; as well.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-bus-stop">
                 <td class="message-option">check-bus-stop</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">&#039;highway&#039; = &#039;bus_stop&#039; can be set on nodes only, not on ways or areas.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-motorway-link">
                 <td class="message-option">check-motorway-link</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check whether motorway links are used without actually using a motorway/trunk road.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-name">
                 <td class="message-option">check-name</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check of &#039;name&#039; = &#039;...ref: from =&gt; to&#039; respectively &#039;name&#039; =&#039;...ref: from =&gt; via =&gt; ... =&gt; to&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-name-relaxed">
                 <td class="message-option">check-name-relaxed</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">More relaxed check of &#039;name&#039; =&#039;...: A =&gt; B&#039;, where &#039;A&#039; must be part of &#039;from&#039; and &#039;B&#039; must be part of &#039;to&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-osm-separator">
                 <td class="message-option">check-osm-separator</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check the value of &#039;network&#039;, ... whether the separator is actually the semicolon &#039;;&#039; (w/o Blanks).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-platform">
                 <td class="message-option">check-platform</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Missing &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; or &#039;share_taxi&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;platform&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-roundabouts">
                 <td class="message-option">check-roundabouts</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check whether roundabouts are used partially (segments only) or completely (while not being segmented).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-route-ref">
                 <td class="message-option">check-route-ref</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check whether the tag &#039;route_ref&#039; on the stops of a route includes the value of &#039;ref&#039; of the route (provided &#039;route_ref&#039; exists).
+Check also whether the tag &#039;ref&#039; on the stops of a route accidentially includes the value of &#039;ref&#039; of the route.
+Check also for tags &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#039;, &#039;routes&#039; on the stops of a route. Those should be replaced by the tag &#039;route_ref&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-sequence">
                 <td class="message-option">check-sequence</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check sequence of ways, are there any gaps?</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-stop-position">
                 <td class="message-option">check-stop-position</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Missing &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; or &#039;share_taxi&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-version">
                 <td class="message-option">check-version</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Check of &#039;public_transport:version&#039; = &#039;...&#039; on Route-Master and Route.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-coloured-sketchline">
                 <td class="message-option">coloured-sketchline</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">SketchLine considers the value of &#039;colour&#039;= &#039;...&#039; of Route-Master or Route.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-long">
                 <td class="message-option">expect-network-long</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in long form (see: network-long-regex).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-long-as">
                 <td class="message-option">expect-network-long-as</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in long form, as shown here.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-long-for">
                 <td class="message-option">expect-network-long-for</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in long form, instead of the short form shown here.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-short">
                 <td class="message-option">expect-network-short</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in short form (see: network-short-regex).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-short-as">
                 <td class="message-option">expect-network-short-as</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in short form, as shown here.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-short-for">
                 <td class="message-option">expect-network-short-for</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in short form, instead of the long form shown here.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-language">
@@ -148,31 +150,32 @@
             <tr class="message-tablerow" id="option-max-error">
                 <td class="message-option">max-error</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Limits the number of identical error and note messages for a relation.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-multiple-ref-type-entries">
                 <td class="message-option">multiple-ref-type-entries</td>
                 <td class="message-default">analyze</td>
-                <td class="message-description">allow|analyze|no</td>
+                <td class="message-description">allow|analyze|no
+If the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears more than once in the route data, the tool expects that there are separate routes with identical &#039;ref&#039; and &#039;type&#039; in different cities/villages and that those can be distinguished by also checking &#039;operator&#039;, &#039;to&#039; and &#039;from&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-long-regex">
                 <td class="message-option">network-long-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression as &#039;long&#039; form or can be empty (unset).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-short-regex">
                 <td class="message-option">network-short-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression as &#039;short&#039; form or can be empty (unset).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-operator-regex">
                 <td class="message-option">operator-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The value of &#039;operator&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression or can be empty (unset).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-or-separator">
@@ -184,13 +187,17 @@
             <tr class="message-tablerow" id="option-positive-notes">
                 <td class="message-option">positive-notes</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Also show &#039;network:short&#039; = &#039;...&#039;, &#039;network:guid&#039; = &#039;...&#039; and other tags and values.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
                 <td class="message-default">no</td>
-                <td class="message-description">allow|no|show</td>
+                <td class="message-description">allow|no|show
+&#039;highway&#039; = &#039;bus_stop&#039; on a point beside the road is treated as &#039;public_transport&#039; = &#039;platform&#039; if &#039;role&#039; = &#039;platform&#039;.
+allow: silently assume compatibility with legacy bus-stops (aka: PTv1)
+no: no compatibility with legacy bus-stops (aka: PTv1)
+show: assume and show compatibility with legacy bus-stops (aka: PTv1)</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">
@@ -202,7 +209,7 @@
             <tr class="message-tablerow" id="option-relaxed-begin-end-for">
                 <td class="message-option">relaxed-begin-end-for</td>
                 <td class="message-default"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Relaxed check of begin and end of routes regarding stop positions (i.e. for &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-separator">
@@ -214,13 +221,13 @@
             <tr class="message-tablerow" id="option-strict-network">
                 <td class="message-option">strict-network</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Do not consider Route-Master and Route relations with empty &#039;network&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-strict-operator">
                 <td class="message-option">strict-operator</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description"></td>
+                <td class="message-description">Do not consider Route-Master and Route relations with empty &#039;operator&#039;.</td>
                 <td class="message-image"></td>
             </tr>
         </tbody>

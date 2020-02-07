@@ -57,6 +57,9 @@
                 $sabs                 = strtotime( $start_analysis );
                 $eabs                 = strtotime( $end_analysis );
                 $duration_analysis    = $eabs - $sabs;
+                if ( $duration_analysis == 0 ) {
+                    $duration_analysis = 1;
+                }
                 $analysis_total_secs += $duration_analysis;
                 printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_analysis    );
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_analysis/60, $duration_analysis%60 );

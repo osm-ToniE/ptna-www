@@ -209,7 +209,7 @@
                 <td class="message-text">Die Route ist direktes Element von mehr als einem Route-Master: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This Route has more than one parent Route-Master (%s = list of Route-Masters).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -225,7 +225,8 @@
                 <td class="message-text">Es existiert mehr als ein Route-Master</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Route-Master: There is more than one Route-Master for this line = &#039;ref&#039; (different &#039;network&#039;-tags?).
+Route: There is more than one Route Master for this line = &#039;ref&#039; plus the parent Route Master of this route.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -249,7 +250,7 @@
                 <td class="message-text">Fehlende Linie für &#039;ref&#039; = &#039;%s&#039; und &#039;route&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This route is expected as &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) according to CSV data, but does not exist in the given data set (see also section: &quot;Overpass API Query&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -456,7 +457,8 @@
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: befährt %d kompletten Kreisverkehr von dem aber nur Teile benutzt werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">check-sequence check-roundabout</td>
+                <td class="message-option">check-sequence
+check-roundabout</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -673,7 +675,8 @@
                 <td class="message-text">PTv2 Route: es wird eine &#039;motorway_link&#039; Straße benutzt ohne vorher oder nachher eine &#039;motorway&#039; Straße benutzt zu haben</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-motorway-link</td>
-                <td class="message-description"></td>
+                <td class="message-description">The vehicle uses a motorway entrance or exit without using a motorway/trunk road immediately after or before it. This may indicate incorrect tagging of the &#039;highway&#039; = &#039;motorway_link&#039;. But it can also point to a wrong route, e.g. if it was created automatically by a routing SW. There still seems to be Routing-SW that prefers to use a short stretch of highway enrance to turn around after 20 m and route back to the previous route instead of taking the direct route (because a traffic light influences the result?). 
+Precondition: the route is without gap(s).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -721,8 +724,8 @@
                 <td class="message-text">Route existiert im geladenen Datensatz, &#039;ref&#039; ist aber nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">The Route is member of this Route-Master, but has no &#039;ref&#039; tag (%s = ID of the route).</td>
+                <td class="message-fix">See section: &quot;Public Transport Lines without &#039;ref&#039;&quot; of the analysis.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -798,7 +801,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route ist unter der &#039;ref&#039; = &#039;%s&#039; möglicherweise in einem anderen Abschnitt oder im Abschnitt &#039;Nicht eindeutig zugeordnete Linien&#039; gelistet: %s</td>
+                <td class="message-text">Route might be listed with &#039;ref&#039; = &#039;%s&#039; in a different section or in section &#039;Not clearly assigned routes&#039; of the analysis: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -865,7 +868,7 @@
                 <td class="message-text">Route-Master hat mehr Routen als im Datensatz tatsächlich passend gefunden wurden (%d gegenüber %d)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This route master has more route relations than listed here (route without or with other &#039;ref&#039;/&#039;route&#039;/&#039;network&#039; tag?).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -881,7 +884,7 @@
                 <td class="message-text">Route-Master hat weniger Routen als im Datensatz tatsächlich passend gefunden wurden (%d gegenüber %d)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This Route-Master has less route relations than listed here (Route(s) not listed in the Route-Master?).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -905,7 +908,7 @@
                 <td class="message-text">Route-Master mit Node(s)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The Route-Master relation contains stops or train/bus stops.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -913,7 +916,7 @@
                 <td class="message-text">Route-Master mit Relation(en) ungleich &#039;route&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The Route-Master relation contains relation(s) that are not of type &#039;route&#039;.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -921,7 +924,7 @@
                 <td class="message-text">Route-Master mit Way(s)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The Route-Master relation contains streets/railways/trains/bus stops/...</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -929,7 +932,7 @@
                 <td class="message-text">Route-Master ohne Route(n)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">The Route-Master relation does not contain a Route relation (should not happen with the used Overpass API query, see: &#039;The overpass API query does not return&#039;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -1009,7 +1012,8 @@
                 <td class="message-text">Route: unklare Befahrbarkeit (%s) auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-access</td>
-                <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.<br />Beispiel: &#039;psv:conditional=yes @ (Mo-Fr 05:00-22:00)&#039;.</td>
+                <td class="message-description">Für einen Weg ist eine bedingte Befahrbarkeit definiert. PTNA wird diese Bedingung nicht auswerten.
+Beispiel: &#039;psv:conditional&#039; = &#039;yes @ (Mo-Fr 05:00-22:00)&#039;.</td>
                 <td class="message-fix">Den Wert der bedingten Befahrbarkeit bitte gegebenenfalls manuell auswerten und entscheiden ob eine Korrektur notwendig ist oder nicht.</td>
                 <td class="message-image"></td>
             </tr>
@@ -1017,7 +1021,8 @@
                 <td class="message-text">Route: verdächtige %s zusammen mit &#039;highway&#039; ungleich &#039;construction&#039; auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-access</td>
-                <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von &#039;highway&#039;=&#039;construction&#039; und &#039;construction=&#039;xxx&#039; gekennzeichnet, wobei &#039;xxx&#039; dem vorherigen Wert des Schlüssels &#039;highway&#039; entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann.<br />Beispiel: &#039;construction&#039;=&#039;primary&#039; und &#039;highway&#039;=&#039;primary&#039; anstatt &#039;highway&#039;=&#039;construction&#039;.</td>
+                <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Construction works on ways are usually mapped as the combination of &#039;higway&#039; = &#039;construction&#039; and &#039;construction&#039; = &#039;xxx&#039;, where &#039;xxx&#039; is the former value of the &#039;highway&#039; key. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann. 
+Beispiel: &#039;construction&#039; = &#039;primary&#039; und &#039;highway&#039; = &#039;primary&#039; anstatt &#039;highway&#039; = &#039;construction&#039;.</td>
                 <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel &#039;construction&#039;. Wenn nein, prüfe, welcher Wert für den Schlüssel &#039;highway&#039; passend ist.</td>
                 <td class="message-image"></td>
             </tr>
@@ -1025,7 +1030,7 @@
                 <td class="message-text">Weitere Analyse wird übersprungen ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">Der Fehler bezieht sich auf: &quot;Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;&quot; und &quot;Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;&quot;. Ohne Daten für Ways und Nodes macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
+                <td class="message-description">Der Fehler bezieht sich auf: &#039;Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;&#039; und &#039;Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;&#039;. Ohne Daten für Ways und Nodes macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

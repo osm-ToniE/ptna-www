@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('html-head.inc'); ?>
+<?php $title="Documentation"; include('html-head.inc'); ?>
 
     <body>
       <div id="wrapper">

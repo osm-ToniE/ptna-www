@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<?php $inc_lang='../../fr/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="Résultats"; $inc_lang='../../fr/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/entries.php'); ?>
 

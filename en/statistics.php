@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include('html-head.inc'); ?>
+<?php $title="Statistics"; include('html-head.inc'); ?>
 
 <?php include('../script/statistics.php'); ?>
 

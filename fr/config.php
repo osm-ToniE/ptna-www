@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<?php include('html-head.inc'); ?>
+<?php $title="Configuration"; include('html-head.inc'); ?>
 
 <?php include('../script/config.php'); ?>
 
