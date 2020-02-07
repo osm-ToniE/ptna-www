@@ -35,11 +35,11 @@
             
             <?php if ( $found ) {
                       $query = htmlentities( GetOverpassQuery() );
-                      $fsize = GetOsmXmlFileSize();
+                      $fsize = GetOsmXmlFileSizeByte();
                       $rlink = GetRegionLink();
                       $rname = htmlentities( GetRegionName() );
                       if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
-                      if ( $fsize ) { printf( "<p>Cette requête fournit actuellement environ %.1f MB.\n</p>", $fsize ); }
+                      if ( $fsize ) { printf( "<p>Cette requête fournit actuellement environ %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
                       if ( $rlink ) { 
                           printf( "<p>Afficher la <a href=\"/en/index.php#searcharea\">zone de recherche</a> " );
                           if ( $rname ) { printf( "\"%s\" ", $rname ); }
