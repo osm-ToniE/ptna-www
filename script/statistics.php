@@ -21,6 +21,8 @@
             $start_analysis    = GetStartAnalysisDate();
             $end_analysis      = GetEndAnalysisDate();
             $duration_analysis = 0;
+            $has_changes       = HasChanges();
+            $diff_webpath      = GetDiffFileWebPath();
             printf( "<tr class=\"statistics-tablerow\">\n" );
             printf( "    <td class=\"statistics-network\">%s</td>\n",       $network           );
             if ( $start_download && $end_download ) {
@@ -67,6 +69,11 @@
                 printf( "    <td class=\"statistics-date\"></td>\n");
                 printf( "    <td class=\"statistics-duration\"></td>\n" );
             }
+            if ( $has_changes && $diff_webpath ) {
+                printf( "    <td class=\"statistics-date\"><a href=\"%s\">yes</a></td>\n", $diff_webpath );
+            } else {
+                printf( "    <td class=\"statistics-date\"></td>\n");
+            }
             printf( "</tr>\n" );
          }
     }
@@ -90,6 +97,7 @@
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "</tr>\n" );
     }
 

@@ -210,6 +210,22 @@
         return( '' );
     }
     
+    function HasChanges() {
+        global $details_hash;
+        if ( isset($details_hash['OLD_OR_NEW']) && $details_hash['OLD_OR_NEW'] == 'new' ) {
+            return( 1 );
+        }
+        return( 0 );
+    }
+    
+    function GetDiffFileWebPath() {
+        global $filename_hash;
+        if ( isset($filename_hash['DIFFWEBPATH']) ) {
+            return( $filename_hash['DIFFWEBPATH'] );
+        }
+        return( '' );
+    }
+    
     function GetDiscussionPagePtna( ) {
         return( "https://wiki.openstreetmap.org/wiki/User_talk:ToniE/ptna" );
     }

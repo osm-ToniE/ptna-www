@@ -1,10 +1,12 @@
 <?php
     $path_to_work  = '/osm/ptna/work/';
+    $path_to_www   = '/osm/ptna/www/';
     $details_hash  = [];
     $filename_hash = [];
 
     function ReadDetails( $network ) {
         global $path_to_work;
+        global $path_to_www;
         global $details_hash;
         global $filename_hash;
         
@@ -17,10 +19,12 @@
             $details_filename  = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
             $analysis_filename = $subdir . '/' . $network . '-Analysis.html';
             $diff_filename     = $subdir . '/' . $network . '-Analysis.diff.html';
+            $diff_webpath      = "/results/" . $countrydir . '/' . $diff_filename;
         } else {
             $details_filename  = $path_to_work . $countrydir . '/' . $network . '-Analysis-details.txt';
             $analysis_filename = $network . '-Analysis.html';
             $diff_filename     = $network . '-Analysis.diff.html';
+            $diff_webpath      = "/results/" . $countrydir . '/' . $diff_filename;
         }
 
         $details_hash = [];
@@ -35,9 +39,10 @@
             }
         }
         $filename_hash = [];
-        $filename_hash['DETAILS']  = $details_filename;
-        $filename_hash['ANALYSIS'] = $analysis_filename;
-        $filename_hash['DIFF']     = $diff_filename;
+        $filename_hash['DETAILS']     = $details_filename;
+        $filename_hash['ANALYSIS']    = $analysis_filename;
+        $filename_hash['DIFF']        = $diff_filename;
+        $filename_hash['DIFFWEBPATH'] = $diff_webpath;
         
         return $entries_found;
     }
