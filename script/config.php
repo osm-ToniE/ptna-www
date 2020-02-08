@@ -210,6 +210,19 @@
         return( '' );
     }
     
+    function GetDiscussionPagePtna( ) {
+        return( "https://wiki.openstreetmap.org/wiki/User_talk:ToniE/ptna" );
+    }
+
+    function GetDiscussionPageNetwork( ) {
+        global $details_hash;
+        if ( isset($details_hash['DISCUSSION_LINK']) ) {
+            return( $details_hash['DISCUSSION_LINK'] );
+        } else {
+            return ( '' );
+        }
+    }
+
     function PrintOptionDetails( $lang ) {
         global $options_hash;
         
