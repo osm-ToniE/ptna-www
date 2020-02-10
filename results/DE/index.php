@@ -85,6 +85,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-REG", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-RoVG", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-RVO", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-RVV", "de", "Konfiguration" ); ?>
