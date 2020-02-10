@@ -225,7 +225,7 @@
                 <td class="message-text">Es existiert mehr als ein Route-Master</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">Route-Master: There is more than one Route-Master for this line = &#039;ref&#039; (different &#039;network&#039;-tags?).<br />Route: There is more than one Route Master for this line = &#039;ref&#039; plus the parent Route Master of this route.</td>
+                <td class="message-description">Route-Master: Es gibt mehr als einen Route-Master für diese Linie = &#039;ref&#039; (verschiedene &#039;network&#039;-tags?).<br />Route: Es gibt mehr als einen Route-Master für diese Linie = &#039;ref&#039; plus Eltern-Route-Master dieser Route.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -249,7 +249,7 @@
                 <td class="message-text">Fehlende Linie für &#039;ref&#039; = &#039;%s&#039; und &#039;route&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">This route is expected as &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) according to CSV data, but does not exist in the given data set (see also section: &quot;Overpass API Query&quot;).</td>
+                <td class="message-description">Diese Route wird laut CSV-Daten als &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) erwartet, existiert aber nicht im gegebenen Datensatz (siehe Abschnitt: &quot;Overpass-API Abfrage&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -673,7 +673,7 @@
                 <td class="message-text">PTv2 Route: es wird eine &#039;motorway_link&#039; Straße benutzt ohne vorher oder nachher eine &#039;motorway&#039; Straße benutzt zu haben</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-motorway-link</td>
-                <td class="message-description">The vehicle uses a motorway entrance or exit without using a motorway/trunk road immediately after or before it. This may indicate incorrect tagging of the &#039;highway&#039; = &#039;motorway_link&#039;. But it can also point to a wrong route, e.g. if it was created automatically by a routing SW. There still seems to be Routing-SW that prefers to use a short stretch of highway enrance to turn around after 20 m and route back to the previous route instead of taking the direct route (because a traffic light influences the result?). <br />Precondition: the route is without gap(s).</td>
+                <td class="message-description">Das Fahrzeug benutzt eine Autobahnauf- bzw. abfahrt ohne unmittelbar danach oder davor eine Autobahn/Trunk zu benutzen. Das kann auf falsches Tagging des highway=motorway_link hinweisen. Es kann aber auch auf eine falsche Route hinweisen, wenn diese z.B. automatisch durch eine Routing-Software erstellt wurde. Es scheint noch Routing-SW zu geben, die lieber auf ein kurzes Stück Autobahnauffahrt lenkt um nach 20 m zu wenden und wieder zurück auf die alte Strecke zu routen, statt den direkten Weg zu nehmen (weil eine Ampel das Ergebnis beeinflusst?). <br />Voraussetzung: die Route ist ohne Lücke(n).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -721,7 +721,7 @@
                 <td class="message-text">Route existiert im geladenen Datensatz, &#039;ref&#039; ist aber nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">The Route is member of this Route-Master, but has no &#039;ref&#039; tag (%s = ID of the route).</td>
+                <td class="message-description">Die Route ist Member dieses Route-Masters, hat aber keinen &#039;ref&#039; tag (%s = ID der Route).</td>
                 <td class="message-fix">Siehe Abschnitt: &quot;ÖPNV Linien ohne &#039;ref&#039;-Wert&quot; der Auswertung.</td>
                 <td class="message-image"></td>
             </tr>
@@ -865,7 +865,7 @@
                 <td class="message-text">Route-Master hat mehr Routen als im Datensatz tatsächlich passend gefunden wurden (%d gegenüber %d)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">This route master has more route relations than listed here (route without or with other &#039;ref&#039;/&#039;route&#039;/&#039;network&#039; tag?).</td>
+                <td class="message-description">Dieser Route-Master hat mehr Route-Relationen als hier aufgelistet sind (Route ohne oder mit anderem &#039;ref&#039;/&#039;route&#039;/&#039;network&#039; tag?).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -881,7 +881,7 @@
                 <td class="message-text">Route-Master hat weniger Routen als im Datensatz tatsächlich passend gefunden wurden (%d gegenüber %d)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route-Master has less route relations than listed here (Route(s) not listed in the Route-Master?).</td>
+                <td class="message-description">Dieser Route-Master hat weniger Route-Relationen als hier aufgelistet sind (Route(n) nicht im Route-Master eingetragen?)</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -905,7 +905,7 @@
                 <td class="message-text">Route-Master mit Node(s)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">The Route-Master relation contains stops or train/bus stops.</td>
+                <td class="message-description">Die Route-Master Relation enthält Haltestellen oder Bahn-/Bussteige.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -921,7 +921,7 @@
                 <td class="message-text">Route-Master mit Way(s)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">The Route-Master relation contains streets/railways/trains/bus stops/...</td>
+                <td class="message-description">Die Route-Master Relation enthält Straßen/Schienen/Bahn-/Bussteige/...</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -929,7 +929,7 @@
                 <td class="message-text">Route-Master ohne Route(n)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">The Route-Master relation does not contain a Route relation (should not happen with the used Overpass API query, see: &#039;The overpass API query does not return&#039;).</td>
+                <td class="message-description">Die Route-Master Relation enthält keine Routen (sollte bei der verwendeten Overpass-API Abfrage nicht passieren, siehe: &quot;Die Overpass-API-Abfrage liefert nicht&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

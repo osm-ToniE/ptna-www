@@ -100,7 +100,7 @@
             <tr class="message-tablerow" id="option-coloured-sketchline">
                 <td class="message-option">coloured-sketchline</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">SketchLine considers the value of &#039;colour&#039;= &#039;...&#039; of Route-Master or Route.</td>
+                <td class="message-description">SketchLine considers the value of &#039;colour&#039; = &#039;...&#039; of Route-Master or Route.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-long">
@@ -142,7 +142,7 @@
             <tr class="message-tablerow" id="option-language">
                 <td class="message-option">language</td>
                 <td class="message-default">en</td>
-                <td class="message-description"></td>
+                <td class="message-description">Defines the language for the output.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-max-error">
