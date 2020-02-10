@@ -37,7 +37,7 @@
 
                     <?php CreateNewFullEntry( "CH-TNW", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "CH-TV-BE+SO", "de", "Konfiguration" ); ?>
+                    <?php CreateNewFullEntry( "CH-TV_BE+SO", "de", "Konfiguration" ); ?>
                     
                     <?php CreateNewFullEntry( "CH-TVAG", "de", "Konfiguration" ); ?>
 
