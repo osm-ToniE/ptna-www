@@ -50,7 +50,7 @@
                           if ( $fsize ) { printf( "<p>Esta consulta actualmente ofrece aproximadamente %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
                           if ( $rlink ) { 
                               printf( "<p>Mostrar el <a href=\"/en/index.php#searcharea\">área de búsqueda</a> " );
-                              if ( $rname ) { printf( "\"%s\" ", $rname ); }
+                              if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
                               printf( "en el <a href=\"%s\">OSM map</a>.</p>\n", $rlink );
                           }
                       }
