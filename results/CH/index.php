@@ -38,10 +38,10 @@
                     <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TNW", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "CH-TV_BE+SO", "de", "Konfiguration" ); ?>
                     
                     <?php CreateNewFullEntry( "CH-TVAG", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "CH-TVBESO", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TVLU", "de", "Konfiguration" ); ?>
 
