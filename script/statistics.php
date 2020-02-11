@@ -4,12 +4,14 @@
     $download_total_secs = 0;
     $analysis_total_secs = 0;
     $size_total_files    = [];
+    $count_has_changes   = 0;
 
     function PrintNetworkStatistics( $network ) {
         global $details_hash;
         global $download_total_secs;
         global $analysis_total_secs;
         global $size_total_files;
+        global $count_has_changes;
 
         if ( ReadDetails($network) ) {
 
@@ -71,6 +73,7 @@
             }
             if ( $has_changes && $diff_webpath ) {
                 printf( "    <td class=\"statistics-date\"><a href=\"%s\">yes</a></td>\n", $diff_webpath );
+                $count_has_changes++;
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
             }
@@ -82,6 +85,7 @@
         global $download_total_secs;
         global $analysis_total_secs;
         global $size_total_files;
+        global $count_has_changes;
 
         $size_total = 0;
         $file_total = 0;
@@ -91,13 +95,13 @@
             $file_total++;
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
-        printf( "    <th class=\"statistics-network\">networks %d, downloads %d</th>\n", $count, $file_total );
-        printf( "    <th class=\"statistics-date\"></th>\n" );
+        printf( "    <th class=\"statistics-network\">%d</th>\n", $count );
+        printf( "    <th class=\"statistics-date\">%d</th>\n", $file_total );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
-        printf( "    <th class=\"statistics-date\"></th>\n" );
+        printf( "    <th class=\"statistics-date\">%d</th>\n", $count_has_changes );
         printf( "</tr>\n" );
     }
 
