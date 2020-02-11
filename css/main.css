@@ -59,7 +59,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 .highlight                { text-align:center; background-color: yellow; }
 
-.bold                     { font-weight: 500; font-size: 1.2em; }
+.bold                     { font-weight: bold; }
 
 .indent                   { padding-left: 20px; }
 
