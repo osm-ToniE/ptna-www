@@ -8,9 +8,9 @@
     <body>
 
 <?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
-        
+
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -35,12 +35,12 @@
             <div class="indent">
 
                 <p>
-                    La <a href="https://wiki.openstreetmap.org/wiki/ES:API_de_Overpass">Overpass de API</a> se usa para descargar los datos de OSM.
+                    La <a href="https://wiki.openstreetmap.org/wiki/ES:API_de_Overpass">API de Overpass</a> se usa para descargar los datos de OSM.
                     <a href="/en/index.php#overpass">La consulta utilizada</a> devuelve todas las formas y nodos de las rutas (sus miembros con sus detalles) desde un <a href="/en/index.php#searcharea"> área de búsqueda</a>.
                     Los datos así obtenidos permiten un análisis de las líneas de transporte público en el sentido de que, p. la ruta también se puede verificar para completar.
                     Los nodos, formas y relaciones (paradas y plataformas) y sus etiquetas pueden verificarse con respecto a su 'rol' en la relación.
                 </p>
-                
+
                 <?php if ( $found ) {
                           $query = htmlentities( GetOverpassQuery() );
                           $fsize = GetOsmXmlFileSizeByte();
@@ -48,7 +48,7 @@
                           $rname = htmlentities( GetRegionName() );
                           if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                           if ( $fsize ) { printf( "<p>Esta consulta actualmente ofrece aproximadamente %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
-                          if ( $rlink ) { 
+                          if ( $rlink ) {
                               printf( "<p>Mostrar el <a href=\"/en/index.php#searcharea\">área de búsqueda</a> " );
                               if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
                               printf( "en el <a href=\"%s\">OSM map</a>.</p>\n", $rlink );
@@ -66,7 +66,7 @@
                     Los <a href="/en/index.php#messages">errores y comentarios</a> informados por PTNA puede controlarse mediante una variedad de <a href="/en/index.php#options">opciones de análisis</a>. <br />
                     Aquí hay una lista de opciones de análisis y sus valores.<br />
                 </p>
-    
+
                 <table id="message-table">
                     <thead>
                         <tr class="message-tableheaderrow">
@@ -92,7 +92,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPagePtna(); 
+                        <?php $link = GetDiscussionPagePtna();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Discusión general sobre la PTNA</a> en el OSM Wiki.", $link );
                               } else {
@@ -106,7 +106,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPageNetwork(); 
+                        <?php $link = GetDiscussionPageNetwork();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Discusión para este análisis</a>, esta 'network' en el OSM Wiki.", $link );
                               } else {
@@ -126,4 +126,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
