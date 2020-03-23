@@ -136,9 +136,9 @@
                     $route_type_to_string["7"]   = 'Funicular';
                     $route_type_to_string["11"]  = 'Trolleybus';
                     $route_type_to_string["12"]  = 'Monorail';
-                    $route_type_to_string["701"] = 'Bus (MVV: 701)';
-                    $route_type_to_string["702"] = 'Express Bus (MVV: 702)';
-                    $route_type_to_string["715"] = 'Ruftaxi (MVV: 715)';
+                    $route_type_to_string["701"] = 'Bus (701)';
+                    $route_type_to_string["702"] = 'Express Bus (702)';
+                    $route_type_to_string["715"] = 'Ruftaxi (715)';
                     
                     $db = new SQLite3( $SqliteDb );
                     
