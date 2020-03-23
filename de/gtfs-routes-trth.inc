@@ -1,5 +1,6 @@
                     <tr class="results-tableheaderrow">
                         <th class="results-name" rowspan="2">Linie</th>
+                        <th class="results-name" rowspan="2">Typ</th>
                         <th class="results-name" rowspan="2">Name</th>
                         <th class="results-datadate" colspan="2">Gültigkeit</th>
                         <th class="results-name" rowspan="2">Agency/Network</th>

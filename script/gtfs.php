@@ -126,6 +126,20 @@
                         
                     $start_time = gettimeofday(true);
                     
+                    $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
+                    $route_type_to_string["1"]   = 'Subway, Metro';
+                    $route_type_to_string["2"]   = 'Rail';
+                    $route_type_to_string["3"]   = 'Bus';
+                    $route_type_to_string["4"]   = 'Ferry';
+                    $route_type_to_string["5"]   = 'Cable tram';
+                    $route_type_to_string["6"]   = 'Aerialway';
+                    $route_type_to_string["7"]   = 'Funicular';
+                    $route_type_to_string["11"]  = 'Trolleybus';
+                    $route_type_to_string["12"]  = 'Monorail';
+                    $route_type_to_string["701"] = 'Bus (MVV: 701)';
+                    $route_type_to_string["702"] = 'Express Bus (MVV: 702)';
+                    $route_type_to_string["715"] = 'Ruftaxi (MVV: 715)';
+                    
                     $db = new SQLite3( $SqliteDb );
                     
                     echo "<!-- Sqlite DB erfolgreich geöffnet -->\n";
@@ -138,12 +152,18 @@
                     
                     $duration_hint_trips = $ptna["duration_hint_trips"];
                     
-                    $sql = "SELECT DISTINCT routes.route_short_name,routes.route_long_name,routes.route_id,agency.agency_name,agency.agency_url,routes.ptna_is_invalid,routes.ptna_is_wrong,routes.ptna_comment FROM routes JOIN agency ON routes.agency_id = agency.agency_id ORDER BY route_short_name;";
+                    $sql = "SELECT DISTINCT routes.route_short_name,routes.route_long_name,routes.route_id,routes.route_type,agency.agency_name,agency.agency_url,routes.ptna_is_invalid,routes.ptna_is_wrong,routes.ptna_comment FROM routes JOIN agency ON routes.agency_id = agency.agency_id ORDER BY route_short_name;";
     
                     $outerresult = $db->query( $sql );
                     
                     while ( $outerrow=$outerresult->fetchArray() ) {
-    
+
+                        if ( $outerrow["route_type"] && $route_type_to_string[$outerrow["route_type"]] ) {
+                            $route_type_text = $route_type_to_string[$outerrow["route_type"]];
+                        } else {
+                            $route_type_text = $outerrow["route_type"];
+                        }
+                                
                         $sql = sprintf( "SELECT DISTINCT start_date,end_date FROM trips JOIN calendar ON trips.service_id = calendar.service_id 
                                                 WHERE trip_id IN 
                                                       (SELECT trip_id FROM trips
@@ -161,6 +181,7 @@
                             } else {
                                 echo '                        <td class="results-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
                             }
+                            echo '                        <td class="results-name">' . htmlspecialchars($route_type_text) . '</td>' . "\n";
                             echo '                        <td class="results-name">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 echo '                        <td class="results-datadate">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
