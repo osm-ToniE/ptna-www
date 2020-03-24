@@ -7,7 +7,7 @@
                             <th class="gtfs-text">Start</th>
                             <th class="gtfs-text">Über</th>
                             <th class="gtfs-text">Ende</th>
-                            <th class="gtfs-radio">Ungültig</th>
-                            <th class="gtfs-radio">Fehlerhaft</th>
+                            <th class="gtfs-checkbox">Ungültig</th>
+                            <th class="gtfs-checkbox">Fehlerhaft</th>
                             <th class="gtfs-comment">Kommentar</th>
                         </tr>
