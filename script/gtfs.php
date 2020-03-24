@@ -474,4 +474,3 @@
     
 
 ?>
-file:///usr/share/applications/bluefish.desktop
