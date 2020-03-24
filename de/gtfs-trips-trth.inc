@@ -1,14 +1,13 @@
-                    <tr class="results-tableheaderrow">
-                        <th class="results-datadate" rowspan="2">Linie</th>
-                        <th class="results-datadate" colspan="3">Haltestellen</th>
-                        <th class="results-datadate" colspan="3">PTNA</th>
-                    </tr>
-                    <tr class="results-tableheaderrow">
-                        <th class="results-datadate">Start</th>
-                        <th class="results-datadate">Über</th>
-                        <th class="results-datadate">Ende</th>
-                        <th class="results-datadate">Ungültig</th>
-                        <th class="results-datadate">Fehlerhaft</th>
-                        <th class="results-name">Kommentar</th>
-                    </tr>
-
+                        <tr class="gtfs-tableheaderrow">
+                            <th class="gtfs-name" rowspan="2">Linie</th>
+                            <th class="gtfs-name" colspan="3">Haltestellen</th>
+                            <th class="gtfs-name" colspan="3">PTNA</th>
+                        </tr>
+                        <tr class="gtfs-tableheaderrow">
+                            <th class="gtfs-text">Start</th>
+                            <th class="gtfs-text">Über</th>
+                            <th class="gtfs-text">Ende</th>
+                            <th class="gtfs-radio">Ungültig</th>
+                            <th class="gtfs-radio">Fehlerhaft</th>
+                            <th class="gtfs-comment">Kommentar</th>
+                        </tr>

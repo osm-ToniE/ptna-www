@@ -11,7 +11,6 @@
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
-
             <?php 
                 $network          = $_GET['network'];
                 $trip_id          = $_GET['trip_id'];
@@ -21,20 +20,17 @@
                 $is_wrong         = $ptna["ptna_is_wrong"];
                 $comment          = $ptna["ptna_comment"];
             ?>
-            
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_short_name && $trip_id ) { echo htmlspecialchars($network) . ' Linie "' . htmlspecialchars($route_short_name) . '", Trip-Id = "' . htmlspecialchars($trip_id) . '"'; } else { echo "Deutschland"; } ?></h2>
-            <div class="indent">
 
+            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_short_name && $trip_id ) { echo '<span id="network">' . htmlspecialchars($network) . '</span> Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo "Deutschland"; } ?></h2>
+            <div class="indent">
 <?php include $inc_lang.'gtfs-single-trip-head.inc' ?>
 
-                <table id="gtfsDE">
+                <table id="gtfs-single-trip">
                     <thead>
 <?php include $inc_lang.'gtfs-single-trip-trth.inc' ?>
                     </thead>
                     <tbody>
-    
-                        <?php $duration = CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
-    
+<?php $duration = CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
                     </tbody>
                 </table>
                 

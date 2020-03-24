@@ -7,25 +7,19 @@
 
     <body>
       <div id="wrapper">
-      
 <?php include $inc_lang.'header.inc' ?>
-
+<?php $duration = 0; ?>
         <main id="main" class="results">
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für Deutschland</h2>
             <div class="indent">
-
 <?php include $inc_lang.'gtfs-head.inc' ?>
-
                 <table id="gtfsDE">
                     <thead>
 <?php include $inc_lang.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
-                        <?php $duration = 0; ?>
-                        
-                        <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
-    
+<?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
                     </tbody>
                 </table>
                 

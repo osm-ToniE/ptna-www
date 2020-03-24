@@ -11,24 +11,17 @@
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
+<?php $network  = $_GET['network']; ?>
 
-            <?php 
-                $network  = $_GET['network'];
-            ?>
-            
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network ) { echo htmlspecialchars($network); } else { echo "Deutschland"; } ?></h2>
             <div class="indent">
-
 <?php include $inc_lang.'gtfs-routes-head.inc' ?>
-
-                <table id="gtfsDE">
+                <table id="gtfs-routes">
                     <thead>
 <?php include $inc_lang.'gtfs-routes-trth.inc' ?>
                     </thead>
                     <tbody>
-    
-                        <?php $duration = CreateGtfsRoutesEntry( $network ); ?>
-    
+<?php $duration = CreateGtfsRoutesEntry( $network ); ?>
                     </tbody>
                 </table>
                 
