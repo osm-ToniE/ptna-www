@@ -294,9 +294,9 @@
                         } else {
                             echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
                         }
-                        echo '                            <td class="gtfs-text">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
+                        echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
-                        echo '                            <td class="gtfs-text">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
+                        echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptnarow["ptna_is_invalid"]) . '</td>' . "\n";
                         echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptnarow["ptna_is_wrong"])   . '</td>' . "\n";
                         echo '                            <td class="gtfs-comment">'  . htmlspecialchars($ptnarow["ptna_comment"])    . '</td>' . "\n";
