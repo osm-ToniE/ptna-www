@@ -144,6 +144,8 @@
                                    JOIN            agency ON routes.agency_id = agency.agency_id 
                                    ORDER BY        route_short_name;";
     
+                    set_time_limit( 30 );
+                    
                     $outerresult = $db->query( $sql );
                     
                     while ( $outerrow=$outerresult->fetchArray() ) {
@@ -154,6 +156,8 @@
                             $route_type_text = $outerrow["route_type"];
                         }
                                 
+                        set_time_limit( 30 );
+                    
                         $sql = sprintf( "SELECT DISTINCT start_date,end_date 
                                          FROM            trips 
                                          JOIN            calendar ON trips.service_id = calendar.service_id 
