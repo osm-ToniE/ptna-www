@@ -144,8 +144,6 @@
                                    JOIN            agency ON routes.agency_id = agency.agency_id 
                                    ORDER BY        route_short_name;";
     
-                    set_time_limit( 30 );
-                    
                     $outerresult = $db->query( $sql );
                     
                     while ( $outerrow=$outerresult->fetchArray() ) {
@@ -156,8 +154,6 @@
                             $route_type_text = $outerrow["route_type"];
                         }
                                 
-                        set_time_limit( 30 );
-                    
                         $sql = sprintf( "SELECT DISTINCT start_date,end_date 
                                          FROM            trips 
                                          JOIN            calendar ON trips.service_id = calendar.service_id 
@@ -247,16 +243,12 @@
                                             SQLite3::escapeString($route_id)
                                          );
                     
-                    set_time_limit( 30 );
-                    
                     $outerresult = $db->query( $sql );
                     
                     $trip_array = array ();
                     
                     while ( $outerrow=$outerresult->fetchArray() ) {
     
-                        set_time_limit( 30 );
-                    
                         $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'|') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  |') AS stop_name_list 
                                          FROM     stops
                                          JOIN     stop_times on stop_times.stop_id = stops.stop_id 
@@ -267,13 +259,11 @@
                                                    
                         $innerrow = $db->querySingle( $sql, true );
                     
-#                        while ( $innerrow=$innerresult->fetchArray() ) {
-                            if ( !isset($stoplist[$innerrow["stop_id_list"]]) ) {
-                                $stoplist[$innerrow["stop_id_list"]] = $outerrow["trip_id"];
-                                $stop_names = $innerrow["stop_name_list"] . '  |' . $outerrow["trip_id"];
-                                array_push( $trip_array, $stop_names );
-                            }
-#                        }
+                        if ( $innerrow["stop_id_list"] && !isset($stoplist[$innerrow["stop_id_list"]]) ) {
+                            $stoplist[$innerrow["stop_id_list"]] = $outerrow["trip_id"];
+                            $stop_names = $innerrow["stop_name_list"] . '  |' . $outerrow["trip_id"];
+                            array_push( $trip_array, $stop_names );
+                        }
                     }
                     
                     sort( $trip_array );
