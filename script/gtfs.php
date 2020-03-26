@@ -190,9 +190,11 @@
                             } else {
                                 echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["agency_name"]) . '</td>' . "\n";
                             }
-                            echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($outerrow["ptna_is_invalid"]) . '</td>' . "\n";
-                            echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($outerrow["ptna_is_wrong"])   . '</td>' . "\n";
-                            echo '                            <td class="gtfs-comment">'  . htmlspecialchars($outerrow["ptna_comment"])    . '</td>' . "\n";
+                            if ( $innerrow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                            if ( $innerrow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                            echo '                            <td class="gtfs-comment">' . htmlspecialchars($innerrow["ptna_comment"]) . '</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
                     }
@@ -297,9 +299,11 @@
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
-                        echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptnarow["ptna_is_invalid"]) . '</td>' . "\n";
-                        echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptnarow["ptna_is_wrong"])   . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">'  . htmlspecialchars($ptnarow["ptna_comment"])    . '</td>' . "\n";
+                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">' . htmlspecialchars($ptnarow["ptna_comment"]) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     
@@ -321,7 +325,7 @@
     }
     
 
-    function CreateGtfsSingleTripEntry( $network, $trip_id ) {
+    function CreateGtfsSingleTripEntry( $network, $trip_id, $edit ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
         
@@ -353,9 +357,11 @@
                         echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
-                        echo '                           <td class="gtfs-checkbox">' . htmlspecialchars($row["ptna_is_invalid"]) . '</td>' . "\n";
-                        echo '                           <td class="gtfs-checkbox">' . htmlspecialchars($row["ptna_is_wrong"])   . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">'  . htmlspecialchars($row["ptna_comment"])    . '</td>' . "\n";
+                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        echo '                           <td class="gtfs-comment">' . htmlspecialchars($row["ptna_comment"]) . '</td>' . "\n";
                         echo '                       </tr>' . "\n";
                     }
                     

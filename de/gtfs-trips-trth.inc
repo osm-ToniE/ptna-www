@@ -1,7 +1,7 @@
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name" rowspan="2">Linie</th>
                             <th class="gtfs-name" colspan="3">Haltestellen</th>
-                            <th class="gtfs-name" colspan="3">PTNA</th>
+                            <th class="gtfs-name" colspan="3">PTNA Info zur Variante</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-text">Start</th>

@@ -4,7 +4,7 @@
                             <th class="gtfs-name" rowspan="2">Name</th>
                             <th class="gtfs-name" colspan="2">Gültigkeit</th>
                             <th class="gtfs-name" rowspan="2">Agency/Network</th>
-                            <th class="gtfs-name" colspan="3">PTNA</th>
+                            <th class="gtfs-name" colspan="3">PTNA Info zur Linie</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-date">Von</th>

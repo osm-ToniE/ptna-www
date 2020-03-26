@@ -1,6 +1,6 @@
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name" colspan="5">Haltestellen</th>
-                            <th class="gtfs-name" colspan="3">PTNA</th>
+                            <th class="gtfs-name" colspan="3">PTNA Info zur Haltestelle</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name">Nummer</th>

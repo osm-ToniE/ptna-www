@@ -84,9 +84,15 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
 .gtfs-version             { text-align:center; }
+.gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
-.gtfs-text                { text-align:left;   }
+
+.ptna-data textarea       { overflow: auto; }
+
+.button-save              { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }
+.button-create            { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }
+.button-cancel            { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightsalmon; }
 
 #message-table img        { width: 100px; z-index: 1; }
 #message-table img:hover  { transform: translate(-295%,295%) scale(7.0); z-index: 2; }
@@ -100,7 +106,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .message-image            { }
 
 .message-tooltip                            { position: relative;  display: inline-block; }
-.message-tooltip       .message-tooltiptext { visibility: hidden;  background-color: black; width: 700px; color: #fff; text-align: center; padding: 3px 0; top: -5px;right: -5px; position: absolute; z-index: 3; }
+.message-tooltip       .message-tooltiptext { visibility: hidden;  background-color: black; width: 700px; color: #fff; text-align: center; padding: 3px; top: -5px;right: -5px; position: absolute; z-index: 3; }
 .message-tooltip:hover .message-tooltiptext { visibility: visible; }
 
 
