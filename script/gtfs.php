@@ -46,12 +46,8 @@
                 $feed       = $db->querySingle( $sql, true );
                 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
-                if ( $ptna["duration_hint_routes"] ) {
-                    echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '" title="' . htmlspecialchars($ptna["duration_hint_routes"]) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
-                }
-                if ( isset($feed["feed_publisher_url"]) ) {
+                echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
+                 if ( isset($feed["feed_publisher_url"]) ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
@@ -133,12 +129,6 @@
                     
                     $db         = new SQLite3( $SqliteDb );
                     
-                    $sql        = "SELECT duration_hint_trips FROM ptna";
-                    
-                    $ptna       = $db->querySingle( $sql, true );
-                    
-                    $duration_hint_trips = $ptna["duration_hint_trips"];
-                    
                     $sql        = "SELECT DISTINCT routes.route_short_name,routes.route_long_name,routes.route_id,routes.route_type,agency.agency_name,agency.agency_url,routes.ptna_is_invalid,routes.ptna_is_wrong,routes.ptna_comment 
                                    FROM            routes 
                                    JOIN            agency ON routes.agency_id = agency.agency_id 
@@ -168,11 +158,7 @@
                         while ( $innerrow=$innerresult->fetchArray() ) {
     
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
-                            if ( $duration_hint_trips ) {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '" title="' . htmlspecialchars($duration_hint_trips) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
-                            }
+                            echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
                             echo '                            <td class="gtfs-text">' . htmlspecialchars($route_type_text) . '</td>' . "\n";
                             echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
@@ -230,12 +216,6 @@
                     
                     $db         = new SQLite3( $SqliteDb );
                     
-                    $sql        = "SELECT duration_hint_single_trip FROM ptna";
-                    
-                    $ptna       = $db->querySingle( $sql, true );
-                    
-                    $dhst       = $ptna["duration_hint_single_trip"];
-                    
                     $sql        = sprintf( "SELECT   trip_id
                                             FROM     trips 
                                             WHERE    route_id='%s'
@@ -285,11 +265,8 @@
                         $ptnarow = $db->querySingle( $sql, true );
                     
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
-                        if ( $dhst ) {
-                            echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '" title="' . htmlspecialchars($dhst) . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
-                        } else {
-                            echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
-                        }
+                        echo '                            <td class="gtfs-name">' . htmlspecialchars($route_short_name) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
