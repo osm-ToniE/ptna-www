@@ -19,6 +19,7 @@
 <?php include $inc_lang.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
+<?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
                     </tbody>
                 </table>
