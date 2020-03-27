@@ -21,6 +21,7 @@
                     <tbody>
 <?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-NW-AVV" ); ?>
                     </tbody>
                 </table>
                 

@@ -47,20 +47,44 @@
                 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
-                 if ( isset($feed["feed_publisher_url"]) ) {
-                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                if ( isset($feed["feed_publisher_name"]) ) {
+                    if ( isset($feed["feed_publisher_url"]) ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
+                    if ( isset($ptna["feed_publisher_url"]) ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
+                    }
                 }
-                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
-                    echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                if ( isset($feed["feed_start_date"]) ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $ptna["feed_start_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["feed_start_date"]) . '</td>' . "\n";
+                    }
                 }
-                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
-                    echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                if ( isset($feed["feed_end_date"]) ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $ptna["feed_end_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["feed_end_date"]) . '</td>' . "\n";
+                    }
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
                 if ( isset($ptna["release_url"]) ) {
@@ -101,6 +125,95 @@
 
     function CreateGtfsRoutesEntry( $network ) {
 
+        $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
+        $route_type_to_string["1"]   = 'Subway, Metro';
+        $route_type_to_string["2"]   = 'Rail';
+        $route_type_to_string["3"]   = 'Bus';
+        $route_type_to_string["4"]   = 'Ferry';
+        $route_type_to_string["5"]   = 'Cable tram';
+        $route_type_to_string["6"]   = 'Aerialway';
+        $route_type_to_string["7"]   = 'Funicular';
+        $route_type_to_string["11"]  = 'Trolleybus';
+        $route_type_to_string["12"]  = 'Monorail';
+
+        # https://developers.google.com/transit/gtfs/reference/extended-route-types
+
+        #                      Code 	Description 	                  Support 	   Examples
+        $route_type_to_string["100"] = 'Railway Service';                 # Yes 	 
+        $route_type_to_string["101"] = 'High Speed Rail Service';               # Yes 	TGV (FR), ICE (DE), Eurostar (GB)
+        $route_type_to_string["102"] = 'Long Distance Trains';            	      # Yes 	InterCity/EuroCity
+        $route_type_to_string["103"] = 'Inter Regional Rail Service';               # Yes 	InterRegio (DE), Cross County Rail (GB)
+        $route_type_to_string["104"] = 'Car Transport Rail Service';            	 	  	 
+        $route_type_to_string["105"] = 'Sleeper Rail Service';            	     # Yes 	GNER Sleeper (GB)
+        $route_type_to_string["106"] = 'Regional Rail Service';                 # Yes 	TER (FR), Regionalzug (DE)
+        $route_type_to_string["107"] = 'Tourist Railway Service';            	      # Yes 	Romney, Hythe & Dymchurch (GB)
+        $route_type_to_string["108"] = 'Rail Shuttle (Within Complex)';                 # Yes 	Gatwick Shuttle (GB), Sky Line (DE)
+        $route_type_to_string["109"] = 'Suburban Railway';            	     # Yes 	S-Bahn (DE), RER (FR), S-tog (Kopenhagen)
+        $route_type_to_string["110"] = 'Replacement Rail Service';            	 	  	 
+        $route_type_to_string["111"] = 'Special Rail Service';            		  	 
+        $route_type_to_string["112"] = 'Lorry Transport Rail Service';            		  	 
+        $route_type_to_string["113"] = 'All Rail Services';            	 	  	 
+        $route_type_to_string["114"] = 'Cross-Country Rail Service';            	 	  	 
+        $route_type_to_string["115"] = 'Vehicle Transport Rail Service';            	 	  	 
+        $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
+        $route_type_to_string["117"] = 'Additional Rail Service';            	 	  	 
+        $route_type_to_string["200"] = 'Coach Service 	Yes';            	 	 
+        $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
+        $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
+        $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
+        $route_type_to_string["204"] = 'Regional Coach Service';            	     # Yes 	 
+        $route_type_to_string["205"] = 'Special Coach Service';            	 	  	 
+        $route_type_to_string["206"] = 'Sightseeing Coach Service';            	 	  	 
+        $route_type_to_string["207"] = 'Tourist Coach Service';            	 	  	 
+        $route_type_to_string["208"] = 'Commuter Coach Service';            	 	  	 
+        $route_type_to_string["209"] = 'All Coach Services';            	 	  	 
+        $route_type_to_string["400"] = 'Urban Railway Service';            	      # 	Yes 	 
+        $route_type_to_string["401"] = 'Metro Service';                # Yes 	Métro de Paris
+        $route_type_to_string["402"] = 'Underground Service';                # Yes 	London Underground, U-Bahn
+        $route_type_to_string["403"] = 'Urban Railway Service';                # Yes 	 
+        $route_type_to_string["404"] = 'All Urban Railway Services'; 	  	 
+        $route_type_to_string["405"] = 'Monorail';                # Yes 	 
+        $route_type_to_string["700"] = 'Bus Service';                # Yes 	 
+        $route_type_to_string["701"] = 'Regional Bus Service';                # Yes 	Eastbourne-Maidstone (GB)
+        $route_type_to_string["702"] = 'Express Bus Service';                # Yes 	X19 Wokingham-Heathrow (GB)
+        $route_type_to_string["703"] = 'Stopping Bus Service'; 	  	     # 38 London: Clapton Pond-Victoria (GB)
+        $route_type_to_string["704"] = 'Local Bus Service';                # Yes 	 
+        $route_type_to_string["705"] = 'Night Bus Service'; 	      # N prefixed buses in London (GB)
+        $route_type_to_string["706"] = 'Post Bus Service'; 	       # Maidstone P4 (GB)
+        $route_type_to_string["707"] = 'Special Needs Bus'; 	  	 
+        $route_type_to_string["708"] = 'Mobility Bus Service'; 	  	 
+        $route_type_to_string["709"] = 'Mobility Bus for Registered Disabled'; 	  	 
+        $route_type_to_string["710"] = 'Sightseeing Bus'; 	  	 
+        $route_type_to_string["711"] = 'Shuttle Bus'; 	  	     # 747 Heathrow-Gatwick Airport Service (GB)
+        $route_type_to_string["712"] = 'School Bus'; 	  	 
+        $route_type_to_string["713"] = 'School and Public Service Bus'; 	  	 
+        $route_type_to_string["714"] = 'Rail Replacement Bus Service'; 	  	 
+        $route_type_to_string["715"] = 'Demand and Response Bus Service';                # Yes 	 
+        $route_type_to_string["716"] = 'All Bus Services'; 	  	 
+        $route_type_to_string["800"] = 'Trolleybus Service';                # Yes 	 
+        $route_type_to_string["900"] = 'Tram Service';                # Yes 	 
+        $route_type_to_string["901"] = 'City Tram Service'; 	  	 
+        $route_type_to_string["902"] = 'Local Tram Service'; 	      # Munich (DE), Brussels (BE), Croydon (GB)
+        $route_type_to_string["903"] = 'Regional Tram Service'; 	  	 
+        $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
+        $route_type_to_string["905"] = 'Shuttle Tram Service'; 	  	 
+        $route_type_to_string["906"] = 'All Tram Services'; 	  	 
+        $route_type_to_string["1000"] = 'Water Transport Service';                # Yes 	 
+        $route_type_to_string["1100"] = 'Air Service'; 	  	 
+        $route_type_to_string["1200"] = 'Ferry Service';                    # Yes 	 
+        $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
+        $route_type_to_string["1400"] = 'Funicular Service';                # Yes 	Rigiblick (Zürich, CH)
+        $route_type_to_string["1500"] = 'Taxi Service'; 	  	 
+        $route_type_to_string["1501"] = 'Communal Taxi Service';            # Yes 	Marshrutka (RU), dolmuş (TR)
+        $route_type_to_string["1502"] = 'Water Taxi Service'; 	  	 
+        $route_type_to_string["1503"] = 'Rail Taxi Service'; 	  	 
+        $route_type_to_string["1504"] = 'Bike Taxi Service'; 	  	 
+        $route_type_to_string["1505"] = 'Licensed Taxi Service'; 	  	 
+        $route_type_to_string["1506"] = 'Private Hire Service Vehicle'; 	  	 
+        $route_type_to_string["1507"] = 'All Taxi Services'; 	  	 
+        $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes 	 
+        $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes 	                     
+
         $SqliteDb = FindGtfsSqliteDb( $network );
         
         if ( $SqliteDb != '' ) {
@@ -109,30 +222,16 @@
                 
                try {
                    
-                    $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
-                    $route_type_to_string["1"]   = 'Subway, Metro';
-                    $route_type_to_string["2"]   = 'Rail';
-                    $route_type_to_string["3"]   = 'Bus';
-                    $route_type_to_string["4"]   = 'Ferry';
-                    $route_type_to_string["5"]   = 'Cable tram';
-                    $route_type_to_string["6"]   = 'Aerialway';
-                    $route_type_to_string["7"]   = 'Funicular';
-                    $route_type_to_string["11"]  = 'Trolleybus';
-                    $route_type_to_string["12"]  = 'Monorail';
-                    $route_type_to_string["701"] = 'Bus (701)';
-                    $route_type_to_string["702"] = 'Express Bus (702)';
-                    $route_type_to_string["715"] = 'Ruftaxi (715)';
-                    
                     $today      = new DateTime();
                         
                     $start_time = gettimeofday(true);
                     
                     $db         = new SQLite3( $SqliteDb );
                     
-                    $sql        = "SELECT DISTINCT routes.route_short_name,routes.route_long_name,routes.route_id,routes.route_type,agency.agency_name,agency.agency_url,routes.ptna_is_invalid,routes.ptna_is_wrong,routes.ptna_comment 
-                                   FROM            routes 
-                                   JOIN            agency ON routes.agency_id = agency.agency_id 
-                                   ORDER BY        route_short_name;";
+                    $sql        = "SELECT DISTINCT    *
+                                   FROM               routes 
+                                   JOIN               agency ON routes.agency_id = agency.agency_id 
+                                   ORDER BY CASE WHEN route_short_name GLOB '*[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
     
                     $outerresult = $db->query( $sql );
                     
@@ -144,14 +243,14 @@
                             $route_type_text = $outerrow["route_type"];
                         }
                                 
-                        $sql = sprintf( "SELECT DISTINCT start_date,end_date 
+                        $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date 
                                          FROM            trips 
                                          JOIN            calendar ON trips.service_id = calendar.service_id 
                                          WHERE           trip_id  IN 
-                                                         (SELECT   trip_id
+                                                         (SELECT   trips.trip_id
                                                           FROM     trips
-                                                          WHERE    route_id='%s') AND %s < end_date
-                                                          ORDER BY start_date;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd') );
+                                                          WHERE    trips.route_id='%s') AND %s < calendar.end_date
+                                                          ORDER BY calendar.start_date;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd') );
                                                    
                         $innerresult = $db->query( $sql );
                     
@@ -160,7 +259,13 @@
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
                             echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
                             echo '                            <td class="gtfs-text">' . htmlspecialchars($route_type_text) . '</td>' . "\n";
-                            echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
+                            if ( $outerrow["route_long_name"] ) {
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
+                            } elseif ( $outerrow["route_desc"] ) {
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_desc"]) . '</td>' . "\n";
+                            } else {
+                                echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                            }
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
