@@ -96,7 +96,7 @@
 
         <hr />
 
-<?php include "footer.inc" ?>
+<?php include "gtfs-footer.inc" ?>
 
 	</div> <!-- wrapper -->
     </body>
