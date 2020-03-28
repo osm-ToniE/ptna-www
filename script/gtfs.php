@@ -47,20 +47,20 @@
                 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
-                if ( isset($feed["feed_publisher_name"]) ) {
-                    if ( isset($feed["feed_publisher_url"]) ) {
+                if ( $feed["feed_publisher_name"] ) {
+                    if ( $feed["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 } else {
-                    if ( isset($ptna["feed_publisher_url"]) ) {
+                    if ( $ptna["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 }
-                if ( isset($feed["feed_start_date"]) ) {
+                if ( $feed["feed_start_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
                         echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
@@ -73,7 +73,7 @@
                         echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["feed_start_date"]) . '</td>' . "\n";
                     }
                 }
-                if ( isset($feed["feed_end_date"]) ) {
+                if ( $feed["feed_end_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
                         echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
@@ -87,17 +87,17 @@
                     }
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
-                if ( isset($ptna["release_url"]) ) {
+                if ( $ptna["release_url"] ) {
                     echo '                            <td class="gtfs-date"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_date"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
                 }
-                if ( isset($ptna["original_license_url"]) ) {
+                if ( $ptna["original_license_url"] ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($row["original_license"]) . '</td>' . "\n";
                 }
-                if ( isset($ptna["license_url"]) ) {
+                if ( $ptna["license_url"] ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["license_url"] . '">' . htmlspecialchars($ptna["license"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["license"]) . '</td>' . "\n";
