@@ -49,13 +49,13 @@
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
                 if ( isset($feed["feed_publisher_name"]) ) {
                     if ( isset($feed["feed_publisher_url"]) ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 } else {
                     if ( isset($ptna["feed_publisher_url"]) ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
@@ -264,7 +264,7 @@
                             } elseif ( $outerrow["route_desc"] ) {
                                 echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_desc"]) . '</td>' . "\n";
                             } else {
-                                echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_id"]) . '</td>' . "\n";
                             }
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
@@ -456,6 +456,33 @@
         }
         
         return 0;
+    }
+    
+
+    function GetPtnaComment( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+        
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+                
+                $sql        = "SELECT * FROM ptna";
+                
+                $ptna       = $db->querySingle( $sql, true );
+                
+                return $ptna["comment"];
+                
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+        
+        return '';
     }
     
 

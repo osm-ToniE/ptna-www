@@ -19,6 +19,12 @@
 
                 <form class="ptna-data" action="routes.php?network=<?php echo urlencode($network);?>" method="post">
 
+                <?php
+                    $comment = GetPtnaComment( $network );
+                    if ( $comment ) {
+                        printf( "<p>%s</p>\n", htmlspecialchars($comment) );
+                    }
+                ?>
                 <table id="gtfs-routes">
                     <thead>
 <?php include $inc_lang.'gtfs-routes-trth.inc' ?>
