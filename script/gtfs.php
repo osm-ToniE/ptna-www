@@ -104,6 +104,7 @@
                 }
                 echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
                 echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["aggregated"]) . '</td>' . "\n";
+                echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["analyzed"]) . '</td>' . "\n";
                 echo '                            <td class="gtfs-comment">'  . htmlspecialchars($ptna["normalized"]) .' </td>' . "\n";
                 echo '                        </tr>' . "\n";
                 

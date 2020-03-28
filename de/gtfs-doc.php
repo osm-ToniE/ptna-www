@@ -14,6 +14,7 @@
                 <li><a href="#gtfsdata">Was sind GTFS Daten?</a></li>
                 <li><a href="#prepared">Bearbeitete GTFS Daten</a></li>
                 <li><a href="#aggregated">Aggregierte GTFS Daten</a>
+                <li><a href="#analyzed">Analysierte GTFS Daten</a>
                 <li><a href="#normalized">Normalisierte GTFS Daten</a>
             </ul>
         </nav>
@@ -84,6 +85,28 @@
                         </ul>
                     </li>
                 </ul>
+            </div>
+
+            <hr />
+
+            <h2 id="analyzed">Analysierte GTFS Daten</h2>
+            <div class="indent">
+                <p>
+                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet. 
+                    Ziel ist, herauszufinden, welche Route (Trip) Teilroute einer anderen Route ist.
+                </p>
+                <ul>
+                    <li>Tabelle "ptna_analyzed"
+                        <ul>
+                            <li>Füge PTNA-spezifische Information der Analyse als eigenständige Tabelle hinzu.</li>
+                        </ul>
+                    </li>
+                    <li>Tabelle "trips"
+                        <ul>
+                            <li>...</li>
+                        </ul>
+                    </li>
+                 </ul>
             </div>
 
             <hr />
