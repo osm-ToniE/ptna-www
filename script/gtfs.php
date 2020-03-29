@@ -141,6 +141,8 @@
 
     function CreateGtfsRoutesEntry( $network ) {
 
+        ob_implicit_flush(true);
+        
         $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
         $route_type_to_string["1"]   = 'Subway, Metro';
         $route_type_to_string["2"]   = 'Rail';
