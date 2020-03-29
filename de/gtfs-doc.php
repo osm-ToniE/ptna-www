@@ -96,7 +96,7 @@
                     Ziel ist, herauszufinden, welche Route (Trip) Teilroute einer anderen Route ist.
                 </p>
                 <ul>
-                    <li>Tabelle "ptna_analyzed"
+                    <li>Tabelle "ptna_analysis"
                         <ul>
                             <li>Füge PTNA-spezifische Information der Analyse als eigenständige Tabelle hinzu.</li>
                         </ul>
