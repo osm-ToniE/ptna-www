@@ -260,13 +260,6 @@
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
                             echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
                             echo '                            <td class="gtfs-text">' . htmlspecialchars($route_type_text) . '</td>' . "\n";
-                            if ( $outerrow["route_long_name"] ) {
-                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
-                            } elseif ( $outerrow["route_desc"] ) {
-                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_desc"]) . '</td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_id"]) . '</td>' . "\n";
-                            }
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
@@ -276,6 +269,13 @@
                                 echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
                                 echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
+                            }
+                            if ( $outerrow["route_long_name"] ) {
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_long_name"]) . '</td>' . "\n";
+                            } elseif ( $outerrow["route_desc"] ) {
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_desc"]) . '</td>' . "\n";
+                            } else {
+                                echo '                            <td class="gtfs-text">' . htmlspecialchars($outerrow["route_id"]) . '</td>' . "\n";
                             }
                             if ( $outerrow["agency_url"] ) {
                                 echo '                            <td class="gtfs-text"><a target="_blank" href="' . $outerrow["agency_url"]. '">' . htmlspecialchars($outerrow["agency_name"]) . '</a></td>' . "\n";

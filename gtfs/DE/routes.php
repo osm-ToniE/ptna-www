@@ -22,7 +22,7 @@
                 <?php
                     $comment = GetPtnaComment( $network );
                     if ( $comment ) {
-                        printf( "<p>%s</p>\n", htmlspecialchars($comment) );
+                        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($comment) );
                     }
                 ?>
                 <table id="gtfs-routes">
