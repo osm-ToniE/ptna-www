@@ -1,5 +1,4 @@
 <?php
-    include('../../script/globals.php');
 
     function FindGtfsSqliteDb( $network ) {
         global $path_to_work;
@@ -102,10 +101,26 @@
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["license"]) . '</td>' . "\n";
                 }
-                echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
-                echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["aggregated"]) . '</td>' . "\n";
-                echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["analyzed"]) . '</td>' . "\n";
-                echo '                            <td class="gtfs-comment">'  . htmlspecialchars($ptna["normalized"]) .' </td>' . "\n";
+                if ( $ptna["prepared"] ) {
+                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["prepared"])   . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-comment"></td>' . "\n";
+                }
+                if ( $ptna["aggregated"] ) {
+                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["aggregated"]) . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-checkbox"></td>' . "\n";
+                }
+                if ( $ptna["analyzed"] ) {
+                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["analyzed"])   . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["analyzed"])   . '</td>' . "\n";
+                }
+                if ( $ptna["normalized"] ) {
+                    echo '                            <td class="gtfs-comment"><a href="/en/gtfs-statistics.php?network=' .  urlencode($network) . '">' . htmlspecialchars($ptna["normalized"])  . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-comment"></td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
                 
                 $db->close();
@@ -438,7 +453,7 @@
                         echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
                         if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
                         echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">' . htmlspecialchars($row["ptna_comment"]) . '</td>' . "\n";
+                        echo '                           <td class="gtfs-comment">'  . htmlspecialchars($row["ptna_comment"]) . '</td>' . "\n";
                         echo '                       </tr>' . "\n";
                     }
                     
@@ -587,6 +602,197 @@
         }
         
         return array();
+    }
+    
+
+    function CreatePtnaStatistics( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+        
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+                
+                $sql = sprintf( "SELECT * FROM ptna ;" );
+                
+                $ptna = $db->querySingle( $sql, true );
+
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+        
+        return array();
+    }
+
+
+    function CreatePtnaAggregationStatistics( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+        
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+                
+                $sql = sprintf( "SELECT * FROM ptna_aggregation;" );
+                
+                $ptna = $db->querySingle( $sql, true );
+                
+                if ( $ptna["date"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Date</td>' . "\n";
+                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["duration"] ) {
+                    $duration = $ptna["duration"];
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Duration</td>' . "\n";
+                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
+                    echo '                            <td class="statistics-number">';
+                    $format_mins = '%2d:';
+                    $format_secs = '%2d';
+                    if ( $duration > 3600 ) {
+                        printf( "%2d:", $duration / 3600 );
+                        $format_mins = '%02d:';
+                    }
+                    if ( $duration > 60 ) {
+                        printf( $format_mins, ($duration % 3600) / 60 );
+                        $format_secs = '%02d';
+                    }
+                    printf( $format_secs, ($duration % 60) );
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["size_before"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">SQLite-DB size before</td>' . "\n";
+                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_before"]) / 1024 / 1024 ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["size_after"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">SQLite-DB size after</td>' . "\n";
+                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_after"]) / 1024 / 1024 ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["routes_before"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["routes_after"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["trips_before"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["trips_after"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["stop_times_before"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["stop_times_after"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+        
+        return 0;
+    }
+    
+
+    function CreatePtnaAanalysisStatistics( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+        
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+                
+                $sql = sprintf( "SELECT * FROM ptna_analysis;" );
+                
+                $ptna = $db->querySingle( $sql, true );
+                
+                if ( $ptna["date"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Date</td>' . "\n";
+                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
+                    echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["duration"] ) {
+                    $duration = $ptna["duration"];
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Duration</td>' . "\n";
+                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
+                    echo '                            <td class="statistics-number">';
+                    $format_mins = '%2d:';
+                    $format_secs = '%2d';
+                    if ( $duration > 3600 ) {
+                        printf( "%2d:", $duration / 3600 );
+                        $format_mins = '%02d:';
+                    }
+                    if ( $duration > 60 ) {
+                        printf( $format_mins, ($duration % 3600) / 60 );
+                        $format_secs = '%02d';
+                    }
+                    printf( $format_secs, ($duration % 60) );
+                    echo '                        </tr>' . "\n";
+                }
+                if ( $ptna["count_subroute"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_subroute"]) . '</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+        
+        return 0;
     }
     
 ?>

@@ -3,6 +3,7 @@
 
 <?php $title="GTFS Analysen"; $inc_lang='../../de/'; include $inc_lang.'html-head.inc'; ?>
 
+<?php include('../../script/globals.php'); ?>
 <?php include('../../script/gtfs.php'); ?>
 
     <body>

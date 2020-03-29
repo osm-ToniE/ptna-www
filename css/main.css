@@ -129,8 +129,10 @@ code             { font-weight: 500; font-size: 1.1em; }
 .statistics-tablerow         { background-color: white;   }
 .statistics-name             { text-align:left; white-space:nowrap; }
 .statistics-network          { text-align:left;   }
+.statistics-text             { text-align:left;   }
 .statistics-date             { text-align:center; }
 .statistics-duration         { text-align:right; }
 .statistics-size             { text-align:right; }
+.statistics-number           { text-align:right; }
 
 
