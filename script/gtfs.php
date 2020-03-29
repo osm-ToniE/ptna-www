@@ -250,8 +250,8 @@
                                          WHERE           trip_id  IN 
                                                          (SELECT   trips.trip_id
                                                           FROM     trips
-                                                          WHERE    trips.route_id='%s') AND %s < calendar.end_date
-                                                          ORDER BY calendar.start_date;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd') );
+                                                          WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
+                                                          ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
                                                    
                         $innerresult = $db->query( $sql );
                     
