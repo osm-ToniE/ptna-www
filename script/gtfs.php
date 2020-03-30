@@ -8,16 +8,21 @@
         if ( $network && preg_match("/^[a-zA-Z0-9_.-]+$/", $network) ) {
             $prefixparts = explode( '-', $network );
             $countrydir  = array_shift( $prefixparts );
-            if ( count($prefixparts) > 1 ) {
-                $subdir = array_shift( $prefixparts );
-                $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-ptna-gtfs-sqlite.db';
-            } else {
-                $return_path = $path_to_work . $countrydir . '/' . $network . '-ptna-gtfs-sqlite.db';
-            }
-        
+            
+            $return_path = $path_to_work . $countrydir . '/' . $network . '-ptna-gtfs-sqlite.db';
+
             if ( file_exists($return_path) ) {
                 return $return_path;
+            } else {
+                $subdir = array_shift( $prefixparts );
+
+                $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-ptna-gtfs-sqlite.db';
+            
+                if ( file_exists($return_path) ) {
+                    return $return_path;
+                }
             }
+        
         }
         
         return '';

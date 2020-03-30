@@ -20,12 +20,12 @@
 <?php include $inc_lang.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
+<?php $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BE-VBB" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-DING" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-KV.SHA" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-KVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-S-und-U-Bahnen" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-SPNV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-VHB" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-VRN" ); ?>
