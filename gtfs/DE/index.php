@@ -22,6 +22,7 @@
                     <tbody>
 <?php $duration += CreateGtfsEntry( "DE-BE-VBB" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-DING" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-KV.SHA" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-VHB" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>

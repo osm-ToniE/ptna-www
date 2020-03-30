@@ -5,7 +5,7 @@
         
         $return_path = '';
 
-        if ( $network && preg_match("/^[a-zA-Z0-9_-]+$/", $network) ) {
+        if ( $network && preg_match("/^[a-zA-Z0-9_.-]+$/", $network) ) {
             $prefixparts = explode( '-', $network );
             $countrydir  = array_shift( $prefixparts );
             if ( count($prefixparts) > 1 ) {
