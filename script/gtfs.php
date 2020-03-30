@@ -522,7 +522,7 @@
                             echo "              <p>\n";
                             echo "                  <strong>GTFS Shape Data</strong>\n";
                             echo "              </p>\n";
-                            echo '              <table id="gtfs-single-trip">' . "\n";
+                            echo '              <table id="gtfs-shape">' . "\n";
                             echo '                  <thead>' . "\n";
                             echo '                      <tr class="gtfs-tableheaderrow">' . "\n";
                             echo '                          <th class="gtfs-name">Number</th>' . "\n";
@@ -534,9 +534,9 @@
                             $counter = 1;
                             while ( $row=$result->fetchArray() ) {
                                 echo '                      <tr class="gtfs-tablerow">' . "\n";
-                                echo '                          <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
-                                echo '                          <td class="shape-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
-                                echo '                          <td class="shape-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                                echo '                          <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
+                                echo '                          <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
+                                echo '                          <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
                                 echo '                      </tr>' . "\n";
                             }
                             echo '                  </tbody>' . "\n";
