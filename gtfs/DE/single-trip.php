@@ -40,7 +40,9 @@
                     </tbody>
                 </table>
 
-                <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
+<?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
+
+<?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
 
             </div>
             
