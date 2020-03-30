@@ -96,6 +96,11 @@
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($row["original_license"]) . '</td>' . "\n";
                 }
+                if ( $ptna["has_shapes"] ) {
+                    echo '                           <td class="gtfs-checkbox"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-checkbox"></td>' . "\n";
+                }
                 if ( $ptna["license_url"] ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["license_url"] . '">' . htmlspecialchars($ptna["license"]) . '</a></td>' . "\n";
                 } else {
