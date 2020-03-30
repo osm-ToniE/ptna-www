@@ -495,46 +495,53 @@
                     $start_time = gettimeofday(true);
                     
                     $db = new SQLite3( $SqliteDb );
-                    
-                    $sql        = sprintf( "SELECT * FROM trips WHERE trip_id='%s'", SQLite3::escapeString($trip_id) );
-                
-                    $trip       = $db->querySingle( $sql, true );
-                    
-                    $shape_id   = $trip["shape_id"];
-                    
-                    if ( $shape_id ) {
-                    
-                        $sql = sprintf( "SELECT   * 
-                                         FROM     shapes
-                                         WHERE    shape_id='%s' 
-                                         ORDER BY CAST (shape_pt_sequence AS INTEGER);",
-                                         SQLite3::escapeString($shape_id) 
-                                      );
-                
-                        $result = $db->query( $sql );
                         
-                        echo "              <p>\n";
-                        echo "                  <strong>GTFS Shape Data</strong>\n";
-                        echo "              </p>\n";
-                        echo '              <table id="gtfs-single-trip">' . "\n";
-                        echo '                  <thead>' . "\n";
-                        echo '                      <tr class="gtfs-tableheaderrow">' . "\n";
-                        echo '                          <th class="gtfs-name">Number</th>' . "\n";
-                        echo '                          <th class="gtfs-number">Latitude</th>' . "\n";
-                        echo '                          <th class="gtfs-number">Longitude</th>' . "\n";
-                        echo '                      </tr>' . "\n";
-                        echo '                  </thead>' . "\n";
-                        echo '                  <tbody>' . "\n";
-                        $counter = 1;
-                        while ( $row=$result->fetchArray() ) {
-                            echo '                      <tr class="gtfs-tablerow">' . "\n";
-                            echo '                          <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
-                            echo '                          <td class="shape-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
-                            echo '                          <td class="shape-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                    $sql        = "SELECT * FROM ptna";
+                
+                    $ptna       = $db->querySingle( $sql, true );
+                
+                    if ( $ptna["has_shapes"] ) {
+                        
+                        $sql        = sprintf( "SELECT * FROM trips WHERE trip_id='%s'", SQLite3::escapeString($trip_id) );
+                    
+                        $trip       = $db->querySingle( $sql, true );
+                        
+                        $shape_id   = $trip["shape_id"];
+                        
+                        if ( $shape_id ) {
+                        
+                            $sql = sprintf( "SELECT   * 
+                                             FROM     shapes
+                                             WHERE    shape_id='%s' 
+                                             ORDER BY CAST (shape_pt_sequence AS INTEGER);",
+                                             SQLite3::escapeString($shape_id) 
+                                          );
+                    
+                            $result = $db->query( $sql );
+                            
+                            echo "              <p>\n";
+                            echo "                  <strong>GTFS Shape Data</strong>\n";
+                            echo "              </p>\n";
+                            echo '              <table id="gtfs-single-trip">' . "\n";
+                            echo '                  <thead>' . "\n";
+                            echo '                      <tr class="gtfs-tableheaderrow">' . "\n";
+                            echo '                          <th class="gtfs-name">Number</th>' . "\n";
+                            echo '                          <th class="gtfs-number">Latitude</th>' . "\n";
+                            echo '                          <th class="gtfs-number">Longitude</th>' . "\n";
                             echo '                      </tr>' . "\n";
+                            echo '                  </thead>' . "\n";
+                            echo '                  <tbody>' . "\n";
+                            $counter = 1;
+                            while ( $row=$result->fetchArray() ) {
+                                echo '                      <tr class="gtfs-tablerow">' . "\n";
+                                echo '                          <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
+                                echo '                          <td class="shape-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
+                                echo '                          <td class="shape-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                                echo '                      </tr>' . "\n";
+                            }
+                            echo '                  </tbody>' . "\n";
+                            echo '              </table>' . "\n";
                         }
-                        echo '                  </tbody>' . "\n";
-                        echo '              </table>' . "\n";
                     }
                     $db->close();
                     
