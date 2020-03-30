@@ -23,8 +23,13 @@
 <?php $duration += CreateGtfsEntry( "DE-BE-VBB" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-DING" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-KV.SHA" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-KVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-S-und-U-Bahnen" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-SPNV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BW-VHB" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-VRN" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-BW-VVS" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-NW-AVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-NW-VRR" ); ?>
