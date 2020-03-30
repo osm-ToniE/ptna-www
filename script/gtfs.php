@@ -135,10 +135,18 @@
                 return $stop_time - $start_time;
     
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo '                        <tr class="gtfs-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
+                echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: error opening data base</td>' . "\n";
+                echo '                            <td class="gtfs-comment" colspan=5></td>' . "\n";
+                echo '                        </tr>' . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo '                        <tr class="gtfs-tablerow">' . "\n";
+            echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
+            echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: data base not found</td>' . "\n";
+            echo '                            <td class="gtfs-comment" colspan=5></td>' . "\n";
+            echo '                        </tr>' . "\n";
         }
         
         return 0;
