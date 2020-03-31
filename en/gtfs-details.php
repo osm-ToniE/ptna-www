@@ -14,7 +14,9 @@
 
         <main id="main" class="results">
 
-<?php $network  = $_GET['network']; ?>
+<?php $network  = $_GET['network']; 
+      $duration = 0;
+?>
 
             <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $network ) { echo ' for "' . htmlspecialchars($network) . '"'; } ?></h2>
                 <div class="indent">
@@ -31,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php CreatePtnaDetails( $network ); ?>
+<?php $duration += CreatePtnaDetails( $network ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -47,7 +49,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php CreatePtnaAggregationStatistics( $network ); ?>
+<?php $duration += CreatePtnaAggregationStatistics( $network ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -63,10 +65,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php CreatePtnaAnalysisStatistics( $network ); ?>
+<?php $duration += CreatePtnaAnalysisStatistics( $network ); ?>
                                 </tbody>
                             </table>
                         </div>
+                    <?php printf( "<p>SQL-Queries took %f seconds to complete</p>\n", $duration ); ?>
                 </div>
 
         </main> <!-- main -->

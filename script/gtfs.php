@@ -693,6 +693,8 @@
 
             try {
 
+                $start_time = gettimeofday(true);
+                    
                 $db  = new SQLite3( $SqliteDb );
                 
                 $sql = sprintf( "SELECT * FROM ptna ;" );
@@ -702,7 +704,6 @@
                 $sql        = "SELECT * FROM feed_info";
                 
                 $feed       = $db->querySingle( $sql, true );
-                
                 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Network / Coverage</td>' . "\n";
@@ -829,6 +830,10 @@
                 }
                 echo '                        </tr>' . "\n";
 
+                $stop_time = gettimeofday(true);
+                
+                return $stop_time - $start_time;
+        
             } catch ( Exception $ex ) {
                 echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
             }
@@ -836,7 +841,7 @@
             echo "Sqlite DB not found for network = '" . $network . "'\n";
         }
         
-        return array();
+        return 0;
     }
 
 
@@ -848,6 +853,8 @@
 
             try {
 
+                $start_time = gettimeofday(true);
+                    
                 $db  = new SQLite3( $SqliteDb );
                 
                 $sql = sprintf( "SELECT * FROM ptna_aggregation;" );
@@ -937,6 +944,10 @@
                     echo '                        </tr>' . "\n";
                 }
                 
+                $stop_time = gettimeofday(true);
+                
+                return $stop_time - $start_time;
+        
             } catch ( Exception $ex ) {
                 echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
             }
@@ -956,6 +967,8 @@
 
             try {
 
+                $start_time = gettimeofday(true);
+                    
                 $db  = new SQLite3( $SqliteDb );
                 
                 $sql = sprintf( "SELECT * FROM ptna_analysis;" );
@@ -995,6 +1008,11 @@
                     echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
+
+                $stop_time = gettimeofday(true);
+                
+                return $stop_time - $start_time;
+        
             } catch ( Exception $ex ) {
                 echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
             }
