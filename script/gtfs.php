@@ -53,7 +53,7 @@
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
                 if ( $ptna["network_name"] ) {
                     if ( $ptna["network_name_url"] ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '" title="GTFS">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["network_name"]) . '</td>' . "\n";
                     }
@@ -62,13 +62,13 @@
                 }
                 if ( $feed["feed_publisher_name"] ) {
                     if ( $feed["feed_publisher_url"] ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 } else {
                     if ( $ptna["feed_publisher_url"] ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="From PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
