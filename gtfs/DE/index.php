@@ -33,6 +33,7 @@
 <?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-NW-AVV" ); ?>
 <?php $duration += CreateGtfsEntry( "DE-NW-VRR" ); ?>
+<?php $duration += CreateGtfsEntry( "DE-NW-VRS" ); ?>
                     </tbody>
                 </table>
                 
