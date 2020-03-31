@@ -20,20 +20,23 @@
 <?php include $inc_lang.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
-<?php $duration += CreateGtfsEntry( "DE-SPNV" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BE-VBB" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-DING" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-KV.SHA" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-KVV" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-VHB" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-VRN" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BW-VVS" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-BY-MVV" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-NW-AVV" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-NW-VRR" ); ?>
-<?php $duration += CreateGtfsEntry( "DE-NW-VRS" ); ?>
+<?php 
+    $duration += CreateGtfsEntry( "DE-SPNV" );
+    $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" );
+    $duration += CreateGtfsEntry( "DE-BE-VBB" );
+    $duration += CreateGtfsEntry( "DE-BW-DING" );
+    $duration += CreateGtfsEntry( "DE-BW-KV.SHA" );
+    $duration += CreateGtfsEntry( "DE-BW-KVV" );
+    $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
+    $duration += CreateGtfsEntry( "DE-BW-VHB" );
+    $duration += CreateGtfsEntry( "DE-BW-VRN" );
+    $duration += CreateGtfsEntry( "DE-BW-VVS" );
+    $duration += CreateGtfsEntry( "DE-BY-MVV" );
+    $duration += CreateGtfsEntry( "DE-NW-AVV" );
+    $duration += CreateGtfsEntry( "DE-NW-VRR" );
+    $duration += CreateGtfsEntry( "DE-NW-VRS" );
+    $duration += CreateGtfsEntry( "DE-SN-MDV" );
+?>
                     </tbody>
                 </table>
                 
