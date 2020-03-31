@@ -765,7 +765,7 @@
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name">Release Date</td>' . "\n";
+                echo '                            <td class="gtfs-name">Download Date</td>' . "\n";
                 echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
                 echo '                        </tr>' . "\n";
 
