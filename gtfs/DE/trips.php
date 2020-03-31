@@ -16,6 +16,9 @@
                 $network  = $_GET['network'];
                 $route_id = $_GET['route_id'];
                 $route_short_name = GetGtfsRouteShortNameFromRouteId( $network, $route_id ); 
+                if ( !$route_short_name ) {
+                    $route_short_name = '__not_set__';
+                }
             ?>
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name ) { echo htmlspecialchars($network) . ' Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>

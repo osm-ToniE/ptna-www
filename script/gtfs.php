@@ -266,7 +266,11 @@
                         while ( $innerrow=$innerresult->fetchArray() ) {
     
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
-                            echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
+                            if ( $outerrow["route_short_name"] ) {
+                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">' . htmlspecialchars($outerrow["route_short_name"]) . '</a></td>' . "\n";
+                            } else {
+                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '">__not_set__</a></td>' . "\n";
+                            }
                             echo '                            <td class="gtfs-text">' . htmlspecialchars($route_type_text) . '</td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
@@ -322,7 +326,7 @@
         
         if ( $SqliteDb != '' ) {
 
-           if (  $route_id && $route_short_name ) {
+           if (  $route_id ) {
                 
                 try {
                    
@@ -379,7 +383,11 @@
                         $ptnarow = $db->querySingle( $sql, true );
                     
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
-                        echo '                            <td class="gtfs-name">' . htmlspecialchars($route_short_name) . '</td>' . "\n";
+                        if ( $route_short_name ) {
+                            echo '                            <td class="gtfs-name">' . htmlspecialchars($route_short_name) . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-name">__not_set__</td>' . "\n";
+                        }
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
