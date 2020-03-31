@@ -51,6 +51,15 @@
                 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
+                if ( $ptna["network_name"] ) {
+                    if ( $ptna["network_name_url"] ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '" title="GTFS">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["network_name"]) . '</td>' . "\n";
+                    }
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
                 if ( $feed["feed_publisher_name"] ) {
                     if ( $feed["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
@@ -96,41 +105,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
                 }
-                if ( $ptna["original_license_url"] ) {
-                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($row["original_license"]) . '</td>' . "\n";
-                }
-                if ( $ptna["has_shapes"] ) {
-                    echo '                           <td class="gtfs-checkbox"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
-                } else {
-                    echo '                           <td class="gtfs-checkbox"></td>' . "\n";
-                }
-                if ( $ptna["license_url"] ) {
-                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["license_url"] . '">' . htmlspecialchars($ptna["license"]) . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["license"]) . '</td>' . "\n";
-                }
-                if ( $ptna["prepared"] ) {
-                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["prepared"])   . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-comment"></td>' . "\n";
-                }
-                if ( $ptna["aggregated"] ) {
-                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["aggregated"]) . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-checkbox"></td>' . "\n";
-                }
-                if ( $ptna["analyzed"] ) {
-                    echo '                            <td class="gtfs-checkbox"><a href="/en/gtfs-statistics.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["analyzed"])   . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-checkbox">' . htmlspecialchars($ptna["analyzed"])   . '</td>' . "\n";
-                }
-                if ( $ptna["normalized"] ) {
-                    echo '                            <td class="gtfs-comment"><a href="/en/gtfs-statistics.php?network=' .  urlencode($network) . '">' . htmlspecialchars($ptna["normalized"])  . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-comment"></td>' . "\n";
-                }
+                echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">Details, ...</a></td>' . "\n";
                 echo '                        </tr>' . "\n";
                 
                 $db->close();
@@ -143,14 +118,12 @@
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
                 echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: error opening data base</td>' . "\n";
-                echo '                            <td class="gtfs-comment" colspan=5></td>' . "\n";
                 echo '                        </tr>' . "\n";
             }
         } else {
             echo '                        <tr class="gtfs-tablerow">' . "\n";
             echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
             echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: data base not found (data not yet available?)</td>' . "\n";
-            echo '                            <td class="gtfs-comment" colspan=5></td>' . "\n";
             echo '                        </tr>' . "\n";
         }
         
@@ -704,7 +677,7 @@
     }
     
 
-    function CreatePtnaStatistics( $network ) {
+    function CreatePtnaDetails( $network ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
         
@@ -717,6 +690,136 @@
                 $sql = sprintf( "SELECT * FROM ptna ;" );
                 
                 $ptna = $db->querySingle( $sql, true );
+
+                $sql        = "SELECT * FROM feed_info";
+                
+                $feed       = $db->querySingle( $sql, true );
+                
+                
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Network / Coverage</td>' . "\n";
+                if ( $ptna["network_name_url"] ) {
+                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '" title="GTFS">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["network_name"]) . '</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+                
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Comment on data</td>' . "\n";
+                if ( $ptna["comment"] ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["comment"])  . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text"></td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Feed Publisher</td>' . "\n";
+                if ( $feed["feed_publisher_name"] ) {
+                    if ( $feed["feed_publisher_url"] ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="PTNA">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
+                    }
+                } elseif ( $ptna["feed_publisher_name"] ) {
+                    if ( $ptna["feed_publisher_url"] ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
+                    }
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Feed Start Date</td>' . "\n";
+                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
+                    echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Feed End Date</td>' . "\n";
+                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
+                    echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Feed Version</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Release Date</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Dowload Url</td>' . "\n";
+                if ( $ptna["release_url"] ) {
+                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["release_url"] . '">Download</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Publisher\'s License</td>' . "\n";
+                if ( $ptna["original_license_url"] ) {
+                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($row["original_license"]) . '</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">License given for use in OSM</td>' . "\n";
+                if ( $ptna["license_url"] ) {
+                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["license_url"] . '">' . htmlspecialchars($ptna["license"]) . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["license"]) . '</td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Has Shape Data</td>' . "\n";
+                if ( $ptna["has_shapes"] ) {
+                    echo '                           <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-text"></td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">GTFS data prepared for PTNA</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">GTFS data aggregated for PTNA</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["aggregated"]) . '</td>' . "\n";
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">GTFS data analyzed for PTNA</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["analyzed"])   . '</td>' . "\n";
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">GTFS data normalized for PTNA</td>' . "\n";
+                if ( $ptna["normalized"] ) {
+                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-statistics.php?network=' .  urlencode($network) . '">' . htmlspecialchars($ptna["normalized"])  . '</a></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text"></td>' . "\n";
+                }
+                echo '                        </tr>' . "\n";
 
             } catch ( Exception $ex ) {
                 echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
@@ -746,15 +849,14 @@
                 if ( $ptna["date"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Date</td>' . "\n";
-                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["duration"] ) {
                     $duration = $ptna["duration"];
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Duration</td>' . "\n";
-                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                     echo '                            <td class="statistics-number">';
                     $format_mins = '%2d:';
                     $format_secs = '%2d';
@@ -767,62 +869,63 @@
                         $format_secs = '%02d';
                     }
                     printf( $format_secs, ($duration % 60) );
+                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["size_before"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">SQLite-DB size before</td>' . "\n";
-                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_before"]) / 1024 / 1024 ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["size_after"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">SQLite-DB size after</td>' . "\n";
-                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_after"]) / 1024 / 1024 ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["routes_before"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["routes_after"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["trips_before"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["trips_after"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["stop_times_before"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["stop_times_after"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 
@@ -837,7 +940,7 @@
     }
     
 
-    function CreatePtnaAanalysisStatistics( $network ) {
+    function CreatePtnaAnalysisStatistics( $network ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
         
@@ -854,15 +957,14 @@
                 if ( $ptna["date"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Date</td>' . "\n";
-                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                     echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["duration"] ) {
                     $duration = $ptna["duration"];
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Duration</td>' . "\n";
-                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                     echo '                            <td class="statistics-number">';
                     $format_mins = '%2d:';
                     $format_secs = '%2d';
@@ -875,13 +977,14 @@
                         $format_secs = '%02d';
                     }
                     printf( $format_secs, ($duration % 60) );
+                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
                 if ( $ptna["count_subroute"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_subroute"]) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
             } catch ( Exception $ex ) {
