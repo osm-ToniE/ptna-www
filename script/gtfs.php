@@ -103,12 +103,22 @@
                 if ( $ptna["release_date"] ) {
                     $class = "gtfs-date";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
-                        $timestampTenDaysAgo  = time() - (10 * 24 * 3600);
-                        $release_day          = new DateTime( $ptna["release_date"] );
-                        $timestampReleaseDate = $release_day->format( 'U' );
+                        $timestampOneDayAgo    = time() - ( 1 * 24 * 3600);
+                        $timestampThreeDaysAgo = time() - ( 3 * 24 * 3600);
+                        $timestampTenDaysAgo   = time() - (10 * 24 * 3600);
+                        $release_day           = new DateTime( $ptna["release_date"] );
+                        $timestampReleaseDate  = $release_day->format( 'U' );
                         if ( $timestampReleaseDate >= $timestampTenDaysAgo )
                         {
                             $class = "gtfs-datenew";
+                            if ( $timestampReleaseDate >= $timestampThreeDaysAgo )
+                            {
+                                $class = "gtfs-datenewer";
+                                if ( $timestampReleaseDate >= $timestampOneDayAgo )
+                                {
+                                    $class = "gtfs-dateverynew";
+                                }
+                            }
                         }
                     }
                     if ( $ptna["release_url"] ) {
