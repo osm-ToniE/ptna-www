@@ -83,6 +83,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-lon                 { text-align:center; }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
+.gtfs-dateold             { text-align:center; background-color: orange; }
 .gtfs-datenew             { text-align:center; background-color: lightgreen; }
 .gtfs-datenewer           { text-align:center; background-color: limegreen; }
 .gtfs-dateverynew         { text-align:center; background-color: green; }
@@ -90,10 +91,12 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
+.gtfs-whitetext           { color: white;      }
+.gtfs-blacktext           { color: black;      }
 .shape-lat                { text-align:center; }
 .shape-lon                { text-align:center; }
 
-.ptna-data textarea       { overflow: auto; }
+.ptna-data textarea       { overflow: auto;    }
 
 .button-save              { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }
 .button-create            { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }

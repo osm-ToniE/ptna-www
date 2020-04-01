@@ -80,28 +80,29 @@
                         echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
                     }
                 } else {
-                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $ptna["feed_start_date"], $parts ) ) {
-                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
-                    } else {
-                        echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["feed_start_date"]) . '</td>' . "\n";
-                    }
+                    echo '                            <td class="' . $class . '">&nbsp;</td>' . "\n";
                 }
                 if ( $feed["feed_end_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
-                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                        $class = "gtfs-date";
+                        $timestampToday        = time();
+                        $end_day               = new DateTime( $feed["feed_end_date"] );
+                        $timestampEndDate      = $end_day->format( 'U' );
+                        if ( $timestampEndDate < $timestampToday )
+                        {
+                            $class = "gtfs-dateold";
+                        }
+                        echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
-                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                        echo '                            <td class="' . $class . '">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
                     }
                 } else {
-                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $ptna["feed_end_date"], $parts ) ) {
-                        echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
-                    } else {
-                        echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["feed_end_date"]) . '</td>' . "\n";
-                    }
+                    echo '                            <td class="' . $class . '">&nbsp;</td>' . "\n";
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
                 if ( $ptna["release_date"] ) {
-                    $class = "gtfs-date";
+                    $tdclass = "gtfs-date";
+                    $txclass = "gtfs-blacktext";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
                         $timestampOneDayAgo    = time() - ( 1 * 24 * 3600);
                         $timestampThreeDaysAgo = time() - ( 3 * 24 * 3600);
@@ -110,21 +111,22 @@
                         $timestampReleaseDate  = $release_day->format( 'U' );
                         if ( $timestampReleaseDate >= $timestampTenDaysAgo )
                         {
-                            $class = "gtfs-datenew";
+                            $tdclass = "gtfs-datenew";
                             if ( $timestampReleaseDate >= $timestampThreeDaysAgo )
                             {
-                                $class = "gtfs-datenewer";
+                                $tdclass = "gtfs-datenewer";
                                 if ( $timestampReleaseDate >= $timestampOneDayAgo )
                                 {
-                                    $class = "gtfs-dateverynew";
+                                    $tdclass = "gtfs-dateverynew";
+                                    $txclass = "gtfs-whitetext";
                                 }
                             }
                         }
                     }
                     if ( $ptna["release_url"] ) {
-                        echo '                            <td class="' . $class . '"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_date"]) . '</a></td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span class="' . $txclass . '">' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
                     } else {
-                        echo '                            <td class="' . $class . '">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><span class="' . $txclass . '">' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
                     }
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
