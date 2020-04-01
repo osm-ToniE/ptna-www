@@ -84,7 +84,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
 .gtfs-datenew             { text-align:center; background-color: lightgreen; }
-.gtfs-datenewer           { text-align:center; background-color: forestgreen; }
+.gtfs-datenewer           { text-align:center; background-color: limegreen; }
 .gtfs-dateverynew         { text-align:center; background-color: green; }
 .gtfs-version             { text-align:center; }
 .gtfs-text                { text-align:left;   }
