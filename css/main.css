@@ -92,7 +92,6 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-checkbox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
 .gtfs-whitetext           { color: white;      }
-.gtfs-blacktext           { color: black;      }
 .shape-lat                { text-align:center; }
 .shape-lon                { text-align:center; }
 

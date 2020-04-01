@@ -101,8 +101,8 @@
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
                 if ( $ptna["release_date"] ) {
-                    $tdclass = "gtfs-date";
-                    $txclass = "gtfs-blacktext";
+                    $tdclass    = "gtfs-date";
+                    $txclasstag = "";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
                         $timestampOneDayAgo    = time() - ( 1 * 24 * 3600);
                         $timestampThreeDaysAgo = time() - ( 3 * 24 * 3600);
@@ -117,16 +117,16 @@
                                 $tdclass = "gtfs-datenewer";
                                 if ( $timestampReleaseDate >= $timestampOneDayAgo )
                                 {
-                                    $tdclass = "gtfs-dateverynew";
-                                    $txclass = "gtfs-whitetext";
+                                    $tdclass    = "gtfs-dateverynew";
+                                    $txclasstag = 'class="gtfs-whitetext"';
                                 }
                             }
                         }
                     }
                     if ( $ptna["release_url"] ) {
-                        echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span class="' . $txclass . '">' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span ' . $txclasstag . '">' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
                     } else {
-                        echo '                            <td class="' . $tdclass . '"><span class="' . $txclass . '">' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><span ' . $txclasstag . '">' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
                     }
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
