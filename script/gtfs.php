@@ -799,7 +799,7 @@
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Dowload Url</td>' . "\n";
                 if ( $ptna["release_url"] ) {
-                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["release_url"] . '">Download</a></td>' . "\n";
+                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_url"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
@@ -810,7 +810,7 @@
                 if ( $ptna["original_license_url"] ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
                 } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($row["original_license"]) . '</td>' . "\n";
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["original_license"]) . '</td>' . "\n";
                 }
                 echo '                        </tr>' . "\n";
 
