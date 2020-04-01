@@ -61,6 +61,8 @@
 
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-VRN", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-AVV", "de", "Konfiguration" ); ?>
@@ -148,8 +150,6 @@
                     <?php CreateNewFullEntry( "DE-NW-WT", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-RP-VRM", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "DE-RP-VRN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-RP-VRT", "de", "Konfiguration" ); ?>
 
