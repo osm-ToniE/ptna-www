@@ -83,6 +83,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-lon                 { text-align:center; }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
+.gtfs-datenew             { text-align:center; background-color: lightgreen; }
 .gtfs-version             { text-align:center; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }

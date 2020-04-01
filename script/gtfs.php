@@ -100,10 +100,24 @@
                     }
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
-                if ( $ptna["release_url"] ) {
-                    echo '                            <td class="gtfs-date"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_date"]) . '</a></td>' . "\n";
+                if ( $ptna["release_date"] ) {
+                    $class = "gtfs-date";
+                    if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
+                        $timestampTenDaysAgo  = time() - (10 * 24 * 3600);
+                        $release_day          = new DateTime( $ptna["release_date"] );
+                        $timestampReleaseDate = $release_day->format( 'U' );
+                        if ( $timestampReleaseDate >= $timestampTenDaysAgo )
+                        {
+                            $class = "gtfs-datenew";
+                        }
+                    }
+                    if ( $ptna["release_url"] ) {
+                        echo '                            <td class="' . $class . '"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_date"]) . '</a></td>' . "\n";
+                    } else {
+                        echo '                            <td class="' . $class . '">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-date">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                    echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
                 echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">Details, ...</a></td>' . "\n";
                 echo '                        </tr>' . "\n";
