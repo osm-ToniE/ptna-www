@@ -37,7 +37,7 @@ function gpxdownload() {
             var wp_node    = wp_list[i];
             var sub_td     = wp_node.getElementsByTagName( "td" );
         
-            var gpx_name = "-unnown-";
+            var gpx_name = "-unknown-";
             var gpx_lat  = "-1";
             var gpx_lon  = "-1";
             
