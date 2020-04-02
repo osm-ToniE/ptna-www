@@ -7,6 +7,8 @@
 <?php include('../../script/gtfs.php'); ?>
 
     <body>
+      <script src="/script/ptna-list.js" type="text/javascript"></script>
+
       <div id="wrapper">
       
 <?php include $inc_lang.'header.inc' ?>
@@ -14,11 +16,9 @@
         <main id="main" class="results">
 <?php $network  = $_GET['network']; ?>
 
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network ) { echo htmlspecialchars($network); } else { echo "Deutschland"; } ?></h2>
+            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network ) { echo '<span id="network">' . htmlspecialchars($network) . '</span>'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-routes-head.inc' ?>
-
-                <form class="ptna-data" action="routes.php?network=<?php echo urlencode($network);?>" method="post">
 
                 <?php
                     $comment = GetPtnaComment( $network );
@@ -26,6 +26,10 @@
                         printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($comment) );
                     }
                 ?>
+
+                <button class="button-create" type="button" onclick="ptnalistdownload(1)">Download als CSV-Liste für PTNA</button>
+<!--                <button class="button-create" type="button" onclick="ptnalistdownload(0)">Download als CSV-Liste für PTNA (kein 'operator')</button> -->
+                
                 <table id="gtfs-routes">
                     <thead>
 <?php include $inc_lang.'gtfs-routes-trth.inc' ?>
@@ -34,8 +38,6 @@
 <?php $duration = CreateGtfsRoutesEntry( $network ); ?>
                     </tbody>
                 </table>
-                
-                </form>
                 
                 <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
 
