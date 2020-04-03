@@ -57,6 +57,8 @@
 
                     <?php CreateNewFullEntry( "DE-BW-KV.SHA", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-KVV", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-RVF", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
