@@ -50,7 +50,11 @@ function ptnalistdownload( include_agency ) {
                         value = 'trolleybus';
                     } else if ( value.match('demand and response bus') != null ) {
                         value = 'share_taxi';
-                    } else if ( value.match('frerry') != null ) {
+                    } else if ( value.match('bus') != null ) {
+                        value = 'bus';
+                    } else if ( value.match('monorail') != null ) {
+                        value = 'monorail';
+                    } else if ( value.match('frerry') != null || value.match('water transport service') != null ) {
                         value = 'ferry';
                     } else if ( value.match('rail') != null ) {
                         value = 'train';
@@ -64,9 +68,9 @@ function ptnalistdownload( include_agency ) {
                         value = 'bus';
                     }
                     if ( value.match(';') != null ) {
-                        route_type = '"' + value.toLowerCase() + '"';
+                        route_type = '"' + value + '"';
                     } else {
-                        route_type = value.toLowerCase();
+                        route_type = value;
                     }
                 } else if ( key == "route_long_name")  {
                     if ( value.match(';') != null ) {
