@@ -21,17 +21,33 @@
                     </thead>
                     <tbody>
 <?php 
-    $duration += CreateGtfsEntry( "DE-SPNV" );
     $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" );
+    $duration += CreateGtfsEntry( "DE-SPNV" );
     $duration += CreateGtfsEntry( "DE-BE-VBB" );
     $duration += CreateGtfsEntry( "DE-BW-DING" );
+    $duration += CreateGtfsEntry( "DE-BW-Filsland" );
+    $duration += CreateGtfsEntry( "DE-BW-HNV" );
+    $duration += CreateGtfsEntry( "DE-BW-HVG" );
     $duration += CreateGtfsEntry( "DE-BW-KV.SHA" );
     $duration += CreateGtfsEntry( "DE-BW-KVV" );
+    $duration += CreateGtfsEntry( "DE-BW-OstablbMobil" );
+    $duration += CreateGtfsEntry( "DE-BW-RAB" );
+    $duration += CreateGtfsEntry( "DE-BW-RBS" );
+    $duration += CreateGtfsEntry( "DE-BW-RVS" );
+    $duration += CreateGtfsEntry( "DE-BW-Rexer" );
     $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
-    $duration += CreateGtfsEntry( "DE-BW-VHB" );
+    $duration += CreateGtfsEntry( "DE-BW-SBG" );
+    $duration += CreateGtfsEntry( "DE-BW-SWEG" );
+    $duration += CreateGtfsEntry( "DE-BW-SWHN" );
+    $duration += CreateGtfsEntry( "DE-BW-TGO" );
+    $duration += CreateGtfsEntry( "DE-BW-TUTicket" );
+    $duration += CreateGtfsEntry( "DE-BW-VBC" );
+    $duration += CreateGtfsEntry( "DE-BW-VGV" );
+    $duration += CreateGtfsEntry( "DE-BW-VPE" );
     $duration += CreateGtfsEntry( "DE-BW-VRN" );
     $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-BW-bodo" );
+    $duration += CreateGtfsEntry( "DE-BW-naldo" );
     $duration += CreateGtfsEntry( "DE-BY-MVV" );
     $duration += CreateGtfsEntry( "DE-NW-AVV" );
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
