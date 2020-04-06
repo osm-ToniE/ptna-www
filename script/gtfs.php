@@ -80,7 +80,7 @@
                         echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
                     }
                 } else {
-                    echo '                            <td class="' . $class . '">&nbsp;</td>' . "\n";
+                    echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
                 if ( $feed["feed_end_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
@@ -94,10 +94,10 @@
                         }
                         echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
-                        echo '                            <td class="' . $class . '">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
                     }
                 } else {
-                    echo '                            <td class="' . $class . '">&nbsp;</td>' . "\n";
+                    echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
                 echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
                 if ( $ptna["release_date"] ) {
