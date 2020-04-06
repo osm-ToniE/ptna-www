@@ -30,7 +30,7 @@
     $duration += CreateGtfsEntry( "DE-BW-HVG" );
     $duration += CreateGtfsEntry( "DE-BW-KV.SHA" );
     $duration += CreateGtfsEntry( "DE-BW-KVV" );
-    $duration += CreateGtfsEntry( "DE-BW-OstablbMobil" );
+    $duration += CreateGtfsEntry( "DE-BW-OstalbMobil" );
     $duration += CreateGtfsEntry( "DE-BW-RAB" );
     $duration += CreateGtfsEntry( "DE-BW-RBS" );
     $duration += CreateGtfsEntry( "DE-BW-RVS" );
