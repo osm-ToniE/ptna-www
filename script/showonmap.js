@@ -1,47 +1,39 @@
+//
+//
+//
 
-
-function gpxdownload() {
+function showtriponmap() {
     
-    var network             = document.getElementById("network").firstChild.data;
-    var route_short_name    = document.getElementById("route_short_name").firstChild.data;
-    var trip_id             = document.getElementById("trip_id").firstChild.data;
-  
-    //   fill Meta data
-    var metadata     = "";
-    metadata        += "  <name>" + network + ", Linie " + route_short_name + "</name>\r\n" 
-    metadata        += "  <cmt>Trip-Id = " + trip_id + "</cmt>\r\n"
-    metadata        += "  <desc>GTFS Analysen für " + network + "</desc>\r\n"
-    metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
-    metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
-     
-    var filename = network + "_Linie_" + route_short_name + ".gpx";
-         
-    //    <time> xsd:dateTime </time> 
-    var dateobj  = new Date(); 
-    var date     = dateobj.toISOString(); 
-    metadata    += "  <time>" + date + "</time>\r\n"
-      
-    var wpt = "";
-    var rte = "";
-  
-    var wp_table = document.getElementById( "gtfs-single-trip" );
-    
-    if ( wp_table ) {
+	var mymap = L.map('mapid').setView([48.0649, 11.6612], 16);
+	
+    L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                 maxZoom: 19,
+                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }
+               ).addTo(mymap);
 
-        var wp_listnode = wp_table.getElementsByTagName( "tbody" )[0];
-        var wp_list     = wp_listnode.getElementsByTagName( "tr" );
+    var polyline_array = [];
+  
+    var stop_table = document.getElementById( "gtfs-single-trip" );
+    
+    if ( stop_table ) {
+
+        var stop_listnode = stop_table.getElementsByTagName( "tbody" )[0];
+        var stop_list     = stop_listnode.getElementsByTagName( "tr" );
     
         //    evaluate all gtfs-single-trip rows
-        for ( var i = 0; i < wp_list.length; i++ )
+        for ( var i = 0; i < stop_list.length; i++ )
         {
-            var wp_node    = wp_list[i];
-            var sub_td     = wp_node.getElementsByTagName( "td" );
+            var stop_node  = stop_list[i];
+            var sub_td     = stop_node.getElementsByTagName( "td" );
         
             var gpx_name = "-unknown-";
             var gpx_lat  = "-1";
             var gpx_lon  = "-1";
             
             //    evaluate all columns of gtfs-single-trip rows
+            var num = 1;
             for ( var j = 0; j < sub_td.length; j++ )
             {
                 var keyvalue = sub_td[j];
@@ -70,8 +62,9 @@ function gpxdownload() {
                 }
             }
             
-            wpt += " <wpt lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"><name>" + gpx_name + "</name></wpt>\r\n";
-            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+            L.marker([gpx_lat, gpx_lon]).bindTooltip((i+1)+'',{permanent: true}).bindPopup(gpx_name).addTo(mymap);
+
+            polyline_array.push( [gpx_lat, gpx_lon] );
             
         }
     }
@@ -81,7 +74,7 @@ function gpxdownload() {
     
     if ( sh_table ) {
         
-        rte = "";
+        polyline_array = [];
 
         var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
         var sh_list     = sh_listnode.getElementsByTagName( "tr" );
@@ -120,28 +113,13 @@ function gpxdownload() {
                 }
             }
             
-            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+            polyline_array.push( [gpx_lat, gpx_lon] );
             
         }
     }
    
-   
-    //    compile GPS output
-    var gpx_gesamt='<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n' + metadata + ' </metadata>\r\n' + wpt + ' <rte>\r\n' + rte + ' </rte>\r\n</gpx>';
+    var route = L.polyline(polyline_array).addTo(mymap);
     
-   
-   
-    // create file
-     
-    var element = document.createElement('a');
-    element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(gpx_gesamt) );
-    element.setAttribute('download', filename);
-  
-    element.style.display = 'none';
-    document.body.appendChild(element);
+    mymap.fitBounds(route.getBounds());
 
-    element.click();
-  
-    document.body.removeChild(element);
-    
 }

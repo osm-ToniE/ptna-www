@@ -48,10 +48,11 @@ code             { font-weight: 500; font-size: 1.1em; }
 #navigation th            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 #navigation td            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
-
 #main li                  { padding-bottom: 5px; padding-top: 3px; }
 
 #construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
+
+#mapid                    { height: 500px; width: 50%; }
 
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
