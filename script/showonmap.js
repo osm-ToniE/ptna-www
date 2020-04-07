@@ -14,6 +14,10 @@ function showtriponmap() {
                ).addTo(mymap);
 
     var polyline_array = [];
+    
+    var gpx_lat_array  = [];
+    var gpx_lon_array  = [];
+    var label_string   = '';
   
     var stop_table = document.getElementById( "gtfs-single-trip" );
     
@@ -33,7 +37,6 @@ function showtriponmap() {
             var gpx_lon  = "-1";
             
             //    evaluate all columns of gtfs-single-trip rows
-            var num = 1;
             for ( var j = 0; j < sub_td.length; j++ )
             {
                 var keyvalue = sub_td[j];
@@ -50,7 +53,7 @@ function showtriponmap() {
               
                 if ( key == "gtfs-name" ) 
                 {
-                    gpx_name = (i+1) + ': ' + value;
+                    gpx_name = value;
                 }
                 else if ( key == "gtfs-lat" ) 
                 {
@@ -62,7 +65,18 @@ function showtriponmap() {
                 }
             }
             
-            L.marker([gpx_lat, gpx_lon]).bindTooltip((i+1)+'',{permanent: true}).bindPopup(gpx_name).addTo(mymap);
+            gpx_lat_array[i] = gpx_lat;
+            gpx_lon_array[i] = gpx_lon;
+            label_string     = '';
+            
+            for ( var k = 0; k < i; k++ ) {
+                if ( gpx_lat_array[k] == gpx_lat && gpx_lon_array[k] == gpx_lon ) {
+                    label_string += (k+1) + '+';
+                }
+            }
+            
+            label_string += (i+1);
+            L.marker([gpx_lat, gpx_lon]).bindTooltip(label_string,{permanent: true}).bindPopup(label_string + ': ' + gpx_name).addTo(mymap);
 
             polyline_array.push( [gpx_lat, gpx_lon] );
             
