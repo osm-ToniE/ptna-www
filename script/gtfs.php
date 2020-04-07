@@ -677,6 +677,33 @@
     }
     
 
+    function GetPtnaNetworkDetails( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+        
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+                
+                $sql = sprintf( "SELECT * FROM ptna" );
+                
+                $row = $db->querySingle( $sql, true );
+
+                return $row;
+                
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+        
+        return array();
+    }
+    
+
     function GetPtnaTripDetails( $network, $trip_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );

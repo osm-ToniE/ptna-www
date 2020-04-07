@@ -26,6 +26,8 @@
     $is_invalid       = $ptna["ptna_is_invalid"];
     $is_wrong         = $ptna["ptna_is_wrong"];
     $comment          = $ptna["ptna_comment"];
+    $ptna             = GetPtnaNetworkDetails( $network );
+    $has_shapes       = $ptna["has_shapes"];
 ?>
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_short_name && $trip_id ) { echo '<span id="network">' . htmlspecialchars($network) . '</span> Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
