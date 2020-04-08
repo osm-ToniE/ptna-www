@@ -9,7 +9,7 @@
         global $path_to_www;
         global $details_hash;
         global $filename_hash;
-        
+
         $entries_found = 0;
 
         $prefixparts = explode( '-', $network );
@@ -43,7 +43,7 @@
         $filename_hash['ANALYSIS']    = $analysis_filename;
         $filename_hash['DIFF']        = $diff_filename;
         $filename_hash['DIFFWEBPATH'] = $diff_webpath;
-        
+
         return $entries_found;
     }
 ?>

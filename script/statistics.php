@@ -89,7 +89,7 @@
 
         $size_total = 0;
         $file_total = 0;
-        
+
         foreach ( $size_total_files as $file => $size ) {
             $size_total += $size;
             $file_total++;

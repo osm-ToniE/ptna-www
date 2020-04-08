@@ -5,7 +5,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -50,7 +50,7 @@
                     </li>
                     <li>Andere Tabellen
                         <ul>
-                            <li>"ptna_changedate", "ptna_is_invalid", "ptna_is_wrong" und "ptna_comment" Felder werden hinzugefügt. 
+                            <li>"ptna_changedate", "ptna_is_invalid", "ptna_is_wrong" und "ptna_comment" Felder werden hinzugefügt.
                                 Hiermit können <strong>später</strong> Anmerkungen eingetragen werden.
                             </li>
                         </ul>
@@ -63,7 +63,7 @@
             <h2 id="aggregated">Aggregierte GTFS Daten</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet. 
+                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
                     Ziel ist, die Datenmenge zu reduzieren um schnelles Suchen in den GTFS-Daten zu ermöglichen.
                 </p>
                 <ul>
@@ -97,7 +97,7 @@
             <h2 id="analyzed">Analysierte GTFS Daten</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet. 
+                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
                     Ziel ist, herauszufinden, welche Route (Trip) Teilroute einer anderen Route ist.
                 </p>
                 <ul>

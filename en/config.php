@@ -8,9 +8,9 @@
     <body>
 
 <?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
-        
+
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -40,7 +40,7 @@
                     The data thus obtained allow an analysis of the public transport lines to the effect that e.g. the route can also be checked for completeness.
                     Nodes, ways and relations (stops and platforms) and their tags can be checked against their 'role' in the relation.
                 </p>
-                
+
                 <?php if ( $found ) {
                           $query = htmlentities( GetOverpassQuery() );
                           $fsize = GetOsmXmlFileSizeByte();
@@ -48,7 +48,7 @@
                           $rname = htmlentities( GetRegionName() );
                           if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                           if ( $fsize ) { printf( "<p>This query currently delivers approximately %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
-                          if ( $rlink ) { 
+                          if ( $rlink ) {
                               printf( "<p>Show the <a href=\"/en/index.php#searcharea\">search area</a> " );
                               if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
                               printf( "on the <a href=\"%s\">OSM map</a>.</p>\n", $rlink );
@@ -66,7 +66,7 @@
                     The <a href="/en/index.php#messages">errors and comments</a> reported by PTNA can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
                     Here is a list of analysis options and their values.<br />
                 </p>
-    
+
                 <table id="message-table">
                     <thead>
                         <tr class="message-tableheaderrow">
@@ -92,7 +92,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPagePtna(); 
+                        <?php $link = GetDiscussionPagePtna();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">General discussion for PTNA</a> in the OSM Wiki.", $link );
                               } else {
@@ -106,7 +106,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPageNetwork(); 
+                        <?php $link = GetDiscussionPageNetwork();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Diskussion for this analysis</a>, this 'network' in the OSM Wiki.", $link );
                               } else {

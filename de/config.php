@@ -39,7 +39,7 @@
                     Die so erhaltenen Daten erlauben eine Analyse der ÖPNV-Linien dahingehend, dass z.B. auch die Wegstrecke auf Vollständigkeit geprüft werden kann.
                     Nodes, Ways und Relationen (Stops und Platforms) und deren Tags können gegen deren Rolle 'role' in der Relation geprüft werden.
                 </p>
-    
+
                 <?php if ( $found ) {
                           $query = htmlentities( GetOverpassQuery() );
                           $fsize = GetOsmXmlFileSizeByte();
@@ -65,7 +65,7 @@
                     Die Ausgabe von <a href="/de/index.php#messages">Fehlern und Anmerkungen</a> kann durch eine Vielzahl von <a href="/de/index.php#options">Auswertungsoptionen</a> beeinflusst werden.<br />
                     Hier ist eine Auflistung der Auswertungsoptionen und deren Werte.<br />
                 </p>
-    
+
                 <table id="message-table">
                     <thead>
                         <tr class="message-tableheaderrow">
@@ -91,7 +91,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPagePtna(); 
+                        <?php $link = GetDiscussionPagePtna();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Generelle Diskussion zu PTNA</a> im OSM Wiki.", $link );
                               } else {
@@ -105,7 +105,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPageNetwork(); 
+                        <?php $link = GetDiscussionPageNetwork();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Diskussion zu dieser Auswertung</a>, diesem 'network' im OSM Wiki.", $link );
                               } else {

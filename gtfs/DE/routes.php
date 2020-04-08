@@ -10,7 +10,7 @@
       <script src="/script/ptna-list.js" type="text/javascript"></script>
 
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
@@ -29,7 +29,7 @@
 
                 <button class="button-create" type="button" onclick="ptnalistdownload(1)">Download als CSV-Liste für PTNA</button>
 <!--                <button class="button-create" type="button" onclick="ptnalistdownload(0)">Download als CSV-Liste für PTNA (kein 'operator')</button> -->
-                
+
                 <table id="gtfs-routes">
                     <thead>
 <?php include $inc_lang.'gtfs-routes-trth.inc' ?>
@@ -38,11 +38,11 @@
 <?php $duration = CreateGtfsRoutesEntry( $network ); ?>
                     </tbody>
                 </table>
-                
+
                 <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
 
             </div>
-            
+
         </main> <!-- main -->
 
         <hr />

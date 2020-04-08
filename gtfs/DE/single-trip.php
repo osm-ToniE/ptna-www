@@ -11,8 +11,8 @@
       <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
       <script src="/script/gpx.js"></script>
       <script src="/script/showonmap.js"></script>
-      
-   
+
+
       <div id="wrapper">
 
 <?php include $inc_lang.'header.inc' ?>
@@ -22,12 +22,11 @@
     $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
     $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
     $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
-    $ptna             = GetPtnaTripDetails( $network, $trip_id );
+    $ptna             = GetTripDetails( $network, $trip_id );
     $is_invalid       = $ptna["ptna_is_invalid"];
     $is_wrong         = $ptna["ptna_is_wrong"];
     $comment          = $ptna["ptna_comment"];
-    $ptna             = GetPtnaNetworkDetails( $network );
-    $has_shapes       = $ptna["has_shapes"];
+    $shape_id         = $ptna["shape_id"];
 ?>
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_short_name && $trip_id ) { echo '<span id="network">' . htmlspecialchars($network) . '</span> Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>

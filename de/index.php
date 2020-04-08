@@ -5,7 +5,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -281,7 +281,7 @@
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 		    </div> <!-- searchdata -->
-		    
+		
 		    <h4 id="searchoutput">Ausgabe der relevanten Informationen</h4>
                     <div class="indent">
                         <p>

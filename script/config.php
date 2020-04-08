@@ -1,11 +1,11 @@
 <?php
     include('../script/details.php');
-    
+
     $options_hash  = [];
 
     function InitOptionsHash() {
         global $options_hash;
-        
+
         $options_hash['language']                   = 'en';
         $options_hash['allow-coach']                = 'OFF';
         $options_hash['check-access']               = 'OFF';
@@ -41,22 +41,22 @@
         $options_hash['or-separator']               = '|';
         $options_hash['ref-separator']              = '/';
     }
-    
+
     function ReadOptionDetails() {
         global $details_hash;
         global $options_hash;
-        
+
         InitOptionsHash();
-        
+
         foreach ( $options_hash as $option => $value ) {
             if ( isset($details_hash[$option]) ) {
                 $options_hash[$option] = $details_hash[$option];
             }
         }
-        
+
         if ( isset($details_hash['analysis-options']) ) {
             $split_options = preg_split( '/--/', $details_hash['analysis-options'] );
-            
+
             foreach ( $split_options as $complete_option ) {
                 $complete_option = rtrim(ltrim($complete_option));
                 $option_parts = explode( '=', $complete_option, 2 );
@@ -69,14 +69,14 @@
                     }
                 }
             }
-            
+
             return 1;
         }
-        
+
         return 0;
-        
+
     }
-    
+
     function GetAllNetworks() {
         global $path_to_work;
         $networks = [];
@@ -95,7 +95,7 @@
         sort( $networks );
         return( $networks );
     }
-    
+
     function GetOverpassQuery() {
         global $details_hash;
         if ( isset($details_hash['OVERPASS_QUERY']) ) {
@@ -108,7 +108,7 @@
         }
         return( '' );
     }
-    
+
     function GetRegionLink() {
         global $details_hash;
         if ( isset($details_hash['REGION_LINK']) ) {
@@ -121,7 +121,7 @@
         }
         return( '' );
     }
-    
+
     function GetRegionName() {
         global $details_hash;
         if ( isset($details_hash['REGION_NAME']) ) {
@@ -129,7 +129,7 @@
         }
         return( '' );
     }
-    
+
     function GetOsmXmlFileName() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE']) ) {
@@ -137,7 +137,7 @@
         }
         return( '' );
     }
-    
+
     function GetOsmXmlFileSize() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_SIZE']) ) {
@@ -145,7 +145,7 @@
         }
         return( 0 );
     }
-    
+
     function GetOsmXmlFileSizeMB() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_SIZE_BYTE']) ) {
@@ -157,7 +157,7 @@
         }
         return( 0 );
     }
-    
+
     function GetOsmXmlFileSizeByte() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_SIZE_BYTE']) ) {
@@ -169,7 +169,7 @@
         }
         return( 0 );
     }
-    
+
     function GetOsmXmlFileDate() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_DATE']) ) {
@@ -177,7 +177,7 @@
         }
         return( '' );
     }
-    
+
     function GetStartDownloadDate() {
         global $details_hash;
         if ( isset($details_hash['START_DOWNLOAD']) ) {
@@ -185,7 +185,7 @@
         }
         return( '' );
     }
-    
+
     function GetEndDownloadDate() {
         global $details_hash;
         if ( isset($details_hash['END_DOWNLOAD']) ) {
@@ -193,7 +193,7 @@
         }
         return( '' );
     }
-    
+
     function GetStartAnalysisDate() {
         global $details_hash;
         if ( isset($details_hash['START_ANALYSIS']) ) {
@@ -201,7 +201,7 @@
         }
         return( '' );
     }
-    
+
     function GetEndAnalysisDate() {
         global $details_hash;
         if ( isset($details_hash['END_ANALYSIS']) ) {
@@ -209,7 +209,7 @@
         }
         return( '' );
     }
-    
+
     function HasChanges() {
         global $details_hash;
         if ( isset($details_hash['OLD_OR_NEW']) && $details_hash['OLD_OR_NEW'] == 'new' ) {
@@ -217,7 +217,7 @@
         }
         return( 0 );
     }
-    
+
     function GetDiffFileWebPath() {
         global $filename_hash;
         if ( isset($filename_hash['DIFFWEBPATH']) ) {
@@ -225,7 +225,7 @@
         }
         return( '' );
     }
-    
+
     function GetDiscussionPagePtna( ) {
         return( "https://wiki.openstreetmap.org/wiki/User_talk:ToniE/ptna" );
     }
@@ -241,11 +241,11 @@
 
     function PrintOptionDetails( $lang ) {
         global $options_hash;
-        
+
         if ( ReadOptionDetails() ) {
-        
+
             if ( !isset($lang) ) { $lang = 'en'; }
-        
+
             foreach ( $options_hash as $option => $value ) {
                 printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
                 $value = htmlentities($value);

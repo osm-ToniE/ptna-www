@@ -20,7 +20,7 @@
 <?php include $inc_lang.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
-<?php 
+<?php
     $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" );
     $duration += CreateGtfsEntry( "DE-SPNV" );
     $duration += CreateGtfsEntry( "DE-BE-VBB" );
@@ -56,7 +56,7 @@
 ?>
                     </tbody>
                 </table>
-                
+
                 <?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
             </div>
         </main> <!-- main -->

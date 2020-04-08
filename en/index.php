@@ -5,7 +5,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -178,7 +178,7 @@
             </div> <!-- "overview" -->
 
             <hr />
- 
+
             <h2 id="web">The Web-site</h2>
             <div class="indent">
                 <p>
@@ -208,7 +208,7 @@
             </div> <!-- "web" -->
 
             <hr />
- 
+
             <h2 id="networkroutes">Lines belonging to the 'network'</h2>
             <div class="indent">
                 <p>
@@ -218,12 +218,12 @@
                     <strong>Important: Consider the Copyright &copy; and origin of the data!</strong><br />
                 </p>
                 <p>
-                    <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong> 
+                    <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong>
                 </p>
             </div> <!-- "networkroutes" -->
 
             <hr />
- 
+
             <h2 id="analysis">The Analysis</h2>
             <div class="indent">
                 <p>
@@ -239,7 +239,7 @@
                         <strong>Important: Consider the Copyright &copy; and origin of the data!</strong><br />
                     </p>
                     <p>
-                        <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong> 
+                        <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong>
                     </p>
                     <p>
                         Example: Lines of the <a href="https://wiki.openstreetmap.org/wiki/M%C3%BCnchen/Transportation/MVV-Linien-gesamt">Münchner Verkehrs- und Tarifverbund</a> in OSM Wiki
@@ -264,7 +264,7 @@
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 		            </div> <!-- searchdata -->
-		    
+		
 		            <h4 id="searchoutput">Output of data</h4>
                     <div class="indent">
                         <p>
@@ -376,13 +376,13 @@
                         </div> <!-- "analysisnetworknotconsidered" -->
                     </div> <!-- "analysisnetwork" -->
                 </div> <!-- "dataanalysis" -->
-     
+
                 <h3 id="checks">Checks</h3>
                 <div class="indent">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
-     
+
                     <h4 id="scheme">Used Schema</h4>
                     <div class="indent">
                         <p>
@@ -391,7 +391,7 @@
                         <p>
                             See: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Verwendetes_Schema">OSM Wiki</a>
                         </p>
-     
+
                         <h5 id="deviations">Deviations</h5>
                         <div class="indent">
                             <p>
@@ -401,7 +401,7 @@
                                 See: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Abweichungen">OSM Wiki</a>
                             </p>
                         </div> <!-- "deviations" -->
-     
+
                         <h5 id="specials">Specials</h5>
                         <div class="indent">
                             <p>
@@ -412,7 +412,7 @@
                             </p>
                         </div> <!-- "specials" -->
                     </div> <!-- "scheme" -->
-     
+
                     <h4 id="approach">Approach</h4>
                     <div class="indent">
                         <p>
@@ -422,7 +422,7 @@
                             See: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Vorgehensweise">OSM Wiki</a>
                         </p>
                     </div> <!-- "approach" -->
-     
+
                     <h4 id="options">Analysis options</h4>
                     <div class="indent">
                         <p>
@@ -432,7 +432,7 @@
                         <?php include "option-table.inc" ?>
 
                     </div> <!-- "options" -->
-      
+
                     <h4 id="messages">Messages</h4>
                     <div class="indent">
                         <p>
@@ -442,18 +442,18 @@
                         <?php include "message-table.inc" ?>
 
                     </div> <!-- "messages" -->
-      
+
                 </div> <!-- "checks" -->
             </div> <!-- "analysis" -->
-      
+
             <hr />
-      
+
             <h2 id="code">The Code</h2>
             <div class="indent">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
-      
+
                 <h3 id="ptna">ptna</h3>
                 <div class="indent">
                     <p>
@@ -463,7 +463,7 @@
                         See: <a href="https://github.com/osm-ToniE/ptna">ptna auf GitHub</a>
                     </p>
                 </div> <!-- "ptna" -->
-            
+
                 <h3 id="ptnanetworks">ptna-networks</h3>
                 <div class="indent">
                     <p>
@@ -473,7 +473,7 @@
                         See: <a href="https://github.com/osm-ToniE/ptna-networks">ptna-networks auf GitHub</a>
                     </p>
                 </div> <!-- "ptnanetworks" -->
-            
+
                 <h3 id="ptnawww">ptna-www</h3>
                 <div class="indent">
                     <p>
@@ -493,4 +493,4 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-     
+

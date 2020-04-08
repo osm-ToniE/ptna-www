@@ -8,16 +8,16 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
-            <?php 
+            <?php
                 $network  = $_GET['network'];
                 $route_id = $_GET['route_id'];
-                $route_short_name = GetGtfsRouteShortNameFromRouteId( $network, $route_id ); 
+                $route_short_name = GetGtfsRouteShortNameFromRouteId( $network, $route_id );
                 if ( !$route_short_name ) {
-                    $route_short_name = '__not_set__';
+                     $route_short_name = '__not_set__';
                 }
             ?>
 
@@ -37,11 +37,11 @@
                 </table>
 
                 </form>
-                
+
                 <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
 
             </div>
-            
+
         </main> <!-- main -->
 
         <hr />

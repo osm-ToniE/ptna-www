@@ -9,12 +9,12 @@
     <body>
 
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <main id="main" class="results">
 
-<?php $network  = $_GET['network']; 
+<?php $network  = $_GET['network'];
       $duration = 0;
 ?>
 
@@ -22,7 +22,7 @@
                 <div class="indent">
                     <p>
                     </p>
-                    
+
                     <h3>GTFS specific data</h3>
                         <div class="indent">
                             <table id="gtfs-ptna-table">

@@ -1,6 +1,6 @@
 <?php
     include('../../script/details.php');
-    
+
     function PrintAnalysis( $network, $filename ) {
         if ( $filename && file_exists($filename) ) {
             echo '<td data-ref="'.$network.'-name" class="results-name"><a href="'.$filename.'" title="analysis data">'.$network.'</a></td>';
