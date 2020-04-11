@@ -1061,6 +1061,13 @@
                     echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
+                if ( $ptna["count_strange_end"] ) {
+                    echo '                        <tr class="statistics-tablerow">' . "\n";
+                    echo '                            <td class="statistics-name">Trips with subspicious end</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_strange_end"]) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                    echo '                        </tr>' . "\n";
+                }
 
                 $stop_time = gettimeofday(true);
 
