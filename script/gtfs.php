@@ -324,7 +324,7 @@
 #                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                            if ( $innerrow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                            echo '                            <td class="gtfs-comment">' . htmlspecialchars($innerrow["ptna_comment"]) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($innerrow["ptna_comment"])) . '</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
                     }
@@ -422,7 +422,7 @@
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">' . htmlspecialchars($ptnarow["ptna_comment"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
 
@@ -480,7 +480,7 @@
 #                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">'  . htmlspecialchars($row["ptna_comment"]) . '</td>' . "\n";
+                        echo '                           <td class="gtfs-comment">'  . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
                         echo '                       </tr>' . "\n";
                     }
 
@@ -1061,10 +1061,10 @@
                     echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
-                if ( $ptna["count_strange_end"] ) {
+                if ( $ptna["count_suspicious_end"] ) {
                     echo '                        <tr class="statistics-tablerow">' . "\n";
                     echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_strange_end"]) . '</td>' . "\n";
+                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</td>' . "\n";
                     echo '                            <td class="statistics-number">[1]</td>' . "\n";
                     echo '                        </tr>' . "\n";
                 }
@@ -1081,6 +1081,11 @@
         }
 
         return 0;
+    }
+
+
+    function LF2BR( $string ) {
+        return preg_replace("/\n/","<br />",$string);
     }
 
 ?>
