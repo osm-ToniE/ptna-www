@@ -160,94 +160,6 @@
 
         ob_implicit_flush(true);
 
-        $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
-        $route_type_to_string["1"]   = 'Subway, Metro';
-        $route_type_to_string["2"]   = 'Rail';
-        $route_type_to_string["3"]   = 'Bus';
-        $route_type_to_string["4"]   = 'Ferry';
-        $route_type_to_string["5"]   = 'Cable tram';
-        $route_type_to_string["6"]   = 'Aerialway';
-        $route_type_to_string["7"]   = 'Funicular';
-        $route_type_to_string["11"]  = 'Trolleybus';
-        $route_type_to_string["12"]  = 'Monorail';
-
-        # https://developers.google.com/transit/gtfs/reference/extended-route-types
-
-        #                      Code 	Description 	                  Support 	   Examples
-        $route_type_to_string["100"] = 'Railway Service';                 # Yes 	
-        $route_type_to_string["101"] = 'High Speed Rail Service';               # Yes 	TGV (FR), ICE (DE), Eurostar (GB)
-        $route_type_to_string["102"] = 'Long Distance Trains';            	      # Yes 	InterCity/EuroCity
-        $route_type_to_string["103"] = 'Inter Regional Rail Service';               # Yes 	InterRegio (DE), Cross County Rail (GB)
-        $route_type_to_string["104"] = 'Car Transport Rail Service';            	 	  	
-        $route_type_to_string["105"] = 'Sleeper Rail Service';            	     # Yes 	GNER Sleeper (GB)
-        $route_type_to_string["106"] = 'Regional Rail Service';                 # Yes 	TER (FR), Regionalzug (DE)
-        $route_type_to_string["107"] = 'Tourist Railway Service';            	      # Yes 	Romney, Hythe & Dymchurch (GB)
-        $route_type_to_string["108"] = 'Rail Shuttle (Within Complex)';                 # Yes 	Gatwick Shuttle (GB), Sky Line (DE)
-        $route_type_to_string["109"] = 'Suburban Railway';            	     # Yes 	S-Bahn (DE), RER (FR), S-tog (Kopenhagen)
-        $route_type_to_string["110"] = 'Replacement Rail Service';            	 	  	
-        $route_type_to_string["111"] = 'Special Rail Service';            		  	
-        $route_type_to_string["112"] = 'Lorry Transport Rail Service';            		  	
-        $route_type_to_string["113"] = 'All Rail Services';            	 	  	
-        $route_type_to_string["114"] = 'Cross-Country Rail Service';            	 	  	
-        $route_type_to_string["115"] = 'Vehicle Transport Rail Service';            	 	  	
-        $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
-        $route_type_to_string["117"] = 'Additional Rail Service';            	 	  	
-        $route_type_to_string["200"] = 'Coach Service 	Yes';            	 	
-        $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
-        $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
-        $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
-        $route_type_to_string["204"] = 'Regional Coach Service';            	     # Yes 	
-        $route_type_to_string["205"] = 'Special Coach Service';            	 	  	
-        $route_type_to_string["206"] = 'Sightseeing Coach Service';            	 	  	
-        $route_type_to_string["207"] = 'Tourist Coach Service';            	 	  	
-        $route_type_to_string["208"] = 'Commuter Coach Service';            	 	  	
-        $route_type_to_string["209"] = 'All Coach Services';            	 	  	
-        $route_type_to_string["400"] = 'Urban Railway Service';            	      # 	Yes 	
-        $route_type_to_string["401"] = 'Metro Service';                # Yes 	Métro de Paris
-        $route_type_to_string["402"] = 'Underground Service';                # Yes 	London Underground, U-Bahn
-        $route_type_to_string["403"] = 'Urban Railway Service';                # Yes 	
-        $route_type_to_string["404"] = 'All Urban Railway Services'; 	  	
-        $route_type_to_string["405"] = 'Monorail';                # Yes 	
-        $route_type_to_string["700"] = 'Bus Service';                # Yes 	
-        $route_type_to_string["701"] = 'Regional Bus Service';                # Yes 	Eastbourne-Maidstone (GB)
-        $route_type_to_string["702"] = 'Express Bus Service';                # Yes 	X19 Wokingham-Heathrow (GB)
-        $route_type_to_string["703"] = 'Stopping Bus Service'; 	  	     # 38 London: Clapton Pond-Victoria (GB)
-        $route_type_to_string["704"] = 'Local Bus Service';                # Yes 	
-        $route_type_to_string["705"] = 'Night Bus Service'; 	      # N prefixed buses in London (GB)
-        $route_type_to_string["706"] = 'Post Bus Service'; 	       # Maidstone P4 (GB)
-        $route_type_to_string["707"] = 'Special Needs Bus'; 	  	
-        $route_type_to_string["708"] = 'Mobility Bus Service'; 	  	
-        $route_type_to_string["709"] = 'Mobility Bus for Registered Disabled'; 	  	
-        $route_type_to_string["710"] = 'Sightseeing Bus'; 	  	
-        $route_type_to_string["711"] = 'Shuttle Bus'; 	  	     # 747 Heathrow-Gatwick Airport Service (GB)
-        $route_type_to_string["712"] = 'School Bus'; 	  	
-        $route_type_to_string["713"] = 'School and Public Service Bus'; 	  	
-        $route_type_to_string["714"] = 'Rail Replacement Bus Service'; 	  	
-        $route_type_to_string["715"] = 'Demand and Response Bus Service';                # Yes 	
-        $route_type_to_string["716"] = 'All Bus Services'; 	  	
-        $route_type_to_string["800"] = 'Trolleybus Service';                # Yes 	
-        $route_type_to_string["900"] = 'Tram Service';                # Yes 	
-        $route_type_to_string["901"] = 'City Tram Service'; 	  	
-        $route_type_to_string["902"] = 'Local Tram Service'; 	      # Munich (DE), Brussels (BE), Croydon (GB)
-        $route_type_to_string["903"] = 'Regional Tram Service'; 	  	
-        $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
-        $route_type_to_string["905"] = 'Shuttle Tram Service'; 	  	
-        $route_type_to_string["906"] = 'All Tram Services'; 	  	
-        $route_type_to_string["1000"] = 'Water Transport Service';                # Yes 	
-        $route_type_to_string["1100"] = 'Air Service'; 	  	
-        $route_type_to_string["1200"] = 'Ferry Service';                    # Yes 	
-        $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
-        $route_type_to_string["1400"] = 'Funicular Service';                # Yes 	Rigiblick (Zürich, CH)
-        $route_type_to_string["1500"] = 'Taxi Service'; 	  	
-        $route_type_to_string["1501"] = 'Communal Taxi Service';            # Yes 	Marshrutka (RU), dolmuş (TR)
-        $route_type_to_string["1502"] = 'Water Taxi Service'; 	  	
-        $route_type_to_string["1503"] = 'Rail Taxi Service'; 	  	
-        $route_type_to_string["1504"] = 'Bike Taxi Service'; 	  	
-        $route_type_to_string["1505"] = 'Licensed Taxi Service'; 	  	
-        $route_type_to_string["1506"] = 'Private Hire Service Vehicle'; 	  	
-        $route_type_to_string["1507"] = 'All Taxi Services'; 	  	
-        $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes 	
-        $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes 	
 
         $SqliteDb = FindGtfsSqliteDb( $network );
 
@@ -272,10 +184,10 @@
 
                     while ( $outerrow=$outerresult->fetchArray() ) {
 
-                        if ( $outerrow["route_type"] && $route_type_to_string[$outerrow["route_type"]] ) {
-                            $route_type_text = $route_type_to_string[$outerrow["route_type"]];
+                        if ( isset($outerrow["route_type"]) ) {
+                            $route_type_text = RouteType2String($outerrow["route_type"]);
                         } else {
-                            $route_type_text = $outerrow["route_type"];
+                            $route_type_text = '???';
                         }
 
                         $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
@@ -444,7 +356,193 @@
     }
 
 
-    function CreateGtfsSingleTripEntry( $network, $trip_id, $edit ) {
+    function CreateOsmTaggingSuggestion( $network, $trip_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '') {
+
+           if ( $trip_id ) {
+
+               try {
+
+                    $start_time = gettimeofday(true);
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='osm';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+                        $sql        = "SELECT * FROM osm";
+
+                        $osm       = $db->querySingle( $sql, true );
+                    }
+
+                    $sql = sprintf( "SELECT *
+                                     FROM   routes
+                                     JOIN   trips ON trips.route_id = routes.route_id
+                                     WHERE  trip_id='%s';",
+                                     SQLite3::escapeString($trip_id)
+                                  );
+
+                    $route = $db->querySingle( $sql, true );
+
+                    $sql = sprintf( "SELECT   stops.stop_name
+                                     FROM     stops
+                                     JOIN     stop_times ON stop_times.stop_id = stops.stop_id
+                                     WHERE    stop_times.trip_id='%s'
+                                     ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC
+                                     LIMIT 1;",
+                                     SQLite3::escapeString($trip_id)
+                                  );
+
+                    $stops1 = $db->querySingle( $sql, true );
+
+                    $sql = sprintf( "SELECT   stops.stop_name
+                                     FROM     stops
+                                     JOIN     stop_times ON stop_times.stop_id = stops.stop_id
+                                     WHERE    stop_times.trip_id='%s'
+                                     ORDER BY CAST (stop_times.stop_sequence AS INTEGER) DESC
+                                     LIMIT 1;",
+                                     SQLite3::escapeString($trip_id)
+                                  );
+
+                    $stops2 = $db->querySingle( $sql, true );
+
+                    if ( $osm['gtfs_agency_is_operator'] ) {
+                        $sql = sprintf( "SELECT   agency.agency_name
+                                         FROM     agency
+                                         JOIN     routes ON agency.agency_id = routes.agency_id
+                                         WHERE    routes.route_id='%s'
+                                         LIMIT    1;",
+                                         SQLite3::escapeString($route['route_id'])
+                                      );
+
+                        $agency = $db->querySingle( $sql, true );
+                    }
+
+                    $osm_route          = htmlspecialchars(RouteType2OsmRoute($route['route_type']));
+                    $osm_ref            = $route['route_short_name'] ? htmlspecialchars($route['route_short_name']) : '???';
+                    $osm_from           = $stops1['stop_name'] ? htmlspecialchars(ptna_normalize($stops1['stop_name'])) : '???';
+                    $osm_to             = $stops2['stop_name'] ? htmlspecialchars(ptna_normalize($stops2['stop_name'])) : '???';
+                    $osm_network        = htmlspecialchars($osm['network']);
+                    $osm_network_short  = htmlspecialchars($osm['network_short']);
+                    $osm_network_guid   = htmlspecialchars($osm['network_guid']);
+                    $osm_operator       = htmlspecialchars($agency['agency_name']);
+
+                    echo '                    <table id="osm-tagging">' . "\n";
+                    echo '                        <thead>' . "\n";
+                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                    echo '                                <th class="gtfs-name" rowspan="2">Key</th>' . "\n";
+                    echo '                                <th class="gtfs-name" colspan="2">Value</th>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                    echo '                                <th class="gtfs-name">Route-Master</th>' . "\n";
+                    echo '                                <th class="gtfs-name">Route</th>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                        </thead>' . "\n";
+                    echo '                        <tbody>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">type</td>' . "\n";
+                    echo '                                <td class="gtfs-name">route_master</td>' . "\n";
+                    echo '                                <td class="gtfs-name">route</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">route_master</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">route</td>' . "\n";
+                    echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">ref</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    if ( $osm_route && $osm_ref ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">name</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . ucfirst($osm_route) . ' ' . $osm_ref . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . ucfirst($osm_route) . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    if ( $osm_network ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">network</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_network_guid ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">network:guid</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_network_short ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">network:short</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_operator ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">operator</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_operator . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_operator . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
+                    echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                    echo '                                <td class="gtfs-name">2</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_from ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">from</td>' . "\n";
+                        echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_from . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_to ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">to</td>' . "\n";
+                        echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_to . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                   # echo '                            <tr class="gtfs-tablerow">' . "\n";
+                   # echo '                                <td class="gtfs-name">ref_trips</td>' . "\n";
+                   # echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+                   # echo '                                <td class="gtfs-name">' . htmlspecialchars($trip_id) . '</td>' . "\n";
+                   # echo '                            </tr>' . "\n";
+                    echo '                        </tbody>' . "\n";
+                    echo '                    </table>' . "\n";
+
+                    $stop_time = gettimeofday(true);
+
+                    return $stop_time - $start_time;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return 0;
+    }
+
+
+    function CreateGtfsSingleTripEntry( $network, $trip_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
 
@@ -539,28 +637,28 @@
 
                             $result = $db->query( $sql );
 
-                            echo "              <p>\n";
-                            echo "                  <strong>GTFS Shape Data</strong>\n";
-                            echo "              </p>\n";
-                            echo '              <table id="gtfs-shape">' . "\n";
-                            echo '                  <thead>' . "\n";
-                            echo '                      <tr class="gtfs-tableheaderrow">' . "\n";
-                            echo '                          <th class="gtfs-name">Number</th>' . "\n";
-                            echo '                          <th class="gtfs-number">Latitude</th>' . "\n";
-                            echo '                          <th class="gtfs-number">Longitude</th>' . "\n";
-                            echo '                      </tr>' . "\n";
-                            echo '                  </thead>' . "\n";
-                            echo '                  <tbody>' . "\n";
+                            echo '              <h3>GTFS Shape Data</h3>' ."\n";
+                            echo '              <div class="indent">' . "\n";
+                            echo '                  <table id="gtfs-shape">' . "\n";
+                            echo '                      <thead>' . "\n";
+                            echo '                          <tr class="gtfs-tableheaderrow">' . "\n";
+                            echo '                              <th class="gtfs-name">Number</th>' . "\n";
+                            echo '                              <th class="gtfs-number">Latitude</th>' . "\n";
+                            echo '                              <th class="gtfs-number">Longitude</th>' . "\n";
+                            echo '                          </tr>' . "\n";
+                            echo '                      </thead>' . "\n";
+                            echo '                      <tbody>' . "\n";
                             $counter = 1;
                             while ( $row=$result->fetchArray() ) {
-                                echo '                      <tr class="gtfs-tablerow">' . "\n";
-                                echo '                          <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
-                                echo '                          <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
-                                echo '                          <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
-                                echo '                      </tr>' . "\n";
+                                echo '                          <tr class="gtfs-tablerow">' . "\n";
+                                echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
+                                echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
+                                echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                                echo '                          </tr>' . "\n";
                             }
-                            echo '                  </tbody>' . "\n";
-                            echo '              </table>' . "\n";
+                            echo '                      </tbody>' . "\n";
+                            echo '                  </table>' . "\n";
+                            echo '              </div>' . "\n";
                         }
                     }
                     $db->close();
@@ -1084,8 +1182,150 @@
     }
 
 
+    function RouteType2String( $rt ) {
+
+        $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
+        $route_type_to_string["1"]   = 'Subway, Metro';
+        $route_type_to_string["2"]   = 'Rail';
+        $route_type_to_string["3"]   = 'Bus';
+        $route_type_to_string["4"]   = 'Ferry';
+        $route_type_to_string["5"]   = 'Cable tram';
+        $route_type_to_string["6"]   = 'Aerialway';
+        $route_type_to_string["7"]   = 'Funicular';
+        $route_type_to_string["11"]  = 'Trolleybus';
+        $route_type_to_string["12"]  = 'Monorail';
+
+        # https://developers.google.com/transit/gtfs/reference/extended-route-types
+
+        #                      Code 	Description 	                  Support 	   Examples
+        $route_type_to_string["100"] = 'Railway Service';                 # Yes
+        $route_type_to_string["101"] = 'High Speed Rail Service';               # Yes 	TGV (FR), ICE (DE), Eurostar (GB)
+        $route_type_to_string["102"] = 'Long Distance Trains';            	      # Yes 	InterCity/EuroCity
+        $route_type_to_string["103"] = 'Inter Regional Rail Service';               # Yes 	InterRegio (DE), Cross County Rail (GB)
+        $route_type_to_string["104"] = 'Car Transport Rail Service';
+        $route_type_to_string["105"] = 'Sleeper Rail Service';            	     # Yes 	GNER Sleeper (GB)
+        $route_type_to_string["106"] = 'Regional Rail Service';                 # Yes 	TER (FR), Regionalzug (DE)
+        $route_type_to_string["107"] = 'Tourist Railway Service';            	      # Yes 	Romney, Hythe & Dymchurch (GB)
+        $route_type_to_string["108"] = 'Rail Shuttle (Within Complex)';                 # Yes 	Gatwick Shuttle (GB), Sky Line (DE)
+        $route_type_to_string["109"] = 'Suburban Railway';            	     # Yes 	S-Bahn (DE), RER (FR), S-tog (Kopenhagen)
+        $route_type_to_string["110"] = 'Replacement Rail Service';
+        $route_type_to_string["111"] = 'Special Rail Service';
+        $route_type_to_string["112"] = 'Lorry Transport Rail Service';
+        $route_type_to_string["113"] = 'All Rail Services';
+        $route_type_to_string["114"] = 'Cross-Country Rail Service';
+        $route_type_to_string["115"] = 'Vehicle Transport Rail Service';
+        $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
+        $route_type_to_string["117"] = 'Additional Rail Service';
+        $route_type_to_string["200"] = 'Coach Service 	Yes';
+        $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
+        $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
+        $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
+        $route_type_to_string["204"] = 'Regional Coach Service';            	     # Yes
+        $route_type_to_string["205"] = 'Special Coach Service';
+        $route_type_to_string["206"] = 'Sightseeing Coach Service';
+        $route_type_to_string["207"] = 'Tourist Coach Service';
+        $route_type_to_string["208"] = 'Commuter Coach Service';
+        $route_type_to_string["209"] = 'All Coach Services';
+        $route_type_to_string["400"] = 'Urban Railway Service';            	      # 	Yes
+        $route_type_to_string["401"] = 'Metro Service';                # Yes 	Métro de Paris
+        $route_type_to_string["402"] = 'Underground Service';                # Yes 	London Underground, U-Bahn
+        $route_type_to_string["403"] = 'Urban Railway Service';                # Yes
+        $route_type_to_string["404"] = 'All Urban Railway Services';
+        $route_type_to_string["405"] = 'Monorail';                # Yes
+        $route_type_to_string["700"] = 'Bus Service';                # Yes
+        $route_type_to_string["701"] = 'Regional Bus Service';                # Yes 	Eastbourne-Maidstone (GB)
+        $route_type_to_string["702"] = 'Express Bus Service';                # Yes 	X19 Wokingham-Heathrow (GB)
+        $route_type_to_string["703"] = 'Stopping Bus Service'; 	  	     # 38 London: Clapton Pond-Victoria (GB)
+        $route_type_to_string["704"] = 'Local Bus Service';                # Yes
+        $route_type_to_string["705"] = 'Night Bus Service'; 	      # N prefixed buses in London (GB)
+        $route_type_to_string["706"] = 'Post Bus Service'; 	       # Maidstone P4 (GB)
+        $route_type_to_string["707"] = 'Special Needs Bus';
+        $route_type_to_string["708"] = 'Mobility Bus Service';
+        $route_type_to_string["709"] = 'Mobility Bus for Registered Disabled';
+        $route_type_to_string["710"] = 'Sightseeing Bus';
+        $route_type_to_string["711"] = 'Shuttle Bus'; 	  	     # 747 Heathrow-Gatwick Airport Service (GB)
+        $route_type_to_string["712"] = 'School Bus';
+        $route_type_to_string["713"] = 'School and Public Service Bus';
+        $route_type_to_string["714"] = 'Rail Replacement Bus Service';
+        $route_type_to_string["715"] = 'Demand and Response Bus Service';                # Yes
+        $route_type_to_string["716"] = 'All Bus Services';
+        $route_type_to_string["800"] = 'Trolleybus Service';                # Yes
+        $route_type_to_string["900"] = 'Tram Service';                # Yes
+        $route_type_to_string["901"] = 'City Tram Service';
+        $route_type_to_string["902"] = 'Local Tram Service'; 	      # Munich (DE), Brussels (BE), Croydon (GB)
+        $route_type_to_string["903"] = 'Regional Tram Service';
+        $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
+        $route_type_to_string["905"] = 'Shuttle Tram Service';
+        $route_type_to_string["906"] = 'All Tram Services';
+        $route_type_to_string["1000"] = 'Water Transport Service';                # Yes
+        $route_type_to_string["1100"] = 'Air Service';
+        $route_type_to_string["1200"] = 'Ferry Service';                    # Yes
+        $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
+        $route_type_to_string["1400"] = 'Funicular Service';                # Yes 	Rigiblick (Zürich, CH)
+        $route_type_to_string["1500"] = 'Taxi Service';
+        $route_type_to_string["1501"] = 'Communal Taxi Service';            # Yes 	Marshrutka (RU), dolmuş (TR)
+        $route_type_to_string["1502"] = 'Water Taxi Service';
+        $route_type_to_string["1503"] = 'Rail Taxi Service';
+        $route_type_to_string["1504"] = 'Bike Taxi Service';
+        $route_type_to_string["1505"] = 'Licensed Taxi Service';
+        $route_type_to_string["1506"] = 'Private Hire Service Vehicle';
+        $route_type_to_string["1507"] = 'All Taxi Services';
+        $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes
+        $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes
+
+        if ( $route_type_to_string[$rt] ) {
+            return $route_type_to_string[$rt];
+        } else {
+            return $rt;
+        }
+    }
+
+
+    function RouteType2OsmRoute( $rt ) {
+
+        $rt = strtolower(RouteType2String($rt));
+
+        if ( preg_match("/trolleybus/",$rt) ) {
+            $rt = 'trolleybus';
+        } elseif ( preg_match("/demand and response bus/",$rt) ) {
+            $rt = 'share_taxi';
+        } elseif ( preg_match("/tram/",$rt) ) {
+            $rt = 'tram';
+        } elseif ( preg_match("/bus/",$rt) ) {
+            $rt = 'bus';
+        } elseif ( preg_match("/monorail/",$rt) ) {
+            $rt = 'monorail';
+        } elseif ( preg_match("/ferry/",$rt) || preg_match("/water transport service/",$rt) ) {
+            $rt = 'ferry';
+        } elseif ( preg_match("/rail/",$rt) ) {
+            $rt = 'train';
+        } elseif ( preg_match("/funicular/",$rt) ) {
+            $rt = 'funicular';
+        } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
+            $rt = 'subway';
+        } else {
+            $rt = 'bus';
+        }
+
+        return $rt;
+    }
+
+
+    function ptna_normalize( $string ) {
+
+        $string = preg_replace( "/Abzw\./", "Abzweig", $string );
+        $string = preg_replace( "/Str\./", "Straße", $string );
+        $string = preg_replace( "/([^ ])str\./", "\\1straße", $string );
+        $string = preg_replace( "/Pl\./", "Platz", $string );
+        $string = preg_replace( "/([^ ])pl\./", "\\1platz", $string );
+
+        return $string;
+    }
+
+
     function LF2BR( $string ) {
         return preg_replace("/\n/","<br />",$string);
     }
+
 
 ?>

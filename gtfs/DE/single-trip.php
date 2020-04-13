@@ -34,22 +34,33 @@
 
 <?php include $inc_lang.'gtfs-single-trip-head.inc' ?>
 
-                <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
+                <h3>Karte</h3>
+                <div class="indent">
+                    <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
 
-                <div id="mapid"></div>
+                    <div id="mapid"></div>
+                </div>
 
-                <table id="gtfs-single-trip">
-                    <thead>
+                <h3>Vorschlag für OSM Tagging</h3>
+                <div class="indent">
+<?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
+                </div>
+
+                <h3>Haltestellen</h3>
+                <div class="indent">
+                    <table id="gtfs-single-trip">
+                        <thead>
 <?php include $inc_lang.'gtfs-single-trip-trth.inc' ?>
-                    </thead>
-                    <tbody>
-<?php $duration = CreateGtfsSingleTripEntry( $network, $trip_id, $edit ); ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+<?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
+                        </tbody>
+                    </table>
+                </div>
 
 <?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
 
-<?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
+<?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
 
             </div>
 
