@@ -424,9 +424,11 @@
                     }
 
                     $osm_route          = htmlspecialchars(RouteType2OsmRoute($route['route_type']));
-                    $osm_ref            = $route['route_short_name'] ? htmlspecialchars($route['route_short_name']) : '???';
-                    $osm_from           = $stops1['stop_name'] ? htmlspecialchars(ptna_normalize($stops1['stop_name'])) : '???';
-                    $osm_to             = $stops2['stop_name'] ? htmlspecialchars(ptna_normalize($stops2['stop_name'])) : '???';
+                    $osm_ref            = $route['route_short_name'] ? htmlspecialchars($route['route_short_name'])           : '???';
+                    $osm_colour         = $route['route_color']      ? htmlspecialchars($route['route_color'])                : 'ffffff';
+                    $osm_website        = $route['route_url']        ? htmlspecialchars($route['route_url'])                  : '';
+                    $osm_from           = $stops1['stop_name']       ? htmlspecialchars(ptna_normalize($stops1['stop_name'])) : '???';
+                    $osm_to             = $stops2['stop_name']       ? htmlspecialchars(ptna_normalize($stops2['stop_name'])) : '???';
                     $osm_network        = htmlspecialchars($osm['network']);
                     $osm_network_short  = htmlspecialchars($osm['network_short']);
                     $osm_network_guid   = htmlspecialchars($osm['network_guid']);
@@ -464,12 +466,13 @@
                     echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
-                    if ( $osm_route && $osm_ref ) {
+                    if ( $osm_route ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">name</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . ucfirst($osm_route) . ' ' . $osm_ref . '</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . ucfirst($osm_route) . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
+                    }
                     if ( $osm_network ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">network</td>' . "\n";
@@ -503,7 +506,6 @@
                     echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
                     echo '                                <td class="gtfs-name">2</td>' . "\n";
                     echo '                            </tr>' . "\n";
-                    }
                     if ( $osm_from ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">from</td>' . "\n";
@@ -516,6 +518,20 @@
                         echo '                                <td class="gtfs-name">to</td>' . "\n";
                         echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_to . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_colour ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">colour</td>' . "\n";
+                        echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_website ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">website</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_website . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_website . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
                    # echo '                            <tr class="gtfs-tablerow">' . "\n";
