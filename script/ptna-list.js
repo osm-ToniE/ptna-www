@@ -54,7 +54,7 @@ function ptnalistdownload( include_agency ) {
                         value = 'bus';
                     } else if ( value.match('monorail') != null ) {
                         value = 'monorail';
-                    } else if ( value.match('frerry') != null || value.match('water transport service') != null ) {
+                    } else if ( value.match('ferry') != null || value.match('water transport service') != null ) {
                         value = 'ferry';
                     } else if ( value.match('rail') != null ) {
                         value = 'train';
