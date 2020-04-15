@@ -620,7 +620,7 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT   stop_times.stop_id,stops.stop_name,stops.stop_lat,stops.stop_lon,stops.ptna_is_invalid,stops.ptna_is_wrong,stops.ptna_comment
+                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.stop_name,stops.stop_lat,stops.stop_lon,stops.ptna_is_invalid,stops.ptna_is_wrong,stops.ptna_comment
                                      FROM     stop_times
                                      JOIN     stops ON stop_times.stop_id = stops.stop_id
                                      WHERE    stop_times.trip_id='%s'
@@ -635,6 +635,7 @@
                         echo '                       <tr class="gtfs-tablerow">' . "\n";
                         echo '                           <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
                         echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"])       . '</td>' . "\n";
+                        echo '                           <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
