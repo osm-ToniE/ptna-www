@@ -391,7 +391,7 @@
 
                     $route = $db->querySingle( $sql, true );
 
-                    $sql = sprintf( "SELECT   stops.stop_name
+                    $sql = sprintf( "SELECT   *
                                      FROM     stops
                                      JOIN     stop_times ON stop_times.stop_id = stops.stop_id
                                      WHERE    stop_times.trip_id='%s'
@@ -402,7 +402,7 @@
 
                     $stops1 = $db->querySingle( $sql, true );
 
-                    $sql = sprintf( "SELECT   stops.stop_name
+                    $sql = sprintf( "SELECT   *
                                      FROM     stops
                                      JOIN     stop_times ON stop_times.stop_id = stops.stop_id
                                      WHERE    stop_times.trip_id='%s'
@@ -433,7 +433,9 @@
                     $osm_network_short  = htmlspecialchars($osm['network_short']);
                     $osm_network_guid   = htmlspecialchars($osm['network_guid']);
                     if ( $osm['gtfs_agency_is_operator'] ) {
-                        $osm_operator   = htmlspecialchars($agency['agency_name']);
+                        if ( $agency['agency_name'] != 'Sonstige' ) {
+                            $osm_operator   = htmlspecialchars($agency['agency_name']);
+                        }
                     }
 
                     # ROUTE-MASTER
@@ -620,7 +622,8 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.stop_name,stops.stop_lat,stops.stop_lon,stops.ptna_is_invalid,stops.ptna_is_wrong,stops.ptna_comment
+#                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.stop_name,stops.stop_lat,stops.stop_lon,stops.ptna_is_invalid,stops.ptna_is_wrong,stops.ptna_comment
+                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
                                      FROM     stop_times
                                      JOIN     stops ON stop_times.stop_id = stops.stop_id
                                      WHERE    stop_times.trip_id='%s'
