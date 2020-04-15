@@ -21,6 +21,7 @@
 <?php
     $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
     $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
+    $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
     $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
     $ptna             = GetTripDetails( $network, $trip_id );
     $is_invalid       = $ptna["ptna_is_invalid"];
@@ -29,7 +30,7 @@
     $shape_id         = $ptna["shape_id"];
 ?>
 
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_short_name && $trip_id ) { echo '<span id="network">' . htmlspecialchars($network) . '</span> Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
+            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
             <div class="indent">
 
 <?php include $inc_lang.'gtfs-single-trip-head.inc' ?>

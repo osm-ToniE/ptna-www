@@ -808,6 +808,40 @@
     }
 
 
+    function GetGtfsRouteIdFromTripId( $network, $trip_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            if ( $trip_id ) {
+
+                try {
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql = sprintf( "SELECT route_id
+                                     FROM   trips
+                                     WHERE  trip_id='%s';",
+                                     SQLite3::escapeString($trip_id)
+                                  );
+
+                    $row = $db->querySingle( $sql, true );
+
+                    return $row["route_id"];
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return '';
+    }
+
+
     function GetGtfsRouteShortNameFromTripId( $network, $trip_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );

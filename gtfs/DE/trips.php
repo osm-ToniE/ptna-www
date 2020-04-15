@@ -21,7 +21,7 @@
                 }
             ?>
 
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name ) { echo htmlspecialchars($network) . ' Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>
+            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-trips-head.inc' ?>
 
