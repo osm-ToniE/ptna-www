@@ -668,6 +668,59 @@
     }
 
 
+    function GetDepartureTimesGtfsSingleTrip( $network, $trip_id ) {
+
+        $return_value = '';
+        $temp_array   = array();
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '') {
+
+           if ( $trip_id ) {
+
+               try {
+
+                    $start_time = gettimeofday(true);
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+
+                        $sql    = sprintf( "SELECT DISTINCT departure_time
+                                            FROM            ptna_trips
+                                            WHERE           representative_trip_id='%s'
+                                            ORDER BY departure_time ASC;",
+                                            SQLite3::escapeString($trip_id)
+                                         );
+                        $result = $db->query( $sql );
+                        while ( $row=$result->fetchArray() ) {
+                            array_push( $temp_array, $row['departure_time'] );
+                        }
+
+                        return implode( ', ', $temp_array );
+                    }
+                    $db->close();
+
+                    $stop_time = gettimeofday(true);
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        $return_value;
+    }
+
+
+
     function CreateGtfsSingleTripShapeEntry( $network, $trip_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
@@ -1110,91 +1163,98 @@
 
                 $db  = new SQLite3( $SqliteDb );
 
-                $sql = sprintf( "SELECT * FROM ptna_aggregation;" );
+                $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_aggregation';";
 
-                $ptna = $db->querySingle( $sql, true );
+                $sql_master = $db->querySingle( $sql, true );
 
-                if ( $ptna["date"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Date</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["duration"] ) {
-                    $duration = $ptna["duration"];
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Duration</td>' . "\n";
-                    echo '                            <td class="statistics-number">';
-                    $format_mins = '%2d:';
-                    $format_secs = '%2d';
-                    if ( $duration > 3600 ) {
-                        printf( "%2d:", $duration / 3600 );
-                        $format_mins = '%02d:';
+                if ( $sql_master['name'] ) {
+
+                    $sql = sprintf( "SELECT * FROM ptna_aggregation;" );
+
+                    $ptna = $db->querySingle( $sql, true );
+
+                    if ( $ptna["date"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Date</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
                     }
-                    if ( $duration > 60 ) {
-                        printf( $format_mins, ($duration % 3600) / 60 );
-                        $format_secs = '%02d';
+                    if ( $ptna["duration"] ) {
+                        $duration = $ptna["duration"];
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Duration</td>' . "\n";
+                        echo '                            <td class="statistics-number">';
+                        $format_mins = '%2d:';
+                        $format_secs = '%2d';
+                        if ( $duration > 3600 ) {
+                            printf( "%2d:", $duration / 3600 );
+                            $format_mins = '%02d:';
+                        }
+                        if ( $duration > 60 ) {
+                            printf( $format_mins, ($duration % 3600) / 60 );
+                            $format_secs = '%02d';
+                        }
+                        printf( $format_secs, ($duration % 60) );
+                        echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
                     }
-                    printf( $format_secs, ($duration % 60) );
-                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["size_before"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">SQLite-DB size before</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_before"]) / 1024 / 1024 ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["size_after"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">SQLite-DB size after</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_after"]) / 1024 / 1024 ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[MB]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["routes_before"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["routes_after"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["trips_before"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["trips_after"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["stop_times_before"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["stop_times_after"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
+                    if ( $ptna["size_before"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">SQLite-DB size before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_before"]) / 1024 / 1024 ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[MB]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["size_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">SQLite-DB size after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_after"]) / 1024 / 1024 ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[MB]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["routes_before"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["routes_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["trips_before"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["trips_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["stop_times_before"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["stop_times_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
                 }
 
                 $stop_time = gettimeofday(true);
@@ -1224,49 +1284,135 @@
 
                 $db  = new SQLite3( $SqliteDb );
 
-                $sql = sprintf( "SELECT * FROM ptna_analysis;" );
+                $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_analysis';";
 
-                $ptna = $db->querySingle( $sql, true );
+                $sql_master = $db->querySingle( $sql, true );
 
-                if ( $ptna["date"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Date</td>' . "\n";
-                    echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["duration"] ) {
-                    $duration = $ptna["duration"];
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Duration</td>' . "\n";
-                    echo '                            <td class="statistics-number">';
-                    $format_mins = '%2d:';
-                    $format_secs = '%2d';
-                    if ( $duration > 3600 ) {
-                        printf( "%2d:", $duration / 3600 );
-                        $format_mins = '%02d:';
+                if ( $sql_master['name'] ) {
+
+                    $sql = sprintf( "SELECT * FROM ptna_analysis;" );
+
+                    $ptna = $db->querySingle( $sql, true );
+
+                    if ( $ptna["date"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Date</td>' . "\n";
+                        echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
                     }
-                    if ( $duration > 60 ) {
-                        printf( $format_mins, ($duration % 3600) / 60 );
-                        $format_secs = '%02d';
+                    if ( $ptna["duration"] ) {
+                        $duration = $ptna["duration"];
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Duration</td>' . "\n";
+                        echo '                            <td class="statistics-number">';
+                        $format_mins = '%2d:';
+                        $format_secs = '%2d';
+                        if ( $duration > 3600 ) {
+                            printf( "%2d:", $duration / 3600 );
+                            $format_mins = '%02d:';
+                        }
+                        if ( $duration > 60 ) {
+                            printf( $format_mins, ($duration % 3600) / 60 );
+                            $format_secs = '%02d';
+                        }
+                        printf( $format_secs, ($duration % 60) );
+                        echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
                     }
-                    printf( $format_secs, ($duration % 60) );
-                    echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
+                    if ( $ptna["count_subroute"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_subroute"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["count_suspicious_end"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
                 }
-                if ( $ptna["count_subroute"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_subroute"]) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
-                }
-                if ( $ptna["count_suspicious_end"] ) {
-                    echo '                        <tr class="statistics-tablerow">' . "\n";
-                    echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
-                    echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</td>' . "\n";
-                    echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                    echo '                        </tr>' . "\n";
+
+                $stop_time = gettimeofday(true);
+
+                return $stop_time - $start_time;
+
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return 0;
+    }
+
+
+    function CreatePtnaNormalizationStatistics( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $start_time = gettimeofday(true);
+
+                $db  = new SQLite3( $SqliteDb );
+
+                $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_normalization';";
+
+                $sql_master = $db->querySingle( $sql, true );
+
+                if ( $sql_master['name'] ) {
+
+                    $sql = sprintf( "SELECT * FROM ptna_normalization;" );
+
+                    $ptna = $db->querySingle( $sql, true );
+
+                    if ( $ptna["date"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Date</td>' . "\n";
+                        echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["duration"] ) {
+                        $duration = $ptna["duration"];
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Duration</td>' . "\n";
+                        echo '                            <td class="statistics-number">';
+                        $format_mins = '%2d:';
+                        $format_secs = '%2d';
+                        if ( $duration > 3600 ) {
+                            printf( "%2d:", $duration / 3600 );
+                            $format_mins = '%02d:';
+                        }
+                        if ( $duration > 60 ) {
+                            printf( $format_mins, ($duration % 3600) / 60 );
+                            $format_secs = '%02d';
+                        }
+                        printf( $format_secs, ($duration % 60) );
+                        echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["routes"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Routes</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["routes"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["stops"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Stops</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["stops"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
                 }
 
                 $stop_time = gettimeofday(true);

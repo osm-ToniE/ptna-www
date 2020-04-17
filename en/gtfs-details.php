@@ -69,6 +69,23 @@
                                 </tbody>
                             </table>
                         </div>
+
+                    <h3>GTFS Normalization Details</h3>
+                        <div class="indent">
+                            <table id="gtfs-ptna-normalization-table">
+                                <thead>
+                                    <tr class="statistics-tableheaderrow">
+                                        <th class="statistics-name">Name</th>
+                                        <th class="statistics-number">Value</th>
+                                        <th class="statistics-number">Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+<?php $duration += CreatePtnaNormalizationStatistics( $network ); ?>
+                                </tbody>
+                            </table>
+                        </div>
+
                     <?php printf( "<p>SQL-Queries took %f seconds to complete</p>\n", $duration ); ?>
                 </div>
 

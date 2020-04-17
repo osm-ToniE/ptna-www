@@ -57,7 +57,7 @@
 <?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
                         </tbody>
                     </table>
-                    <p><strong>(1) Abfahrtszeit</strong> ist eine von vielen Abfahrtszeiten und soll z.B. helfen, diese Fahrt im "gedruckten PDF" Fahrplan wiederzufinden.</p>
+                    <p><strong>(1) Alle Abfahrzeiten an der ersten Haltestelle:</strong> <?php $string = GetDepartureTimesGtfsSingleTrip( $network, $trip_id ); if ( $string ) { echo $string; } else { echo 'derzeit nicht verfügbar.'; } ?></p>
                 </div>
 
 <?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
