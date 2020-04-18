@@ -691,18 +691,16 @@
 
                     if ( $sql_master['name'] ) {
 
-                        $sql    = sprintf( "SELECT DISTINCT departure_time
+                        $sql    = sprintf( "SELECT DISTINCT list_departure_times
                                             FROM            ptna_trips
-                                            WHERE           representative_trip_id='%s'
-                                            ORDER BY departure_time ASC;",
+                                            WHERE           trip_id='%s'",
                                             SQLite3::escapeString($trip_id)
                                          );
-                        $result = $db->query( $sql );
-                        while ( $row=$result->fetchArray() ) {
-                            array_push( $temp_array, $row['departure_time'] );
-                        }
+                        $result = $db->querySingle( $sql, true );
 
-                        return implode( ', ', $temp_array );
+                        if ( $result['list_departure_times'] ) {
+                            return preg_replace('/\|/',', ',$result['list_departure_times']);
+                        }
                     }
                     $db->close();
 
