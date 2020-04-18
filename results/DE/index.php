@@ -59,11 +59,19 @@
 
                     <?php CreateNewFullEntry( "DE-BW-KVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-RAB", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BW-RBS", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-RVF", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BW-RVS", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BW-naldo", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-AVV", "de", "Konfiguration" ); ?>
 
