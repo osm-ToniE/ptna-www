@@ -49,8 +49,6 @@
 
                     <?php CreateNewFullEntry( "DE-BE-VBB", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BW-DING", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-DING-SWU", "de", "Konfiguration" ); ?>
@@ -70,6 +68,8 @@
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-naldo", "de", "Konfiguration" ); ?>
 
