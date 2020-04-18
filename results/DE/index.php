@@ -7,7 +7,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
        <nav id="navigation">
@@ -50,9 +50,9 @@
                     <?php CreateNewFullEntry( "DE-BE-VBB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
-                    
+
                     <?php CreateNewFullEntry( "DE-BW-DING", "de", "Konfiguration" ); ?>
-                    
+
                     <?php CreateNewFullEntry( "DE-BW-DING-SWU", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-KV.SHA", "de", "Konfiguration" ); ?>
@@ -62,8 +62,6 @@
                     <?php CreateNewFullEntry( "DE-BW-RVF", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "DE-BW-VRN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
 
@@ -152,6 +150,8 @@
                     <?php CreateNewFullEntry( "DE-NW-WT", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-RP-VRM", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-RP-VRN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-RP-VRT", "de", "Konfiguration" ); ?>
 
