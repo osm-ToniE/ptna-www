@@ -635,6 +635,9 @@
 
                     $counter = 1;
                     while ( $row=$result->fetchArray() ) {
+                        if ( $row["departure_time"] ) {
+                            $row["departure_time"] = preg_replace('/:\d\d$/', '', $row["departure_time"] );
+                        }
                         echo '                       <tr class="gtfs-tablerow">' . "\n";
                         echo '                           <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
                         echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"])       . '</td>' . "\n";
@@ -699,7 +702,8 @@
                         $result = $db->querySingle( $sql, true );
 
                         if ( $result['list_departure_times'] ) {
-                            return preg_replace('/\|/',', ',$result['list_departure_times']);
+                            $result['list_departure_times'] = preg_replace('/:\d\d$/',  '', $result['list_departure_times'] );
+                            return preg_replace('/:\d\d\|/', ', ', $result['list_departure_times'] );
                         }
                     }
                     $db->close();
