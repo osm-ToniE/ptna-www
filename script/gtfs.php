@@ -1131,11 +1131,7 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data normalized for PTNA</td>' . "\n";
-                if ( $ptna["normalized"] ) {
-                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-statistics.php?network=' .  urlencode($network) . '">' . htmlspecialchars($ptna["normalized"])  . '</a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-text"></td>' . "\n";
-                }
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["normalized"])  . '</td>' . "\n";
                 echo '                        </tr>' . "\n";
 
                 $stop_time = gettimeofday(true);
