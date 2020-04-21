@@ -12,10 +12,11 @@
             <h2>GTFS</h2>
             <ul>
                 <li><a href="#gtfsdata">Was sind GTFS Daten?</a></li>
-                <li><a href="#prepared">Bearbeitete GTFS Daten</a></li>
-                <li><a href="#aggregated">Aggregierte GTFS Daten</a>
-                <li><a href="#analyzed">Analysierte GTFS Daten</a>
-                <li><a href="#normalized">Normalisierte GTFS Daten</a>
+                <li><a href="#download">Aktualisierung der Daten</a></li>
+                <li><a href="#prepare">Vorbereitung der GTFS Daten</a></li>
+                <li><a href="#aggregate">Aggregierung der GTFS Daten</a>
+                <li><a href="#analyze">Analyse der GTFS Daten</a>
+                <li><a href="#normalize">Normalisierung der GTFS Daten</a>
             </ul>
         </nav>
 
@@ -36,8 +37,25 @@
             </div>
 
             <hr />
+            
+            <h2 id="download">Aktualisierung der Daten</h2>
+            <div class="indent">
+                <p>
+                    Die Aktualisierung der Daten auf dieser Seite erfolgt aus mehreren Gründen nur in unregelmäßigen Abständen:
+                </p>
+                <ul>
+                    <li>Einige Verbünde stellen quasi täglich neue Versionen zur Verfügung ohne ein Datum anzugeben.</li>
+                    <li>Einige Verbünde stellen Daten in sehr unregelmäßigen Abständen zur Verfügung.</li>
+                    <li>Einige Daten lassen sich direkt und immer über den selben Link runter laden.</li>
+                    <li>Einige Daten lassen sich nur indirekt über, pro Version, immer wieder andere Links runter laden - um das automatisierte Laden zu verhindern?</li>
+                    <li>Zumindest das Runterladen kann nicht einfach automatisiert werden kann.</li>
+                    <li>Die automatisierte Vorbereitung (hauptsächlich die <a href="#aggregate">Aggregierung</a>) der GTFS-Daten für diese Website dauert, je nach Größe des Verbundes, zwischen ein paar Sekunden (<a href="/en/gtfs-details.php?network=DE-BW-Filsland">DE-BW-Filsland</a>) und 16 Stunden (<a href="/en/gtfs-details.php?network=DE-BE-VBB">DE-BE-VBB</a>).</li>
+                </ul>
+            </div>
 
-            <h2 id="prepared">Bearbeitete GTFS Daten</h2>
+            <hr />
+
+            <h2 id="prepare">Vorbereitung der GTFS Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für die Verwendung in PTNA vorbereitet.
@@ -60,7 +78,7 @@
 
             <hr />
 
-            <h2 id="aggregated">Aggregierte GTFS Daten</h2>
+            <h2 id="aggregate">Aggregierung der GTFS Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
@@ -94,7 +112,7 @@
 
             <hr />
 
-            <h2 id="analyzed">Analysierte GTFS Daten</h2>
+            <h2 id="analyze">Analyse der GTFS Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
@@ -116,7 +134,7 @@
 
             <hr />
 
-            <h2 id="normalized">Normalisierte GTFS Daten</h2>
+            <h2 id="normalize">Normalisierung der GTFS Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
