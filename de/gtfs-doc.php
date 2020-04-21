@@ -11,12 +11,12 @@
         <nav id="navigation">
             <h2>GTFS</h2>
             <ul>
-                <li><a href="#gtfsdata">Was sind GTFS Daten?</a></li>
+                <li><a href="#gtfsdata">Was sind GTFS-Daten?</a></li>
                 <li><a href="#download">Aktualisierung der Daten</a></li>
-                <li><a href="#prepare">Vorbereitung der GTFS Daten</a></li>
-                <li><a href="#aggregate">Aggregierung der GTFS Daten</a>
-                <li><a href="#analyze">Analyse der GTFS Daten</a>
-                <li><a href="#normalize">Normalisierung der GTFS Daten</a>
+                <li><a href="#prepare">Vorbereitung der GTFS-Daten</a></li>
+                <li><a href="#aggregate">Aggregierung der GTFS-Daten</a>
+                <li><a href="#analyze">Analyse der GTFS-Daten</a>
+                <li><a href="#normalize">Normalisierung der GTFS-Daten</a>
             </ul>
         </nav>
 
@@ -24,7 +24,7 @@
 
         <main id="main">
 
-            <h2 id="gtfsdata">Was sind GTFS Daten?</h2>
+            <h2 id="gtfsdata">Was sind GTFS-Daten?</h2>
             <div class="indent">
                 <p>
                     GTFS-Daten ... Zitat von Googles Web-Site zur <a href="https://developers.google.com/transit/gtfs">GTFS-Spezifikation</a> (Übersetzt mit www.DeepL.com/Translator):
@@ -37,7 +37,7 @@
             </div>
 
             <hr />
-            
+
             <h2 id="download">Aktualisierung der Daten</h2>
             <div class="indent">
                 <p>
@@ -56,12 +56,24 @@
 
             <hr />
 
-            <h2 id="prepare">Vorbereitung der GTFS Daten</h2>
+            <h2 id="prepare">Vorbereitung der GTFS-Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für die Verwendung in PTNA vorbereitet.
                 </p>
                 <ul>
+                    <li>Tabelle "osm"
+                        <ul>
+                            <li>Füge OSM-spezifische Information als eigenständige Tabelle hinzu.
+                                <ul>
+                                    <li>Wert von 'network' bei PT-Relationen (z.B. "Münchner Verkehrs- und Tarifverbund").</li>
+                                    <li>Wert von 'network:short' bei PT-Relationen (z.B. "MVV").</li>
+                                    <li>Wert von 'network:guid' bei PT-Relationen (z.B. "DE-BY-MVV").</li>
+                                    <li>Wert von 'operator bei PT-Relationen: kann "agency_name" aus der GTFS-Tabelle "agency.txt" als 'operator' verwendet werden?</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li>Tabelle "ptna"
                         <ul>
                             <li>Füge PTNA-spezifische Information als eigenständige Tabelle hinzu.</li>
@@ -69,8 +81,8 @@
                     </li>
                     <li>Andere Tabellen
                         <ul>
-                            <li>"ptna_changedate", "ptna_is_invalid", "ptna_is_wrong" und "ptna_comment" Felder werden hinzugefügt.
-                                Hiermit können <strong>später</strong> Anmerkungen eingetragen werden.
+                            <li>Das Feld "ptna_comment" wird hinzugefügt.
+                                Hiermit können Anmerkungen eingetragen werden - siehe "Analyse der GTFS-Daten.
                             </li>
                         </ul>
                     </li>
@@ -79,7 +91,7 @@
 
             <hr />
 
-            <h2 id="aggregate">Aggregierung der GTFS Daten</h2>
+            <h2 id="aggregate">Aggregierung der GTFS-Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
@@ -113,7 +125,7 @@
 
             <hr />
 
-            <h2 id="analyze">Analyse der GTFS Daten</h2>
+            <h2 id="analyze">Analyse der GTFS-Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
@@ -135,7 +147,7 @@
 
             <hr />
 
-            <h2 id="normalize">Normalisierung der GTFS Daten</h2>
+            <h2 id="normalize">Normalisierung der GTFS-Daten</h2>
             <div class="indent">
                 <p>
                     Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
