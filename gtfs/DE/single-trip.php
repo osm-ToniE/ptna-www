@@ -35,20 +35,32 @@
 
 <?php include $inc_lang.'gtfs-single-trip-head.inc' ?>
 
-                <h3>Karte</h3>
+                <h3 id="showonmap">Karte</h3>
                 <div class="indent">
                     <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
 
                     <div id="mapid"></div>
                 </div>
 
-                <h3>Vorschlag für OSM Tagging</h3>
+                <h3 id="proposal">Vorschlag für OSM Tagging</h3>
                 <div class="indent">
 <?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
                 </div>
 
-                <h3>Haltestellen</h3>
+                <h3 id="stoplist">Haltestellen</h3>
                 <div class="indent">
+                    <p>
+                        Mit <strong>iD</strong> und <strong>JOSM</strong> kann die Umgebung einer Haltestelle in einen Editor geladen werden.
+                    </p>
+                    <ul>
+                        <li><strong>iD</strong> - die Anzeige erfolgt in einem neuen Fenster auf Zoom-Level 21.</li>
+                        <li><strong>JOSM</strong> - es wird eine Fläche von 30 m * 30 m um die Haltestelle herum heruntergeladen.</li>
+                    </ul>
+                    <p>
+                        In beiden Fällen ist nicht garantiert, dass die in OSM eventuell vorhandene Haltestelle sichtbar ist (liegt leicht außerhalb des Gebietes oder existiert nicht?).<br />
+                        In beiden Fällen kann die Position der Haltestelle gemäß der hier vorliegenden Koordinaten (derzeit?) leider nicht sichtbar gemacht werden.
+                    </p>
+
                     <table id="gtfs-single-trip">
                         <thead>
 <?php include $inc_lang.'gtfs-single-trip-trth.inc' ?>
@@ -78,6 +90,9 @@
 <?php include $inc_lang.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
+      
+      <iframe style="display:none" id="hiddenIframe" name="hiddenIframe"></iframe>
+      
     </body>
 </html>
 

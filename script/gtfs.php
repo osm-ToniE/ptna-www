@@ -589,6 +589,12 @@
                         echo '                                <td class="gtfs-name">' . $osm_to . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
+                    if ( $osm_from && $osm_to && $osm_from == $osm_to ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">roundtrip</td>' . "\n";
+                        echo '                                <td class="gtfs-name">yes</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
                     echo '                        </tbody>' . "\n";
                     echo '                    </table>' . "\n";
 
@@ -640,7 +646,12 @@
                         }
                         echo '                       <tr class="gtfs-tablerow">' . "\n";
                         echo '                           <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
-                        echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"])       . '</td>' . "\n";
+                        echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"]) . ' (';
+                        printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
+                        $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
+                        printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
+#                        printf( ', %slat=%s&lon=%s%s', '<a href="http://127.0.0.1:8111/add_node?', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Add node in JOSM">JOSM</a>' );
+                        echo ')</td>' . "\n";
                         echo '                           <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
@@ -1427,6 +1438,32 @@
         return 0;
     }
 
+
+    function GetBbox( $lat, $lon, $offset ) {
+        $bbox['left']   = -0.0001;
+        $bbox['right']  = +0.0001;
+        $bbox['top']    = +0.0001;
+        $bbox['bottom'] = -0.0001;
+        
+        $R  =   6378137;
+
+        //offsets in meters
+        $dn = $offset;
+        $de = $offset;
+
+        //Coordinate offsets in radians
+        $dLat = $dn/$R;
+        $dLon = $de/($R*cos(pi()*$lat/180));
+
+        //OffsetPosition, decimal degrees
+        $bbox['top']    = $lat + $dLat * 180/pi();
+        $bbox['right']  = $lon + $dLon * 180/pi(); 
+        $bbox['bottom'] = $lat - $dLat * 180/pi();
+        $bbox['left']   = $lon - $dLon * 180/pi() ;
+
+        return $bbox;
+    }
+    
 
     function RouteType2String( $rt ) {
 
