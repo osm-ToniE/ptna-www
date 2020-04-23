@@ -646,12 +646,13 @@
                         }
                         echo '                       <tr class="gtfs-tablerow">' . "\n";
                         echo '                           <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
-                        echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"]) . ' (';
+                        echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
+                        echo '                           <td class="gtfs-comment">';
                         printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
                         $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
                         printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
 #                        printf( ', %slat=%s&lon=%s%s', '<a href="http://127.0.0.1:8111/add_node?', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Add node in JOSM">JOSM</a>' );
-                        echo ')</td>' . "\n";
+                        echo '</td>' . "\n";
                         echo '                           <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";

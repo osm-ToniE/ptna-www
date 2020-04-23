@@ -1,10 +1,11 @@
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-name" colspan="6">Haltestellen</th>
+                            <th class="gtfs-name" colspan="7">Haltestellen</th>
                             <th class="gtfs-name" colspan="1">PTNA Info zur Haltestelle</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name">Nummer</th>
                             <th class="gtfs-name">Name</th>
+                            <th class="gtfs-name">Download</th>
                             <th class="gtfs-date">Abfahrtszeit (1)</th>
                             <th class="gtfs-number">Latitude</th>
                             <th class="gtfs-number">Longitude</th>
