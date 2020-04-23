@@ -37,6 +37,8 @@
 
             try {
 
+                set_time_limit( 60 );
+
                 $start_time = gettimeofday(true);
 
                 $db         = new SQLite3( $SqliteDb );
@@ -171,9 +173,15 @@
 
                     $today      = new DateTime();
 
+                    set_time_limit( 60 );
+
                     $start_time = gettimeofday(true);
 
                     $db         = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT * FROM ptna";
+    
+                    $ptna       = $db->querySingle( $sql, true );
 
                     $sql        = "SELECT DISTINCT    *
                                    FROM               routes
@@ -190,15 +198,26 @@
                             $route_type_text = '???';
                         }
 
-                        $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
-                                         FROM            trips
-                                         JOIN            calendar ON trips.service_id = calendar.service_id
-                                         WHERE           trip_id  IN
-                                                         (SELECT   trips.trip_id
-                                                          FROM     trips
-                                                          WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
-                                                          ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
-
+                        if ( $ptna['ignore_calendar'] ) {
+                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                                             FROM            trips
+                                             JOIN            calendar ON trips.service_id = calendar.service_id
+                                             WHERE           trip_id  IN
+                                                             (SELECT   trips.trip_id
+                                                              FROM     trips
+                                                              WHERE    trips.route_id='%s')
+                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
+                         } else {
+                           $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                                             FROM            trips
+                                             JOIN            calendar ON trips.service_id = calendar.service_id
+                                             WHERE           trip_id  IN
+                                                             (SELECT   trips.trip_id
+                                                              FROM     trips
+                                                              WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
+                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
+                        }
+                        
                         $innerresult = $db->query( $sql );
 
                         while ( $innerrow=$innerresult->fetchArray() ) {
@@ -269,6 +288,8 @@
            if (  $route_id ) {
 
                 try {
+
+                    set_time_limit( 60 );
 
                     $start_time = gettimeofday(true);
 
@@ -367,6 +388,8 @@
            if ( $trip_id ) {
 
                try {
+
+                    set_time_limit( 60 );
 
                     $start_time = gettimeofday(true);
 
@@ -624,6 +647,8 @@
 
                try {
 
+                    set_time_limit( 60 );
+
                     $start_time = gettimeofday(true);
 
                     $db = new SQLite3( $SqliteDb );
@@ -696,6 +721,8 @@
 
                try {
 
+                    set_time_limit( 60 );
+
                     $start_time = gettimeofday(true);
 
                     $db = new SQLite3( $SqliteDb );
@@ -746,6 +773,8 @@
                try {
 
                     $start_time = gettimeofday(true);
+
+                    set_time_limit( 60 );
 
                     $db = new SQLite3( $SqliteDb );
 
