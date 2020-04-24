@@ -48,7 +48,7 @@ function josm_load_and_zoom_stops() {
                 }
             }
             
-            resp = download_here( lat, lon, 10 );
+            resp = download_here( lat, lon, 15 );
 
             if ( !resp.match(/OK/) ) {
                 return;
