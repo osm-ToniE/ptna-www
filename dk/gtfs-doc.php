@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="dk">
 
 <?php $title="GTFS"; include "html-head.inc" ?>
 
@@ -11,12 +11,12 @@
         <nav id="navigation">
             <h2>GTFS</h2>
             <ul>
-                <li><a href="#gtfsdata">Was sind GTFS-Daten?</a></li>
-                <li><a href="#download">Aktualisierung der Daten</a></li>
-                <li><a href="#prepare">Vorbereitung der GTFS-Daten</a></li>
-                <li><a href="#aggregate">Aggregierung der GTFS-Daten</a>
-                <li><a href="#analyze">Analyse der GTFS-Daten</a>
-                <li><a href="#normalize">Normalisierung der GTFS-Daten</a>
+                <li><a href="#gtfsdata">Hvad er GTFS-data?</a></li>
+                <li><a href="#download">Opdater dataene</a></li>
+                <li><a href="#prepare">Forberedelse af GTFS-data</a></li>
+                <li><a href="#aggregate">GTFS-datasamling</a>
+                <li><a href="#analyze">Analyse af GTFS-data</a>
+                <li><a href="#normalize">Normalisering af GTFS-data</a>
             </ul>
         </nav>
 
@@ -24,65 +24,63 @@
 
         <main id="main">
 
-            <h2 id="gtfsdata">Was sind GTFS-Daten?</h2>
+            <h2 id="gtfsdata">Hvad er GTFS-data?</h2>
             <div class="indent">
                 <p>
-                    GTFS-Daten ... Zitat von Googles Web-Site zur <a href="https://developers.google.com/transit/gtfs">GTFS-Spezifikation</a> (Übersetzt mit www.DeepL.com/Translator):
+                    GTFS-data ... Citat fra Googles websted på <a href="https://developers.google.com/transit/gtfs">GTFS-specifikation</a> (Oversat med Google oversætter):
                 </p>
-                <p>"<i>Die General Transit Feed Specification (GTFS) [...] definiert ein gemeinsames Format für Fahrpläne des öffentlichen Verkehrs und die
-                       damit verbundenen geografischen Informationen.
-                       GTFS-"Feeds" ermöglichen es den Verkehrsbetrieben, ihre Verkehrsdaten zu veröffentlichen, und die Entwickler schreiben Anwendungen,
-                       die diese Daten auf interoperable Weise nutzen.</i>"
+                <p>"<i>General Transit Feed Specification (GTFS) [...] definerer et fælles format for tidsplaner for offentlig transport og tilknyttet geografisk information.
+                       GTFS "feeds" lader offentlige transitbureauer offentliggøre deres transitdata, og udviklere skriver applikationer, der forbruger disse data på en interoperabel måde.</i>"
                 </p>
             </div>
 
             <hr />
 
-            <h2 id="download">Aktualisierung der Daten</h2>
+            <h2 id="download">Opdater dataene</h2>
             <div class="indent">
                 <p>
-                    Die Aktualisierung der Daten auf dieser Seite erfolgt aus mehreren Gründen nur in unregelmäßigen Abständen:
+                    Dataene på denne side opdateres med uregelmæssige intervaller af flere grunde:
                 </p>
                 <ul>
-                    <li>Einige Verbünde stellen quasi täglich neue Versionen zur Verfügung ohne ein Datum anzugeben.</li>
-                    <li>Einige Verbünde stellen Daten in sehr unregelmäßigen Abständen zur Verfügung.</li>
-                    <li>Einige Daten lassen sich direkt und immer über den selben Link runter laden.</li>
-                    <li>Einige Daten lassen sich nur indirekt über, pro Version, immer wieder andere Links runter laden - um das automatisierte Laden zu verhindern?</li>
-                    <li>Zumindest das Runterladen kann nicht einfach automatisiert werden kann.</li>
-                    <li>Die automatisierte Vorbereitung (hauptsächlich die <a href="#aggregate">Aggregierung</a>) der GTFS-Daten für diese Website dauert, je nach Größe des Verbundes, zwischen ein paar Sekunden (<a href="/en/gtfs-details.php?network=DE-BW-Filsland">DE-BW-Filsland</a>) und 16 Stunden (<a href="/en/gtfs-details.php?network=DE-BE-VBB">DE-BE-VBB</a>).</li>
-                    <li>ÖPNV-Relationen sollten in OSM einen langfristigen Charakter haben. Ist es sinnvoll jede baustellen-bedingte Änderung einer Buslinie in OSM zu mappen um das später wieder rückgängig zu machen?</li>
+                    <li>Nogle foreninger leverer nye versioner næsten hver dag uden at specificere en dato.</li>
+                    <li>Nogle netværk leverer data med meget uregelmæssige intervaller.</li>
+                    <li>Nogle data kan downloades direkte og altid via det samme link.</li>
+                    <li>Nogle data kan kun downloades indirekte via, pr. Version, forskellige links - for at forhindre automatisk indlæsning?</li>
+                    <li>I det mindste kan downloadingen ikke let automatiseres</li>
+                    <li>Den automatiserede forberedelse (hovedsageligt <a href="#aggregate">aggregering</a>) af GTFS-data til dette websted tager afhængigt af netværkets størrelse mellem et par sekunder (<a href="/en/gtfs -details.php?netværk=DE-BW-Filsland">DE-BW-Filsland</a>) og 16 timer (<a href="/en/gtfs-details.php?netværk=DE-BE-VBB">DE-BE-VBB</a>).</li>
+                    <li>Offentlige transportforbindelser bør have en langsigtet karakter i OSM. Er det fornuftigt at kortlægge enhver ændring af en buslinje på grund af byggepladsen i OSM for senere at fortryde den?</li>
                 </ul>
             </div>
 
             <hr />
 
-            <h2 id="prepare">Vorbereitung der GTFS-Daten</h2>
+            <h2 id="prepare">Forberedelse af GTFS-data</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für die Verwendung in PTNA vorbereitet.
+                    GTFS-data fra transportforeningen er forberedt til anvendelse i PTNA.
                 </p>
                 <ul>
-                    <li>Tabelle "osm"
+                    <li>Tabel "osm"
                         <ul>
-                            <li>Füge OSM-spezifische Information als eigenständige Tabelle hinzu.
+                            <li>Tilføj OSM-specifikke oplysninger som en separat tabel.
                                 <ul>
-                                    <li>Wert von 'network' bei PT-Relationen (z.B. "Münchner Verkehrs- und Tarifverbund").</li>
-                                    <li>Wert von 'network:short' bei PT-Relationen (z.B. "MVV").</li>
-                                    <li>Wert von 'network:guid' bei PT-Relationen (z.B. "DE-BY-MVV").</li>
-                                    <li>Wert von 'operator bei PT-Relationen: kann "agency_name" aus der GTFS-Tabelle "agency.txt" als 'operator' verwendet werden?</li>
+                                    <li>Værdien af 'network' til PT-relation (f.eks. "Münchner Verkehrs- und Tarifverbund").</li>
+                                    <li>Værdien af 'network:short' til PT-relation (f.eks. "MVV").</li>
+                                    <li>Værdien af 'network:guid' til PT-relation (f.eks. "DE-BY-MVV").</li>
+                                    <li>Værdi af 'operator' til PT-relation: kan "agency_name" fra GTFS-tabellen "agentur.txt" bruges som 'operator'?</li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li>Tabelle "ptna"
+                    <li>Tabel "ptna"
                         <ul>
-                            <li>Füge PTNA-spezifische Information als eigenständige Tabelle hinzu.</li>
+                            <li>Tilføj PTNA-specifikke oplysninger som en separat tabel.</li>
                         </ul>
                     </li>
-                    <li>Andere Tabellen
+                    <li>Andre tabeller
                         <ul>
-                            <li>Das Feld "ptna_comment" wird hinzugefügt.
-                                Hiermit können Anmerkungen eingetragen werden - siehe "Analyse der GTFS-Daten.
+                            <li>Feltet "ptna_comment" tilføjes.
+                                Kommentarer kan indtastes her - se "Analyse af GTFS-data".
                             </li>
                         </ul>
                     </li>
@@ -91,32 +89,32 @@
 
             <hr />
 
-            <h2 id="aggregate">Aggregierung der GTFS-Daten</h2>
+            <h2 id="aggregate">GTFS-datasamling</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
-                    Ziel ist, die Datenmenge zu reduzieren um schnelles Suchen in den GTFS-Daten zu ermöglichen.
+                    GTFS-data fra transportforeningen behandles for PTNA.
+                    Målet er at reducere mængden af data for at muliggøre hurtig søgning i GTFS-data.
                 </p>
                 <ul>
-                    <li>Tabelle "ptna_aggregation"
+                    <li>Tabel "ptna_aggregation"
                         <ul>
-                            <li>Füge PTNA-spezifische Information der Aggregation als eigenständige Tabelle hinzu.</li>
+                            <li>Føj PTNA-specifikke oplysninger til aggregeringen som en separat tabel.</li>
                         </ul>
                     </li>
-                    <li>Tabelle "routes"
+                    <li>Tabel "routes"
                         <ul>
-                            <li>Lösche alle "route_id", die zeitlich nicht mehr gültig sind (Ende der Gültigkeit vor dem Zeitpunkt der Aggregation/des Downloads).</li>
+                            <li>Slet alle "route_id", der ikke længere er gyldige (gyldighedens afslutning før tidspunktet for aggregering / download).</li>
                        </ul>
                     </li>
-                    <li>Tabelle "trips"
+                    <li>Tabel "trips"
                         <ul>
-                            <li>Lösche alle "trip_id", die zeitlich nicht mehr gültig sind (Ende der Gültigkeit vor dem Zeitpunkt der Aggregation/des Downloads).</li>
+                            <li>Slet alle "trip_id", der ikke længere er gyldige (gyldighedens afslutning før tidspunktet for aggregering / download).</li>
                         </ul>
                     </li>
-                    <li>Tabelle "stop_times"
+                    <li>Tabel "stop_times"
                         <ul>
-                            <li>Lösche alle redundanten "trip_id", solche mit identischen Fahrwegen, die sich nur durch die Abfahrtzeiten unterscheiden.
-                                Reduziere auf eine einzelne "trip_id" (die erste gefundene "trip_id").
+                            <li>Slet alle overflødige "trip_id", dem med identiske ruter, der kun adskiller sig i afgangstiderne.
+                                Reducer til en enkelt "trip_id" (den første "trip_id" fundet).
                             </li>
                         </ul>
                     </li>
@@ -125,19 +123,19 @@
 
             <hr />
 
-            <h2 id="analyze">Analyse der GTFS-Daten</h2>
+            <h2 id="analyze">Analyse af GTFS-data</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
-                    Ziel ist, herauszufinden, welche Route (Trip) Teilroute einer anderen Route ist.
+                    GTFS-data fra transportforeningen behandles for PTNA.
+                    Målet er at finde ud af, hvilken rute (tur) der er en delvis rute for en anden rute.
                 </p>
                 <ul>
-                    <li>Tabelle "ptna_analysis"
+                    <li>Tabel "ptna_analysis"
                         <ul>
-                            <li>Füge PTNA-spezifische Information der Analyse als eigenständige Tabelle hinzu.</li>
+                            <li>Føj PTNA-specifik information til analysen som en separat tabel.</li>
                         </ul>
                     </li>
-                    <li>Tabelle "trips"
+                    <li>Tabel "trips"
                         <ul>
                             <li>...</li>
                         </ul>
@@ -147,16 +145,13 @@
 
             <hr />
 
-            <h2 id="normalize">Normalisierung der GTFS-Daten</h2>
+            <h2 id="normalize">Normalisering af GTFS-data</h2>
             <div class="indent">
                 <p>
-                    Die GTFS-Daten des Verkehrsverbundes werden für PTNA bearbeitet.
-                    Ziel ist, eine einheitliche Schreibweise für Haltestellenammen zu erhalten.
+                    GTFS-data fra transportforeningen behandles for PTNA.
+                    Målet er at få en ensartet stavemåde for stopnavne.
                 </p>
                 <ul>
-                    <li>"str." => "straße"</li>
-                    <li>"Str." => "Straße"</li>
-                    <li>"Pl."  => "Platz"</li>
                     <li>...</li>
                 </ul>
             </div>

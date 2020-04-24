@@ -27,7 +27,7 @@
                     }
                 ?>
 
-                <button class="button-create" type="button" onclick="ptnalistdownload(1)">Download som en CSV-liste til PTNAA</button>
+                <button class="button-create" type="button" onclick="ptnalistdownload(1)">Download som en CSV-liste til PTNA</button>
 
                 <table id="gtfs-routes">
                     <thead>

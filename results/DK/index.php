@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "DK-Alle", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "DK-Alle", "dk", "Konfiguration" ); ?>
 
                 </tbody>
             </table>
