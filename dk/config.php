@@ -36,7 +36,7 @@
 
                 <p>
                     <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">Overpass API</a> bruges til at downloade OSM-data.
-                    <a href="/en/index.php#overpass">Den anvendte forespørgsel</a> returnerer alle måder og noder for ruterne (deres medlemmer med deres detaljer) fra et defineret <a href="/da/index.php#searcharea">søgeområde</a>.
+                    <a href="/en/index.php#overpass">Den anvendte forespørgsel</a> returnerer alle måder og noder for ruterne (deres medlemmer med deres detaljer) fra et defineret <a href="/en/index.php#searcharea">søgeområde</a>.
                     De således opnåede data tillader en analyse af de offentlige transportlinjer med den virkning, at f.eks. ruten kan også kontrolleres for fuldstændighed.
                     Nodes, Ways og Relrelations ationer (stop og platforme) og deres tags kan kontrolleres mod deres 'rolle' i relationen.
                 </p>
@@ -49,7 +49,7 @@
                           if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                           if ( $fsize ) { printf( "<p>Denne forespørgsel leverer i øjeblikket ca. %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
                           if ( $rlink ) {
-                              printf( "<p>Vis <a href=\"/da/index.php#searcharea\">søgeområdet</a> " );
+                              printf( "<p>Vis <a href=\"/en/index.php#searcharea\">søgeområdet</a> " );
                               if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
                               printf( "på <a href=\"%s\">OSM-kort</a>.</p>\n", $rlink );
                           }
@@ -63,7 +63,7 @@
             <div class="indent">
 
                 <p>
-                    <a href="/da/index.php#messages">Fejl og kommentarer</a> rapporteret af PTNA kan kontrolleres af en række <a href="/da/index.php#options">analysemuligheder</a>.<br />
+                    <a href="/en/index.php#messages">Fejl og kommentarer</a> rapporteret af PTNA kan kontrolleres af en række <a href="/en/index.php#options">analysemuligheder</a>.<br />
                     Her er en liste over analysemuligheder og deres værdier.<br />
                 </p>
 
