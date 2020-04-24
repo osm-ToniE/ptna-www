@@ -11,6 +11,7 @@
       <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
       <script src="/script/gpx.js"></script>
       <script src="/script/showonmap.js"></script>
+      <script src="/script/josm.js"></script>
 
 
       <div id="wrapper">
@@ -54,12 +55,14 @@
                     </p>
                     <ul>
                         <li><strong>iD</strong> - die Anzeige erfolgt in einem neuen Fenster auf Zoom-Level 21.</li>
-                        <li><strong>JOSM</strong> - es wird eine Fläche von 30 m * 30 m um die Haltestelle herum heruntergeladen.</li>
+                        <li><strong>JOSM</strong> - es wird eine Fläche von 30 m * 30 m um die Haltestelle(n) herum heruntergeladen.</li>
                     </ul>
                     <p>
-                        In beiden Fällen ist nicht garantiert, dass die in OSM eventuell vorhandene Haltestelle sichtbar ist (liegt leicht außerhalb des Gebietes oder existiert nicht?).<br />
+                        In beiden Fällen ist nicht garantiert, dass eine in OSM eventuell vorhandene Haltestelle sichtbar ist (liegt leicht außerhalb des Gebietes oder existiert nicht?).<br />
                         In beiden Fällen kann die Position der Haltestelle gemäß der hier vorliegenden Koordinaten (derzeit?) leider nicht sichtbar gemacht werden.
                     </p>
+
+                    <button class="button-create" type="button" onclick="josm_load_and_zoom_stops()">Download um alle Stops herum in JOSM</button>
 
                     <table id="gtfs-single-trip">
                         <thead>
