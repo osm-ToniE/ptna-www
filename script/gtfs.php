@@ -1153,14 +1153,17 @@
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
                 }
-                echo '                            <td class="gtfs-name">Ignore calendar data</td>' . "\n";
                 echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Ignore calendar data</td>' . "\n";
                 if ( $ptna["ignore_calendar"] ) {
                     echo '                           <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
                 }
                 echo '                        </tr>' . "\n";
+
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data prepared for PTNA</td>' . "\n";
                 echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
