@@ -180,7 +180,7 @@
                     $db         = new SQLite3( $SqliteDb );
 
                     $sql        = "SELECT * FROM ptna";
-    
+
                     $ptna       = $db->querySingle( $sql, true );
 
                     $sql        = "SELECT DISTINCT    *
@@ -217,7 +217,7 @@
                                                               WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
                                                               ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
                         }
-                        
+
                         $innerresult = $db->query( $sql );
 
                         while ( $innerrow=$innerresult->fetchArray() ) {
@@ -226,7 +226,7 @@
                             if ( $outerrow["route_short_name"] ) {
                                 echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span></a></td>' . "\n";
                             } else {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">-unknown-</span></td>' . "\n";
+                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">not set</span></td>' . "\n";
                             }
                             echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
@@ -347,7 +347,7 @@
                         if ( $route_short_name ) {
                             echo '                            <td class="gtfs-name">' . htmlspecialchars($route_short_name) . '</td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-name">__not_set__</td>' . "\n";
+                            echo '                            <td class="gtfs-name">not set</td>' . "\n";
                         }
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
@@ -1483,7 +1483,7 @@
         $bbox['right']  = +0.0001;
         $bbox['top']    = +0.0001;
         $bbox['bottom'] = -0.0001;
-        
+
         $R  =   6378137;
 
         //offsets in meters
@@ -1496,13 +1496,13 @@
 
         //OffsetPosition, decimal degrees
         $bbox['top']    = $lat + $dLat * 180/pi();
-        $bbox['right']  = $lon + $dLon * 180/pi(); 
+        $bbox['right']  = $lon + $dLon * 180/pi();
         $bbox['bottom'] = $lat - $dLat * 180/pi();
         $bbox['left']   = $lon - $dLon * 180/pi() ;
 
         return $bbox;
     }
-    
+
 
     function RouteType2String( $rt ) {
 
