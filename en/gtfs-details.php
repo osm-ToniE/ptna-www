@@ -23,7 +23,7 @@
                     <p>
                     </p>
 
-                    <h3>GTFS specific data</h3>
+                    <h3>PTNA Specific Data</h3>
                         <div class="indent">
                             <table id="gtfs-ptna-table">
                                 <thead>
@@ -34,6 +34,21 @@
                                 </thead>
                                 <tbody>
 <?php $duration += CreatePtnaDetails( $network ); ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>OSM Specific Data</h3>
+                        <div class="indent">
+                            <table id="gtfs-osm-table">
+                                <thead>
+                                    <tr class="statistics-tableheaderrow">
+                                        <th class="statistics-name">Name</th>
+                                        <th class="statistics-text">Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+<?php $duration += CreateOsmDetails( $network ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -98,4 +113,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

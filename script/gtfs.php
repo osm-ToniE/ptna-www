@@ -1046,7 +1046,7 @@
 
                 $db  = new SQLite3( $SqliteDb );
 
-                $sql = sprintf( "SELECT * FROM ptna ;" );
+                $sql = sprintf( "SELECT * FROM ptna;" );
 
                 $ptna = $db->querySingle( $sql, true );
 
@@ -1199,7 +1199,74 @@
     }
 
 
-    function CreatePtnaAggregationStatistics( $network ) {
+    function CreateOsmDetails( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $start_time = gettimeofday(true);
+
+                $db  = new SQLite3( $SqliteDb );
+
+                $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='osm';";
+
+                $sql_master = $db->querySingle( $sql, true );
+
+                if ( $sql_master['name'] ) {
+
+                    $sql = sprintf( "SELECT * FROM osm;" );
+
+                    $osm = $db->querySingle( $sql, true );
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">Date</td>' . "\n";
+                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["prepared"]) . '</td>' . "\n";
+                    echo '                                    </tr>' . "\n";
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"network"</td>' . "\n";
+                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["network"]) . '</td>' . "\n";
+                    echo '                                    </tr>' . "\n";
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"network:short"</td>' . "\n";
+                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["network_short"]) . '</td>' . "\n";
+                    echo '                                    </tr>' . "\n";
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"network:guid"</td>' . "\n";
+                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["network_guid"]) . '</td>' . "\n";
+                    echo '                                    </tr>' . "\n";
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"operator" can be taken from "agency_name" of GTFS</td>' . "\n";
+                    if ( $osm["gtfs_agency_is_operator"] ) {
+                        echo '                                       <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                    } else {
+                        echo '                                       <td class="gtfs-text"></td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
+                }
+
+                $stop_time = gettimeofday(true);
+
+                return $stop_time - $start_time;
+
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return 0;
+    }
+
+
+   function CreatePtnaAggregationStatistics( $network ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
 
