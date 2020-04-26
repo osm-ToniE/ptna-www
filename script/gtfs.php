@@ -239,9 +239,17 @@
                                 echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["start_date"]) . '</td>' . "\n";
                             }
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["end_date"], $parts ) ) {
-                                echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                                $class = "gtfs-date";
+                                $timestampToday        = time();
+                                $end_day               = new DateTime( $innerrow["end_date"] );
+                                $timestampEndDate      = $end_day->format( 'U' );
+                                if ( $timestampEndDate < $timestampToday )
+                                {
+                                    $class = "gtfs-dateold";
+                                }
+                                echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
-                                echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
+                                 echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
                             }
                             if ( $outerrow["normalized_route_long_name"] ) {
                                 echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
