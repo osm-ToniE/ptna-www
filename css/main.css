@@ -79,9 +79,10 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-tableheaderrow      { background-color: #dddddd; }
 .gtfs-tablerow            { background-color: white;   }
 .gtfs-name                { text-align:left; white-space:nowrap; }
-.gtfs-number              { text-align:center; }
+.gtfs-number              { text-align:center;  }
 .gtfs-lat                 { text-align:center; }
 .gtfs-lon                 { text-align:center; }
+.gtfs-distance            { text-align:right;  }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
 .gtfs-dateold             { text-align:center; background-color: orange; }
@@ -92,7 +93,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
-.gtfs-whitetext           { color: white;      }
+.gtfs-whitetext           { color:white;      }
 .shape-lat                { text-align:center; }
 .shape-lon                { text-align:center; }
 
@@ -106,12 +107,12 @@ code             { font-weight: 500; font-size: 1.1em; }
 #message-table img:hover  { transform: translate(-295%,295%) scale(7.0); z-index: 2; }
 .message-tableheaderrow   { background-color: #dddddd; text-align:left; }
 .message-tablerow         { background-color: white;   text-align:left; vertical-align:top;   }
-.message-text             { }
-.message-type             { }
+.message-text             { text-align:left; }
+.message-type             { text-align:left; }
 .message-option           { white-space:nowrap; }
-.message-description      { }
-.message-fix              { }
-.message-image            { }
+.message-description      { text-align:left; }
+.message-fix              { text-align:left; }
+.message-image            { text-align:left; }
 
 .message-tooltip                            { position: relative;  display: inline-block; }
 .message-tooltip       .message-tooltiptext { visibility: hidden;  background-color: black; width: 700px; color: #fff; text-align: center; padding: 3px; top: -5px;right: -5px; position: absolute; z-index: 3; }
@@ -142,5 +143,3 @@ code             { font-weight: 500; font-size: 1.1em; }
 .statistics-duration         { text-align:right; }
 .statistics-size             { text-align:right; }
 .statistics-number           { text-align:right; }
-
-
