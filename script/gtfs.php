@@ -821,6 +821,7 @@
                             echo '                              <th class="gtfs-name">Number</th>' . "\n";
                             echo '                              <th class="gtfs-number">Latitude</th>' . "\n";
                             echo '                              <th class="gtfs-number">Longitude</th>' . "\n";
+                            echo '                              <th class="gtfs-distance">Distance</th>' . "\n";
                             echo '                          </tr>' . "\n";
                             echo '                      </thead>' . "\n";
                             echo '                      <tbody>' . "\n";
@@ -830,6 +831,11 @@
                                 echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
                                 echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
                                 echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                                if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
+                                    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
+                                } else {
+                                    echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
+                                }
                                 echo '                          </tr>' . "\n";
                             }
                             echo '                      </tbody>' . "\n";
