@@ -1,12 +1,10 @@
-const Http     = new XMLHttpRequest();
-const JOSM_Url = 'http://127.0.0.1:8111/load_and_zoom?new_layer=false';
-const R        = 6378137;                               // radius of earth in meters
-
 
 function josm_load_and_zoom_stops() {
 
+    const R        = 6378137;                               // radius of earth in meters
+
     var stop_table = document.getElementById( "gtfs-single-trip" );
-    
+
     var url = '';
 
     if ( stop_table ) {
@@ -47,7 +45,7 @@ function josm_load_and_zoom_stops() {
                     lon = value;
                 }
             }
-            
+
             resp = download_here( lat, lon, 15 );
 
             if ( !resp.match(/OK/) ) {
@@ -59,23 +57,26 @@ function josm_load_and_zoom_stops() {
 
 
 function download_here( lat, lon, offset ) {
-    
+
+    const Http     = new XMLHttpRequest();
+    const JOSM_Url = 'http://127.0.0.1:8111/load_and_zoom?new_layer=false';
+
     if ( lat != "" && lon != "" && offset > 0 ) {
 
         //offsets in meters
         dn = 10;
         de = 10;
-    
+
         //Coordinate offsets in radians
         dLat = dn/R;
         dLon = de/(R*Math.cos(Math.PI*parseFloat(lat)/180));
-    
+
         //OffsetPosition, decimal degrees
         top_lat    = parseFloat(lat) + dLat * 180/Math.PI;
-        right_lon  = parseFloat(lon) + dLon * 180/Math.PI; 
+        right_lon  = parseFloat(lon) + dLon * 180/Math.PI;
         bottom_lat = parseFloat(lat) - dLat * 180/Math.PI;
         left_lon   = parseFloat(lon) - dLon * 180/Math.PI;
-    
+
         url = JOSM_Url + '&left=' + left_lon + '&right=' + right_lon + '&top=' + top_lat + '&bottom=' + bottom_lat;
         // console.log( 'Lat: ' + lat );
         // console.log( 'Lon: ' + lon );
@@ -86,12 +87,11 @@ function download_here( lat, lon, offset ) {
         // console.log( 'Send: ' + url );
         Http.open( "GET", url, false );
         Http.send();
-    
+
         Http.onreadystatechange = (e) => {
             console.log( '>' + Http.responseText + '<' );
         }
     }
-    
+
     return Http.responseText;
 }
-
