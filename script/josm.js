@@ -1,8 +1,6 @@
 
 function josm_load_and_zoom_stops() {
 
-    const R        = 6378137;                               // radius of earth in meters
-
     var stop_table = document.getElementById( "gtfs-single-trip" );
 
     var url = '';
@@ -60,6 +58,8 @@ function download_here( lat, lon, offset ) {
 
     const Http     = new XMLHttpRequest();
     const JOSM_Url = 'http://127.0.0.1:8111/load_and_zoom?new_layer=false';
+    const R        = 6378137;                               // radius of earth in meters
+
 
     if ( lat != "" && lon != "" && offset > 0 ) {
 
@@ -77,7 +77,7 @@ function download_here( lat, lon, offset ) {
         bottom_lat = parseFloat(lat) - dLat * 180/Math.PI;
         left_lon   = parseFloat(lon) - dLon * 180/Math.PI;
 
-        url = JOSM_Url + '&left=' + left_lon + '&right=' + right_lon + '&top=' + top_lat + '&bottom=' + bottom_lat;
+        url = `${JOSM_Url}&left=${left_lon}&right=${right_lon}&top=${top_lat}&bottom=${bottom_lat}`;
         // console.log( 'Lat: ' + lat );
         // console.log( 'Lon: ' + lon );
         // console.log( 'Left: ' + left_lon );
