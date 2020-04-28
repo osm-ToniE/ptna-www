@@ -861,33 +861,6 @@
     }
 
 
-    function GetPtnaComment( $network ) {
-
-        $SqliteDb = FindGtfsSqliteDb( $network );
-
-        if ( $SqliteDb != '' ) {
-
-            try {
-
-                $db  = new SQLite3( $SqliteDb );
-
-                $sql        = "SELECT * FROM ptna";
-
-                $ptna       = $db->querySingle( $sql, true );
-
-                return $ptna["comment"];
-
-            } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
-            }
-        } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
-        }
-
-        return '';
-    }
-
-
     function GetGtfsRouteShortNameFromRouteId( $network, $route_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
@@ -991,7 +964,34 @@
     }
 
 
-    function GetPtnaNetworkDetails( $network ) {
+    function GetOsmDetails( $network ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+
+                $sql = sprintf( "SELECT * FROM osm" );
+
+                $row = $db->querySingle( $sql, true );
+
+                return $row;
+
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return array();
+    }
+
+
+    function GetPtnaDetails( $network ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
 

@@ -21,14 +21,19 @@
 <?php include $inc_lang.'gtfs-routes-head.inc' ?>
 
                 <?php
-                    $comment = GetPtnaComment( $network );
-                    if ( $comment ) {
-                        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($comment) );
+                    $ptna = GetPtnaDetails( $network );
+                    if ( $ptna['comment'] ) {
+                        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
+                    }
+                    $osm = GetOsmDetails( $network );
+                    if ( $osm['gtfs_agency_is_operator'] ) {
+                        $include_agency = 1;
+                    } else {
+                        $include_agency = 0;
                     }
                 ?>
 
-                <button class="button-create" type="button" onclick="ptnalistdownload(1)">Download als CSV-Liste für PTNA</button>
-<!--                <button class="button-create" type="button" onclick="ptnalistdownload(0)">Download als CSV-Liste für PTNA (kein 'operator')</button> -->
+                <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download als CSV-Liste für PTNA</button>
 
                 <table id="gtfs-routes">
                     <thead>
@@ -52,4 +57,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
