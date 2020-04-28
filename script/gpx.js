@@ -127,7 +127,7 @@ function gpxdownload() {
 
 
     //    compile GPS output
-    var gpx_gesamt='<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n' + metadata + ' </metadata>\r\n' + wpt + ' <rte>\r\n' + rte + ' </rte>\r\n</gpx>';
+    var gpx_gesamt=`<?xml version=\\"1.0\\" encoding=\\"UTF-8\\" standalone=\\"no\\" ?>\\r\\n<gpx xmlns=\\"http://www.topografix.com/GPX/1/1\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" version=\\"1.1\\">\\r\\n <metadata>\\r\\n${metadata} </metadata>\\r\\n${wpt} <rte>\\r\\n${rte} </rte>\\r\\n</gpx>`;
 
 
 

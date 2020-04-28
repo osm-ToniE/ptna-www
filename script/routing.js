@@ -67,7 +67,7 @@ function callBrouterDe( lang, unit ) {
 
         }
 
-        var url = BrouterDe_Url + zoom_level +'/' + focus_lat + '/' + focus_lon + '/standard&profile=car-eco' + stops;
+        var url = `${BrouterDe_Url + zoom_level}/${focus_lat}/${focus_lon}/standard&profile=car-eco${stops}`;
 
         // console.log( 'Url: ' + url );
 
@@ -136,7 +136,7 @@ function callGraphHopperCom( lang, unit ) {
 
         }
 
-        var url = GraphHopperCom_Url + stops + '&locale=' + lang + '&vehicle=car&weighting=fastest&elevation=true&use_miles=false&layer=OpenStreetMap';
+        var url = `${GraphHopperCom_Url + stops}&locale=${lang}&vehicle=car&weighting=fastest&elevation=true&use_miles=false&layer=OpenStreetMap`;
 
         // console.log( 'Url: ' + url );
 
@@ -211,7 +211,7 @@ function callOpenRouteServiceOrg( lang, unit ) {
 
         }
 
-        var url = OpenRouteServiceOrg_Url + 'n1=' + focus_lat + '&n2=' + focus_lon + '&n3=' + zoom_level + stops + '&b=0&c=0&k1=' + lang + '&k2='+ unit;
+        var url = `${OpenRouteServiceOrg_Url}n1=${focus_lat}&n2=${focus_lon}&n3=${zoom_level}${stops}&b=0&c=0&k1=${lang}&k2=${unit}`;
 
         //console.log( 'Url: ' + url );
 
