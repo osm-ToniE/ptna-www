@@ -12,6 +12,7 @@
       <script src="/script/gpx.js"></script>
       <script src="/script/showonmap.js"></script>
       <script src="/script/josm.js"></script>
+      <script src="/script/routing.js"></script>
 
 
       <div id="wrapper">
@@ -24,11 +25,11 @@
     $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
     $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
     $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
-    $ptna             = GetTripDetails( $network, $trip_id );
+    $trips            = GetTripDetails( $network, $trip_id );
     $is_invalid       = $ptna["ptna_is_invalid"];
     $is_wrong         = $ptna["ptna_is_wrong"];
     $comment          = $ptna["ptna_comment"];
-    $shape_id         = $ptna["shape_id"];
+    $shape_id         = $trips["shape_id"];
 ?>
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
@@ -39,6 +40,9 @@
                 <h3 id="showonmap">Karte</h3>
                 <div class="indent">
                     <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
+                    <button class="button-create" type="button" onclick="callBrouterDe('de','km')">Routing mit 'brouter.de'</button>
+                    <button class="button-create" type="button" onclick="callGraphHopperCom('de','km')">Routing mit 'graphhopper.com'</button>
+                    <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('de','km')">Routing mit 'maps.openrouteservice.org'</button>
 
                     <div id="mapid"></div>
                 </div>
@@ -93,9 +97,8 @@
 <?php include $inc_lang.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
-      
+
       <iframe style="display:none" id="hiddenIframe" name="hiddenIframe"></iframe>
-      
+
     </body>
 </html>
-
