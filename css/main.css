@@ -6,7 +6,7 @@ img     {   vertical-align: middle; }
 
 h1, h2, h3, h4, h5, h6  {  font-family: 'Droid Sans', sans-serif; }
 
-table            { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+table            { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 th               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 td               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
@@ -44,7 +44,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #headernav                { position: absolute; top: 78px; right: 5px; text-align: right; line-height: 20px;  }
 
 #navigation a             { text-decoration: none; color: #000; }
-#navigation table         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+#navigation table         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 #navigation th            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 #navigation td            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
@@ -54,7 +54,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 #mapid                    { height: 500px; width: 50%; }
 
-.contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+.contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 .contact td               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
@@ -119,7 +119,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .message-tooltip:hover .message-tooltiptext { visibility: visible; }
 
 
-#analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: center; }
+#analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 #analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis ol              { list-style: none; }
