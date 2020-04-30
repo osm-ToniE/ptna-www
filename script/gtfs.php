@@ -1240,11 +1240,6 @@
                     $osm = $db->querySingle( $sql, true );
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
-                    echo '                                        <td class="gtfs-name">Date</td>' . "\n";
-                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["prepared"]) . '</td>' . "\n";
-                    echo '                                    </tr>' . "\n";
-
-                    echo '                                    <tr class="statistics-tablerow">' . "\n";
                     echo '                                        <td class="gtfs-name">"network"</td>' . "\n";
                     echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["network"]) . '</td>' . "\n";
                     echo '                                    </tr>' . "\n";
@@ -1266,6 +1261,12 @@
                     } else {
                         echo '                                       <td class="gtfs-text"></td>' . "\n";
                     }
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"ref_trips" can be taken as part of GTFS trip_id. Rexgular expression to extract this part.</td>' . "\n";
+                    echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["trip_id_regex"]) . '</td>' . "\n";
+                    echo '                                    </tr>' . "\n";
+
                     echo '                                    </tr>' . "\n";
                 }
 
