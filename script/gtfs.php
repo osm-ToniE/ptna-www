@@ -472,6 +472,16 @@
                             $osm_operator   = htmlspecialchars($agency['agency_name']);
                         }
                     }
+                    if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
+                        $osm_ref_trips = preg_replace( "/".$osm['trip_id_regex']."/","\\1",$trip_id );
+                        // if ( preg_match("/^[^(]/",$osm['trip_id_regex']) ) {
+                        //     $osm_ref_trips = "^.*" . $osm_ref_trips;
+                        // }
+                        // if ( preg_match("/[^)]$/",$osm['trip_id_regex']) ) {
+                        //     $osm_ref_trips = $osm_ref_trips. ".*$";
+                        // }
+                        $osm_ref_trips = htmlspecialchars( $osm_ref_trips );
+                    }
 
                     # ROUTE-MASTER
                     echo '                    <table id="osm-route-master" style="float: left; margin-right: 20px;">' . "\n";
@@ -612,6 +622,12 @@
                     echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
                     echo '                                <td class="gtfs-name">2</td>' . "\n";
                     echo '                            </tr>' . "\n";
+                    if ( $osm_ref_trips ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">ref_trips</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_ref_trips . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
                     if ( $osm_from ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">from</td>' . "\n";
