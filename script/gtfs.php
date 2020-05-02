@@ -134,7 +134,7 @@
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
                 if ( $ptna["details"] ) {
-                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["details"]) . ', ...</a></td>' . "\n";
+                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["details"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">Details, ...</a></td>' . "\n";
                 }
