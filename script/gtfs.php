@@ -424,7 +424,15 @@
                                      SQLite3::escapeString($trip_id)
                                   );
 
-                    $route = $db->querySingle( $sql, true );
+                    $routes = $db->querySingle( $sql, true );
+
+                    $sql = sprintf( "SELECT *
+                                     FROM   trips
+                                     WHERE  trip_id='%s';",
+                                     SQLite3::escapeString($trip_id)
+                                  );
+
+                    $trips = $db->querySingle( $sql, true );
 
                     $sql = sprintf( "SELECT   *
                                      FROM     stops
@@ -453,15 +461,15 @@
                                      JOIN     routes ON agency.agency_id = routes.agency_id
                                      WHERE    routes.route_id='%s'
                                      LIMIT    1;",
-                                     SQLite3::escapeString($route['route_id'])
+                                     SQLite3::escapeString($routes['route_id'])
                                   );
 
                     $agency = $db->querySingle( $sql, true );
 
-                    $osm_route          = htmlspecialchars(RouteType2OsmRoute($route['route_type']));
-                    $osm_ref            = $route['route_short_name']        ? htmlspecialchars($route['route_short_name'])      : '???';
-                    $osm_colour         = $route['route_color']             ? htmlspecialchars($route['route_color'])           : 'ffffff';
-                    $osm_website        = $route['route_url']               ? htmlspecialchars($route['route_url'])             : htmlspecialchars($agency['agency_url']);
+                    $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
+                    $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
+                    $osm_colour         = $routes['route_color']            ? htmlspecialchars($routes['route_color'])          : 'ffffff';
+                    $osm_website        = $routes['route_url']              ? htmlspecialchars($routes['route_url'])            : htmlspecialchars($agency['agency_url']);
                     $osm_from           = $stops1['normalized_stop_name']   ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
                     $osm_to             = $stops2['normalized_stop_name']   ? htmlspecialchars($stops2['normalized_stop_name']) : htmlspecialchars($stops2['stop_name']);
                     $osm_network        = htmlspecialchars($osm['network']);
@@ -472,15 +480,19 @@
                             $osm_operator   = htmlspecialchars($agency['agency_name']);
                         }
                     }
+                    $osm_ref_trips     = htmlspecialchars( $trip_id );
+                    $osm_gtfs_route_id = htmlspecialchars( $routes['route_id'] );
+                    $osm_gtfs_trip_id  = htmlspecialchars( $trip_id );
+                    $osm_gtfs_shape_id = htmlspecialchars( $trips['shape_id'] );
                     if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
-                        $osm_ref_trips = preg_replace( "/".$osm['trip_id_regex']."/","\\1",$trip_id );
-                        // if ( preg_match("/^[^(]/",$osm['trip_id_regex']) ) {
-                        //     $osm_ref_trips = "^.*" . $osm_ref_trips;
-                        // }
-                        // if ( preg_match("/[^)]$/",$osm['trip_id_regex']) ) {
-                        //     $osm_ref_trips = $osm_ref_trips. ".*$";
-                        // }
-                        $osm_ref_trips = htmlspecialchars( $osm_ref_trips );
+                        $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
+                        if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
+                            $osm_gtfs_trip_id_like = "%" . $osm_gtfs_trip_id_like;
+                        }
+                        if ( !preg_match("/\)\\$$/",$osm['trip_id_regex']) ) {
+                            $osm_gtfs_trip_id_like = $osm_gtfs_trip_id_like . "%";
+                        }
+                        $osm_gtfs_trip_id_like = htmlspecialchars( $osm_gtfs_trip_id_like );
                     }
 
                     # ROUTE-MASTER
@@ -547,6 +559,12 @@
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">website</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_website . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_gtfs_route_id ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
                     echo '                        </tbody>' . "\n";
@@ -618,10 +636,30 @@
                         echo '                                <td class="gtfs-name">' . $osm_website . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
-                    echo '                                <td class="gtfs-name">2</td>' . "\n";
-                    echo '                            </tr>' . "\n";
+                    if ( $osm_gtfs_route_id ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_gtfs_trip_id ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:trip_id</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_gtfs_trip_id_like ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:trip_id:like</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id_like . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+                    if ( $osm_gtfs_shape_id ) {
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:shape_id</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_shape_id . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
                     if ( $osm_ref_trips ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">ref_trips</td>' . "\n";
@@ -646,6 +684,10 @@
                         echo '                                <td class="gtfs-name">yes</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
+                    echo '                                <td class="gtfs-name">2</td>' . "\n";
+                    echo '                            </tr>' . "\n";
                     echo '                        </tbody>' . "\n";
                     echo '                    </table>' . "\n";
 
