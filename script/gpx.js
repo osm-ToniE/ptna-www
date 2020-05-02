@@ -58,7 +58,7 @@ function gpxdownload() {
 
                 if ( key == "gtfs-name" )
                 {
-                    gpx_name = (i+1) + ': ' + value;
+                    gpx_name = (i+1) + ': ' + value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
                 }
                 else if ( key == "gtfs-lat" )
                 {
