@@ -7,7 +7,7 @@
 <?php include('../../script/gtfs.php'); ?>
 
     <body>
-      <script src="/script/ptna-list.js" type="text/javascript"></script>
+      <script src="/script/ptna-list.js"></script>
 
       <div id="wrapper">
 

@@ -126,9 +126,9 @@
                         }
                     }
                     if ( $ptna["release_url"] ) {
-                        echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span ' . $txclasstag . '">' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span ' . $txclasstag . '>' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
                     } else {
-                        echo '                            <td class="' . $tdclass . '"><span ' . $txclasstag . '">' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
+                        echo '                            <td class="' . $tdclass . '"><span ' . $txclasstag . '>' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
                     }
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
@@ -1333,8 +1333,6 @@
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
                     echo '                                        <td class="gtfs-name">"ref_trips" can be taken as part of GTFS trip_id. Regular expression to extract this part.</td>' . "\n";
                     echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["trip_id_regex"]) . '</td>' . "\n";
-                    echo '                                    </tr>' . "\n";
-
                     echo '                                    </tr>' . "\n";
                 }
 
