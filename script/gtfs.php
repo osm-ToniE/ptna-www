@@ -417,6 +417,10 @@
                         $osm       = $db->querySingle( $sql, true );
                     }
 
+                    $sql  = "SELECT * FROM ptna";
+
+                    $ptna = $db->querySingle( $sql, true );
+
                     $sql = sprintf( "SELECT *
                                      FROM   routes
                                      JOIN   trips ON trips.route_id = routes.route_id
@@ -467,7 +471,11 @@
                     $agency = $db->querySingle( $sql, true );
 
                     $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
+                    $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
                     $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
+                    if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
+                        $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
+                    }
                     $osm_colour         = $routes['route_color']            ? htmlspecialchars($routes['route_color'])          : 'ffffff';
                     $osm_website        = $routes['route_url']              ? htmlspecialchars($routes['route_url'])            : htmlspecialchars($agency['agency_url']);
                     $osm_from           = $stops1['normalized_stop_name']   ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
@@ -524,7 +532,7 @@
                     if ( $osm_route ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">name</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . OsmRoute2Vehicle($osm_route) . ' ' . $osm_ref . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_vehicle . ' ' . $osm_ref . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
                     if ( $osm_network ) {
@@ -599,7 +607,7 @@
                     if ( $osm_route ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">name</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . OsmRoute2Vehicle($osm_route) . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_vehicle . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
                     if ( $osm_network ) {
@@ -1791,27 +1799,51 @@
     }
 
 
-    function OsmRoute2Vehicle( $rt ) {
-        if ( $rt == 'trolleybus' ) {
-            $rt = 'Trolleybus';
-        } elseif ( $rt == 'share_taxi' ) {
-            $rt = 'Ruftaxi';
-        } elseif ( $rt == 'tram' ) {
-            $rt = 'Tram';
-        } elseif ( $rt == 'bus' ) {
-            $rt = 'Bus';
-        } elseif ( $rt == 'monorail' ) {
-            $rt = 'Monorail';
-        } elseif ( $rt == 'ferry' ) {
-            $rt = 'Fähre';
-        } elseif ( $rt == 'train' ) {
-            $rt = 'Zug';
-        } elseif ( $rt == 'funicular' ) {
-            $rt = 'Drahtseilbahn';
-        } elseif ( $rt == 'subway' ) {
-            $rt = 'U-Bahn';
+    function OsmRoute2Vehicle( $rt, $language ) {
+        if ( !$language || $language == 'de' ) {
+            if ( $rt == 'trolleybus' ) {
+                $rt = 'Trolleybus';
+            } elseif ( $rt == 'share_taxi' ) {
+                $rt = 'Ruftaxi';
+            } elseif ( $rt == 'tram' ) {
+                $rt = 'Tram';
+            } elseif ( $rt == 'bus' ) {
+                $rt = 'Bus';
+            } elseif ( $rt == 'monorail' ) {
+                $rt = 'Monorail';
+            } elseif ( $rt == 'ferry' ) {
+                $rt = 'Fähre';
+            } elseif ( $rt == 'train' ) {
+                $rt = 'Zug';
+            } elseif ( $rt == 'funicular' ) {
+                $rt = 'Drahtseilbahn';
+            } elseif ( $rt == 'subway' ) {
+                $rt = 'U-Bahn';
+            } else {
+                $rt = 'bus';
+            }
         } else {
-            $rt = 'bus';
+            if ( $rt == 'trolleybus' ) {
+                $rt = 'Trolleybus';
+            } elseif ( $rt == 'share_taxi' ) {
+                $rt = 'Share Taxi';
+            } elseif ( $rt == 'tram' ) {
+                $rt = 'Tram';
+            } elseif ( $rt == 'bus' ) {
+                $rt = 'Bus';
+            } elseif ( $rt == 'monorail' ) {
+                $rt = 'Monorail';
+            } elseif ( $rt == 'ferry' ) {
+                $rt = 'Ferry';
+            } elseif ( $rt == 'train' ) {
+                $rt = 'Train';
+            } elseif ( $rt == 'funicular' ) {
+                $rt = 'Funicular';
+            } elseif ( $rt == 'subway' ) {
+                $rt = 'Subway';
+            } else {
+                $rt = 'bus';
+            }
         }
 
         return $rt;
