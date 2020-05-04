@@ -485,6 +485,7 @@
                     $osm_gtfs_trip_id  = htmlspecialchars( $trip_id );
                     $osm_gtfs_shape_id = htmlspecialchars( $trips['shape_id'] );
                     if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
+                        $osm_ref_trips         = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                         $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                         if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
                             $osm_gtfs_trip_id_like = "%" . $osm_gtfs_trip_id_like;
@@ -492,6 +493,7 @@
                         if ( !preg_match("/\)\\$$/",$osm['trip_id_regex']) ) {
                             $osm_gtfs_trip_id_like = $osm_gtfs_trip_id_like . "%";
                         }
+                        $osm_ref_trips         = htmlspecialchars( $osm_ref_trips         );
                         $osm_gtfs_trip_id_like = htmlspecialchars( $osm_gtfs_trip_id_like );
                     }
 
@@ -1321,7 +1323,7 @@
                     }
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
-                    echo '                                        <td class="gtfs-name">"ref_trips" can be taken as part of GTFS trip_id.Regular expression to extract this part.</td>' . "\n";
+                    echo '                                        <td class="gtfs-name">"ref_trips" can be taken as part of GTFS trip_id. Regular expression to extract this part.</td>' . "\n";
                     echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["trip_id_regex"]) . '</td>' . "\n";
                     echo '                                    </tr>' . "\n";
 
