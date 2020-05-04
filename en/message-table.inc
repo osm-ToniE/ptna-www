@@ -134,6 +134,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;operator&#039; = &#039;%s&#039; of Route does not fit to &#039;operator&#039; = &#039;%s&#039; of Route-Master: %s</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;public_transport:version&#039; is neither &#039;1&#039; nor &#039;2&#039;</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
@@ -265,6 +273,14 @@
                 <td class="message-text">PTv2 route: &#039;name&#039; has more than one &#039;=&gt;&#039; but &#039;via&#039; is not set</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;name&#039; has no via-parts but &#039;via&#039; is set</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -729,7 +745,7 @@
                 <td class="message-text">Route has different &#039;ref&#039; = &#039;%s&#039; than Route-Master &#039;ref&#039; = &#039;%s&#039; - this should be avoided: %s</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">This is currently deactivated.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

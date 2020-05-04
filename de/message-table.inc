@@ -134,6 +134,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;operator&#039; = &#039;%s&#039; der Route passt nicht zu &#039;operator&#039; = &#039;%s&#039; des Route-Masters: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;public_transport:version&#039; ist nicht &#039;2&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -337,6 +345,14 @@
                 <td class="message-text">PTv2 Route: &#039;name&#039; enthält unübliches &#039;==&amp;gt;&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;name&#039; hat keine &#039;Über&#039;-Anteile, aber &#039;via&#039; ist gesetzt</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -769,7 +785,7 @@
                 <td class="message-text">Route hat einen anderen &#039;ref&#039; = &#039;%s&#039; Wert als der Route-Master &#039;ref&#039; = &#039;%s&#039; - das sollte vermieden werden: %s</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Diese Prüfung ist momentan deaktiviert.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
