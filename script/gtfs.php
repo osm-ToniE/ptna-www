@@ -1408,42 +1408,54 @@
                     if ( $ptna["routes_before"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["routes_after"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["trips_before"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["trips_after"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["stop_times_before"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["stop_times_after"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . sprintf( "%2d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["shapes_before"] && $ptna["shapes_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Shape Data before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["shapes_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Shape Data after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["shapes_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
