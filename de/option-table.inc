@@ -97,6 +97,12 @@
                 <td class="message-description">Prüfung von &#039;public_transport:version&#039; = &#039;...&#039; bei Route-Master und Route.</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-way-type">
+                <td class="message-option">check-way-type</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Prüfung, ob die befahrenen Wege passend zum Fahrzeugtyp sind (&#039;train&#039; nutzt &#039;railway&#039; = &#039;rail&#039;, &#039;tram&#039; nutzt &#039;railway&#039; = &#039;tram&#039;, &#039;bus&#039; nutzt &#039;highway&#039; = &#039;...&#039;, ...).</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-coloured-sketchline">
                 <td class="message-option">coloured-sketchline</td>
                 <td class="message-default">OFF</td>

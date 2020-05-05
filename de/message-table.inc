@@ -1006,6 +1006,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: ein falscher Wegtyp wird benutzt (%s)</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne Angabe von &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
