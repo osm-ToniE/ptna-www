@@ -34,6 +34,61 @@
                        GTFS-"Feeds" ermöglichen es den Verkehrsbetrieben, ihre Verkehrsdaten zu veröffentlichen, und die Entwickler schreiben Anwendungen,
                        die diese Daten auf interoperable Weise nutzen.</i>"
                 </p>
+                <p>
+                    Die GTFS-Daten bestehen aus einer Reihe von *.txt-Dateien, die in einem *.zip-Archiv gepackt sind.
+                    Die Daten in den *.txt-Dateien sind als CSV-Daten strukturiert.
+                    Die verschiendenen Dateien wiederum können als Datenbanktabellen verwendet werden.
+                    PTNAs GTFS-Analyse nutzt hierzu die einfache, Datei-basierte <strong>SQLite</strong> Software.
+                </p>
+                <ul>
+                    <li><strong>feed_info.txt</strong>
+                        <div class="indent">
+                            enthält im Wesentlichen Informationen über den Herausgeber (Eigentümer) der Daten sowie optionale Informationen über die Version und Gültigkeitsdauer der Daten.
+                        </div>
+                    </li>
+                    <li><strong>agency.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über die 'transit agency'.
+                            Die darin aufgelisteten 'agencies' können im OSM-Sinne als 'network' oder als 'operator' interpretiert werden.
+                            Das hängt davon ab, was der Herausgeber der Daten unter 'transit agency' versteht.
+                        </div>
+                    </li>
+                    <li><strong>routes.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>trips.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>stops.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>stop_times.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>shapes.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>calendar.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                    <li><strong>calendar_dates.txt</strong>
+                        <div class="indent">
+                            enthält Informationen über ...
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <hr />
@@ -169,4 +224,3 @@
 	  </div> <!-- wrapper -->
     </body>
 </html>
-
