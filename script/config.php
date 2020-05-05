@@ -20,6 +20,7 @@
         $options_hash['check-sequence']             = 'OFF';
         $options_hash['check-stop-position']        = 'OFF';
         $options_hash['check-version']              = 'OFF';
+        $options_hash['check-way-type']             = 'OFF';
         $options_hash['coloured-sketchline']        = 'OFF';
         $options_hash['expect-network-long']        = 'OFF';
         $options_hash['expect-network-long-as']     = '';
@@ -256,4 +257,3 @@
     }
 
 ?>
-
