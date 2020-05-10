@@ -24,7 +24,7 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-AUZ", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-AR-Z-Cercanías", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-AR-Z-Cercanias", "es", "Configuración" ); ?>
 
                     <?php CreateNewFullEntry( "ES-AR-Z-CTAZ", "es", "Configuración" ); ?>
 
