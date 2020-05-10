@@ -22,13 +22,13 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "ES-Z-AUZ", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-AR-Z-AUZ", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-Z-Cercanías", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-AR-Z-Cercanías", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-Z-CTAZ", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-AR-Z-CTAZ", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-Z-Tranvia", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
                 </tbody>
             </table>
