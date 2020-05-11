@@ -4,7 +4,7 @@
             </div>
             <div id="headertext">
                 <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Análise estática para OpenStreetMap</h2>
+                <h2>Análise Estática para OpenStreetMap</h2>
             </div>
             <div id="headernav">
                 <a href="/">Home</a> |
@@ -16,4 +16,3 @@
                 <!-- <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="Tricolore Française" /></a> -->
             </div>
         </header>
-
