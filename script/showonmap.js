@@ -4,8 +4,8 @@
 
 function showtriponmap() {
 
-	var mymap = L.map('mapid').setView([48.0649, 11.6612], 16);
-	
+	var mymap = L.map('gtfsmap').setView([48.0649, 11.6612], 16);
+
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
                  maxZoom: 19,

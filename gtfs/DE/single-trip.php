@@ -44,7 +44,7 @@
                     <button class="button-create" type="button" onclick="callGraphHopperCom('de','km')">Routing mit 'graphhopper.com'</button>
                     <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('de','km')">Routing mit 'maps.openrouteservice.org'</button>
 
-                    <div id="mapid"></div>
+                    <div id="gtfsmap"></div>
                 </div>
 
                 <h3 id="proposal">Vorschlag für OSM Tagging</h3>

@@ -43,7 +43,7 @@ $ptna             = GetTripDetails( $network, $trip_id );
                 <div class="indent">
                     <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
 
-                    <div id="mapid"></div>
+                    <div id="gtfsmap"></div>
                 </div>
 
                 <h3 id="proposal">Forslag til OSM-tagging</h3>
