@@ -1,7 +1,7 @@
 //
 //
 //
-const OSM_API_URL_PREFIX = 'https://openstreetmap.org/api/0.6/relation/';
+const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
 const OSM_API_URL_SUFFIX = '/full.json';
 
 function showrelation( relation_id ) {
