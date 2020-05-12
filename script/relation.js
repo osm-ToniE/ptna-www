@@ -4,20 +4,20 @@
 const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
 const OSM_API_URL_SUFFIX = '/full.json';
 
+var relationmap;
+
 function showrelation( relation_id ) {
 
-	var mymap = L.map('relationmap').setView([48.0649, 11.6612], 10);
+    relationmap = L.map('relationmap').setView([48.0649, 11.6612], 10);
 
     L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
                  maxZoom: 19,
                  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }
-               ).addTo(mymap);
+               ).addTo(relationmap);
 
-    // mymap.fitBounds(route.getBounds());
-
-    if ( 1 ) { //relation_id.toString().match('/^\d+$/') ) {
+    if ( relation_id.toString().match(/^\d+$/) ) {
 
         var url     = `${OSM_API_URL_PREFIX}${relation_id}${OSM_API_URL_SUFFIX}`;
         var request = new XMLHttpRequest();
@@ -33,5 +33,8 @@ function showrelation( relation_id ) {
 }
 
 function readHttpResponse( data ) {
-    console.log( '>' + data.toString() + '<' );;
+    console.log( '>' + data.toString() + '<' );
+
+    // relationmap.fitBounds(route.getBounds());
+
 }
