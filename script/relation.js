@@ -23,18 +23,40 @@ function showrelation( relation_id ) {
         var request = new XMLHttpRequest();
         request.open( "GET", url );
         request.onreadystatechange = function() {
-            if ( request.readyState === 4 && request.status ===200 ) {
-                readHttpResponse( request.responseText );
+            if ( request.readyState === 4 ) {
+                if ( request.status === 200 ) {
+                    var type = request.getResponseHeader( "Content-Type" );
+                    if ( type.match(/application\/json/) ) {
+                        readHttpResponse( request.responseText );
+                    }
+                } else if ( request.status === 410 ) {
+                    alert( "Relation does not exist (" + relation_id + ")" );
+                } else {
+                    alert( "Response Code: " + request.status );
+                }
             }
         };
 
         request.send();
+    } else {
+        alert( "Relation ID is not a number (" + relation_id + ")" );
     }
 }
 
-function readHttpResponse( data ) {
-    console.log( '>' + data.toString() + '<' );
+function readHttpResponse( responseText ) {
+    console.log( '>' + responseText.toString() + "<\n" );
 
+    var osm_data = JSON.parse( responseText.toString() )
     // relationmap.fitBounds(route.getBounds());
 
+    console.log( '>' + osm_data["version"] + "<" );
+    console.log( '>' + osm_data["generator"] + "<" );
+    console.log( '>' + osm_data["copyright"] + "<" );
+    console.log( '>' + osm_data["attribution"] + "<" );
+    console.log( '>' + osm_data["license"] + "<" );
+    console.log( '>' + osm_data["elements"][0]["type"] + "<" );
+
+//    for ( var i = 0; i < osm_data["elements"].length; i++ ) {
+//        console.log( ">[" + i + "] type = " + osm_data["elements"][i]["type"] + ", id = " + osm_data["elements"][i]["id"] + "<" );
+//    }
 }
