@@ -1,4 +1,4 @@
-        <footer id="footer-dk">
+        <footer id="footer-dk" class="clearing">
             <p>
                 Alle GTFS data © ejer af GTFS data.
             </p>

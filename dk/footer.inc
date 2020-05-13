@@ -1,4 +1,4 @@
-        <footer id="footer-dk">
+        <footer id="footer-dk" class="clearing">
             <p>
                 Alle geografiske data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap-bidragydere</a>.
             </p>
@@ -9,4 +9,3 @@
                 Denne side er oversat ved hjælp af Google translate. Kommentarer til forbedring af oversættelsen er velkomne.
             </p>
         </footer>
-

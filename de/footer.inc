@@ -1,4 +1,4 @@
-        <footer id="footer-de">
+        <footer id="footer-de" class="clearing">
             <p>
                 Alle geografischen Daten <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap Mitwirkende</a>.
             </p>
@@ -7,4 +7,3 @@
                 Den Quellcode erhalten Sie über <a href="https://github.com/osm-ToniE"> GitHub </a>.
             </p>
         </footer>
-

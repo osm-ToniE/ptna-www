@@ -1,4 +1,4 @@
-        <footer id="footer-es">
+        <footer id="footer-es" class="clearing">
             <p>
                 Todos los datos geográficos <a href="https://www.openstreetmap.org/copyright">© colaboradores de OpenStreetMap</a>.
             </p>
@@ -11,4 +11,3 @@
                 Los comentarios para mejorar la traducción son bienvenidos.
             </p>
         </footer>
-

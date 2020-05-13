@@ -1,4 +1,4 @@
-        <footer id="footer-tBR">
+        <footer id="footer-tBR" class="clearing">
             <p>
                 Todos os dados geográficos <a href="https://www.openstreetmap.org/copyright">© Contribuidores do OpenStreetMap</a>.
             </p>
