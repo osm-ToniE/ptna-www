@@ -233,9 +233,10 @@ function drawNode( id, role, number ) {
 
     console.log( "id = " + id + " index = " + i );
 
+    var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:color,radius:0.75,fill:true}).addTo(relationmap);
     var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:color}).bindTooltip(number.toString(),{permanent: true}).addTo(relationmap);
 
-    return marker;
+    return [marker,circle];
 }
 
 
