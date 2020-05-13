@@ -53,8 +53,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
 
 #gtfsmap                  { height: 500px; width: 50%; }
-#relationmap              { height: 750px; width: 100%;
-                            margin-top: 16px; margin-bottom: 16px;  }
+#relationmap              { height: 700px; width: 50%; float: left; margin-right: 16px; margin-bottom: 16px; }
 
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
@@ -65,6 +64,8 @@ code             { font-weight: 500; font-size: 1.1em; }
 .indent                   { padding-left: 20px; }
 
 .diff-navigate            { height: 20px; vertical-align: top; }
+
+.clearing                 { clear: both; }
 
 .results-tableheaderrow   { background-color: #dddddd; }
 .results-tablerow         { background-color: white;   }
