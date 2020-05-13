@@ -70,7 +70,7 @@ function readHttpResponse( responseText ) {
 
     drawRelationPlatforms();
 
-    // drawRelationStops();
+    drawRelationStops();
 
     relationmap.fitBounds( getRelationBounds() );
 
@@ -149,7 +149,7 @@ function drawRelationWays() {
                          members[j]["role"] != "platform_exit_only"  &&
                          members[j]["role"] != "platform_entry_only"    ) {
 
-                        drawWay( members[j]["ref"], "way", waynumber++ )
+                        drawWay( members[j]["ref"], "way", waynumber++ );
                     }
                 }
             }
@@ -191,8 +191,10 @@ function drawWay( id, role, number ) {
 
 
 function drawRelationPlatforms() {
-    var i               = relations_by_id[relation_id];
-    var platformnumber  = 1;
+    var i                   = relations_by_id[relation_id];
+    var platformnumber      = 1;
+    var platformlabel_of_id = {};
+    var polyline_array      = [];
 
     if ( i ) {
         if ( osm_data["elements"][i]["type"] == "relation"  &&
@@ -205,36 +207,105 @@ function drawRelationPlatforms() {
                      members[j]["role"] == "platform_entry_only"    ) {
 
                     if ( members[j]["type"] == "node" ) {
-                        drawNode( members[j]["ref"], "platform", platformnumber );
+                        if ( platformlabel_of_id["n"+members[j]["ref"]] ) {
+                            platformlabel_of_id["n"+members[j]["ref"]] += "+" + platformnumber.toString();
+                        } else {
+                            platformlabel_of_id["n"+members[j]["ref"]] = platformnumber.toString();
+                        }
+                        drawNode( members[j]["ref"], "platform", platformlabel_of_id["n"+members[j]["ref"]] );
+                        var node_id    = members[j]["ref"];
+                        var node_index = nodes_by_id[node_id];
+                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
                     } else if ( members[j]["type"] == "way" ) {
-                        var way        = drawWay( members[j]["ref"], "platform", platformnumber );
+                        if ( platformlabel_of_id["w"+members[j]["ref"]] ) {
+                            platformlabel_of_id["w"+members[j]["ref"]] += "+" + platformnumber.toString();
+                        } else {
+                            platformlabel_of_id["w"+members[j]["ref"]] = platformnumber.toString();
+                        }
+                        var way        = drawWay( members[j]["ref"], "platform", platformlabel_of_id["w"+members[j]["ref"]] );
                         var way_id     = members[j]["ref"];
                         var way_index  = ways_by_id[way_id];
                         var node_id    = osm_data["elements"][way_index]["nodes"][0];
                         var node_index = nodes_by_id[node_id];
-                        var marker = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'blue'}).bindTooltip(platformnumber.toString(),{permanent: true}).addTo(relationmap);
+                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'blue'}).bindTooltip(platformlabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(relationmap);
+                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
                     }
                     platformnumber++;
                 }
+            }
+            if ( platformnumber > 2 ) {
+                var route = L.polyline(polyline_array,{color:'blue',weight:3,fill:false}).addTo(relationmap);
             }
         }
     }
 }
 
 
-function drawNode( id, role, number ) {
+function drawRelationStops() {
+    var i               = relations_by_id[relation_id];
+    var stopnumber      = 1;
+    var stoplabel_of_id = {};
+    var polyline_array      = [];
+
+    if ( i ) {
+        if ( osm_data["elements"][i]["type"] == "relation"  &&
+             osm_data["elements"][i]["id"]   == relation_id    ) {
+
+            var members = osm_data["elements"][i]["members"];
+            for ( var j = 0; j < members.length; j++ ) {
+                if ( members[j]["role"] == "stop"            ||
+                     members[j]["role"] == "stop_exit_only"  ||
+                     members[j]["role"] == "stop_entry_only"    ) {
+
+                    if ( members[j]["type"] == "node" ) {
+                        if ( stoplabel_of_id["n"+members[j]["ref"]] ) {
+                            stoplabel_of_id["n"+members[j]["ref"]] += "+" + stopnumber.toString();
+                        } else {
+                            stoplabel_of_id["n"+members[j]["ref"]] = stopnumber.toString();
+                        }
+                        drawNode( members[j]["ref"], "stop", stoplabel_of_id["n"+members[j]["ref"]] );
+                        var node_id    = members[j]["ref"];
+                        var node_index = nodes_by_id[node_id];
+                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
+                    } else if ( members[j]["type"] == "way" ) {
+                        if ( stoplabel_of_id["w"+members[j]["ref"]] ) {
+                            stoplabel_of_id["w"+members[j]["ref"]] += "+" + stopnumber.toString();
+                        } else {
+                            stoplabel_of_id["w"+members[j]["ref"]] = stopnumber.toString();
+                        }
+                        var way        = drawWay( members[j]["ref"], "stop", stoplabel_of_id["w"+members[j]["ref"]] );
+                        var way_id     = members[j]["ref"];
+                        var way_index  = ways_by_id[way_id];
+                        var node_id    = osm_data["elements"][way_index]["nodes"][0];
+                        var node_index = nodes_by_id[node_id];
+                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'yelllow'}).bindTooltip(stoplabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(relationmap);
+                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
+                    }
+                    stopnumber++;
+                }
+            }
+            if ( stopnumber > 2 ) {
+                var route = L.polyline(polyline_array,{color:'yellow',weight:3,fill:false}).addTo(relationmap);
+            }
+        }
+    }
+}
+
+
+function drawNode( id, role, label ) {
 
     var i = nodes_by_id[id];
 
-    var color = 'red';
+    var showcolor = 'red';
+    var showdir   = 'auto';
 
-    if ( role == "platform" ) color = 'blue';
-    if ( role == "stop"     ) color = 'yellow'
+    if ( role == "platform" ) { showcolor = 'blue';   showdir = 'center'; }
+    if ( role == "stop"     ) { showcolor = 'yellow'; showdir = 'center'; }
 
     console.log( "id = " + id + " index = " + i );
 
-    var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:color,radius:0.75,fill:true}).addTo(relationmap);
-    var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:color}).bindTooltip(number.toString(),{permanent: true}).addTo(relationmap);
+    var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:showcolor,radius:0.75,fill:true}).addTo(relationmap);
+    var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:showcolor}).bindTooltip(label,{permanent:true,direction:showdir}).addTo(relationmap);
 
     return [marker,circle];
 }
