@@ -1030,6 +1030,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: fehlerhafte Beschränkung (%s) auf Weg. Gegebenenfalls mappen als &#039;%s&#039;=&#039;no&#039; und &#039;%s&#039;=&#039;yes&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-access</td>
+                <td class="message-description">Die Beschränkung stimmt nicht mit den Map Features überein.</td>
+                <td class="message-fix">Bitte konsultiere das OSM Wiki: https://wiki.openstreetmap.org/wiki/DE:Map_Features#Beschränkungen</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: unklare Befahrbarkeit (%s) auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-access</td>

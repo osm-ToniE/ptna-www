@@ -982,6 +982,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: incorrect access restriction (%s) to way. Consider tagging as &#039;%s&#039;=&#039;no&#039; and &#039;%s&#039;=&#039;yes&#039;</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-access</td>
+                <td class="message-description">The access restriction does not comply with the map features.</td>
+                <td class="message-fix">Please consult the OSM Wiki: https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: restricted access (%s) to way without &#039;psv&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;designated&#039;, or ...</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option">check-access</td>
