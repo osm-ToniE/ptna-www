@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
-    $lang             = ( $_GET['lang'] && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
-    $relation_id      = ( $_GET['id'] ) ? $_GET['id'] : '';
-    $inc_lang         = './' . $lang . '/';
+    $lang     = ( $_GET['lang'] && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
+    $inc_lang = './' . $lang . '/';
 ?>
 <html lang="<?php echo $lang; ?>">
 
@@ -21,13 +20,27 @@
         <main id="main" class="results">
 
             <div id="relationmap"></div>
+            <div>
+                <h3 id ="osm-relation">OSM Relation</h3>
+
+                <table id="relationtable">
+                    <thead class="results-tableheaderrow">
+                        <tr>
+                            <th class="results-name">Key</th>
+                            <th class="results-name">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody id="relation-values" class="results-tablerow">
+                    </tbody>
+                </table>
+            </div>
             <script>
-                <?php echo "showrelation( '" . $relation_id . "' );\n" ?>
+                showrelation();
             </script>
 
         </main> <!-- main -->
 
-        <hr />
+        <hr class="clearing" />
 
 <?php include $inc_lang.'footer.inc' ?>
 
