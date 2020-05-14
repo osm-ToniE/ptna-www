@@ -41,14 +41,14 @@ function showrelation() {
 
     //  OpenStreetMap's DE Style
     var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-                                maxZoom: 18,
+                                maxZoom: 19,
                                 attribution: osmlicence + 'Imagery &copy; <a href="http://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
                             } );
 
     // 	OSM France
     // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
 	var osmfr = L.tileLayer(    'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-		                        maxZoom: 20,
+		                        maxZoom: 19,
 		                        attribution: attribution
 	                        } );
 
