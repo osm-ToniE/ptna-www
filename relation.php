@@ -21,6 +21,7 @@
 
             <div id="relationmap"></div>
             <div>
+                <h2 class="attention">Platform Relations are currently not shown on the map</h2>
                 <h3 id ="osm-relation">OSM Relation</h3>
 
                 <table id="relationtable">

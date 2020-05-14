@@ -67,6 +67,8 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 .clearing                 { clear: both; }
 
+.attention                { background-color: yellow; }
+
 .results-tableheaderrow   { background-color: #dddddd; }
 .results-tablerow         { background-color: white;   }
 .results-name             { text-align:left; white-space:nowrap; }

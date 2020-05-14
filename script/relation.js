@@ -4,23 +4,108 @@
 const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
 const OSM_API_URL_SUFFIX = '/full.json';
 
-var relationmap;
+const defaultlat    = 48.0649;
+const defaultlon    = 11.6612;
+const defaultzoom   = 10;
+
+const osmlicence    = 'Map data &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
+const attribution   = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+
+var map;
+var layerways;
+var layerplatforms;
+var layerplatformsroute;
+var layerstops;
+var layerstopsroute;
+
 var relation_id;
 var osm_data        = {};
 var nodes_by_id     = {};
 var ways_by_id      = {};
 var relations_by_id = {};
 
+
+// addEvent( window, 'load', function() { init(); } );
+
+
 function showrelation() {
 
-    relationmap = L.map('relationmap').setView([48.0649, 11.6612], 10);
+    if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
-    L.tileLayer( 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-                 maxZoom: 19,
-                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }
-               ).addTo(relationmap);
+
+    //  OpenStreetMap's Standard tile layer
+	var osmorg = L.tileLayer(  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		                        maxZoom: 19,
+		                        attribution: attribution
+	                        } );
+
+    //  OpenStreetMap's DE Style
+    var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                                maxZoom: 18,
+                                attribution: osmlicence + 'Imagery &copy; <a href="http://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
+                            } );
+
+    // 	OSM France
+    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmfr = L.tileLayer(    'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+		                        maxZoom: 20,
+		                        attribution: attribution
+	                        } );
+
+    // 	opentopomap
+    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmtopo = L.tileLayer(  'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+		                        maxZoom: 17,
+		                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			                    'SRTM | Kartendarstellung: Â© <a href="http://opentopomap.org/">OpenTopoMap</a> '  +
+			                    '<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
+	                        } );
+
+    // 	ÖPNV-karte
+    // 	http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
+	var oepnv = L.tileLayer(    'http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
+		                        maxZoom: 19,
+		                        attribution: attribution
+	                        });
+
+    //  Transport Map
+    // 	http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
+    var transpmap = L.tileLayer(    'http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
+		                            maxZoom: 19,
+		                            attribution: attribution
+                                } );
+
+    // Variables for the data
+    layerways           = L.layerGroup();
+    layerplatforms      = L.layerGroup();
+    layerplatformsroute = L.layerGroup();
+    layerstops          = L.layerGroup();
+    layerstopsroute     = L.layerGroup();
+
+    map = L.map( 'relationmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerways] } );
+
+    var baseMaps = {
+                    "OpenStreetMap's Standard"  : osmorg,
+                    "OSM Deutscher Style"       : osmde,
+                    "OSM France"                : osmfr,
+                    "OpenTopoMap"               : osmtopo
+                    // "ÖPNV-Karte": oepnv,
+                    // "Transport Map (without API-Key!)": transpmap
+                   };
+
+    var overlayMaps = { "<span style='color: red'>Route</span>"                 : layerways,
+                        "<span style='color: blue'>Platforms</span>"            : layerplatforms,
+                        "<span style='color: blue'>Platform Route</span>"       : layerplatformsroute,
+                        "<span style='color: green'>Stop-Positions</span>"      : layerstops,
+                        "<span style='color: green'>Stop-Position Route</span>" : layerstopsroute
+                      };
+
+    var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    map.addLayer(layerplatforms);
+    map.addLayer(layerplatformsroute);
+    map.addLayer(layerstops);
+    map.addLayer(layerstopsroute);
 
     relation_id = URLparse()["id"];
 
@@ -51,10 +136,9 @@ function showrelation() {
 }
 
 function readHttpResponse( responseText ) {
-    console.log( '>' + responseText.toString() + "<\n" );
+    // console.log( '>' + responseText.toString() + "<\n" );
 
     osm_data = JSON.parse( responseText.toString() )
-    // relationmap.fitBounds(route.getBounds());
 
     console.log( '>' + osm_data["version"] + "<" );
     console.log( '>' + osm_data["generator"] + "<" );
@@ -72,7 +156,7 @@ function readHttpResponse( responseText ) {
 
     drawRelationStops();
 
-    relationmap.fitBounds( getRelationBounds() );
+    map.fitBounds( getRelationBounds() );
 
 }
 
@@ -117,7 +201,9 @@ function writeRelationTable( ) {
 
     document.getElementById("osm-relation").innerText += ' ' + relation_id;
 
-    if ( i ) {
+    // i can be undefined or even 0, first element of array
+
+    if ( i || i === 0 ) {
         if ( osm_data["elements"][i]["type"] == "relation"  &&
              osm_data["elements"][i]["id"]   == relation_id    ) {
 
@@ -164,28 +250,29 @@ function drawWay( id, role, number ) {
     var i = ways_by_id[id];
     var node_id;
     var n;
+    var way;
 
-    var color = 'red';
-
-    if ( role == "platform" ) color = 'blue';
-    if ( role == "stop"     ) color = 'yellow'
-
-    console.log( "id = " + id + " index = " + i );
+    // console.log( "id = " + id + " index = " + i );
 
     nodes = osm_data["elements"][i]["nodes"];
 
-    console.log( "Number of nodes : " + nodes.length );
+    // console.log( "Number of nodes : " + nodes.length );
 
     for ( var j = 0; j < nodes.length; j++ ) {
         node_id = osm_data["elements"][i]["nodes"][j];
         n       = nodes_by_id[node_id];
 
         polyline_array.push( [ osm_data["elements"][n]['lat'], osm_data["elements"][n]['lon'] ] );
-        console.log( "Add Node: " + osm_data["elements"][n]['lat'] + " / " + osm_data["elements"][n]['lon'] );
+        // console.log( "Add Node: " + osm_data["elements"][n]['lat'] + " / " + osm_data["elements"][n]['lon'] );
     }
 
-    var way = L.polyline(polyline_array,{color:color,weight:4,fill:false}).addTo( relationmap );
-
+    if ( role == 'platform' ) {
+        way = L.polyline(polyline_array,{color:'blue',weight:4,fill:false}).addTo( layerplatforms );
+    } else if ( role == 'stop' ) {
+        way = L.polyline(polyline_array,{color:'green',weight:4,fill:false}).addTo( layerstops );
+    } else {
+        way = L.polyline(polyline_array,{color:'red',weight:4,fill:false}).addTo( layerways );
+    }
     return way;
 }
 
@@ -227,14 +314,14 @@ function drawRelationPlatforms() {
                         var way_index  = ways_by_id[way_id];
                         var node_id    = osm_data["elements"][way_index]["nodes"][0];
                         var node_index = nodes_by_id[node_id];
-                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'blue'}).bindTooltip(platformlabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(relationmap);
+                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'blue'}).bindTooltip(platformlabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(layerplatforms);
                         polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
                     }
                     platformnumber++;
                 }
             }
             if ( platformnumber > 2 ) {
-                var route = L.polyline(polyline_array,{color:'blue',weight:3,fill:false}).addTo(relationmap);
+                var route = L.polyline(polyline_array,{color:'blue',weight:3,fill:false}).addTo(layerplatformsroute);
             }
         }
     }
@@ -278,14 +365,14 @@ function drawRelationStops() {
                         var way_index  = ways_by_id[way_id];
                         var node_id    = osm_data["elements"][way_index]["nodes"][0];
                         var node_index = nodes_by_id[node_id];
-                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'yelllow'}).bindTooltip(stoplabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(relationmap);
+                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'green'}).bindTooltip(stoplabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(layerstops);
                         polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
                     }
                     stopnumber++;
                 }
             }
             if ( stopnumber > 2 ) {
-                var route = L.polyline(polyline_array,{color:'yellow',weight:3,fill:false}).addTo(relationmap);
+                var route = L.polyline(polyline_array,{color:'green',weight:3,fill:false}).addTo(layerstopsroute);
             }
         }
     }
@@ -296,16 +383,21 @@ function drawNode( id, role, label ) {
 
     var i = nodes_by_id[id];
 
-    var showcolor = 'red';
-    var showdir   = 'auto';
+    var circle;
+    var marker;
 
-    if ( role == "platform" ) { showcolor = 'blue';   showdir = 'center'; }
-    if ( role == "stop"     ) { showcolor = 'yellow'; showdir = 'center'; }
+    // console.log( "id = " + id + " index = " + i );
 
-    console.log( "id = " + id + " index = " + i );
-
-    var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:showcolor,radius:0.75,fill:true}).addTo(relationmap);
-    var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:showcolor}).bindTooltip(label,{permanent:true,direction:showdir}).addTo(relationmap);
+    if ( role == "platform" ) {
+        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'blue',radius:0.75,fill:true}).addTo(layerplatforms);
+        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'blue'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerplatforms);
+    } else if ( role == "stop"     ) {
+        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'green',radius:0.75,fill:true}).addTo(layerstops);
+        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'green'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerstops);
+    } else {
+        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'red',radius:0.75,fill:true}).addTo(layerways);
+        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'red'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerways);
+    }
 
     return [marker,circle];
 }
@@ -326,6 +418,6 @@ function getRelationBounds() {
         if ( osm_data["elements"][i]["lon"] > maxlon ) maxlon = osm_data["elements"][i]["lon"];
     }
 
-    console.log ( "Bounds: " + [[minlat,minlon],[maxlat,maxlon]].toString() );
+    // console.log ( "Bounds: " + [[minlat,minlon],[maxlat,maxlon]].toString() );
     return [ [minlat, minlon], [maxlat, maxlon] ];
 }
