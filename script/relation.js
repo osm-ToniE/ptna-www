@@ -33,6 +33,9 @@ function showrelation() {
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
 
+    //  wmpty tiles
+	var nomap  = L.tileLayer('');
+
     //  OpenStreetMap's Standard tile layer
 	var osmorg = L.tileLayer(  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
@@ -86,6 +89,7 @@ function showrelation() {
     map = L.map( 'relationmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerways] } );
 
     var baseMaps = {
+                    "none"                      : nomap,
                     "OpenStreetMap's Standard"  : osmorg,
                     "OSM Deutscher Style"       : osmde,
                     "OSM France"                : osmfr,
