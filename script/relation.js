@@ -521,13 +521,13 @@ function writeRouteTable() {
         html += "    <td>" + '' + "</td>";
         html += "    <td>" + 'way' + "</td>";
         html += "    <td>" + 'Image test' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/Node.svg\" width=\"32\" height=\"32\"></td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
         html += "</tr>\n";
         html += "<tr>";
         html += "    <td>" + '' + "</td>";
         html += "    <td>" + 'way' + "</td>";
         html += "    <td>" + 'Image test' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/Node.svg\" width=\"32\" height=\"32\"></td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
         html += "</tr>\n";
         document.getElementById("route-values").innerHTML = html;
     }
