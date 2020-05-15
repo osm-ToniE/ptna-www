@@ -55,7 +55,9 @@
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
-                                    <th class="results-name">Platforms found ...</th>
+                                    <th class="results-name">Role</th>
+                                    <th class="results-name">Type</th>
+                                    <th class="results-name">Name / ID</th>
                                 </tr>
                             </thead>
                             <tbody id="platform-values" class="results-tablerow">
@@ -73,7 +75,9 @@
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
-                                    <th class="results-name">Stop Positions found ...</th>
+                                    <th class="results-name">Role</th>
+                                    <th class="results-name">Type</th>
+                                    <th class="results-name">Name / ID</th>
                                 </tr>
                             </thead>
                             <tbody id="stop-values" class="results-tablerow">
@@ -91,7 +95,10 @@
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
-                                    <th class="results-name">Ways found ...</th>
+                                    <th class="results-name">Role</th>
+                                    <th class="results-name">Type</th>
+                                    <th class="results-name">Name / ID</th>
+                                    <th class="results-name">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody id="route-values" class="results-tablerow">

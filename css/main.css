@@ -154,7 +154,9 @@ code             { font-weight: 500; font-size: 1.1em; }
 #relationmap              { height: 700px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 16px; }
 
 .relationtables           { float:left; max-width:49.146%; }
-.relationtable            { min-width:  346.5px; max-width: 100%         }
+.relationtable            { min-width:  346.5px; max-width: 100%;}
+
+.symbol                   { text-align: center; padding: 0; border-width: 0px; height:32px;}
 
 /* hide hack box */
 input.hackbox {
@@ -218,6 +220,6 @@ input.hackbox {
 
 /* settings for the active tab */
 .tabs>li>label.tab_active {
-  border-bottom:1px solid #dddddd;
+  border-bottom:1px solid black;
   background-color:#dddddd;
 }
