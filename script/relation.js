@@ -89,11 +89,11 @@ function showrelation() {
     map = L.map( 'relationmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerways] } );
 
     var baseMaps = {
-                    "none"                      : nomap,
                     "OpenStreetMap's Standard"  : osmorg,
                     "OSM Deutscher Style"       : osmde,
                     "OSM France"                : osmfr,
-                    "OpenTopoMap"               : osmtopo
+                    // "OpenTopoMap"               : osmtopo,
+                    "none"                      : nomap
                     // "ÖPNV-Karte": oepnv,
                     // "Transport Map (without API-Key!)": transpmap
                    };
