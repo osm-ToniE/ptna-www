@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    $lang     = ( $_GET['lang'] && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
+    $lang     = ( $_GET['lang']   && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
     $inc_lang = './' . $lang . '/';
 ?>
 <html lang="<?php echo $lang; ?>">
@@ -20,20 +20,86 @@
         <main id="main" class="results">
 
             <div id="relationmap"></div>
-            <div>
-                <h2 class="attention">Platform Relations are currently not shown on the map</h2>
+            <div class="relationtables">
                 <h3 id ="osm-relation">OSM Relation</h3>
+                <span class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Not all members of the relation are currently shown on the map</span>
 
-                <table id="relationtable">
-                    <thead class="results-tableheaderrow">
-                        <tr>
-                            <th class="results-name">Key</th>
-                            <th class="results-name">Value</th>
-                        </tr>
-                    </thead>
-                    <tbody id="relation-values" class="results-tablerow">
-                    </tbody>
-                </table>
+                <section class="tabbing" id="tbg_blindtext">
+                    <input type="radio" id="tbg_blindtext_0" name="tbg_blindtext" class="hackbox" checked>
+                    <div class="tabcontent">
+                        <ul class="tabs">
+                            <li><label for="tbg_blindtext_0" class="tab_active">Details</label></li>
+                            <li><label for="tbg_blindtext_1">Platforms</label></li>
+                            <li><label for="tbg_blindtext_2">Stops</label></li>
+                            <li><label for="tbg_blindtext_3">Ways</label></li>
+                        </ul>
+                        <table class="relationtable">
+                            <thead class="results-tableheaderrow">
+                                <tr>
+                                    <th class="results-name">Key</th>
+                                    <th class="results-name">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="relation-values" class="results-tablerow">
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="radio" id="tbg_blindtext_1" name="tbg_blindtext" class="hackbox">
+                    <div class="tabcontent">
+                        <ul class="tabs">
+                            <li><label for="tbg_blindtext_0">Details</label></li>
+                            <li><label for="tbg_blindtext_1" class="tab_active">Platforms</label></li>
+                            <li><label for="tbg_blindtext_2">Stops</label></li>
+                            <li><label for="tbg_blindtext_3">Ways</label></li>
+                        </ul>
+                        <table class="relationtable">
+                            <thead class="results-tableheaderrow">
+                                <tr>
+                                    <th class="results-name">Platforms found ...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="platform-values" class="results-tablerow">
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="radio" id="tbg_blindtext_2" name="tbg_blindtext" class="hackbox">
+                    <div class="tabcontent">
+                        <ul class="tabs">
+                          <li><label for="tbg_blindtext_0">Details</label></li>
+                          <li><label for="tbg_blindtext_1">Platforms</label></li>
+                          <li><label for="tbg_blindtext_2" class="tab_active">Stops</label></li>
+                          <li><label for="tbg_blindtext_3">Ways</label></li>
+                        </ul>
+                        <table class="relationtable">
+                            <thead class="results-tableheaderrow">
+                                <tr>
+                                    <th class="results-name">Stop Positions found ...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stop-values" class="results-tablerow">
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="radio" id="tbg_blindtext_3" name="tbg_blindtext" class="hackbox">
+                    <div class="tabcontent">
+                        <ul class="tabs">
+                          <li><label for="tbg_blindtext_0">Details</label></li>
+                          <li><label for="tbg_blindtext_1">Platforms</label></li>
+                          <li><label for="tbg_blindtext_2">Stops</label></li>
+                          <li><label for="tbg_blindtext_3" class="tab_active">Ways</label></li>
+                        </ul>
+                        <table class="relationtable">
+                            <thead class="results-tableheaderrow">
+                                <tr>
+                                    <th class="results-name">Ways found ...</th>
+                                </tr>
+                            </thead>
+                            <tbody id="route-values" class="results-tablerow">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
             </div>
             <script>
                 showrelation();

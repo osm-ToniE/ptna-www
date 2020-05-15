@@ -81,6 +81,7 @@ function showrelation() {
     layerplatformsroute = L.layerGroup();
     layerstops          = L.layerGroup();
     layerstopsroute     = L.layerGroup();
+    layerother          = L.layerGroup();
 
     map = L.map( 'relationmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerways] } );
 
@@ -97,7 +98,8 @@ function showrelation() {
                         "<span style='color: blue'>Platforms</span>"            : layerplatforms,
                         "<span style='color: blue'>Platform Route</span>"       : layerplatformsroute,
                         "<span style='color: green'>Stop-Positions</span>"      : layerstops,
-                        "<span style='color: green'>Stop-Position Route</span>" : layerstopsroute
+                        "<span style='color: green'>Stop-Position Route</span>" : layerstopsroute,
+                        "<span style='color: black'>Other</span>"               : layerother
                       };
 
     var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -105,7 +107,6 @@ function showrelation() {
     map.addLayer(layerplatforms);
     map.addLayer(layerplatformsroute);
     map.addLayer(layerstops);
-    map.addLayer(layerstopsroute);
 
     relation_id = URLparse()["id"];
 
@@ -149,6 +150,12 @@ function readHttpResponse( responseText ) {
     fillNodesWaysRelations();
 
     writeRelationTable();
+
+    writePlatformTable();
+
+    writeStopTable();
+
+    writeRouteTable();
 
     drawRelationWays();
 
@@ -195,33 +202,13 @@ function fillNodesWaysRelations() {
 }
 
 
-function writeRelationTable( ) {
-
-    var i = relations_by_id[relation_id];
-
-    document.getElementById("osm-relation").innerText += ' ' + relation_id;
-
-    // i can be undefined or even 0, first element of array
-
-    if ( i || i === 0 ) {
-        if ( osm_data["elements"][i]["type"] == "relation"  &&
-             osm_data["elements"][i]["id"]   == relation_id    ) {
-
-            var html = "";
-            for ( var j in osm_data["elements"][i]["tags"] ) {
-                html += "<tr><td>" + j + "</td><td>" + osm_data["elements"][i]["tags"][j] + "</td></tr>\n";
-            }
-            document.getElementById("relation-values").innerHTML = html;
-        }
-    }
-}
-
-
 function drawRelationWays() {
     var i           = relations_by_id[relation_id];
     var waynumber   = 1;
 
-    if ( i ) {
+    // i can be undefined or even 0, first element of array
+
+    if ( i || i === 0 ) {
         if ( osm_data["elements"][i]["type"] == "relation"  &&
              osm_data["elements"][i]["id"]   == relation_id    ) {
 
@@ -420,4 +407,59 @@ function getRelationBounds() {
 
     // console.log ( "Bounds: " + [[minlat,minlon],[maxlat,maxlon]].toString() );
     return [ [minlat, minlon], [maxlat, maxlon] ];
+}
+
+
+function writeRelationTable( ) {
+
+    var i = relations_by_id[relation_id];
+
+    document.getElementById("osm-relation").innerText += ' ' + relation_id;
+
+    // i can be undefined or even 0, first element of array
+
+    if ( i || i === 0 ) {
+        if ( osm_data["elements"][i]["type"] == "relation"  &&
+             osm_data["elements"][i]["id"]   == relation_id    ) {
+
+            var html = "";
+            for ( var j in osm_data["elements"][i]["tags"] ) {
+                html += "<tr><td>" + j + "</td><td>" + osm_data["elements"][i]["tags"][j] + "</td></tr>\n";
+            }
+            document.getElementById("relation-values").innerHTML = html;
+        }
+    }
+}
+
+
+function writePlatformTable() {
+    var i = relations_by_id[relation_id];
+
+    if ( i || i === 0 ) {
+        var html = "";
+        html += "<tr><td>" + '... coming soon' + "</td></tr>\n";
+        document.getElementById("platform-values").innerHTML = html;
+    }
+}
+
+
+function writeStopTable() {
+    var i = relations_by_id[relation_id];
+
+    if ( i || i === 0 ) {
+        var html = "";
+        html += "<tr><td>" + '... coming soon' + "</td></tr>\n";
+        document.getElementById("stop-values").innerHTML = html;
+    }
+}
+
+
+function writeRouteTable() {
+    var i = relations_by_id[relation_id];
+
+    if ( i || i === 0 ) {
+        var html = "";
+        html += "<tr><td>" + '... coming soon' + "</td></tr>\n";
+        document.getElementById("route-values").innerHTML = html;
+    }
 }

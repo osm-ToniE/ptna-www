@@ -48,12 +48,11 @@ code             { font-weight: 500; font-size: 1.1em; }
 #navigation th            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 #navigation td            { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
-#main li                  { padding-bottom: 5px; padding-top: 3px; }
+/* #main li                  { padding-bottom: 5px; padding-top: 3px; } */
 
 #construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
 
 #gtfsmap                  { height: 500px; width: 50%; }
-#relationmap              { height: 700px; width: 50%; float: left; margin-right: 16px; margin-bottom: 16px; }
 
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
@@ -148,3 +147,77 @@ code             { font-weight: 500; font-size: 1.1em; }
 .statistics-duration         { text-align:right; }
 .statistics-size             { text-align:right; }
 .statistics-number           { text-align:right; }
+
+/**************************************/
+/* settings for the relation.php file */
+
+#relationmap              { height: 700px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 16px; }
+
+.relationtables           { float:left; }  /* max-width:49.146%; } */
+.relationtable            { min-width:  346.5px;          }
+
+/* hide hack box */
+input.hackbox {
+  display:none;
+}
+
+/* format the tab area */
+.tabbing {
+  position:relative;
+  margin-top:5px;
+  margin-bottom: 16px;
+}
+
+/* hide the content of the tab boxes */
+.tabbing > .tabcontent {
+  display:none;
+}
+
+/* ... except when selected */
+.tabbing > .hackbox:checked + .tabcontent {
+  display:block;
+}
+
+/* settings for the tab content */
+.tabcontent {
+  padding:0em;
+  z-index:1;
+  margin: 0;
+}
+
+/* settings for the tab area */
+.tabs {
+  padding:0;
+  z-index:2;
+  margin: 0;
+}
+
+.tabs li {
+  display:inline-block;
+  padding:0;
+  margin: 0;
+  padding-top:0px;
+  padding-bottom:0px;
+}
+
+/* genaral settings for the tabs */
+.tabs>li>label {
+  display:inline-block;
+  padding:0 1em;
+  border-top:1px solid black;
+  border-right:1px solid black;
+  border-left:1px solid black;
+  border-bottom:1px solid black;
+  border-radius:1ex 1ex 0 0;
+  margin:0 0 0 0;
+  height:1.5em;
+  position:relative;
+  top:1px;
+	background-color:white;
+}
+
+/* settings for the active tab */
+.tabs>li>label.tab_active {
+  border-bottom:1px solid #dddddd;
+  background-color:#dddddd;
+}
