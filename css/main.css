@@ -74,6 +74,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .results-region           { text-align:left;   }
 .results-network          { text-align:left;   }
 .results-datadate         { text-align:center; }
+.results-number           { text-align:right; }
 .results-analyzed         { text-align:center; }
 .results-analyzed-old     { text-align:center; }
 .results-analyzed-new     { text-align:center; background-color: orange; }
@@ -154,7 +155,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #relationmap              { height: 700px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 16px; }
 
 .relationtables           { float:left; max-width:49.146%; }
-.relationtable            { min-width:  346.5px; max-width: 100%;}
+.relationtable            { min-width: 431px; max-width: 100%;}
 
 .symbol                   { text-align: center; padding: 0; border-width: 0px; height:32px;}
 

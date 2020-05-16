@@ -19,13 +19,14 @@ var layerstops;
 var layerstopsroute;
 
 var relation_id;
+var is_PTv2         = 0;
 var osm_data        = {};
 var nodes_by_id     = {};
 var ways_by_id      = {};
 var relations_by_id = {};
-
-
-// addEvent( window, 'load', function() { init(); } );
+var OSM_Nodes       = {};
+var OSM_Ways        = {};
+var OSM_Relations   = {};
 
 
 function showrelation() {
@@ -141,7 +142,7 @@ function showrelation() {
 }
 
 function readHttpResponse( responseText ) {
-    // console.log( '>' + responseText.toString() + "<\n" );
+    console.log( '>' + responseText.toString() + "<\n" );
 
     osm_data = JSON.parse( responseText.toString() )
 
@@ -155,11 +156,7 @@ function readHttpResponse( responseText ) {
 
     writeRelationTable();
 
-    writePlatformTable();
-
-    writeStopTable();
-
-    writeRouteTable();
+    writePlatformStopsWaysOthersTables();
 
     drawRelationWays();
 
@@ -194,13 +191,22 @@ function URLparse() {
 
 function fillNodesWaysRelations() {
 
+    var OSM_ID   = 0;
+    var OSM_TYPE = 0;
+
     for ( var i = 0; i < osm_data["elements"].length; i++ ) {
-        if ( osm_data["elements"][i]["type"] == "node" ) {
-            nodes_by_id[osm_data["elements"][i]["id"]] = i;
-        } else if ( osm_data["elements"][i]["type"] == "way" ) {
-            ways_by_id[osm_data["elements"][i]["id"]] = i;
-        } else if ( osm_data["elements"][i]["type"] == "relation" ) {
-            relations_by_id[osm_data["elements"][i]["id"]] = i;
+        OSM_ID   = osm_data["elements"][i]["id"];
+        OSM_TYPE = osm_data["elements"][i]["type"];
+
+        if ( OSM_TYPE == "node" ) {
+            nodes_by_id[OSM_ID] = i;
+            OSM_Nodes[OSM_ID]   = osm_data["elements"][i];
+        } else if ( OSM_TYPE == "way" ) {
+            ways_by_id[OSM_ID] = i;
+            OSM_Ways[OSM_ID]    = osm_data["elements"][i];
+        } else if ( OSM_TYPE == "relation" ) {
+            relations_by_id[OSM_ID] = i;
+            OSM_Relations[OSM_ID] = osm_data["elements"][i];
         }
     }
 }
@@ -416,19 +422,20 @@ function getRelationBounds() {
 
 function writeRelationTable( ) {
 
-    var i = relations_by_id[relation_id];
+    var object = OSM_Relations[relation_id];
 
     document.getElementById("osm-relation").innerText += ' ' + relation_id;
 
-    // i can be undefined or even 0, first element of array
-
-    if ( i || i === 0 ) {
-        if ( osm_data["elements"][i]["type"] == "relation"  &&
-             osm_data["elements"][i]["id"]   == relation_id    ) {
+    if ( object ) {
+        if ( object["type"] == "relation"  &&
+             object["id"]   == relation_id    ) {
 
             var html = "";
-            for ( var j in osm_data["elements"][i]["tags"] ) {
-                html += "<tr><td>" + j + "</td><td>" + osm_data["elements"][i]["tags"][j] + "</td></tr>\n";
+            for ( var j in object["tags"] ) {
+                html += "<tr><td>" + htmlEscape(j) + "</td><td>" + htmlEscape(object["tags"][j]) + "</td></tr>\n";
+                if ( j == "public_transport:version" && object["tags"][j] && object["tags"][j] == "2" ) {
+                    is_PTv2 = 1;
+                }
             }
             document.getElementById("relation-values").innerHTML = html;
         }
@@ -436,99 +443,231 @@ function writeRelationTable( ) {
 }
 
 
-function writePlatformTable() {
-    var i = relations_by_id[relation_id];
+function writePlatformStopsWaysOthersTables() {
+    var object = OSM_Relations[relation_id];
 
-    if ( i || i === 0 ) {
-        var html = "";
-        html += "<tr><td>" + '... coming soon' + "</td></tr>\n";
-        document.getElementById("platform-values").innerHTML = html;
-    }
-}
+    var member      = {};
+    var type        = '';
+    var role        = '';
+    var ref         = '';
+    var match       = "other"
+    var html        = "";
+    var img         = 'none';
+    var number      = { platform:1, stop:1, route:1, other:1 };
+    var name        = '';
+    var wayimg      = "IsolatedWay"
 
+    if ( object ) {
+        for ( var j = 0; j < object['members'].length; j++ ) {
+            member      = {};
+            attention   = {};
+            match       = "other";
+            role        = object['members'][j]["role"];
+            type        = object['members'][j]["type"];
+            ref         = object['members'][j]["ref"];
+            if ( type == "node" ) {
+                member = OSM_Nodes[ref];
+                img    = "Node";
+            } else if ( type == "way" ) {
+                member = OSM_Ways[ref];
+                img    = "Way";
+            } else if ( type == "relation" ) {
+                member = OSM_Relations[ref];
+                img    = "Relation";
+            }
 
-function writeStopTable() {
-    var i = relations_by_id[relation_id];
+            if ( member ) {
+                if ( is_PTv2 ) {
+                    if ( role == "platform"            ||
+                         role == "platform_exit_only"  ||
+                         role == "platform_entry_only" ||
+                         (member['tags']                     &&
+                          member['tags']['public_transport'] &&
+                          member['tags']['public_transport'] == "platform")
+                       ) {
+                        match = "platform";
+                        if ( !role.match(/platform/) ) attention['role'] = " attention";
+                    }
+                } else {
+                    if ( role.match(/platform/) ) {
+                        match = "platform";
+                    }
+                }
 
-    if ( i || i === 0 ) {
-        var html = "";
-        html += "<tr><td>" + '... coming soon' + "</td></tr>\n";
-        document.getElementById("stop-values").innerHTML = html;
+                if ( match == "other" ) {
+                    if ( is_PTv2 ) {
+                        if ( role == "stop"        ||
+                             role == "stop_exit_only"  ||
+                             role == "stop_entry_only" ||
+                            (member['tags']                     &&
+                             member['tags']['public_transport'] &&
+                             member['tags']['public_transport'] == "stop_position")
+                           ) {
+                            match = "stop";
+                        }
+                    } else {
+                        if ( role.match(/stop/) ||
+                            (member['tags']            &&
+                             member['tags']['highway'] &&
+                             member['tags']['highway'] == "bus_stop")) {
+                            match = "stop";
+                        }
+                    }
+                }
+
+                if ( match == "other" ) {
+                    if ( is_PTv2 ) {
+                        if ( role == "" ) {
+                            match = "route";
+                        }
+                    } else {
+                        if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
+                            match = "route";
+                        }
+                    }
+                }
+
+                html = "";
+                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || '';
+                html += "<tr>";
+                html += "    <td class=\"results-number\">" + number[match]++   + "</td>";
+                html += "    <td class=\"results-number\">" + (j+1)             + "</td>";
+                html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
+                html += "    <td class=\"results-name\">"   + htmlEscape(name)  + "</td>";
+                html += "    <td class=\"results-name\"><img src=\"/img/" + img + ".svg\"> " + ref + "</td>";
+//                if ( match == "route" ) {
+//                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
+//                }
+                html += "</tr>\n";
+                document.getElementById(match+"-members").innerHTML += html;
+            }
+        }
     }
 }
 
 
 function writeRouteTable() {
-    var i = relations_by_id[relation_id];
+    var object = OSM_Relations[relation_id];
+    var number          = 1;
+    var membernumber    = 15;
 
-    if ( i || i === 0 ) {
+    if ( object ) {
         var html = "";
         html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Starting here' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9523;' + "</td>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Starting here' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/FirstWay.png\" width=\"32\" height=\"32\"></td>";
         html += "</tr>\n";
         html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9475;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Not connected to next' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9531;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Not connected at all' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9473;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Not connected to previous' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9523;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9475;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Roundabout' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#11093;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9475;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'This is the end' + "</td>";
-        html += "    <td class=\"symbol\">" + '&#9531;' + "</td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Image test' + "</td>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
         html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
         html += "</tr>\n";
         html += "<tr>";
-        html += "    <td>" + '' + "</td>";
-        html += "    <td>" + 'way' + "</td>";
-        html += "    <td>" + 'Image test' + "</td>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Not connected to next' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/NoExitWay.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Not connected at all' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/IsolatedWay.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Roundabout start' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/RoundaboutStart.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Roundabout end' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/RoundaboutEnd.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Not connected to previous' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/RestartWay.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
         html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
         html += "</tr>\n";
-        document.getElementById("route-values").innerHTML = html;
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Roundabout' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/Roundabout.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + number++ + "</td>";
+        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + 'This is the end' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
+        html += "    <td class=\"symbol\"><img src=\"/img/LastWay.png\" width=\"32\" height=\"32\"></td>";
+        html += "</tr>\n";
+        document.getElementById("route-members").innerHTML = html;
     }
+}
+
+
+function writeOtherTable() {
+    var object = OSM_Relations[relation_id];
+
+    if ( object ) {
+        var html = "";
+        html += "<tr>";
+        html += "    <td class=\"results-number\">" + 1 + "</td>";
+        html += "    <td class=\"results-number\">" + 23 + "</td>";
+        html += "    <td class=\"results-name\">" + '' + "</td>";
+        html += "    <td class=\"results-name\">" + '... comming soon' + "</td>";
+        html += "    <td class=\"results-name\">" + '<img src=\"/img/Relation.svg\">356' + "</td>";
+        html += "</tr>\n";
+        document.getElementById("other-members").innerHTML = html;
+    }
+}
+
+
+function htmlEscape( str ) {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
 }

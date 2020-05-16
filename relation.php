@@ -29,9 +29,10 @@
                     <div class="tabcontent">
                         <ul class="tabs">
                             <li><label for="tbg_blindtext_0" class="tab_active">Details</label></li>
-                            <li><label for="tbg_blindtext_1">Platforms</label></li>
-                            <li><label for="tbg_blindtext_2">Stops</label></li>
+                            <li><label for="tbg_blindtext_1" class="platforms_stops">Platforms</label></li>
+                            <li><label for="tbg_blindtext_2" class="platforms_stops">Stops</label></li>
                             <li><label for="tbg_blindtext_3">Ways</label></li>
+                            <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
@@ -48,19 +49,22 @@
                     <div class="tabcontent">
                         <ul class="tabs">
                             <li><label for="tbg_blindtext_0">Details</label></li>
-                            <li><label for="tbg_blindtext_1" class="tab_active">Platforms</label></li>
-                            <li><label for="tbg_blindtext_2">Stops</label></li>
+                            <li><label for="tbg_blindtext_1" class="tab_active platforms_stops">Platforms</label></li>
+                            <li><label for="tbg_blindtext_2" class="platforms_stops">Stops</label></li>
                             <li><label for="tbg_blindtext_3">Ways</label></li>
+                            <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
+                                    <th class="results-number">#</th>
+                                    <th class="results-number">Member #</th>
                                     <th class="results-name">Role</th>
-                                    <th class="results-name">Type</th>
-                                    <th class="results-name">Name / ID</th>
+                                    <th class="results-name">Name / Ref</th>
+                                    <th class="results-name">ID</th>
                                 </tr>
                             </thead>
-                            <tbody id="platform-values" class="results-tablerow">
+                            <tbody id="platform-members" class="results-tablerow">
                             </tbody>
                         </table>
                     </div>
@@ -68,19 +72,22 @@
                     <div class="tabcontent">
                         <ul class="tabs">
                           <li><label for="tbg_blindtext_0">Details</label></li>
-                          <li><label for="tbg_blindtext_1">Platforms</label></li>
-                          <li><label for="tbg_blindtext_2" class="tab_active">Stops</label></li>
+                          <li><label for="tbg_blindtext_1" class="platforms_stops">Platforms</label></li>
+                          <li><label for="tbg_blindtext_2" class="tab_active platforms_stops">Stops</label></li>
                           <li><label for="tbg_blindtext_3">Ways</label></li>
+                          <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
+                                    <th class="results-number">#</th>
+                                    <th class="results-number">Member #</th>
                                     <th class="results-name">Role</th>
-                                    <th class="results-name">Type</th>
-                                    <th class="results-name">Name / ID</th>
+                                    <th class="results-name">Name / Ref</th>
+                                    <th class="results-name">ID</th>
                                 </tr>
                             </thead>
-                            <tbody id="stop-values" class="results-tablerow">
+                            <tbody id="stop-members" class="results-tablerow">
                             </tbody>
                         </table>
                     </div>
@@ -88,20 +95,46 @@
                     <div class="tabcontent">
                         <ul class="tabs">
                           <li><label for="tbg_blindtext_0">Details</label></li>
-                          <li><label for="tbg_blindtext_1">Platforms</label></li>
-                          <li><label for="tbg_blindtext_2">Stops</label></li>
+                          <li><label for="tbg_blindtext_1" class="platforms_stops">Platforms</label></li>
+                          <li><label for="tbg_blindtext_2" class="platforms_stops">Stops</label></li>
                           <li><label for="tbg_blindtext_3" class="tab_active">Ways</label></li>
+                          <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>
+                                    <th class="results-number">#</th>
+                                    <th class="results-number">Member #</th>
                                     <th class="results-name">Role</th>
-                                    <th class="results-name">Type</th>
-                                    <th class="results-name">Name / ID</th>
-                                    <th class="results-name">&nbsp;</th>
+                                    <th class="results-name">Name / Ref</th>
+                                    <th class="results-name">ID</th>
+                                    <th class="results-symbol">&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody id="route-values" class="results-tablerow">
+                            <tbody id="route-members" class="results-tablerow">
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="radio" id="tbg_blindtext_4" name="tbg_blindtext" class="hackbox">
+                    <div class="tabcontent">
+                        <ul class="tabs">
+                          <li><label for="tbg_blindtext_0">Details</label></li>
+                          <li><label for="tbg_blindtext_1" class="platforms_stops">Platforms</label></li>
+                          <li><label for="tbg_blindtext_2" class="platforms_stops">Stops</label></li>
+                          <li><label for="tbg_blindtext_3">Ways</label></li>
+                          <li><label for="tbg_blindtext_4" class="tab_active">Others</label></li>
+                        </ul>
+                        <table class="relationtable">
+                            <thead class="results-tableheaderrow">
+                                <tr>
+                                    <th class="results-number">#</th>
+                                    <th class="results-number">Member #</th>
+                                    <th class="results-name">Role</th>
+                                    <th class="results-name">Name / Ref</th>
+                                    <th class="results-name">ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="other-members" class="results-tablerow">
                             </tbody>
                         </table>
                     </div>
