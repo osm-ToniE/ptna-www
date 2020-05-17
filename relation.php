@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    $lang     = ( $_GET['lang']   && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
+    $lang     = ( $_GET['lang'] && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
     $inc_lang = './' . $lang . '/';
 ?>
 <html lang="<?php echo $lang; ?>">
@@ -22,8 +22,22 @@
             <div id="relationmap"></div>
             <div class="relationtables">
                 <h3 id ="osm-relation">OSM Relation</h3>
-                <span class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Not all members of the relation are currently shown on the map</span>
 
+<?php if ( $lang == 'de' ) { ?>
+                <span id="beta" class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Möglicherweise sind nicht alle Mitglieder der Relation auf der Karte angezeigt.</span>
+
+                <p>
+                    Diese Analyse konzentriert sich hauptsächlich auf (PTv2) "route" Relationen für Öffentlichen Nahverkehr.<br />
+                    Möglicherweise werden auch für andere Arten von Relationen brauchbare Details aufgezeigt, es gibt aber keine Garantie.
+                </p>
+<?php } else { ?>
+                <span id="beta" class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Possibly not all members of the relation are shown on the map.</span>
+
+                <p>
+                    This analysis focuses mainly on (PTv2) "route" relations for public transport.<br />
+                    Nevertheless, useful details may also be shown for other types of relations, but there is no guarantee.
+                </p>
+<?php } ?>
                 <section class="tabbing" id="tbg_blindtext">
                     <input type="radio" id="tbg_blindtext_0" name="tbg_blindtext" class="hackbox" checked>
                     <div class="tabcontent">
@@ -144,6 +158,8 @@
             <script>
                 showrelation();
             </script>
+
+            <iframe style="display:none" id="hiddenIframe" name="hiddenIframe"></iframe>
 
         </main> <!-- main -->
 

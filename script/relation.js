@@ -17,6 +17,7 @@ var layerplatforms;
 var layerplatformsroute;
 var layerstops;
 var layerstopsroute;
+var layerothers;
 
 var relation_id;
 var is_PTv2         = 0;
@@ -27,6 +28,13 @@ var relations_by_id = {};
 var OSM_Nodes       = {};
 var OSM_Ways        = {};
 var OSM_Relations   = {};
+var maxlat          =  -90;
+var minlat          =   90;
+var maxlon          = -180;
+var minlon          =  180;
+
+var colours         = { platform: 'blue', stop: 'green', route: 'red', other: 'black' };
+
 
 
 function showrelation() {
@@ -85,7 +93,7 @@ function showrelation() {
     layerplatformsroute = L.layerGroup();
     layerstops          = L.layerGroup();
     layerstopsroute     = L.layerGroup();
-    layerother          = L.layerGroup();
+    layerothers         = L.layerGroup();
 
     map = L.map( 'relationmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerways] } );
 
@@ -104,7 +112,7 @@ function showrelation() {
                         "<span style='color: blue'>Platform Route</span>"       : layerplatformsroute,
                         "<span style='color: green'>Stop-Positions</span>"      : layerstops,
                         "<span style='color: green'>Stop-Position Route</span>" : layerstopsroute,
-                        "<span style='color: black'>Other</span>"               : layerother
+                        "<span style='color: black'>Other</span>"               : layerothers
                       };
 
     var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -156,13 +164,13 @@ function readHttpResponse( responseText ) {
 
     writeRelationTable();
 
-    writePlatformStopsWaysOthersTables();
+    IterateOverMembers();
 
-    drawRelationWays();
+    // drawRelationWays();
 
-    drawRelationPlatforms();
+    // drawRelationPlatforms();
 
-    drawRelationStops();
+    // drawRelationStops();
 
     map.fitBounds( getRelationBounds() );
 
@@ -238,39 +246,6 @@ function drawRelationWays() {
             }
         }
     }
-}
-
-
-function drawWay( id, role, number ) {
-    var polyline_array = [];
-
-    var i = ways_by_id[id];
-    var node_id;
-    var n;
-    var way;
-
-    // console.log( "id = " + id + " index = " + i );
-
-    nodes = osm_data["elements"][i]["nodes"];
-
-    // console.log( "Number of nodes : " + nodes.length );
-
-    for ( var j = 0; j < nodes.length; j++ ) {
-        node_id = osm_data["elements"][i]["nodes"][j];
-        n       = nodes_by_id[node_id];
-
-        polyline_array.push( [ osm_data["elements"][n]['lat'], osm_data["elements"][n]['lon'] ] );
-        // console.log( "Add Node: " + osm_data["elements"][n]['lat'] + " / " + osm_data["elements"][n]['lon'] );
-    }
-
-    if ( role == 'platform' ) {
-        way = L.polyline(polyline_array,{color:'blue',weight:4,fill:false}).addTo( layerplatforms );
-    } else if ( role == 'stop' ) {
-        way = L.polyline(polyline_array,{color:'green',weight:4,fill:false}).addTo( layerstops );
-    } else {
-        way = L.polyline(polyline_array,{color:'red',weight:4,fill:false}).addTo( layerways );
-    }
-    return way;
 }
 
 
@@ -376,46 +351,7 @@ function drawRelationStops() {
 }
 
 
-function drawNode( id, role, label ) {
-
-    var i = nodes_by_id[id];
-
-    var circle;
-    var marker;
-
-    // console.log( "id = " + id + " index = " + i );
-
-    if ( role == "platform" ) {
-        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'blue',radius:0.75,fill:true}).addTo(layerplatforms);
-        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'blue'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerplatforms);
-    } else if ( role == "stop"     ) {
-        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'green',radius:0.75,fill:true}).addTo(layerstops);
-        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'green'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerstops);
-    } else {
-        var circle = L.circle([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'red',radius:0.75,fill:true}).addTo(layerways);
-        var marker = L.marker([osm_data["elements"][i]['lat'], osm_data["elements"][i]['lon']],{color:'red'}).bindTooltip(label,{permanent:true,direction:'center'}).addTo(layerways);
-    }
-
-    return [marker,circle];
-}
-
-
 function getRelationBounds() {
-    var maxlat =  -90;
-    var minlat =   90;
-    var maxlon = -180;
-    var minlon =  180;
-    var i;
-
-    for ( var n in nodes_by_id ) {
-        i = nodes_by_id[n];
-        if ( osm_data["elements"][i]["lat"] < minlat ) minlat = osm_data["elements"][i]["lat"];
-        if ( osm_data["elements"][i]["lat"] > maxlat ) maxlat = osm_data["elements"][i]["lat"];
-        if ( osm_data["elements"][i]["lon"] < minlon ) minlon = osm_data["elements"][i]["lon"];
-        if ( osm_data["elements"][i]["lon"] > maxlon ) maxlon = osm_data["elements"][i]["lon"];
-    }
-
-    // console.log ( "Bounds: " + [[minlat,minlon],[maxlat,maxlon]].toString() );
     return [ [minlat, minlon], [maxlat, maxlon] ];
 }
 
@@ -424,7 +360,7 @@ function writeRelationTable( ) {
 
     var object = OSM_Relations[relation_id];
 
-    document.getElementById("osm-relation").innerText += ' ' + relation_id;
+    document.getElementById("osm-relation").innerHTML += ' ' + getObjectLinks( relation_id, "relation" );
 
     if ( object ) {
         if ( object["type"] == "relation"  &&
@@ -443,19 +379,26 @@ function writeRelationTable( ) {
 }
 
 
-function writePlatformStopsWaysOthersTables() {
+function IterateOverMembers() {
     var object = OSM_Relations[relation_id];
 
     var member      = {};
     var type        = '';
     var role        = '';
-    var ref         = '';
+    var id          = '';
     var match       = "other"
     var html        = "";
     var img         = 'none';
     var number      = { platform:1, stop:1, route:1, other:1 };
     var name        = '';
-    var wayimg      = "IsolatedWay"
+    var wayimg      = "IsolatedWay";
+
+    var latlonroute = {};
+
+    latlonroute['platform'] = [];
+    latlonroute['stop']     = [];
+    latlonroute['route']    = [];
+    latlonroute['other']    = [];
 
     if ( object ) {
         for ( var j = 0; j < object['members'].length; j++ ) {
@@ -464,15 +407,15 @@ function writePlatformStopsWaysOthersTables() {
             match       = "other";
             role        = object['members'][j]["role"];
             type        = object['members'][j]["type"];
-            ref         = object['members'][j]["ref"];
+            id          = object['members'][j]["ref"];
             if ( type == "node" ) {
-                member = OSM_Nodes[ref];
+                member = OSM_Nodes[id];
                 img    = "Node";
             } else if ( type == "way" ) {
-                member = OSM_Ways[ref];
+                member = OSM_Ways[id];
                 img    = "Way";
             } else if ( type == "relation" ) {
-                member = OSM_Relations[ref];
+                member = OSM_Relations[id];
                 img    = "Relation";
             }
 
@@ -527,6 +470,8 @@ function writePlatformStopsWaysOthersTables() {
                     }
                 }
 
+                latlonroute[match].push( drawObject( id, type, match, number[match] ) );
+
                 html = "";
                 name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || '';
                 html += "<tr>";
@@ -534,134 +479,131 @@ function writePlatformStopsWaysOthersTables() {
                 html += "    <td class=\"results-number\">" + (j+1)             + "</td>";
                 html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
                 html += "    <td class=\"results-name\">"   + htmlEscape(name)  + "</td>";
-                html += "    <td class=\"results-name\"><img src=\"/img/" + img + ".svg\"> " + ref + "</td>";
+                html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
 //                if ( match == "route" ) {
 //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
 //                }
                 html += "</tr>\n";
                 document.getElementById(match+"-members").innerHTML += html;
+
             }
+        }
+
+        if ( latlonroute['platform'].length > 1 ) {
+            L.polyline(latlonroute['platform'],{color:colours['platform'],weight:3,fill:false}).addTo( layerplatformsroute );
+        }
+        if ( latlonroute['stop'].length > 1 ) {
+            L.polyline(latlonroute['stop'],{color:colours['stop'],weight:3,fill:false}).addTo( layerstopsroute );
         }
     }
 }
 
 
-function writeRouteTable() {
-    var object = OSM_Relations[relation_id];
-    var number          = 1;
-    var membernumber    = 15;
+function drawObject( id, type, match, label_number ) {
 
-    if ( object ) {
-        var html = "";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Starting here' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/FirstWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Not connected to next' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/NoExitWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Not connected at all' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/IsolatedWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Roundabout start' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/RoundaboutStart.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Roundabout end' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/RoundaboutEnd.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Not connected to previous' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/RestartWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Roundabout' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/Roundabout.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'Connected at both ends' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/ConnectedWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + number++ + "</td>";
-        html += "    <td class=\"results-number\">" + membernumber++ + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + 'This is the end' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Way.svg\">12323' + "</td>";
-        html += "    <td class=\"symbol\"><img src=\"/img/LastWay.png\" width=\"32\" height=\"32\"></td>";
-        html += "</tr>\n";
-        document.getElementById("route-members").innerHTML = html;
+    if ( type == "node" ) {
+        return drawNode( id, match, label_number );
+    } else if ( type == "way" ) {
+        return drawWay( id, match, label_number );
+    } else if ( type == "relation" ) {
+        // return drawRelation( id, match, label_number )
     }
+    return [0,0];
 }
 
 
-function writeOtherTable() {
-    var object = OSM_Relations[relation_id];
+function drawNode( id, match, label ) {
 
-    if ( object ) {
-        var html = "";
-        html += "<tr>";
-        html += "    <td class=\"results-number\">" + 1 + "</td>";
-        html += "    <td class=\"results-number\">" + 23 + "</td>";
-        html += "    <td class=\"results-name\">" + '' + "</td>";
-        html += "    <td class=\"results-name\">" + '... comming soon' + "</td>";
-        html += "    <td class=\"results-name\">" + '<img src=\"/img/Relation.svg\">356' + "</td>";
-        html += "</tr>\n";
-        document.getElementById("other-members").innerHTML = html;
+    var lat = OSM_Nodes[id]['lat'];
+    var lon = OSM_Nodes[id]['lon'];
+    if ( match == "platform" ) {
+        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerplatforms);
+        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerplatforms);
+    } else if ( match == "stop"     ) {
+        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerstops);
+        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerstops);
+    } else if ( match == "route"     ) {
+        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerways);
+        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerways);
+    } else {
+        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerothers);
+        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerothers);
     }
+    if ( lat < minlat ) minlat = lat;
+    if ( lat > maxlat ) maxlat = lat;
+    if ( lon < minlon ) minlon = lon;
+    if ( lon > maxlon ) maxlon = lon;
+
+    return [lat,lon];
 }
 
+
+function drawWay( id, match, label ) {
+    var lat;
+    var lon;
+
+    var polyline_array = [];
+    var node_id;
+    var n;
+    var way;
+
+    var nodes = OSM_Ways[id]["nodes"];
+
+    for ( var j = 0; j < nodes.length; j++ ) {
+        node_id = nodes[j];
+        lat     = OSM_Nodes[node_id]['lat'];
+        lon     = OSM_Nodes[node_id]['lon'];
+        if ( lat < minlat ) minlat = lat;
+        if ( lat > maxlat ) maxlat = lat;
+        if ( lon < minlon ) minlon = lon;
+        if ( lon > maxlon ) maxlon = lon;
+
+        polyline_array.push( [ lat, lon ] );
+    }
+
+    if ( match == 'platform' ) {
+        drawNode( nodes[0], match, label )
+        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerplatforms );
+    } else if ( match == 'stop' ) {
+        drawNode( nodes[0], match, label )
+        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerstops );
+    } else if ( match == "route" ) {
+        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerways );
+    } else {
+        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerothers );
+    }
+
+    return [OSM_Nodes[nodes[0]]['lat'],OSM_Nodes[nodes[0]]['lon']];
+}
+
+
+function getObjectLinks( id, type ) {
+    var html = '';
+
+    if ( type ) {
+        if ( type == "node" ) {
+            html  = "<img src=\"/img/Node.svg\" alt=\"Node\" /> ";
+            html += "<a href=\"https://osm.org/node/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
+            html += "<a href=\"https://osm.org/edit?editor=id&amp;node=" + id + "\" title=\"Edit in iD\">iD</a>, ";
+            html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>",
+            html += ")</small>"
+        } else if ( type == "way" ) {
+            html  = "<img src=\"/img/Way.svg\" alt=\"Way\" /> ";
+            html += "<a href=\"https://osm.org/way/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
+            html += "<a href=\"https://osm.org/edit?editor=id&amp;way=" + id + "\" title=\"Edit in iD\">iD</a>, ";
+            html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>",
+            html += ")</small>"
+        } else if ( type == "relation" ) {
+            html  = "<img src=\"/img/Relation.svg\" alt=\"Relation\" /> ";
+            html += "<a href=\"https://osm.org/relation/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
+            html += "<a href=\"https://osm.org/edit?editor=id&amp;relation=" + id + "\" title=\"Edit in iD\">iD</a>, ";
+            html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>",
+            html += ")</small>"
+        }
+    }
+
+    return html;
+}
 
 function htmlEscape( str ) {
     return str
