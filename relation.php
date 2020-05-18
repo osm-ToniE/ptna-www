@@ -68,9 +68,6 @@
                             <li><label for="tbg_blindtext_3">Ways</label></li>
                             <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
-                        <!--
-                            https://www.w3schools.com/howto/howto_css_table_responsive.asp
-                        -->
                         <table class="relationtable">
                             <thead class="results-tableheaderrow">
                                 <tr>

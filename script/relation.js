@@ -337,7 +337,7 @@ function IterateOverMembers() {
                 html += "    <td class=\"results-number\">" + number[match]++   + "</td>";
                 html += "    <td class=\"results-number\">" + (j+1)             + "</td>";
                 html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
-                html += "    <td class=\"results-name\">"   + htmlEscape(name)  + "</td>";
+                html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
                 html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
 //                if ( match == "route" ) {
 //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";

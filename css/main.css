@@ -71,6 +71,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .results-tableheaderrow   { background-color: #dddddd; }
 .results-tablerow         { background-color: white;   }
 .results-name             { text-align:left; white-space:nowrap; }
+.results-text             { text-align:left; }
 .results-region           { text-align:left;   }
 .results-network          { text-align:left;   }
 .results-datadate         { text-align:center; }
