@@ -235,18 +235,19 @@ function writeRelationTable( ) {
 function IterateOverMembers() {
     var object = OSM_Relations[relation_id];
 
-    var member      = {};
-    var type        = '';
-    var role        = '';
-    var id          = '';
-    var match       = "other"
-    var html        = "";
-    var img         = 'none';
-    var number      = { platform:1, stop:1, route:1, other:1 };
-    var name        = '';
-    var wayimg      = "IsolatedWay";
+    var member              = {};
+    var type                = '';
+    var role                = '';
+    var id                  = '';
+    var match               = "other"
+    var html                = "";
+    var img                 = 'none';
+    var number              = { platform:1, stop:1, route:1, other:1 };
+    var name                = '';
+    var wayimg              = "IsolatedWay";
+    var label_of_object     = {}
 
-    var latlonroute = {};
+    var latlonroute         = {};
 
     latlonroute['platform'] = [];
     latlonroute['stop']     = [];
@@ -323,7 +324,12 @@ function IterateOverMembers() {
                     }
                 }
 
-                latlonroute[match].push( drawObject( id, type, match, number[match] ) );
+                if ( label_of_object[id] ) {
+                    label_of_object[id] = label_of_object[id] + "+" + number[match].toString();
+                } else {
+                    label_of_object[id] = number[match].toString();
+                }
+                latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
 
                 html = "";
                 name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
@@ -355,7 +361,7 @@ function IterateOverMembers() {
 function drawObject( id, type, match, label_number ) {
 
     if ( type == "node" ) {
-        return drawNode( id, match, label_number, true );
+        return drawNode( id, match, label_number, true, true );
     } else if ( type == "way" ) {
         return drawWay( id, match, label_number, true );
     } else if ( type == "relation" ) {
