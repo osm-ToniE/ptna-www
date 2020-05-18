@@ -154,7 +154,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 #relationmap              { height: 700px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 16px; }
 
-#beta                     { display: block; }
+#beta                     { display: none; }
 
 .relationtables           { float:left; max-width:49.146%; }
 .relationtable            { min-width: 431px; max-width: 100%;}

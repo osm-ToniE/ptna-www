@@ -21,10 +21,8 @@ var layerothers;
 
 var relation_id;
 var is_PTv2         = 0;
-var osm_data        = {};
-var nodes_by_id     = {};
-var ways_by_id      = {};
-var relations_by_id = {};
+var osm_data        = [];
+var osm_data_index  = 0;
 var OSM_Nodes       = {};
 var OSM_Ways        = {};
 var OSM_Relations   = {};
@@ -149,28 +147,14 @@ function showrelation() {
     }
 }
 
+
 function readHttpResponse( responseText ) {
-    console.log( '>' + responseText.toString() + "<\n" );
 
-    osm_data = JSON.parse( responseText.toString() )
-
-    console.log( '>' + osm_data["version"] + "<" );
-    console.log( '>' + osm_data["generator"] + "<" );
-    console.log( '>' + osm_data["copyright"] + "<" );
-    console.log( '>' + osm_data["attribution"] + "<" );
-    console.log( '>' + osm_data["license"] + "<" );
-
-    fillNodesWaysRelations();
+    parseHttpResponse( responseText );
 
     writeRelationTable();
 
     IterateOverMembers();
-
-    // drawRelationWays();
-
-    // drawRelationPlatforms();
-
-    // drawRelationStops();
 
     map.fitBounds( getRelationBounds() );
 
@@ -202,152 +186,21 @@ function fillNodesWaysRelations() {
     var OSM_ID   = 0;
     var OSM_TYPE = 0;
 
-    for ( var i = 0; i < osm_data["elements"].length; i++ ) {
-        OSM_ID   = osm_data["elements"][i]["id"];
-        OSM_TYPE = osm_data["elements"][i]["type"];
+    for ( var i = 0; i < osm_data[osm_data_index]["elements"].length; i++ ) {
+        OSM_ID   = osm_data[osm_data_index]["elements"][i]["id"];
+        OSM_TYPE = osm_data[osm_data_index]["elements"][i]["type"];
 
         if ( OSM_TYPE == "node" ) {
-            nodes_by_id[OSM_ID] = i;
-            OSM_Nodes[OSM_ID]   = osm_data["elements"][i];
+            OSM_Nodes[OSM_ID]   = osm_data[osm_data_index]["elements"][i];
         } else if ( OSM_TYPE == "way" ) {
-            ways_by_id[OSM_ID] = i;
-            OSM_Ways[OSM_ID]    = osm_data["elements"][i];
+            OSM_Ways[OSM_ID]    = osm_data[osm_data_index]["elements"][i];
         } else if ( OSM_TYPE == "relation" ) {
-            relations_by_id[OSM_ID] = i;
-            OSM_Relations[OSM_ID] = osm_data["elements"][i];
+            OSM_Relations[OSM_ID] = osm_data[osm_data_index]["elements"][i];
         }
     }
-}
 
+    osm_data_index++;
 
-function drawRelationWays() {
-    var i           = relations_by_id[relation_id];
-    var waynumber   = 1;
-
-    // i can be undefined or even 0, first element of array
-
-    if ( i || i === 0 ) {
-        if ( osm_data["elements"][i]["type"] == "relation"  &&
-             osm_data["elements"][i]["id"]   == relation_id    ) {
-
-            var members = osm_data["elements"][i]["members"];
-            for ( var j = 0; j < members.length; j++ ) {
-                if ( members[j]["type"] == "way" ) {
-                    if ( members[j]["role"] != "stop"                &&
-                         members[j]["role"] != "stop_exit_only"      &&
-                         members[j]["role"] != "stop_entry_only"     &&
-                         members[j]["role"] != "platform"            &&
-                         members[j]["role"] != "platform_exit_only"  &&
-                         members[j]["role"] != "platform_entry_only"    ) {
-
-                        drawWay( members[j]["ref"], "way", waynumber++ );
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-function drawRelationPlatforms() {
-    var i                   = relations_by_id[relation_id];
-    var platformnumber      = 1;
-    var platformlabel_of_id = {};
-    var polyline_array      = [];
-
-    if ( i ) {
-        if ( osm_data["elements"][i]["type"] == "relation"  &&
-             osm_data["elements"][i]["id"]   == relation_id    ) {
-
-            var members = osm_data["elements"][i]["members"];
-            for ( var j = 0; j < members.length; j++ ) {
-                if ( members[j]["role"] == "platform"            ||
-                     members[j]["role"] == "platform_exit_only"  ||
-                     members[j]["role"] == "platform_entry_only"    ) {
-
-                    if ( members[j]["type"] == "node" ) {
-                        if ( platformlabel_of_id["n"+members[j]["ref"]] ) {
-                            platformlabel_of_id["n"+members[j]["ref"]] += "+" + platformnumber.toString();
-                        } else {
-                            platformlabel_of_id["n"+members[j]["ref"]] = platformnumber.toString();
-                        }
-                        drawNode( members[j]["ref"], "platform", platformlabel_of_id["n"+members[j]["ref"]] );
-                        var node_id    = members[j]["ref"];
-                        var node_index = nodes_by_id[node_id];
-                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
-                    } else if ( members[j]["type"] == "way" ) {
-                        if ( platformlabel_of_id["w"+members[j]["ref"]] ) {
-                            platformlabel_of_id["w"+members[j]["ref"]] += "+" + platformnumber.toString();
-                        } else {
-                            platformlabel_of_id["w"+members[j]["ref"]] = platformnumber.toString();
-                        }
-                        var way        = drawWay( members[j]["ref"], "platform", platformlabel_of_id["w"+members[j]["ref"]] );
-                        var way_id     = members[j]["ref"];
-                        var way_index  = ways_by_id[way_id];
-                        var node_id    = osm_data["elements"][way_index]["nodes"][0];
-                        var node_index = nodes_by_id[node_id];
-                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'blue'}).bindTooltip(platformlabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(layerplatforms);
-                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
-                    }
-                    platformnumber++;
-                }
-            }
-            if ( platformnumber > 2 ) {
-                var route = L.polyline(polyline_array,{color:'blue',weight:3,fill:false}).addTo(layerplatformsroute);
-            }
-        }
-    }
-}
-
-
-function drawRelationStops() {
-    var i               = relations_by_id[relation_id];
-    var stopnumber      = 1;
-    var stoplabel_of_id = {};
-    var polyline_array      = [];
-
-    if ( i ) {
-        if ( osm_data["elements"][i]["type"] == "relation"  &&
-             osm_data["elements"][i]["id"]   == relation_id    ) {
-
-            var members = osm_data["elements"][i]["members"];
-            for ( var j = 0; j < members.length; j++ ) {
-                if ( members[j]["role"] == "stop"            ||
-                     members[j]["role"] == "stop_exit_only"  ||
-                     members[j]["role"] == "stop_entry_only"    ) {
-
-                    if ( members[j]["type"] == "node" ) {
-                        if ( stoplabel_of_id["n"+members[j]["ref"]] ) {
-                            stoplabel_of_id["n"+members[j]["ref"]] += "+" + stopnumber.toString();
-                        } else {
-                            stoplabel_of_id["n"+members[j]["ref"]] = stopnumber.toString();
-                        }
-                        drawNode( members[j]["ref"], "stop", stoplabel_of_id["n"+members[j]["ref"]] );
-                        var node_id    = members[j]["ref"];
-                        var node_index = nodes_by_id[node_id];
-                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
-                    } else if ( members[j]["type"] == "way" ) {
-                        if ( stoplabel_of_id["w"+members[j]["ref"]] ) {
-                            stoplabel_of_id["w"+members[j]["ref"]] += "+" + stopnumber.toString();
-                        } else {
-                            stoplabel_of_id["w"+members[j]["ref"]] = stopnumber.toString();
-                        }
-                        var way        = drawWay( members[j]["ref"], "stop", stoplabel_of_id["w"+members[j]["ref"]] );
-                        var way_id     = members[j]["ref"];
-                        var way_index  = ways_by_id[way_id];
-                        var node_id    = osm_data["elements"][way_index]["nodes"][0];
-                        var node_index = nodes_by_id[node_id];
-                        var marker     = L.marker([osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']],{color:'green'}).bindTooltip(stoplabel_of_id["w"+members[j]["ref"]],{permanent: true,direction:'center'}).addTo(layerstops);
-                        polyline_array.push( [osm_data["elements"][node_index]['lat'], osm_data["elements"][node_index]['lon']] );
-                    }
-                    stopnumber++;
-                }
-            }
-            if ( stopnumber > 2 ) {
-                var route = L.polyline(polyline_array,{color:'green',weight:3,fill:false}).addTo(layerstopsroute);
-            }
-        }
-    }
 }
 
 
@@ -473,7 +326,7 @@ function IterateOverMembers() {
                 latlonroute[match].push( drawObject( id, type, match, number[match] ) );
 
                 html = "";
-                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || '';
+                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
                 html += "<tr>";
                 html += "    <td class=\"results-number\">" + number[match]++   + "</td>";
                 html += "    <td class=\"results-number\">" + (j+1)             + "</td>";
@@ -502,32 +355,32 @@ function IterateOverMembers() {
 function drawObject( id, type, match, label_number ) {
 
     if ( type == "node" ) {
-        return drawNode( id, match, label_number );
+        return drawNode( id, match, label_number, true );
     } else if ( type == "way" ) {
-        return drawWay( id, match, label_number );
+        return drawWay( id, match, label_number, true );
     } else if ( type == "relation" ) {
-        // return drawRelation( id, match, label_number )
+        return drawRelation( id, match, label_number, true )
     }
     return [0,0];
 }
 
 
-function drawNode( id, match, label ) {
+function drawNode( id, match, label, set_marker, set_circle ) {
 
     var lat = OSM_Nodes[id]['lat'];
     var lon = OSM_Nodes[id]['lon'];
     if ( match == "platform" ) {
-        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerplatforms);
-        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerplatforms);
+        if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerplatforms);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerplatforms);
     } else if ( match == "stop"     ) {
-        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerstops);
-        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerstops);
+        if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerstops);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerstops);
     } else if ( match == "route"     ) {
-        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerways);
-        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerways);
+        if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerways);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerways);
     } else {
-        var circle = L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerothers);
-        var marker = L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerothers);
+        if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerothers);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerothers);
     }
     if ( lat < minlat ) minlat = lat;
     if ( lat > maxlat ) maxlat = lat;
@@ -538,14 +391,12 @@ function drawNode( id, match, label ) {
 }
 
 
-function drawWay( id, match, label ) {
-    var lat;
-    var lon;
+function drawWay( id, match, label, set_marker ) {
+    var lat = 0;
+    var lon = 0;
 
     var polyline_array = [];
     var node_id;
-    var n;
-    var way;
 
     var nodes = OSM_Ways[id]["nodes"];
 
@@ -562,18 +413,86 @@ function drawWay( id, match, label ) {
     }
 
     if ( match == 'platform' ) {
-        drawNode( nodes[0], match, label )
-        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerplatforms );
+        if ( set_marker ) drawNode( nodes[0], match, label, true, false )
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerplatforms );
     } else if ( match == 'stop' ) {
-        drawNode( nodes[0], match, label )
-        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerstops );
+        if ( set_marker ) drawNode( nodes[0], match, label, true, false )
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerstops );
     } else if ( match == "route" ) {
-        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerways );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerways );
     } else {
-        way = L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerothers );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerothers );
     }
 
     return [OSM_Nodes[nodes[0]]['lat'],OSM_Nodes[nodes[0]]['lon']];
+}
+
+
+function drawRelation( id, match, label, set_marker ) {
+    var lat = 0;
+    var lon = 0;
+
+    var member_type;
+    var member_role;
+    var member_id;
+    var have_set_marker = 0;
+
+    var members = OSM_Relations[id]["members"];
+
+    for ( var j = 0; j < members.length; j++ ) {
+        member_type = members[j]['type'];
+        member_role = members[j]['role'];
+        member_id   = members[j]['ref'];
+
+        if ( member_type == "node" ) {
+            if ( !OSM_Nodes[member_id] ) {
+                console.log( "Need to download Relation " + id + " for  Node: " + member_id );
+                downloadRelationSync( id );
+                console.log( "... done" );
+            }
+            if ( OSM_Nodes[member_id] ) {
+                if ( !have_set_marker ) {
+                    [lat,lon] = drawNode( member_id, match, label, true, rue );
+                    have_set_marker = 1;
+                } else {
+                    drawNode( member_id, match, label, false, false );
+                }
+            } else {
+                console.log( "Failed to download Relation " + id + " for Node: " + member_id );
+            }
+        } else if ( member_type == "way" ) {
+            if ( !OSM_Ways[member_id] ) {
+                console.log( "Need to download Relation " + id + " for  Way: " + member_id );
+                downloadRelationSync( id );
+                console.log( "... done" );
+            }
+            if ( OSM_Ways[member_id] ) {
+                if ( !have_set_marker ) {
+                    [lat,lon] = drawWay( member_id, match, label, true );
+                    have_set_marker = 1;
+                } else {
+                    drawWay( member_id, match, label, false );
+                }
+            } else {
+                console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
+            }
+        } else if ( member_type == "relation" ) {
+            if ( !OSM_Relations[member_id] ) {
+                console.log( "Need to download Relation " + id + " for  Relation: " + member_id );
+                downloadRelationSync( id );
+                console.log( "... done" );
+            }
+            if ( OSM_Relations[member_id] ) {
+                console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
+                document.getElementById("beta").style.display = "block";
+            } else {
+                console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
+            }
+        }
+
+    }
+
+    return [ lat, lon ];
 }
 
 
@@ -612,4 +531,46 @@ function htmlEscape( str ) {
         .replace(/'/g, '&#39;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
+}
+
+
+function downloadRelationSync( relation_id  ) {
+
+    var url     = `${OSM_API_URL_PREFIX}${relation_id}${OSM_API_URL_SUFFIX}`;
+    var request = new XMLHttpRequest();
+    request.open( "GET", url, false );
+    request.onreadystatechange = function() {
+        if ( request.readyState === 4 ) {
+            if ( request.status === 200 ) {
+                var type = request.getResponseHeader( "Content-Type" );
+                if ( type.match(/application\/json/) ) {
+                    parseHttpResponse( request.responseText );
+                }
+            } else if ( request.status === 410 ) {
+                alert( "Relation does not exist (" + relation_id + ")" );
+            } else {
+                alert( "Response Code: " + request.status );
+            }
+        }
+    };
+
+    request.send();
+
+}
+
+
+function parseHttpResponse( data ) {
+
+    // console.log( '>' + data.toString() + "<\n" );
+
+    osm_data[osm_data_index] = JSON.parse( data.toString() )
+
+    // console.log( '>' + osm_data[osm_data_index]["version"] + "<" );
+    // console.log( '>' + osm_data[osm_data_index]["generator"] + "<" );
+    // console.log( '>' + osm_data[osm_data_index]["copyright"] + "<" );
+    // console.log( '>' + osm_data[osm_data_index]["attribution"] + "<" );
+    // console.log( '>' + osm_data[osm_data_index]["license"] + "<" );
+
+    fillNodesWaysRelations();
+
 }
