@@ -1,6 +1,6 @@
 
 
-body    {   margin:         16px;   }
+body    {   margin: 0.8%;   }
 
 img     {   vertical-align: middle; }
 
@@ -153,11 +153,11 @@ code             { font-weight: 500; font-size: 1.1em; }
 /**************************************/
 /* settings for the relation.php file */
 
-#relationmap              { height: 700px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 16px; }
+#relationmap              { height: 670px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
 
 #beta                     { display: none; }
 
-.relationtables           { float:left; max-width:49.146%; }
+.relationtables           { float:left; max-width:47.6%; }
 .relationtable            { min-width: 431px; max-width: 100%;}
 
 .symbol                   { text-align: center; padding: 0; border-width: 0px; height:32px;}
