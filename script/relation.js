@@ -500,7 +500,7 @@ function drawRelation( id, match, label, set_marker ) {
             }
             if ( OSM_Nodes[member_id] ) {
                 if ( !have_set_marker ) {
-                    [lat,lon] = drawNode( member_id, match, label, true, rue );
+                    [lat,lon] = drawNode( member_id, match, label, true, true );
                     have_set_marker = 1;
                 } else {
                     drawNode( member_id, match, label, false, false );
