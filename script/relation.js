@@ -8,6 +8,8 @@ const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
 const defaultzoom   = 10;
 
+const members_per_timeout = 5;
+
 const osmlicence    = 'Map data &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
 const attribution   = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
 
@@ -249,7 +251,7 @@ function writeRelationTable( ) {
             document.getElementById("relation-values").innerHTML = html;
         }
     }
-    updateAnalysisProgress();
+    updateAnalysisProgress( 1 );
 
 }
 
@@ -278,116 +280,127 @@ function handleMember( relation_id, index ) {
 
     var object = OSM_Relations[relation_id];
 
-    if ( index < object['members'].length ) {
+    var members_handled = 0;
+    var listlength      = object['members'].length;
 
-        var member      = {};
-        var attention   = {};
-        var match       = "other";
-        var html        = "";
-        var img         = 'none';
-        var role        = object['members'][index]["role"];
-        var type        = object['members'][index]["type"];
-        var id          = object['members'][index]["ref"];
-        var name        = '';
-        var wayimg      = "IsolatedWay";
+    for ( var members_handled = 0; members_handled < members_per_timeout; members_handled++ ) {
 
-        if ( type == "node" ) {
-            member = OSM_Nodes[id];
-            img    = "Node";
-        } else if ( type == "way" ) {
-            member = OSM_Ways[id];
-            img    = "Way";
-        } else if ( type == "relation" ) {
-            member = OSM_Relations[id];
-            img    = "Relation";
-        }
+        if ( index < listlength ) {
 
-        if ( member ) {
-            if ( is_PTv2 ) {
-                if ( role == "platform"            ||
-                        role == "platform_exit_only"  ||
-                        role == "platform_entry_only" ||
-                        (member['tags']                     &&
-                        member['tags']['public_transport'] &&
-                        member['tags']['public_transport'] == "platform")
-                    ) {
-                    match = "platform";
-                    if ( !role.match(/platform/) ) attention['role'] = " attention";
-                }
-            } else {
-                if ( role.match(/platform/) ) {
-                    match = "platform";
-                }
+            var member      = {};
+            var attention   = {};
+            var match       = "other";
+            var html        = "";
+            var img         = 'none';
+            var role        = object['members'][index]["role"];
+            var type        = object['members'][index]["type"];
+            var id          = object['members'][index]["ref"];
+            var name        = '';
+            var wayimg      = "IsolatedWay";
+
+            if ( type == "node" ) {
+                member = OSM_Nodes[id];
+                img    = "Node";
+            } else if ( type == "way" ) {
+                member = OSM_Ways[id];
+                img    = "Way";
+            } else if ( type == "relation" ) {
+                member = OSM_Relations[id];
+                img    = "Relation";
             }
 
-            if ( match == "other" ) {
+            if ( member ) {
                 if ( is_PTv2 ) {
-                    if ( role == "stop"        ||
-                            role == "stop_exit_only"  ||
-                            role == "stop_entry_only" ||
-                        (member['tags']                     &&
+                    if ( role == "platform"            ||
+                            role == "platform_exit_only"  ||
+                            role == "platform_entry_only" ||
+                            (member['tags']                     &&
                             member['tags']['public_transport'] &&
-                            member['tags']['public_transport'] == "stop_position")
+                            member['tags']['public_transport'] == "platform")
                         ) {
-                        match = "stop";
+                        match = "platform";
+                        if ( !role.match(/platform/) ) attention['role'] = " attention";
                     }
                 } else {
-                    if ( role.match(/stop/) ||
-                        (member['tags']            &&
-                            member['tags']['highway'] &&
-                            member['tags']['highway'] == "bus_stop")) {
-                        match = "stop";
+                    if ( role.match(/platform/) ) {
+                        match = "platform";
                     }
                 }
-            }
 
-            if ( match == "other" ) {
-                if ( type == "way" ) {
+                if ( match == "other" ) {
                     if ( is_PTv2 ) {
-                        if ( role == "" ) {
-                            match = "route";
+                        if ( role == "stop"        ||
+                                role == "stop_exit_only"  ||
+                                role == "stop_entry_only" ||
+                            (member['tags']                     &&
+                                member['tags']['public_transport'] &&
+                                member['tags']['public_transport'] == "stop_position")
+                            ) {
+                            match = "stop";
                         }
                     } else {
-                        if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
-                            match = "route";
+                        if ( role.match(/stop/) ||
+                            (member['tags']            &&
+                                member['tags']['highway'] &&
+                                member['tags']['highway'] == "bus_stop")) {
+                            match = "stop";
                         }
                     }
                 }
+
+                if ( match == "other" ) {
+                    if ( type == "way" ) {
+                        if ( is_PTv2 ) {
+                            if ( role == "" ) {
+                                match = "route";
+                            }
+                        } else {
+                            if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
+                                match = "route";
+                            }
+                        }
+                    }
+                }
+
+                if ( label_of_object[id] ) {
+                    label_of_object[id] = label_of_object[id] + "+" + number_of_match[match].toString();
+                } else {
+                    label_of_object[id] = number_of_match[match].toString();
+                }
+
+                latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
+
+                if ( match == "route" && number_of_match[match] == 1 ) {
+                    map.fitBounds( getRelationBounds() );
+                }
+
+                html = "";
+                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
+                html += "<tr>";
+                html += "    <td class=\"results-number\">" + number_of_match[match]++   + "</td>";
+                html += "    <td class=\"results-number\">" + (index+1)             + "</td>";
+                html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
+                html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
+                html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
+        //                if ( match == "route" ) {
+        //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
+        //                }
+                html += "</tr>\n";
+                document.getElementById(match+"-members").innerHTML += html;
+
             }
 
-            if ( label_of_object[id] ) {
-                label_of_object[id] = label_of_object[id] + "+" + number_of_match[match].toString();
-            } else {
-                label_of_object[id] = number_of_match[match].toString();
-            }
-
-            latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
-
-            if ( match == "route" && number_of_match[match] == 1 ) {
-                map.fitBounds( getRelationBounds() );
-            }
-
-            html = "";
-            name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
-            html += "<tr>";
-            html += "    <td class=\"results-number\">" + number_of_match[match]++   + "</td>";
-            html += "    <td class=\"results-number\">" + (index+1)             + "</td>";
-            html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
-            html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
-            html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
-    //                if ( match == "route" ) {
-    //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
-    //                }
-            html += "</tr>\n";
-            document.getElementById(match+"-members").innerHTML += html;
-
-            updateAnalysisProgress();
-
-            // start handling the next member after 0 msec break
-
-            setTimeout( handleMember, 0, relation_id, (index+1) );
-
+            index++;
         }
+    }
+
+    if ( index < listlength ) {
+        updateAnalysisProgress( members_per_timeout );
+
+        // start handling the next member after 0 msec break
+
+        setTimeout( handleMember, 0, relation_id, index );
+
     } else {
         // reached the end of the list
 
@@ -399,6 +412,8 @@ function handleMember( relation_id, index ) {
         }
 
         map.fitBounds( getRelationBounds() );
+
+        updateAnalysisProgress( members_handled+1 );
 
     }
 
@@ -635,8 +650,8 @@ function parseHttpResponse( data ) {
 }
 
 
-function updateAnalysisProgress() {
-
-    aBar.value++;
+function updateAnalysisProgress( increment ) {
+    increment = increment || 1;
+    aBar.value += increment;
     document.getElementById('analysis_text').innerText = Math.floor((100 / analysiscounter) * aBar.value).toString();
 }
