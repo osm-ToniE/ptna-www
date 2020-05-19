@@ -20,6 +20,7 @@ var layerstopsroute;
 var layerothers;
 
 var relation_id;
+var analysiscounter = 2;    // 1.) writeRelationTable, 2.) ... iteration over members
 var is_PTv2         = 0;
 var osm_data        = [];
 var osm_data_index  = 0;
@@ -33,14 +34,21 @@ var minlon          =  180;
 
 var colours         = { platform: 'blue', stop: 'green', route: 'red', other: 'black' };
 
-
+var dBar;
+var aBar;
 
 function showrelation() {
 
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
+    dBar        = document.getElementById('download');
+    dBar.max    = 50;
+    dBar.value  = 0;
+    aBar        = document.getElementById('analysis');
+    aBar.max    = 100;
+    aBar.value  = 0;
 
-    //  wmpty tiles
+    //  empty tiles
 	var nomap  = L.tileLayer('');
 
     //  OpenStreetMap's Standard tile layer
@@ -126,6 +134,10 @@ function showrelation() {
         var url     = `${OSM_API_URL_PREFIX}${relation_id}${OSM_API_URL_SUFFIX}`;
         var request = new XMLHttpRequest();
         request.open( "GET", url );
+        request.onprogress = function() {
+            dBar.value++;
+            document.getElementById('download_text').innerText = (dBar.value * 50).toString();
+        }
         request.onreadystatechange = function() {
             if ( request.readyState === 4 ) {
                 if ( request.status === 200 ) {
@@ -142,6 +154,7 @@ function showrelation() {
         };
 
         request.send();
+
     } else {
         alert( "Relation ID is not a number (" + relation_id + ")" );
     }
@@ -213,6 +226,9 @@ function writeRelationTable( ) {
 
     var object = OSM_Relations[relation_id];
 
+    analysiscounter  = OSM_Relations[relation_id]['members'].length;
+    aBar.max         = analysiscounter;
+
     document.getElementById("osm-relation").innerHTML += ' ' + getObjectLinks( relation_id, "relation" );
 
     if ( object ) {
@@ -229,6 +245,8 @@ function writeRelationTable( ) {
             document.getElementById("relation-values").innerHTML = html;
         }
     }
+    updateAnalysisProgress();
+
 }
 
 
@@ -346,6 +364,7 @@ function IterateOverMembers() {
                 document.getElementById(match+"-members").innerHTML += html;
 
             }
+            updateAnalysisProgress();
         }
 
         if ( latlonroute['platform'].length > 1 ) {
@@ -483,16 +502,24 @@ function drawRelation( id, match, label, set_marker ) {
                 console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
             }
         } else if ( member_type == "relation" ) {
-            if ( !OSM_Relations[member_id] ) {
-                console.log( "Need to download Relation " + id + " for  Relation: " + member_id );
-                downloadRelationSync( id );
-                console.log( "... done" );
-            }
-            if ( OSM_Relations[member_id] ) {
-                console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
-                document.getElementById("beta").style.display = "block";
+            if ( OSM_Relations[id]["tags"] && OSM_Relations[id]["tags"]["type"] && OSM_Relations[id]["tags"]["type"] == "route" ) {
+                if ( !OSM_Relations[member_id] ) {
+                    console.log( "Need to download Relation " + id + " for  Relation: " + member_id );
+                    downloadRelationSync( id );
+                    console.log( "... done" );
+                }
+                if ( OSM_Relations[member_id] ) {
+                    console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
+                    document.getElementById("beta").style.display = "block";
+                } else {
+                    console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
+                }
             } else {
-                console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
+                if ( OSM_Relations[id]["tags"] && OSM_Relations[id]["tags"]["type"] ) {
+                    console.log(  "No deep dive into relations of type = " + OSM_Relations[id]["tags"]["type"]  );
+                } else {
+                    console.log( "No deep dive into relations other than type = route" );
+                }
             }
         }
 
@@ -579,4 +606,11 @@ function parseHttpResponse( data ) {
 
     fillNodesWaysRelations();
 
+}
+
+
+updateAnalysisProgress = function updateAnalysisProgress() {
+
+    aBar.value++;
+    document.getElementById('analysis_text').innerText = Math.floor((100 / analysiscounter) * aBar.value).toString();
 }

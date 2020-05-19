@@ -21,6 +21,9 @@
 
             <div id="relationmap"></div>
             <div class="relationtables">
+                <span id="progress_section">Download: <progress id="download" value=0 max=200></progress> <span id="download_text">0</span> ms /
+                                            Analysis: <progress id="analysis" value=0 max=100></progress> <span id="analysis_text">0</span> %
+                </span>
                 <h3 id ="osm-relation">OSM Relation</h3>
 
 <?php if ( $lang == 'de' ) { ?>
