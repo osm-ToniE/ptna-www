@@ -131,6 +131,7 @@ function showrelation() {
     map.addLayer(layerplatforms);
     map.addLayer(layerplatformsroute);
     map.addLayer(layerstops);
+    map.addLayer(layerothers);
 
     relation_id = URLparse()["id"];
 
@@ -359,6 +360,7 @@ function handleMember( relation_id, index ) {
             } else {
                 label_of_object[id] = number_of_match[match].toString();
             }
+
             latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
 
             if ( match == "route" && number_of_match[match] == 1 ) {
@@ -498,14 +500,13 @@ function drawRelation( id, match, label, set_marker ) {
         if ( member_type == "node" ) {
             if ( !OSM_Nodes[member_id] ) {
                 downloadRelationSync( id );
-                console.log( "... done" );
             }
             if ( OSM_Nodes[member_id] ) {
-                if ( !have_set_marker ) {
+                if ( have_set_marker ) {
+                    drawNode( member_id, match, label, false, false );
+                } else {
                     [lat,lon] = drawNode( member_id, match, label, true, true );
                     have_set_marker = 1;
-                } else {
-                    drawNode( member_id, match, label, false, false );
                 }
             } else {
                 console.log( "Failed to download Relation " + id + " for Node: " + member_id );
@@ -513,14 +514,13 @@ function drawRelation( id, match, label, set_marker ) {
         } else if ( member_type == "way" ) {
             if ( !OSM_Ways[member_id] ) {
                 downloadRelationSync( id );
-                console.log( "... done" );
             }
             if ( OSM_Ways[member_id] ) {
-                if ( !have_set_marker ) {
+                if ( have_set_marker ) {
+                    drawWay( member_id, match, label, false );
+                } else {
                     [lat,lon] = drawWay( member_id, match, label, true );
                     have_set_marker = 1;
-                } else {
-                    drawWay( member_id, match, label, false );
                 }
             } else {
                 console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
@@ -532,7 +532,6 @@ function drawRelation( id, match, label, set_marker ) {
             if ( OSM_Relations[id]["tags"] && OSM_Relations[id]["tags"]["type"] && OSM_Relations[id]["tags"]["type"] == "route" ) {
                 if ( !OSM_Relations[member_id] ) {
                     downloadRelationSync( id );
-                    console.log( "... done" );
                 }
                 if ( OSM_Relations[member_id] ) {
                     console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
