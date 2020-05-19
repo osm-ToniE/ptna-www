@@ -37,12 +37,17 @@ var colours         = { platform: 'blue', stop: 'green', route: 'red', other: 'b
 var dBar;
 var aBar;
 
+var number_of_match     = {};
+var label_of_object     = {}
+var latlonroute         = {};
+
+
 function showrelation() {
 
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
     dBar        = document.getElementById('download');
-    dBar.max    = 50;
+    dBar.max    = 20;
     dBar.value  = 0;
     aBar        = document.getElementById('analysis');
     aBar.max    = 100;
@@ -169,8 +174,6 @@ function readHttpResponse( responseText ) {
 
     IterateOverMembers();
 
-    map.fitBounds( getRelationBounds() );
-
 }
 
 
@@ -253,119 +256,136 @@ function writeRelationTable( ) {
 function IterateOverMembers() {
     var object = OSM_Relations[relation_id];
 
-    var member              = {};
-    var type                = '';
-    var role                = '';
-    var id                  = '';
-    var match               = "other"
-    var html                = "";
-    var img                 = 'none';
-    var number              = { platform:1, stop:1, route:1, other:1 };
-    var name                = '';
-    var wayimg              = "IsolatedWay";
-    var label_of_object     = {}
-
-    var latlonroute         = {};
-
+    number_of_match         = { platform:1, stop:1, route:1, other:1 };
     latlonroute['platform'] = [];
     latlonroute['stop']     = [];
     latlonroute['route']    = [];
     latlonroute['other']    = [];
 
     if ( object ) {
-        for ( var j = 0; j < object['members'].length; j++ ) {
-            member      = {};
-            attention   = {};
-            match       = "other";
-            role        = object['members'][j]["role"];
-            type        = object['members'][j]["type"];
-            id          = object['members'][j]["ref"];
-            if ( type == "node" ) {
-                member = OSM_Nodes[id];
-                img    = "Node";
-            } else if ( type == "way" ) {
-                member = OSM_Ways[id];
-                img    = "Way";
-            } else if ( type == "relation" ) {
-                member = OSM_Relations[id];
-                img    = "Relation";
-            }
 
-            if ( member ) {
-                if ( is_PTv2 ) {
-                    if ( role == "platform"            ||
-                         role == "platform_exit_only"  ||
-                         role == "platform_entry_only" ||
-                         (member['tags']                     &&
-                          member['tags']['public_transport'] &&
-                          member['tags']['public_transport'] == "platform")
-                       ) {
-                        match = "platform";
-                        if ( !role.match(/platform/) ) attention['role'] = " attention";
-                    }
-                } else {
-                    if ( role.match(/platform/) ) {
-                        match = "platform";
-                    }
-                }
+        // start analyzing the first (index = 0) member
+        // function restarts itself with setTimeout() with 0 msec break, just to keep the browser responsive
 
-                if ( match == "other" ) {
-                    if ( is_PTv2 ) {
-                        if ( role == "stop"        ||
-                             role == "stop_exit_only"  ||
-                             role == "stop_entry_only" ||
-                            (member['tags']                     &&
-                             member['tags']['public_transport'] &&
-                             member['tags']['public_transport'] == "stop_position")
-                           ) {
-                            match = "stop";
-                        }
-                    } else {
-                        if ( role.match(/stop/) ||
-                            (member['tags']            &&
-                             member['tags']['highway'] &&
-                             member['tags']['highway'] == "bus_stop")) {
-                            match = "stop";
-                        }
-                    }
-                }
+        setTimeout( handleMember, 0, relation_id, 0 );
 
-                if ( match == "other" ) {
-                    if ( is_PTv2 ) {
-                        if ( role == "" ) {
-                            match = "route";
-                        }
-                    } else {
-                        if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
-                            match = "route";
-                        }
-                    }
-                }
+    }
+}
 
-                if ( label_of_object[id] ) {
-                    label_of_object[id] = label_of_object[id] + "+" + number[match].toString();
-                } else {
-                    label_of_object[id] = number[match].toString();
-                }
-                latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
 
-                html = "";
-                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
-                html += "<tr>";
-                html += "    <td class=\"results-number\">" + number[match]++   + "</td>";
-                html += "    <td class=\"results-number\">" + (j+1)             + "</td>";
-                html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
-                html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
-                html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
-//                if ( match == "route" ) {
-//                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
-//                }
-                html += "</tr>\n";
-                document.getElementById(match+"-members").innerHTML += html;
+function handleMember( relation_id, index ) {
 
-            }
-            updateAnalysisProgress();
+    var object = OSM_Relations[relation_id];
+
+    if ( index < object['members'].length ) {
+
+        var member      = {};
+        var attention   = {};
+        var match       = "other";
+        var html        = "";
+        var img         = 'none';
+        var role        = object['members'][index]["role"];
+        var type        = object['members'][index]["type"];
+        var id          = object['members'][index]["ref"];
+        var name        = '';
+        var wayimg      = "IsolatedWay";
+
+        if ( type == "node" ) {
+            member = OSM_Nodes[id];
+            img    = "Node";
+        } else if ( type == "way" ) {
+            member = OSM_Ways[id];
+            img    = "Way";
+        } else if ( type == "relation" ) {
+            member = OSM_Relations[id];
+            img    = "Relation";
         }
+
+        if ( member ) {
+            if ( is_PTv2 ) {
+                if ( role == "platform"            ||
+                        role == "platform_exit_only"  ||
+                        role == "platform_entry_only" ||
+                        (member['tags']                     &&
+                        member['tags']['public_transport'] &&
+                        member['tags']['public_transport'] == "platform")
+                    ) {
+                    match = "platform";
+                    if ( !role.match(/platform/) ) attention['role'] = " attention";
+                }
+            } else {
+                if ( role.match(/platform/) ) {
+                    match = "platform";
+                }
+            }
+
+            if ( match == "other" ) {
+                if ( is_PTv2 ) {
+                    if ( role == "stop"        ||
+                            role == "stop_exit_only"  ||
+                            role == "stop_entry_only" ||
+                        (member['tags']                     &&
+                            member['tags']['public_transport'] &&
+                            member['tags']['public_transport'] == "stop_position")
+                        ) {
+                        match = "stop";
+                    }
+                } else {
+                    if ( role.match(/stop/) ||
+                        (member['tags']            &&
+                            member['tags']['highway'] &&
+                            member['tags']['highway'] == "bus_stop")) {
+                        match = "stop";
+                    }
+                }
+            }
+
+            if ( match == "other" ) {
+                if ( is_PTv2 ) {
+                    if ( role == "" ) {
+                        match = "route";
+                    }
+                } else {
+                    if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
+                        match = "route";
+                    }
+                }
+            }
+
+            if ( label_of_object[id] ) {
+                label_of_object[id] = label_of_object[id] + "+" + number_of_match[match].toString();
+            } else {
+                label_of_object[id] = number_of_match[match].toString();
+            }
+            latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
+
+            if ( match == "route" && number_of_match[match] == 1 ) {
+                map.fitBounds( getRelationBounds() );
+            }
+
+            html = "";
+            name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
+            html += "<tr>";
+            html += "    <td class=\"results-number\">" + number_of_match[match]++   + "</td>";
+            html += "    <td class=\"results-number\">" + (index+1)             + "</td>";
+            html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
+            html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
+            html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
+    //                if ( match == "route" ) {
+    //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
+    //                }
+            html += "</tr>\n";
+            document.getElementById(match+"-members").innerHTML += html;
+
+            updateAnalysisProgress();
+
+            // start handling the next member after 0 msec break
+
+            setTimeout( handleMember, 0, relation_id, (index+1) );
+
+        }
+    } else {
+        // reached the end of the list
 
         if ( latlonroute['platform'].length > 1 ) {
             L.polyline(latlonroute['platform'],{color:colours['platform'],weight:3,fill:false}).addTo( layerplatformsroute );
@@ -373,7 +393,11 @@ function IterateOverMembers() {
         if ( latlonroute['stop'].length > 1 ) {
             L.polyline(latlonroute['stop'],{color:colours['stop'],weight:3,fill:false}).addTo( layerstopsroute );
         }
+
+        map.fitBounds( getRelationBounds() );
+
     }
+
 }
 
 
@@ -471,7 +495,6 @@ function drawRelation( id, match, label, set_marker ) {
 
         if ( member_type == "node" ) {
             if ( !OSM_Nodes[member_id] ) {
-                console.log( "Need to download Relation " + id + " for  Node: " + member_id );
                 downloadRelationSync( id );
                 console.log( "... done" );
             }
@@ -487,7 +510,6 @@ function drawRelation( id, match, label, set_marker ) {
             }
         } else if ( member_type == "way" ) {
             if ( !OSM_Ways[member_id] ) {
-                console.log( "Need to download Relation " + id + " for  Way: " + member_id );
                 downloadRelationSync( id );
                 console.log( "... done" );
             }
@@ -502,9 +524,11 @@ function drawRelation( id, match, label, set_marker ) {
                 console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
             }
         } else if ( member_type == "relation" ) {
+            //
+            // deep dive into member relations only for type=route relations
+            //
             if ( OSM_Relations[id]["tags"] && OSM_Relations[id]["tags"]["type"] && OSM_Relations[id]["tags"]["type"] == "route" ) {
                 if ( !OSM_Relations[member_id] ) {
-                    console.log( "Need to download Relation " + id + " for  Relation: " + member_id );
                     downloadRelationSync( id );
                     console.log( "... done" );
                 }
@@ -516,7 +540,7 @@ function drawRelation( id, match, label, set_marker ) {
                 }
             } else {
                 if ( OSM_Relations[id]["tags"] && OSM_Relations[id]["tags"]["type"] ) {
-                    console.log(  "No deep dive into relations of type = " + OSM_Relations[id]["tags"]["type"]  );
+                    console.log( "No deep dive into relations of type = " + OSM_Relations[id]["tags"]["type"]  );
                 } else {
                     console.log( "No deep dive into relations other than type = route" );
                 }
@@ -556,6 +580,7 @@ function getObjectLinks( id, type ) {
 
     return html;
 }
+
 
 function htmlEscape( str ) {
     return str
@@ -609,7 +634,7 @@ function parseHttpResponse( data ) {
 }
 
 
-updateAnalysisProgress = function updateAnalysisProgress() {
+function updateAnalysisProgress() {
 
     aBar.value++;
     document.getElementById('analysis_text').innerText = Math.floor((100 / analysiscounter) * aBar.value).toString();
