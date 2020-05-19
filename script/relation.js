@@ -341,13 +341,15 @@ function handleMember( relation_id, index ) {
             }
 
             if ( match == "other" ) {
-                if ( is_PTv2 ) {
-                    if ( role == "" ) {
-                        match = "route";
-                    }
-                } else {
-                    if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
-                        match = "route";
+                if ( type == "way" ) {
+                    if ( is_PTv2 ) {
+                        if ( role == "" ) {
+                            match = "route";
+                        }
+                    } else {
+                        if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
+                            match = "route";
+                        }
                     }
                 }
             }
