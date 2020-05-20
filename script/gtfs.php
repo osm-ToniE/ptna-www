@@ -1539,6 +1539,20 @@
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
+                    if ( $ptna["count_same_names_but_different_ids"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Trips with identical stop-names but different stop-ids</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["count_suspicious_start"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Trips with suspicious start</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
                     if ( $ptna["count_suspicious_end"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
