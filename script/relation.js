@@ -20,6 +20,12 @@ var layerplatformsroute;
 var layerstops;
 var layerstopsroute;
 var layerothers;
+var green_icon;
+var blue_icon;
+var black_icon;
+var icons           = {};
+var colours         = {};
+
 
 var relation_id;
 var analysiscounter = 2;    // 1.) writeRelationTable, 2.) ... iteration over members
@@ -33,8 +39,6 @@ var maxlat          =  -90;
 var minlat          =   90;
 var maxlon          = -180;
 var minlon          =  180;
-
-var colours         = { platform: 'blue', stop: 'green', route: 'red', other: 'black' };
 
 var dBar;
 var aBar;
@@ -134,6 +138,13 @@ function showrelation() {
     map.addLayer(layerplatformsroute);
     map.addLayer(layerstops);
     map.addLayer(layerothers);
+
+    green_icon = L.icon( { iconUrl: '/img/green-marker-icon.png', iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    blue_icon  = L.icon( { iconUrl: '/img/blue-marker-icon.png',  iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    black_icon = L.icon( { iconUrl: '/img/black-marker-icon.png', iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    red_icon   = L.icon( { iconUrl: '/img/red-marker-icon.png',   iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    icons      = { platform: blue_icon, stop: green_icon, route: red_icon, other: black_icon };
+    colours    = { platform: 'blue',    stop: 'green',    route: 'red',    other: 'black'    };
 
     relation_id = URLparse()["id"];
 
@@ -368,14 +379,15 @@ function handleMember( relation_id, index ) {
                     label_of_object[id] = number_of_match[match].toString();
                 }
 
-                latlonroute[match].push( drawObject( id, type, match, label_of_object[id] ) );
+                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
+
+                latlonroute[match].push( drawObject( id, type, match, label_of_object[id], htmlEscape(name) ) );
 
                 if ( match == "route" && number_of_match[match] == 1 ) {
                     map.fitBounds( getRelationBounds() );
                 }
 
                 html = "";
-                name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || '';
                 html += "<tr>";
                 html += "    <td class=\"results-number\">" + number_of_match[match]++   + "</td>";
                 html += "    <td class=\"results-number\">" + (index+1)             + "</td>";
@@ -405,10 +417,10 @@ function handleMember( relation_id, index ) {
         // reached the end of the list
 
         if ( latlonroute['platform'].length > 1 ) {
-            L.polyline(latlonroute['platform'],{color:colours['platform'],weight:3,fill:false}).addTo( layerplatformsroute );
+            L.polyline(latlonroute['platform'],{color:colours['platform'],weight:3,fill:false}).bindPopup("Platform Route").addTo( layerplatformsroute );
         }
         if ( latlonroute['stop'].length > 1 ) {
-            L.polyline(latlonroute['stop'],{color:colours['stop'],weight:3,fill:false}).addTo( layerstopsroute );
+            L.polyline(latlonroute['stop'],{color:colours['stop'],weight:3,fill:false}).bindPopup("Stop-Position Route").addTo( layerstopsroute );
         }
 
         map.fitBounds( getRelationBounds() );
@@ -420,35 +432,38 @@ function handleMember( relation_id, index ) {
 }
 
 
-function drawObject( id, type, match, label_number ) {
+function drawObject( id, type, match, label_number, name ) {
 
     if ( type == "node" ) {
-        return drawNode( id, match, label_number, true, true );
+        return drawNode( id, match, label_number, name, true, true );
     } else if ( type == "way" ) {
-        return drawWay( id, match, label_number, true );
+        return drawWay( id, match, label_number, name, true );
     } else if ( type == "relation" ) {
-        return drawRelation( id, match, label_number, true )
+        return drawRelation( id, match, label_number, name, true )
     }
     return [0,0];
 }
 
 
-function drawNode( id, match, label, set_marker, set_circle ) {
+function drawNode( id, match, label, name, set_marker, set_circle ) {
+    match = match || 'other';
+    label = label || 0;
+    name  = name  || '';
 
     var lat = OSM_Nodes[id]['lat'];
     var lon = OSM_Nodes[id]['lon'];
     if ( match == "platform" ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerplatforms);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerplatforms);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Platform " + label.toString() + ': ' + name).addTo(layerplatforms);
     } else if ( match == "stop"     ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerstops);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerstops);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Stop " + label.toString() + ': ' + name).addTo(layerstops);
     } else if ( match == "route"     ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerways);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerways);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Way " + label.toString() + ': ' + name).addTo(layerways);
     } else {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerothers);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).addTo(layerothers);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Other " + label.toString() + ': ' + name).addTo(layerothers);
     }
     if ( lat < minlat ) minlat = lat;
     if ( lat > maxlat ) maxlat = lat;
@@ -459,7 +474,11 @@ function drawNode( id, match, label, set_marker, set_circle ) {
 }
 
 
-function drawWay( id, match, label, set_marker ) {
+function drawWay( id, match, label, name, set_marker ) {
+    match = match || 'other';
+    label = label || 0;
+    name  = name  || '';
+
     var lat = 0;
     var lon = 0;
 
@@ -481,22 +500,26 @@ function drawWay( id, match, label, set_marker ) {
     }
 
     if ( match == 'platform' ) {
-        if ( set_marker ) drawNode( nodes[0], match, label, true, false )
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerplatforms );
+        if ( set_marker ) drawNode( nodes[0], match, label, name, true, false )
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Platform " + label.toString() + ': ' + name).addTo( layerplatforms );
     } else if ( match == 'stop' ) {
-        if ( set_marker ) drawNode( nodes[0], match, label, true, false )
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerstops );
+        if ( set_marker ) drawNode( nodes[0], match, label, name, true, false )
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Stop " + label.toString() + ': ' + name).addTo( layerstops );
     } else if ( match == "route" ) {
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerways );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Way " + label.toString() + ': ' + name).addTo( layerways );
     } else {
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).addTo( layerothers );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Other " + label.toString() + ': ' + name).addTo( layerothers );
     }
 
     return [OSM_Nodes[nodes[0]]['lat'],OSM_Nodes[nodes[0]]['lon']];
 }
 
 
-function drawRelation( id, match, label, set_marker ) {
+function drawRelation( id, match, label, name, set_marker ) {
+    match = match || 'other';
+    label = label || 0;
+    name  = name  || '';
+
     var lat = 0;
     var lon = 0;
 
@@ -518,9 +541,9 @@ function drawRelation( id, match, label, set_marker ) {
             }
             if ( OSM_Nodes[member_id] ) {
                 if ( have_set_marker ) {
-                    drawNode( member_id, match, label, false, false );
+                    drawNode( member_id, match, label, name, false, false );
                 } else {
-                    [lat,lon] = drawNode( member_id, match, label, true, true );
+                    [lat,lon] = drawNode( member_id, match, label, name, true, true );
                     have_set_marker = 1;
                 }
             } else {
@@ -532,9 +555,9 @@ function drawRelation( id, match, label, set_marker ) {
             }
             if ( OSM_Ways[member_id] ) {
                 if ( have_set_marker ) {
-                    drawWay( member_id, match, label, false );
+                    drawWay( member_id, match, label, name, false );
                 } else {
-                    [lat,lon] = drawWay( member_id, match, label, true );
+                    [lat,lon] = drawWay( member_id, match, label, name, true );
                     have_set_marker = 1;
                 }
             } else {
