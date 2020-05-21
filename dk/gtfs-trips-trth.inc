@@ -1,5 +1,5 @@
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-name" rowspan="2">Linje</th>
+                            <th class="gtfs-name" rowspan="2">Variant</th>
                             <th class="gtfs-name" rowspan="2">Trip-ID</th>
                             <th class="gtfs-name" colspan="3">Stops</th>
                             <th class="gtfs-name" colspan="1">PTNA info om varianten</th>
