@@ -133,6 +133,33 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
+                if ( $ptna["prepared"] ) {
+                    $tdclass    = "gtfs-date";
+                    $txclasstag = "";
+                    if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["prepared"], $parts ) ) {
+                        $timestampTwoDaysAgo   = time() - ( 2 * 24 * 3600);
+                        $timestampFiveDaysAgo  = time() - ( 5 * 24 * 3600);
+                        $timestampTenDaysAgo   = time() - (10 * 24 * 3600);
+                        $release_day           = new DateTime( $ptna["prepared"] );
+                        $timestampReleaseDate  = $release_day->format( 'U' );
+                        if ( $timestampReleaseDate >= $timestampTenDaysAgo )
+                        {
+                            $tdclass = "gtfs-datenew";
+                            if ( $timestampReleaseDate >= $timestampFiveDaysAgo )
+                            {
+                                $tdclass = "gtfs-datenewer";
+                                if ( $timestampReleaseDate >= $timestampTwoDaysAgo )
+                                {
+                                    $tdclass    = "gtfs-dateverynew";
+                                    $txclasstag = 'class="gtfs-whitetext"';
+                                }
+                            }
+                        }
+                    }
+                    echo '                            <td class="' . $tdclass . '"><span ' . $txclasstag . '>' . htmlspecialchars($ptna["prepared"]) . '</span></td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
+                }
                 if ( $ptna["details"] ) {
                     echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($ptna["details"]) . '</a></td>' . "\n";
                 } else {
