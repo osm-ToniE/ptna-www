@@ -1,6 +1,6 @@
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name" rowspan="2">Navn</th>
-                            <th class="gtfs-text" rowspan="2">Transportnet / Område</th>
+                            <th class="gtfs-text" rowspan="2">Transportnet / Operatør / Område</th>
                             <th class="gtfs-name" colspan="7">GTFS-data</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
