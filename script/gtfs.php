@@ -1226,17 +1226,22 @@
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name">Download Date</td>' . "\n";
+                echo '                            <td class="gtfs-name">Release Date</td>' . "\n";
                 echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name">Dowload Url</td>' . "\n";
+                echo '                            <td class="gtfs-name">Release Url</td>' . "\n";
                 if ( $ptna["release_url"] ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_url"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
+                echo '                        </tr>' . "\n";
+
+                echo '                        <tr class="statistics-tablerow">' . "\n";
+                echo '                            <td class="gtfs-name">Download Date</td>' . "\n";
+                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
