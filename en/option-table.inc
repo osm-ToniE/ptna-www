@@ -37,6 +37,12 @@
                 <td class="message-description">&#039;highway&#039; = &#039;bus_stop&#039; can be set on nodes only, not on ways or areas.</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-gtfs">
+                <td class="message-option">check-gtfs</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Check &#039;gtfs:*&#039; tags for validity, ...</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-check-motorway-link">
                 <td class="message-option">check-motorway-link</td>
                 <td class="message-default">OFF</td>
@@ -151,6 +157,12 @@
                 <td class="message-description">Defines the language for the output.</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-link-gtfs">
+                <td class="message-option">link-gtfs</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Provide links to GTFS-Analysis for &#039;gtfs:route_id&#039; or &#039;gtfs:trip_id&#039; tags.</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-max-error">
                 <td class="message-option">max-error</td>
                 <td class="message-default"></td>
@@ -215,6 +227,12 @@
                 <td class="message-option">separator</td>
                 <td class="message-default">;</td>
                 <td class="message-description"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow" id="option-show-gtfs">
+                <td class="message-option">show-gtfs</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Similar to option &#039;&#045;&#045;positive-notes&#039;: show values of &#039;gtfs*&#039; tags in the &#039;Notes&#039; column.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-strict-network">

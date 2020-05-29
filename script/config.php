@@ -10,6 +10,7 @@
         $options_hash['allow-coach']                = 'OFF';
         $options_hash['check-access']               = 'OFF';
         $options_hash['check-bus-stop']             = 'OFF';
+        $options_hash['check-gtfs']                 = 'OFF';
         $options_hash['check-motorway-link']        = 'OFF';
         $options_hash['check-name']                 = 'OFF';
         $options_hash['check-name-relaxed']         = 'OFF';
@@ -28,6 +29,7 @@
         $options_hash['expect-network-short']       = 'OFF';
         $options_hash['expect-network-short-as']    = '';
         $options_hash['expect-network-short-for']   = '';
+        $options_hash['link-gtfs']                  = 'OFF';
         $options_hash['max-error']                  = '';
         $options_hash['multiple-ref-type-entries']  = 'analyze';
         $options_hash['network-long-regex']         = '';
@@ -36,6 +38,7 @@
         $options_hash['positive-notes']             = 'OFF';
         $options_hash['ptv1-compatibility']         = 'no';
         $options_hash['relaxed-begin-end-for']      = '';
+        $options_hash['show-gtfs']                 = 'OFF';
         $options_hash['strict-network']             = 'OFF';
         $options_hash['strict-operator']            = 'OFF';
         $options_hash['separator']                  = ';';
