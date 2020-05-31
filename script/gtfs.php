@@ -255,9 +255,9 @@
 
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
                             if ( $outerrow["route_short_name"] ) {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span></a></td>' . "\n";
+                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
                             } else {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">not set</span></td>' . "\n";
+                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">not set</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
                             }
                             echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {

@@ -20,6 +20,7 @@ function ptnalistdownload( include_agency ) {
             var r_node    = r_list[i];
             var sub_span  = r_node.getElementsByTagName( "span" );
 
+            var route_id            = "unknown";
             var route_short_name    = "unknown";
             var route_type          = "bus";
             var route_long_name     = "unknown";
@@ -38,7 +39,13 @@ function ptnalistdownload( include_agency ) {
 
                 var key = keyvalue.getAttribute("class");
 
-                if ( key == "route_short_name" ) {
+                if ( key == "route_id" ) {
+                    if ( value.match(';') != null ) {
+                        route_id = '"' + value + '"';
+                    } else {
+                        route_id = value;
+                    }
+                } else if ( key == "route_short_name" ) {
                     if ( value.match(';') != null ) {
                         route_short_name = '"' + value + '"';
                     } else {
@@ -88,9 +95,9 @@ function ptnalistdownload( include_agency ) {
             }
 
             if ( include_agency ) {
-                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ';;;' + agency_name + "\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ';;;' + agency_name + ";" + network + ";" + route_id + "\r\n";
             } else {
-                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ";;;\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ";;;;" + network + ";" + route_id + "\r\n";
             }
 
         }
