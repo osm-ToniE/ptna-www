@@ -29,6 +29,7 @@
         $options_hash['expect-network-short']       = 'OFF';
         $options_hash['expect-network-short-as']    = '';
         $options_hash['expect-network-short-for']   = '';
+        $options_hash['gtfs-feed']                  = '';
         $options_hash['link-gtfs']                  = 'OFF';
         $options_hash['max-error']                  = '';
         $options_hash['multiple-ref-type-entries']  = 'analyze';
@@ -38,7 +39,7 @@
         $options_hash['positive-notes']             = 'OFF';
         $options_hash['ptv1-compatibility']         = 'no';
         $options_hash['relaxed-begin-end-for']      = '';
-        $options_hash['show-gtfs']                 = 'OFF';
+        $options_hash['show-gtfs']                  = 'OFF';
         $options_hash['strict-network']             = 'OFF';
         $options_hash['strict-operator']            = 'OFF';
         $options_hash['separator']                  = ';';
