@@ -29,6 +29,10 @@
     }
     $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
     $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
+    if ( !$route_short_name ) {
+        $route_short_name = 'not set';
+    }
+    $ptna             = GetTripDetails( $network, $trip_id );
     $is_invalid       = $ptna["ptna_is_invalid"];
     $is_wrong         = $ptna["ptna_is_wrong"];
     $comment          = $ptna["ptna_comment"];

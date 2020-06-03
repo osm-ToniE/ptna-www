@@ -22,12 +22,16 @@
 <?php
     $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
     $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
+    $shape_id         = ( $_GET['shape_id'] ) ? $_GET['shape_id'] : $_POST['shape_id'];
+    if ( !$trip_id && $shape_id ) {
+        $trip_id      = GetGtfsTripIdFromShapeId( $network, $shape_id );
+    }
     $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
     $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
     if ( !$route_short_name ) {
         $route_short_name = 'not set';
     }
-$ptna             = GetTripDetails( $network, $trip_id );
+    $ptna             = GetTripDetails( $network, $trip_id );
     $is_invalid       = $ptna["ptna_is_invalid"];
     $is_wrong         = $ptna["ptna_is_wrong"];
     $comment          = $ptna["ptna_comment"];
