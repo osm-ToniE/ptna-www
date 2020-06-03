@@ -1057,6 +1057,40 @@
     }
 
 
+    function GetGtfsTripIdFromShapeId( $network, $shape_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            if ( $shape_id ) {
+
+                try {
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql = sprintf( "SELECT trip_id
+                                     FROM   trips
+                                     WHERE  shape_id='%s';",
+                                     SQLite3::escapeString($shape_id)
+                                  );
+
+                    $row = $db->querySingle( $sql, true );
+
+                    return $row["trip_id"];
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return '';
+    }
+
+
     function GetOsmDetails( $network ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
