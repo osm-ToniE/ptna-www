@@ -85,7 +85,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-tableheaderrow      { background-color: #dddddd; }
 .gtfs-tablerow            { background-color: white;   }
 .gtfs-name                { text-align:left; white-space:nowrap; }
-.gtfs-number              { text-align:center;  }
+.gtfs-number              { text-align:center; }
 .gtfs-lat                 { text-align:center; }
 .gtfs-lon                 { text-align:center; }
 .gtfs-distance            { text-align:right;  }
@@ -99,9 +99,10 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
-.gtfs-whitetext           { color:white;      }
+.gtfs-whitetext           { color:white;     }
 .shape-lat                { text-align:center; }
 .shape-lon                { text-align:center; }
+.bad-link                 { text-decoration: line-through; background-color: yellow; }
 
 .ptna-data textarea       { overflow: auto;    }
 
