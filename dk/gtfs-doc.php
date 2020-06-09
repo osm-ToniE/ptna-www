@@ -47,7 +47,6 @@
                     <li>Nogle data kan downloades direkte og altid via det samme link.</li>
                     <li>Nogle data kan kun downloades indirekte via, pr. Version, forskellige links - for at forhindre automatisk indlæsning?</li>
                     <li>I det mindste kan downloadingen ikke let automatiseres</li>
-                    <li>Den automatiserede forberedelse (hovedsageligt <a href="#aggregate">aggregering</a>) af GTFS-data til dette websted tager afhængigt af netværkets størrelse mellem et par sekunder (<a href="/en/gtfs -details.php?netværk=DE-BW-Filsland">DE-BW-Filsland</a>) og 16 timer (<a href="/en/gtfs-details.php?netværk=DE-BE-VBB">DE-BE-VBB</a>).</li>
                     <li>Offentlige transportforbindelser bør have en langsigtet karakter i OSM. Er det fornuftigt at kortlægge enhver ændring af en buslinje på grund af byggepladsen i OSM for senere at fortryde den?</li>
                 </ul>
             </div>
@@ -164,4 +163,3 @@
 	  </div> <!-- wrapper -->
     </body>
 </html>
-

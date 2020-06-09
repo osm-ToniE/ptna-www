@@ -104,7 +104,6 @@
                     <li>Einige Daten lassen sich direkt und immer über den selben Link runter laden.</li>
                     <li>Einige Daten lassen sich nur indirekt über, pro Version, immer wieder andere Links runter laden - um das automatisierte Laden zu verhindern?</li>
                     <li>Zumindest das Runterladen kann nicht einfach automatisiert werden kann.</li>
-                    <li>Die automatisierte Vorbereitung (hauptsächlich die <a href="#aggregate">Aggregierung</a>) der GTFS-Daten für diese Website dauert, je nach Größe des Verbundes, zwischen ein paar Sekunden (<a href="/en/gtfs-details.php?network=DE-BW-Filsland">DE-BW-Filsland</a>) und 16 Stunden (<a href="/en/gtfs-details.php?network=DE-BE-VBB">DE-BE-VBB</a>).</li>
                     <li>ÖPNV-Relationen sollten in OSM einen langfristigen Charakter haben. Ist es sinnvoll jede baustellen-bedingte Änderung einer Buslinie in OSM zu mappen um das später wieder rückgängig zu machen?</li>
                 </ul>
             </div>
