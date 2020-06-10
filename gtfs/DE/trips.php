@@ -19,6 +19,10 @@
                 if ( !$route_short_name ) {
                      $route_short_name = '__not_set__';
                 }
+                $ptna             = GetRouteDetails( $network, $route_id );
+                $is_invalid       = $ptna["ptna_is_invalid"];
+                $is_wrong         = $ptna["ptna_is_wrong"];
+                $comment          = $ptna["ptna_comment"];
             ?>
 
             <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>

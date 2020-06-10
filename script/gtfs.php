@@ -221,7 +221,7 @@
 
                     $outerresult = $db->query( $sql );
 
-                    while ( $outerrow=$outerresult->fetchArray() ) {
+                    while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
                         if ( isset($outerrow["route_type"]) ) {
                             $route_type_text = RouteType2String($outerrow["route_type"]);
@@ -251,7 +251,7 @@
 
                         $innerresult = $db->query( $sql );
 
-                        while ( $innerrow=$innerresult->fetchArray() ) {
+                        while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
 
                             echo '                        <tr class="gtfs-tablerow">' . "\n";
                             if ( $outerrow["route_short_name"] ) {
@@ -292,11 +292,19 @@
                             } else {
                                 echo '                            <td class="gtfs-text"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></td>' . "\n";
                             }
-#                            if ( $innerrow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+                            $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
+                                                FROM   routes
+                                                WHERE  route_id='%s';",
+                                                SQLite3::escapeString($outerrow["route_id"])
+                                             );
+
+                            $ptnarow = $db->querySingle( $sql, true );
+
+#                            if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                            if ( $innerrow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                            if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                            echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($innerrow["ptna_comment"])) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
                     }
@@ -345,7 +353,7 @@
 
                     $trip_array = array ();
 
-                    while ( $outerrow=$outerresult->fetchArray() ) {
+                    while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
                         $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'|') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  |') AS stop_name_list
                                          FROM     stops
@@ -770,7 +778,7 @@
                     $result = $db->query( $sql );
 
                     $counter = 1;
-                    while ( $row=$result->fetchArray() ) {
+                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                         if ( $row["departure_time"] ) {
                             $row["departure_time"] = preg_replace('/:\d\d$/', '', $row["departure_time"] );
                         }
@@ -919,7 +927,7 @@
                             echo '                      </thead>' . "\n";
                             echo '                      <tbody>' . "\n";
                             $counter = 1;
-                            while ( $row=$result->fetchArray() ) {
+                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                                 echo '                          <tr class="gtfs-tablerow">' . "\n";
                                 echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
                                 echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
@@ -1161,6 +1169,40 @@
                                      FROM   trips
                                      WHERE  trip_id='%s';",
                                      SQLite3::escapeString($trip_id)
+                                  );
+
+                    $row = $db->querySingle( $sql, true );
+
+                    return $row;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return array();
+    }
+
+
+    function GetRouteDetails( $network, $route_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+            if ( $route_id ) {
+
+                try {
+
+                    $db  = new SQLite3( $SqliteDb );
+
+                    $sql = sprintf( "SELECT *
+                                     FROM   routes
+                                     WHERE  route_id='%s';",
+                                     SQLite3::escapeString($route_id)
                                   );
 
                     $row = $db->querySingle( $sql, true );
