@@ -855,7 +855,10 @@
 
                         if ( $result['list_departure_times'] ) {
                             $result['list_departure_times'] = preg_replace('/:\d\d$/',  '', $result['list_departure_times'] );
-                            return preg_replace('/:\d\d\|/', ', ', $result['list_departure_times'] );
+                            $result['list_departure_times'] = preg_replace('/:\d\d\|/', '|', $result['list_departure_times'] );
+                            $temp_array = explode( '|', $result['list_departure_times'] );
+                            sort( $temp_array );
+                            return implode( ', ', $temp_array );
                         }
                     }
                     $db->close();
