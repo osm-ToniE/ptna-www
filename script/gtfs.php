@@ -261,7 +261,15 @@
                             }
                             echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
-                                echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                                $class = "gtfs-date";
+                                $timestampToday          = time();
+                                $start_day               = new DateTime( $innerrow["start_date"] );
+                                $timestampStartDate      = $start_day->format( 'U' );
+                                if ( $timestampStartDate > $timestampToday )
+                                {
+                                    $class = "gtfs-datenew";
+                                }
+                                echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
                                 echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["start_date"]) . '</td>' . "\n";
                             }
