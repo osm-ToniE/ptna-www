@@ -37,8 +37,6 @@
 
             try {
 
-                set_time_limit( 60 );
-
                 $start_time = gettimeofday(true);
 
                 $db         = new SQLite3( $SqliteDb );
@@ -204,7 +202,7 @@
 
                     $today      = new DateTime();
 
-                    set_time_limit( 60 );
+                    set_time_limit( 30 );
 
                     $start_time = gettimeofday(true);
 
@@ -239,7 +237,7 @@
                                                               WHERE    trips.route_id='%s')
                                                               ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
                          } else {
-                           $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
                                              FROM            trips
                                              JOIN            calendar ON trips.service_id = calendar.service_id
                                              WHERE           trip_id  IN
@@ -284,7 +282,7 @@
                                 }
                                 echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                             } else {
-                                 echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
+                                echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
                             }
                             if ( $outerrow["normalized_route_long_name"] ) {
                                 echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
@@ -344,7 +342,7 @@
 
                 try {
 
-                    set_time_limit( 60 );
+                    set_time_limit( 30 );
 
                     $start_time = gettimeofday(true);
 
@@ -399,10 +397,38 @@
 
                         $ptnarow = $db->querySingle( $sql, true );
 
+                        $start_end_array = GetStartEndDateOfIdenticalTrips( $network, $trip_id );
+
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
                         echo '                            <td class="gtfs-number">' . $index . '</td>' . "\n";
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
-                        echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
+                            $class = "gtfs-date";
+                            $timestampToday          = time();
+                            $start_day               = new DateTime( $start_end_array["start_date"] );
+                            $timestampStartDate      = $start_day->format( 'U' );
+                            if ( $timestampStartDate > $timestampToday )
+                            {
+                                $class = "gtfs-datenew";
+                            }
+                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_array["start_date"]) . '</td>' . "\n";
+                        }
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
+                            $class = "gtfs-date";
+                            $timestampToday        = time();
+                            $end_day               = new DateTime( $start_end_array["end_date"] );
+                            $timestampEndDate      = $end_day->format( 'U' );
+                            if ( $timestampEndDate < $timestampToday )
+                            {
+                                $class = "gtfs-dateold";
+                            }
+                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_array["end_date"]) . '</td>' . "\n";
+                        }
+                    echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
 #                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
@@ -442,7 +468,7 @@
 
                try {
 
-                    set_time_limit( 60 );
+                    set_time_limit( 30 );
 
                     $start_time = gettimeofday(true);
 
@@ -768,13 +794,12 @@
 
                try {
 
-                    set_time_limit( 60 );
+                    set_time_limit( 30 );
 
                     $start_time = gettimeofday(true);
 
                     $db = new SQLite3( $SqliteDb );
 
-#                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.stop_name,stops.stop_lat,stops.stop_lon,stops.ptna_is_invalid,stops.ptna_is_wrong,stops.ptna_comment
                     $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
                                      FROM     stop_times
                                      JOIN     stops ON stop_times.stop_id = stops.stop_id
@@ -797,7 +822,6 @@
                         printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
                         $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
                         printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
-#                        printf( ', %slat=%s&lon=%s%s', '<a href="http://127.0.0.1:8111/add_node?', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Add node in JOSM">JOSM</a>' );
                         echo '</td>' . "\n";
                         echo '                           <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
                         echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
@@ -829,6 +853,71 @@
     }
 
 
+    function GetStartEndDateOfIdenticalTrips( $network, $trip_id ) {
+
+        $return_array = array();
+
+        $return_array["start_date"] = '';
+        $return_array["end_date"]   = '';
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '' ) {
+
+           if ( $trip_id ) {
+
+               try {
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+
+                        $sql    = sprintf( "SELECT DISTINCT list_service_ids
+                                            FROM            ptna_trips
+                                            WHERE           trip_id='%s'",
+                                            SQLite3::escapeString($trip_id)
+                                         );
+                        $result = $db->querySingle( $sql, true );
+
+                        if ( $result['list_service_ids'] ) {
+                            $temp_array = array();
+                            $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
+                            $where_clause = "service_id='";
+                            foreach ( $temp_array as $service_id ) {
+                                $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                            }
+                            $where_clause .= "__dummy__'";
+
+                            $sql = sprintf( "SELECT start_date,end_date
+                                             FROM   calendar
+                                             WHERE  %s
+                                             ORDER BY end_date DESC, start_date ASC LIMIT 1;", $where_clause );
+
+                            $result = $db->querySingle( $sql, true );
+
+                            $return_array["start_date"] = $result["start_date"];
+                            $return_array["end_date"]   = $result["end_date"];
+                        }
+                    }
+
+                    $db->close();
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return $return_array;
+    }
+
+
     function GetDepartureTimesGtfsSingleTrip( $network, $trip_id ) {
 
         $return_value = '';
@@ -841,8 +930,6 @@
            if ( $trip_id ) {
 
                try {
-
-                    set_time_limit( 60 );
 
                     $start_time = gettimeofday(true);
 
@@ -864,9 +951,9 @@
                         if ( $result['list_departure_times'] ) {
                             $result['list_departure_times'] = preg_replace('/:\d\d$/',  '', $result['list_departure_times'] );
                             $result['list_departure_times'] = preg_replace('/:\d\d\|/', '|', $result['list_departure_times'] );
-                            $temp_array = explode( '|', $result['list_departure_times'] );
-                            sort( $temp_array );
-                            return implode( ', ', $temp_array );
+                            $temp_array = array_flip( explode( '|', $result['list_departure_times'] ) );
+                            ksort( $temp_array );
+                            return implode( ', ', array_keys($temp_array) );
                         }
                     }
                     $db->close();
@@ -897,8 +984,6 @@
                try {
 
                     $start_time = gettimeofday(true);
-
-                    set_time_limit( 60 );
 
                     $db = new SQLite3( $SqliteDb );
 

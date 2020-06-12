@@ -7,9 +7,7 @@
                             <th class="gtfs-name" colspan="1">PTNA info om linjen</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
-                            <th class = "gtfs-date">Af</th>
-                            <th class = "gtfs-date">Til</th>
-<!--                            <th class = "gtfs-checkbox">Ugyldig</th>
-                            <th class = "gtfs-checkbox">Defekt</th> -->
-                            <th class = "gtfs-comment">Kommentar</th>
+                            <th class="gtfs-date">Af</th>
+                            <th class="gtfs-date">Til</th>
+                            <th class="gtfs-comment">Kommentar</th>
                         </tr>
