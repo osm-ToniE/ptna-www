@@ -85,10 +85,8 @@
                 if ( $feed["feed_end_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
                         $class = "gtfs-date";
-                        $timestampToday        = time();
-                        $end_day               = new DateTime( $feed["feed_end_date"] );
-                        $timestampEndDate      = $end_day->format( 'U' );
-                        if ( $timestampEndDate < $timestampToday )
+                        $today = new DateTime();
+                        if ( $feed["feed_end_date"] < $today->format('Ymd') )
                         {
                             $class = "gtfs-dateold";
                         }
@@ -219,7 +217,19 @@
 
                     $outerresult = $db->query( $sql );
 
+                    $alternative_or_not = 'alt';
+                    $last_route_short_name = '__dummy__';
+
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
+
+                        if ( $outerrow["route_short_name"] != $last_route_short_name ) {
+                            if ( $alternative_or_not ) {
+                                $alternative_or_not = '';
+                            } else {
+                                $alternative_or_not = 'alt';
+                            }
+                            $last_route_short_name = $outerrow["route_short_name"];
+                        }
 
                         if ( isset($outerrow["route_type"]) ) {
                             $route_type_text = RouteType2String($outerrow["route_type"]);
@@ -251,7 +261,7 @@
 
                         while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
 
-                            echo '                        <tr class="gtfs-tablerow">' . "\n";
+                            echo '                        <tr class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
                             if ( $outerrow["route_short_name"] ) {
                                 echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
                             } else {
@@ -260,10 +270,8 @@
                             echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
                                 $class = "gtfs-date";
-                                $timestampToday          = time();
-                                $start_day               = new DateTime( $innerrow["start_date"] );
-                                $timestampStartDate      = $start_day->format( 'U' );
-                                if ( $timestampStartDate > $timestampToday )
+                                $today = new DateTime();
+                                if ( $innerrow["start_date"] > $today->format('Ymd') )
                                 {
                                     $class = "gtfs-datenew";
                                 }
@@ -273,10 +281,8 @@
                             }
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["end_date"], $parts ) ) {
                                 $class = "gtfs-date";
-                                $timestampToday        = time();
-                                $end_day               = new DateTime( $innerrow["end_date"] );
-                                $timestampEndDate      = $end_day->format( 'U' );
-                                if ( $timestampEndDate < $timestampToday )
+                                $today = new DateTime();
+                                if ( $innerrow["end_date"] < $today->format('Ymd') )
                                 {
                                     $class = "gtfs-dateold";
                                 }
@@ -404,10 +410,8 @@
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
                             $class = "gtfs-date";
-                            $timestampToday          = time();
-                            $start_day               = new DateTime( $start_end_array["start_date"] );
-                            $timestampStartDate      = $start_day->format( 'U' );
-                            if ( $timestampStartDate > $timestampToday )
+                            $today = new DateTime();
+                            if ( $start_end_array["start_date"] > $today->format('Ymd') )
                             {
                                 $class = "gtfs-datenew";
                             }
@@ -417,10 +421,8 @@
                         }
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
                             $class = "gtfs-date";
-                            $timestampToday        = time();
-                            $end_day               = new DateTime( $start_end_array["end_date"] );
-                            $timestampEndDate      = $end_day->format( 'U' );
-                            if ( $timestampEndDate < $timestampToday )
+                            $today = new DateTime();
+                            if ( $start_end_array["end_date"] < $today->format('Ymd') )
                             {
                                 $class = "gtfs-dateold";
                             }

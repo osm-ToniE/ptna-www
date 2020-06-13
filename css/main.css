@@ -82,8 +82,9 @@ code             { font-weight: 500; font-size: 1.1em; }
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
-.gtfs-tableheaderrow      { background-color: #dddddd; }
-.gtfs-tablerow            { background-color: white;   }
+.gtfs-tableheaderrow      { background-color: #dddddd;   }
+.gtfs-tablerow            { background-color: white;     }
+.gtfs-tablerowalt         { background-color: #efefef; }
 .gtfs-name                { text-align:left; white-space:nowrap; }
 .gtfs-number              { text-align:center; }
 .gtfs-lat                 { text-align:center; }
