@@ -217,18 +217,27 @@
 
                     $outerresult = $db->query( $sql );
 
-                    $alternative_or_not = 'alt';
+                    $alternative_or_not    = 'alt';
                     $last_route_short_name = '__dummy__';
+                    $last_agency_name      = '__dummy__';
+                    $last_route_type       = '__dummy__';
+                    $last_route_desc       = '__dummy__';
 
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
-                        if ( $outerrow["route_short_name"] != $last_route_short_name ) {
+                        if ( $outerrow["route_short_name"] != $last_route_short_name ||
+                             $outerrow["agency_name"]      != $last_agency_name      ||
+                             $outerrow["route_type"]       != $last_route_type       ||
+                             $outerrow["route_desc"]       != $last_route_desc          ) {
                             if ( $alternative_or_not ) {
                                 $alternative_or_not = '';
                             } else {
                                 $alternative_or_not = 'alt';
                             }
                             $last_route_short_name = $outerrow["route_short_name"];
+                            $last_agency_name      = $outerrow["agency_name"];
+                            $last_route_type       = $outerrow["route_type"];
+                            $last_route_desc       = $outerrow["route_desc"];
                         }
 
                         if ( isset($outerrow["route_type"]) ) {
@@ -237,16 +246,7 @@
                             $route_type_text = '???';
                         }
 
-                        if ( $ptna['ignore_calendar'] ) {
-                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
-                                             FROM            trips
-                                             JOIN            calendar ON trips.service_id = calendar.service_id
-                                             WHERE           trip_id  IN
-                                                             (SELECT   trips.trip_id
-                                                              FROM     trips
-                                                              WHERE    trips.route_id='%s')
-                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
-                         } else {
+                        if ( $ptna['consider_calendar'] ) {
                             $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
                                              FROM            trips
                                              JOIN            calendar ON trips.service_id = calendar.service_id
@@ -255,6 +255,15 @@
                                                               FROM     trips
                                                               WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
                                                               ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
+                        } else {
+                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                                             FROM            trips
+                                             JOIN            calendar ON trips.service_id = calendar.service_id
+                                             WHERE           trip_id  IN
+                                                             (SELECT   trips.trip_id
+                                                              FROM     trips
+                                                              WHERE    trips.route_id='%s')
+                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
                         }
 
                         $innerresult = $db->query( $sql );
@@ -878,7 +887,7 @@
 
                     if ( $sql_master['name'] ) {
 
-                        $sql    = sprintf( "SELECT DISTINCT list_service_ids
+                        $sql    = sprintf( "SELECT DISTINCT *
                                             FROM            ptna_trips
                                             WHERE           trip_id='%s'",
                                             SQLite3::escapeString($trip_id)
@@ -892,12 +901,10 @@
                             foreach ( $temp_array as $service_id ) {
                                 $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
                             }
-                            $where_clause .= "__dummy__'";
-
                             $sql = sprintf( "SELECT start_date,end_date
                                              FROM   calendar
                                              WHERE  %s
-                                             ORDER BY end_date DESC, start_date ASC LIMIT 1;", $where_clause );
+                                             ORDER BY end_date DESC, start_date ASC LIMIT 1;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
 
                             $result = $db->querySingle( $sql, true );
 
@@ -1446,8 +1453,8 @@
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name">Ignore calendar data</td>' . "\n";
-                if ( $ptna["ignore_calendar"] ) {
+                echo '                            <td class="gtfs-name">Consider calendar data</td>' . "\n";
+                if ( $ptna["consider_calendar"] ) {
                     echo '                           <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
