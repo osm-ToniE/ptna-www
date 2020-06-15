@@ -19,7 +19,6 @@
 
 <?php include $inc_lang.'header.inc' ?>
 
-        <main id="main" class="results">
 <?php
     $network          = ( $_GET['network'] )  ? $_GET['network']  : $_POST['network'];
     $trip_id          = ( $_GET['trip_id'] )  ? $_GET['trip_id']  : $_POST['trip_id'];
@@ -39,40 +38,55 @@
     $shape_id         = $trips["shape_id"];
 ?>
 
+        <nav id="navigation">
             <h2 id="CH"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">die Schweiz</span>'; } ?></h2>
             <div class="indent">
-
+            <ul>
+                <li><a href="#showonmap">Karte</a></li>
+                <li><a href="#proposal">Vorschlag für OSM Tagging</a></li>
+                <li><a href="#stoplist">Haltestellen</a></li>
+                <li><a href="#service-times">Verkehrszeiten</a></li>
                 <?php
-                    if ( $shape_id ) {
-                        echo "                <p>\n";
-                        echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
-                        echo "                    Es sind so genannte 'shape'-Daten vorhanden: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
-                        echo "                    Die GPX-Daten entsprechen dem tatsächlichen Verlauf.\n";
-                        echo "                </p>\n";
-                    } else {
-                        echo "                <p>\n";
-                        echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
-                        echo "                    Es sind keine so genannte 'shape'-Daten vorhanden.\n";
-                        echo "                    Die GPX-Daten entsprechen der Luftlinie zwischen den Haltestellen.\n";
-                        echo "                </p>\n";
-                    }
-
-                    echo "                <p>\n";
-                    echo "                    Bitte beachten: Die GTFS-Daten können Fehler enthalten, einen ungenauen Fahrverlauf anzeigen, unvollständig sein.\n";
-                    echo "                </p>\n";
-
-                    if ( $comment ) {
-                        echo "                <p>\n";
-                        echo "                    Diese Variante wurde mit Kommentar versehen:\n";
-                        echo "                </p>\n";
-                        echo "                <ul>\n";
-                        echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
-                        echo "                </ul>\n";
-                    }
+                    if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
                 ?>
+                </ul>
+        </nav>
 
-                <h3 id="showonmap">Karte</h3>
+        <hr />
+
+        <main id="main" class="results">
+
+                <h2 id="showonmap">Karte</h2>
                 <div class="indent">
+                    <?php
+                        if ( $shape_id ) {
+                            echo "                <p>\n";
+                            echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
+                            echo "                    Es sind so genannte 'shape'-Daten vorhanden: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
+                            echo "                    Die GPX-Daten entsprechen dem tatsächlichen Verlauf.\n";
+                            echo "                </p>\n";
+                        } else {
+                            echo "                <p>\n";
+                            echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
+                            echo "                    Es sind keine so genannte 'shape'-Daten vorhanden.\n";
+                            echo "                    Die GPX-Daten entsprechen der Luftlinie zwischen den Haltestellen.\n";
+                            echo "                </p>\n";
+                        }
+
+                        echo "                <p>\n";
+                        echo "                    Bitte beachten: Die GTFS-Daten können Fehler enthalten, einen ungenauen Fahrverlauf anzeigen, unvollständig sein.\n";
+                        echo "                </p>\n";
+
+                        if ( $comment ) {
+                            echo "                <p>\n";
+                            echo "                    Diese Variante wurde mit Kommentar versehen:\n";
+                            echo "                </p>\n";
+                            echo "                <ul>\n";
+                            echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
+                            echo "                </ul>\n";
+                        }
+                    ?>
+
                     <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
                     <button class="button-create" type="button" onclick="callBrouterDe('de','km')">Routing mit 'brouter.de'</button>
                     <button class="button-create" type="button" onclick="callGraphHopperCom('de','km')">Routing mit 'graphhopper.com'</button>
@@ -81,12 +95,12 @@
                     <div id="gtfsmap"></div>
                 </div>
 
-                <h3 id="proposal">Vorschlag für OSM Tagging</h3>
+                <h2 id="proposal">Vorschlag für OSM Tagging</h2>
                 <div class="indent">
 <?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
                 </div>
 
-                <h3 id="stoplist">Haltestellen</h3>
+                <h2 id="stoplist">Haltestellen</h2>
                 <div class="indent">
                     <p>
                         Mit <strong>iD</strong> und <strong>JOSM</strong> kann die Umgebung einer Haltestelle in einen Editor geladen werden.
@@ -123,10 +137,10 @@
 <?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
                         </tbody>
                     </table>
-                    <p><strong>(1) Alle Abfahrzeiten an der ersten Haltestelle:</strong> <?php $string = GetDepartureTimesGtfsSingleTrip( $network, $trip_id ); if ( $string ) { echo $string; } else { echo 'derzeit nicht verfügbar.'; } ?></p>
+                    <p><strong>(1) Beispiel für Abfahrzeiten</strong></p>
                 </div>
 
-                <h3 id="service-times">Verkehrszeiten</h3>
+                <h2 id="service-times">Verkehrszeiten</h2>
                 <div class="indent">
                     <table id="gtfs-service-ids">
                         <thead>

@@ -1008,13 +1008,119 @@
                                          );
                         $result = $db->querySingle( $sql, true );
 
-                        if ( $result['list_service_ids'] ) {
-                            $service_ids = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
-                            sort( $service_ids );
+                        if ( $result['list_trip_ids'] && $result['list_departure_times']  && $result['list_service_ids'] ) {
+                            $list_trip_ids        = explode( '|', $result['list_trip_ids'] );
+                            $list_departure_times = explode( '|', $result['list_departure_times'] );
+                            $list_service_ids     = explode( '|', $result['list_service_ids'] );
+
+                            for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
+                                $service_departure[$list_service_ids[$i]] .= $list_departure_times[$i] . ',';
+                            }
+
+                            $service_ids = array_flip( array_flip( $list_service_ids ) );
+                            $where_clause = "service_id='";
                             foreach ( $service_ids as $service_id ) {
+                                $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                            }
+                            $sql = sprintf( "SELECT *
+                                             FROM   calendar
+                                             WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
+                            $cal_result = $db->query( $sql );
+
+                            $service_rows = array();
+                            while ( $row=$cal_result->fetchArray(SQLITE3_ASSOC) ) {
+                                if ( $row["service_id"] ) {
+                                    $service_row = '';
+                                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $row["start_date"], $parts ) ) {
+                                        $class = "gtfs-date";
+                                        $today = new DateTime();
+                                        if ( $row["start_date"] > $today->format('Ymd') )
+                                        {
+                                            $class = "gtfs-datenew";
+                                        }
+                                        $service_row .= '<td class="' . $class . '">';
+                                        $service_row .= $parts[1] . '-' . $parts[2] . '-' . $parts[3];
+                                    } else {
+                                        $service_row .= '<td class="gtfs-date">';
+                                        $service_row .= htmlspecialchars($row["start_date"]);
+                                    }
+                                    $service_row .= "</td>\n";
+                                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $row["end_date"], $parts ) ) {
+                                        $class = "gtfs-date";
+                                        $today = new DateTime();
+                                        if ( $row["end_date"] < $today->format('Ymd') )
+                                        {
+                                            $class = "gtfs-dateold";
+                                        }
+                                        $service_row .= '<td class="' . $class . '">';
+                                        $service_row .= $parts[1] . '-' . $parts[2] . '-' . $parts[3];
+                                    } else {
+                                        $service_row .= '<td class="gtfs-date">';
+                                        $service_row .= htmlspecialchars($row["end_date"]);
+                                    }
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["monday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["tuesday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["wednesday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["thursday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["friday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["saturday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-date">';
+                                    $service_row .= ($row["sunday"] == 1 ? 'X' : 'Y____');
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-text">';
+                                    $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') as dates
+                                                     FROM   calendar_dates
+                                                     WHERE  service_id='%s' AND exception_type=1;", SQLite3::escapeString(($row["service_id"]) ) );
+                                    $cal_pos = $db->querySingle( $sql, true );
+                                    if ( $cal_pos['dates'] ) {
+                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", $cal_pos["dates"] );
+                                    } else {
+                                        $service_row .= '&nbsp;';
+                                    }
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-text">';
+                                    $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') AS dates
+                                                     FROM   calendar_dates
+                                                     WHERE  service_id='%s' AND exception_type=2;", SQLite3::escapeString(($row["service_id"]) ) );
+                                    $cal_neg = $db->querySingle( $sql, true );
+                                    if ( $cal_neg['dates'] ) {
+                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", $cal_neg["dates"] );
+                                    } else {
+                                        $service_row .= '&nbsp;';
+                                    }
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-text">';
+                                    $departures  = preg_replace( "/:\d\d,/", ",", $service_departure[$row["service_id"]] );
+                                    $departures  = preg_replace( "/,$/", "", $departures );
+                                    $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
+                                    sort( $unique_departures );
+                                    $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
+                                    $service_row .= "</td>\n";
+                                    $service_row .= '<td class="gtfs-text">';
+                                    $service_row .=  htmlspecialchars($row["service_id"]);
+                                    $service_row .= "</td>\n";
+                                    array_push( $service_rows, $service_row );
+                                }
+                            }
+
+                            sort ( $service_rows );
+                            foreach ( $service_rows as $service_row ) {
+                                $service_row = preg_replace( "/Y____/", "&nbsp;", $service_row );
                                 echo '                          <tr class="gtfs-tablerow">' . "\n";
-                                echo '                              <td class="gtfs-name" colspan="12">... coming soon ...</td>' . "\n";
-                                echo '                              <td class="gtfs-text">' . $service_id . '</td>' . "\n";
+                                echo '                              ' . $service_row;
                                 echo '                          </tr>' . "\n";
                             }
                         } else {
@@ -1079,7 +1185,7 @@
 
                             $result = $db->query( $sql );
 
-                            echo '              <h3>GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
+                            echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
                             echo '              <div class="indent">' . "\n";
                             echo '                  <table id="gtfs-shape">' . "\n";
                             echo '                      <thead>' . "\n";

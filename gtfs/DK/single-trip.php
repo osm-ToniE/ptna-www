@@ -18,7 +18,6 @@
 
 <?php include $inc_lang.'header.inc' ?>
 
-        <main id="main" class="results">
 <?php
     $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
     $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
@@ -38,51 +37,66 @@
     $shape_id         = $trips["shape_id"];
 ?>
 
+            <nav id="navigation">
             <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
             <div class="indent">
-
+            <ul>
+                <li><a href="#showonmap">Kort</a></li>
+                <li><a href="#proposal">Forslag til OSM-tagging</a></li>
+                <li><a href="#stoplist">Stops</a></li>
+                <li><a href="#service-times">Trafik tider</a></li>
                 <?php
-                    if ( $shape_id ) {
-                        echo "                <p>\n";
-                        echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder.\n";
-                        echo "                    Såkaldte 'shape' data er tilgængelige: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
-                        echo "                    GPX-dataene svarer til den faktiske historie.\n";
-                        echo "                </p>\n";
-                    } else {
-                        echo "                <p>\n";
-                        echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder. \n";
-                        echo "                    Der er ingen tilgængelige formdata.\n";
-                        echo "                    GPX-dataene svarer til den lige linje mellem stop.\n";
-                        echo "                </p>\n";
-                    }
-
-                    echo "                <p>\n";
-                    echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik, være ufuldstændig.\n";
-                    echo "                </p>\n";
-
-                    if ( $comment ) {
-                        echo "                <p>\n";
-                        echo "                    Denne variant er blevet kommenteret:\n";
-                        echo "                </p>\n";
-                        echo "                <ul>\n";
-                        echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
-                        echo "                </ul>\n";
-                    }
+                    if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
                 ?>
+                </ul>
+        </nav>
 
-                <h3 id="showonmap">Kort</h3>
+        <hr />
+
+        <main id="main" class="results">
+
+                <h2 id="showonmap">Kort</h2>
                 <div class="indent">
+                    <?php
+                        if ( $shape_id ) {
+                            echo "                <p>\n";
+                            echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder.\n";
+                            echo "                    Såkaldte 'shape' data er tilgængelige: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
+                            echo "                    GPX-dataene svarer til den faktiske historie.\n";
+                            echo "                </p>\n";
+                        } else {
+                            echo "                <p>\n";
+                            echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder. \n";
+                            echo "                    Der er ingen tilgængelige formdata.\n";
+                            echo "                    GPX-dataene svarer til den lige linje mellem stop.\n";
+                            echo "                </p>\n";
+                        }
+
+                        echo "                <p>\n";
+                        echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik, være ufuldstændig.\n";
+                        echo "                </p>\n";
+
+                        if ( $comment ) {
+                            echo "                <p>\n";
+                            echo "                    Denne variant er blevet kommenteret:\n";
+                            echo "                </p>\n";
+                            echo "                <ul>\n";
+                            echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
+                            echo "                </ul>\n";
+                        }
+                    ?>
+
                     <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
 
                     <div id="gtfsmap"></div>
                 </div>
 
-                <h3 id="proposal">Forslag til OSM-tagging</h3>
+                <h2 id="proposal">Forslag til OSM-tagging</h2>
                 <div class="indent">
 <?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
                 </div>
 
-                <h3 id="stoplist">Stops</h3>
+                <h2 id="stoplist">Stops</h2>
                 <div class="indent">
                     <p>
                         Med <strong>iD</strong> og <strong>JOSM</strong> kan omgivelserne ved et stop indlæses i en editor.
@@ -119,10 +133,10 @@
 <?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
                         </tbody>
                     </table>
-                    <p><strong>(1) Alle afgangstider ved første stop:</strong> <?php $string = GetDepartureTimesGtfsSingleTrip( $network, $trip_id ); if ( $string ) { echo $string; } else { echo 'i øjeblikket ikke tilgængelig.'; } ?></p>
+                    <p><strong>(1) Eksempel på afgangstider</strong></p>
                 </div>
 
-                <h3 id="service-times">Trafik tider</h3>
+                <h2 id="service-times">Trafik tider</h2>
                 <div class="indent">
                     <table id="gtfs-service-ids">
                         <thead>
