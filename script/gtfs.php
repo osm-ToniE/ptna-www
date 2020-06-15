@@ -1009,12 +1009,17 @@
                         $result = $db->querySingle( $sql, true );
 
                         if ( $result['list_service_ids'] ) {
-                            echo '                          <tr class="gtfs-tablerow">' . "\n";
-                            echo '                              <td class="gtfs-name" colspan="12">... coming soon ...</td>' . "\n";
-                            echo '                          </tr>' . "\n";
+                            $service_ids = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
+                            sort( $service_ids );
+                            foreach ( $service_ids as $service_id ) {
+                                echo '                          <tr class="gtfs-tablerow">' . "\n";
+                                echo '                              <td class="gtfs-name" colspan="12">... coming soon ...</td>' . "\n";
+                                echo '                              <td class="gtfs-text">' . $service_id . '</td>' . "\n";
+                                echo '                          </tr>' . "\n";
+                            }
                         } else {
                             echo '                          <tr class="gtfs-tablerow">' . "\n";
-                            echo '                              <td class="gtfs-name" colspan="12">... not yet available ...</td>' . "\n";
+                            echo '                              <td class="gtfs-name" colspan="13">... not yet available ...</td>' . "\n";
                             echo '                          </tr>' . "\n";
                         }
                     }
@@ -1074,7 +1079,7 @@
 
                             $result = $db->query( $sql );
 
-                            echo '              <h3>GTFS Shape Data</h3>' ."\n";
+                            echo '              <h3>GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
                             echo '              <div class="indent">' . "\n";
                             echo '                  <table id="gtfs-shape">' . "\n";
                             echo '                      <thead>' . "\n";

@@ -31,11 +31,11 @@
     if ( !$route_short_name ) {
         $route_short_name = 'not set';
     }
-    $ptna             = GetTripDetails( $network, $trip_id );
-    $is_invalid       = $ptna["ptna_is_invalid"];
-    $is_wrong         = $ptna["ptna_is_wrong"];
-    $comment          = $ptna["ptna_comment"];
-    $shape_id         = $ptna["shape_id"];
+    $trips            = GetTripDetails( $network, $trip_id );
+    $is_invalid       = $trips["ptna_is_invalid"];
+    $is_wrong         = $trips["ptna_is_wrong"];
+    $comment          = $trips["ptna_comment"];
+    $shape_id         = $trips["shape_id"];
 ?>
 
             <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
@@ -45,7 +45,7 @@
                     if ( $shape_id ) {
                         echo "                <p>\n";
                         echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder.\n";
-                        echo "                    Såkaldte 'shape' data er tilgængelige.\n";
+                        echo "                    Såkaldte 'shape' data er tilgængelige: shape_id = \"" . htmlspecialchars($shape_id) . "\"\n";
                         echo "                    GPX-dataene svarer til den faktiske historie.\n";
                         echo "                </p>\n";
                     } else {
@@ -131,6 +131,7 @@
                                 <th class="gtfs-name" colspan="7">Hverdage</th>
                                 <th class="gtfs-name" colspan="2">Undtagelser</th>
                                 <th class="gtfs-name" rowspan="2">Afgangstider</th>
+                                <th class="gtfs-name" rowspan="2">Service-ID</th>
                             </tr>
                             <tr class="gtfs-tableheaderrow">
                                 <th class="gtfs-name">Fra</th>

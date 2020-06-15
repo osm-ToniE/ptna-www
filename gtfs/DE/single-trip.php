@@ -32,10 +32,10 @@
     if ( !$route_short_name ) {
         $route_short_name = 'not set';
     }
-    $ptna             = GetTripDetails( $network, $trip_id );
-    $is_invalid       = $ptna["ptna_is_invalid"];
-    $is_wrong         = $ptna["ptna_is_wrong"];
-    $comment          = $ptna["ptna_comment"];
+    $trips            = GetTripDetails( $network, $trip_id );
+    $is_invalid       = $trips["ptna_is_invalid"];
+    $is_wrong         = $trips["ptna_is_wrong"];
+    $comment          = $trips["ptna_comment"];
     $shape_id         = $trips["shape_id"];
 ?>
 
@@ -46,7 +46,7 @@
                     if ( $shape_id ) {
                         echo "                <p>\n";
                         echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
-                        echo "                    Es sind so genannte 'shape'-Daten vorhanden.\n";
+                        echo "                    Es sind so genannte 'shape'-Daten vorhanden: shape_id = \"" . htmlspecialchars($shape_id) . "\"\n";
                         echo "                    Die GPX-Daten entsprechen dem tatsächlichen Verlauf.\n";
                         echo "                </p>\n";
                     } else {
@@ -135,6 +135,7 @@
                                 <th class="gtfs-name" colspan="7">Wochentage</th>
                                 <th class="gtfs-name" colspan="2">Ausnahmen</th>
                                 <th class="gtfs-name" rowspan="2">Abfahrtzeiten</th>
+                                <th class="gtfs-name" rowspan="2">Service-ID</th>
                             </tr>
                             <tr class="gtfs-tableheaderrow">
                                 <th class="gtfs-name">Von</th>
