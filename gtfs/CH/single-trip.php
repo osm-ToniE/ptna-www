@@ -130,7 +130,13 @@
                 <div class="indent">
                     <table id="gtfs-service-ids">
                         <thead>
-                        <tr class="gtfs-tableheaderrow">
+                            <tr class="gtfs-tableheaderrow">
+                                <th class="gtfs-name" colspan="2">Gültigkeit</th>
+                                <th class="gtfs-name" colspan="7">Wochentage</th>
+                                <th class="gtfs-name" colspan="2">Ausnahmen</th>
+                                <th class="gtfs-name" rowspan="2">Abfahrtzeiten</th>
+                            </tr>
+                            <tr class="gtfs-tableheaderrow">
                                 <th class="gtfs-name">Von</th>
                                 <th class="gtfs-name">Bis</th>
                                 <th class="gtfs-name">Mo</th>
@@ -142,7 +148,6 @@
                                 <th class="gtfs-name">So</th>
                                 <th class="gtfs-name">Auch am</th>
                                 <th class="gtfs-name">Nicht am</th>
-                                <th class="gtfs-name">Abfahrt</th>
                             </tr>
                         </thead>
                         <tbody>

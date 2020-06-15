@@ -126,7 +126,13 @@
                 <div class="indent">
                     <table id="gtfs-service-ids">
                         <thead>
-                        <tr class="gtfs-tableheaderrow">
+                            <tr class="gtfs-tableheaderrow">
+                                <th class="gtfs-name" colspan="2">Gyldighedsperiode</th>
+                                <th class="gtfs-name" colspan="7">Hverdage</th>
+                                <th class="gtfs-name" colspan="2">Undtagelser</th>
+                                <th class="gtfs-name" rowspan="2">Afgangstider</th>
+                            </tr>
+                            <tr class="gtfs-tableheaderrow">
                                 <th class="gtfs-name">Fra</th>
                                 <th class="gtfs-name">Til</th>
                                 <th class="gtfs-name">Ma</th>
@@ -138,7 +144,6 @@
                                 <th class="gtfs-name">Sø</th>
                                 <th class="gtfs-name">Også tændt</th>
                                 <th class="gtfs-name">Ikke tændt</th>
-                                <th class="gtfs-name">Afgang</th>
                             </tr>
                         </thead>
                         <tbody>

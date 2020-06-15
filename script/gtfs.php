@@ -1009,6 +1009,13 @@
                         $result = $db->querySingle( $sql, true );
 
                         if ( $result['list_service_ids'] ) {
+                            echo '                          <tr class="gtfs-tablerow">' . "\n";
+                            echo '                              <td class="gtfs-name" colspan="12">... coming soon ...</td>' . "\n";
+                            echo '                          </tr>' . "\n";
+                        } else {
+                            echo '                          <tr class="gtfs-tablerow">' . "\n";
+                            echo '                              <td class="gtfs-name" colspan="12">... not yet available ...</td>' . "\n";
+                            echo '                          </tr>' . "\n";
                         }
                     }
                     $db->close();
