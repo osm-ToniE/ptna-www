@@ -41,7 +41,34 @@
             <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
             <div class="indent">
 
-<?php include $inc_lang.'gtfs-single-trip-head.inc' ?>
+                <?php
+                    if ( $shape_id ) {
+                        echo "                <p>\n";
+                        echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder.\n";
+                        echo "                    Såkaldte 'shape' data er tilgængelige.\n";
+                        echo "                    GPX-dataene svarer til den faktiske historie.\n";
+                        echo "                </p>\n";
+                    } else {
+                        echo "                <p>\n";
+                        echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder. \n";
+                        echo "                    Der er ingen tilgængelige formdata.\n";
+                        echo "                    GPX-dataene svarer til den lige linje mellem stop.\n";
+                        echo "                </p>\n";
+                    }
+
+                    echo "                <p>\n";
+                    echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik.\n";
+                    echo "                </p>\n";
+
+                    if ( $comment ) {
+                        echo "                <p>\n";
+                        echo "                    Denne variant er blevet kommenteret:\n";
+                        echo "                </p>\n";
+                        echo "                <ul>\n";
+                        echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
+                        echo "                </ul>\n";
+                    }
+                ?>
 
                 <h3 id="showonmap">Kort</h3>
                 <div class="indent">
@@ -73,13 +100,51 @@
 
                     <table id="gtfs-single-trip">
                         <thead>
-<?php include $inc_lang.'gtfs-single-trip-trth.inc' ?>
+                            <tr class="gtfs-tableheaderrow">
+                                <th class="gtfs-name" colspan="7">Stops</th>
+                                <th class="gtfs-name" colspan="1">PTNA info om stop</th>
+                            </tr>
+                            <tr class="gtfs-tableheaderrow">
+                                <th class="gtfs-name">Nummer</th>
+                                <th class="gtfs-name">Navn</th>
+                                <th class="gtfs-name">Download</th>
+                                <th class="gtfs-date">Afgangstid (1)</th>
+                                <th class="gtfs-number">Latitude</th>
+                                <th class="gtfs-number">Longitude</th>
+                                <th class="gtfs-text">Stop-ID</th>
+                                <th class="gtfs-comment">Kommentar</th>
+                            </tr>
                         </thead>
                         <tbody>
 <?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
                         </tbody>
                     </table>
                     <p><strong>(1) Alle afgangstider ved første stop:</strong> <?php $string = GetDepartureTimesGtfsSingleTrip( $network, $trip_id ); if ( $string ) { echo $string; } else { echo 'i øjeblikket ikke tilgængelig.'; } ?></p>
+                </div>
+
+                <h3 id="service-times">Trafik tider</h3>
+                <div class="indent">
+                    <table id="gtfs-service-ids">
+                        <thead>
+                        <tr class="gtfs-tableheaderrow">
+                                <th class="gtfs-name">Fra</th>
+                                <th class="gtfs-name">Til</th>
+                                <th class="gtfs-name">Ma</th>
+                                <th class="gtfs-name">Ti</th>
+                                <th class="gtfs-name">On</th>
+                                <th class="gtfs-name">To</th>
+                                <th class="gtfs-name">Fr</th>
+                                <th class="gtfs-name">Lø</th>
+                                <th class="gtfs-name">Sø</th>
+                                <th class="gtfs-name">Også tændt</th>
+                                <th class="gtfs-name">Ikke tændt</th>
+                                <th class="gtfs-name">Afgang</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<?php $duration = CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ); ?>
+                        </tbody>
+                    </table>
                 </div>
 
 <?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>

@@ -981,6 +981,54 @@
     }
 
 
+    function CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '') {
+
+           if ( $trip_id ) {
+
+               try {
+
+                    $start_time = gettimeofday(true);
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+
+                        $sql    = sprintf( "SELECT DISTINCT *
+                                            FROM            ptna_trips
+                                            WHERE           trip_id='%s'",
+                                            SQLite3::escapeString($trip_id)
+                                         );
+                        $result = $db->querySingle( $sql, true );
+
+                        if ( $result['list_service_ids'] ) {
+                        }
+                    }
+                    $db->close();
+
+                    $stop_time = gettimeofday(true);
+
+                    return $stop_time - $start_time;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return 0;
+    }
+
+
 
     function CreateGtfsSingleTripShapeEntry( $network, $trip_id ) {
 
