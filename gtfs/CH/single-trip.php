@@ -152,7 +152,7 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration = CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ); ?>
                         </tbody>
                     </table>
                 </div>
