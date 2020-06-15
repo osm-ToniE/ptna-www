@@ -45,7 +45,7 @@
                     if ( $shape_id ) {
                         echo "                <p>\n";
                         echo "                    Ruten kan genereres som GPX-data ved hjælp af knappen herunder.\n";
-                        echo "                    Såkaldte 'shape' data er tilgængelige: shape_id = \"" . htmlspecialchars($shape_id) . "\"\n";
+                        echo "                    Såkaldte 'shape' data er tilgængelige: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
                         echo "                    GPX-dataene svarer til den faktiske historie.\n";
                         echo "                </p>\n";
                     } else {
@@ -57,7 +57,7 @@
                     }
 
                     echo "                <p>\n";
-                    echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik.\n";
+                    echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik, være ufuldstændig.\n";
                     echo "                </p>\n";
 
                     if ( $comment ) {

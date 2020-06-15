@@ -46,7 +46,7 @@
                     if ( $shape_id ) {
                         echo "                <p>\n";
                         echo "                    Die Fahrtstrecke kann als GPX-Daten mit Hilfe des Buttons unten erzeugt werden.\n";
-                        echo "                    Es sind so genannte 'shape'-Daten vorhanden: shape_id = \"" . htmlspecialchars($shape_id) . "\"\n";
+                        echo "                    Es sind so genannte 'shape'-Daten vorhanden: shape_id = \"" . htmlspecialchars($shape_id) . "\".\n";
                         echo "                    Die GPX-Daten entsprechen dem tatsächlichen Verlauf.\n";
                         echo "                </p>\n";
                     } else {
@@ -58,7 +58,7 @@
                     }
 
                     echo "                <p>\n";
-                    echo "                    Bitte beachten: Die GTFS-Daten können Fehler enthalten, einen ungenauen Fahrverlauf anzeigen.\n";
+                    echo "                    Bitte beachten: Die GTFS-Daten können Fehler enthalten, einen ungenauen Fahrverlauf anzeigen, unvollständig sein.\n";
                     echo "                </p>\n";
 
                     if ( $comment ) {
