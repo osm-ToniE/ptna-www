@@ -842,7 +842,7 @@
 #                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">'  . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
+                        echo '                           <td class="gtfs-comment">' . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
                         echo '                       </tr>' . "\n";
                     }
 
@@ -927,60 +927,6 @@
     }
 
 
-    function GetDepartureTimesGtfsSingleTrip( $network, $trip_id ) {
-
-        $return_value = '';
-        $temp_array   = array();
-
-        $SqliteDb = FindGtfsSqliteDb( $network );
-
-        if ( $SqliteDb != '') {
-
-           if ( $trip_id ) {
-
-               try {
-
-                    $start_time = gettimeofday(true);
-
-                    $db = new SQLite3( $SqliteDb );
-
-                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
-
-                    $sql_master = $db->querySingle( $sql, true );
-
-                    if ( $sql_master['name'] ) {
-
-                        $sql    = sprintf( "SELECT DISTINCT list_departure_times
-                                            FROM            ptna_trips
-                                            WHERE           trip_id='%s'",
-                                            SQLite3::escapeString($trip_id)
-                                         );
-                        $result = $db->querySingle( $sql, true );
-
-                        if ( $result['list_departure_times'] ) {
-                            $result['list_departure_times'] = preg_replace('/:\d\d$/',  '', $result['list_departure_times'] );
-                            $result['list_departure_times'] = preg_replace('/:\d\d\|/', '|', $result['list_departure_times'] );
-                            $temp_array = array_flip( explode( '|', $result['list_departure_times'] ) );
-                            ksort( $temp_array );
-                            return implode( ', ', array_keys($temp_array) );
-                        }
-                    }
-                    $db->close();
-
-                    $stop_time = gettimeofday(true);
-
-                } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
-                }
-            }
-        } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
-        }
-
-        $return_value;
-    }
-
-
     function CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $network );
@@ -1044,7 +990,7 @@
                                         $service_row .= '<td class="gtfs-date">';
                                         $service_row .= htmlspecialchars($row["start_date"]);
                                     }
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $row["end_date"], $parts ) ) {
                                         $class = "gtfs-date";
                                         $today = new DateTime();
@@ -1058,28 +1004,28 @@
                                         $service_row .= '<td class="gtfs-date">';
                                         $service_row .= htmlspecialchars($row["end_date"]);
                                     }
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["monday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["tuesday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["wednesday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["thursday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["friday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["saturday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["sunday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') as dates
                                                      FROM   calendar_dates
@@ -1090,7 +1036,7 @@
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') AS dates
                                                      FROM   calendar_dates
@@ -1101,14 +1047,14 @@
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $departures  = preg_replace( "/:\d\d,/", ",", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
                                     sort( $unique_departures );
                                     $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
-                                    $service_row .= "</td>\n";
+                                    $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $service_row .=  htmlspecialchars($row["service_id"]);
                                     $service_row .= "</td>\n";
@@ -1145,7 +1091,6 @@
 
         return 0;
     }
-
 
 
     function CreateGtfsSingleTripShapeEntry( $network, $trip_id ) {

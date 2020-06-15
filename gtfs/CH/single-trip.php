@@ -173,7 +173,7 @@
 
 <?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
 
-<?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
+                <?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
 
             </div>
 

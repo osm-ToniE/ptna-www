@@ -19,13 +19,15 @@
                 if ( !$route_short_name ) {
                      $route_short_name = 'not set';
                 }
+                $ptna             = GetRouteDetails( $network, $route_id );
+                $is_invalid       = $ptna["ptna_is_invalid"];
+                $is_wrong         = $ptna["ptna_is_wrong"];
+                $comment          = $ptna["ptna_comment"];
             ?>
 
             <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Danmark"; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-trips-head.inc' ?>
-
-                <form class="ptna-data" action="trips.php?network=<?php echo urlencode($network);?>&route_id=<?php echo urlencode($route_id);?>" method="post">
 
                 <table id="gtfs-trips">
                     <thead>
@@ -35,8 +37,6 @@
 <?php $duration = CreateGtfsTripsEntry( $network, $route_id, $route_short_name ); ?>
                     </tbody>
                 </table>
-
-                </form>
 
                 <?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
 

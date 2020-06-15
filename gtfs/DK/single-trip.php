@@ -169,7 +169,7 @@
 
 <?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
 
-<?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
+                <?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
 
             </div>
 
