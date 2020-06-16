@@ -7,7 +7,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <nav id="navigation">
@@ -38,7 +38,7 @@
                     <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TNW", "de", "Konfiguration" ); ?>
-                    
+
                     <?php CreateNewFullEntry( "CH-TVAG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-TVBESO", "de", "Konfiguration" ); ?>
@@ -52,12 +52,12 @@
                     <?php CreateNewFullEntry( "CH-TVZG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-ZVV", "de", "Konfiguration" ); ?>
-                    
+
                 </tbody>
             </table>
 
             <hr />
-            
+
             <h2 id="CH-fr"><img src="/img/France16.png" alt="La France" /> Résultats pour la Suisse romande</h2>
 
 <?php $inc_lang='../../fr/'; include $inc_lang.'results-head.inc' ?>
@@ -78,6 +78,8 @@
 
                     <?php CreateNewFullEntry( "CH-CtVS", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry( "CH-Vagabond", "fr", "Configuration" ); ?>
+
                 </tbody>
             </table>
 
@@ -94,7 +96,7 @@
                 <tbody>
 
                     <?php CreateNewFullEntry( "CH-CTM", "it", "Configurazione" ); ?>
-                    
+
                 </tbody>
             </table>
 
@@ -115,4 +117,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
