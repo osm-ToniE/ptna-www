@@ -86,6 +86,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; of Route is a part of &#039;network&#039; = &#039;%s&#039; of Route-Master: %s</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; should be long form</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
@@ -711,7 +719,15 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route has &#039;network&#039; = &#039;%s&#039; value which is considered as not relevant: %s</td>
-                <td class="message-type">Errors</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route has &#039;network&#039; = &#039;%s&#039; value which is part of &#039;network&#039; = &#039;%s&#039; of Route-Master: %s</td>
+                <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>

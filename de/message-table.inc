@@ -70,6 +70,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;network&#039; = &#039;%s&#039; der Route ist Teil von &#039;network&#039; = &#039;%s&#039; des Route-Masters: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; der Route passt nicht zu &#039;network&#039; = &#039;%s&#039; des Route-Masters: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -750,8 +758,16 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route hat einen &#039;network&#039; = &#039;%s&#039; Wert, der Teil ist von &#039;network&#039; = &#039;%s&#039; des Route-Masters: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route hat einen &#039;network&#039; = &#039;%s&#039; Wert, der als nicht relevant betrachtet wird: %s</td>
-                <td class="message-type">Fehler</td>
+                <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
