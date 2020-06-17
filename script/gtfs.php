@@ -1054,7 +1054,7 @@
                                     }
                                     $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
-                                    $departures  = preg_replace( "/(\d\d:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
+                                    $departures  = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
                                     sort( $unique_departures );
