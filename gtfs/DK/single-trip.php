@@ -145,6 +145,7 @@
                                 <th class="gtfs-name" colspan="7">Hverdage</th>
                                 <th class="gtfs-name" colspan="2">Undtagelser</th>
                                 <th class="gtfs-name" rowspan="2">Afgangstider</th>
+                                <th class="gtfs-name" rowspan="2">Varighed</th>
                                 <th class="gtfs-name" rowspan="2">Service-ID</th>
                             </tr>
                             <tr class="gtfs-tableheaderrow">

@@ -149,6 +149,7 @@
                                 <th class="gtfs-name" colspan="7">Wochentage</th>
                                 <th class="gtfs-name" colspan="2">Ausnahmen</th>
                                 <th class="gtfs-name" rowspan="2">Abfahrtzeiten</th>
+                                <th class="gtfs-name" rowspan="2">Dauer</th>
                                 <th class="gtfs-name" rowspan="2">Service-ID</th>
                             </tr>
                             <tr class="gtfs-tableheaderrow">

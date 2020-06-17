@@ -958,9 +958,14 @@
                             $list_trip_ids        = explode( '|', $result['list_trip_ids'] );
                             $list_departure_times = explode( '|', $result['list_departure_times'] );
                             $list_service_ids     = explode( '|', $result['list_service_ids'] );
-
                             for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
                                 $service_departure[$list_service_ids[$i]] .= $list_departure_times[$i] . ',';
+                            }
+                            if ( $result['list_durations'] ) {
+                                $list_durations = explode( '|', $result['list_durations'] );
+                                for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
+                                    $service_durations[$list_service_ids[$i]] .= $list_durations[$i] . ',';
+                                }
                             }
 
                             $service_ids = array_flip( array_flip( $list_service_ids ) );
@@ -1049,11 +1054,25 @@
                                     }
                                     $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
-                                    $departures  = preg_replace( "/:\d\d,/", ",", $service_departure[$row["service_id"]] );
+                                    $departures  = preg_replace( "/(\d\d:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
                                     sort( $unique_departures );
                                     $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
+                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= '<td class="gtfs-text">';
+                                    if ( $result['list_durations'] ) {
+                                        $service_durations[$row["service_id"]]  = preg_replace( "/,$/", "", $service_durations[$row["service_id"]] );
+                                        $durations           = explode( ',', $service_durations[$row["service_id"]] );
+                                        $different_durations = array_flip( $durations );
+                                        if ( count($different_durations) == 1 ) {
+                                            $service_row .= htmlspecialchars($durations[0]);
+                                        } else {
+                                            $service_row .= htmlspecialchars( implode( ', ', $durations ) );
+                                        }
+                                    } else {
+                                        $service_row .= 'not yet available';
+                                    }
                                     $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $service_row .=  htmlspecialchars($row["service_id"]);
