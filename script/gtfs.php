@@ -263,7 +263,7 @@
                                                              (SELECT   trips.trip_id
                                                               FROM     trips
                                                               WHERE    trips.route_id='%s')
-                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
+                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]) );
                         }
 
                         $innerresult = $db->query( $sql );
