@@ -172,13 +172,13 @@
             } catch ( Exception $ex ) {
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
-                echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: error opening data base</td>' . "\n";
+                echo '                            <td class="gtfs-comment" colspan=8>SQLite DB: error opening data base</td>' . "\n";
                 echo '                        </tr>' . "\n";
             }
         } else {
             echo '                        <tr class="gtfs-tablerow">' . "\n";
             echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
-            echo '                            <td class="gtfs-comment" colspan=7>SQLite DB: data base not found (data not yet available?)</td>' . "\n";
+            echo '                            <td class="gtfs-comment" colspan=8>SQLite DB: data base not found (data not yet available?)</td>' . "\n";
             echo '                        </tr>' . "\n";
         }
 
