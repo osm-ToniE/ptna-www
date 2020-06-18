@@ -1062,8 +1062,9 @@
                                     $service_row .= "</td>\n                              ";
                                     $service_row .= '<td class="gtfs-text">';
                                     if ( $result['list_durations'] ) {
-                                        $service_durations[$row["service_id"]]  = preg_replace( "/,$/", "", $service_durations[$row["service_id"]] );
-                                        $durations           = explode( ',', $service_durations[$row["service_id"]] );
+                                        $durations_string    = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_durations[$row["service_id"]] );
+                                        $durations_string    = preg_replace( "/,$/", "", $durations_string );
+                                        $durations           = explode( ',', $durations_string );
                                         $different_durations = array_flip( $durations );
                                         if ( count($different_durations) == 1 ) {
                                             $service_row .= htmlspecialchars($durations[0]);
