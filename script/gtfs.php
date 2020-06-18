@@ -1312,15 +1312,27 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT trip_id
-                                     FROM   trips
-                                     WHERE  shape_id='%s';",
-                                     SQLite3::escapeString($shape_id)
-                                  );
+                    $result = $db->query( "PRAGMA table_info(trips);" );
 
-                    $row = $db->querySingle( $sql, true );
+                    $trips_has_shape_id = 0;
+                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                        if ( $row["name"] == 'shape_id') {
+                            $trips_has_shape_id = 1;
+                            break;
+                        }
+                    }
 
-                    return $row["trip_id"];
+                    if ( $trips_has_shape_id ) {
+                        $sql = sprintf( "SELECT trip_id
+                                         FROM   trips
+                                         WHERE  shape_id='%s';",
+                                         SQLite3::escapeString($shape_id)
+                                    );
+
+                        $row = $db->querySingle( $sql, true );
+
+                        return $row["trip_id"];
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
