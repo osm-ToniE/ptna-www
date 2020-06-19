@@ -56,16 +56,18 @@
                             <li><label for="tbg_blindtext_3">Ways</label></li>
                             <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
-                        <table class="relationtable">
-                            <thead class="results-tableheaderrow">
-                                <tr>
-                                    <th class="results-name">Key</th>
-                                    <th class="results-name">Value</th>
-                                </tr>
-                            </thead>
-                            <tbody id="relation-values" class="results-tablerow">
-                            </tbody>
-                        </table>
+                        <div class="tableFixHead">
+                            <table class="relationtable">
+                                <thead class="results-tableheaderrow">
+                                    <tr>
+                                        <th class="results-name">Key</th>
+                                        <th class="results-name">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="relation-values" class="results-tablerow">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <input type="radio" id="tbg_blindtext_1" name="tbg_blindtext" class="hackbox">
                     <div class="tabcontent">
@@ -76,19 +78,21 @@
                             <li><label for="tbg_blindtext_3">Ways</label></li>
                             <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
-                        <table class="relationtable">
-                            <thead class="results-tableheaderrow">
-                                <tr>
-                                    <th class="results-number">#</th>
-                                    <th class="results-number">Member #</th>
-                                    <th class="results-name">Role</th>
-                                    <th class="results-name">Name / Ref / Description</th>
-                                    <th class="results-name">ID</th>
-                                </tr>
-                            </thead>
-                            <tbody id="platform-members" class="results-tablerow">
-                            </tbody>
-                        </table>
+                        <div class="tableFixHead">
+                            <table class="relationtable">
+                                <thead class="results-tableheaderrow">
+                                    <tr>
+                                        <th class="results-number" style="width: 2.3em">#</th>
+                                        <th class="results-number" style="width: 5em">Member #</th>
+                                        <th class="results-name">Role</th>
+                                        <th class="results-name">Name / Ref / Description</th>
+                                        <th class="results-name">ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="platform-members" class="results-tablerow">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <input type="radio" id="tbg_blindtext_2" name="tbg_blindtext" class="hackbox">
                     <div class="tabcontent">
@@ -99,19 +103,21 @@
                           <li><label for="tbg_blindtext_3">Ways</label></li>
                           <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
-                        <table class="relationtable">
-                            <thead class="results-tableheaderrow">
-                                <tr>
-                                    <th class="results-number">#</th>
-                                    <th class="results-number">Member #</th>
-                                    <th class="results-name">Role</th>
-                                    <th class="results-name">Name / Ref / Description</th>
-                                    <th class="results-name">ID</th>
-                                </tr>
-                            </thead>
-                            <tbody id="stop-members" class="results-tablerow">
-                            </tbody>
-                        </table>
+                        <div class="tableFixHead">
+                            <table class="relationtable">
+                                <thead class="results-tableheaderrow">
+                                    <tr>
+                                        <th class="results-number" style="width: 2.3em">#</th>
+                                        <th class="results-number" style="width: 5em">Member #</th>
+                                        <th class="results-name">Role</th>
+                                        <th class="results-name">Name / Ref / Description</th>
+                                        <th class="results-name">ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stop-members" class="results-tablerow">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <input type="radio" id="tbg_blindtext_3" name="tbg_blindtext" class="hackbox">
                     <div class="tabcontent">
@@ -122,30 +128,22 @@
                           <li><label for="tbg_blindtext_3" class="tab_active">Ways</label></li>
                           <li><label for="tbg_blindtext_4">Others</label></li>
                         </ul>
-                        <!--
-                            Hinweise zu Scollable <tbody>
-                            https://www.w3schools.com/howto/howto_css_table_responsive.asp
-                            https://stackoverflow.com/questions/14834198/table-scroll-with-html-and-css
-                            https://medium.com/@vembarrajan/html-css-tricks-scroll-able-table-body-tbody-d23182ae0fbc
-                            https://codepen.io/nirmalkc/pen/oswdB
-                            https://jsfiddle.net/hashem/CrSpu/555/
-
-                            https://www.revilodesign.de/blog/css-tricks/css-table-header-fixed-thead-einer-tabelle-fixieren/
-                        -->
-                        <table class="relationtable">
-                            <thead class="results-tableheaderrow">
-                                <tr>
-                                    <th class="results-number">#</th>
-                                    <th class="results-number">Member #</th>
-                                    <th class="results-name">Role</th>
-                                    <th class="results-name">Name / Ref / Description</th>
-                                    <th class="results-name">ID</th>
-                                    <th class="results-symbol">&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody id="route-members" class="results-tablerow">
-                            </tbody>
-                        </table>
+                        <div class="tableFixHead">
+                            <table class="relationtable">
+                                <thead class="results-tableheaderrow">
+                                    <tr>
+                                        <th class="results-number" style="width: 2.3em">#</th>
+                                        <th class="results-number" style="width: 5em">Member #</th>
+                                        <th class="results-name">Role</th>
+                                        <th class="results-name">Name / Ref / Description</th>
+                                        <th class="results-name">ID</th>
+                                        <!-- <th class="results-symbol">&nbsp;</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody id="route-members" class="results-tablerow">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <input type="radio" id="tbg_blindtext_4" name="tbg_blindtext" class="hackbox">
                     <div class="tabcontent">
@@ -156,19 +154,21 @@
                           <li><label for="tbg_blindtext_3">Ways</label></li>
                           <li><label for="tbg_blindtext_4" class="tab_active">Others</label></li>
                         </ul>
-                        <table class="relationtable">
-                            <thead class="results-tableheaderrow">
-                                <tr>
-                                    <th class="results-number">#</th>
-                                    <th class="results-number">Member #</th>
-                                    <th class="results-name">Role</th>
-                                    <th class="results-name">Name / Ref / Description</th>
-                                    <th class="results-name">ID</th>
-                                </tr>
-                            </thead>
-                            <tbody id="other-members" class="results-tablerow">
-                            </tbody>
-                        </table>
+                        <div class="tableFixHead">
+                            <table class="relationtable">
+                                <thead class="results-tableheaderrow">
+                                    <tr>
+                                        <th class="results-number" style="width: 2.3em">#</th>
+                                        <th class="results-number" style="width: 5em">Member #</th>
+                                        <th class="results-name">Role</th>
+                                        <th class="results-name">Name / Ref / Description</th>
+                                        <th class="results-name">ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="other-members" class="results-tablerow">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
 

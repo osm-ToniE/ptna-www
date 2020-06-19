@@ -160,7 +160,11 @@ code             { font-weight: 500; font-size: 1.1em; }
 #beta                     { display: none; }
 
 .relationtables           { float:left; max-width:47.6%; }
-.relationtable            { min-width: 431px; max-width: 100%;}
+.relationtable            { min-width: 431px; max-width: 100%; width: 100%}
+
+.tableFixHead             { overflow-y: auto; height: 502px;}
+.tableFixHead thead       { background-color: #dddddd; position: sticky; top: 0; }
+.tableFixHead th          { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
 
 .symbol                   { text-align: center; padding: 0; border-width: 0px; height:32px;}
 
