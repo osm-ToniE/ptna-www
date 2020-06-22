@@ -56,7 +56,7 @@ function gpxdownload() {
 
                 var key = keyvalue.getAttribute("class");
 
-                if ( key == "gtfs-name" )
+                if ( key == "gtfs-stop-name" )
                 {
                     gpx_name = (i+1) + ': ' + value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
                 }

@@ -52,8 +52,6 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 #construction             { background-color: #888888; padding-bottom: 30px; padding-left: 40px; padding-right: 0px; }
 
-#gtfsmap                  { height: 500px; width: 50%; }
-
 .contact table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .contact th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 .contact td               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
@@ -82,10 +80,14 @@ code             { font-weight: 500; font-size: 1.1em; }
 .results-discussion       { text-align:left; white-space:nowrap; }
 .results-route            { text-align:left; white-space:nowrap; }
 
+#gtfsmap                  { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
+
+.gtfs-intro               { float:left; max-width:47.6% }
 .gtfs-tableheaderrow      { background-color: #dddddd;   }
 .gtfs-tablerow            { background-color: white;     }
 .gtfs-tablerowalt         { background-color: #efefef; }
 .gtfs-name                { text-align:left; white-space:nowrap; }
+.gtfs-stop-name           { text-align:left; white-space:nowrap; }
 .gtfs-number              { text-align:center; }
 .gtfs-lat                 { text-align:center; }
 .gtfs-lon                 { text-align:center; }
@@ -155,14 +157,14 @@ code             { font-weight: 500; font-size: 1.1em; }
 /**************************************/
 /* settings for the relation.php file */
 
-#relationmap              { height: 670px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
+#relationmap              { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
 
 #beta                     { display: none; }
 
 .relationtables           { float:left; max-width:47.6%; }
 .relationtable            { min-width: 431px; max-width: 100%; width: 100%}
 
-.tableFixHead             { overflow-y: auto; height: 502px;}
+.tableFixHead             { overflow-y: auto; height: 562px;}
 .tableFixHead thead       { background-color: #dddddd; position: sticky; top: 0; }
 .tableFixHead th          { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
 

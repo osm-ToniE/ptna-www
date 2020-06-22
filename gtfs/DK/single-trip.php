@@ -12,6 +12,7 @@
       <script src="/script/gpx.js"></script>
       <script src="/script/showonmap.js"></script>
       <script src="/script/josm.js"></script>
+      <script src="/script/routing.js"></script>
 
 
       <div id="wrapper">
@@ -37,23 +38,25 @@
     $shape_id         = $trips["shape_id"];
 ?>
 
-            <nav id="navigation">
-            <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
-            <div class="indent">
-            <ul>
-                <li><a href="#showonmap">Kort</a></li>
-                <li><a href="#proposal">Forslag til OSM-tagging</a></li>
-                <li><a href="#stoplist">Stops</a></li>
-                <li><a href="#service-times">Trafik tider</a></li>
-                <?php
-                    if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
-                ?>
-                </ul>
-        </nav>
-
-        <hr />
-
         <main id="main" class="results">
+
+            <div id="gtfsmap"></div>
+            <div class="gtfs-intro">
+
+                <h2 id="DK"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
+                <div class="indent">
+                <ul>
+                    <li><a href="#showonmap">Kort</a></li>
+                    <li><a href="#proposal">Forslag til OSM-tagging</a></li>
+                    <li><a href="#stoplist">Stops</a></li>
+                    <li><a href="#service-times">Trafik tider</a></li>
+                    <?php
+                        if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
+                    ?>
+                </ul>
+                </div>
+
+                <hr />
 
                 <h2 id="showonmap">Kort</h2>
                 <div class="indent">
@@ -85,16 +88,23 @@
                             echo "                </ul>\n";
                         }
                     ?>
-
-                    <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
-
-                    <div id="gtfsmap"></div>
                 </div>
+            </div>
+
+            <div class="clearing">
+                <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
+                <button class="button-create" type="button" onclick="callBrouterDe('dk','km')">Routing med 'brouter.de'</button>
+                <button class="button-create" type="button" onclick="callGraphHopperCom('dk','km')">Routing med 'graphhopper.com'</button>
+                <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('dk','km')">Routing med 'maps.openrouteservice.org'</button>
+
+                <hr />
 
                 <h2 id="proposal">Forslag til OSM-tagging</h2>
                 <div class="indent">
 <?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
                 </div>
+
+                <hr />
 
                 <h2 id="stoplist">Stops</h2>
                 <div class="indent">
@@ -135,6 +145,8 @@
                     </table>
                     <p><strong>(1) Eksempel på afgangstider</strong></p>
                 </div>
+
+                <hr />
 
                 <h2 id="service-times">Trafik tider</h2>
                 <div class="indent">

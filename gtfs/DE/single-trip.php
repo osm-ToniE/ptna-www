@@ -38,23 +38,25 @@
     $shape_id         = $trips["shape_id"];
 ?>
 
-        <nav id="navigation">
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
-            <div class="indent">
-            <ul>
-                <li><a href="#showonmap">Karte</a></li>
-                <li><a href="#proposal">Vorschlag für OSM Tagging</a></li>
-                <li><a href="#stoplist">Haltestellen</a></li>
-                <li><a href="#service-times">Verkehrszeiten</a></li>
-                <?php
-                    if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
-                ?>
-                </ul>
-        </nav>
-
-        <hr />
-
         <main id="main" class="results">
+
+            <div id="gtfsmap"></div>
+            <div class="gtfs-intro">
+
+                <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
+                <div class="indent">
+                    <ul>
+                        <li><a href="#showonmap">Karte</a></li>
+                        <li><a href="#proposal">Vorschlag für OSM Tagging</a></li>
+                        <li><a href="#stoplist">Haltestellen</a></li>
+                        <li><a href="#service-times">Verkehrszeiten</a></li>
+                        <?php
+                            if ( $shape_id ) { echo '                <li><a href="#shapes">GTFS Shape Data</a></li>'; }
+                        ?>
+                    </ul>
+                </div>
+
+                <hr />
 
                 <h2 id="showonmap">Karte</h2>
                 <div class="indent">
@@ -87,18 +89,23 @@
                         }
                     ?>
 
-                    <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
-                    <button class="button-create" type="button" onclick="callBrouterDe('de','km')">Routing mit 'brouter.de'</button>
-                    <button class="button-create" type="button" onclick="callGraphHopperCom('de','km')">Routing mit 'graphhopper.com'</button>
-                    <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('de','km')">Routing mit 'maps.openrouteservice.org'</button>
-
-                    <div id="gtfsmap"></div>
                 </div>
+            </div>
+
+            <div class="clearing">
+                <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
+                <button class="button-create" type="button" onclick="callBrouterDe('de','km')">Routing mit 'brouter.de'</button>
+                <button class="button-create" type="button" onclick="callGraphHopperCom('de','km')">Routing mit 'graphhopper.com'</button>
+                <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('de','km')">Routing mit 'maps.openrouteservice.org'</button>
+
+                <hr />
 
                 <h2 id="proposal">Vorschlag für OSM Tagging</h2>
                 <div class="indent">
 <?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
                 </div>
+
+                <hr />
 
                 <h2 id="stoplist">Haltestellen</h2>
                 <div class="indent">
@@ -139,6 +146,8 @@
                     </table>
                     <p><strong>(1) Beispiel für Abfahrzeiten</strong></p>
                 </div>
+
+                <hr />
 
                 <h2 id="service-times">Verkehrszeiten</h2>
                 <div class="indent">

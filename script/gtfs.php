@@ -826,24 +826,24 @@
                         if ( $row["departure_time"] ) {
                             $row["departure_time"] = preg_replace('/:\d\d$/', '', $row["departure_time"] );
                         }
-                        echo '                       <tr class="gtfs-tablerow">' . "\n";
-                        echo '                           <td class="gtfs-number">'   . $counter++ . '</td>' . "\n";
-                        echo '                           <td class="gtfs-name">'     . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">';
+                        echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
+                        echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
+                        echo '                                <td class="gtfs-comment">';
                         printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
                         $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
                         printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
                         echo '</td>' . "\n";
-                        echo '                           <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
-                        echo '                           <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
-                        echo '                           <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
-                        echo '                           <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
+                        echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
+                        echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
+                        echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
+                        echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
 #                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+#                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                           <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                           <td class="gtfs-comment">' . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
-                        echo '                       </tr>' . "\n";
+#                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        echo '                                <td class="gtfs-comment">' . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
                     }
 
                     $db->close();
@@ -995,7 +995,7 @@
                                         $service_row .= '<td class="gtfs-date">';
                                         $service_row .= htmlspecialchars($row["start_date"]);
                                     }
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $row["end_date"], $parts ) ) {
                                         $class = "gtfs-date";
                                         $today = new DateTime();
@@ -1009,28 +1009,28 @@
                                         $service_row .= '<td class="gtfs-date">';
                                         $service_row .= htmlspecialchars($row["end_date"]);
                                     }
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["monday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["tuesday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["wednesday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["thursday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["friday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["saturday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-date">';
                                     $service_row .= ($row["sunday"] == 1 ? 'X' : 'Y____');
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') as dates
                                                      FROM   calendar_dates
@@ -1041,7 +1041,7 @@
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $sql = sprintf( "SELECT GROUP_CONCAT(date,', ') AS dates
                                                      FROM   calendar_dates
@@ -1052,14 +1052,14 @@
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $departures  = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
                                     sort( $unique_departures );
                                     $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
                                     if ( $result['list_durations'] ) {
                                         $durations_string    = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_durations[$row["service_id"]] );
@@ -1074,7 +1074,7 @@
                                     } else {
                                         $service_row .= 'not yet available';
                                     }
-                                    $service_row .= "</td>\n                              ";
+                                    $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
                                     $service_row .=  htmlspecialchars($row["service_id"]);
                                     $service_row .= "</td>\n";
@@ -1085,9 +1085,9 @@
                             sort ( $service_rows );
                             foreach ( $service_rows as $service_row ) {
                                 $service_row = preg_replace( "/Y____/", "&nbsp;", $service_row );
-                                echo '                          <tr class="gtfs-tablerow">' . "\n";
-                                echo '                              ' . $service_row;
-                                echo '                          </tr>' . "\n";
+                                echo '                            <tr class="gtfs-tablerow">' . "\n";
+                                echo '                                ' . $service_row;
+                                echo '                            </tr>' . "\n";
                             }
                         } else {
                             echo '                          <tr class="gtfs-tablerow">' . "\n";
@@ -1150,6 +1150,7 @@
 
                             $result = $db->query( $sql );
 
+                            echo "              <hr />\n\n";
                             echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
                             echo '              <div class="indent">' . "\n";
                             echo '                  <table id="gtfs-shape">' . "\n";
