@@ -1053,19 +1053,29 @@
                                         $service_row .= '&nbsp;';
                                     }
                                     $service_row .= "</td>\n                                ";
-                                    $service_row .= '<td class="gtfs-text">';
+
+                                    if ( $result['list_durations'] ) {
+                                        $durations_string    = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_durations[$row["service_id"]] );
+                                        $durations_string    = preg_replace( "/,$/", "", $durations_string );
+                                        $durations           = explode( ',', $durations_string );
+                                        $different_durations = array_flip( $durations );
+                                        if ( count($different_durations) == 1 ) {
+                                            $style_width_departures = '';
+                                            $style_width_durations  = '';
+                                        } else {
+                                            $style_width_departures = ' style="width:26%;"';
+                                            $style_width_durations  = ' style="width:21.2%;"';
+                                        }
+                                    }
+                                    $service_row .= '<td class="gtfs-text"' . $style_width_departures . '>';
                                     $departures  = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
                                     sort( $unique_departures );
                                     $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
                                     $service_row .= "</td>\n                                ";
-                                    $service_row .= '<td class="gtfs-text">';
+                                    $service_row .= '<td class="gtfs-text"' . $style_width_durations . '>';
                                     if ( $result['list_durations'] ) {
-                                        $durations_string    = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_durations[$row["service_id"]] );
-                                        $durations_string    = preg_replace( "/,$/", "", $durations_string );
-                                        $durations           = explode( ',', $durations_string );
-                                        $different_durations = array_flip( $durations );
                                         if ( count($different_durations) == 1 ) {
                                             $service_row .= htmlspecialchars($durations[0]);
                                         } else {
