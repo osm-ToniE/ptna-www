@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="dk">
+<html lang="da">
 
-<?php $title="Results"; $inc_lang='../../dk/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="Results"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/entries.php'); ?>
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="LU"><img src="/img/Denmark32.png" alt="Flag til Danmark" /> Resultater for Danmark</h2>
-      
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksDK">
@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "DK-Alle", "dk", "Konfiguration" ); ?>
+                    <?php CreateNewFullEntry( "DK-Alle", "da", "Konfiguration" ); ?>
 
                 </tbody>
             </table>
@@ -36,4 +36,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

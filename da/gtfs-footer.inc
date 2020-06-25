@@ -1,4 +1,7 @@
-        <footer id="footer-dk" class="clearing">
+        <footer id="footer-da class="clearing">
+            <p>
+                Alle GTFS data © ejer af GTFS data.
+            </p>
             <p>
                 Alle geografiske data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap-bidragydere</a>.
             </p>

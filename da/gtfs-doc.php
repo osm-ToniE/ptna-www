@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="dk">
+<html lang="da">
 
 <?php $title="GTFS"; include "html-head.inc" ?>
 

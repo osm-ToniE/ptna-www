@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="dk">
+<html lang="da">
 
 <?php $title="Configuration"; include('html-head.inc'); ?>
 
@@ -126,4 +126,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

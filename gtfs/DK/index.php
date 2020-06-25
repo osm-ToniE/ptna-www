@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="dk">
+<html lang="da">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../dk/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="GTFS Analysen"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/globals.php'); ?>
 <?php include('../../script/gtfs.php'); ?>
@@ -38,4 +38,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

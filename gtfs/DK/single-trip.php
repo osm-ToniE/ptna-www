@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="dk">
+<html lang="da">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../dk/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="GTFS Analysen"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/globals.php'); ?>
 <?php include('../../script/gtfs.php'); ?>
@@ -93,9 +93,9 @@
 
             <div class="clearing">
                 <button class="button-create" type="button" onclick="gpxdownload()">GPX-Download</button>
-                <button class="button-create" type="button" onclick="callBrouterDe('dk','km')">Routing med 'brouter.de'</button>
-                <button class="button-create" type="button" onclick="callGraphHopperCom('dk','km')">Routing med 'graphhopper.com'</button>
-                <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('dk','km')">Routing med 'maps.openrouteservice.org'</button>
+                <button class="button-create" type="button" onclick="callBrouterDe('da','km')">Routing med 'brouter.de'</button>
+                <button class="button-create" type="button" onclick="callGraphHopperCom('da','km')">Routing med 'graphhopper.com'</button>
+                <button class="button-create" type="button" onclick="callOpenRouteServiceOrg('da','km')">Routing med 'maps.openrouteservice.org'</button>
 
                 <hr />
 
