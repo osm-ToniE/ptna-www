@@ -388,7 +388,11 @@
 
                         if ( $innerrow["stop_id_list"] && !isset($stoplist[$innerrow["stop_id_list"]]) ) {
                             $stoplist[$innerrow["stop_id_list"]] = $outerrow["trip_id"];
-                            $stop_names = $innerrow["stop_name_list"] . '  |' . $outerrow["trip_id"];
+                            # the next 4 lines are used to sort the output 'trip_array' by frist, by last and then by via stop names
+                            $stop_name_array = explode( '  |', $innerrow["stop_name_list"] );
+                            $first_stop_name = array_shift( $stop_name_array );
+                            $last_stop_name  = array_pop(   $stop_name_array );
+                            $stop_names      = $first_stop_name . '  |' . $last_stop_name . '  |' . implode('  |',$stop_name_array) . '  |' . $outerrow["trip_id"];
                             array_push( $trip_array, $stop_names );
                         }
                     }
@@ -401,7 +405,7 @@
                         $stop_name_array = explode( '  |', $stop_names );
                         $trip_id         = array_pop($stop_name_array);
                         $first_stop_name = array_shift( $stop_name_array );
-                        $last_stop_name  = array_pop(   $stop_name_array );
+                        $last_stop_name  = array_shift( $stop_name_array ); # last stop name ist really the second in the list
                         $via_stop_names  = implode( ' => ', $stop_name_array );
 
                         $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
