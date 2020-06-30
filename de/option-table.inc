@@ -178,19 +178,19 @@
             <tr class="message-tablerow" id="option-network-long-regex">
                 <td class="message-option">network-long-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss muss dem regulären Ausdruck als Langform entsprechen oder kann leer sein (nicht gesetzt).</td>
+                <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss dem regulären Ausdruck als Langform entsprechen oder kann leer sein (nicht gesetzt).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-short-regex">
                 <td class="message-option">network-short-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss muss dem regulären Ausdruck als Kurzform entsprechen oder kann leer sein (nicht gesetzt).</td>
+                <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss dem regulären Ausdruck als Kurzform entsprechen oder kann leer sein (nicht gesetzt).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-operator-regex">
                 <td class="message-option">operator-regex</td>
                 <td class="message-default"></td>
-                <td class="message-description">Der Wert von &#039;operator&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss muss dem regulären Ausdruck entsprechen oder kann leer sein (nicht gesetzt).</td>
+                <td class="message-description">Der Wert von &#039;operator&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss dem regulären Ausdruck entsprechen oder kann leer sein (nicht gesetzt).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-or-separator">
@@ -220,7 +220,7 @@
             <tr class="message-tablerow" id="option-relaxed-begin-end-for">
                 <td class="message-option">relaxed-begin-end-for</td>
                 <td class="message-default"></td>
-                <td class="message-description">Entspanntere Prüfung für den Anfang und das Ende der Fahrstrecke bezüglich Haltestellen (zB. für &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
+                <td class="message-description">Entspannte Prüfung für den Anfang und das Ende der Fahrstrecke bezüglich Haltestellen (zB. für &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-separator">
