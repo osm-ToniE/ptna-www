@@ -653,6 +653,10 @@
                         echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . htmlspecialchars( $network ) . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
                     if ( $osm_gtfs_route_id ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
@@ -728,6 +732,10 @@
                         echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . htmlspecialchars( $network ) . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
                     if ( $osm_gtfs_route_id ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
@@ -1183,11 +1191,11 @@
                                 echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
                                 echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
                                 echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
-                                if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
-                                    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
-                                } else {
+                                #if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
+                                #    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
+                                #} else {
                                     echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
-                                }
+                                #}
                                 echo '                          </tr>' . "\n";
                             }
                             echo '                      </tbody>' . "\n";
