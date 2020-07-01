@@ -10,7 +10,7 @@ function gpxdownload() {
     var metadata     = "";
     metadata        += "  <name>" + network + ", Linie " + route_short_name + "</name>\r\n"
     metadata        += "  <cmt>Trip-Id = " + trip_id + "</cmt>\r\n"
-    metadata        += "  <desc>GTFS Analysen für " + network + "</desc>\r\n"
+    metadata        += "  <desc>GTFS Analysis for " + network + "</desc>\r\n"
     metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
     metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
 
