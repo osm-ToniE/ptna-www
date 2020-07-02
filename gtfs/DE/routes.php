@@ -16,7 +16,7 @@
         <main id="main" class="results">
 <?php $network  = $_GET['network']; ?>
 
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> GTFS Analysen für <?php if ( $network ) { echo '<span id="network">' . htmlspecialchars($network) . '</span>'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
+            <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $network ) { echo '<span id="network">' . htmlspecialchars($network) . '</span>'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-routes-head.inc' ?>
 

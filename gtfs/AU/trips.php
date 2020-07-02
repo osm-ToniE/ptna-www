@@ -25,7 +25,7 @@
                 $comment          = $ptna["ptna_comment"];
             ?>
 
-            <h2 id="AU"><img src="/img/Australia32.png" alt="Flag of Australia" /> GTFS Analysis for <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Route "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Australia"; } ?></h2>
+            <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Route "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Australia"; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-trips-head.inc' ?>
 

@@ -12,7 +12,7 @@
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="CH"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> GTFS Analysen für die Schweiz</h2>
+            <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /></a> GTFS Analysen für die Schweiz</h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-head.inc' ?>
                 <table id="gtfsCH">
