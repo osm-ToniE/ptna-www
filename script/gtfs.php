@@ -265,87 +265,91 @@
                         }
 
                         if ( $ptna['consider_calendar'] ) {
-                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                            $sql = sprintf( "SELECT DISTINCT trip_id
                                              FROM            trips
                                              JOIN            calendar ON trips.service_id = calendar.service_id
-                                             WHERE           trip_id  IN
-                                                             (SELECT   trips.trip_id
-                                                              FROM     trips
-                                                              WHERE    trips.route_id='%s') AND %s >= calendar.start_date AND %s <= calendar.end_date
-                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC LIMIT 1;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
+                                             WHERE           trips.route_id='%s' AND %s >= calendar.start_date AND %s <= calendar.end_date;", SQLite3::escapeString($outerrow["route_id"]), $today->format('Ymd'), $today->format('Ymd') );
                         } else {
-                            $sql = sprintf( "SELECT DISTINCT calendar.start_date,calendar.end_date
+                            $sql = sprintf( "SELECT DISTINCT trip_id
                                              FROM            trips
-                                             JOIN            calendar ON trips.service_id = calendar.service_id
-                                             WHERE           trip_id  IN
-                                                             (SELECT   trips.trip_id
-                                                              FROM     trips
-                                                              WHERE    trips.route_id='%s')
-                                                              ORDER BY calendar.end_date DESC, calendar.start_date ASC;", SQLite3::escapeString($outerrow["route_id"]) );
+                                             WHERE           trips.route_id='%s';", SQLite3::escapeString($outerrow["route_id"]) );
                         }
 
                         $innerresult = $db->query( $sql );
 
+                        $min_start_date = '20500101';
+                        $max_end_date   = '19700101';
                         while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
-
-                            echo '                        <tr class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
-                            if ( $outerrow["route_short_name"] ) {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">not set</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
-                            }
-                            echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
-                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["start_date"], $parts ) ) {
-                                $class = "gtfs-date";
-                                $today = new DateTime();
-                                if ( $innerrow["start_date"] > $today->format('Ymd') )
-                                {
-                                    $class = "gtfs-datenew";
+                            $start_end_array = GetStartEndDateOfIdenticalTrips( $network, $innerrow["trip_id"] );
+                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
+                                if ( $start_end_array["start_date"] < $min_start_date ) {
+                                    $min_start_date = $start_end_array["start_date"];
                                 }
-                                echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["start_date"]) . '</td>' . "\n";
                             }
-                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $innerrow["end_date"], $parts ) ) {
-                                $class = "gtfs-date";
-                                $today = new DateTime();
-                                if ( $innerrow["end_date"] < $today->format('Ymd') )
-                                {
-                                    $class = "gtfs-dateold";
+                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
+                                if ( $start_end_array["end_date"] > $max_end_date ) {
+                                    $max_end_date = $start_end_array["end_date"];
                                 }
-                                echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-date">' . htmlspecialchars($innerrow["end_date"]) . '</td>' . "\n";
                             }
-                            if ( $outerrow["normalized_route_long_name"] ) {
-                                echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
-                            } elseif ( $outerrow["route_long_name"] ) {
-                                echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_long_name"]) . '</span></td>' . "\n";
-                            } elseif ( $outerrow["route_desc"] ) {
-                                echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_desc"]) . '</span></td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
-                            }
-                            if ( $outerrow["agency_url"] ) {
-                                echo '                            <td class="gtfs-text"><a target="_blank" href="' . $outerrow["agency_url"]. '"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></a></td>' . "\n";
-                            } else {
-                                echo '                            <td class="gtfs-text"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></td>' . "\n";
-                            }
-                            $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
-                                                FROM   routes
-                                                WHERE  route_id='%s';",
-                                                SQLite3::escapeString($outerrow["route_id"])
-                                             );
-
-                            $ptnarow = $db->querySingle( $sql, true );
-
-#                            if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                            if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                            echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                            echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
-                            echo '                        </tr>' . "\n";
                         }
+
+                        echo '                        <tr class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
+                        if ( $outerrow["route_short_name"] ) {
+                            echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($outerrow["route_short_name"]) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">not set</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
+                        }
+                        echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $min_start_date, $parts ) ) {
+                            $class = "gtfs-date";
+                            $today = new DateTime();
+                            if ( $min_start_date > $today->format('Ymd') )
+                            {
+                                $class = "gtfs-datenew";
+                            }
+                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars(min_start_date) . '</td>' . "\n";
+                        }
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $max_end_date, $parts ) ) {
+                            $class = "gtfs-date";
+                            $today = new DateTime();
+                            if ( $max_end_date < $today->format('Ymd') )
+                            {
+                                $class = "gtfs-dateold";
+                            }
+                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars($max_end_date) . '</td>' . "\n";
+                        }
+                        if ( $outerrow["normalized_route_long_name"] ) {
+                            echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
+                        } elseif ( $outerrow["route_long_name"] ) {
+                            echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_long_name"]) . '</span></td>' . "\n";
+                        } elseif ( $outerrow["route_desc"] ) {
+                            echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_desc"]) . '</span></td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
+                        }
+                        if ( $outerrow["agency_url"] ) {
+                            echo '                            <td class="gtfs-text"><a target="_blank" href="' . $outerrow["agency_url"]. '"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></a></td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-text"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></td>' . "\n";
+                        }
+                        $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
+                                            FROM   routes
+                                            WHERE  route_id='%s';",
+                                            SQLite3::escapeString($outerrow["route_id"])
+                                            );
+
+                        $ptnarow = $db->querySingle( $sql, true );
+
+#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
+                        echo '                        </tr>' . "\n";
                     }
                     $db->close();
 
@@ -898,8 +902,8 @@
 
         $return_array = array();
 
-        $return_array["start_date"] = '';
-        $return_array["end_date"]   = '';
+        $return_array["start_date"] = '20500101';
+        $return_array["end_date"]   = '19700101';
 
         $SqliteDb = FindGtfsSqliteDb( $network );
 
@@ -933,13 +937,18 @@
                             }
                             $sql = sprintf( "SELECT start_date,end_date
                                              FROM   calendar
-                                             WHERE  %s
-                                             ORDER BY end_date DESC, start_date ASC LIMIT 1;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
+                                             WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
 
-                            $result = $db->querySingle( $sql, true );
+                            $result = $db->query( $sql );
 
-                            $return_array["start_date"] = $result["start_date"];
-                            $return_array["end_date"]   = $result["end_date"];
+                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                                if ( $row["start_date"] < $return_array["start_date"] ) {
+                                    $return_array["start_date"] = $row["start_date"];
+                                }
+                                if ( $row["end_date"] > $return_array["end_date"] ) {
+                                    $return_array["end_date"]   = $row["end_date"];
+                                }
+                            }
                         }
                     }
 
