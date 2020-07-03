@@ -151,6 +151,12 @@
                 <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; wird in der Kurzform erwartet statt der hier angegebenen Langform.</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-gtfs-feed">
+                <td class="message-option">gtfs-feed</td>
+                <td class="message-default"></td>
+                <td class="message-description">Verwende diesen Wert als GTFS-Feed für die Option &#039;link-gtfs&#039; wenn die Relation keinen der tags &#039;gtfs:feed&#039;, &#039;operator:guid&#039; oder &#039;network:guid&#039; nicht enthält.</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-language">
                 <td class="message-option">language</td>
                 <td class="message-default">en</td>
@@ -172,7 +178,7 @@
             <tr class="message-tablerow" id="option-multiple-ref-type-entries">
                 <td class="message-option">multiple-ref-type-entries</td>
                 <td class="message-default">analyze</td>
-                <td class="message-description">allow|analyze|no<br />Taucht die Kombination von &quot;ref;type&quot; (z.B. &quot;N8;bus&quot;) in den CSV-Daten mehrfach auf, so nimmt PTNA an, dass es sich um separate Linien mit identischen &#039;ref&#039; und &#039;type&#039; in unterschiedlichen Städten/Gemeinden handelt und dass diese sich durch &#039;operator&#039;, &#039;from&#039; und &#039;to&#039; unterscheiden.</td>
+                <td class="message-description">allow|analyze|no<br />Definiert, wie das mehrfache Auftreten der Kombination von &quot;ref;type&quot; (z.B. &quot;N8;bus&quot;) in den CSV-Daten behandelt werden soll. PTNA nimmt an, dass es sich um separate Linien mit identischen &#039;ref&#039; und &#039;type&#039; in unterschiedlichen Städten/Gemeinden handelt und dass diese sich durch &#039;operator&#039;, &#039;from&#039; und &#039;to&#039; unterscheiden.<br />allow: erlaube weitere Vorkommen dieses Eintrags, keine Überprüfung von &#039;operator&#039;, &#039;from&#039; und &#039;to&#039;<br />analyze: prüfe, ob &#039;operator&#039;, &#039;from&#039; und &#039;to&#039; in den CSV-Daten mit den Werte der Relation übereinstimmen<br />no: ignoriere weitere Vorkommen dieses Eintrags, keine Überprüfung von &#039;operator&#039;, &#039;from&#039; und &#039;to&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-long-regex">
@@ -208,7 +214,7 @@
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
                 <td class="message-default">no</td>
-                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; für einen Punkt neben der Straße wird wie &#039;public_transport&#039; = &#039;platform&#039; behandelt, wenn &#039;role&#039; = &#039;platform&#039;.<br />allow: die Kompatibilität mit alten bus-stops (aka: PTv1) wird stillschweigend angenommen<br />no: keine Kompatibilität mit alten bus-stops (aka: PTv1)<br />show: die Kompatibilität mit alten bus-stops (aka: PTv1) wird angenommen und angezeigt</td>
+                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; für einen Punkt neben der Straße wird wie &#039;public_transport&#039; = &#039;platform&#039; behandelt, wenn &#039;role&#039; = &#039;platform&#039;.<br />allow: die Kompatibilität mit alten bus-stops (aka: PTv1) wird stillschweigend angenommen<br />no: keine Kompatibilität mit alten bus-stops (aka: PTv1)<br />show: die Kompatibilität mit alten bus-stops (aka: PTv1) wird angenommen und angezeigt.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">

@@ -130,7 +130,7 @@
             <tr class="message-tablerow" id="option-expect-network-long-for">
                 <td class="message-option">expect-network-long-for</td>
                 <td class="message-default"></td>
-                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in long form, instead of the short form shown here.</td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in long form instead of the short form shown here.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-expect-network-short">
@@ -148,7 +148,13 @@
             <tr class="message-tablerow" id="option-expect-network-short-for">
                 <td class="message-option">expect-network-short-for</td>
                 <td class="message-default"></td>
-                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in short form, instead of the long form shown here.</td>
+                <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; is expected in short form instead of the long form shown here.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow" id="option-gtfs-feed">
+                <td class="message-option">gtfs-feed</td>
+                <td class="message-default"></td>
+                <td class="message-description">Take this value as GTFS feed for option &#039;link-gtfs&#039; if the relation does not prived the tags &#039;gtfs:feed&#039;, &#039;operator:guid&#039; or &#039;network:guid&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-language">
@@ -172,7 +178,7 @@
             <tr class="message-tablerow" id="option-multiple-ref-type-entries">
                 <td class="message-option">multiple-ref-type-entries</td>
                 <td class="message-default">analyze</td>
-                <td class="message-description">allow|analyze|no<br />If the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears more than once in the route data, the tool expects that there are separate routes with identical &#039;ref&#039; and &#039;type&#039; in different cities/villages and that those can be distinguished by also checking &#039;operator&#039;, &#039;to&#039; and &#039;from&#039;.</td>
+                <td class="message-description">allow|analyze|no<br />Defines how to react if the combination of &quot;ref;type&quot; (e.g. &quot;N8;bus&quot;) appears more than once in the route data. PTNA expects that there are separate routes with identical &#039;ref&#039; and &#039;type&#039; in different cities/villages and that those can be distinguished by also checking &#039;operator&#039;, &#039;to&#039; and &#039;from&#039;.<br />allow: allow further occurances of this entry, do not analyze &#039;operator&#039;, &#039;from&#039; and &#039;to&#039;<br />analyze: find out whether &#039;operator&#039;, &#039;from&#039; and &#039;to&#039; of the CSV data match the tags of the relation<br />no: ignore any further occurances of this entry, do not analyze &#039;operator&#039;, &#039;from&#039; and &#039;to&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-network-long-regex">
@@ -208,7 +214,7 @@
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
                 <td class="message-default">no</td>
-                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; on a point beside the road is treated as &#039;public_transport&#039; = &#039;platform&#039; if &#039;role&#039; = &#039;platform&#039;.<br />allow: silently assume compatibility with legacy bus-stops (aka: PTv1)<br />no: no compatibility with legacy bus-stops (aka: PTv1)<br />show: assume and show compatibility with legacy bus-stops (aka: PTv1)</td>
+                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; on a point beside the road is treated as &#039;public_transport&#039; = &#039;platform&#039; if &#039;role&#039; = &#039;platform&#039;.<br />allow: silently assume compatibility with legacy bus-stops (aka: PTv1)<br />no: no compatibility with legacy bus-stops (aka: PTv1)<br />show: assume and show compatibility with legacy bus-stops (aka: PTv1).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">
