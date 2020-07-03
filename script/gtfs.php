@@ -280,7 +280,7 @@
                         $min_start_date = '20500101';
                         $max_end_date   = '19700101';
                         while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
-                            $start_end_array = GetStartEndDateOfIdenticalTrips( $network, $innerrow["trip_id"] );
+                            $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $innerrow["trip_id"] );
                             if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
                                 if ( $start_end_array["start_date"] < $min_start_date ) {
                                     $min_start_date = $start_end_array["start_date"];
@@ -358,7 +358,7 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "CreateGtfsRoutesEntry(): Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
                 }
             }
         } else {
@@ -438,7 +438,7 @@
 
                         $ptnarow = $db->querySingle( $sql, true );
 
-                        $start_end_array = GetStartEndDateOfIdenticalTrips( $network, $trip_id );
+                        $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $trip_id );
 
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
                         echo '                            <td class="gtfs-number">' . $index . '</td>' . "\n";
@@ -898,68 +898,54 @@
     }
 
 
-    function GetStartEndDateOfIdenticalTrips( $network, $trip_id ) {
+    function GetStartEndDateOfIdenticalTrips( $db, $trip_id ) {
 
         $return_array = array();
 
         $return_array["start_date"] = '20500101';
         $return_array["end_date"]   = '19700101';
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        if ( $db ) {
 
-        if ( $SqliteDb != '' ) {
+            if ( $trip_id ) {
 
-           if ( $trip_id ) {
+                $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
 
-               try {
+                $sql_master = $db->querySingle( $sql, true );
 
-                    $db = new SQLite3( $SqliteDb );
+                if ( $sql_master['name'] ) {
 
-                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
+                    $sql    = sprintf( "SELECT DISTINCT *
+                                        FROM            ptna_trips
+                                        WHERE           trip_id='%s'",
+                                        SQLite3::escapeString($trip_id)
+                                        );
+                    $result = $db->querySingle( $sql, true );
 
-                    $sql_master = $db->querySingle( $sql, true );
+                    if ( $result['list_service_ids'] ) {
+                        $temp_array = array();
+                        $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
+                        $where_clause = "service_id='";
+                        foreach ( $temp_array as $service_id ) {
+                            $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                        }
+                        $sql = sprintf( "SELECT start_date,end_date
+                                            FROM   calendar
+                                            WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
 
-                    if ( $sql_master['name'] ) {
+                        $result = $db->query( $sql );
 
-                        $sql    = sprintf( "SELECT DISTINCT *
-                                            FROM            ptna_trips
-                                            WHERE           trip_id='%s'",
-                                            SQLite3::escapeString($trip_id)
-                                         );
-                        $result = $db->querySingle( $sql, true );
-
-                        if ( $result['list_service_ids'] ) {
-                            $temp_array = array();
-                            $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
-                            $where_clause = "service_id='";
-                            foreach ( $temp_array as $service_id ) {
-                                $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            if ( $row["start_date"] < $return_array["start_date"] ) {
+                                $return_array["start_date"] = $row["start_date"];
                             }
-                            $sql = sprintf( "SELECT start_date,end_date
-                                             FROM   calendar
-                                             WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
-
-                            $result = $db->query( $sql );
-
-                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                                if ( $row["start_date"] < $return_array["start_date"] ) {
-                                    $return_array["start_date"] = $row["start_date"];
-                                }
-                                if ( $row["end_date"] > $return_array["end_date"] ) {
-                                    $return_array["end_date"]   = $row["end_date"];
-                                }
+                            if ( $row["end_date"] > $return_array["end_date"] ) {
+                                $return_array["end_date"]   = $row["end_date"];
                             }
                         }
                     }
-
-                    $db->close();
-
-                } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
                 }
             }
-        } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
         }
 
         return $return_array;
