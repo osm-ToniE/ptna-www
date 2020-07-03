@@ -154,7 +154,7 @@
             <tr class="message-tablerow" id="option-gtfs-feed">
                 <td class="message-option">gtfs-feed</td>
                 <td class="message-default"></td>
-                <td class="message-description">Verwende diesen Wert als GTFS-Feed für die Option &#039;link-gtfs&#039; wenn die Relation keinen der tags &#039;gtfs:feed&#039;, &#039;operator:guid&#039; oder &#039;network:guid&#039; nicht enthält.</td>
+                <td class="message-description">Verwende diesen Wert als GTFS-Feed für die Option &#039;link-gtfs&#039; wenn die Relation keinen der Tags &#039;gtfs:feed&#039;, &#039;operator:guid&#039; oder &#039;network:guid&#039; enthält.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-language">
