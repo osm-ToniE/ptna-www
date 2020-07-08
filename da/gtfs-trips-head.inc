@@ -8,7 +8,7 @@
         echo "                    Denne linje er blevet kommenteret:\n";
         echo "                </p>\n";
         echo "                <ul>\n";
-        echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", htmlspecialchars($comment)) . "</strong></li>\n";
+        echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", HandlePtnaComment($comment)) . "</strong></li>\n";
         echo "                </ul>\n";
     }
 ?>

@@ -69,7 +69,7 @@
                             </table>
                         </div>
 
-                    <h3>GTFS Analysis Details</h3>
+                    <h3><a href="gtfs-analysis-details.php?network=<?php echo urlencode($network);  ?>">GTFS Analysis Details</a></h3>
                         <div class="indent">
                             <table id="gtfs-ptna-analysis-table">
                                 <thead>

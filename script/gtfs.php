@@ -1925,28 +1925,28 @@
                     if ( $ptna["count_subroute"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_subroute"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUBR">'  . htmlspecialchars($ptna["count_subroute"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_same_names_but_different_ids"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with identical stop-names but different stop-ids</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=IDENT">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_suspicious_start"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with suspicious start</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUSPSTART">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_suspicious_end"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
-                        echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
@@ -2043,6 +2043,86 @@
         }
 
         return 0;
+    }
+
+
+    function CreateAnalysisDetailsForTrips( $network, $topic ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $network );
+
+        if ( $SqliteDb != '') {
+
+           if ( !$topic || preg_match("/^[ a-zA-Z0-9_.-]+$/", $topic) ) {
+
+                try {
+
+                    set_time_limit( 30 );
+
+                    $start_time = gettimeofday(true);
+
+                    $countrydir = array_shift( explode( '-', $network ) );
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    if ( $topic ) {
+                        $topci_en['SUBR']       = 'Sub-route of';
+                        $topci_de['SUBR']       = 'Teilroute von';
+                        $topci_en['IDENT']      = 'Trips have identical';
+                        $topci_de['IDENT']      = 'Fahrten haben identische';
+                        $topci_en['SUSPSTART']  = 'Suspicious start of';
+                        $topci_de['SUSPSTART']  = 'Anfang der Fahrt';
+                        $topci_en['SUSPEND']    = 'Suspicious end of';
+                        $topci_de['SUSPEND']    = 'Ende der Fahrt';
+
+                        if ( !isset($topci_en[$topic]) ) {
+                            $topci_en[$topic] = '__xxx__';
+                        }
+                        if ( !isset($topci_de[$topic]) ) {
+                            $topci_de[$topic] = '__xxx__';
+                        }
+
+                        $sql = sprintf( "SELECT             routes.route_id,route_short_name,trip_id,trips.ptna_comment
+                                         FROM               trips
+                                         JOIN               routes             ON   trips.route_id = routes.route_id
+                                         WHERE              trips.ptna_comment LIKE '%%%s%%' OR trips.ptna_comment LIKE '%%%s%%' OR trips.ptna_comment LIKE '%%%s%%'
+                                         ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                         SQLite3::escapeString($topic), SQLite3::escapeString($topci_en[$topic]), SQLite3::escapeString($topci_de[$topic])
+                                      );
+                    } else {
+                        $sql = sprintf( "SELECT             routes.route_id,route_short_name,trip_id,trips.ptna_comment
+                                         FROM               trips
+                                         JOIN               routes             ON   trips.route_id = routes.route_id
+                                         WHERE              trips.ptna_comment !=''
+                                         ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;"
+                                      );
+                    }
+
+                    $result = $db->query( $sql );
+
+                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                        echo '                            <tr class="gtfs-tablerow">'    . "\n";
+                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?network='       . urlencode($network) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
+                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?network=' . urlencode($network) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
+                        echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
+                        echo '                            </tr>' . "\n";
+                    }
+
+                    $db->close();
+
+                    $stop_time = gettimeofday(true);
+
+                    return $stop_time - $start_time;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for network = '" . $network . "'\n";
+        }
+
+        return 0;
+
     }
 
 
