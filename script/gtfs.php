@@ -348,7 +348,7 @@
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     $db->close();
@@ -472,7 +472,7 @@
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">' . LF2BR(htmlspecialchars($ptnarow["ptna_comment"])) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
                         $index++;
                     }
@@ -876,7 +876,7 @@
 #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
 #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                                <td class="gtfs-comment">' . LF2BR(htmlspecialchars($row["ptna_comment"])) . '</td>' . "\n";
+                        echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
 
@@ -2252,8 +2252,9 @@
     }
 
 
-    function LF2BR( $string ) {
-        return preg_replace("/\n/","<br />",$string);
+    function HandlePtnaComment( $string ) {
+        $string = preg_replace( "/::[A-Z]+::/", "", $string );
+        return preg_replace("/\n/","<br />", htmlspecialchars($string) );
     }
 
 
