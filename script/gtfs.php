@@ -905,6 +905,8 @@
         $return_array["start_date"] = '20500101';
         $return_array["end_date"]   = '19700101';
 
+        $has_list_service_ids = 0;
+
         if ( $db ) {
 
             if ( $trip_id ) {
@@ -923,6 +925,7 @@
                     $result = $db->querySingle( $sql, true );
 
                     if ( $result['list_service_ids'] ) {
+                        $has_list_service_ids = 1;
                         $temp_array = array();
                         $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
                         $where_clause = "service_id='";
@@ -930,8 +933,8 @@
                             $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
                         }
                         $sql = sprintf( "SELECT start_date,end_date
-                                            FROM   calendar
-                                            WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
+                                         FROM   calendar
+                                         WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
 
                         $result = $db->query( $sql );
 
@@ -942,6 +945,24 @@
                             if ( $row["end_date"] > $return_array["end_date"] ) {
                                 $return_array["end_date"]   = $row["end_date"];
                             }
+                        }
+                    }
+                }
+
+                if ( $has_list_service_ids == 0 ) {
+                    $sql = sprintf( "SELECT start_date,end_date
+                                     FROM   calendar
+                                     JOIN   trips ON trips.service_id = calendar.service_id
+                                     WHERE  trip_id='%s';", SQLite3::escapeString($trip_id) );
+
+                    $result = $db->query( $sql );
+
+                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                        if ( $row["start_date"] < $return_array["start_date"] ) {
+                            $return_array["start_date"] = $row["start_date"];
+                        }
+                        if ( $row["end_date"] > $return_array["end_date"] ) {
+                            $return_array["end_date"]   = $row["end_date"];
                         }
                     }
                 }
