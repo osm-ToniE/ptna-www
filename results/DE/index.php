@@ -95,6 +95,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-RVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-TON", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-VAB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VBP-VLP", "de", "Konfiguration" ); ?>
