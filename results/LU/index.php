@@ -7,13 +7,13 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="LU"><img src="/img/Luxembourg32.png" alt="Flagge Lëtzebuerg" /> Results for Lëtzebuerg / Luxemburg / Luxembourg</h2>
-      
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksLU">
@@ -44,4 +44,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
