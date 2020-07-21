@@ -12,7 +12,7 @@
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt=Flag of Australia /></a> GTFS Analysis for Australia</h2>
+            <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for Australia</h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-head.inc' ?>
                 <table id="gtfsAU">
