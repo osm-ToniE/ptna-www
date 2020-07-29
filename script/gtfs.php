@@ -2248,6 +2248,7 @@
         $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
         $route_type_to_string["905"] = 'Shuttle Tram Service';
         $route_type_to_string["906"] = 'All Tram Services';
+        $route_type_to_string["907"] = 'Aerial Lift Service';               # Switzerland: 'Kabinenbahn'
         $route_type_to_string["1000"] = 'Water Transport Service';                # Yes
         $route_type_to_string["1100"] = 'Air Service';
         $route_type_to_string["1200"] = 'Ferry Service';                    # Yes
@@ -2292,6 +2293,8 @@
             $rt = 'train';
         } elseif ( preg_match("/funicular/",$rt) ) {
             $rt = 'funicular';
+        } elseif ( preg_match("/aerial/",$rt) ) {
+            $rt = 'aerialway';
         } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
             $rt = 'subway';
         } else {
@@ -2322,6 +2325,8 @@
                 $rt = 'Drahtseilbahn';
             } elseif ( $rt == 'subway' ) {
                 $rt = 'U-Bahn';
+            } elseif ( $rt == 'aerialway' ) {
+                $rt = 'Seilbahn';
             } else {
                 $rt = 'bus';
             }
@@ -2344,6 +2349,8 @@
                 $rt = 'Funicular';
             } elseif ( $rt == 'subway' ) {
                 $rt = 'Subway';
+            } elseif ( $rt == 'aerialway' ) {
+                $rt = 'Aerialway';
             } else {
                 $rt = 'bus';
             }
