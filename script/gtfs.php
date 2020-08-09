@@ -51,12 +51,12 @@
 
                 $LongTermSqliteDb = FindGtfsSqliteDb( $network . '-long-term' );
                 if ( $LongTermSqliteDb ) {
-                    $ptna = GetPtnaDetails( $network . '-long-term' );
-                    if ( $ptna['release_date'] ) {
-                        if ( $ptna['language'] == 'de' ) {
-                            $long_term_img_title = 'Langzeit-Version von ' . $ptna['release_date'];
+                    $lt = GetPtnaDetails( $network . '-long-term' );
+                    if ( $lt['release_date'] ) {
+                        if ( $lt['language'] == 'de' ) {
+                            $long_term_img_title = 'Langzeit-Version von ' . $lt['release_date'];
                         } else {
-                            $long_term_img_title = 'long-term version as of ' . $ptna['release_date'];
+                            $long_term_img_title = 'long-term version as of ' . $lt['release_date'];
                         }
                     } else {
                         if ( $ptna['language'] == 'de' ) {
@@ -68,12 +68,12 @@
                 }
                 $PreviousSqliteDb = FindGtfsSqliteDb( $network . '-previous' );
                 if ( $PreviousSqliteDb ) {
-                    $ptna = GetPtnaDetails( $network . '-previous' );
-                    if ( $ptna['release_date'] ) {
+                    $prev = GetPtnaDetails( $network . '-previous' );
+                    if ( $prev['release_date'] ) {
                         if ( $ptna['language'] == 'de' ) {
-                            $previous_img_title = 'vorherige Version von ' . $ptna['release_date'];
+                            $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
                         } else {
-                            $previous_img_title = 'previous version as of ' . $ptna['release_date'];
+                            $previous_img_title = 'previous version as of ' . $prev['release_date'];
                         }
                     } else {
                         if ( $ptna['language'] == 'de' ) {
