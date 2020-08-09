@@ -49,20 +49,50 @@
 
                 $feed       = $db->querySingle( $sql, true );
 
-                $PrevSqliteDb = FindGtfsSqliteDb( $network . '-prev' );
-                if ( $ptna['language'] == 'de' ) {
-                    $img_title = 'vorherige Version';
-                } else {
-                    $img_title = 'previous version';
+                $LongTermSqliteDb = FindGtfsSqliteDb( $network . '-long-term' );
+                if ( $LongTermSqliteDb ) {
+                    $ptna = GetPtnaDetails( $network . '-long-term' );
+                    if ( $ptna['release_date'] ) {
+                        if ( $ptna['language'] == 'de' ) {
+                            $long_term_img_title = 'Langzeit-Version von ' . $ptna['release_date'];
+                        } else {
+                            $long_term_img_title = 'long-term version as of ' . $ptna['release_date'];
+                        }
+                    } else {
+                        if ( $ptna['language'] == 'de' ) {
+                            $long_term_img_title = 'Langzeit-Version';
+                        } else {
+                            $long_term_img_title = 'long-term version';
+                        }
+                    }
+                }
+                $PreviousSqliteDb = FindGtfsSqliteDb( $network . '-previous' );
+                if ( $PreviousSqliteDb ) {
+                    $ptna = GetPtnaDetails( $network . '-previous' );
+                    if ( $ptna['release_date'] ) {
+                        if ( $ptna['language'] == 'de' ) {
+                            $previous_img_title = 'vorherige Version von ' . $ptna['release_date'];
+                        } else {
+                            $previous_img_title = 'previous version as of ' . $ptna['release_date'];
+                        }
+                    } else {
+                        if ( $ptna['language'] == 'de' ) {
+                            $previous_img_title = 'vorherige Version';
+                        } else {
+                            $previous_img_title = 'previous version';
+                        }
+                    }
                 }
 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
-                if ( $PrevSqliteDb ) {
-                    echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a> ';
-                    echo '<a href="routes.php?network=' . urlencode($network.'-prev') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($img_title) . '" /></a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a></td>' . "\n";
+                echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a> ';
+                if ( $LongTermSqliteDb ) {
+                    echo '<a href="routes.php?network=' . urlencode($network.'-long-term') . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
+                if ( $PreviousSqliteDb ) {
+                    echo '<a href="routes.php?network=' . urlencode($network.'-previous') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                }
+                echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
                     if ( $ptna["network_name_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
@@ -173,12 +203,14 @@
                 } else {
                     $details = 'Details, ...';
                 }
-                if ( $PrevSqliteDb ) {
-                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($details) . '</a> ';
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($network.'-prev') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($img_title) . '" /></a></td>' . "\n";
-                } else {
-                    echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($details) . '</a></td>' . "\n";
+                echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($details) . '</a> ';
+                if ( $LongTermSqliteDb ) {
+                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($network.'-long-term') . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
+                if ( $PreviousSqliteDb ) {
+                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($network.'-previous') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                }
+                echo '</td>' . "\n";
                 echo '                        </tr>' . "\n";
 
                 $db->close();

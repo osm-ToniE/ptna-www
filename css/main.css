@@ -98,7 +98,11 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-datenew             { text-align:center; background-color: lightgreen; }
 .gtfs-datenewer           { text-align:center; background-color: limegreen; }
 .gtfs-dateverynew         { text-align:center; background-color: green; }
-.gtfs-dateprevious        { text-align:center; background-color: rgb(128, 128, 255); color: #fff; }
+.gtfs-datevalid           { text-align:center; }                                                          /* GTFS data from current data set has valid date */
+.gtfs-datefuture          { text-align:center; background-color: lightgreen; }                          /* GTFS data from current or long-term data set is in the future */
+.gtfs-datepast            { text-align:center; background-color: orange; }                              /* GTFS data from current or long-term data set is in the past */
+.gtfs-dateltvalid         { text-align:center; background-color: green; }                               /* GTFS data from long-term data set has a valid date */
+.gtfs-dateprevious        { text-align:center; background-color: rgb(128, 128, 255); color: #fff; }   /* GTFS data is from the previous data set */
 .gtfs-version             { text-align:center; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
