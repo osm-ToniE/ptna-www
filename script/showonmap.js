@@ -11,6 +11,7 @@ const defaultzoom   = 10;
 var map;
 var layerplatforms;
 var layerplatformsroute;
+var red_icon;
 var blue_icon;
 var icons           = {};
 var colours         = {};
@@ -64,6 +65,7 @@ function showtriponmap() {
                                 } );
 
     // Variables for the data
+    layershaperoute     = L.layerGroup();
     layerplatforms      = L.layerGroup();
     layerplatformsroute = L.layerGroup();
 
@@ -79,20 +81,22 @@ function showtriponmap() {
                     // "Transport Map (without API-Key!)": transpmap
                    };
 
-    var overlayMaps = { "<span style='color: blue'>Platforms</span>"            : layerplatforms,
+    var overlayMaps = { "<span style='color: red'>Route</span>"                 : layershaperoute,
+                        "<span style='color: blue'>Platforms</span>"            : layerplatforms,
                         "<span style='color: blue'>Platform Route</span>"       : layerplatformsroute
                       };
 
     var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
 
     map.addLayer(layerplatforms);
-    map.addLayer(layerplatformsroute);
 
+    red_icon   = L.icon( { iconUrl: '/img/red-marker-icon.png',   iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
     blue_icon  = L.icon( { iconUrl: '/img/blue-marker-icon.png',  iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
-    icons      = { platform: blue_icon };
-    colours    = { platform: 'blue'    };
+    icons      = { shape: red_icon, platform: blue_icon };
+    colours    = { shape: 'red',    platform: 'blue'    };
 
-    var polyline_array = [];
+    var polyline_platform_array = [];
+    var polyline_shapes_array   = [];
 
     var gpx_lat_array  = [];
     var gpx_lon_array  = [];
@@ -158,7 +162,7 @@ function showtriponmap() {
             L.circle([gpx_lat,gpx_lon],{color:colours['platform'],radius:0.75,fill:true}).addTo(layerplatforms);
             L.marker([gpx_lat,gpx_lon],{color:colours['platform'],icon:icons['platform']}).bindTooltip(label_string.toString(),{permanent:true,direction:'center'}).bindPopup("Platform " + label_string.toString() + ': ' + gpx_name).addTo(layerplatforms);
 
-            polyline_array.push( [gpx_lat, gpx_lon] );
+            polyline_platform_array.push( [gpx_lat, gpx_lon] );
 
         }
     }
@@ -167,8 +171,6 @@ function showtriponmap() {
     var sh_table = document.getElementById( "gtfs-shape" );
 
     if ( sh_table ) {
-
-        polyline_array = [];
 
         var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
         var sh_list     = sh_listnode.getElementsByTagName( "tr" );
@@ -207,13 +209,20 @@ function showtriponmap() {
                 }
             }
 
-            polyline_array.push( [gpx_lat, gpx_lon] );
+            polyline_shapes_array.push( [gpx_lat, gpx_lon] );
 
         }
+
+        map.addLayer(layershaperoute);
+
+    } else {
+        map.addLayer(layerplatformsroute);
     }
 
-    var route = L.polyline(polyline_array,{color:colours['platform'],weight:3,fill:false}).bindPopup("Platform Route").addTo( layerplatformsroute );
+    var platform_route = L.polyline(polyline_platform_array,{color:colours['platform'],weight:3,fill:false}).bindPopup("Platform Route").addTo( layerplatformsroute );
 
-    map.fitBounds(route.getBounds());
+    var shape_route    = L.polyline(polyline_shapes_array,{color:colours['shape'],weight:3,fill:false}).bindPopup("Shape Route").addTo( layershaperoute );
+
+    map.fitBounds(platform_route.getBounds());
 
 }
