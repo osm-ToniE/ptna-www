@@ -12,20 +12,33 @@
             $return_path = $path_to_work . $countrydir . '/' . $network . '-ptna-gtfs-sqlite.db';
 
             if ( file_exists($return_path) ) {
-                return $return_path;
-            } else {
+                if ( preg_match("/-previous$/", $network) || preg_match("/-long-term$/", $network) ) {
+                    if ( is_link($return_path) ) {
+                        $return_path = $path_to_work . $countrydir . '/' . readlink( $return_path );
+                    }
+                }
+             }
+             if ( !file_exists($return_path) ) {
                 $subdir = array_shift( $prefixparts );
 
                 $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-ptna-gtfs-sqlite.db';
 
                 if ( file_exists($return_path) ) {
-                    return $return_path;
+                    if (  preg_match("/-previous$/", $network) || preg_match("/-long-term$/", $network) ) {
+                        if ( is_link($return_path) ) {
+                            $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . readlink( $return_path );
+                        }
+                    }
                 }
             }
 
         }
 
-        return '';
+        if ( file_exists($return_path) ) {
+            return $return_path;
+        } else {
+            return '';
+        }
     }
 
 
@@ -51,24 +64,26 @@
 
                 $LongTermSqliteDb = FindGtfsSqliteDb( $network . '-long-term' );
                 if ( $LongTermSqliteDb ) {
-                    $lt = GetPtnaDetails( $network . '-long-term' );
+                    $lt_network = basename( $LongTermSqliteDb, '-ptna-gtfs-sqlite.db' );
+                    $lt = GetPtnaDetails( $lt_network );
                     if ( $lt['release_date'] ) {
                         if ( $lt['language'] == 'de' ) {
                             $long_term_img_title = 'Langzeit-Version von ' . $lt['release_date'];
                         } else {
-                            $long_term_img_title = 'long-term version as of ' . $lt['release_date'];
+                            $long_term_img_title = 'long term version as of ' . $lt['release_date'];
                         }
                     } else {
                         if ( $ptna['language'] == 'de' ) {
                             $long_term_img_title = 'Langzeit-Version';
                         } else {
-                            $long_term_img_title = 'long-term version';
+                            $long_term_img_title = 'long term version';
                         }
                     }
                 }
                 $PreviousSqliteDb = FindGtfsSqliteDb( $network . '-previous' );
                 if ( $PreviousSqliteDb ) {
-                    $prev = GetPtnaDetails( $network . '-previous' );
+                    $prev_network = basename( $PreviousSqliteDb, '-ptna-gtfs-sqlite.db' );
+                    $prev = GetPtnaDetails( $prev_network );
                     if ( $prev['release_date'] ) {
                         if ( $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
@@ -87,10 +102,10 @@
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="routes.php?network=' . urlencode($network.'-long-term') . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="routes.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="routes.php?network=' . urlencode($network.'-previous') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="routes.php?network=' . urlencode($prev_network) . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
@@ -205,10 +220,10 @@
                 }
                 echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($details) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($network.'-long-term') . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($network.'-previous') . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($prev_network) . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 echo '                        </tr>' . "\n";
@@ -624,10 +639,12 @@
                             $osm_operator   = htmlspecialchars($agency['agency_name']);
                         }
                     }
-                    $osm_ref_trips     = htmlspecialchars( $trip_id );
-                    $osm_gtfs_route_id = htmlspecialchars( $routes['route_id'] );
-                    $osm_gtfs_trip_id  = htmlspecialchars( $trip_id );
-                    $osm_gtfs_shape_id = htmlspecialchars( $trips['shape_id'] );
+                    $osm_ref_trips          = htmlspecialchars( $trip_id );
+                    $osm_gtfs_feed          = htmlspecialchars( preg_replace( '/-20\d\d-[01]\d-[0123]\d$/', '', $network ) );
+                    $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
+                    $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
+                    $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
+                    $osm_gtfs_shape_id      = htmlspecialchars( $trips['shape_id'] );
                     if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
                         $osm_ref_trips         = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                         $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
@@ -709,7 +726,11 @@
                     }
                     echo '                            <tr class="gtfs-tablerow">' . "\n";
                     echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . htmlspecialchars( $network ) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                     if ( $osm_gtfs_route_id ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
@@ -788,7 +809,11 @@
                     }
                     echo '                            <tr class="gtfs-tablerow">' . "\n";
                     echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . htmlspecialchars( $network ) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                    echo '                            <tr class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                    echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                     if ( $osm_gtfs_route_id ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
@@ -798,7 +823,7 @@
                     }
                     if ( $osm_gtfs_trip_id ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:trip_id</td>' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:trip_id:sample</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
