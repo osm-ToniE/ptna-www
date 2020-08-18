@@ -2,8 +2,20 @@
 
 function ptnalistdownload( include_agency ) {
 
-    var network  = document.getElementById("network").firstChild.data;
-    var filename = network + "-PTNA-CSV-List.txt";
+    var network      = document.getElementById("network").firstChild.data;
+    var filename     = network + "-PTNA-CSV-List.txt";
+    var release_date = network.match( /20\d\d-[0-1]\d-[0-3]\d$/ );
+
+    if ( release_date == null ) {
+        release_date = network.match( /long-term$/ );
+        if ( release_date == null ) {
+            release_date = "";
+        } else {
+            network = network.replace( /-long-term$/, '' );
+        }
+    } else {
+        network = network.replace( /-20\d\d-[0-1]\d-[0-3]\d$/, '' );
+    }
 
     var ptna_list = "";
 
@@ -25,6 +37,9 @@ function ptnalistdownload( include_agency ) {
             var route_type          = "bus";
             var route_long_name     = "unknown";
             var agency_name         = "unknown";
+            var valid_from          = "";
+            var valid_until         = "";
+            var valid_string        = "";
 
             //    evaluate all columns of gtfs-routes rows
             for ( var j = 0; j < sub_span.length; j++ )
@@ -80,24 +95,35 @@ function ptnalistdownload( include_agency ) {
                         route_type = value;
                     }
                 } else if ( key == "route_long_name")  {
-                    if ( value.match(';') != null ) {
-                        route_long_name = '"' + value + '"';
-                    } else {
+                    // if ( value.match(';') != null ) {
+                    //     route_long_name = '"' + value + '"';
+                    // } else {
                         route_long_name = value;
-                    }
+                    // }
                 } else if ( key == "agency_name")  {
                     if ( value.match(';') != null ) {
                         agency_name = '"' + value + '"';
                     } else {
                         agency_name = value;
                     }
+                } else if ( key == "valid_from")  {
+                    if ( value.match(/^20\d\d-[0-1]\d-[0-3]\d$/) != null ) {
+                        valid_from = value;
+                    }
+                } else if ( key == "valid_until")  {
+                    if ( value.match(/^20\d\d-[0-1]\d-[0-3]\d$/) != null ) {
+                        valid_until = value;
+                    }
                 }
             }
 
+            if ( valid_from && valid_until ) {
+                valid_string = valid_from + ' - ' + valid_until  + ': ';
+            }
             if ( include_agency ) {
-                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ';;;' + agency_name + ";" + network + ";" + route_id + "\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;' + agency_name + ';' + network + ';' + route_id + ";" + release_date + "\r\n";
             } else {
-                ptna_list += route_short_name + ';' + route_type + ';' + route_long_name + ";;;;" + network + ";" + route_id + "\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;;' + network + ';' + route_id + ';' + release_date + "\r\n";
             }
 
         }

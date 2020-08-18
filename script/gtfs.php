@@ -354,9 +354,9 @@
                             {
                                 $class = "gtfs-datenew";
                             }
-                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                            echo '                            <td class="' . $class . '"><span class="valid_from">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</span></td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-date">' . htmlspecialchars(min_start_date) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-date"><span class="valid_from">' . htmlspecialchars(min_start_date) . '</span></td>' . "\n";
                         }
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $max_end_date, $parts ) ) {
                             $class = "gtfs-date";
@@ -365,9 +365,9 @@
                             {
                                 $class = "gtfs-dateold";
                             }
-                            echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                            echo '                            <td class="' . $class . '"><span class="valid_until">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</span></td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-date">' . htmlspecialchars($max_end_date) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-date"><span class="valid_until">' . htmlspecialchars($max_end_date) . '</span></td>' . "\n";
                         }
                         if ( $outerrow["normalized_route_long_name"] ) {
                             echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
