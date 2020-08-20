@@ -1,11 +1,11 @@
         <footer id="footer-en" class="clearing">
             <p>
-                All GTFS data © owner of GTFS data.
+                Todos os dados GTFS são propriedade intelectual de seus respectivos proprietários.
             </p>
             <p>
-                All geographic data <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
+                Todos os dados geográficos <a href="https://www.openstreetmap.org/copyright">© Colaboradores do OpenStreetMap</a>.
             </p>
             <p>
-                This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl.html">GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Get the source code via <a href="https://github.com/osm-ToniE">GitHub</a>.
+                Este programa é um software livre: você pode redistribuí-lo e/ou modificá-lo sob os termos da <a href="https://www.gnu.org/licenses/gpl.html">3ª versão de 29 de junho de 2007 da Licença Pública Geral GNU</a>, conforme publicado pela Free Software Foundation, seja a versão 3 da Licença, ou (a seu critério) qualquer versão posterior. O código deste programa está disponível no <a href="https://github.com/osm-ToniE">GitHub</a>.
             </p>
         </footer>

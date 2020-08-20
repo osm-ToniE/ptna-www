@@ -1,9 +1,9 @@
                 <p>
-                    The first column contains a link to the analysis of the <a href="/en/gtfs-doc.php#gtfsdata">GTFS data</a>.
-                    A calendar icon (<img src="/img/Calendar19.png" />) indicates that the previous version of the GTFS data is available as well.
-                    Another symbol (<img src="/img/long-term19.png" />) indicates that a long-term version of the GTFS data is also available.
-                    This is usually the version of the GTFS data at the last official timetable change.
+                    A primeira coluna contém um link para a análise dos <a href="/en/gtfs-doc.php#gtfsdata">dados GTFS</a>.
+                    Um ícone de calendário (<img src="/img/Calendar19.png" />) indica que uma versão mais antiga dos dados está disponível.
+                    Este outro ícone (<img src="/img/long-term19.png" />) indica que uma versão de longo prazo dos dados está disponível. 
+                    Geralmente esta é a versão mais recente dos dados GTFS que contém as últimas alterações nos quadros de horários.
                 </p>
                 <p>
-                    The <a href="/en/gtfs-doc.php#download">update</a> of the data on this page occurs at irregular intervals.
+                    A <a href="/en/gtfs-doc.php#download">atualização</a> dos dados desta página ocorre em intervalos irregulares.
                 </p>
