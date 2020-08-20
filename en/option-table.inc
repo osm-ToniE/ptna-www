@@ -193,6 +193,12 @@
                 <td class="message-description">The value of &#039;network&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression as &#039;short&#039; form or can be empty (unset).</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-no-additional-navigation">
+                <td class="message-option">no-additional-navigation</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description"></td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-operator-regex">
                 <td class="message-option">operator-regex</td>
                 <td class="message-default"></td>

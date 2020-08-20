@@ -35,6 +35,7 @@
         $options_hash['multiple-ref-type-entries']  = 'analyze';
         $options_hash['network-long-regex']         = '';
         $options_hash['network-short-regex']        = '';
+        $options_hash['no-additional-navigation']   = 'OFF';
         $options_hash['operator-regex']             = '';
         $options_hash['positive-notes']             = 'OFF';
         $options_hash['ptv1-compatibility']         = 'no';

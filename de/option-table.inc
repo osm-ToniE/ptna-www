@@ -193,6 +193,12 @@
                 <td class="message-description">Der Wert von &#039;network&#039; = &#039;...&#039; bei der Route-Master und Route Relation muss dem regulären Ausdruck als Kurzform entsprechen oder kann leer sein (nicht gesetzt).</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-no-additional-navigation">
+                <td class="message-option">no-additional-navigation</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description"></td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-operator-regex">
                 <td class="message-option">operator-regex</td>
                 <td class="message-default"></td>
