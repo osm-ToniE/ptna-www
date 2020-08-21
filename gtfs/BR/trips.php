@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html lang="pt-BR">
 
 <?php $title="GTFS Analysis"; $inc_lang='../../pt_BR/'; include $inc_lang.'html-head.inc'; ?>
 
@@ -25,7 +25,7 @@
                 $comment          = $ptna["ptna_comment"];
             ?>
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise para <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-trips-head.inc' ?>
 

@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="BR"><img src="/img/Brasil32.png" alt="bandeira do brasil" /> Resultados para Brasil</h2>
+            <h2 id="BR"><img src="/img/Brasil32.png" alt="bandeira do brasil" /> Resultados sobre Brasil</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

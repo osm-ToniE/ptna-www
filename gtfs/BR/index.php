@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt_BR">
+<html lang="pt-BR">
 
 <?php $title="GTFS Analysis"; $inc_lang='../../pt_BR/'; include $inc_lang.'html-head.inc'; ?>
 
@@ -12,7 +12,7 @@
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise para Brasil</h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre Brasil</h2>
             <div class="indent">
 <?php include $inc_lang.'gtfs-head.inc' ?>
                 <table id="gtfsBR">
