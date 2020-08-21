@@ -446,7 +446,7 @@ function handleMember( relation_id, index ) {
 
         map.fitBounds( getRelationBounds() );
 
-        updateAnalysisProgress( members_handled+1 );
+        finalizeAnalysisProgress();
 
     }
 
@@ -698,4 +698,10 @@ function updateAnalysisProgress( increment ) {
     increment = increment || 1;
     aBar.value += increment;
     document.getElementById('analysis_text').innerText = Math.floor((100 / analysiscounter) * aBar.value).toString();
+}
+
+
+function finalizeAnalysisProgress() {
+    aBar.value = analysiscounter + 1;
+    document.getElementById('analysis_text').innerText = "100";
 }
