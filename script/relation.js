@@ -322,15 +322,25 @@ function handleMember( relation_id, index ) {
 
             if ( member ) {
                 if ( is_PTv2 ) {
-                    if ( role == "platform"            ||
+                    if ( role == "platform"               ||
                             role == "platform_exit_only"  ||
                             role == "platform_entry_only" ||
-                            (member['tags']                     &&
-                            member['tags']['public_transport'] &&
+                            (member['tags']                               &&
+                            member['tags']['public_transport']            &&
                             member['tags']['public_transport'] == "platform")
                         ) {
                         match = "platform";
-                        if ( !role.match(/platform/) ) attention['role'] = " attention";
+                        if ( !role.match(/platform/) ) {
+                            attention['role'] = "attention";
+                            attention['id']   = "attention";
+                        }
+                    } else {
+                        if ( role == ""                             &&
+                             member['tags']                         &&
+                             member['tags']['highway']              &&
+                             member['tags']['highway'] == "bus_stop"   ) {
+                            attention['id'] = "attention";
+                        }
                     }
                 } else {
                     if ( role.match(/platform/) ) {
@@ -340,14 +350,25 @@ function handleMember( relation_id, index ) {
 
                 if ( match == "other" ) {
                     if ( is_PTv2 ) {
-                        if ( role == "stop"        ||
+                        if ( role == "stop"               ||
                                 role == "stop_exit_only"  ||
                                 role == "stop_entry_only" ||
-                            (member['tags']                     &&
-                                member['tags']['public_transport'] &&
+                            (member['tags']                                        &&
+                                member['tags']['public_transport']                 &&
                                 member['tags']['public_transport'] == "stop_position")
                             ) {
                             match = "stop";
+                            if ( !role.match(/stop/) ) {
+                                attention['role'] = "attention";
+                                attention['id']   = "attention";
+                            }
+                        } else {
+                            if ( role == ""                             &&
+                                 member['tags']                         &&
+                                 member['tags']['highway']              &&
+                                 member['tags']['highway'] == "bus_stop"   ) {
+                                attention['id'] = "attention";
+                            }
                         }
                     } else {
                         if ( role.match(/stop/) ||
@@ -362,11 +383,11 @@ function handleMember( relation_id, index ) {
                 if ( match == "other" ) {
                     if ( type == "way" ) {
                         if ( is_PTv2 ) {
-                            if ( role == "" ) {
+                            if ( role == "" || role== "hail_and_ride" ) {
                                 match = "route";
                             }
                         } else {
-                            if ( role == "" || role.match(/forward/) || role.match(/backward/) ) {
+                            if ( role == "" || role.match(/forward/) || role.match(/backward/) || role == "hail_and_ride" ) {
                                 match = "route";
                             }
                         }
@@ -389,11 +410,11 @@ function handleMember( relation_id, index ) {
 
                 html = "";
                 html += "<tr>";
-                html += "    <td class=\"results-number\">" + number_of_match[match]++   + "</td>";
-                html += "    <td class=\"results-number\">" + (index+1)             + "</td>";
-                html += "    <td class=\"results-name " + attention['role'] + "\">"   + htmlEscape(role)  + "</td>";
-                html += "    <td class=\"results-text\">"   + htmlEscape(name)  + "</td>";
-                html += "    <td class=\"results-name\">" + getObjectLinks( id, type ) + "</td>";
+                html += "    <td class=\"results-number\">"             + number_of_match[match]++                                + "</td>";
+                html += "    <td class=\"results-number\">"             + (index+1)                                               + "</td>";
+                html += "    <td class=\"results-name\"><span class=\"" + attention['role'] + "\">"  + htmlEscape(role)           + "</span></td>";
+                html += "    <td class=\"results-text\">"               + htmlEscape(name)                                        + "</td>";
+                html += "    <td class=\"results-name\"><span class=\"" + attention['id']   + "\">"  + getObjectLinks( id, type ) + "</span></td>";
         //                if ( match == "route" ) {
         //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
         //                }
