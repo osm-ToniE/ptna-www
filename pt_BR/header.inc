@@ -7,8 +7,8 @@
                 <h2>Análise Estática para OpenStreetMap</h2>
             </div>
             <div id="headernav">
-                <a href="/">Home</a> |
-                <a href="/contact.html">Contact</a> |
+                <a href="/">Início</a> |
+                <a href="/contact.html">Contato</a> |
                 <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
                 <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
                 <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
