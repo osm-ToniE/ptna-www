@@ -105,7 +105,7 @@
                     echo '<a href="routes.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="routes.php?network=' . urlencode($prev_network) . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="routes.php?network=' . urlencode($prev_network) . '"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
@@ -223,7 +223,7 @@
                     echo '<a href="/en/gtfs-details.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($prev_network) . '"><img src="/img/Calendar19.png" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($prev_network) . '"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 echo '                        </tr>' . "\n";
