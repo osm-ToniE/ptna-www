@@ -22,6 +22,22 @@
         </thead>
         <tbody>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; includes the separator value &#039;;&#039; (semi-colon) with sourrounding blank</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (comma) as separator value should be replaced by &#039;;&#039; (semi-colon) without blank</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. Add &#039;#&#039; as first character.</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
@@ -70,14 +86,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;network&#039; = &#039;%s&#039; includes the separator value &#039;;&#039; (semi-colon) with sourrounding blank</td>
-                <td class="message-type">Errors</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; of Route does not fit to &#039;network&#039; = &#039;%s&#039; of Route-Master: %s</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
@@ -104,14 +112,6 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; should be short form</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;network&#039; = &#039;%s&#039;: &#039;,&#039; (comma) as separator value should be replaced by &#039;;&#039; (semi-colon) without blank</td>
-                <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -983,7 +983,7 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; of stop includes the separator value &#039;;&#039; (semi-colon) with sourrounding blank</td>
-                <td class="message-type">Errors</td>
+                <td class="message-type">Notes</td>
                 <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -991,7 +991,7 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; of stop: &#039;,&#039; (comma) as separator value should be replaced by &#039;;&#039; (semi-colon) without blank</td>
-                <td class="message-type">Errors</td>
+                <td class="message-type">Notes</td>
                 <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>

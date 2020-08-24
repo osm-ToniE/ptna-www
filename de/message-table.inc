@@ -22,6 +22,22 @@
         </thead>
         <tbody>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;colour&#039; der Route ist gesetzt aber &#039;colour&#039; des Route-Masters ist nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -86,14 +102,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;network&#039; = &#039;%s&#039; enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Kurzform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
@@ -104,14 +112,6 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Langform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;network&#039; = &#039;%s&#039;: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
-                <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -1007,7 +1007,7 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
-                <td class="message-type">Fehler</td>
+                <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -1023,7 +1023,7 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
-                <td class="message-type">Fehler</td>
+                <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-route-ref</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
