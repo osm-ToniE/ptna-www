@@ -31,14 +31,296 @@
                     }
                 }
             }
-
         }
 
-        if ( file_exists($return_path) ) {
+        if ( file_exists($return_path) && filesize($return_path) ) {
             return $return_path;
         } else {
             return '';
         }
+    }
+
+
+    function CreateGtfsTimeLine( $feed, $release_date, $months_short ) {
+
+        $release_dates  = array();          # i.e. all months are relevant
+
+        if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
+            $release_dates = GetGtfsFeedReleaseDates( $feed );
+            CreateGtfsTimeLineBasis( $release_dates, $months_short );
+            CreateGtfsTimeLineEntries( $feed, $release_date, $release_dates );
+        } else {
+            CreateGtfsTimeLineBasis( $release_dates, $months_short );
+        }
+        echo "</div>\n<br />\n\n";
+        return;
+    }
+
+
+    function GetGtfsFeedReleaseDates( $feed ) {
+        global $path_to_work;
+
+        $release_dates_array = array();
+
+        if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
+            $prefixparts    = explode( '-', $feed );
+            $countrydir     = array_shift( $prefixparts );
+            $subdir         = array_shift( $prefixparts );
+
+            $search_path    = $path_to_work . $countrydir;
+
+            if ( is_dir($search_path) ) {
+                if ( $subdir && is_dir($search_path.'/'.$subdir) ) {
+                    $search_path = $search_path.'/'.$subdir;
+                }
+
+                $search_dir = opendir( $search_path );
+
+                while ( ($entry = readdir($search_dir)) !== false ) {
+                    if ( preg_match( "/^$feed-(\d\d\d\d-\d\d\-\d\d)-ptna-gtfs-sqlite.db$/",$entry,$parts) ) {
+                        array_push( $release_dates_array, $parts[1] );
+                    }
+                }
+            }
+        }
+        return $release_dates_array;
+    }
+
+
+    function GtfsReadLink( $feed, $linkname ) {
+        global $path_to_work;
+
+        if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/",$feed) ) {
+            $prefixparts    = explode( '-', $feed );
+            $countrydir     = array_shift( $prefixparts );
+            $subdir         = array_shift( $prefixparts );
+
+            $search_path    = $path_to_work . $countrydir;
+
+            if ( is_dir($search_path) ) {
+                if ( $subdir && is_dir($search_path.'/'.$subdir) ) {
+                    $search_path = $search_path.'/'.$subdir;
+                }
+            }
+
+            if ( $linkname && ( $linkname == "previous" || $linkname == "long-term" ) ) {
+                $filename = $search_path . '/' . $feed . '-' . $linkname . '-ptna-gtfs-sqlite.db';
+            } else {
+                $filename = $search_path . '/' . $feed . '-ptna-gtfs-sqlite.db';
+            }
+
+            if ( is_link($filename) ) {
+                return readlink( $filename );
+            }
+        }
+
+        return '';
+    }
+
+
+    function GtfsDbSize( $feed, $release_date ) {
+        global $path_to_work;
+
+        if ( $feed          && preg_match("/^[a-zA-Z0-9_.-]+$/",$feed)              &&
+             $release_date  && preg_match("/^\d\d\d\d-\d\d-\d\d+$/",$release_date)      ) {
+
+                $prefixparts    = explode( '-', $feed );
+            $countrydir     = array_shift( $prefixparts );
+            $subdir         = array_shift( $prefixparts );
+
+            $search_path    = $path_to_work . $countrydir;
+
+            if ( is_dir($search_path) ) {
+                if ( $subdir && is_dir($search_path.'/'.$subdir) ) {
+                    $search_path = $search_path.'/'.$subdir;
+                }
+            }
+
+            $filename = $search_path . '/' . $feed . '-' . $release_date . '-ptna-gtfs-sqlite.db';
+
+            if ( is_file($filename) ) {
+                return filesize($filename);
+            }
+        }
+        return -1;
+    }
+
+
+    function CreateGtfsTimeLineEntries( $feed, $release_date, $release_dates ) {
+
+        $current_target   = GtfsReadLink( $feed, ''          );
+        $previous_target  = GtfsReadLink( $feed, 'previous'  );
+        $long_term_target = GtfsReadLink( $feed, 'long-term' );
+
+        foreach ( $release_dates as $rd ) {
+            $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $rd );
+
+            if ( $relevant_dates[$ym] ) {
+                $relevant_dates[$ym]++;
+            } else {
+                $relevant_dates[$ym] = 1;
+            }
+        }
+
+        if ( !$release_date ) {
+            $viewing = $current_target;
+        } elseif ( $release_date == 'previous' ) {
+            $viewing = $previous_target;
+        } elseif ( $release_date == 'long-term' ) {
+            $viewing = $long_term_target;
+        } else {
+            $viewing = $feed . '-'. $release_date . '-ptna-gtfs-sqlite.db';
+        }
+
+        sort( $release_dates );
+
+        foreach ( $release_dates as $rd ) {
+            $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $rd );
+
+            $add_style = '';
+            $contents  = $rd;
+
+            if ( GtfsDbSize($feed,$rd) == 0 ) {
+                $add_style = "background-color: lightgray; text-decoration: line-through;";
+            } else {
+
+                if (  $viewing == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $add_style = "background-color: limegreen;";
+                }
+                if ( $current_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents = '<a href="?feed=' . $feed . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
+                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents = '<a href="?feed=' . $feed . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
+                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                } elseif ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents = '<a href="?feed=' . $feed . '&release_date=previous"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
+                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                }
+            }
+
+            echo '    <div style="grid-column: m' . $ym . '; grid-row: date' . $relevant_dates[$ym]-- . '; margin: 1px; border: 1px dotted gray; border-radius: 5px; padding: 0.2em; '
+                      . $add_style . '">' . $contents . "</div>\n";
+        }
+    }
+
+
+    function CreateGtfsTimeLineBasis( $release_dates, $months_short ) {
+
+        $gtfs_show_number_of_months = 14;
+        $months_colour              = array( "white", "#dddddd" );
+
+        $date_rows   = 1;
+
+        $months_colour = array( "white", "#dddddd" );
+
+        $number_of_dot_boxes    = 1;    # at the start
+        $time_line_covers_boxes = 0;    # dots at the start, arrow at the end
+
+        if ( count($release_dates) > 0 ) {
+            #print_r($release_dates );
+            # ensure that this month and year is shown in the time line
+            # also ensure that month and year 14 monthago is also in the timeline
+            $this_year  = date( "Y" );
+            $this_month = date( "n" );
+            $start_year = intdiv( ($this_year * 12 + $this_month) - $gtfs_show_number_of_months, 12 );
+            $start_month = (($this_year * 12 + $this_month) - $gtfs_show_number_of_months) % 12 + 1;
+            $enhanced_release_dates = $release_dates;
+            array_push( $enhanced_release_dates, sprintf( "%04d-%02d-01", $this_year, $this_month ) );
+            array_push( $enhanced_release_dates, sprintf( "%04d-%02d-01", $start_year, $start_month ) );
+
+            # sort enhanced release dates by date and get oldes date and youngest date
+            sort( $enhanced_release_dates );
+            $first = array_shift( $enhanced_release_dates );
+            $last  = array_pop  ( $enhanced_release_dates );
+            $start_year  = preg_replace( '/^(\d\d\d\d)-\d\d-\d\d$/', '\\1', $first );
+            $start_month = preg_replace( '/^\d\d\d\d-(\d\d)-\d\d$/', '\\1', $first );
+            $last_year   = preg_replace( '/^(\d\d\d\d)-\d\d-\d\d$/', '\\1', $last );
+            $last_month  = preg_replace( '/^\d\d\d\d-(\d\d)-\d\d$/', '\\1', $last );
+
+            foreach ( $release_dates as $release_date ) {
+                $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $release_date );
+
+                if ( $relevant_dates[$ym] ) {
+                    $relevant_dates[$ym]++;
+                } else {
+                    $relevant_dates[$ym] = 1;
+                }
+                $date_rows = ( $relevant_dates[$ym] > $date_rows ) ? $relevant_dates[$ym] : $date_rows;
+            }
+        }
+
+        # here are fall-back values
+        if ( !$last_year   ) { $last_year   = date( "Y" ); }
+        if ( !$last_month  ) { $last_month  = date( "n" ); }
+        if ( !$start_year  ) { $start_year  = intdiv( ($last_year * 12 + $last_month) - $gtfs_show_number_of_months, 12 ); }
+        if ( !$start_month ) { $start_month = (($last_year * 12 + $last_month) - $gtfs_show_number_of_months) % 12 + 1; }
+        if ( !$date_rows   ) { $date_rows   = 1; }
+
+        # echo 'last_year = ' . $last_year . ', start_year = ' . $start_year . ', last_month = ' . $last_month . ', start_month = ' . $start_month . ', date_rows = ' . $date_rows . "<br>\n\n";
+
+        echo '<div style="display: grid; grid-template-rows: ';
+        for ( $i = $date_rows; $i > 0; $i-- ) {
+            echo '[date' . $i . '] 1fr ';
+        }
+        echo '[line] 30px [month] 1fr; grid-template-columns: [dots0] 0.5fr ';
+
+        $month_div_data = array();
+        $number_of_vertical_bars = 0;
+        # start_year
+        for ( $m = $start_month; $m <= 12; $m++ ) {
+            $time_line_covers_boxes++;
+            printf( "[m%04d%02d] 1fr ", $start_year, $m );
+            array_push( $month_div_data, sprintf( "<div style=\"grid-column: m%04d%02d; grid-row: month; font-weight: bold; background-color: %s; padding: 0.2em;\">%s '%02d</div>", $start_year, $m, $months_colour[$m%2], $months_short[$m-1], $start_year % 2000 ) );
+        }
+        echo '[vbar' . (++$number_of_vertical_bars) . '] 3px ';
+
+        # interim years, not always present
+        for ( $y = $start_year+1; $y < $last_year; $y++ ) {
+            for ( $m = 1; $m <= 12; $m++ ) {
+                $time_line_covers_boxes++;
+                printf( "[m%04d%02d] 1fr ", $y, $m );
+                array_push( $month_div_data, sprintf( "<div style=\"grid-column: m%04d%02d; grid-row: month; font-weight: bold; background-color: %s; padding: 0.2em;\">%s '%02d</div>", $y, $m, $months_colour[$m%2], $months_short[$m-1], $y % 2000 ) );
+            }
+            echo '[vbar' . (++$number_of_vertical_bars) . '] 3px ';
+        }
+        # this year
+        for ( $m = 1; $m <= $last_month; $m++ ) {
+            $time_line_covers_boxes++;
+            printf( "[m%04d%02d] 1fr ", $last_year, $m );
+            array_push( $month_div_data, sprintf( "<div style=\"grid-column: m%04d%02d; grid-row: month; font-weight: bold; background-color: %s; padding: 0.2em;\">%s '%02d</div>", $last_year, $m, $months_colour[$m%2], $months_short[$m-1], $last_year % 2000 ) );
+        }
+        echo '[arrow-right] 0.5fr; text-align:center; border: 1px dotted gray; border-radius: 5px; padding: 0.5em;">';
+        echo "\n\n";
+
+        # print vertical bars for the changes of year
+
+        for ( $i = 1; $i <= $number_of_vertical_bars; $i++ ) {
+            echo '    <div style="grid-column: vbar' . ($i) . '; grid-row: date' . $date_rows . ' / span ' . ($date_rows+2) . '; background: silver;"></div>' . "\n";
+        }
+        echo "\n";
+
+        # print dots in time line where we start (or have longer gaps: todo)
+
+        for ( $i = 0; $i < $number_of_dot_boxes; $i++ ) {
+            echo '    <div style="grid-column: dots' . $i . '; grid-row: line;"><img src="/img/dots.png" style="margin-top: 10px; margin-bottom: 10px; margin-right: -50%; text-align:right; height: 10px; "/></div>' . "\n";
+        }
+        echo "\n";
+
+        echo '    <div style="grid-column: m' . sprintf("%04d%02d",$start_year,$start_month) . ' / span ' . ($time_line_covers_boxes+$number_of_vertical_bars) . '; grid-row: line; margin-top: 10px; margin-bottom: 10px;
+                background-image: -moz-linear-gradient(right, #aaaaaa 0%, gray 100%); /* FF3.6+ */
+                background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#aaaaaa), color-stop(100%,#gray)); /* Chrome,Safari4+ */
+                background-image: -webkit-linear-gradient(left,  #aaaaaa 0%,#gray 100%); /* Chrome10+,Safari5.1+ */
+                background-image: -o-linear-gradient(left,  #aaaaaa 0%,#gray 100%); /* Opera 11.10+ */
+                background-image: -ms-linear-gradient(left,  #aaaaaa 0%,#gray 100%); /* IE10+ */
+                background-image: linear-gradient(to right,  #aaaaaa 0%,#gray 100%); /* W3C */"></div>' . "\n\n";
+
+        echo '    <div style="grid-column: arrow-right; grid-row: line"><img src="/img/arrow-right.png" style="margin-top: 5px; margin-bottom: 5px; margin-left: -50%; text-align:left; height: 20px;"/></div>' . "\n\n";
+
+        foreach ( $month_div_data as $div_data ) {
+            echo "    " . $div_data . "\n";
+        }
+
     }
 
 
@@ -402,9 +684,9 @@
 
                         $ptnarow = $db->querySingle( $sql, true );
 
-#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
                         echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
@@ -526,9 +808,9 @@
                     echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
                         echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
@@ -940,9 +1222,9 @@
                         echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                         echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
                         echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
-#                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.svg" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+#                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
 #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
                         echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
@@ -1714,7 +1996,7 @@
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Has Shape Data</td>' . "\n";
                 if ( $ptna["has_shapes"] ) {
-                    echo '                           <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                    echo '                           <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
                 }
@@ -1723,7 +2005,7 @@
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Consider calendar data</td>' . "\n";
                 if ( $ptna["consider_calendar"] ) {
-                    echo '                           <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                    echo '                           <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
                 }
@@ -1804,7 +2086,7 @@
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
                     echo '                                        <td class="gtfs-name">"operator" can be taken from "agency_name" of GTFS</td>' . "\n";
                     if ( $osm["gtfs_agency_is_operator"] ) {
-                        echo '                                       <td class="gtfs-text"><img src="/img/CheckMark.svg" width=32 height=32 alt="yes" /></td>' . "\n";
+                        echo '                                       <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                     } else {
                         echo '                                       <td class="gtfs-text"></td>' . "\n";
                     }
