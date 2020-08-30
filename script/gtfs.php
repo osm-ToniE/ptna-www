@@ -196,6 +196,8 @@
                 } elseif ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
                     $contents = '<a href="?feed=' . $feed . '&release_date=previous"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
                                 '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                } else {
+                    $contents = '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
                 }
             }
 
