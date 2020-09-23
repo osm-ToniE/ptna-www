@@ -2,19 +2,19 @@
 
 function ptnalistdownload( include_agency ) {
 
-    var network      = document.getElementById("network").firstChild.data;
-    var filename     = network + "-PTNA-CSV-List.txt";
-    var release_date = network.match( /20\d\d-[0-1]\d-[0-3]\d$/ );
+    var feed         = document.getElementById("feed").firstChild.data;
+    var filename     = feed + "-PTNA-CSV-List.txt";
+    var release_date = feed.match( /20\d\d-[0-1]\d-[0-3]\d$/ );
 
     if ( release_date == null ) {
-        release_date = network.match( /long-term$/ );
+        release_date = feed.match( /long-term$/ );
         if ( release_date == null ) {
             release_date = "";
         } else {
-            network = network.replace( /-long-term$/, '' );
+            feed = feed.replace( /-long-term$/, '' );
         }
     } else {
-        network = network.replace( /-20\d\d-[0-1]\d-[0-3]\d$/, '' );
+        feed = feed.replace( /-20\d\d-[0-1]\d-[0-3]\d$/, '' );
     }
 
     var ptna_list = "";
@@ -121,9 +121,9 @@ function ptnalistdownload( include_agency ) {
                 valid_string = valid_from + ' - ' + valid_until  + ': ';
             }
             if ( include_agency ) {
-                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;' + agency_name + ';' + network + ';' + route_id + ";" + release_date + "\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;' + agency_name + ';' + feed + ';' + route_id + ";" + release_date + "\r\n";
             } else {
-                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;;' + network + ';' + route_id + ';' + release_date + "\r\n";
+                ptna_list += route_short_name + ';' + route_type + ';"' + valid_string + route_long_name + '";;;;' + feed + ';' + route_id + ';' + release_date + "\r\n";
             }
 
         }
