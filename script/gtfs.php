@@ -959,7 +959,8 @@
                     echo '                    <table id="osm-route-master" style="float: left; margin-right: 20px;">' . "\n";
                     echo '                        <thead>' . "\n";
                     echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name" colspan="2">Route-Master</th>' . "\n";
+                    echo '                                <th class="gtfs-name">Route-Master</th>' . "\n";
+                    echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_master_osm()">Create *.osm template for JOSM</button></th>' . "\n";
                     echo '                            </tr>' . "\n";
                     echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                     echo '                                <th class="gtfs-name">Key</th>' . "\n";
@@ -1042,7 +1043,8 @@
                     echo '                    <table id="osm-route">' . "\n";
                     echo '                        <thead>' . "\n";
                     echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name" colspan="2">Route</th>' . "\n";
+                    echo '                                <th class="gtfs-name">Route</th>' . "\n";
+                    echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_osm()">Create *.osm template for JOSM</button></th>' . "\n";
                     echo '                            </tr>' . "\n";
                     echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                     echo '                                <th class="gtfs-name">Key</th>' . "\n";

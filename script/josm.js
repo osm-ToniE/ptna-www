@@ -95,3 +95,13 @@ function download_here( lat, lon, offset ) {
 
     return Http.responseText;
 }
+
+
+function route_master_osm() {
+
+}
+
+
+function route_osm() {
+
+}
