@@ -58,7 +58,11 @@ function gpxdownload() {
 
                 if ( key == "gtfs-stop-name" )
                 {
-                    gpx_name = (i+1) + ': ' + value.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                    gpx_name = (i+1) + ': ' +  value.replace(/&/g, "&amp;")
+                                                    .replace(/</g, "&lt;")
+                                                    .replace(/>/g, "&gt;")
+                                                    .replace(/"/g, "&quot;")
+                                                    .replace(/'/g, "&#039;");
                 }
                 else if ( key == "gtfs-lat" )
                 {

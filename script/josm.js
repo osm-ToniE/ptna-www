@@ -123,7 +123,19 @@ function route_master_osm() {
 
             // evaluate 1st and 2nd column of osm-route-master rows
 
-            osm_xml += "        <tag k='" + sub_td[0].innerText + "' v='" + sub_td[1].innerText + "' />\r\n";
+
+
+            osm_xml += "        <tag k='" +  sub_td[0].innerText.replace(/&/g, "&amp;")
+                                                                .replace(/</g, "&lt;")
+                                                                .replace(/>/g, "&gt;")
+                                                                .replace(/"/g, "&quot;")
+                                                                .replace(/'/g, "&#039;")
+                                + "' v='" +  sub_td[1].innerText.replace(/&/g, "&amp;")
+                                                                .replace(/</g, "&lt;")
+                                                                .replace(/>/g, "&gt;")
+                                                                .replace(/"/g, "&quot;")
+                                                                .replace(/'/g, "&#039;")
+                                + "' />\r\n";
         }
 
         osm_xml += "    </relation>\r\n";
@@ -201,10 +213,18 @@ function route_osm() {
                     lon = value;
                 }
                 else if ( key == "gtfs-stop-name") {
-                    stop_name = value;
+                    stop_name =    value.replace(/&/g, "&amp;")
+                                        .replace(/</g, "&lt;")
+                                        .replace(/>/g, "&gt;")
+                                        .replace(/"/g, "&quot;")
+                                        .replace(/'/g, "&#039;");;
                 }
                 else if ( key == "gtfs-id") {
-                    stop_id = value;
+                    stop_id =  value.replace(/&/g, "&amp;")
+                                    .replace(/</g, "&lt;")
+                                    .replace(/>/g, "&gt;")
+                                    .replace(/"/g, "&quot;")
+                                    .replace(/'/g, "&#039;");;
                 }
             }
             if ( lat && lon && stop_name && stop_id ) {
@@ -237,7 +257,17 @@ function route_osm() {
 
             // evaluate 1st and 2nd column of osm-route rows
 
-            osm_xml += "        <tag k='" + sub_td[0].innerText + "' v='" + sub_td[1].innerText + "' />\r\n";
+            osm_xml += "        <tag k='" +  sub_td[0].innerText.replace(/&/g, "&amp;")
+                                                                .replace(/</g, "&lt;")
+                                                                .replace(/>/g, "&gt;")
+                                                                .replace(/"/g, "&quot;")
+                                                                .replace(/'/g, "&#039;")
+                                + "' v='" +  sub_td[1].innerText.replace(/&/g, "&amp;")
+                                                                .replace(/</g, "&lt;")
+                                                                .replace(/>/g, "&gt;")
+                                                                .replace(/"/g, "&quot;")
+                                                                .replace(/'/g, "&#039;")
+                                 + "' />\r\n";
         }
 
         osm_xml += "    </relation>\r\n";
