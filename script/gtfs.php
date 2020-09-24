@@ -1218,7 +1218,11 @@
                         }
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
                         echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
-                        echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
+                        if ( $row["normalized_stop_name"] ) {
+                            echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["normalized_stop_name"]) . '</td>' . "\n";
+                        } else {
+                            echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
+                        }
                         echo '                                <td class="gtfs-comment">';
                         printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
                         $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
