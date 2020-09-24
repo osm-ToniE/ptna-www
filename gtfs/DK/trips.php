@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="da">
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
+<html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
-
-<?php include('../../script/globals.php'); ?>
-<?php include('../../script/gtfs.php'); ?>
+<?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
+
       <div id="wrapper">
 
-<?php include $inc_lang.'header.inc' ?>
+<?php include $lang_dir.'header.inc' ?>
 
         <main id="main" class="results">
             <?php
-                $network  = $_GET['network'];
-                $route_id = $_GET['route_id'];
                 $route_short_name = GetGtfsRouteShortNameFromRouteId( $network, $route_id );
                 if ( !$route_short_name ) {
                      $route_short_name = 'not set';
@@ -25,28 +25,45 @@
                 $comment          = $ptna["ptna_comment"];
             ?>
 
-            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($network) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Danmark"; } ?></h2>
+            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($feed) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Danmark"; } ?></h2>
             <div class="indent">
-<?php include $inc_lang.'gtfs-trips-head.inc' ?>
 
-                <table id="gtfs-trips">
-                    <thead>
-<?php include $inc_lang.'gtfs-trips-trth.inc' ?>
-                    </thead>
-                    <tbody>
+
+                <h3 id="feeds">Available GTFS sources</h3>
+                <div class="indent">
+
+<?php   $months_short = array( "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
+
+        CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
+
+        include $lang_dir.'gtfs-feed-legend.inc';
+?>
+
+                </div>
+
+                <h3 id="routes">Existing Routes Variants</h3>
+                <div class="indent">
+
+<?php include $lang_dir.'gtfs-trips-head.inc' ?>
+
+                    <table id="gtfs-trips">
+                        <thead>
+<?php include $lang_dir.'gtfs-trips-trth.inc' ?>
+                        </thead>
+                        <tbody>
 <?php $duration = CreateGtfsTripsEntry( $network, $route_id, $route_short_name ); ?>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
-
+                    <?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
+                </div>
             </div>
 
         </main> <!-- main -->
 
         <hr />
 
-<?php include $inc_lang.'gtfs-footer.inc' ?>
+<?php include $lang_dir.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>

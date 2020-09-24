@@ -16,7 +16,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $network ) { echo '<span id="network">' . htmlspecialchars($network) . '</span>'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
+            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed ) { echo '<span id="network">' . htmlspecialchars($feed) . '</span>'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

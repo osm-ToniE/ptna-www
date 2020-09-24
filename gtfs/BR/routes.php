@@ -5,7 +5,7 @@
 ?>
 <html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
+<?php $title="GTFS Análise"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <script src="/script/ptna-list.js"></script>
@@ -16,7 +16,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $network ) { echo '<span id="network">' . htmlspecialchars($network) . '</span>'; } else { echo '<span id="network">Brasil</span>'; } ?></h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed) . '</span>'; } else { echo '<span id="feed">Brasil</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

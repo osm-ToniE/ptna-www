@@ -152,6 +152,8 @@
         $previous_target  = GtfsReadLink( $feed, 'previous'  );
         $long_term_target = GtfsReadLink( $feed, 'long-term' );
 
+        $target_script = preg_replace( '/trips.php/', 'routes.php', $_SERVER['SCRIPT_NAME'] );
+
         foreach ( $release_dates as $rd ) {
             $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $rd );
 
@@ -188,16 +190,16 @@
                     $add_style = "background-color: limegreen;";
                 }
                 if ( $current_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="?feed=' . $feed . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
-                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
                 } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="?feed=' . $feed . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
-                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
                 } elseif ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="?feed=' . $feed . '&release_date=previous"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
-                                '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=previous"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
                 } else {
-                    $contents = '<a href="?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
                 }
             }
 
