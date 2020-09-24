@@ -99,9 +99,167 @@ function download_here( lat, lon, offset ) {
 
 function route_master_osm() {
 
+    var feed                = document.getElementById( "feed" ).firstChild.data;
+    var route_short_name    = document.getElementById( "route_short_name" ).firstChild.data;
+    var relation_table      = document.getElementById( "osm-route-master" );
+
+    if ( relation_table ) {
+
+        var relation_tablebody = relation_table.getElementsByTagName( "tbody" )[0];
+        var tag_list           = relation_tablebody.getElementsByTagName( "tr" );
+
+        var osm_xml;
+
+        osm_xml  = "<?xml version='1.0' encoding='UTF-8'?>\r\n";
+        osm_xml += "<osm version='0.6' upload='never' generator='PTNA-GTFS'>\r\n";
+        osm_xml += "    <relation id='-3000' action='create'>\r\n";
+
+        //    evaluate all osm-route-master rows
+
+        for ( var i = 0; i < tag_list.length; i++ )
+        {
+            var tag_node   = tag_list[i];
+            var sub_td     = tag_node.getElementsByTagName( "td" );
+
+            // evaluate 1st and 2nd column of osm-route-master rows
+
+            osm_xml += "        <tag k='" + sub_td[0].innerText + "' v='" + sub_td[1].innerText + "' />\r\n";
+        }
+
+        osm_xml += "    </relation>\r\n";
+        osm_xml += "</osm>\r\n";
+
+        // create file
+
+        var filename = feed + "_Route_Master_" + route_short_name + ".osm";
+        var element  = document.createElement('a');
+        element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(osm_xml) );
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
 }
 
 
 function route_osm() {
 
+    var feed                = document.getElementById( "feed" ).firstChild.data;
+    var route_short_name    = document.getElementById( "route_short_name" ).firstChild.data;
+    var trip_id             = document.getElementById( "trip_id" ).firstChild.data;
+    var stop_table          = document.getElementById( "gtfs-single-trip" );
+    var relation_table      = document.getElementById( "osm-route" );
+
+    var osm_xml     = "";
+    var member_list = "";
+
+    if ( stop_table || relation_table ) {
+        osm_xml  = "<?xml version='1.0' encoding='UTF-8'?>\r\n";
+        osm_xml += "<osm version='0.6' upload='never' generator='PTNA-GTFS'>\r\n";
+    }
+
+    if ( stop_table ) {
+
+        var stop_listnode = stop_table.getElementsByTagName( "tbody" )[0];
+        var stop_list     = stop_listnode.getElementsByTagName( "tr" );
+
+        var lat         = "";
+        var lon         = "";
+        var stop_name   = "";
+        var stop_id     = "";
+        var node_id     = -10000;
+
+        //    evaluate all gtfs-single-trip rows
+
+        for ( var i = 0; i < stop_list.length; i++ ) {
+            var stop_node  = stop_list[i];
+            var sub_td     = stop_node.getElementsByTagName( "td" );
+
+            //    evaluate all columns of gtfs-single-trip rows
+
+            for ( var j = 0; j < sub_td.length; j++ ) {
+                var keyvalue = sub_td[j];
+
+                if ( keyvalue.firstChild ) {
+                    var value = keyvalue.firstChild.data;
+                }
+                else {
+                    var value = "";
+                }
+
+                var key = keyvalue.getAttribute("class");
+
+                if ( key == "gtfs-lat" ) {
+                    lat = value;
+                }
+                else if ( key == "gtfs-lon") {
+                    lon = value;
+                }
+                else if ( key == "gtfs-stop-name") {
+                    stop_name = value;
+                }
+                else if ( key == "gtfs-id") {
+                    stop_id = value;
+                }
+            }
+            if ( lat && lon && stop_name && stop_id ) {
+                osm_xml += "    <node id='" + node_id + "' action='create' lat='" + lat + "' lon='" + lon + "'>\r\n";
+                osm_xml += "        <tag k='name' v='" + stop_name + "' />\r\n";
+                osm_xml += "        <tag k='gtfs:stop_id' v='" + stop_id + "' />\r\n";
+                osm_xml += "        <tag k='public_transport' v='platform' />\r\n";
+                osm_xml += "    </node>\r\n";
+
+                member_list += "        <member type='node' ref='" + node_id + "' role='platform' />\r\n";
+
+                node_id--;
+            }
+        }
+    }
+
+    if ( relation_table ) {
+
+        var relation_tablebody = relation_table.getElementsByTagName( "tbody" )[0];
+        var tag_list           = relation_tablebody.getElementsByTagName( "tr" );
+
+        osm_xml += "    <relation id='-4000' action='create'>\r\n";
+        osm_xml += member_list;
+
+        //    evaluate all osm-route rows
+
+        for ( var i = 0; i < tag_list.length; i++ ) {
+            var tag_node   = tag_list[i];
+            var sub_td     = tag_node.getElementsByTagName( "td" );
+
+            // evaluate 1st and 2nd column of osm-route rows
+
+            osm_xml += "        <tag k='" + sub_td[0].innerText + "' v='" + sub_td[1].innerText + "' />\r\n";
+        }
+
+        osm_xml += "    </relation>\r\n";
+
+    }
+
+    if ( stop_table || relation_table ) {
+
+        osm_xml += "</osm>\r\n";
+
+        // create file
+
+        var filename = feed + "_Route_" + route_short_name + "_" + trip_id + ".osm";
+        var element  = document.createElement('a');
+        element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(osm_xml) );
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
 }
