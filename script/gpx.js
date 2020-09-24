@@ -2,19 +2,19 @@
 
 function gpxdownload() {
 
-    var network             = document.getElementById("network").firstChild.data;
+    var feed                = document.getElementById("feed").firstChild.data;
     var route_short_name    = document.getElementById("route_short_name").firstChild.data;
     var trip_id             = document.getElementById("trip_id").firstChild.data;
 
     //   fill Meta data
     var metadata     = "";
-    metadata        += "  <name>" + network + ", Linie " + route_short_name + "</name>\r\n"
+    metadata        += "  <name>" + feed + ", Linie " + route_short_name + "</name>\r\n"
     metadata        += "  <cmt>Trip-Id = " + trip_id + "</cmt>\r\n"
-    metadata        += "  <desc>GTFS Analysis for " + network + "</desc>\r\n"
+    metadata        += "  <desc>GTFS Analysis for " + feed + "</desc>\r\n"
     metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
     metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
 
-    var filename = network + "_Linie_" + route_short_name + ".gpx";
+    var filename = feed + "_Linie_" + route_short_name + ".gpx";
 
     //    <time> xsd:dateTime </time>
     var dateobj  = new Date();
