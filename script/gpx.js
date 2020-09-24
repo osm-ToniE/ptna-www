@@ -14,7 +14,7 @@ function gpxdownload() {
     metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
     metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
 
-    var filename = feed + "_Linie_" + route_short_name + ".gpx";
+    var filename = feed + "_Route_" + route_short_name + "_" + trip_id + ".gpx";
 
     //    <time> xsd:dateTime </time>
     var dateobj  = new Date();
