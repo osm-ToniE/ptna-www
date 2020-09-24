@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="da">
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
+<html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
-
-<?php include('../../script/globals.php'); ?>
-<?php include('../../script/gtfs.php'); ?>
+<?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -17,7 +18,7 @@
 
       <div id="wrapper">
 
-<?php include $inc_lang.'header.inc' ?>
+<?php include $lang_dir.'header.inc' ?>
 
 <?php
     $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
@@ -43,7 +44,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Danmark</span>'; } ?></h2>
+                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="feed">' . htmlspecialchars($feed) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
                 <div class="indent">
                 <ul>
                     <li><a href="#showonmap">Kort</a></li>
@@ -195,7 +196,7 @@
 
         <hr />
 
-<?php include $inc_lang.'gtfs-footer.inc' ?>
+<?php include $lang_dir.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
 

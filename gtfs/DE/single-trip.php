@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="de">
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
+<html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../de/'; include $inc_lang.'html-head.inc'; ?>
-
-<?php include('../../script/globals.php'); ?>
-<?php include('../../script/gtfs.php'); ?>
+<?php $title="GTFS Analysen"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -17,12 +18,9 @@
 
       <div id="wrapper">
 
-<?php include $inc_lang.'header.inc' ?>
+<?php include $lang_dir.'header.inc' ?>
 
 <?php
-    $network          = ( $_GET['network'] )  ? $_GET['network']  : $_POST['network'];
-    $trip_id          = ( $_GET['trip_id'] )  ? $_GET['trip_id']  : $_POST['trip_id'];
-    $shape_id         = ( $_GET['shape_id'] ) ? $_GET['shape_id'] : $_POST['shape_id'];
     if ( !$trip_id && $shape_id ) {
         $trip_id      = GetGtfsTripIdFromShapeId( $network, $shape_id );
     }
@@ -43,7 +41,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $network && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="network">' . htmlspecialchars($network) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="network">Deutschland</span>'; } ?></h2>
+                <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="feed">' . htmlspecialchars($feed) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Deutschland</span>'; } ?></h2>
                 <div class="indent">
                     <ul>
                         <li><a href="#showonmap">Karte</a></li>
@@ -196,7 +194,7 @@
 
         <hr />
 
-<?php include $inc_lang.'gtfs-footer.inc' ?>
+<?php include $lang_dir.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
 
