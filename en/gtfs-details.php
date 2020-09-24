@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php   include( '../script/globals.php'     );
+        include( '../script/gtfs.php'        );
+        include( '../script/parse_query.php' );
+        $ptna_lang = "en";
+        $html_lang = "en";
+?>
+<html lang=<?php echo $html_lang; ?>
 
 <?php $title="GTFS Details"; include('html-head.inc'); ?>
-
-<?php include('../script/globals.php'); ?>
-<?php include('../script/gtfs.php'); ?>
 
     <body>
 
@@ -14,14 +17,22 @@
 
         <main id="main" class="results">
 
-<?php $network  = $_GET['network'];
-      $duration = 0;
+<?php $duration = 0; ?>
+
+            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
+                <div class="indent">
+
+                    <h3 id="feeds">Available GTFS sources</h3>
+                    <div class="indent">
+
+<?php   $months_short = array( "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
+
+        CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
+
+        include 'gtfs-feed-legend.inc';
 ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $network ) { echo ' for "' . htmlspecialchars($network) . '"'; } ?></h2>
-                <div class="indent">
-                    <p>
-                    </p>
+                    </div>
 
                     <h3>PTNA Specific Data</h3>
                         <div class="indent">
