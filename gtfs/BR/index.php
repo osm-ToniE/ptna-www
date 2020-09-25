@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
+<html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysis"; $inc_lang='../../pt_BR/'; include $inc_lang.'html-head.inc'; ?>
-
-<?php include('../../script/globals.php'); ?>
-<?php include('../../script/gtfs.php'); ?>
+<?php $title="GTFS Análise"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <div id="wrapper">
-<?php include $inc_lang.'header.inc' ?>
+<?php include $lang_dir.'header.inc' ?>
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
             <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre Brasil</h2>
             <div class="indent">
-<?php include $inc_lang.'gtfs-head.inc' ?>
+<?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsBR">
                     <thead>
-<?php include $inc_lang.'gtfs-trth.inc' ?>
+<?php include $lang_dir.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
 <?php
@@ -34,7 +35,7 @@
 
         <hr />
 
-<?php include $inc_lang.'gtfs-footer.inc' ?>
+<?php include $lang_dir.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>

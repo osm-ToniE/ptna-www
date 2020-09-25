@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="da">
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
+<html lang="<?php echo $html_lang ?>">
 
-<?php $title="GTFS Analysen"; $inc_lang='../../da/'; include $inc_lang.'html-head.inc'; ?>
-
-<?php include('../../script/globals.php'); ?>
-<?php include('../../script/gtfs.php'); ?>
+<?php $title="GTFS Analyser"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <div id="wrapper">
-<?php include $inc_lang.'header.inc' ?>
+<?php include $lang_dir.'header.inc' ?>
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for Danmark</h2>
+            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS Analyser for Danmark</h2>
             <div class="indent">
-<?php include $inc_lang.'gtfs-head.inc' ?>
+<?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsDK">
                     <thead>
-<?php include $inc_lang.'gtfs-trth.inc' ?>
+<?php include $lang_dir.'gtfs-trth.inc' ?>
                     </thead>
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "DK-Alle" );
 ?>
-
                     </tbody>
                 </table>
 
@@ -33,7 +33,7 @@
 
         <hr />
 
-<?php include $inc_lang.'gtfs-footer.inc' ?>
+<?php include $lang_dir.'gtfs-footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>
