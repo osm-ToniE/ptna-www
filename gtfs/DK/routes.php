@@ -34,20 +34,20 @@
                 <h3 id="routes">Existing Routes</h3>
                 <div class="indent">
 
-<?php   include $lang_dir.'gtfs-routes-head.inc' ?>
+<?php
+    $ptna = GetPtnaDetails( $network );
+    if ( $ptna['comment'] ) {
+        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
+    }
+    $osm = GetOsmDetails( $network );
+    if ( $osm['gtfs_agency_is_operator'] ) {
+        $include_agency = 1;
+    } else {
+        $include_agency = 0;
+    }
+?>
 
-                    <?php
-                        $ptna = GetPtnaDetails( $network );
-                        if ( $ptna['comment'] ) {
-                            printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
-                        }
-                        $osm = GetOsmDetails( $network );
-                        if ( $osm['gtfs_agency_is_operator'] ) {
-                            $include_agency = 1;
-                        } else {
-                            $include_agency = 0;
-                        }
-                ?>
+<?php   include $lang_dir.'gtfs-routes-head.inc' ?>
 
                     <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download som en CSV-liste til PTNA</button>
 
