@@ -147,6 +147,10 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis .relation       { white-space:nowrap; }
 #analysis .PTv            { text-align:center; }
 #analysis .number         { text-align:right; }
+#analysis .gtfs_feed      { white-space:nowrap; }
+#analysis .feed_from      { white-space:nowrap; }
+#analysis .date           { white-space:nowrap; }
+#analysis .date_from      { white-space:nowrap; }
 #analysis .attention      { background-color: yellow; font-weight: 500; font-size: 1.2em; }
 
 .statistics-tableheaderrow   { background-color: #dddddd; }
