@@ -25,7 +25,24 @@
     }
     function PrintNetwork( $network, $link, $name ) {
         if ( $link && $name ) {
-            echo '<td data-ref="'.$network.'-network" class="results-network"><a href="'.$link.'">'.$name.'</a></td>';
+            if ( preg_match('/;/',$link) && preg_match('/;/',$name) ) {
+                echo '<td data-ref="'.$network.'-network" class="results-network">';
+                $name_array = explode( ';', $name );
+                $link_array = explode( ';', $link );
+                for ( $i = 0; $i < count($name_array); $i++ ) {
+                    if ( $i > 0 ) { echo '; '; }
+                    if ( $name_array[$i] && $link_array[$i] ) {
+                        echo '<a href="'.$link_array[$i].'">'.$name_array[$i].'</a>';
+                    } else if ( $name_array[$i] ) {
+                        echo $name_array[$i];
+                    } else {
+                        echo '<a href="'.$link_array[$i].'">'.$link_array[$i].'</a>';
+                    }
+                }
+                echo '</td>';
+            } else {
+                echo '<td data-ref="'.$network.'-network" class="results-network"><a href="'.$link.'">'.$name.'</a>';
+            }
         } else if ( $name ) {
             echo '<td data-ref="'.$network.'-network" class="results-network">'.$name.'</td>';
         } else {
@@ -133,4 +150,3 @@
         echo '                    </tr>' . "\n";
     }
 ?>
-
