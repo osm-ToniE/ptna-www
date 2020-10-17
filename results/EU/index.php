@@ -7,7 +7,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
@@ -22,9 +22,11 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "EU-Flixbus", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "EU-Eurolines", "en", "Configuration" ); ?>
 
-                </tbody>
+                <?php CreateNewFullEntry( "EU-Flixbus", "en", "Configuration" ); ?>
+
+</tbody>
             </table>
 
         </main> <!-- main -->
@@ -36,4 +38,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
