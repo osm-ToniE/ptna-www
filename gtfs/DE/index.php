@@ -62,6 +62,7 @@
                 <div class="indent">
                 <p>
                     Für die folgenden GTFS-Quellen läuft der Support durch PTNA (vorläufig) aus.
+                    Es werden keine Aktualisierungen mehr durchgeführt. Vorhanden Daten bleiben erhalten.
                     Siehe jeweils "Comment on Data" in der Tabelle "PTNA Specific Data" unter dem Link "Details, ...".
                 </p>
                 <table id="gtfsDE">
