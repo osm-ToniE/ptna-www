@@ -28,7 +28,6 @@
     $duration += CreateGtfsEntry( "DE-BW-DING" );
     $duration += CreateGtfsEntry( "DE-BW-Filsland" );
     $duration += CreateGtfsEntry( "DE-BW-HNV" );
-    $duration += CreateGtfsEntry( "DE-BW-HVG" );
     $duration += CreateGtfsEntry( "DE-BW-KV.SHA" );
     $duration += CreateGtfsEntry( "DE-BW-KVV" );
     $duration += CreateGtfsEntry( "DE-BW-OstalbMobil" );
@@ -47,20 +46,38 @@
     $duration += CreateGtfsEntry( "DE-BW-VGF" );
     $duration += CreateGtfsEntry( "DE-BW-VHB" );
     $duration += CreateGtfsEntry( "DE-BW-VPE" );
-    $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-BW-bodo" );
     $duration += CreateGtfsEntry( "DE-BW-naldo" );
     $duration += CreateGtfsEntry( "DE-BY-MVV" );
     $duration += CreateGtfsEntry( "DE-NW-AVV" );
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
     $duration += CreateGtfsEntry( "DE-NW-VRS" );
-    $duration += CreateGtfsEntry( "DE-RP-VRN" );
     $duration += CreateGtfsEntry( "DE-SN-MDV" );
 ?>
                     </tbody>
                 </table>
+                </div>
 
-                <?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
+                <h3 id="nosupport">Auslaufender Support für GTFS Analysen</h3>
+                <div class="indent">
+                <p>
+                    Für die folgenden GTFS-Quellen läuft der Support durch PTNA (vorläufig) aus.
+                    Siehe jeweils "Comment on Data" in der Tabelle "PTNA Specific Data" unter dem Link "Details, ...".
+                </p>
+                <table id="gtfsDE">
+                    <thead>
+<?php include $lang_dir.'gtfs-trth.inc' ?>
+                    </thead>
+                    <tbody>
+<?php
+    $duration += CreateGtfsEntry( "DE-BW-HVG" );
+    $duration += CreateGtfsEntry( "DE-BW-VVS" );
+    $duration += CreateGtfsEntry( "DE-RP-VRN" );
+?>
+                    </tbody>
+                </table>
+
+<?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
             </div>
         </main> <!-- main -->
 
