@@ -35,11 +35,11 @@
                 <div class="indent">
 
 <?php
-    $ptna = GetPtnaDetails( $network );
+    $ptna = GetPtnaDetails( $feed, $release_date );
     if ( $ptna['comment'] ) {
         printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
     }
-    $osm = GetOsmDetails( $network );
+    $osm = GetOsmDetails( $feed, $release_date );
     if ( $osm['gtfs_agency_is_operator'] ) {
         $include_agency = 1;
     } else {
@@ -56,7 +56,7 @@
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>
                         <tbody>
-<?php $duration = CreateGtfsRoutesEntry( $network ); ?>
+<?php $duration = CreateGtfsRoutesEntry( $netwfeed, $release_dateork ); ?>
                         </tbody>
                     </table>
 

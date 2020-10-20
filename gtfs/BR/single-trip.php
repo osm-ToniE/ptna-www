@@ -22,14 +22,14 @@
 
 <?php
     if ( !$trip_id && $shape_id ) {
-        $trip_id      = GetGtfsTripIdFromShapeId( $network, $shape_id );
+        $trip_id      = GetGtfsTripIdFromShapeId( $feed, $release_date, $shape_id );
     }
-    $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
-    $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
+    $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
+    $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
     if ( !$route_short_name ) {
         $route_short_name = 'not set';
     }
-    $trips            = GetTripDetails( $network, $trip_id );
+    $trips            = GetTripDetails( $feed, $release_date, $trip_id );
     $is_invalid       = $trips["ptna_is_invalid"];
     $is_wrong         = $trips["ptna_is_wrong"];
     $comment          = $trips["ptna_comment"];
@@ -100,7 +100,7 @@
 
                 <h2 id="proposal">Suggestion for OSM Tagging</h2>
                 <div class="indent">
-<?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
+<?php $duration = CreateOsmTaggingSuggestion( $feed, $release_date, $trip_id ); ?>
                 </div>
 
                 <hr />
@@ -139,7 +139,7 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripEntry( $feed, $release_date, $trip_id ); ?>
                         </tbody>
                     </table>
                     <p><strong>(1) Example for departure time</strong></p>
@@ -174,12 +174,12 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $feed, $release_date, $trip_id ); ?>
                         </tbody>
                     </table>
                 </div>
 
-<?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripShapeEntry( $feed, $release_date, $trip_id ); ?>
 
                 <?php printf( "<p>As consultas SQL levaram %f segundos para serem concluídas</p>\n", $duration ); ?>
 

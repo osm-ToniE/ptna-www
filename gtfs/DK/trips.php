@@ -15,11 +15,11 @@
 
         <main id="main" class="results">
             <?php
-                $route_short_name = GetGtfsRouteShortNameFromRouteId( $network, $route_id );
+                $route_short_name = GetGtfsRouteShortNameFromRouteId( $feed, $release_date, $route_id );
                 if ( !$route_short_name ) {
                      $route_short_name = 'not set';
                 }
-                $ptna             = GetRouteDetails( $network, $route_id );
+                $ptna             = GetRouteDetails( $feed, $release_date, $route_id );
                 $is_invalid       = $ptna["ptna_is_invalid"];
                 $is_wrong         = $ptna["ptna_is_wrong"];
                 $comment          = $ptna["ptna_comment"];
@@ -51,7 +51,7 @@
 <?php include $lang_dir.'gtfs-trips-trth.inc' ?>
                         </thead>
                         <tbody>
-<?php $duration = CreateGtfsTripsEntry( $network, $route_id, $route_short_name ); ?>
+<?php $duration = CreateGtfsTripsEntry( $feed, $release_date, $route_id, $route_short_name ); ?>
                         </tbody>
                     </table>
 
