@@ -2,7 +2,12 @@
 <?php   include( '../../script/globals.php'     );
         include( '../../script/gtfs.php'        );
         include( '../../script/parse_query.php' );
-?>
+        if ( $release_date ) {
+            $feed_and_release = $feed . ' - ' . $release_date;
+        } else {
+            $feed_and_release = $feed;
+        }
+    ?>
 <html lang="<?php echo $html_lang ?>">
 
 <?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
@@ -16,7 +21,7 @@
 
         <main id="main" class="results">
 
-        <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed) . '</span>'; } else { echo '<span id="feed">Australia</span>'; } ?></h2>
+        <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Australia</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

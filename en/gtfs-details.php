@@ -4,6 +4,11 @@
         include( '../script/parse_query.php' );
         $ptna_lang = "en";
         $html_lang = "en";
+        if ( $release_date ) {
+            $feed_and_release = $feed . ' - ' . $release_date;
+        } else {
+            $feed_and_release = $feed;
+        }
 ?>
 <html lang=<?php echo $html_lang; ?>
 
@@ -19,7 +24,7 @@
 
 <?php $duration = 0; ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
+            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed_and_release) . '"'; } ?></h2>
                 <div class="indent">
 
                     <h3 id="feeds">Available GTFS sources</h3>

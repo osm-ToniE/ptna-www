@@ -23,9 +23,14 @@
                 $is_invalid       = $ptna["ptna_is_invalid"];
                 $is_wrong         = $ptna["ptna_is_wrong"];
                 $comment          = $ptna["ptna_comment"];
+                if ( $release_date ) {
+                    $feed_and_release = $feed . ' - ' . $release_date;
+                } else {
+                    $feed_and_release = $feed;
+                }
             ?>
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($feed) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

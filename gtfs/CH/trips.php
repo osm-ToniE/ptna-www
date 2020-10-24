@@ -23,9 +23,14 @@
                 $is_invalid       = $ptna["ptna_is_invalid"];
                 $is_wrong         = $ptna["ptna_is_wrong"];
                 $comment          = $ptna["ptna_comment"];
+                if ( $release_date ) {
+                    $feed_and_release = $feed . ' - ' . $release_date;
+                } else {
+                    $feed_and_release = $feed;
+                }
             ?>
 
-            <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?network=' .urlencode($network) . '">' . htmlspecialchars($feed) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "die Schweiz"; } ?></h2>
+            <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "die Schweiz"; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Verfügbare GTFS-Quellen</h3>

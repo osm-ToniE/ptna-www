@@ -2,6 +2,11 @@
 <?php   include( '../../script/globals.php'     );
         include( '../../script/gtfs.php'        );
         include( '../../script/parse_query.php' );
+        if ( $release_date ) {
+            $feed_and_release = $feed . ' - ' . $release_date;
+        } else {
+            $feed_and_release = $feed;
+        }
 ?>
 <html lang="<?php echo $html_lang ?>">
 
@@ -16,7 +21,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /></a> GTFS Analysen für <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed) . '</span>'; } else { echo '<span id="feed">die Schweiz</span>'; } ?></h2>
+            <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /></a> GTFS Analysen für <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">die Schweiz</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Verfügbare GTFS-Quellen</h3>

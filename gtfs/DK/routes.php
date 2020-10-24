@@ -2,6 +2,11 @@
 <?php   include( '../../script/globals.php'     );
         include( '../../script/gtfs.php'        );
         include( '../../script/parse_query.php' );
+        if ( $release_date ) {
+            $feed_and_release = $feed . ' - ' . $release_date;
+        } else {
+            $feed_and_release = $feed;
+        }
 ?>
 <html lang="<?php echo $html_lang ?>">
 
@@ -16,7 +21,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed) . '</span>'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
+            <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>
