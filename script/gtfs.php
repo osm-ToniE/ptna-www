@@ -1,30 +1,35 @@
 <?php
 
-    function FindGtfsSqliteDb( $network ) {
+    function FindGtfsSqliteDb( $feed, $release_date ) {
         global $path_to_work;
 
         $return_path = '';
 
-        if ( $network && preg_match("/^[a-zA-Z0-9_.-]+$/", $network) ) {
-            $prefixparts = explode( '-', $network );
-            $countrydir  = array_shift( $prefixparts );
+        if ( $release_date ) {
+            $feed_release = $feed . '-' . $release_date;
+        } else {
+            $feed_release = $feed;
+        }
+        if ( $feed_release && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed_release) ) {
+            $feed_parts = explode( '-', $feed );
+            $countrydir = array_shift( $feed_parts );
 
-            $return_path = $path_to_work . $countrydir . '/' . $network . '-ptna-gtfs-sqlite.db';
+            $return_path = $path_to_work . $countrydir . '/' . $feed_release . '-ptna-gtfs-sqlite.db';
 
             if ( file_exists($return_path) ) {
-                if ( preg_match("/-previous$/", $network) || preg_match("/-long-term$/", $network) ) {
+                if ( preg_match("/-previous$/", $feed_release) || preg_match("/-long-term$/", $feed_release) ) {
                     if ( is_link($return_path) ) {
                         $return_path = $path_to_work . $countrydir . '/' . readlink( $return_path );
                     }
                 }
              }
              if ( !file_exists($return_path) ) {
-                $subdir = array_shift( $prefixparts );
+                $subdir = array_shift( $feed_parts );
 
-                $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-ptna-gtfs-sqlite.db';
+                $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $feed_release . '-ptna-gtfs-sqlite.db';
 
                 if ( file_exists($return_path) ) {
-                    if (  preg_match("/-previous$/", $network) || preg_match("/-long-term$/", $network) ) {
+                    if (  preg_match("/-previous$/", $feed_release) || preg_match("/-long-term$/", $feed_release) ) {
                         if ( is_link($return_path) ) {
                             $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . readlink( $return_path );
                         }
@@ -63,9 +68,9 @@
         $release_dates_array = array();
 
         if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
-            $prefixparts    = explode( '-', $feed );
-            $countrydir     = array_shift( $prefixparts );
-            $subdir         = array_shift( $prefixparts );
+            $feed_parts = explode( '-', $feed );
+            $countrydir = array_shift( $feed_parts );
+            $subdir     = array_shift( $feed_parts );
 
             $search_path    = $path_to_work . $countrydir;
 
@@ -91,9 +96,9 @@
         global $path_to_work;
 
         if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/",$feed) ) {
-            $prefixparts    = explode( '-', $feed );
-            $countrydir     = array_shift( $prefixparts );
-            $subdir         = array_shift( $prefixparts );
+            $feed_parts = explode( '-', $feed );
+            $countrydir = array_shift( $feed_parts );
+            $subdir     = array_shift( $feed_parts );
 
             $search_path    = $path_to_work . $countrydir;
 
@@ -124,9 +129,9 @@
         if ( $feed          && preg_match("/^[a-zA-Z0-9_.-]+$/",$feed)              &&
              $release_date  && preg_match("/^\d\d\d\d-\d\d-\d\d+$/",$release_date)      ) {
 
-                $prefixparts    = explode( '-', $feed );
-            $countrydir     = array_shift( $prefixparts );
-            $subdir         = array_shift( $prefixparts );
+            $feed_parts = explode( '-', $feed );
+            $countrydir = array_shift( $feed_parts );
+            $subdir     = array_shift( $feed_parts );
 
             $search_path    = $path_to_work . $countrydir;
 
@@ -190,16 +195,16 @@
                     $add_style = "background-color: limegreen;";
                 }
                 if ( $current_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 } elseif ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=previous"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
+                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 } else {
-                    $contents = '<a href="' . $target_script . '?feed=' . $feed . '&release_date=' . $rd . '">' . $rd . "</a>";
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 }
             }
 
@@ -328,9 +333,9 @@
     }
 
 
-    function CreateGtfsEntry( $network ) {
+    function CreateGtfsEntry( $feed ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, '' );
 
         if ( $SqliteDb != '' ) {
 
@@ -346,12 +351,11 @@
 
                 $sql        = "SELECT * FROM feed_info";
 
-                $feed       = $db->querySingle( $sql, true );
+                $feed_info  = $db->querySingle( $sql, true );
 
-                $LongTermSqliteDb = FindGtfsSqliteDb( $network . '-long-term' );
+                $LongTermSqliteDb = FindGtfsSqliteDb( $feed, 'long-term' );
                 if ( $LongTermSqliteDb ) {
-                    $lt_network = basename( $LongTermSqliteDb, '-ptna-gtfs-sqlite.db' );
-                    $lt = GetPtnaDetails( $lt_network );
+                    $lt = GetPtnaDetails( $feed, 'long-term' );
                     if ( $lt['release_date'] ) {
                         if ( $lt['language'] == 'de' ) {
                             $long_term_img_title = 'Langzeit-Version von ' . $lt['release_date'];
@@ -366,10 +370,9 @@
                         }
                     }
                 }
-                $PreviousSqliteDb = FindGtfsSqliteDb( $network . '-previous' );
+                $PreviousSqliteDb = FindGtfsSqliteDb( $feed, 'previous' );
                 if ( $PreviousSqliteDb ) {
-                    $prev_network = basename( $PreviousSqliteDb, '-ptna-gtfs-sqlite.db' );
-                    $prev = GetPtnaDetails( $prev_network );
+                    $prev = GetPtnaDetails( $feed, 'previous' );
                     if ( $prev['release_date'] ) {
                         if ( $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
@@ -386,12 +389,12 @@
                 }
 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name"><a href="routes.php?network=' . urlencode($network) . '">' . htmlspecialchars($network) . '</a> ';
+                echo '                            <td class="gtfs-name"><a href="routes.php?feed=' . urlencode($feed) . '">' . htmlspecialchars($feed) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="routes.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="routes.php?network=' . urlencode($prev_network) . '"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
@@ -403,11 +406,11 @@
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
-                if ( $feed["feed_publisher_name"] ) {
-                    if ( $feed["feed_publisher_url"] ) {
-                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
+                if ( $feed_info["feed_publisher_name"] ) {
+                    if ( $feed_info["feed_publisher_url"] ) {
+                        echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed_info["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed_info["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
-                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed_info["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 } else {
                     if ( $ptna["feed_publisher_url"] ) {
@@ -416,31 +419,31 @@
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 }
-                if ( $feed["feed_start_date"] ) {
-                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
+                if ( $feed_info["feed_start_date"] ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_start_date"], $parts ) ) {
                         echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
-                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed_info["feed_start_date"]) . '</td>' . "\n";
                     }
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( $feed["feed_end_date"] ) {
-                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
+                if ( $feed_info["feed_end_date"] ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_end_date"], $parts ) ) {
                         $class = "gtfs-date";
                         $today = new DateTime();
-                        if ( $feed["feed_end_date"] < $today->format('Ymd') )
+                        if ( $feed_info["feed_end_date"] < $today->format('Ymd') )
                         {
                             $class = "gtfs-dateold";
                         }
                         echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
-                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-date">' . htmlspecialchars($feed_info["feed_end_date"]) . '</td>' . "\n";
                     }
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                echo '                            <td class="gtfs-number">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
+                echo '                            <td class="gtfs-number">' . htmlspecialchars($feed_info["feed_version"]) . '</td>' . "\n";
                 if ( $ptna["release_date"] ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
@@ -504,12 +507,12 @@
                 } else {
                     $details = 'Details, ...';
                 }
-                echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?network=' . urlencode($network) . '">' . htmlspecialchars($details) . '</a> ';
+                echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '">' . htmlspecialchars($details) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($lt_network) . '"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?network=' . urlencode($prev_network) . '"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 echo '                        </tr>' . "\n";
@@ -522,13 +525,13 @@
 
             } catch ( Exception $ex ) {
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
-                echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
+                echo '                            <td class="gtfs-name">' . htmlspecialchars($feed) . '</a></td>' . "\n";
                 echo '                            <td class="gtfs-comment" colspan=8>SQLite DB: error opening data base</td>' . "\n";
                 echo '                        </tr>' . "\n";
             }
         } else {
             echo '                        <tr class="gtfs-tablerow">' . "\n";
-            echo '                            <td class="gtfs-name">' . htmlspecialchars($network) . '</a></td>' . "\n";
+            echo '                            <td class="gtfs-name">' . htmlspecialchars($feed) . '</a></td>' . "\n";
             echo '                            <td class="gtfs-comment" colspan=8>SQLite DB: data base not found (data not yet available?)</td>' . "\n";
             echo '                        </tr>' . "\n";
         }
@@ -536,16 +539,16 @@
         return 0;
     }
 
-    function CreateGtfsRoutesEntry( $network ) {
+    function CreateGtfsRoutesEntry( $feed, $release_date ) {
 
         ob_implicit_flush(true);
 
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
-           if (  $network ) {
+           if (  $feed ) {
 
                try {
 
@@ -642,7 +645,7 @@
                         }
 
                         echo '                        <tr id="' . $id_string . '" class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
-                        echo '                            <td class="gtfs-name"><a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
+                        echo '                            <td class="gtfs-name"><a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
                         echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $min_start_date, $parts ) ) {
                             $class = "gtfs-date";
@@ -702,20 +705,20 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "CreateGtfsRoutesEntry(): Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "CreateGtfsRoutesEntry(): Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateGtfsTripsEntry( $network, $route_id, $route_short_name ) {
+    function CreateGtfsTripsEntry( $feed, $release_date, $route_id, $route_short_name ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -786,7 +789,7 @@
 
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
                         echo '                            <td class="gtfs-number">' . $index . '</td>' . "\n";
-                        echo '                            <td class="gtfs-name"><a href="single-trip.php?network=' . urlencode($network) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
+                        echo '                            <td class="gtfs-name"><a href="single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
@@ -832,16 +835,16 @@
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateOsmTaggingSuggestion( $network, $trip_id ) {
+    function CreateOsmTaggingSuggestion( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '') {
 
@@ -937,7 +940,7 @@
                         }
                     }
                     $osm_ref_trips          = htmlspecialchars( $trip_id );
-                    $osm_gtfs_feed          = htmlspecialchars( preg_replace( '/-20\d\d-[01]\d-[0123]\d$/', '', $network ) );
+                    $osm_gtfs_feed          = htmlspecialchars( $feed );
                     $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
                     $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
                     $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
@@ -1174,20 +1177,20 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateGtfsSingleTripEntry( $network, $trip_id ) {
+    function CreateGtfsSingleTripEntry( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '') {
 
@@ -1247,11 +1250,11 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
@@ -1333,9 +1336,9 @@
     }
 
 
-    function CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ) {
+    function CreateGtfsSingleTripServiceTimesEntry( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '') {
 
@@ -1518,20 +1521,20 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateGtfsSingleTripShapeEntry( $network, $trip_id ) {
+    function CreateGtfsSingleTripShapeEntry( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '') {
 
@@ -1604,20 +1607,20 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function GetGtfsRouteShortNameFromRouteId( $network, $route_id ) {
+    function GetGtfsRouteShortNameFromRouteId( $feed, $release_date, $route_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1638,20 +1641,20 @@
                     return $row["route_short_name"];
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return '';
     }
 
 
-    function GetGtfsRouteIdFromTripId( $network, $trip_id ) {
+    function GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1672,20 +1675,20 @@
                     return $row["route_id"];
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return '';
     }
 
 
-    function GetGtfsRouteShortNameFromTripId( $network, $trip_id ) {
+    function GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1707,20 +1710,20 @@
                     return $row["route_short_name"];
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return '';
     }
 
 
-    function GetGtfsTripIdFromShapeId( $network, $shape_id ) {
+    function GetGtfsTripIdFromShapeId( $feed, $release_date, $shape_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1753,20 +1756,20 @@
                     }
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return '';
     }
 
 
-    function GetOsmDetails( $network ) {
+    function GetOsmDetails( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1781,19 +1784,19 @@
                 return $row;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return array();
     }
 
 
-    function GetPtnaDetails( $network ) {
+    function GetPtnaDetails( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1808,19 +1811,19 @@
                 return $row;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return array();
     }
 
 
-    function GetTripDetails( $network, $trip_id ) {
+    function GetTripDetails( $feed, $release_date, $trip_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1841,20 +1844,20 @@
                     return $row;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return array();
     }
 
 
-    function GetRouteDetails( $network, $route_id ) {
+    function GetRouteDetails( $feed, $release_date, $route_id ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -1875,20 +1878,20 @@
                     return $row;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return array();
     }
 
 
-    function CreatePtnaDetails( $network ) {
+    function CreatePtnaDetails( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -2046,19 +2049,19 @@
                 return $stop_time - $start_time;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . $htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateOsmDetails( $network ) {
+    function CreateOsmDetails( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -2112,19 +2115,19 @@
                 return $stop_time - $start_time;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-   function CreatePtnaAggregationStatistics( $network ) {
+   function CreatePtnaAggregationStatistics( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -2245,19 +2248,19 @@
                 return $stop_time - $start_time;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreatePtnaAnalysisStatistics( $network ) {
+    function CreatePtnaAnalysisStatistics( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -2306,28 +2309,28 @@
                     if ( $ptna["count_subroute"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUBR">'  . htmlspecialchars($ptna["count_subroute"]) . '</a></td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUBR">'  . htmlspecialchars($ptna["count_subroute"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_same_names_but_different_ids"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with identical stop-names but different stop-ids</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=IDENT">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</a></td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=IDENT">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_suspicious_start"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with suspicious start</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUSPSTART">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</a></td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPSTART">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
                     if ( $ptna["count_suspicious_end"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?network=' . urlencode($network) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</a></td>' . "\n";
+                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</a></td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
@@ -2338,19 +2341,19 @@
                 return $stop_time - $start_time;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreatePtnaNormalizationStatistics( $network ) {
+    function CreatePtnaNormalizationStatistics( $feed, $release_date ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
@@ -2417,19 +2420,19 @@
                 return $stop_time - $start_time;
 
             } catch ( Exception $ex ) {
-                echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
     }
 
 
-    function CreateAnalysisDetailsForTrips( $network, $topic ) {
+    function CreateAnalysisDetailsForTrips( $feed, $release_date, $topic ) {
 
-        $SqliteDb = FindGtfsSqliteDb( $network );
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '') {
 
@@ -2441,7 +2444,7 @@
 
                     $start_time = gettimeofday(true);
 
-                    $countrydir = array_shift( explode( '-', $network ) );
+                    $countrydir = array_shift( explode( '-', $feed ) );
 
                     $db = new SQLite3( $SqliteDb );
 
@@ -2482,8 +2485,8 @@
 
                     while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                         echo '                            <tr class="gtfs-tablerow">'    . "\n";
-                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?network='       . urlencode($network) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
-                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?network=' . urlencode($network) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
+                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
                         echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
                     }
@@ -2495,11 +2498,11 @@
                     return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
-                    echo "Sqlite DB could not be opened: " . $ex->getMessage() . "\n";
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
             }
         } else {
-            echo "Sqlite DB not found for network = '" . $network . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;

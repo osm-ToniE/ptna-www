@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<?php   include( '../../script/globals.php'     );
+        include( '../../script/gtfs.php'        );
+        include( '../../script/parse_query.php' );
+?>
 <html lang="en">
 
 <?php $title="GTFS Analysis Details"; include('html-head.inc'); ?>
-
-<?php include('../script/globals.php'); ?>
-<?php include('../script/gtfs.php'); ?>
 
     <body>
 
@@ -14,12 +15,11 @@
 
         <main id="main" class="results">
 
-<?php $network  = $_GET['network'];
-      $topic    = $_GET['topic'];
+<?php $topic    = $_GET['topic'];
       $duration = 0;
 ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Analysis Details<?php if ( $network ) { echo ' for "' . htmlspecialchars($network) . '"'; } ?></h2>
+            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Analysis Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
                 <div class="indent">
                     <p>
                     </p>
@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreateAnalysisDetailsForTrips( $network, $topic ); ?>
+<?php $duration += CreateAnalysisDetailsForTrips( $feed, $release_date, $topic ); ?>
                                 </tbody>
                             </table>
                         </div>

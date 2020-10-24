@@ -21,22 +21,24 @@
 <?php include $lang_dir.'header.inc' ?>
 
 <?php
-    $network          = ( $_GET['network'] ) ? $_GET['network'] : $_POST['network'];
-    $trip_id          = ( $_GET['trip_id'] ) ? $_GET['trip_id'] : $_POST['trip_id'];
-    $shape_id         = ( $_GET['shape_id'] ) ? $_GET['shape_id'] : $_POST['shape_id'];
     if ( !$trip_id && $shape_id ) {
-        $trip_id      = GetGtfsTripIdFromShapeId( $network, $shape_id );
+        $trip_id      = GetGtfsTripIdFromShapeId( $feed, $release_date, $shape_id );
     }
-    $route_id         = GetGtfsRouteIdFromTripId( $network, $trip_id );
-    $route_short_name = GetGtfsRouteShortNameFromTripId( $network, $trip_id );
+    $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
+    $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
     if ( !$route_short_name ) {
         $route_short_name = 'not set';
     }
-    $trips            = GetTripDetails( $network, $trip_id );
+    $trips            = GetTripDetails( $feed, $release_date, $trip_id );
     $is_invalid       = $trips["ptna_is_invalid"];
     $is_wrong         = $trips["ptna_is_wrong"];
     $comment          = $trips["ptna_comment"];
     $shape_id         = $trips["shape_id"];
+    if ( $release_date ) {
+        $feed_and_release = $feed . ' - ' . $release_date;
+    } else {
+        $feed_and_release = $feed;
+    }
 ?>
 
         <main id="main" class="results">
@@ -44,7 +46,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?network=' .urlencode($network) . '"><span id="feed">' . htmlspecialchars($feed) . '</span></a> <a href="trips.php?network=' . urlencode($network) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
+                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a> <a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Danmark</span>'; } ?></h2>
                 <div class="indent">
                 <ul>
                     <li><a href="#showonmap">Kort</a></li>
@@ -102,7 +104,7 @@
 
                 <h2 id="proposal">Forslag til OSM-tagging</h2>
                 <div class="indent">
-<?php $duration = CreateOsmTaggingSuggestion( $network, $trip_id ); ?>
+<?php $duration = CreateOsmTaggingSuggestion( $feed, $release_date, $trip_id ); ?>
                 </div>
 
                 <hr />
@@ -141,7 +143,7 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripEntry( $feed, $release_date, $trip_id ); ?>
                         </tbody>
                     </table>
                     <p><strong>(1) Eksempel på afgangstider</strong></p>
@@ -176,12 +178,12 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $feed, $release_date, $trip_id ); ?>
                         </tbody>
                     </table>
                 </div>
 
-<?php $duration += CreateGtfsSingleTripShapeEntry( $network, $trip_id ); ?>
+<?php $duration += CreateGtfsSingleTripShapeEntry( $feed, $release_date, $trip_id ); ?>
 
                 <?php printf( "<p>SQL-forespørgsler tog %f sekunder</p>\n", $duration ); ?>
 

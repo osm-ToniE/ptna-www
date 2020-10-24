@@ -4,6 +4,11 @@
         include( '../script/parse_query.php' );
         $ptna_lang = "en";
         $html_lang = "en";
+        if ( $release_date ) {
+            $feed_and_release = $feed . ' - ' . $release_date;
+        } else {
+            $feed_and_release = $feed;
+        }
 ?>
 <html lang=<?php echo $html_lang; ?>
 
@@ -19,7 +24,7 @@
 
 <?php $duration = 0; ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
+            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed_and_release) . '"'; } ?></h2>
                 <div class="indent">
 
                     <h3 id="feeds">Available GTFS sources</h3>
@@ -44,7 +49,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreatePtnaDetails( $network ); ?>
+<?php $duration += CreatePtnaDetails( $feed, $release_date ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -59,7 +64,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreateOsmDetails( $network ); ?>
+<?php $duration += CreateOsmDetails( $feed, $release_date ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -75,12 +80,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreatePtnaAggregationStatistics( $network ); ?>
+<?php $duration += CreatePtnaAggregationStatistics( $feed, $release_date ); ?>
                                 </tbody>
                             </table>
                         </div>
 
-                    <h3><a href="gtfs-analysis-details.php?network=<?php echo urlencode($network);  ?>">GTFS Analysis Details</a></h3>
+                    <h3><a href="gtfs-analysis-details.php?feed=<?php echo urlencode($feed); ?>&release_date=<?php echo urlencode($release_date); ?>">GTFS Analysis Details</a></h3>
                         <div class="indent">
                             <table id="gtfs-ptna-analysis-table">
                                 <thead>
@@ -91,7 +96,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreatePtnaAnalysisStatistics( $network ); ?>
+<?php $duration += CreatePtnaAnalysisStatistics( $feed, $release_date ); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -107,7 +112,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-<?php $duration += CreatePtnaNormalizationStatistics( $network ); ?>
+<?php $duration += CreatePtnaNormalizationStatistics( $feed, $release_date ); ?>
                                 </tbody>
                             </table>
                         </div>
