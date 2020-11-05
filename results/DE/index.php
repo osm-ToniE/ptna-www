@@ -173,6 +173,8 @@
 
                     <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-TH-VMT", "de", "Konfiguration" ); ?>
+
                 </tbody>
             </table>
 
