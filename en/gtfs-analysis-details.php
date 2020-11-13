@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<?php   include( '../../script/globals.php'     );
-        include( '../../script/gtfs.php'        );
-        include( '../../script/parse_query.php' );
+<?php   include( '../script/globals.php'     );
+        include( '../script/gtfs.php'        );
+        include( '../script/parse_query.php' );
 ?>
 <html lang="en">
 
