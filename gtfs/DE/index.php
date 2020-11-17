@@ -52,6 +52,7 @@
     $duration += CreateGtfsEntry( "DE-NW-AVV" );
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
     $duration += CreateGtfsEntry( "DE-NW-VRS" );
+    $duration += CreateGtfsEntry( "DE-SN-MDV" );
 ?>
                     </tbody>
                 </table>
@@ -73,7 +74,6 @@
     $duration += CreateGtfsEntry( "DE-BW-HVG" );
     $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-RP-VRN" );
-    $duration += CreateGtfsEntry( "DE-SN-MDV" );
 ?>
                     </tbody>
                 </table>
