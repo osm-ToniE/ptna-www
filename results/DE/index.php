@@ -81,6 +81,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-INVG", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-Kim", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-LAVV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-MVV", "de", "Konfiguration" ); ?>
@@ -156,6 +158,8 @@
                     <?php CreateNewFullEntry( "DE-NW-VRS", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NW-WT", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-RP-RNN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-RP-VRM", "de", "Konfiguration" ); ?>
 
