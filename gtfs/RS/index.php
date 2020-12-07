@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
 <?php
-    $duration += CreateGtfsEntry( "RS-00-Belgrade" );
+    $duration += CreateGtfsEntry( "RS-00-BGPREVOZ" );
 ?>
                     </tbody>
                 </table>
