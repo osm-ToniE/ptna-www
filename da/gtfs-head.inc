@@ -5,5 +5,7 @@
                     Dette er normalt versionen af GTFS-data ved den sidste officielle tidsplanændring.
                 </p>
                 <p>
-                    <a href="/da/gtfs-doc.php#download">Opdateringen</a> af dataene på denne side finder sted med uregelmæssige intervaller.
+                    GTFS-dataene kontrolleres næsten dagligt for <a href="/de/gtfs-doc.php#download">aktualitet</a>.
+                    Imidlertid er ikke alle tilgængelige nye versioner analyseret og gjort tilgængelige her - det ville belaste lagerpladsen for meget.
+                    Listen over tilgængelige GTFS-data kan hentes i kolonnen "Detaljer (licenser, ...)".
                 </p>

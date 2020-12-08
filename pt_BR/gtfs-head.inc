@@ -5,5 +5,7 @@
                     Geralmente esta é a versão mais recente dos dados GTFS que contém as últimas alterações nos quadros de horários.
                 </p>
                 <p>
-                    A <a href="/en/gtfs-doc.php#download">atualização</a> dos dados desta página ocorre em intervalos irregulares.
+                    Os dados GTFS são verificados quase diariamente para <a href="/en/gtfs-doc.php#download">atualidade</a>.
+                    Entretanto, nem toda nova versão disponível é analisada e disponibilizada aqui - isto ocuparia muito espaço em disco.
+                    Na coluna "Detalhes (licenças, entre outros)" você pode ver a lista de dados GTFS disponíveis.
                 </p>

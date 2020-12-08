@@ -5,5 +5,7 @@
                     Das ist in der Regel die Version der GTFS-Daten zum letzten offiziellen Fahrplanwechsel.
                 </p>
                 <p>
-                    Die <a href="/de/gtfs-doc.php#download">Aktualisierung</a> der Daten auf dieser Seite erfolgt in unregelmäßigen Abständen.
+                    Die GTFS-Daten werden nahezu täglich auf <a href="/de/gtfs-doc.php#download">Aktualität</a> geprüft.
+                    Jedoch wird nicht jede verfügbare neue Version hier analysiert und bereit gestellt - das würde den Speicherplatz zu sehr belasten.
+                    In der Spalte "Details (Lizenzen, ...)" kann die Liste der verfügbaren GTFS-Daten abgerufen werden.
                 </p>

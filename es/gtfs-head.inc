@@ -5,5 +5,7 @@
                     This is usually the version of the GTFS data at the last official timetable change.
                 </p>
                 <p>
-                    The <a href="/en/gtfs-doc.php#download">update</a> of the data on this page occurs at irregular intervals.
+                    Los datos del GTFS se comprueban casi a diario para <a href="/en/gtfs-doc.php#download">actualización</a>.
+                    Sin embargo, no todas las nuevas versiones disponibles son analizadas y puestas a disposición aquí - esto ocuparía demasiado espacio en el disco.
+                    En la columna "Detalles (Licencias, ...)" se puede ver la lista de datos GTFS disponibles.
                 </p>
