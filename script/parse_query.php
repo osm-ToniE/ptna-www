@@ -19,6 +19,8 @@
             $lang = 'pt_BR';
         } elseif ( preg_match('/\/DK\//', $_SERVER['REQUEST_URI']) ) {
             $lang = 'da';
+        } elseif ( preg_match('/\/RS\//', $_SERVER['REQUEST_URI']) ) {
+            $lang = 'sr';
         } elseif ( preg_match('/\/BO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/CO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/ES\//', $_SERVER['REQUEST_URI']) ||

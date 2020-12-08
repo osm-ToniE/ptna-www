@@ -1,5 +1,8 @@
         <footer id="footer-sr" class="clearing">
             <p>
+                Сви ГТФС подаци © власник ГТФС података.
+            </p>
+            <p>
                 Сви географски подаци <a href="https://www.openstreetmap.org/copyright">© сарадници OpenStreetMap</a>.
             </p>
             <p>
