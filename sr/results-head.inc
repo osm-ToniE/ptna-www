@@ -1,10 +1,10 @@
             <p>
-                The first column includes a link to the results of the analysis.
+                Прва колона садржи везу до резултата анализе.
             </p>
             <p>
-                The column "Latest Changes" links to an HTML page which shows the differences to the last analysis results.
-                These are coloured, you can use navigation buttons <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> at the bottom right or the characters 'j' (forward) and 'k' (backward) to jump from difference to difference.
-                This column includes the date of the last analysis where relevant changes have emerged.
-                Older dates mean that there were no changes in the results.
-                Nevertheless, the data has been analyzed as denoted in the column "Date of Analysis".
+                Колона „Најновије промене“ води до ХТМЛ странице која приказује разлике у последњим резултатима анализе.
+                Они су обојени, можете користити дугмад за навигацију <img class="diff-navigate" src="/img/diff-navigate.png" alt="Навигатион"> у доњем десном углу или знакове 'ј' (напред) и 'к' (уназад) за прескакање са разлике на разлику.
+                Ова колона укључује датум последње анализе у којој су се појавиле релевантне промене.
+                Старији датуми значе да није било промена у резултатима.
+                Ипак, подаци су анализирани како је означено у колони „Датум анализе“.
             </p>

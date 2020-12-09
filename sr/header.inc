@@ -4,11 +4,11 @@
             </div>
             <div id="headertext">
                 <h1><a href="/">PTNA - Public Transport Network Analysis</a></h1>
-                <h2>Static Analysis for OpenStreetMap</h2>
+                <h2>Статичка анализа за ОпенСтреетМап</h2>
             </div>
             <div id="headernav">
-                <a href="/">Home</a> |
-                <a href="/contact.html">Contact</a> |
+                <a href="/">Кућа</a> |
+                <a href="/contact.html">Контакт</a> |
                 <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
                 <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
                 <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
@@ -16,4 +16,3 @@
                 <!-- <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="Tricolore Française" /></a> -->
             </div>
         </header>
-

@@ -1,9 +1,9 @@
                     <tr class="results-tableheaderrow">
-                        <th class="results-name">Name</th>
-                        <th class="results-region">City / Region</th>
-                        <th class="results-network">Network</th>
-                        <th class="results-datadate">Date of Analysis</th>
-                        <th class="results-analyzed">Latest Changes</th>
-                        <th class="results-discussion">Configuration</th>
-                        <th class="results-route">Lines</th>
+                        <th class="results-name">Име</th>
+                        <th class="results-region">Град / Регија</th>
+                        <th class="results-network">Мрежа</th>
+                        <th class="results-datadate">Датум анализе</th>
+                        <th class="results-analyzed">Најновије промене</th>
+                        <th class="results-discussion">Конфигурација</th>
+                        <th class="results-route">Линије</th>
                     </tr>
