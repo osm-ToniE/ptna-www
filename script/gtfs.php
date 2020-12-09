@@ -194,7 +194,7 @@
                     $add_style = "background-color: limegreen;";
                 }
                 if ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ';
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ';
                 } else {
                     $contents = '';
                 }
