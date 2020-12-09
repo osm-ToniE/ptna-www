@@ -190,21 +190,22 @@
             if ( GtfsDbSize($feed,$rd) == 0 ) {
                 $add_style = "background-color: lightgray; text-decoration: line-through;";
             } else {
-
                 if (  $viewing == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
                     $add_style = "background-color: limegreen;";
                 }
-                if ( $current_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
-                } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
-                } elseif ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
-                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ' .
-                                '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
+                if ( $long_term_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/long-term19.png" width="19px" height="19px" title="long-term" /></a> ';
                 } else {
-                    $contents = '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
+                    $contents = '';
+                }
+                if ( $current_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '"><img src="/img/CheckMark.png" width="19px" height="19px" title="current" /></a> ';
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
+                } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ';
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
+                } else {
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 }
             }
 
