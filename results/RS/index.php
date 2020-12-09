@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="SR"><img src="/img/Serbia32.png" alt="flag of Serbia" /> Results for Serbia</h2>
+            <h2 id="RS"><img src="/img/Serbia32.png" alt="застава Србије" />Резултати за Србију</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "RS-00-Belgrade", "sr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "RS-00-Beograd", "sr", "Конфигурација" ); ?>
 
                 </tbody>
             </table>
