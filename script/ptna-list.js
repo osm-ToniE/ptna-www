@@ -14,7 +14,7 @@ function ptnalistdownload( include_agency ) {
             feed = feed.replace( /-long-term$/, '' );
         }
     } else {
-        feed = feed.replace( /-20\d\d-[0-1]\d-[0-3]\d$/, '' );
+        feed = feed.replace( / - 20\d\d-[0-1]\d-[0-3]\d$/, '' );
     }
 
     var ptna_list = "";
