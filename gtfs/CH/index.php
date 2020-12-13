@@ -23,8 +23,7 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "CH-Alle" );
-    $duration += CreateGtfsEntry( "CH-Vorschau2021" );
-    ?>
+?>
                     </tbody>
                 </table>
 
