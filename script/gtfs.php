@@ -2176,7 +2176,7 @@
                     }
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
-                    echo '                                        <td class="gtfs-name">"ref_trips" can be taken as part of GTFS trip_id. Regular expression to extract this part.</td>' . "\n";
+                    echo '                                        <td class="gtfs-name">"gtfs:trip_id:like" can be taken as part of GTFS trip_id. Regular expression to extract this part.</td>' . "\n";
                     echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["trip_id_regex"]) . '</td>' . "\n";
                     echo '                                    </tr>' . "\n";
                 }
