@@ -46,6 +46,46 @@
     }
 
 
+    function CreateGtfsVersionsTableBody( $feed ) {
+
+        $release_dates  = array();          # i.e. all months are relevant
+
+        if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
+            $release_dates =GetGtfsFeedReleaseDatesNonEmpty( $feed );
+
+            rsort( $release_dates );
+
+            $line = 1;
+            foreach ( $release_dates as $rd ) {
+                if ( $line == 1 ) {
+                    $checked_1 = 'checked="checked"';
+                    if ( count($release_dates) == 1) {
+                        $checked_2 = 'checked="checked"';
+                    } else {
+                        $checked_2 = '';
+                    }
+                } else {
+                    $checked_1 = '';
+                    if ( $line == 2 ) {
+                        $checked_1 = '';
+                        $checked_2 = 'checked="checked"';
+                    } else {
+                        $checked_2 = '';
+                    }
+                }
+                echo "<tr>\n";
+                echo '<td class="gtfs-radiobox"><input class="button-radio" type="radio" name="release_date_1" id="' . $rd .'_1" value="' . $rd .'" ' . $checked_1 . '></td>' . "\n";
+                echo '<td class="gtfs-date"><label for="' . $rd .'_1">' . $rd .'</label></td>' . "\n";
+                echo '<td class="gtfs-radiobox"><input class="button-radio" type="radio" name="release_date_2" id="' . $rd .'_2" value="' . $rd .'" ' . $checked_2 . '></td>' . "\n";
+                echo '<td class="gtfs-date"><label for="' . $rd .'_2">' . $rd .'</label></td>' . "\n";
+                echo "</tr>\n";
+                $line++;
+            }
+        }
+        return 0;
+    }
+
+
     function CreateGtfsTimeLine( $feed, $release_date, $months_short ) {
 
         $release_dates  = array();          # i.e. all months are relevant
@@ -58,7 +98,7 @@
             CreateGtfsTimeLineBasis( $release_dates, $months_short );
         }
         echo "</div>\n<br />\n\n";
-        return;
+        return 0;
     }
 
 
@@ -84,6 +124,38 @@
                 while ( ($entry = readdir($search_dir)) !== false ) {
                     if ( preg_match( "/^$feed-(\d\d\d\d-\d\d\-\d\d)-ptna-gtfs-sqlite.db$/",$entry,$parts) ) {
                         array_push( $release_dates_array, $parts[1] );
+                    }
+                }
+            }
+        }
+        return $release_dates_array;
+    }
+
+
+    function GetGtfsFeedReleaseDatesNonEmpty( $feed ) {
+        global $path_to_work;
+
+        $release_dates_array = array();
+
+        if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
+            $feed_parts = explode( '-', $feed );
+            $countrydir = array_shift( $feed_parts );
+            $subdir     = array_shift( $feed_parts );
+
+            $search_path    = $path_to_work . $countrydir;
+
+            if ( is_dir($search_path) ) {
+                if ( $subdir && is_dir($search_path.'/'.$subdir) ) {
+                    $search_path = $search_path.'/'.$subdir;
+                }
+
+                $search_dir = opendir( $search_path );
+
+                while ( ($entry = readdir($search_dir)) !== false ) {
+                    if ( preg_match( "/^$feed-(\d\d\d\d-\d\d\-\d\d)-ptna-gtfs-sqlite.db$/",$entry,$parts) ) {
+                        if ( filesize($search_path . '/' . $entry) > 0 ) {
+                            array_push( $release_dates_array, $parts[1] );
+                        }
                     }
                 }
             }

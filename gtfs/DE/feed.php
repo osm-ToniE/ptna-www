@@ -35,37 +35,34 @@
 ?>
                 </div>
 
-                <h3 id="routes">Existierende Linien</h3>
+                <h3 id="routes"><a href="routes.php?feed=<?php echo urlencode($feed); if ( $release_date ) { echo "&release_date=" . urlencode($release_date); } ?>">Linien</a></h3>
                 <div class="indent">
 
-<?php
-    $ptna = GetPtnaDetails( $feed, $release_date );
-    if ( $ptna['comment'] ) {
-        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
-    }
-    $osm = GetOsmDetails( $feed, $release_date );
-    if ( $osm['gtfs_agency_is_operator'] ) {
-        $include_agency = 1;
-    } else {
-        $include_agency = 0;
-    }
-?>
-
-<?php   include $lang_dir.'gtfs-routes-head.inc' ?>
-
-                    <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download als CSV-Liste für PTNA</button>
-
-                    <table id="gtfs-routes">
-                        <thead>
-<?php include $lang_dir.'gtfs-routes-trth.inc' ?>
-                        </thead>
-                        <tbody>
-<?php $duration += CreateGtfsRoutesEntry( $feed, $release_date ); ?>
-                        </tbody>
-                    </table>
-
-                    <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
                 </div>
+<!--
+                <h3 id="stops">Haltestellen</h3>
+                <div class="indent">
+
+                </div>
+-->
+                <h3 id="versions">Vergleiche GTFS Versionen</h3>
+                <div class="indent">
+
+<?php   include $lang_dir.'gtfs-feed-head.inc' ?>
+
+                    <form method="get" action="compare-routes.php"><button class="button-create" type="submit">Vergleiche Linien</button>
+                        <input type="hidden" name="feed" value="<?php echo urlencode($feed); ?>">
+                        <table id="gtfs-versions">
+                            <thead>
+<?php   include $lang_dir.'gtfs-feed-trth.inc' ?>
+                            </thead>
+                            <tbody>
+<?php   $duration += CreateGtfsVersionsTableBody( $feed ); ?>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+
             </div>
 
         </main> <!-- main -->

@@ -106,6 +106,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-version             { text-align:center; }
 .gtfs-text                { text-align:left;   }
 .gtfs-checkbox            { text-align:center; }
+.gtfs-radiobox            { text-align:center; }
 .gtfs-comment             { text-align:left;   }
 .gtfs-whitetext           { color:white;     }
 .shape-lat                { text-align:center; }
