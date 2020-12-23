@@ -11,7 +11,7 @@
                             <li>Finally, select a trip or shape for each of the two routes</li>
                         </ol>
                     </p>';
-    $STR_compare_feeds      = 'Compare Feeds';
+    $STR_compare_feeds      = '<br/>&nbsp;<br/>&nbsp;Compare<br/>Feeds<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;';
     $STR_number             = '';
 
 
@@ -25,9 +25,9 @@
                             <li>Finally, select a trip for each of the two routes</li>
                         </ol>
                     </p>';
-    $STR_compare_versions   = 'Compare Versions';
+    $STR_compare_versions   = '<br/>&nbsp;<br/>Compare<br/>Versions<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;';
     $STR_release_date_ymd   = 'Release Date<br />YYYY-MM-DD';
-    $STR_empty_fileds_in    = 'Empty fields in the second line will get their value from the corresponding field in the first line.';
+    $STR_empty_fields_in    = 'Empty fields in the second line will get their value from the corresponding field in the first line.';
 
 
 

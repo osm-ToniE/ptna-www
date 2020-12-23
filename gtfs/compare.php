@@ -37,21 +37,23 @@
                     <?php echo $STR_compare_head_feeds; ?>
 
                     <form method="get" action="compare-feeds.php">
-                        <button class="button-create" type="submit">Compare Feeds</button>
                         <table id="feeds-table" class="compare">
-                            <thead>
-                                <tr><th class="gtfs-number"><?php echo $STR_number; ?></th><th class="gtfs-name">GTFS Feed</th></tr>
-                            </thead>
                             <tbody>
+                                <tr><th rowspan="4"><button class="button-create" type="submit"><?php echo $STR_compare_feeds; ?></button></th>
+                                    <th class="gtfs-number"><?php echo $STR_number; ?></th>
+                                    <th class="gtfs-name">GTFS Feed</th>
+                                </tr>
                                 <tr><td class="gtfs-number">1</td>
                                     <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" size="30" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
                                     <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" size="30" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
                                 </tr>
+                                <tr><td>&nbsp;</td>
+                                    <td class="gtfs-name"><small><?php echo $STR_empty_fields_in; ?></small></td>
+                                </tr>
                             </tbody>
                         </table>
-                        <small><?php echo $STR_empty_fileds_in; ?></small>
                         <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
                     </form>
                 </div>
@@ -64,23 +66,29 @@
                     <?php echo $STR_compare_head_versions; ?>
 
                     <form method="get" action="compare-versions.php">
-                        <button class="button-create" type="submit"><?php echo $STR_compare_versions; ?></button>
                         <table id="versions-table" class="compare">
-                            <thead>
-                                <tr><th class="gtfs-number"><?php echo $STR_number; ?></th><th class="gtfs-name">GTFS Feed</th><th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th></tr>
-                            </thead>
                             <tbody>
+                                <tr><th rowspan="4"><button class="button-create" type="submit"><?php echo $STR_compare_versions; ?></button></th>
+                                    <th class="gtfs-number"><?php echo $STR_number; ?></th>
+                                    <th class="gtfs-name">GTFS Feed</th>
+                                    <th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th>
+                                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                </tr>
                                 <tr><td class="gtfs-number">1</td>
                                     <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" size="30" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date" value="<?php echo $release_date; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
+                                    <td>&nbsp;</td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
                                     <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" size="30" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date2" value="<?php echo $release_date2; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr><td>&nbsp;</td>
+                                    <td class="gtfs-name" colspan="3"><small><?php echo $STR_empty_fields_in; ?></small></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <small><?php echo $STR_empty_fileds_in; ?></small>
                         <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
                     </form>
                 </div>
@@ -111,7 +119,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <small><?php echo $STR_empty_fileds_in; ?></small>
+                        <small><?php echo $STR_empty_fields_in; ?></small>
                         <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
                     </form>
                 </div>
@@ -142,7 +150,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <small><?php echo $STR_empty_fileds_in; ?></small>
+                        <small><?php echo $STR_empty_fields_in; ?></small>
                         <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
                     </form>
                 </div>
@@ -173,7 +181,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <small><?php echo $STR_empty_fileds_in; ?></small>
+                        <small><?php echo $STR_empty_fields_in; ?></small>
                         <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
                     </form>
                 </div>
