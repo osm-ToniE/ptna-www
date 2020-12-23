@@ -31,7 +31,7 @@
             <h2 id="compare"><?php echo $STR_gtfs_comparison; ?></h2>
             <div class="indent">
 
-                <h3 id="feeds"><?php echo $STR_compare_gtfs_data; ?></h3>
+                <h3 id="feeds"><?php echo $STR_compare_gtfs_feeds; ?></h3>
                 <div class="indent">
 
                     <?php echo $STR_compare_head_feeds; ?>
@@ -39,7 +39,7 @@
                     <form method="get" action="compare-feeds.php">
                         <table id="feeds-table" class="compare">
                             <tbody>
-                                <tr><th rowspan="4"><button class="button-create" type="submit"><?php echo $STR_compare_feeds; ?></button></th>
+                                <tr><th rowspan="4"><button class="button-create" type="submit"><br />&nbsp;<br /><?php echo preg_replace('/ /','<br />',$STR_compare_feeds); ?><br />&nbsp;<br />&nbsp;</button></th>
                                     <th class="gtfs-number"><?php echo $STR_number; ?></th>
                                     <th class="gtfs-name">GTFS Feed</th>
                                 </tr>
@@ -60,7 +60,7 @@
 
                 <hr />
 
-                <h3 id="routes"><?php echo $STR_compare_gtfs_feed_versions; ?></h3>
+                <h3 id="routes"><?php echo $STR_compare_gtfs_versions; ?></h3>
                 <div class="indent">
 
                     <?php echo $STR_compare_head_versions; ?>
@@ -68,7 +68,7 @@
                     <form method="get" action="compare-versions.php">
                         <table id="versions-table" class="compare">
                             <tbody>
-                                <tr><th rowspan="4"><button class="button-create" type="submit"><?php echo $STR_compare_versions; ?></button></th>
+                                <tr><th rowspan="4"><button class="button-create" type="submit"><br />&nbsp;<br /><?php echo preg_replace('/ /','<br />',$STR_compare_versions); ?><br />&nbsp;<br />&nbsp;</button></th>
                                     <th class="gtfs-number"><?php echo $STR_number; ?></th>
                                     <th class="gtfs-name">GTFS Feed</th>
                                     <th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th>
@@ -95,13 +95,13 @@
 
                 <hr />
 
-                <h3 id="routes">Compare GTFS Routes</h3>
+                <h3 id="routes"><?php echo $STR_compare_gtfs_routes; ?></h3>
                 <div class="indent">
 
                     <?php echo $STR_compare_head_routes; ?>
 
                     <form method="get" action="compare-routes.php">
-                        <button class="button-create" type="submit">Compare Routes</button>
+                        <button class="button-create" type="submit"><?php echo $STR_compare_routes; ?></button>
                         <table id="routes-table" class="compare">
                             <thead>
                                 <tr><th class="gtfs-number"><?php echo $STR_number; ?></th><th class="gtfs-name">GTFS Feed</th><th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th><th class="gtfs-name">Route ID</th></tr>
@@ -126,13 +126,13 @@
 
                 <hr />
 
-                <h3 id="trips">Compare GTFS Trips</h3>
+                <h3 id="trips"><?php echo $STR_compare_gtfs_trips; ?></h3>
                 <div class="indent">
 
                     <?php echo $STR_compare_head_trips; ?>
 
                     <form method="get" action="compare-trips.php">
-                        <button class="button-create" type="submit">Compare Trips</button>
+                        <button class="button-create" type="submit"><?php echo $STR_compare_trips; ?></button>
                         <table id="trips-table" class="compare">
                             <thead>
                                 <tr><th class="gtfs-number"><?php echo $STR_number; ?></th><th class="gtfs-name">GTFS Feed</th><th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th><th class="gtfs-name">Trip ID</th></tr>
@@ -157,13 +157,13 @@
 
                 <hr />
 
-                <h3 id="shapes">Compare GTFS Shapes</h3>
+                <h3 id="shapes"><?php echo $STR_compare_gtfs_shapes; ?></h3>
                 <div class="indent">
 
                     <?php echo $STR_compare_head_shapes; ?>
 
                     <form method="get" action="compare-shapes.php">
-                        <button class="button-create" type="submit">Compare Shapes</button>
+                        <button class="button-create" type="submit"><?php echo $STR_compare_shapes; ?></button>
                         <table id="shapes-table" class="compare">
                             <thead>
                                 <tr><th class="gtfs-number"><?php echo $STR_number; ?></th><th class="gtfs-name">GTFS Feed</th><th class="gtfs-name"><?php echo $STR_release_date_ymd; ?></th><th class="gtfs-name">Shape ID</th></tr>
