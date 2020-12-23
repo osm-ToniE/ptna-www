@@ -1,3 +1,0 @@
-                <p>
-                    Lore ipsum.
-                </p>

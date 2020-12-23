@@ -113,6 +113,15 @@ code             { font-weight: 500; font-size: 1.1em; }
 .shape-lon                { text-align:center; }
 .bad-link                 { text-decoration: line-through; background-color: yellow; }
 
+#feeds-table              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+#versions-table           { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+#routes-table             { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+#trips-table              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+#shapes-table             { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+.compare table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+.compare th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
+.compare td               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
+
 .ptna-data textarea       { overflow: auto;    }
 
 .button-save              { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }
