@@ -109,6 +109,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VGA", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-VGI", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-VGN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VGND", "de", "Konfiguration" ); ?>
