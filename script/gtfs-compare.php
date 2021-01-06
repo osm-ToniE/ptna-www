@@ -32,8 +32,12 @@
         if ( $feed == $feed2 ) {
             echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . $button_text . '</button></th</tr>' . "\n";
             echo $indent . '<tr><th colspan="3" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed . '</th>' . "\n";
+            echo $indent . '    <th style="border-left-width: 1px;">feed_publisher_name</th>' . "\n";
+            echo $indent . '    <th style="border-left-width: 1px;">feed_start_date</th>' . "\n";
+            echo $indent . '    <th style="border-left-width: 1px;">feed_end_date</th>' . "\n";
+            echo $indent . '    <th style="border-left-width: 1px;">feed_version</th>' . "\n";
             echo $indent . '</tr>' . "\n";
-        } else {
+    } else {
             echo $indent . '<tr><th colspan="4" class="gtfs-name"><button class="button-create" type="submit">' . $button_text . '</button></th</tr>' . "\n";
             echo $indent . '<tr><th colspan="2" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">' . $feed  . '</th>' . "\n";
             echo $indent . '    <th colspan="2" class="gtfs-name"><input type="hidden" name="feed2" value="' . $feed2 . '">' . $feed2 . '</th>' . "\n";
@@ -48,7 +52,7 @@
         $release_dates  = array();
 
         if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
-            $release_dates =GetGtfsFeedReleaseDatesNonEmpty( $feed );
+            $release_dates = GetGtfsFeedReleaseDatesNonEmpty( $feed );
             rsort( $release_dates );
         }
 
@@ -71,13 +75,18 @@
                     echo $indent . '    <td><input type="radio" name="release_date2" value="' . $release_date . '"></td>' . "\n";
                 }
                 echo $indent . '    <td class="gtfs-name">' . $release_date . '</td>' . "\n";
+                $feed_info = GetFeedDetails( $feed, $release_date );
+                echo $indent . '    <td style="border-left-width: 1px;">' . $feed_info['feed_publisher_name'] . '</td>' . "\n";
+                echo $indent . '    <td style="border-left-width: 1px;">' . $feed_info['feed_start_date'] . '</td>' . "\n";
+                echo $indent . '    <td style="border-left-width: 1px;">' . $feed_info['feed_end_date'] . '</td>' . "\n";
+                echo $indent . '    <td style="border-left-width: 1px;">' . $feed_info['feed_version'] . '</td>' . "\n";
                 echo $indent . "</tr>\n";
             }
         } else {
             $release_dates2  = array();
 
             if ( $feed2 && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed2) ) {
-                $release_dates2 =GetGtfsFeedReleaseDatesNonEmpty( $feed2 );
+                $release_dates2 = GetGtfsFeedReleaseDatesNonEmpty( $feed2 );
                 rsort( $release_dates2 );
             }
 

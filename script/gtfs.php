@@ -1838,6 +1838,33 @@
     }
 
 
+    function GetFeedDetails( $feed, $release_date ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
+
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db  = new SQLite3( $SqliteDb );
+
+                $sql = sprintf( "SELECT * FROM feed_info" );
+
+                $row = $db->querySingle( $sql, true );
+
+                return $row;
+
+            } catch ( Exception $ex ) {
+                echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
+            }
+        } else {
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
+        }
+
+        return array();
+    }
+
+
     function GetOsmDetails( $feed, $release_date ) {
 
         $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
