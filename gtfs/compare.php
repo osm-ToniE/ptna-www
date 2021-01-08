@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
         include( '../script/parse_query.php' );
-        $feed2          = $_GET['feed2'];
-        $release_date2  = $_GET['release_date2'];
-        $route_id2      = $_GET['route_id2'];
-        $trip_id2       = $_GET['trip_id2'];
-        $shape_id2      = $_GET['shape_id2'];
-
         $lang_dir="../$ptna_lang/";
 ?>
 <html lang="<?php echo $html_lang ?>">
@@ -17,6 +11,13 @@
         }
         $title=$STR_gtfs_comparison;
         include $lang_dir.'html-head.inc';
+
+        $feed2          = $_GET['feed2'];
+        $release_date2  = $_GET['release_date2'];
+        $route_id2      = $_GET['route_id2'];
+        $trip_id2       = $_GET['trip_id2'];
+        $shape_id2      = $_GET['shape_id2'];
+
 ?>
 
     <body>

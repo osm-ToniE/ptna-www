@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'      );
         include( '../script/parse_query.php'  );
-
         $lang_dir="../$ptna_lang/";
 ?>
 <html lang="<?php echo $html_lang ?>">
@@ -27,6 +26,14 @@
             <h2 id="compare-shapes"><?php echo $STR_compare_gtfs_shapes; ?></h2>
             <div class="indent">
 
+                <table id="versions-table" class="compare">
+                    <thead>
+<?php CreateCompareShapesTableHead( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
+                    </thead>
+                    <tbody>
+<?php CreateCompareShapesTableBody( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
+                    </tbody>
+                </table>
 
             </div>
 

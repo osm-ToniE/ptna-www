@@ -27,6 +27,10 @@
     }
 
 
+    #
+    # called from compare-feeds.php
+    #
+
     function CreateCompareFeedsTableHead( $button_text, $feed, $feed2 ) {
         $indent = '                            ';
         if ( $feed == $feed2 ) {
@@ -121,4 +125,48 @@
             }
         }
     }
+
+    #
+    # called from compare-versions.php
+    #
+
+    function CreateCompareVersionsTableHead( $button_text, $feed, $feed2, $release_date, $release_date2 ) {
+    }
+
+    function CreateCompareVersionsTableBody( $feed, $feed2, $release_date, $release_date2 ) {
+    }
+
+
+    #
+    # called from compare-routes.php
+    #
+
+    function CreateCompareRoutesTableHead( $button_text, $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ) {
+    }
+
+    function CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ) {
+    }
+
+
+    #
+    # called from compare-trips.php
+    #
+
+    function CreateCompareTripsTableHead( $button_text, $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2 ) {
+    }
+
+    function CreateCompareTripsTableBody( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2 ) {
+    }
+
+
+    #
+    # called from compare-shapes.php
+    #
+
+    function CreateCompareShapesTableHead( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ) {
+    }
+
+    function CreateCompareShapesTableBody( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ) {
+    }
+
 ?>

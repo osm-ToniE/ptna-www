@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'      );
         include( '../script/parse_query.php'  );
-
         $lang_dir="../$ptna_lang/";
 ?>
 <html lang="<?php echo $html_lang ?>">
@@ -27,6 +26,18 @@
             <h2 id="compare-routes"><?php echo $STR_compare_gtfs_routes; ?></h2>
             <div class="indent">
 
+                <form method="get" action="compare-trips.php">
+                    <table id="routes-table" class="compare">
+                        <thead>
+<?php CreateCompareRoutesTableHead( $STR_compare_trips, $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
+                        </thead>
+                        <tbody>
+<?php CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
+                        </tbody>
+                    </table>
+                    <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
+
+                </form>
 
             </div>
 
