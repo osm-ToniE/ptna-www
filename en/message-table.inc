@@ -30,8 +30,48 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route does not fit to &#039;%s&#039; = &#039;%s&#039; of Route-Master: %s</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route has a match with &#039;%s&#039; = &#039;%s&#039; of other Route(s)</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route is identical to &#039;%s&#039; of other Route(s)</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route is set but &#039;%s&#039; of Route-Master is not set: %s</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (comma) as separator value should be replaced by &#039;;&#039; (semi-colon) without blank</td>
                 <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; of Route is not set but &#039;%s&#039; = &#039;%s&#039; of Route-Master is set: %s</td>
+                <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -47,14 +87,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">&#039;colour&#039; has unknown value &#039;%s&#039;. Choose one of the 140 well defined HTML/CSS colour names or the HTML Hex colour codes &#039;#...&#039; or &#039;#......&#039;.</td>
-                <td class="message-type">Errors</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; of Route does not fit to &#039;colour&#039; of Route-Master: %s</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -566,7 +598,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: missing &#039;%s&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 route: missing &#039;%s&#039; = &#039;yes&#039; on &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

@@ -22,6 +22,38 @@
         </thead>
         <tbody>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; der Route ist gesetzt aber &#039;%s&#039; des Route-Masters ist nicht gesetzt: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; der Route ist identisch zu &#039;%s&#039; anderer Route(n)</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; der Route passt nicht zu &#039;%s&#039; = &#039;%s&#039; des Route-Masters: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; der Route passt teilweise zu &#039;%s&#039; = &#039;%s&#039; anderer Route(n)</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039; enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
@@ -38,6 +70,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; der Route ist nicht gesetzt aber &#039;%s&#039; = &#039;%s&#039; des Route-Masters ist gesetzt: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;colour&#039; der Route ist gesetzt aber &#039;colour&#039; des Route-Masters ist nicht gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -47,14 +87,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">&#039;colour&#039; der Route ist nicht gesetzt aber &#039;colour&#039; des Route-Masters ist gesetzt: %s</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; der Route passt nicht zu &#039;colour&#039; des Route-Masters: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -726,7 +758,7 @@
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen" /><span class="message-tooltiptext">PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen</span></div></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: fehlende Angabe &#039;%s&#039; = &#039;yes&#039; an &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 Route: fehlende Angabe &#039;%s&#039; = &#039;yes&#039; an &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
