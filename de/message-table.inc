@@ -110,6 +110,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; ist gesetzt aber weder &#039;gtfs:trip_id&#039; noch &#039;gtfs:trip_id:sample&#039; ist gesetzt: setzte einen von beiden, da diese weitere Informationen über Haltestellen liefern (Namen, Reihenfolge und Positionen).</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option">check-gtfs</td>
+                <td class="message-description">GTFS-shape-Daten liefern (nur) Information über den Verlauf der Fahrt des Fahrzeugs. GTFS-trip-Daten liefern zusätzliche Informationen über Haltestellen: deren Namen, deren Reihenfolge und deren Positionen. Diese zusätzlichen Informationen können genutzt werden, um OSM-Daten mit GTFS-Daten zu vergleichen.</td>
+                <td class="message-fix">Füge &#039;gtfs:trip_id&#039; oder &#039;gtfs:trip_id:sample&#039; Daten hinzu.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;name&#039; ist nicht gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>

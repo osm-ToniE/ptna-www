@@ -110,6 +110,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; is set but neither &#039;gtfs:trip_id&#039; nor &#039;gtfs:trip_id:sample&#039; is set: consider setting one of them as they provide additional information about stops (their names, sequence and locations).</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-gtfs</td>
+                <td class="message-description">GTFS shape data provides (only) information about the itinerary of the vehicle. In addition, GTFS trip data provides useful information about stops: their names, their sequences and their locations. This additional information can be used to compare OSM data with GTFS data.</td>
+                <td class="message-fix">Add either &#039;gtfs:trip_id&#039; or &#039;gtfs:trip_id:sample&#039; information.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;name&#039; is not set</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
