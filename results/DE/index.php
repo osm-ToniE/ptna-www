@@ -87,6 +87,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-MVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-OVG", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-PAF", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-RBA", "de", "Konfiguration" ); ?>
