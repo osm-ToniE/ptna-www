@@ -7,7 +7,7 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
@@ -134,6 +134,8 @@
 
                     <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-Orizo", "fr", "Configuration" ); ?>
+
                 </tbody>
             </table>
 
@@ -146,4 +148,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
