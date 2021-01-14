@@ -7,13 +7,12 @@
                 <h2>Analyse statique pour OpenStreetMap</h2>
             </div>
             <div id="headernav">
-                <a href="/">Home</a> |
+                <a href="/">Accueil</a> |
                 <a href="/contact.html">Contact</a> |
-                <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Impressum</a> |
-                <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Datenschutzerklärung</a> |
+                <a target="_blank" href="https://www.openstreetmap.de/impressum.html">Mentions légales</a> |
+                <a target="_blank" href="https://www.fossgis.de/datenschutzerklärung">Charte de confidentialité</a> |
                 <a href="/en/index.html" title="english"><img src="/img/GreatBritain16.png" alt="Union Jack" /></a>
                 <a href="/de/index.html" title="deutsch"><img src="/img/Germany16.png" alt="deutsche Flagge" /></a>
-                <!-- <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="Tricolore Française" /></a> -->
+                <a href="/fr/index.html" title="français"><img src="/img/France16.png" alt="drapeau français" /></a>
             </div>
         </header>
-
