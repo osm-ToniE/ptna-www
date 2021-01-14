@@ -67,6 +67,12 @@
                 <td class="message-description">Vérification de l&#039;attribut &#039;network&#039;, ... si le séparateur est bien le point-virgule &#039;;&#039; (sans espace)</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-platform">
+                <td class="message-option">check-platform</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Check that for instance &#039;bus&#039; = &#039;yes&#039; is set on a PTv2 bus stop having &#039;public_transport&#039; = &#039;platform&#039;. PTv2 does not require this though.</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-check-roundabouts">
                 <td class="message-option">check-roundabouts</td>
                 <td class="message-default">OFF</td>
@@ -83,6 +89,12 @@
                 <td class="message-option">check-sequence</td>
                 <td class="message-default">OFF</td>
                 <td class="message-description">Vérifie la succession de chemins, y-a-t-il des trous ?</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow" id="option-check-stop-position">
+                <td class="message-option">check-stop-position</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Check that for instance &#039;bus&#039; = &#039;yes&#039; is set on a PTv2 bus stop having &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-version">

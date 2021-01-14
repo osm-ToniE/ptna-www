@@ -70,7 +70,7 @@
             <tr class="message-tablerow" id="option-check-platform">
                 <td class="message-option">check-platform</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Fehlendes &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; oder &#039;share_taxi&#039; = &#039;yes&#039; bei einer Platform: &#039;public_transport&#039; = &#039;platform&#039;.</td>
+                <td class="message-description">Prüfe, ob zum Beispiel &#039;bus&#039; = &#039;yes&#039; bei einer PTv2 Bushaltestelle existiert, wo &#039;public_transport&#039; = &#039;platform&#039; gesetzt ist. PTv2 fordert dieses allerdings nicht.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-roundabouts">
@@ -94,7 +94,7 @@
             <tr class="message-tablerow" id="option-check-stop-position">
                 <td class="message-option">check-stop-position</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Fehlendes &#039;bus&#039; = &#039;yes&#039;, &#039;tram&#039; = &#039;yes&#039; oder &#039;share_taxi&#039; = &#039;yes&#039; bei einer Haltestelle: &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
+                <td class="message-description">Prüfe, ob zum Beispiel &#039;bus&#039; = &#039;yes&#039; bei einer PTv2 Bushaltestelle existiert, wo &#039;public_transport&#039; = &#039;stop_position&#039; gesetzt ist.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-version">
