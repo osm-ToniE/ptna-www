@@ -27,6 +27,9 @@
                    preg_match('/\/NI\//', $_SERVER['REQUEST_URI'])    ) {
             $lang = 'es';
         }
+    } elseif ( !preg_match("/^[a-zA-Z0-9_-]+$/", $lang)) {
+        echo "<!-- override lang from '" . htmlspecialchars($lang) . "' to 'en' -->\n";
+        $lang = 'en';
     }
     $html_lang = preg_replace( '/_/', '-', $lang );
     $ptna_lang = $lang;
