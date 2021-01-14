@@ -36,9 +36,9 @@
 
                 <p>
                     <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">L'API Overpass</a> est utilisée pour télécharger les données OSM.
-                    <a href="/en/index.php#overpass">La requête utilisée</a> renvoie tous les chemins et nœuds des itinéraires (leurs membres avec leurs détails) à partir d'un <a href = "/en/index.php#searcharea">zone de recherche</a>.
-                    Les données ainsi obtenues permettent une analyse des lignes de transports en commun selon laquelle par ex. l'intégralité de l'itinéraire peut également être vérifiée.
-                    Les nœuds, les voies et les relations (arrêts et plates-formes) et leurs balises peuvent être comparés à leur «rôle» dans la relation.
+                    <a href="/en/index.php#overpass">La requête utilisée</a> renvoie tous les chemins et nœuds des itinéraires (leurs membres avec leurs détails) à partir d'une <a href = "/en/index.php#searcharea">zone de recherche</a>.
+                    Les données ainsi obtenues permettent une analyse des itinéraires de transports en commun pour par exemple vérifier l'intégralité de l'itinéraire.
+                    Les nœuds, voies et relations (arrêts et plateformes) ainsi que leurs attributs peuvent être vérifiés ainsi leur «rôle» dans la relation.
                 </p>
                 
                 <?php if ( $found ) {
