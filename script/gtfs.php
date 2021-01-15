@@ -997,6 +997,12 @@
                     $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
                     $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
                     $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
+                    if ( $osm['gtfs_short_name_hack1']                      &&
+                         $routes['route_long_name']                         &&
+                         $routes['route_id']                                &&
+                         $routes['route_long_name'] != $routes['route_id']      ) {
+                        $osm_ref = htmlspecialchars( $routes['route_long_name'] );
+                    }
                     if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
                         $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                     }
@@ -2201,12 +2207,22 @@
                     } else {
                         echo '                                       <td class="gtfs-text"></td>' . "\n";
                     }
+                    echo '                                    </tr>' . "\n";
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
-                    echo '                                        <td class="gtfs-name">"gtfs:trip_id:like" can be taken as part of GTFS trip_id. Regular expression to extract this part.</td>' . "\n";
+                    echo '                                        <td class="gtfs-name">"gtfs:trip_id:like" can be taken as part of GTFS "trip_id". Regular expression to extract this part.</td>' . "\n";
                     echo '                                        <td class="gtfs-text">' . htmlspecialchars($osm["trip_id_regex"]) . '</td>' . "\n";
                     echo '                                    </tr>' . "\n";
-                }
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"ref" shall be taken from GTFS "route_long_name" instead of "route_short_name" (provided that "route_long_name" differs from "route_id")</td>' . "\n";
+                    if ( $osm["gtfs_short_name_hack1"] ) {
+                        echo '                                       <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
+                    } else {
+                        echo '                                       <td class="gtfs-text"></td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
+               }
 
                 $stop_time = gettimeofday(true);
 
