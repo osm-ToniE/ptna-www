@@ -1,5 +1,5 @@
             <p>
-                La première colonne comprend 0 chaque fois un lien vers les résultats de l'analyse.
+                La première colonne comprend à chaque fois un lien vers les résultats de l'analyse.
             </p>
             <p>
                 La colonne "Dernière modification" renvoie aux pages HTML indiquant les différences par rapport aux derniers résultats d'analyse.
