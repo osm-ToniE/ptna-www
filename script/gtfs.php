@@ -621,9 +621,9 @@
 
         if ( $SqliteDb != '' ) {
 
-           if (  $feed ) {
+            if (  $feed ) {
 
-               try {
+                try {
 
                     $today      = new DateTime();
 

@@ -53,8 +53,8 @@
                 echo $indent . '</tr>' . "\n";
             }
         } else {
-            if ( !$feedDB1 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "'</p>\n"; }
-            if ( !$feedDB2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "'</p>\n"; }
+            if ( !$feedDB1 )                    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "'</p>\n"; }
+            if ( !$feedDB2 && $feed != $feed2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "'</p>\n"; }
         }
     }
 
@@ -151,15 +151,15 @@
         $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
         $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         if ( $feedDB1 && $feedDB2 ) {
-            if ( $feedDB1 == $feedDB2 ) {
-                # echo "<p>Same feed</p>\n";
-            } else {
-                # echo "<p>Two feeds</p>\n";
-            }
-            ;
+            echo $indent . '<tr><th colspan="4" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+            echo $indent . '<tr><th colspan="2" class="gtfs-name"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed;
+            echo $indent . '                                      <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . '</th>' . "\n";;
+            echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 1px;"><input type="hidden" name="feed2"         value="' . $feed2         . '">'  . $feed2;
+            echo $indent . '                                                                      <input type="hidden" name="release_date2" value="' . $release_date2 . '"> ' . $release_date2 . '</th>' . "\n";;
+            echo $indent . '</tr>' . "\n";
         } else {
-            if ( !$feedDB1 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
+            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
+            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
         }
     }
 
@@ -168,7 +168,54 @@
         $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
         $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         if ( $feedDB1 && $feedDB2 ) {
-            ;
+            $feed1_routes = GetGtfsRoutes($feedDB1);
+            $maxcount     = count($feed1_routes);
+            if ( $feedDB1 == $feedDB2 ) {
+                $feed2_routes = $feed1_routes;
+            } else {
+                $feed2_routes = GetGtfsRoutes($feedDB2);
+                $maxcount = count($feed2_routes) > $maxcount ? count($feed2_routes) : $maxcount;
+            }
+            if ( $_GET['type'] == 'd' ) {
+                echo $indent . "<tr>\n";
+                echo $indent . '   <td colspan="2"><select name="route_id">' . "\n";
+                for ( $i = 0; $i < count($feed1_routes); $i++ ) {
+                    echo $indent . '       <option value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '">';
+                    echo $indent .         htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed1_routes[$i]['route_id']) . ')</option>' . "\n";
+                }
+                echo $indent . "   </select></td>\n";
+                echo $indent . '   <td colspan="2"><select name="route_id2">' . "\n";
+                for ( $i = 0; $i < count($feed1_routes); $i++ ) {
+                    echo $indent . '       <option value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '">';
+                    echo $indent .         htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed2_routes[$i]['route_id']) . ')</option>' . "\n";
+                }
+                echo $indent . "   </select></td>\n";
+                echo $indent . "</tr>\n";
+            } else {
+                for ( $i = 0; $i < $maxcount; $i++ ) {
+                    if ( $i == 0 ) {
+                        $checked = ' checked="checked"';
+                    } else {
+                        $checked = '';
+                    }
+                    echo $indent . "<tr>\n";
+                    if ( $feed1_routes[$i] ) {
+                        echo $indent . '    <td><input type="radio" name="route_id"  value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '"' . $checked . '></td>' . "\n";
+                        echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed1_routes[$i]['route_id']) . ')</td>' . "\n";
+                    } else {
+                        echo $indent . "    <td>&nbsp;</td>\n";
+                        echo $indent . "    <td>&nbsp;</td>\n";
+                    }
+                    if ( $feed2_routes[$i] ) {
+                        echo $indent . '    <td style="border-left-width: 1px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '"' . $checked . '></td>' . "\n";
+                        echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed2_routes[$i]['route_id']) . ')</td>' . "\n";
+                    } else {
+                        echo $indent . '    <td style="border-left-width: 1px;">&nbsp;</td>' . "\n";
+                        echo $indent . "    <td>&nbsp;</td>\n";
+                    }
+                    echo $indent . "</tr>\n";
+                }
+            }
         }
     }
 
@@ -186,8 +233,8 @@
         if ( $feedDB1 && $feedDB2 ) {
             ;
         } else {
-            if ( !$feedDB1 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
+            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
+            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
         }
     }
 
@@ -214,8 +261,8 @@
         if ( $feedDB1 && $feedDB2 ) {
             ;
         } else {
-            if ( !$feedDB1 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
+            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
+            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
         }
     }
 
@@ -242,8 +289,8 @@
         if ( $feedDB1 && $feedDB2 ) {
             ;
         } else {
-            if ( !$feedDB1 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 ) { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
+            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
+            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
         }
     }
 
@@ -254,6 +301,37 @@
         if ( $feedDB1 && $feedDB2 ) {
             ;
         }
+    }
+
+
+    function GetGtfsRoutes( $SqliteDb ) {
+
+        $return_array = array();
+
+        if ( $SqliteDb != '' ) {
+
+            try {
+
+                $db         = new SQLite3( $SqliteDb );
+
+                $sql        = "SELECT DISTINCT    *
+                               FROM               routes
+                               ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+
+                $outerresult = $db->query( $sql );
+
+                while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
+                    array_push( $return_array, array( 'route_id' => $outerrow['route_id'], 'route_short_name' => $outerrow['route_short_name'] ) );
+                    #echo "<!-- 'route_id' => " . $outerrow['route_id'] . " 'route_short_name' => " . $outerrow['route_short_name'] . "-->\n";
+                }
+                $db->close();
+
+            } catch ( Exception $ex ) {
+                echo "CreateGtfsRoutesEntry(): Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
+            }
+        }
+
+        return $return_array;
     }
 
 ?>

@@ -32,7 +32,7 @@
 <?php CreateCompareVersionsTableHead( $STR_compare_routes, $feed, $feed2, $release_date, $release_date2 ); ?>
                         </thead>
                         <tbody>
-<?php CreateCompareVersionsTableBody( $feed, $feed2, $release_date, $Srelease_date2 ); ?>
+<?php CreateCompareVersionsTableBody( $feed, $feed2, $release_date, $release_date2 ); ?>
                         </tbody>
                     </table>
                     <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
