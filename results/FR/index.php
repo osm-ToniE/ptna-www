@@ -136,6 +136,10 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Orizo", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-Vaucluse", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-PAC-Zou", "fr", "Configuration" ); ?>
+
                 </tbody>
             </table>
 
