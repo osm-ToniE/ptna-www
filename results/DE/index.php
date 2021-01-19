@@ -53,8 +53,6 @@
 
                     <?php CreateNewFullEntry( "DE-BW-DING-SWU", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BW-Filsland", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BW-KV.SHA", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-KVV", "de", "Konfiguration" ); ?>
