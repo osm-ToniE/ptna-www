@@ -21,6 +21,8 @@
             $lang = 'da';
         } elseif ( preg_match('/\/RS\//', $_SERVER['REQUEST_URI']) ) {
             $lang = 'sr';
+        } elseif ( preg_match('/\/HR\//', $_SERVER['REQUEST_URI']) ) {
+            $lang = 'hr';
         } elseif ( preg_match('/\/BO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/CO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/ES\//', $_SERVER['REQUEST_URI']) ||
