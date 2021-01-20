@@ -22,7 +22,7 @@
             <tr class="message-tablerow" id="option-allow-coach">
                 <td class="message-option">allow-coach</td>
                 <td class="message-default">OFF</td>
-                <td class="message-description">Allow &#039;route_master&#039; = &#039;coach&#039; und &#039;route&#039; = &#039;coach&#039; (although they are inofficial).</td>
+                <td class="message-description">Allow &#039;route_master&#039; = &#039;coach&#039; and &#039;route&#039; = &#039;coach&#039; (although they are inofficial).</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-check-access">
