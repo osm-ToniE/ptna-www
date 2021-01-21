@@ -945,313 +945,324 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
-                    $sql = sprintf( "SELECT *
-                                     FROM   routes
-                                     JOIN   trips ON trips.route_id = routes.route_id
-                                     WHERE  trip_id='%s';",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $sql        = sprintf( "SELECT trip_id
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
-                    $routes = $db->querySingle( $sql, true );
+                    $trip       = $db->querySingle( $sql, true );
 
-                    $sql = sprintf( "SELECT *
-                                     FROM   trips
-                                     WHERE  trip_id='%s';",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $rep_trip_id    = $trip['trip_id'];
 
-                    $trips = $db->querySingle( $sql, true );
+                    if ( $rep_trip_id ) {
+                        $sql = sprintf( "SELECT *
+                                         FROM   routes
+                                         JOIN   trips ON trips.route_id = routes.route_id
+                                         WHERE  trip_id='%s';",
+                                         SQLite3::escapeString($rep_trip_id)
+                                      );
 
-                    $sql = sprintf( "SELECT   *
-                                     FROM     stops
-                                     JOIN     stop_times ON stop_times.stop_id = stops.stop_id
-                                     WHERE    stop_times.trip_id='%s'
-                                     ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC
-                                     LIMIT 1;",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                        $routes = $db->querySingle( $sql, true );
 
-                    $stops1 = $db->querySingle( $sql, true );
+                        $sql = sprintf( "SELECT *
+                                         FROM   trips
+                                         WHERE  trip_id='%s';",
+                                         SQLite3::escapeString($rep_trip_id)
+                                      );
 
-                    $sql = sprintf( "SELECT   *
-                                     FROM     stops
-                                     JOIN     stop_times ON stop_times.stop_id = stops.stop_id
-                                     WHERE    stop_times.trip_id='%s'
-                                     ORDER BY CAST (stop_times.stop_sequence AS INTEGER) DESC
-                                     LIMIT 1;",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                        $trips = $db->querySingle( $sql, true );
 
-                    $stops2 = $db->querySingle( $sql, true );
+                        $sql = sprintf( "SELECT   *
+                                         FROM     stops
+                                         JOIN     stop_times ON stop_times.stop_id = stops.stop_id
+                                         WHERE    stop_times.trip_id='%s'
+                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC
+                                         LIMIT 1;",
+                                         SQLite3::escapeString($rep_trip_id)
+                                      );
 
-                    $sql = sprintf( "SELECT   agency.agency_name,agency.agency_url
-                                     FROM     agency
-                                     JOIN     routes ON agency.agency_id = routes.agency_id
-                                     WHERE    routes.route_id='%s'
-                                     LIMIT    1;",
-                                     SQLite3::escapeString($routes['route_id'])
-                                  );
+                        $stops1 = $db->querySingle( $sql, true );
 
-                    $agency = $db->querySingle( $sql, true );
+                        $sql = sprintf( "SELECT   *
+                                         FROM     stops
+                                         JOIN     stop_times ON stop_times.stop_id = stops.stop_id
+                                         WHERE    stop_times.trip_id='%s'
+                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) DESC
+                                         LIMIT 1;",
+                                         SQLite3::escapeString($rep_trip_id)
+                                      );
 
-                    $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
-                    $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
-                    $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
-                    if ( $osm['gtfs_short_name_hack1']                      &&
-                         $routes['route_long_name']                         &&
-                         $routes['route_id']                                &&
-                         $routes['route_long_name'] != $routes['route_id']      ) {
-                        $osm_ref = htmlspecialchars( $routes['route_long_name'] );
-                    }
-                    if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
-                        $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
-                    }
-                    $osm_colour         = $routes['route_color']            ? htmlspecialchars($routes['route_color'])          : 'ffffff';
-                    $osm_website        = $routes['route_url']              ? htmlspecialchars($routes['route_url'])            : htmlspecialchars($agency['agency_url']);
-                    $osm_from           = $stops1['normalized_stop_name']   ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
-                    $osm_to             = $stops2['normalized_stop_name']   ? htmlspecialchars($stops2['normalized_stop_name']) : htmlspecialchars($stops2['stop_name']);
-                    $osm_network        = htmlspecialchars($osm['network']);
-                    $osm_network_short  = htmlspecialchars($osm['network_short']);
-                    $osm_network_guid   = htmlspecialchars($osm['network_guid']);
-                    if ( $osm['gtfs_agency_is_operator'] ) {
-                        if ( $agency['agency_name'] != 'Sonstige' ) {
-                            $osm_operator   = htmlspecialchars($agency['agency_name']);
+                        $stops2 = $db->querySingle( $sql, true );
+
+                        $sql = sprintf( "SELECT   agency.agency_name,agency.agency_url
+                                         FROM     agency
+                                         JOIN     routes ON agency.agency_id = routes.agency_id
+                                         WHERE    routes.route_id='%s'
+                                         LIMIT    1;",
+                                         SQLite3::escapeString($routes['route_id'])
+                                      );
+
+                        $agency = $db->querySingle( $sql, true );
+
+                        $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
+                        $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
+                        $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
+                        if ( $osm['gtfs_short_name_hack1']                      &&
+                            $routes['route_long_name']                         &&
+                            $routes['route_id']                                &&
+                            $routes['route_long_name'] != $routes['route_id']      ) {
+                            $osm_ref = htmlspecialchars( $routes['route_long_name'] );
                         }
-                    }
-                    $osm_ref_trips          = htmlspecialchars( $trip_id );
-                    $osm_gtfs_feed          = htmlspecialchars( $feed );
-                    $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
-                    $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
-                    $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
-                    $osm_gtfs_shape_id      = htmlspecialchars( $trips['shape_id'] );
-                    if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
-                        $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
-                        if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
-                            $osm_gtfs_trip_id_like = "%" . $osm_gtfs_trip_id_like;
+                        if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
+                            $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                         }
-                        if ( !preg_match("/\)\\$$/",$osm['trip_id_regex']) ) {
-                            $osm_gtfs_trip_id_like = $osm_gtfs_trip_id_like . "%";
+                        $osm_colour         = $routes['route_color']            ? htmlspecialchars($routes['route_color'])          : 'ffffff';
+                        $osm_website        = $routes['route_url']              ? htmlspecialchars($routes['route_url'])            : htmlspecialchars($agency['agency_url']);
+                        $osm_from           = $stops1['normalized_stop_name']   ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
+                        $osm_to             = $stops2['normalized_stop_name']   ? htmlspecialchars($stops2['normalized_stop_name']) : htmlspecialchars($stops2['stop_name']);
+                        $osm_network        = htmlspecialchars($osm['network']);
+                        $osm_network_short  = htmlspecialchars($osm['network_short']);
+                        $osm_network_guid   = htmlspecialchars($osm['network_guid']);
+                        if ( $osm['gtfs_agency_is_operator'] ) {
+                            if ( $agency['agency_name'] != 'Sonstige' ) {
+                                $osm_operator   = htmlspecialchars($agency['agency_name']);
+                            }
                         }
-                        $osm_gtfs_trip_id_like = htmlspecialchars( $osm_gtfs_trip_id_like );
-                    }
+                        $osm_ref_trips          = htmlspecialchars( $trip_id );
+                        $osm_gtfs_feed          = htmlspecialchars( $feed );
+                        $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
+                        $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
+                        $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
+                        $osm_gtfs_shape_id      = htmlspecialchars( $trips['shape_id'] );
+                        if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
+                            $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
+                            if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
+                                $osm_gtfs_trip_id_like = "%" . $osm_gtfs_trip_id_like;
+                            }
+                            if ( !preg_match("/\)\\$$/",$osm['trip_id_regex']) ) {
+                                $osm_gtfs_trip_id_like = $osm_gtfs_trip_id_like . "%";
+                            }
+                            $osm_gtfs_trip_id_like = htmlspecialchars( $osm_gtfs_trip_id_like );
+                        }
 
-                    # ROUTE-MASTER
-                    echo '                    <table id="osm-route-master" style="float: left; margin-right: 20px;">' . "\n";
-                    echo '                        <thead>' . "\n";
-                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name">Route-Master</th>' . "\n";
-                    echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_master_osm()">Create *.osm template for JOSM</button></th>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name">Key</th>' . "\n";
-                    echo '                                <th class="gtfs-name">Value</th>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                        </thead>' . "\n";
-                    echo '                        <tbody>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">type</td>' . "\n";
-                    echo '                                <td class="gtfs-name">route_master</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">route_master</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">ref</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    if ( $osm_route ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">name</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . '</td>' . "\n";
+                        # ROUTE-MASTER
+                        echo '                    <table id="osm-route-master" style="float: left; margin-right: 20px;">' . "\n";
+                        echo '                        <thead>' . "\n";
+                        echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                        echo '                                <th class="gtfs-name">Route-Master</th>' . "\n";
+                        echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_master_osm()">Create *.osm template for JOSM</button></th>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_network . '</td>' . "\n";
+                        echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                        echo '                                <th class="gtfs-name">Key</th>' . "\n";
+                        echo '                                <th class="gtfs-name">Value</th>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network_guid ) {
+                        echo '                        </thead>' . "\n";
+                        echo '                        <tbody>' . "\n";
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network:guid</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">type</td>' . "\n";
+                        echo '                                <td class="gtfs-name">route_master</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network_short ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network:short</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">route_master</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_operator ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">operator</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_operator . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">ref</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_colour ) {
+                        if ( $osm_route ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">name</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_network . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network_guid ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network:guid</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network_short ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network:short</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_operator ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">operator</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_operator . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_colour ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">colour</td>' . "\n";
+                            echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_website ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">website</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">colour</td>' . "\n";
-                        echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_website ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">website</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    if ( $osm_gtfs_route_id ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    echo '                        </tbody>' . "\n";
-                    echo '                    </table>' . "\n";
+                        if ( $osm_gtfs_route_id ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        echo '                        </tbody>' . "\n";
+                        echo '                    </table>' . "\n";
 
-                    # ROUTE
-                    echo '                    <table id="osm-route">' . "\n";
-                    echo '                        <thead>' . "\n";
-                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name">Route</th>' . "\n";
-                    echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_osm()">Create *.osm template for JOSM</button></th>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
-                    echo '                                <th class="gtfs-name">Key</th>' . "\n";
-                    echo '                                <th class="gtfs-name">Value</th>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                        </thead>' . "\n";
-                    echo '                        <tbody>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">type</td>' . "\n";
-                    echo '                                <td class="gtfs-name">route</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">route</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">ref</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    if ( $osm_route ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">name</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
+                        # ROUTE
+                        echo '                    <table id="osm-route">' . "\n";
+                        echo '                        <thead>' . "\n";
+                        echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                        echo '                                <th class="gtfs-name">Route</th>' . "\n";
+                        echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_osm()">Create *.osm template for JOSM</button></th>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_network . '</td>' . "\n";
+                        echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
+                        echo '                                <th class="gtfs-name">Key</th>' . "\n";
+                        echo '                                <th class="gtfs-name">Value</th>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network_guid ) {
+                        echo '                        </thead>' . "\n";
+                        echo '                        <tbody>' . "\n";
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network:guid</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">type</td>' . "\n";
+                        echo '                                <td class="gtfs-name">route</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_network_short ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">network:short</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">route</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_route . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_operator ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">operator</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_operator . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">ref</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_colour ) {
+                        if ( $osm_route ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">name</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_network . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network_guid ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network:guid</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_network_guid . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_network_short ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">network:short</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_network_short . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_operator ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">operator</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_operator . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_colour ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">colour</td>' . "\n";
+                            echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_website ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">website</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">colour</td>' . "\n";
-                        echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_website ) {
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">website</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_website . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                        echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
-                    echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    if ( $osm_gtfs_route_id ) {
+                        if ( $osm_gtfs_route_id ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_gtfs_trip_id ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">gtfs:trip_id:sample</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_gtfs_trip_id_like ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">gtfs:trip_id:like</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id_like . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_gtfs_shape_id ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">gtfs:shape_id</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_gtfs_shape_id . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_ref_trips ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">ref_trips</td>' . "\n";
+                            echo '                                <td class="gtfs-name">' . $osm_ref_trips . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_from ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">from</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_from . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_to ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">to</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_to . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_from && $osm_to && $osm_from == $osm_to ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">roundtrip</td>' . "\n";
+                            echo '                                <td class="gtfs-name">yes</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
                         echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
+                        echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
+                        echo '                                <td class="gtfs-name">2</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_gtfs_trip_id ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:trip_id:sample</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_gtfs_trip_id_like ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:trip_id:like</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_trip_id_like . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_gtfs_shape_id ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:shape_id</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_shape_id . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_ref_trips ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">ref_trips</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_ref_trips . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_from ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">from</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_from . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_to ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">to</td>' . "\n";
-                        echo '                                <td class="gtfs-text">' . $osm_to . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    if ( $osm_from && $osm_to && $osm_from == $osm_to ) {
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">roundtrip</td>' . "\n";
-                        echo '                                <td class="gtfs-name">yes</td>' . "\n";
-                        echo '                            </tr>' . "\n";
-                    }
-                    echo '                            <tr class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-name">public_transport:version</td>' . "\n";
-                    echo '                                <td class="gtfs-name">2</td>' . "\n";
-                    echo '                            </tr>' . "\n";
-                    echo '                        </tbody>' . "\n";
-                    echo '                    </table>' . "\n";
+                        echo '                        </tbody>' . "\n";
+                        echo '                    </table>' . "\n";
 
-                    $stop_time = gettimeofday(true);
+                        $stop_time = gettimeofday(true);
 
-                    return $stop_time - $start_time;
+                        return $stop_time - $start_time;
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
@@ -1281,50 +1292,61 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
-                                     FROM     stop_times
-                                     JOIN     stops ON stop_times.stop_id = stops.stop_id
-                                     WHERE    stop_times.trip_id='%s'
-                                     ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $sql        = sprintf( "SELECT trip_id
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
-                    $result = $db->query( $sql );
+                    $trip       = $db->querySingle( $sql, true );
 
-                    $counter = 1;
-                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                        if ( $row["departure_time"] ) {
-                            $row["departure_time"] = preg_replace('/:\d\d$/', '', $row["departure_time"] );
+                    $trip_id    = $trip['trip_id'];
+
+                    if ( $trip_id ) {
+                        $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
+                                        FROM     stop_times
+                                        JOIN     stops ON stop_times.stop_id = stops.stop_id
+                                        WHERE    stop_times.trip_id='%s'
+                                        ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
+                                        SQLite3::escapeString($trip_id)
+                                    );
+
+                        $result = $db->query( $sql );
+
+                        $counter = 1;
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            if ( $row["departure_time"] ) {
+                                $row["departure_time"] = preg_replace('/:\d\d$/', '', $row["departure_time"] );
+                            }
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
+                            if ( $row["normalized_stop_name"] ) {
+                                echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["normalized_stop_name"]) . '</td>' . "\n";
+                            } else {
+                                echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
+                            }
+                            echo '                                <td class="gtfs-comment">';
+                            printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
+                            $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
+                            printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
+                            echo '</td>' . "\n";
+                            echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
+                            echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
+                            echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
+                            echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
+    #                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+    #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+    #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
+    #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
+                            echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
                         }
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
-                        if ( $row["normalized_stop_name"] ) {
-                            echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["normalized_stop_name"]) . '</td>' . "\n";
-                        } else {
-                            echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
-                        }
-                        echo '                                <td class="gtfs-comment">';
-                        printf( '%s%s/%s%s', '<a href="https://www.openstreetmap.org/edit?editor=id#map=21/', $row["stop_lat"], $row["stop_lon"], '" target="_blank" title="Edit area in iD">iD</a>' );
-                        $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
-                        printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
-                        echo '</td>' . "\n";
-                        echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
-                        echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
-                        echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
-                        echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
-#                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
+
+                        $db->close();
+
+                        $stop_time = gettimeofday(true);
+
+                        return $stop_time - $start_time;
                     }
-
-                    $db->close();
-
-                    $stop_time = gettimeofday(true);
-
-                    return $stop_time - $start_time;
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
@@ -1357,13 +1379,15 @@
 
                 if ( $sql_master['name'] ) {
 
-                    $sql    = sprintf( "SELECT DISTINCT *
-                                        FROM            ptna_trips
-                                        WHERE           trip_id='%s'",
-                                        SQLite3::escapeString($trip_id)
-                                        );
-                    $result = $db->querySingle( $sql, true );
+                    $sql        = sprintf( "SELECT *
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s'",
+                                            SQLite3::escapeString($trip_id) );
+                    $result     = $db->querySingle( $sql, true );
 
+                    if ( $result['trip_id'] ) {
+                        $trip_id = $result['trip_id'];
+                    }
                     if ( $result['list_service_ids'] ) {
                         $has_list_service_ids = 1;
                         $temp_array = array();
@@ -1435,8 +1459,8 @@
 
                         $sql    = sprintf( "SELECT DISTINCT *
                                             FROM            ptna_trips
-                                            WHERE           trip_id='%s'",
-                                            SQLite3::escapeString($trip_id)
+                                            WHERE           trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id)
                                          );
                         $result = $db->querySingle( $sql, true );
 
@@ -1568,7 +1592,7 @@
                                             $service_row .= htmlspecialchars( implode( ', ', $durations ) );
                                         }
                                     } else {
-                                        $service_row .= 'not yet available';
+                                        $service_row .= 'not available';
                                     }
                                     $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text">';
@@ -1585,10 +1609,6 @@
                                 echo '                                ' . $service_row;
                                 echo '                            </tr>' . "\n";
                             }
-                        } else {
-                            echo '                          <tr class="gtfs-tablerow">' . "\n";
-                            echo '                              <td class="gtfs-name" colspan="13">... not yet available ...</td>' . "\n";
-                            echo '                          </tr>' . "\n";
                         }
                     }
                     $db->close();
@@ -1629,52 +1649,64 @@
 
                     if ( $ptna["has_shapes"] ) {
 
-                        $sql        = sprintf( "SELECT * FROM trips WHERE trip_id='%s'", SQLite3::escapeString($trip_id) );
+                        $sql        = sprintf( "SELECT trip_id
+                                                FROM   ptna_trips
+                                                WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                                SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
                         $trip       = $db->querySingle( $sql, true );
 
-                        $shape_id   = $trip["shape_id"];
+                        if ( $trip['trip_id'] ) {
+                            $sql        = sprintf( "SELECT shape_id
+                                                    FROM   trips
+                                                    WHERE  trip_id='%s'",
+                                                    SQLite3::escapeString($trip['trip_id']) );
 
-                        if ( $shape_id ) {
+                            $trip       = $db->querySingle( $sql, true );
 
-                            $sql = sprintf( "SELECT   *
-                                             FROM     shapes
-                                             WHERE    shape_id='%s'
-                                             ORDER BY CAST (shape_pt_sequence AS INTEGER);",
-                                             SQLite3::escapeString($shape_id)
-                                          );
+                            $shape_id   = $trip["shape_id"];
 
-                            $result = $db->query( $sql );
+                            if ( $shape_id ) {
 
-                            echo "              <hr />\n\n";
-                            echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
-                            echo '              <div class="indent">' . "\n";
-                            echo '                  <table id="gtfs-shape">' . "\n";
-                            echo '                      <thead>' . "\n";
-                            echo '                          <tr class="gtfs-tableheaderrow">' . "\n";
-                            echo '                              <th class="gtfs-name">Number</th>' . "\n";
-                            echo '                              <th class="gtfs-number">Latitude</th>' . "\n";
-                            echo '                              <th class="gtfs-number">Longitude</th>' . "\n";
-                            echo '                              <th class="gtfs-distance">Distance</th>' . "\n";
-                            echo '                          </tr>' . "\n";
-                            echo '                      </thead>' . "\n";
-                            echo '                      <tbody>' . "\n";
-                            $counter = 1;
-                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                                echo '                          <tr class="gtfs-tablerow">' . "\n";
-                                echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
-                                echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
-                                echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
-                                #if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
-                                #    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
-                                #} else {
-                                    echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
-                                #}
+                                $sql = sprintf( "SELECT   *
+                                                FROM     shapes
+                                                WHERE    shape_id='%s'
+                                                ORDER BY CAST (shape_pt_sequence AS INTEGER);",
+                                                SQLite3::escapeString($shape_id)
+                                            );
+
+                                $result = $db->query( $sql );
+
+                                echo "              <hr />\n\n";
+                                echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
+                                echo '              <div class="indent">' . "\n";
+                                echo '                  <table id="gtfs-shape">' . "\n";
+                                echo '                      <thead>' . "\n";
+                                echo '                          <tr class="gtfs-tableheaderrow">' . "\n";
+                                echo '                              <th class="gtfs-name">Number</th>' . "\n";
+                                echo '                              <th class="gtfs-number">Latitude</th>' . "\n";
+                                echo '                              <th class="gtfs-number">Longitude</th>' . "\n";
+                                echo '                              <th class="gtfs-distance">Distance</th>' . "\n";
                                 echo '                          </tr>' . "\n";
+                                echo '                      </thead>' . "\n";
+                                echo '                      <tbody>' . "\n";
+                                $counter = 1;
+                                while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                                    echo '                          <tr class="gtfs-tablerow">' . "\n";
+                                    echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
+                                    echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
+                                    echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                                    #if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
+                                    #    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
+                                    #} else {
+                                        echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
+                                    #}
+                                    echo '                          </tr>' . "\n";
+                                }
+                                echo '                      </tbody>' . "\n";
+                                echo '                  </table>' . "\n";
+                                echo '              </div>' . "\n";
                             }
-                            echo '                      </tbody>' . "\n";
-                            echo '                  </table>' . "\n";
-                            echo '              </div>' . "\n";
                         }
                     }
                     $db->close();
@@ -1741,15 +1773,26 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT route_id
-                                     FROM   trips
-                                     WHERE  trip_id='%s';",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $sql        = sprintf( "SELECT trip_id
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
-                    $row = $db->querySingle( $sql, true );
+                    $trip       = $db->querySingle( $sql, true );
 
-                    return $row["route_id"];
+                    $trip_id    = $trip['trip_id'];
+
+                    if ( $trip_id ) {
+                        $sql = sprintf( "SELECT route_id
+                                         FROM   trips
+                                         WHERE  trip_id='%s';",
+                                         SQLite3::escapeString($trip_id)
+                                      );
+
+                        $row = $db->querySingle( $sql, true );
+
+                        return $row["route_id"];
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
@@ -1775,16 +1818,27 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT route_short_name
-                                     FROM   routes
-                                     JOIN   trips ON trips.route_id = routes.route_id
-                                     WHERE  trip_id='%s';",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $sql        = sprintf( "SELECT trip_id
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
-                    $row = $db->querySingle( $sql, true );
+                    $trip       = $db->querySingle( $sql, true );
 
-                    return $row["route_short_name"];
+                    $trip_id    = $trip['trip_id'];
+
+                    if ( $trip_id ) {
+                        $sql = sprintf( "SELECT route_short_name
+                                        FROM   routes
+                                        JOIN   trips ON trips.route_id = routes.route_id
+                                        WHERE  trip_id='%s';",
+                                        SQLite3::escapeString($trip_id)
+                                    );
+
+                        $row = $db->querySingle( $sql, true );
+
+                        return $row["route_short_name"];
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
@@ -1825,7 +1879,7 @@
                                          FROM   trips
                                          WHERE  shape_id='%s';",
                                          SQLite3::escapeString($shape_id)
-                                    );
+                                      );
 
                         $row = $db->querySingle( $sql, true );
 
@@ -1937,15 +1991,26 @@
 
                     $db  = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT *
-                                     FROM   trips
-                                     WHERE  trip_id='%s';",
-                                     SQLite3::escapeString($trip_id)
-                                  );
+                    $sql        = sprintf( "SELECT trip_id
+                                            FROM   ptna_trips
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
+                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
 
-                    $row = $db->querySingle( $sql, true );
+                    $trip       = $db->querySingle( $sql, true );
 
-                    return $row;
+                    $trip_id    = $trip['trip_id'];
+
+                    if ( $trip_id ) {
+                        $sql = sprintf( "SELECT *
+                                         FROM   trips
+                                         WHERE  trip_id='%s';",
+                                         SQLite3::escapeString($trip_id)
+                                      );
+
+                        $row = $db->querySingle( $sql, true );
+
+                        return $row;
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
