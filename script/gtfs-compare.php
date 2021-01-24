@@ -151,12 +151,33 @@
         $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
         $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         if ( $feedDB1 && $feedDB2 ) {
-            echo $indent . '<tr><th colspan="4" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
-            echo $indent . '<tr><th colspan="2" class="gtfs-name"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed;
-            echo $indent . '                                      <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . '</th>' . "\n";;
-            echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 1px;"><input type="hidden" name="feed2"         value="' . $feed2         . '">'  . $feed2;
-            echo $indent . '                                                                      <input type="hidden" name="release_date2" value="' . $release_date2 . '"> ' . $release_date2 . '</th>' . "\n";;
-            echo $indent . '</tr>' . "\n";
+            if ( $_GET['type'] == 'd' ) {
+                echo $indent . '<tr><th colspan="2" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+                echo $indent . '<tr><th colspan="1" class="gtfs-name" style="border-right-width: 2px;"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed . "\n";
+                echo $indent . '                                                                       <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . "</th>\n";
+                echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width:  2px;"><input type="hidden" name="feed2"         value="' . $feed2         . '">'  . $feed2 . "\n";
+                echo $indent . '                                                                       <input type="hidden" name="release_date2" value="' . $release_date2 . '"> ' . $release_date2 . "</th>\n";
+                echo $indent . '</tr>' . "\n";
+                echo $indent . '<tr><th class="gtfs-name" style="border-right-width: 2px;">Line (Type, route_id)</td>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width:  2px;">Line (Type, route_id)</td>'   . "\n";
+                echo $indent . '</tr>' . "\n";
+            } else {
+                echo $indent . '<tr><th colspan="8" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+                echo $indent . '<tr><th colspan="4" class="gtfs-name" style="border-right-width: 2px;"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed . "\n";
+                echo $indent . '                                                                       <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . "</th>\n";
+                echo $indent . '    <th colspan="4" class="gtfs-name" style="border-left-width:  2px;"><input type="hidden" name="feed2"         value="' . $feed2         . '">'  . $feed2 . "\n";
+                echo $indent . '                                                                       <input type="hidden" name="release_date2" value="' . $release_date2 . '"> ' . $release_date2 . "</th>\n";
+                echo $indent . '</tr>' . "\n";
+                echo $indent . '<tr><th class="gtfs-name">&nbsp;</td>' . "\n";
+                echo $indent . '    <th class="gtfs-name">Line</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">Type</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-right-width: 2px;">route_id</td>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width:  2px;">&nbsp;</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">Line</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">Type</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">route_id</td>' . "\n";
+                echo $indent . '</tr>' . "\n";
+            }
         } else {
             if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
             if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
@@ -178,40 +199,93 @@
             }
             if ( $_GET['type'] == 'd' ) {
                 echo $indent . "<tr>\n";
-                echo $indent . '   <td colspan="2"><select name="route_id">' . "\n";
+                echo $indent . '   <td colspan="1"><select name="route_id">' . "\n";
                 for ( $i = 0; $i < count($feed1_routes); $i++ ) {
-                    echo $indent . '       <option value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '">';
-                    echo $indent .         htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed1_routes[$i]['route_id']) . ')</option>' . "\n";
+                    echo $indent . '       <option value="' . htmlspecialchars($feed1_routes[$i][2]) . '">';
+                    echo htmlspecialchars($feed1_routes[$i][0]) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right][1])) . ', ' . htmlspecialchars($feed1_routes[$i][2]) . ')</option>' . "\n";
                 }
                 echo $indent . "   </select></td>\n";
-                echo $indent . '   <td colspan="2"><select name="route_id2">' . "\n";
-                for ( $i = 0; $i < count($feed1_routes); $i++ ) {
-                    echo $indent . '       <option value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '">';
-                    echo $indent .         htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed2_routes[$i]['route_id']) . ')</option>' . "\n";
+                echo $indent . '   <td colspan="1"><select name="route_id2">' . "\n";
+                for ( $i = 0; $i < count($feed2_routes); $i++ ) {
+                    echo $indent . '       <option value="' . htmlspecialchars($feed2_routes[$i][2]) . '">';
+                    echo htmlspecialchars($feed2_routes[$i][0]) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right][1])) . ', ' . htmlspecialchars($feed2_routes[$i][2]) . ')</option>' . "\n";
                 }
                 echo $indent . "   </select></td>\n";
                 echo $indent . "</tr>\n";
             } else {
-                for ( $i = 0; $i < $maxcount; $i++ ) {
-                    if ( $i == 0 ) {
-                        $checked = ' checked="checked"';
+                $left  = 0;
+                $right = 0;
+                while ( $feed1_routes[$left] || $feed2_routes[$right] ) {
+                    if ( $left == 0 ) {
+                        $leftchecked = ' checked="checked"';
                     } else {
-                        $checked = '';
+                        $leftchecked = '';
+                    }
+                    if ( $right == 0 ) {
+                        $rightchecked = ' checked="checked"';
+                    } else {
+                        $rightchecked = '';
                     }
                     echo $indent . "<tr>\n";
-                    if ( $feed1_routes[$i] ) {
-                        echo $indent . '    <td><input type="radio" name="route_id"  value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '"' . $checked . '></td>' . "\n";
-                        echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed1_routes[$i]['route_id']) . ')</td>' . "\n";
+                    if ( $feed1_routes[$left] && $feed2_routes[$right] ) {
+                        if ( $feed1_routes[$left] == $feed2_routes[$right] ) {
+                            echo $indent . '    <td><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left][2])                         . '"' . $leftchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed1_routes[$left][0])                         . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right][1]))    . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-right-width: 2px;">' . htmlspecialchars($feed1_routes[$left][2])                         . "</td>\n";
+                            $left++;
+                            echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right][2]) . '"' . $rightchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][0])                           . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right][1]))       . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][2])                           . "</td>\n";
+                            $right++;
+                        } elseif ( $feed1_routes[$left] < $feed2_routes[$right] ) {
+                            echo $indent . '    <td><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left][2])                         . '"' . $leftchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed1_routes[$left][0])                         . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right][1]))    . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-right-width: 2px;">' . htmlspecialchars($feed1_routes[$left][2])                         . "</td>\n";
+                            $left++;
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                        } else {
+                            # $feed1_routes[$left] > $feed2_routes[$right]
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right][2]) . '"' . $rightchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][0])                           . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right][1]))       . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][2])                           . "</td>\n";
+                            $right++;
+                        }
                     } else {
-                        echo $indent . "    <td>&nbsp;</td>\n";
-                        echo $indent . "    <td>&nbsp;</td>\n";
-                    }
-                    if ( $feed2_routes[$i] ) {
-                        echo $indent . '    <td style="border-left-width: 1px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '"' . $checked . '></td>' . "\n";
-                        echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars($feed2_routes[$i]['route_id']) . ')</td>' . "\n";
-                    } else {
-                        echo $indent . '    <td style="border-left-width: 1px;">&nbsp;</td>' . "\n";
-                        echo $indent . "    <td>&nbsp;</td>\n";
+                        if ( $feed1_routes[$left] ) {
+                            echo $indent . '    <td><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left][2])                        . '"' . $leftchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed1_routes[$left][0])                        . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$left][1]))    . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-right-width: 2px;">' . htmlspecialchars($feed1_routes[$left][2])                        . "</td>\n";
+                            $left++;
+                        } else {
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                        }
+                        if ( $feed2_routes[$right] ) {
+                            echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right][2]) . '"' . $rightchecked . "></td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][0])                           . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right][1]))       . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed2_routes[$right][2])                           . "</td>\n";
+                            $right++;
+                        } else {
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                            echo $indent . "    <td>&nbsp;</td>\n";
+                        }
                     }
                     echo $indent . "</tr>\n";
                 }
@@ -316,12 +390,12 @@
 
                 $sql        = "SELECT DISTINCT    *
                                FROM               routes
-                               ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                               ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END, route_type, route_id;";
 
                 $outerresult = $db->query( $sql );
 
                 while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
-                    array_push( $return_array, array( 'route_id' => $outerrow['route_id'], 'route_short_name' => $outerrow['route_short_name'] ) );
+                    array_push( $return_array, array( $outerrow['route_short_name'], $outerrow['route_type'], $outerrow['route_id'] ) );
                     #echo "<!-- 'route_id' => " . $outerrow['route_id'] . " 'route_short_name' => " . $outerrow['route_short_name'] . "-->\n";
                 }
                 $db->close();
