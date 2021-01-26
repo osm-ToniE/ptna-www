@@ -136,6 +136,8 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Alpes-de-Haute-Provence", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-Hautes-Alpes", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-PAC-Orizo", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Vaucluse", "fr", "Configuration" ); ?>
