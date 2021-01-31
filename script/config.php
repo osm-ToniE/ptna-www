@@ -200,6 +200,35 @@
         return( '' );
     }
 
+    function GetRoutesLink() {
+        global $details_hash;
+        if ( isset($details_hash['ROUTES_LINK']) ) {
+            $link = explode( '=', $details_hash['ROUTES_LINK'], 2 );
+            if ( count($link) > 1 ) {
+                return( $link[0] . '=' . urlencode(urldecode($link[1])) );
+            } else {
+                return( $details_hash['ROUTES_LINK'] );
+            }
+        }
+        return( '' );
+    }
+
+    function GetRoutesDate() {
+        global $details_hash;
+        if ( isset($details_hash['ROUTES_TIMESTAMP_LOC']) ) {
+            return( $details_hash['ROUTES_TIMESTAMP_LOC'] );
+        }
+        return( '' );
+    }
+
+    function GetHtmlFileWebPath() {
+        global $filename_hash;
+        if ( isset($filename_hash['ANALYSISWEBPATH']) ) {
+            return( $filename_hash['ANALYSISWEBPATH'] );
+        }
+        return( '' );
+    }
+
     function GetStartAnalysisDate() {
         global $details_hash;
         if ( isset($details_hash['START_ANALYSIS']) ) {
@@ -220,6 +249,14 @@
         global $details_hash;
         if ( isset($details_hash['OLD_OR_NEW']) && $details_hash['OLD_OR_NEW'] == 'new' ) {
             return( 1 );
+        }
+        return( 0 );
+    }
+
+    function GetHtmlDiff() {
+        global $details_hash;
+        if ( isset($details_hash['HTML_DIFF']) ) {
+            return( $details_hash['HTML_DIFF'] );
         }
         return( 0 );
     }

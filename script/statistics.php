@@ -20,10 +20,15 @@
             $end_download      = GetEndDownloadDate();
             $duration_download = 0;
             $size_download     = GetOsmXmlFileSizeByte();
+            $routes_link       = GetRoutesLink();
+            $routes_date       = GetRoutesDate();
+            $analysis_webpath  = GetHtmlFileWebPath();
             $start_analysis    = GetStartAnalysisDate();
             $end_analysis      = GetEndAnalysisDate();
             $duration_analysis = 0;
             $has_changes       = HasChanges();
+            $html_diff         = GetHtmlDiff();
+            $analysis_webpath  = GetHtmlFileWebPath();
             $diff_webpath      = GetDiffFileWebPath();
             printf( "<tr class=\"statistics-tablerow\">\n" );
             printf( "    <td class=\"statistics-network\">%s</td>\n",       $network           );
@@ -57,6 +62,15 @@
             } else {
                 printf( "    <td class=\"statistics-size\"></td>\n" );
             }
+            if ( $routes_date ) {
+                if ( $routes_link ) {
+                    printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $routes_link, $routes_date );
+                } else {
+                    printf( "    <td class=\"statistics-date\">%s</td>\n", $routes_date );
+                }
+            } else {
+                printf( "    <td class=\"statistics-date\"></td>\n");
+            }
             if ( $start_analysis && $end_analysis ) {
                 $sabs                 = strtotime( $start_analysis );
                 $eabs                 = strtotime( $end_analysis );
@@ -65,14 +79,23 @@
                     $duration_analysis = 1;
                 }
                 $analysis_total_secs += $duration_analysis;
-                printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_analysis    );
+                if ( $analysis_webpath ) {
+                    printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $analysis_webpath, $start_analysis );
+                } else {
+                    printf( "    <td class=\"statistics-date\">%s</td>\n", $start_analysis );
+                }
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_analysis/60, $duration_analysis%60 );
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
                 printf( "    <td class=\"statistics-duration\"></td>\n" );
             }
             if ( $has_changes && $diff_webpath ) {
-                printf( "    <td class=\"statistics-date\"><a href=\"%s\">yes</a></td>\n", $diff_webpath );
+                if ( $html_diff > 0 ) {
+                    $html_diff_str = ' (' .  $html_diff . ')';
+                } else {
+                    $html_diff_str = '';
+                }
+                printf( "    <td class=\"statistics-date\"><a href=\"%s\">yes</a>%s</td>\n", $diff_webpath, $html_diff_str );
                 $count_has_changes++;
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
@@ -100,10 +123,10 @@
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
         printf( "    <th class=\"statistics-date\"></th>\n" );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
         printf( "    <th class=\"statistics-date\">%d</th>\n", $count_has_changes );
         printf( "</tr>\n" );
     }
 
 ?>
-
