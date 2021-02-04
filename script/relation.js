@@ -303,7 +303,7 @@ function handleMember( relation_id, index ) {
             var match       = "other";
             var html        = "";
             var img         = 'none';
-            var role        = object['members'][index]["role"];
+            var role        = object['members'][index]["role"].replace(/ /g,'<blank>');
             var type        = object['members'][index]["type"];
             var id          = object['members'][index]["ref"];
             var name        = '';
@@ -385,6 +385,8 @@ function handleMember( relation_id, index ) {
                         if ( is_PTv2 ) {
                             if ( role == "" || role== "hail_and_ride" ) {
                                 match = "route";
+                            } else {
+                                role = role.replace(/ /, '<blank>');
                             }
                         } else {
                             if ( role == "" || role.match(/forward/) || role.match(/backward/) || role == "hail_and_ride" ) {
