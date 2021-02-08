@@ -59,11 +59,15 @@
 
                     <?php CreateNewFullEntry( "DE-BW-RVF", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-RVL", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VPE", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VVS", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BW-WTV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
 
