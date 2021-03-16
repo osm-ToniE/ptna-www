@@ -123,6 +123,8 @@
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
         printf( "    <th class=\"statistics-network\">%d</th>\n", $count );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\">%d</th>\n", $file_total );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
