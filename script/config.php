@@ -282,6 +282,22 @@
         }
     }
 
+    function GetDetailsTZ() {
+        global $details_hash;
+        if ( isset($details_hash['TZ']) ) {
+            return( $details_hash['TZ'] );
+        }
+        return( '' );
+    }
+
+    function GetDetailsUTC() {
+        global $details_hash;
+        if ( isset($details_hash['UTC']) ) {
+            return( $details_hash['UTC'] );
+        }
+        return( '' );
+    }
+
     function PrintOptionDetails( $lang ) {
         global $options_hash;
 

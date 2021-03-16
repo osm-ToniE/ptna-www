@@ -30,8 +30,12 @@
             $html_diff         = GetHtmlDiff();
             $analysis_webpath  = GetHtmlFileWebPath();
             $diff_webpath      = GetDiffFileWebPath();
+            $tz                = GetDetailsTZ();
+            $utc               = GetDetailsUTC();
             printf( "<tr class=\"statistics-tablerow\">\n" );
-            printf( "    <td class=\"statistics-network\">%s</td>\n",       $network           );
+            printf( "    <td class=\"statistics-network\">%s</td>\n", $network );
+            printf( "    <td class=\"statistics-name\">%s</td>\n",    $utc     );
+            printf( "    <td class=\"statistics-name\">%s</td>\n",    $tz      );
             if ( $start_download && $end_download ) {
                 $sabs                 = strtotime( $start_download );
                 $eabs                 = strtotime( $end_download );
