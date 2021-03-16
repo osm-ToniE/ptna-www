@@ -14,12 +14,9 @@
 
         <h2 id="LI"><img src="/img/Liechtenstein32.png" alt="Flagge Liechtenstein" /> Auswertungen für Liechtenstein</h2>
 
-      <?php include $inc_lang.'results-head.inc' ?>
+            <?php include $inc_lang.'results-head.inc' ?>
 
-            <hr />
-
-            <h2 id="verkehrsverbuende">Verkehrsverbünde in Liechtenstein</h2>
-            <table id="networksLIVerbund">
+            <table id="networksLI">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
