@@ -30,12 +30,14 @@
             $html_diff         = GetHtmlDiff();
             $analysis_webpath  = GetHtmlFileWebPath();
             $diff_webpath      = GetDiffFileWebPath();
-            $tz                = GetDetailsTZ();
+            $tzname            = GetDetailsTZNAME();
+            $tzshort           = GetDetailsTZSHORT();
             $utc               = GetDetailsUTC();
             printf( "<tr class=\"statistics-tablerow\">\n" );
             printf( "    <td class=\"statistics-network\">%s</td>\n", $network );
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $utc     );
-            printf( "    <td class=\"statistics-name\">%s</td>\n",    $tz      );
+            printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzshort );
+            printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzname  );
             if ( $start_download && $end_download ) {
                 $sabs                 = strtotime( $start_download );
                 $eabs                 = strtotime( $end_download );
@@ -123,6 +125,7 @@
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
         printf( "    <th class=\"statistics-network\">%d</th>\n", $count );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\">%d</th>\n", $file_total );

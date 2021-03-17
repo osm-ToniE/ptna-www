@@ -282,10 +282,22 @@
         }
     }
 
-    function GetDetailsTZ() {
+    function GetDetailsTZNAME() {
         global $details_hash;
-        if ( isset($details_hash['TZ']) ) {
+        if ( isset($details_hash['TZNAME']) ) {
+            return( $details_hash['TZNAME'] );
+        } elseif ( isset($details_hash['TZ']) ) {
             return( $details_hash['TZ'] );
+        }
+        return( '' );
+    }
+
+    function GetDetailsTZSHORT() {
+        global $details_hash;
+        if ( isset($details_hash['TZSHORT']) ) {
+            $details_hash['TZSHORT'] = str_replace( "-", "UTC-", $details_hash['TZSHORT'] );
+            $details_hash['TZSHORT'] = str_replace( "+", "UTC+", $details_hash['TZSHORT'] );
+            return( $details_hash['TZSHORT'] );
         }
         return( '' );
     }
