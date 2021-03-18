@@ -180,11 +180,12 @@ function route_osm() {
         var stop_listnode = stop_table.getElementsByTagName( "tbody" )[0];
         var stop_list     = stop_listnode.getElementsByTagName( "tr" );
 
-        var lat         = "";
-        var lon         = "";
-        var stop_name   = "";
-        var stop_id     = "";
-        var node_id     = -10000;
+        var lat                 = "";
+        var lon                 = "";
+        var stop_name           = "";
+        var stop_id             = "";
+        var node_id             = -10000;
+        var node_id_of_stop_id  = {};
 
         //    evaluate all gtfs-single-trip rows
 
@@ -228,15 +229,16 @@ function route_osm() {
                 }
             }
             if ( lat && lon && stop_name && stop_id ) {
-                osm_xml += "    <node id='" + node_id + "' action='create' lat='" + lat + "' lon='" + lon + "'>\r\n";
-                osm_xml += "        <tag k='name' v='" + stop_name + "' />\r\n";
-                osm_xml += "        <tag k='gtfs:stop_id' v='" + stop_id + "' />\r\n";
-                osm_xml += "        <tag k='public_transport' v='platform' />\r\n";
-                osm_xml += "    </node>\r\n";
+                if ( ! node_id_of_stop_id[stop_id] ) {
+                    node_id_of_stop_id[stop_id] = node_id--;
+                    osm_xml += "    <node id='" + node_id_of_stop_id[stop_id] + "' action='create' lat='" + lat + "' lon='" + lon + "'>\r\n";
+                    osm_xml += "        <tag k='name' v='" + stop_name + "' />\r\n";
+                    osm_xml += "        <tag k='gtfs:stop_id' v='" + stop_id + "' />\r\n";
+                    osm_xml += "        <tag k='public_transport' v='platform' />\r\n";
+                    osm_xml += "    </node>\r\n";
+                }
 
-                member_list += "        <member type='node' ref='" + node_id + "' role='platform' />\r\n";
-
-                node_id--;
+                member_list += "        <member type='node' ref='" + node_id_of_stop_id[stop_id] + "' role='platform' />\r\n";
             }
         }
     }
