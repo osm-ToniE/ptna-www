@@ -138,9 +138,13 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Hautes-Alpes", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-Mistral", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-PAC-Orizo", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Vaucluse", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-PAC-Var", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Zou", "fr", "Configuration" ); ?>
 
