@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
-        include( '../../script/gtfs.php'        );
         include( '../../script/parse_query.php' );
+        include( '../../script/gtfs.php'        );
         if ( $release_date ) {
             $feed_and_release = $feed . ' - ' . $release_date;
         } else {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
-        include( '../../script/gtfs.php'        );
         include( '../../script/parse_query.php' );
+        include( '../../script/gtfs.php'        );
 ?>
 <html lang="<?php echo $html_lang ?>">
 
@@ -30,9 +30,7 @@
         $route_short_name = 'not set';
     }
     $trips            = GetTripDetails( $feed, $release_date, $trip_id );
-    $is_invalid       = $trips["ptna_is_invalid"];
-    $is_wrong         = $trips["ptna_is_wrong"];
-    $comment          = $trips["ptna_comment"];
+    $has_comments     = $trips["has_comments"];
     $shape_id         = $trips["shape_id"];
     if ( $release_date ) {
         $feed_and_release = $feed . ' - ' . $release_date;
@@ -82,12 +80,12 @@
                         echo "                    Bemærk: GTFS-dataene kan indeholde fejl, hvilket indikerer en unøjagtig kørehistorik, være ufuldstændig.\n";
                         echo "                </p>\n";
 
-                        if ( $comment ) {
+                        if ( $has_comments ) {
                             echo "                <p>\n";
                             echo "                    Denne variant er blevet kommenteret:\n";
                             echo "                </p>\n";
                             echo "                <ul>\n";
-                            echo "                    <li><strong>"  . preg_replace("/\n/","</strong></li>\n                    <li><strong>", HandlePtnaComment($comment)) . "</strong></li>\n";
+                            echo "                    <li><strong>"  . preg_replace("/<br \/>/","</strong></li>\n                    <li><strong>", HandlePtnaComment($trips)) . "</strong></li>\n";
                             echo "                </ul>\n";
                         }
                     ?>

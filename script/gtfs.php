@@ -1,5 +1,21 @@
 <?php
 
+    $gtfs_strings['subroute_of']                    = 'Trip is subroute of:';
+    $gtfs_strings['suspicious_start']               = 'Suspicious start of trip: same';
+    $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
+    $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
+
+    if ( $lang ) {
+        if ( $lang == 'en' ) {
+            ;
+        } elseif ( $lang == 'de' ) {
+            $gtfs_strings['subroute_of']                    = 'Fahrt ist Teilroute von:';
+            $gtfs_strings['suspicious_start']               = 'Verdächtiger Anfang der Fahrt: gleiche';
+            $gtfs_strings['suspicious_end']                 = 'Verdächtiges Ende der Fahrt: gleiche';
+            $gtfs_strings['same_names_but_different_ids']   = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
+        }
+    }
+
     function FindGtfsSqliteDb( $feed, $release_date ) {
         global $path_to_work;
 
@@ -449,14 +465,18 @@
                     if ( $prev['release_date'] ) {
                         if ( $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
+                            $compare_img_title  = 'vergleiche Versionen';
                         } else {
                             $previous_img_title = 'previous version as of ' . $prev['release_date'];
+                            $compare_img_title  = 'compare versions';
                         }
                     } else {
                         if ( $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version';
+                            $compare_img_title  = 'vergleiche Versionen';
                         } else {
                             $previous_img_title = 'previous version';
+                            $compare_img_title  = 'compare versions';
                         }
                     }
                 }
@@ -464,10 +484,11 @@
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?feed=' . urlencode($feed) . '">' . htmlspecialchars($feed) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a> ';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a> ';
+                    echo '<a href="/gtfs/compare-feeds.php?feed=' . urlencode($feed) . '"><img src="/img/compare19.png" title="' . htmlspecialchars($compare_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
@@ -582,10 +603,11 @@
                 }
                 echo '                            <td class="gtfs-text"><a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '">' . htmlspecialchars($details) . '</a> ';
                 if ( $LongTermSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a> ';
                 }
                 if ( $PreviousSqliteDb ) {
-                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a>';
+                    echo '<a href="/en/gtfs-details.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a> ';
+                    echo '<a href="/gtfs/compare-feeds.php?feed=' . urlencode($feed) . '"><img src="/img/compare19.png" title="' . htmlspecialchars($compare_img_title) . '" /></a>';
                 }
                 echo '</td>' . "\n";
                 echo '                        </tr>' . "\n";
@@ -756,19 +778,22 @@
                         } else {
                             echo '                            <td class="gtfs-text"><span class="agency_name">' . htmlspecialchars($outerrow["agency_name"]) . '</span></td>' . "\n";
                         }
-                        $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
-                                            FROM   routes
-                                            WHERE  route_id='%s';",
-                                            SQLite3::escapeString($outerrow["route_id"])
-                                            );
 
-                        $ptnarow = $db->querySingle( $sql, true );
+                        $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_routes_comments';";
+                        $sql_master = $db->querySingle( $sql, true );
 
-#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
+                        if ( $sql_master['name'] ) {
+                            $sql    = sprintf( "SELECT *
+                                                FROM   ptna_routes_comments
+                                                WHERE  route_id='%s';",
+                                                SQLite3::escapeString($outerrow["route_id"])
+                                                );
+                            $ptnarow = $db->querySingle( $sql, true );
+
+                            echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow) . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-comment">&nbsp;</td>' . "\n";
+                        }
                         echo '                        </tr>' . "\n";
                     }
                     $db->close();
@@ -842,6 +867,15 @@
                     sort( $trip_array );
 
                     $index = 1;
+
+                    $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
+                    $sql_master = $db->querySingle( $sql, true );
+                    if ( $sql_master['name'] ) {
+                        $join_statement = 'JOIN   ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
+                    } else {
+                        $join_statement = '';
+                    }
+
                     foreach ( $trip_array as $stop_names ) {
 
                         $stop_name_array = explode( '  |', $stop_names );
@@ -850,12 +884,13 @@
                         $last_stop_name  = array_shift( $stop_name_array ); # last stop name ist really the second in the list
                         $via_stop_names  = implode( ' => ', $stop_name_array );
 
-                        $sql    = sprintf( "SELECT ptna_is_invalid,ptna_is_wrong,ptna_comment
+                        $sql    = sprintf( "SELECT *
                                             FROM   trips
-                                            WHERE  trip_id='%s';",
-                                            SQLite3::escapeString($trip_id)
+                                            %s
+                                            WHERE  trips.trip_id='%s';",
+                                            $join_statement, SQLite3::escapeString($trip_id)
                                          );
-
+echo "<!-- " . $sql . " -->\n";
                         $ptnarow = $db->querySingle( $sql, true );
 
                         $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $trip_id );
@@ -885,14 +920,10 @@
                         } else {
                             echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_array["end_date"]) . '</td>' . "\n";
                         }
-                    echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
+                        echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($last_stop_name)             . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-#                        if ( $ptnarow["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-#                        echo '                            <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                        echo '                            <td class="gtfs-comment">' . HandlePtnaComment($ptnarow["ptna_comment"]) . '</td>' . "\n";
+                        echo '                            <td class="gtfs-comment">'  . HandlePtnaComment($ptnarow)                   . '</td>' . "\n";
                         echo '                        </tr>' . "\n";
                         $index++;
                     }
@@ -1303,11 +1334,11 @@
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
-                                        FROM     stop_times
-                                        JOIN     stops ON stop_times.stop_id = stops.stop_id
-                                        WHERE    stop_times.trip_id='%s'
-                                        ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
-                                        SQLite3::escapeString($trip_id)
+                                         FROM     stop_times
+                                         JOIN     stops ON stop_times.stop_id = stops.stop_id
+                                         WHERE    stop_times.trip_id='%s'
+                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
+                                         SQLite3::escapeString($trip_id)
                                     );
 
                         $result = $db->query( $sql );
@@ -1329,15 +1360,11 @@
                             $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
                             printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
                             echo '</td>' . "\n";
-                            echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])        . '</td>' . "\n";
+                            echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])  . '</td>' . "\n";
                             echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])        . '</td>' . "\n";
                             echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])        . '</td>' . "\n";
                             echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])         . '</td>' . "\n";
-    #                        if ( $row["ptna_is_invalid"] ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-    #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-    #                        if ( $row["ptna_is_wrong"]   ) { $checked = '<img src="/img/CheckMark.png" width=32 height=32 alt="checked" />'; } else { $checked = ''; }
-    #                        echo '                                <td class="gtfs-checkbox">' . $checked . '</td>' . "\n";
-                            echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
+                            echo '                                <td class="gtfs-comment">'  . HandlePtnaComment($row)                   . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
 
@@ -1829,10 +1856,10 @@
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT route_short_name
-                                        FROM   routes
-                                        JOIN   trips ON trips.route_id = routes.route_id
-                                        WHERE  trip_id='%s';",
-                                        SQLite3::escapeString($trip_id)
+                                         FROM   routes
+                                         JOIN   trips ON trips.route_id = routes.route_id
+                                         WHERE  trip_id='%s';",
+                                         SQLite3::escapeString($trip_id)
                                     );
 
                         $row = $db->querySingle( $sql, true );
@@ -2000,14 +2027,30 @@
 
                     $trip_id    = $trip['trip_id'];
 
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+                        $join_statement = 'JOIN   ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
+                    } else {
+                        $join_statement = '';
+                    }
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT *
                                          FROM   trips
-                                         WHERE  trip_id='%s';",
-                                         SQLite3::escapeString($trip_id)
+                                         %s
+                                         WHERE  trips.trip_id='%s';",
+                                         $join_statement, SQLite3::escapeString($trip_id)
                                       );
-
                         $row = $db->querySingle( $sql, true );
+
+                        if ( $row['commment']                     ||
+                             $row['subroute_of']                  ||
+                             $row['suspicious_start']             ||
+                             $row['suspicious_end']               ||
+                             $row['same_names_but_different_ids']    ) {
+                            $row['has_comments'] = 'yes';
+                        }
 
                         return $row;
                     }
@@ -2485,33 +2528,47 @@
                         echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["count_subroute"] ) {
-                        echo '                        <tr class="statistics-tablerow">' . "\n";
-                        echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUBR">'  . htmlspecialchars($ptna["count_subroute"]) . '</a></td>' . "\n";
-                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                        echo '                        </tr>' . "\n";
-                    }
-                    if ( $ptna["count_same_names_but_different_ids"] ) {
-                        echo '                        <tr class="statistics-tablerow">' . "\n";
-                        echo '                            <td class="statistics-name">Trips with identical stop-names but different stop-ids</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=IDENT">'  . htmlspecialchars($ptna["count_same_names_but_different_ids"]) . '</a></td>' . "\n";
-                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                        echo '                        </tr>' . "\n";
-                    }
-                    if ( $ptna["count_suspicious_start"] ) {
-                        echo '                        <tr class="statistics-tablerow">' . "\n";
-                        echo '                            <td class="statistics-name">Trips with suspicious start</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPSTART">'  . htmlspecialchars($ptna["count_suspicious_start"]) . '</a></td>' . "\n";
-                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                        echo '                        </tr>' . "\n";
-                    }
-                    if ( $ptna["count_suspicious_end"] ) {
-                        echo '                        <tr class="statistics-tablerow">' . "\n";
-                        echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
-                        echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count_suspicious_end"]) . '</a></td>' . "\n";
-                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                        echo '                        </tr>' . "\n";
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE subroute_of != '';" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( $ptna["count"] ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
+                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUBR">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
+                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_names_but_different_ids != '';" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( $ptna["count"] ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">Trips with identical stop-names but different stop-ids</td>' . "\n";
+                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=IDENT">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
+                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_start != '';" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( $ptna["count"] ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">Trips with suspicious start</td>' . "\n";
+                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPSTART">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
+                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_end != '';" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( $ptna["count"] ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">Trips with suspicious end</td>' . "\n";
+                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
                     }
                 }
 
@@ -2627,47 +2684,63 @@
 
                     $db = new SQLite3( $SqliteDb );
 
-                    if ( $topic ) {
-                        $topci_en['SUBR']       = 'Sub-route of';
-                        $topci_de['SUBR']       = 'Teilroute von';
-                        $topci_en['IDENT']      = 'Trips have identical';
-                        $topci_de['IDENT']      = 'Fahrten haben identische';
-                        $topci_en['SUSPSTART']  = 'Suspicious start of';
-                        $topci_de['SUSPSTART']  = 'Anfang der Fahrt';
-                        $topci_en['SUSPEND']    = 'Suspicious end of';
-                        $topci_de['SUSPEND']    = 'Ende der Fahrt';
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
+                    $sql_master = $db->querySingle( $sql, true );
 
-                        if ( !isset($topci_en[$topic]) ) {
-                            $topci_en[$topic] = '__xxx__';
+                    if ( $sql_master['name'] ) {
+
+                        $result = $db->query( "PRAGMA table_info(ptna_trips_comments);" );
+
+                        $col_name['SUBR']      = '';
+                        $col_name['SUSPSTART'] = '';
+                        $col_name['SUSPEND']   = '';
+                        $col_name['IDENT']     = '';
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            if ( $row["name"] == 'subroute_of' ) {
+                                $col_name['SUBR']  = 'subroute_of';
+                            }
+                            elseif ( $row["name"] == 'suspicious_start' ) {
+                                $col_name['SUSPSTART']  = 'suspicious_start';
+                            }
+                            elseif ( $row["name"] == 'suspicious_end' ) {
+                                $col_name['SUSPEND']  = 'suspicious_end';
+                            }
+                            elseif ( $row["name"] == 'same_names_but_different_ids' ) {
+                                $col_name['IDENT']  = 'same_names_but_different_ids';
+                            }
                         }
-                        if ( !isset($topci_de[$topic]) ) {
-                            $topci_de[$topic] = '__xxx__';
+
+                        if ( $topic ) {
+                            $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
+                                             FROM               ptna_trips_comments
+                                             JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
+                                             JOIN               routes             ON   trips.route_id              = routes.route_id
+                                             WHERE              %s != ''
+                                             ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                             $col_name[$topic], $col_name[$topic]
+                                        );
+                        } else {
+                            $col_names = sprintf( "%s,%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
+                            $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
+                            $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
+                                             FROM               ptna_trips_comments
+                                             JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
+                                             JOIN               routes             ON   trips.route_id              = routes.route_id
+                                             WHERE              %s
+                                             ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                             $col_names, $where_ors
+                                        );
                         }
 
-                        $sql = sprintf( "SELECT             routes.route_id,route_short_name,trip_id,trips.ptna_comment
-                                         FROM               trips
-                                         JOIN               routes             ON   trips.route_id = routes.route_id
-                                         WHERE              trips.ptna_comment LIKE '%%%s%%' OR trips.ptna_comment LIKE '%%%s%%' OR trips.ptna_comment LIKE '%%%s%%'
-                                         ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
-                                         SQLite3::escapeString($topic), SQLite3::escapeString($topci_en[$topic]), SQLite3::escapeString($topci_de[$topic])
-                                      );
-                    } else {
-                        $sql = sprintf( "SELECT             routes.route_id,route_short_name,trip_id,trips.ptna_comment
-                                         FROM               trips
-                                         JOIN               routes             ON   trips.route_id = routes.route_id
-                                         WHERE              trips.ptna_comment !=''
-                                         ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;"
-                                      );
-                    }
+                        $result = $db->query( $sql );
 
-                    $result = $db->query( $sql );
-
-                    while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                        echo '                            <tr class="gtfs-tablerow">'    . "\n";
-                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
-                        echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
-                        echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row["ptna_comment"]) . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            echo '                            <tr class="gtfs-tablerow">'    . "\n";
+                            echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
+                            echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
+                            echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row) . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
                     }
 
                     $db->close();
@@ -2902,8 +2975,25 @@
     }
 
 
-    function HandlePtnaComment( $string ) {
-        $string = preg_replace( "/::[A-Z]+::/", "", $string );
+    function HandlePtnaComment( $array ) {
+        global $gtfs_strings;
+        $string = '';
+        if ( $array['comment'] ) {
+            $string = preg_replace( "/::[A-Z]+::/", "", $array['comment'] );
+        }
+        if ( $array['suspicious_start'] ) {
+            $string .= "\n" . $gtfs_strings['suspicious_start'] . " '" . $array['suspicious_start'] . "'";
+        }
+        if ( $array['suspicious_end'] ) {
+            $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $array['suspicious_end'] . "'";
+        }
+        if ( $array['subroute_of'] ) {
+            $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,/",", ", $array['subroute_of'] );
+        }
+        if ( $array['same_names_but_different_ids'] ) {
+            $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,/",", ", $array['same_names_but_different_ids'] );
+        }
+        $string = preg_replace("/^\n/","", $string );
         return preg_replace("/\n/","<br />", htmlspecialchars($string) );
     }
 
