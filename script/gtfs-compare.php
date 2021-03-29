@@ -231,7 +231,7 @@
                         if ( $feed1_routes[$left] == $feed2_routes[$right] ) {
                             echo $indent . '    <td><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left][2])                         . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed1_routes[$left][0])                         . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right][1]))    . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$left][1]))    . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-right-width: 2px;">' . htmlspecialchars($feed1_routes[$left][2])                         . "</td>\n";
                             $left++;
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right][2]) . '"' . $rightchecked . "></td>\n";
@@ -242,7 +242,7 @@
                         } elseif ( $feed1_routes[$left] < $feed2_routes[$right] ) {
                             echo $indent . '    <td><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left][2])                         . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars($feed1_routes[$left][0])                         . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right][1]))    . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name">'                                  . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$left][1]))    . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-right-width: 2px;">' . htmlspecialchars($feed1_routes[$left][2])                         . "</td>\n";
                             $left++;
                             echo $indent . "    <td>&nbsp;</td>\n";
@@ -390,7 +390,7 @@
 
                 $sql        = "SELECT DISTINCT    *
                                FROM               routes
-                               ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END, route_type, route_id;";
+                               ORDER BY route_short_name, route_id, route_type;";
 
                 $outerresult = $db->query( $sql );
 
