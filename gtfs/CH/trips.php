@@ -19,10 +19,8 @@
                 if ( !$route_short_name ) {
                      $route_short_name = '__not_set__';
                 }
-                $ptna             = GetRouteDetails( $feed, $release_date, $route_id );
-                $is_invalid       = $ptna["ptna_is_invalid"];
-                $is_wrong         = $ptna["ptna_is_wrong"];
-                $comment          = $ptna["ptna_comment"];
+                $ptna    = GetRouteDetails( $feed, $release_date, $route_id );
+                $comment = $ptna["comment"];
                 if ( $release_date ) {
                     $feed_and_release = $feed . ' - ' . $release_date;
                 } else {

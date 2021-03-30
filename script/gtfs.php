@@ -659,6 +659,23 @@
 
                     $ptna       = $db->querySingle( $sql, true );
 
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_routes';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+                        $sql        = "SELECT DISTINCT    *
+                                       FROM               routes
+                                       LEFT OUTER JOIN    ptna_routes ON   routes.route_id  = ptna_routes.route_id
+                                       JOIN               agency      ON   routes.agency_id = agancy.agency_id
+                                       ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                    } else {
+                        $sql        = "SELECT DISTINCT    *
+                                       FROM               routes
+                                       JOIN               agency      ON   routes.agency_id = agancy.agency_id
+                                       ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                        }
+
                     $sql        = "SELECT DISTINCT    *
                                    FROM               routes
                                    JOIN               agency ON routes.agency_id = agency.agency_id
@@ -871,7 +888,7 @@
                     $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
                     if ( $sql_master['name'] ) {
-                        $join_statement = 'JOIN   ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
+                        $join_statement = 'LEFT OUTER JOIN ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
                     } else {
                         $join_statement = '';
                     }
@@ -976,6 +993,16 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_stops';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( $sql_master['name'] ) {
+                        $join_ptna_stops = 'LEFT OUTER JOIN ptna_stops ON stops.stop_id = ptna_stops.stop_id';
+                    } else {
+                        $join_ptna_stops = '';
+                    }
+
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
                                             WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
@@ -1005,22 +1032,24 @@
 
                         $sql = sprintf( "SELECT   *
                                          FROM     stops
+                                         %s
                                          JOIN     stop_times ON stop_times.stop_id = stops.stop_id
                                          WHERE    stop_times.trip_id='%s'
                                          ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC
                                          LIMIT 1;",
-                                         SQLite3::escapeString($rep_trip_id)
+                                         $join_ptna_stops, SQLite3::escapeString($rep_trip_id)
                                       );
 
                         $stops1 = $db->querySingle( $sql, true );
 
                         $sql = sprintf( "SELECT   *
                                          FROM     stops
+                                         %s
                                          JOIN     stop_times ON stop_times.stop_id = stops.stop_id
                                          WHERE    stop_times.trip_id='%s'
                                          ORDER BY CAST (stop_times.stop_sequence AS INTEGER) DESC
                                          LIMIT 1;",
-                                         SQLite3::escapeString($rep_trip_id)
+                                         $join_ptna_stops, SQLite3::escapeString($rep_trip_id)
                                       );
 
                         $stops2 = $db->querySingle( $sql, true );
@@ -2079,12 +2108,23 @@
 
                     $db  = new SQLite3( $SqliteDb );
 
-                    $sql = sprintf( "SELECT *
-                                     FROM   routes
-                                     WHERE  route_id='%s';",
-                                     SQLite3::escapeString($route_id)
-                                  );
+                    $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_routes_comments';";
+                    $sql_master = $db->querySingle( $sql, true );
 
+                    if ( $sql_master['name'] ) {
+                        $sql = sprintf( "SELECT *
+                                         FROM   routes
+                                         LEFT OUTER JOIN ptna_routes_comments ON routes.route_id = ptna_routes_comments.route_id
+                                         WHERE  routes.route_id='%s';",
+                                         SQLite3::escapeString($route_id)
+                                      );
+                    } else {
+                        $sql = sprintf( "SELECT *
+                                         FROM   routes
+                                         WHERE  route_id='%s';",
+                                         SQLite3::escapeString($route_id)
+                                      );
+                    }
                     $row = $db->querySingle( $sql, true );
 
                     return $row;
@@ -2434,6 +2474,20 @@
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["stops_before"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Stops before</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stops_before"]) ) . '</td>' . "\n";
+                        echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                        echo '                        </tr>' . "\n";
+                    }
+                    if ( $ptna["stops_after"] ) {
+                        echo '                        <tr class="statistics-tablerow">' . "\n";
+                        echo '                            <td class="statistics-name">Number of Stops after</td>' . "\n";
+                        echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stops_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
@@ -2975,23 +3029,27 @@
     }
 
 
-    function HandlePtnaComment( $array ) {
+    function HandlePtnaComment( $param ) {
         global $gtfs_strings;
         $string = '';
-        if ( $array['comment'] ) {
-            $string = preg_replace( "/::[A-Z]+::/", "", $array['comment'] );
-        }
-        if ( $array['suspicious_start'] ) {
-            $string .= "\n" . $gtfs_strings['suspicious_start'] . " '" . $array['suspicious_start'] . "'";
-        }
-        if ( $array['suspicious_end'] ) {
-            $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $array['suspicious_end'] . "'";
-        }
-        if ( $array['subroute_of'] ) {
-            $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $array['subroute_of'] );
-        }
-        if ( $array['same_names_but_different_ids'] ) {
-            $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $array['same_names_but_different_ids'] );
+        if ( is_string($param) ) {
+            $string = preg_replace( "/::[A-Z]+::/", "", $param );
+        } else {
+            if ( $param['comment'] ) {
+                $string = preg_replace( "/::[A-Z]+::/", "", $param['comment'] );
+            }
+            if ( $param['suspicious_start'] ) {
+                $string .= "\n" . $gtfs_strings['suspicious_start'] . " '" . $param['suspicious_start'] . "'";
+            }
+            if ( $param['suspicious_end'] ) {
+                $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $param['suspicious_end'] . "'";
+            }
+            if ( $param['subroute_of'] ) {
+                $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
+            }
+            if ( $param['same_names_but_different_ids'] ) {
+                $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $param['same_names_but_different_ids'] );
+            }
         }
         $string = preg_replace("/^\n/","", $string );
         return preg_replace("/\n/","<br />", htmlspecialchars($string) );
