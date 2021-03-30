@@ -12,7 +12,7 @@
                         Compare two GTFS datasets step by step:
                     </p>
                     <ol>
-                        <li>Enter here (or even two) GTFS feeds which shall be compared</li>
+                        <li>Enter here one (or even two) GTFS feeds which shall be compared</li>
                         <li>On the next page, select release dates for the two GTFS feeds</li>
                         <li>Afterwards, select a route for each of the two releases</li>
                         <li>Finally, select a trip or shape for each of the two routes</li>
