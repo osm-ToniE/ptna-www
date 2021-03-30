@@ -890,7 +890,7 @@
                                             WHERE  trips.trip_id='%s';",
                                             $join_statement, SQLite3::escapeString($trip_id)
                                          );
-echo "<!-- " . $sql . " -->\n";
+
                         $ptnarow = $db->querySingle( $sql, true );
 
                         $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $trip_id );
@@ -2988,10 +2988,10 @@ echo "<!-- " . $sql . " -->\n";
             $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $array['suspicious_end'] . "'";
         }
         if ( $array['subroute_of'] ) {
-            $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,/",", ", $array['subroute_of'] );
+            $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $array['subroute_of'] );
         }
         if ( $array['same_names_but_different_ids'] ) {
-            $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,/",", ", $array['same_names_but_different_ids'] );
+            $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $array['same_names_but_different_ids'] );
         }
         $string = preg_replace("/^\n/","", $string );
         return preg_replace("/\n/","<br />", htmlspecialchars($string) );
