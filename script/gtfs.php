@@ -667,19 +667,14 @@
                         $sql        = "SELECT DISTINCT    *
                                        FROM               routes
                                        LEFT OUTER JOIN    ptna_routes ON   routes.route_id  = ptna_routes.route_id
-                                       JOIN               agency      ON   routes.agency_id = agancy.agency_id
+                                       JOIN               agency      ON   routes.agency_id = agency.agency_id
                                        ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
                     } else {
                         $sql        = "SELECT DISTINCT    *
                                        FROM               routes
-                                       JOIN               agency      ON   routes.agency_id = agancy.agency_id
+                                       JOIN               agency      ON   routes.agency_id = agency.agency_id
                                        ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
-                        }
-
-                    $sql        = "SELECT DISTINCT    *
-                                   FROM               routes
-                                   JOIN               agency ON routes.agency_id = agency.agency_id
-                                   ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                    }
 
                     $outerresult = $db->query( $sql );
 
@@ -727,18 +722,23 @@
 
                         $innerresult = $db->query( $sql );
 
-                        $min_start_date = '20500101';
-                        $max_end_date   = '19700101';
-                        while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
-                            $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $innerrow["trip_id"] );
-                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
-                                if ( $start_end_array["start_date"] < $min_start_date ) {
-                                    $min_start_date = $start_end_array["start_date"];
+                        if ( $outerrow['min_start_date'] && $outerrow['max_end_date'] ) {  # from ptna_routes, filled during gtfs-aggregation.pl
+                            $min_start_date = $outerrow["min_start_date"];
+                            $max_end_date   = $outerrow["max_end_date"];
+                        } else {
+                            $min_start_date = '20500101';
+                            $max_end_date   = '19700101';
+                            while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
+                                $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $innerrow["trip_id"] );
+                                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
+                                    if ( $start_end_array["start_date"] < $min_start_date ) {
+                                        $min_start_date = $start_end_array["start_date"];
+                                    }
                                 }
-                            }
-                            if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
-                                if ( $start_end_array["end_date"] > $max_end_date ) {
-                                    $max_end_date = $start_end_array["end_date"];
+                                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
+                                    if ( $start_end_array["end_date"] > $max_end_date ) {
+                                        $max_end_date = $start_end_array["end_date"];
+                                    }
                                 }
                             }
                         }
@@ -1423,6 +1423,7 @@
         $return_array["start_date"] = '20500101';
         $return_array["end_date"]   = '19700101';
 
+        $has_min_max_dates    = 0;
         $has_list_service_ids = 0;
 
         if ( $db ) {
@@ -1444,7 +1445,10 @@
                     if ( $result['trip_id'] ) {
                         $trip_id = $result['trip_id'];
                     }
-                    if ( $result['list_service_ids'] ) {
+                    if ( $result['min_start_date'] && $result['max_end_date'] ) {   # from ptna_trips, filled during gtfs-aggregation.pl
+                        $return_array["start_date"] = $result["min_start_date"];
+                        $return_array["end_date"]   = $result["max_end_date"];
+                    } elseif ( $result['list_service_ids'] ) {
                         $has_list_service_ids = 1;
                         $temp_array = array();
                         $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
@@ -1469,7 +1473,7 @@
                     }
                 }
 
-                if ( $has_list_service_ids == 0 ) {
+                if ( $has_min_max_dates == 0 && $has_list_service_ids == 0 ) {
                     $sql = sprintf( "SELECT start_date,end_date
                                      FROM   calendar
                                      JOIN   trips ON trips.service_id = calendar.service_id
