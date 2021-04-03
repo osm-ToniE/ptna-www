@@ -664,13 +664,16 @@
                     $sql_master = $db->querySingle( $sql, true );
 
                     if ( $sql_master['name'] ) {
-                        $sql        = "SELECT DISTINCT    *
+                        # 1. ptna_routes because ptna_routes.route_id can be ''
+                        # 2. routes      because routes.route_id is what we want and
+                        #                2nd appearance overwrites 1st appearance of identical column names in the returned hash
+                        $sql        = "SELECT DISTINCT    ptna_routes.*,routes.*,agency.*
                                        FROM               routes
                                        LEFT OUTER JOIN    ptna_routes ON   routes.route_id  = ptna_routes.route_id
                                        JOIN               agency      ON   routes.agency_id = agency.agency_id
                                        ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
                     } else {
-                        $sql        = "SELECT DISTINCT    *
+                        $sql        = "SELECT DISTINCT    routes.*,agency.*
                                        FROM               routes
                                        JOIN               agency      ON   routes.agency_id = agency.agency_id
                                        ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
@@ -768,7 +771,7 @@
                             }
                             echo '                            <td class="' . $class . '"><span class="valid_from">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</span></td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-date"><span class="valid_from">' . htmlspecialchars(min_start_date) . '</span></td>' . "\n";
+                            echo '                            <td class="gtfs-date"><span class="valid_from">' . htmlspecialchars($min_start_date) . '</span></td>' . "\n";
                         }
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $max_end_date, $parts ) ) {
                             $class = "gtfs-date";
@@ -2116,7 +2119,10 @@
                     $sql_master = $db->querySingle( $sql, true );
 
                     if ( $sql_master['name'] ) {
-                        $sql = sprintf( "SELECT *
+                        # 1. ptna_routes_comments   because ptna_routes_comments.route_id can be ''
+                        # 2. routes                 because routes.route_id is what we want and
+                        #                           2nd appearance overwrites 1st appearance of identical column names in the returned hash
+                        $sql = sprintf( "SELECT ptna_routes_comments.*,routes.*
                                          FROM   routes
                                          LEFT OUTER JOIN ptna_routes_comments ON routes.route_id = ptna_routes_comments.route_id
                                          WHERE  routes.route_id='%s';",
