@@ -2984,6 +2984,38 @@
     }
 
 
+    function RouteType2OsmRouteImportance( $rt ) {
+
+        $rt = strtolower(RouteType2String($rt));
+
+        if ( preg_match("/trolleybus/",$rt) ) {
+            $rt = '05';
+        } elseif ( preg_match("/demand and response bus/",$rt) ) {
+            $rt = '06';
+        } elseif ( preg_match("/tram/",$rt) ) {
+            $rt = '03';
+        } elseif ( preg_match("/bus/",$rt) ) {
+            $rt = '04';
+        } elseif ( preg_match("/monorail/",$rt) ) {
+            $rt = '07';
+        } elseif ( preg_match("/ferry/",$rt) || preg_match("/water transport service/",$rt) ) {
+            $rt = '10';
+        } elseif ( preg_match("/rail/",$rt) ) {
+            $rt = '01';
+        } elseif ( preg_match("/funicular/",$rt) ) {
+            $rt = '08';
+        } elseif ( preg_match("/aerial/",$rt) ) {
+            $rt = '09';
+        } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
+            $rt = '02';
+        } else {
+            $rt = '04';
+        }
+
+        return $rt;
+    }
+
+
     function OsmRoute2Vehicle( $rt, $language ) {
         if ( !$language || $language == 'de' ) {
             if ( $rt == 'trolleybus' ) {
