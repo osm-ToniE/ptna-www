@@ -426,15 +426,4 @@
         return $return_array;
     }
 
-
-    function sort_array_by_sort_key( $a, $b ) {
-        if ( $a['sort_key'] == $b['sort_key'] ) {
-            return 0;
-        } elseif ( $a['sort_key'] > $b['sort_key'] ) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
 ?>

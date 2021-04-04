@@ -670,16 +670,30 @@
                         $sql        = "SELECT DISTINCT    ptna_routes.*,routes.*,agency.*
                                        FROM               routes
                                        LEFT OUTER JOIN    ptna_routes ON   routes.route_id  = ptna_routes.route_id
-                                       JOIN               agency      ON   routes.agency_id = agency.agency_id
-                                       ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                                       JOIN               agency      ON   routes.agency_id = agency.agency_id;";
                     } else {
                         $sql        = "SELECT DISTINCT    routes.*,agency.*
                                        FROM               routes
-                                       JOIN               agency      ON   routes.agency_id = agency.agency_id
-                                       ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;";
+                                       JOIN               agency      ON   routes.agency_id = agency.agency_id;";
                     }
 
                     $outerresult = $db->query( $sql );
+
+                    $outerresult_array = array();
+                    while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
+                        if ( preg_match('/^([0-9]+)(.*)$/',$outerrow['route_short_name'],$parts) ) {
+                            $rsn = sprintf("%20s%s",$parts[1],$parts[2]);
+                        } elseif ( preg_match('/^([^0-9][^0-9]*)([0-9][0-9]*)$/',$outerrow['route_short_name'],$parts) ) {
+                            $rsn = sprintf("%s%20s",$parts[1],$parts[2]);
+                        } elseif ( preg_match('/^([^0-9][^0-9]*)([0-9][0-9]*)([^0-9][^0-9]*)$/',$outerrow['route_short_name'],$parts) ) {
+                            $rsn = sprintf("%s%20s%s",$parts[1],$parts[2],$parts[3]);
+                        } else {
+                            $rsn = $outerrow['route_short_name'];
+                        }
+                        $outerrow['sort_key'] = RouteType2OsmRouteImportance($outerrow['route_type']) . ";" . $rsn . ";" . $outerrow['route_id'];
+                        array_push( $outerresult_array, $outerrow );
+                    }
+                    usort($outerresult_array,"sort_array_by_sort_key");
 
                     $alternative_or_not    = 'alt';
                     $last_route_short_name = '__dummy__';
@@ -687,7 +701,7 @@
                     $last_route_type       = '__dummy__';
                     $last_route_desc       = '__dummy__';
 
-                    while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
+                    foreach ( $outerresult_array as $outerrow ) {
 
                         if ( $outerrow["route_short_name"] != $last_route_short_name ||
                              $outerrow["agency_name"]      != $last_agency_name      ||
@@ -3098,4 +3112,13 @@
     }
 
 
+    function sort_array_by_sort_key( $a, $b ) {
+        if ( $a['sort_key'] == $b['sort_key'] ) {
+            return 0;
+        } elseif ( $a['sort_key'] > $b['sort_key'] ) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 ?>
