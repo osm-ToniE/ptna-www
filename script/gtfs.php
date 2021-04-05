@@ -2081,7 +2081,7 @@
                     $sql_master = $db->querySingle( $sql, true );
 
                     if ( $sql_master['name'] ) {
-                        $join_statement = 'JOIN   ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
+                        $join_statement = 'LEFT OUTER JOIN ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
                     } else {
                         $join_statement = '';
                     }
@@ -2099,7 +2099,7 @@
                              $row['suspicious_start']             ||
                              $row['suspicious_end']               ||
                              $row['same_names_but_different_ids']    ) {
-                            $row['has_comments'] = 'yes';
+                             $row['has_comments'] = 'yes';
                         }
 
                         return $row;
