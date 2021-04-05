@@ -683,12 +683,10 @@
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
                         if ( preg_match('/^([0-9]+)(.*)$/',$outerrow['route_short_name'],$parts) ) {
                             $rsn = sprintf("%20s%s ",$parts[1],$parts[2]);
-                        } elseif ( preg_match('/^([^0-9][^0-9]*)([0-9][0-9]*)$/',$outerrow['route_short_name'],$parts) ) {
-                            $rsn = sprintf("%s%20s ",$parts[1],$parts[2]);
-                        } elseif ( preg_match('/^([^0-9][^0-9]*)([0-9][0-9]*)([^0-9][^0-9]*)$/',$outerrow['route_short_name'],$parts) ) {
+                        } elseif ( preg_match('/^([^0-9][^0-9]*)([0-9][0-9]*)(.*)$/',$outerrow['route_short_name'],$parts) ) {
                             $rsn = sprintf("%s%20s%s ",$parts[1],$parts[2],$parts[3]);
                         } else {
-                            $rsn = $outerrow['route_short_name'] . ' ';
+                            $rsn = sprintf("%s%20s ",$outerrow['route_short_name'],' ');
                         }
                         $outerrow['sort_key'] = RouteType2OsmRouteImportance($outerrow['route_type']) . ";" . $rsn . ";" . $outerrow['route_id'];
                         array_push( $outerresult_array, $outerrow );
