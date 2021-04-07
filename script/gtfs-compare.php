@@ -39,7 +39,9 @@
         $feedDB2 = FindGtfsSqliteDb( $feed2, '' );
         if ( $feedDB1 && $feedDB2 ) {
             if ( $feed == $feed2 ) {
-                echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+                echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th>' . "\n";
+                echo $indent . '    <th colspan="4" class="gtfs-name"><input type="checkbox" name="type" value="d">Drop down list</th>' . "\n";
+                echo $indent . '</tr>' . "\n";
                 echo $indent . '<tr><th colspan="3" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed . '</th>' . "\n";
                 echo $indent . '    <th style="border-left-width: 1px;">feed_publisher_name</th>' . "\n";
                 echo $indent . '    <th style="border-left-width: 1px;">feed_start_date</th>' . "\n";
@@ -47,7 +49,9 @@
                 echo $indent . '    <th style="border-left-width: 1px;">feed_version</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
             } else {
-                echo $indent . '<tr><th colspan="4" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+                echo $indent . '<tr><th colspan="4" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th>' . "\n";
+                echo $indent . '    <th colspan="4" class="gtfs-name"><input type="checkbox" name="type" value="d">Drop down liste</th>' . "\n";
+                echo $indent . '</tr>' . "\n";
                 echo $indent . '<tr><th colspan="2" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">' . $feed  . '</th>' . "\n";
                 echo $indent . '    <th colspan="2" class="gtfs-name"><input type="hidden" name="feed2" value="' . $feed2 . '">' . $feed2 . '</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
@@ -152,16 +156,12 @@
         $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         if ( $feedDB1 && $feedDB2 ) {
             if ( $_GET['type'] == 'd' ) {
-                echo $indent . '<tr><th colspan="2" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
-                echo $indent . '<tr><th colspan="1" class="gtfs-name" style="border-right-width: 2px;"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed . "\n";
-                echo $indent . '                                                                       <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . "</th>\n";
-                echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width:  2px;"><input type="hidden" name="feed2"         value="' . $feed2         . '">'  . $feed2 . "\n";
-                echo $indent . '                                                                       <input type="hidden" name="release_date2" value="' . $release_date2 . '"> ' . $release_date2 . "</th>\n";
+                echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
+                echo $indent . '<tr><th class="gtfs-name">feed</td>' . "\n";
+                echo $indent . '    <th class="gtfs-name">release_date</td>' . "\n";
+                echo $indent . '    <th class="gtfs-name">Line (type, route_id, route_long_name)</td>'   . "\n";
                 echo $indent . '</tr>' . "\n";
-                echo $indent . '<tr><th class="gtfs-name" style="border-right-width: 2px;">Line (Type, route_id, route_long_name)</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width:  2px;">Line (Type, route_id, route_long_name)</td>'   . "\n";
-                echo $indent . '</tr>' . "\n";
-            } else {
+           } else {
                 echo $indent . '<tr><th colspan="9" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
                 echo $indent . '<tr><th colspan="4" class="gtfs-name" style="border-left-width: 2px; border-right-width: 2px;"><input type="hidden" name="feed"          value="' . $feed          . '">'  . $feed . "\n";
                 echo $indent . '                                                                       <input type="hidden" name="release_date"  value="' . $release_date  . '"> ' . $release_date  . "</th>\n";
@@ -171,11 +171,11 @@
                 echo $indent . '</tr>' . "\n";
                 echo $indent . '<tr><th class="gtfs-name" style="border-left-width: 2px;">&nbsp;</td>' . "\n";
                 echo $indent . '    <th class="gtfs-name">Line</td>'   . "\n";
-                echo $indent . '    <th class="gtfs-name">Type</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">type</td>'   . "\n";
                 echo $indent . '    <th class="gtfs-name" style="border-right-width: 2px;">route_id</td>' . "\n";
                 echo $indent . '    <th class="gtfs-name" style="border-left-width:  2px;">&nbsp;</td>'   . "\n";
                 echo $indent . '    <th class="gtfs-name">Line</td>'   . "\n";
-                echo $indent . '    <th class="gtfs-name">Type</td>'   . "\n";
+                echo $indent . '    <th class="gtfs-name">type</td>'   . "\n";
                 echo $indent . '    <th class="gtfs-name">route_id</td>' . "\n";
                 echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">route_long_name</td>' . "\n";
                 echo $indent . '</tr>' . "\n";
@@ -201,13 +201,19 @@
             }
             if ( $_GET['type'] == 'd' ) {
                 echo $indent . "<tr>\n";
-                echo $indent . '   <td colspan="1"><select name="route_id">' . "\n";
+                echo $indent . '   <td><input type="hidden" name="feed"         value="' . $feed .          '">'  . $feed         . "</td>\n";
+                echo $indent . '   <td><input type="hidden" name="release_date" value="' . $release_date  . '"> ' . $release_date . "</td>\n";
+                echo $indent . '   <td><select name="route_id">' . "\n";
                 for ( $i = 0; $i < count($feed1_routes); $i++ ) {
                     echo $indent . '       <option value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '">';
                     echo htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right]['route_type'])) . ', ' . htmlspecialchars($feed1_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed1_routes[$i]['route_long_name']) . ')</option>' . "\n";
                 }
                 echo $indent . "   </select></td>\n";
-                echo $indent . '   <td colspan="1"><select name="route_id2">' . "\n";
+                echo $indent . "</tr>\n";
+                echo $indent . "<tr>\n";
+                echo $indent . '   <td><input type="hidden" name="feed2"         value="' . $feed2 .          '">'  . $feed2         . "</td>\n";
+                echo $indent . '   <td><input type="hidden" name="release_date2" value="' . $release_date2  . '"> ' . $release_date2 . "</td>\n";
+                echo $indent . '   <td><select name="route_id2">' . "\n";
                 for ( $i = 0; $i < count($feed2_routes); $i++ ) {
                     echo $indent . '       <option value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '">';
                     echo htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right]['route_type'])) . ', ' . htmlspecialchars($feed2_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed2_routes[$i]['route_long_name']) . ')</option>' . "\n";
