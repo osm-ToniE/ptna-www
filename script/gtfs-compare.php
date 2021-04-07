@@ -206,7 +206,7 @@
                 echo $indent . '   <td><select name="route_id">' . "\n";
                 for ( $i = 0; $i < count($feed1_routes); $i++ ) {
                     echo $indent . '       <option value="' . htmlspecialchars($feed1_routes[$i]['route_id']) . '">';
-                    echo htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$right]['route_type'])) . ', ' . htmlspecialchars($feed1_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed1_routes[$i]['route_long_name']) . ')</option>' . "\n";
+                    echo htmlspecialchars($feed1_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$i]['route_type'])) . ', ' . htmlspecialchars($feed1_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed1_routes[$i]['route_long_name']) . ')</option>' . "\n";
                 }
                 echo $indent . "   </select></td>\n";
                 echo $indent . "</tr>\n";
@@ -216,7 +216,7 @@
                 echo $indent . '   <td><select name="route_id2">' . "\n";
                 for ( $i = 0; $i < count($feed2_routes); $i++ ) {
                     echo $indent . '       <option value="' . htmlspecialchars($feed2_routes[$i]['route_id']) . '">';
-                    echo htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$right]['route_type'])) . ', ' . htmlspecialchars($feed2_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed2_routes[$i]['route_long_name']) . ')</option>' . "\n";
+                    echo htmlspecialchars($feed2_routes[$i]['route_short_name']) . ' (' . htmlspecialchars(RouteType2OsmRoute($feed2_routes[$i]['route_type'])) . ', ' . htmlspecialchars($feed2_routes[$i]['route_id']) . ', ' . htmlspecialchars($feed2_routes[$i]['route_long_name']) . ')</option>' . "\n";
                 }
                 echo $indent . "   </select></td>\n";
                 echo $indent . "</tr>\n";
