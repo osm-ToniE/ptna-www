@@ -12,7 +12,7 @@
 
 <main id="main" class="results">
 
-<h2 id="AT"><img src="/img/Austria32.png" alt="Fagge Österreich" /> Auswerungen für Österreich</h2>
+<h2 id="AT"><img src="/img/Austria32.png" alt="Flagge Österreich" /> Auswertungen für Österreich</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
