@@ -136,7 +136,11 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Alpes-de-Haute-Provence", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-Alpes-Maritimes", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-PAC-Hautes-Alpes", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-PAC-Lignes-d-Azur", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Mistral", "fr", "Configuration" ); ?>
 
