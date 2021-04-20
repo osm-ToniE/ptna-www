@@ -483,13 +483,13 @@
 
                 echo '                        <tr class="gtfs-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name"><a href="routes.php?feed=' . urlencode($feed) . '">' . htmlspecialchars($feed) . '</a> ';
-                if ( $LongTermSqliteDb ) {
-                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a> ';
-                }
-                if ( $PreviousSqliteDb ) {
-                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a> ';
-                    echo '<a href="/gtfs/compare-feeds.php?feed=' . urlencode($feed) . '"><img src="/img/compare19.png" title="' . htmlspecialchars($compare_img_title) . '" /></a>';
-                }
+#                if ( $LongTermSqliteDb ) {
+#                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=long-term"><img src="/img/long-term19.png" title="' . htmlspecialchars($long_term_img_title) . '" /></a> ';
+#                }
+#                if ( $PreviousSqliteDb ) {
+#                    echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=previous"><img src="/img/previous.svg" width="19px" height="19px" title="' . htmlspecialchars($previous_img_title) . '" /></a> ';
+#                    echo '<a href="/gtfs/compare-feeds.php?feed=' . urlencode($feed) . '"><img src="/img/compare19.png" title="' . htmlspecialchars($compare_img_title) . '" /></a>';
+#                }
                 echo '</td>' . "\n";
                 if ( $ptna["network_name"] ) {
                     if ( $ptna["network_name_url"] ) {
