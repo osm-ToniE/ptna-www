@@ -181,6 +181,8 @@
 
                     <?php CreateNewFullEntry( "DE-SN-VMS", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-SN-VVO", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-TH-VMT", "de", "Konfiguration" ); ?>
