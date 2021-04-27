@@ -66,7 +66,11 @@
                 #    }
                 #}
             } else {
-                printf( "    <td class=\"statistics-size\"></td>\n" );
+                if ( $osm_xml_file_name && $size_download == 0 ) {
+                    printf( "    <td class=\"statistics-size\">failed</td>\n" );
+                } else {
+                    printf( "    <td class=\"statistics-size\"></td>\n" );
+                }
             }
             if ( $routes_date ) {
                 if ( $routes_link ) {
