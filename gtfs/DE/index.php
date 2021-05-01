@@ -59,7 +59,8 @@
                 <div class="indent">
                 <p>
                     Für die folgenden GTFS-Quellen läuft der Support durch PTNA (vorläufig) aus.
-                    Es werden keine Aktualisierungen mehr durchgeführt. Vorhanden Daten bleiben erhalten.
+                    Es werden keine Aktualisierungen mehr durchgeführt.
+                    Vorhanden Daten bleiben maximal 6 Monate erhalten.
                     Siehe jeweils "Comment on Data" in der Tabelle "PTNA Specific Data" unter dem Link "Details, ...".
                 </p>
                 <table id="gtfsDE">
@@ -69,8 +70,8 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "DE-BW-Filsland" );
-    $duration += CreateGtfsEntry( "DE-BW-HVG" );
-    $duration += CreateGtfsEntry( "DE-BW-Rexer" );
+    #$duration += CreateGtfsEntry( "DE-BW-HVG" );
+    #$duration += CreateGtfsEntry( "DE-BW-Rexer" );
     $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
     $duration += CreateGtfsEntry( "DE-BW-SWHN" );
     $duration += CreateGtfsEntry( "DE-BW-VVS" );
