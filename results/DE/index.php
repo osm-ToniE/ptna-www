@@ -61,6 +61,8 @@
 
                     <?php CreateNewFullEntry( "DE-BW-RVL", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-TGO", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-VHB", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BW-VPE", "de", "Konfiguration" ); ?>
