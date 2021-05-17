@@ -50,6 +50,7 @@
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
     $duration += CreateGtfsEntry( "DE-NW-VRS" );
     $duration += CreateGtfsEntry( "DE-SN-MDV" );
+    $duration += CreateGtfsEntry( "DE-SN-VMS" );
 ?>
                     </tbody>
                 </table>
