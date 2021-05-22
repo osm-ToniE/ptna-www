@@ -43,6 +43,7 @@
     $duration += CreateGtfsEntry( "DE-BW-VGF" );
     $duration += CreateGtfsEntry( "DE-BW-VHB" );
     $duration += CreateGtfsEntry( "DE-BW-VPE" );
+    $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-BW-bodo" );
     $duration += CreateGtfsEntry( "DE-BW-naldo" );
     $duration += CreateGtfsEntry( "DE-BY-MVV" );
@@ -75,7 +76,6 @@
     #$duration += CreateGtfsEntry( "DE-BW-Rexer" );
     $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
     $duration += CreateGtfsEntry( "DE-BW-SWHN" );
-    $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-RP-VRN" );
 ?>
                     </tbody>
