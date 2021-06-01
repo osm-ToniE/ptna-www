@@ -5,4 +5,7 @@
             <p>
                 This program is free software: you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/gpl.html">GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. Get the source code via <a href="https://github.com/osm-ToniE">GitHub</a>.
             </p>
+            <p>
+                PTNA koristi <a href="https://wiki.openstreetmap.org/wiki/Overpass_API" title="Overpass-API">Overpass-API</a> za preuzimanje podataka s OSM-a. Uslugu API-ja nadvožnjaka pruža <a href="https://kumi.systems" title="Kumi Systems">Kumi Systems (Graz, Austrija)</a>>, hvala na podršci.
+            </p>
         </footer>
