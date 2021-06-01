@@ -27,21 +27,6 @@
                 </tbody>
             </table>
 
-            <hr />
-
-<?php include '../../es/results-head.inc' ?>
-
-            <table id="networksMR-es">
-                <thead>
-<?php include '../../es/results-trth.inc' ?>
-                    </thead>
-                    <tbody>
-
-                        <?php CreateNewFullEntry("MR-NKC-Nouakchott-es", "es", "Configuración" ); ?>
-
-                    </tbody>
-                </table>
-
 </main> <!-- main -->
 
         <hr />
