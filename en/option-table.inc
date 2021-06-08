@@ -91,6 +91,12 @@
                 <td class="message-description">Check sequence of ways, are there any gaps?</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-service-type">
+                <td class="message-option">check-service-type</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Check value of &#039;service&#039; tag for &#039;highway&#039; = &#039;service&#039;.<br />Suspicious values: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-check-stop-position">
                 <td class="message-option">check-stop-position</td>
                 <td class="message-default">OFF</td>

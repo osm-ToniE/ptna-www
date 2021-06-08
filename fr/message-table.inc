@@ -158,6 +158,22 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Itinéraire : le type de voie utilisé (%s)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-service-type</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Itinéraire : utilise le mauvais type de voie (%s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-way-type</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire PTv2 :  &#039;%s&#039; = &#039;yes&#039; manquant sur &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -538,14 +554,6 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-motorway-link</td>
                 <td class="message-description">Le véhicule utilise une entrée ou sortie d&#039;autoroute sans autoroute/voie rapide le succédant ou le précédant immédiatement. Cela peut indiquer un attribut incorrect &#039;highway&#039; = &#039;motorway_link&#039;. Mais ceci peut conduire à un mauvais itinéraire, par exemple s&#039;il a été créé avec un logiciel de routage. Il semble qu&#039;il ait un logiciel de routage qui préfère continuer sur la voie avant de faire demi-tour après 20 m et revenir sur la voie au lieu d&#039;emprunter la voie directe (parce qu&#039;un feux influence le résultat ?). <br />Précondition : l&#039;itinéraire n&#039;a pas de trou(s).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : utilise le mauvais type de voie (%s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
