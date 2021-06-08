@@ -19,6 +19,7 @@
         $options_hash['check-roundabouts']          = 'OFF';
         $options_hash['check-route-ref']            = 'OFF';
         $options_hash['check-sequence']             = 'OFF';
+        $options_hash['check-service-type']         = 'OFF';
         $options_hash['check-stop-position']        = 'OFF';
         $options_hash['check-version']              = 'OFF';
         $options_hash['check-way-type']             = 'OFF';

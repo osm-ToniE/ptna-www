@@ -91,6 +91,12 @@
                 <td class="message-description">Prüfung der Reihenfolge der befahrenen Wege, existieren Lücken?</td>
                 <td class="message-image"></td>
             </tr>
+            <tr class="message-tablerow" id="option-check-service-type">
+                <td class="message-option">check-service-type</td>
+                <td class="message-default">OFF</td>
+                <td class="message-description">Prüfe den Wert des &#039;service&#039; Tags für &#039;highway&#039; = &#039;service&#039;.<br />Verdächtige Werte: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
+                <td class="message-image"></td>
+            </tr>
             <tr class="message-tablerow" id="option-check-stop-position">
                 <td class="message-option">check-stop-position</td>
                 <td class="message-default">OFF</td>

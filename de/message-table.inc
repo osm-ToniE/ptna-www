@@ -646,14 +646,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: ein falscher Wegtyp wird benutzt (%s)</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: entferne gegebenenfalls den ersten Weg des Fahrweges aus der Relation, es ist ein Weg vor der ersten &#039;stop_position&#039;: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-sequence</td>
@@ -1065,6 +1057,22 @@
                 <td class="message-text">Route: &#039;route_ref&#039; = &#039;%s&#039; der Haltestelle: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: benutzter Wegtyp (%s)</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option">check-service-type</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: ein falscher Wegtyp wird benutzt (%s)</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-way-type</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
