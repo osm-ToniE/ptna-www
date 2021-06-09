@@ -726,6 +726,14 @@
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="PTv2 route: using oneway way in wrong direction" /><span class="message-tooltiptext">PTv2 route: using oneway way in wrong direction</span></div></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: using wrong way type (%s)</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-way-type</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
@@ -1073,14 +1081,6 @@
                 <td class="message-text">Route: using way type (%s)</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-service-type</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: using wrong way type (%s)</td>
-                <td class="message-type">Errors</td>
-                <td class="message-option">check-way-type</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
