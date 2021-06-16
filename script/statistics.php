@@ -21,6 +21,7 @@
             $duration_download = 0;
             $size_download     = GetOsmXmlFileSizeByte();
             $routes_link       = GetRoutesLink();
+            $osm_base          = GetOsmBase();
             $routes_date       = GetRoutesDate();
             $analysis_webpath  = GetHtmlFileWebPath();
             $start_analysis    = GetStartAnalysisDate();
@@ -38,6 +39,22 @@
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $utc     );
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzshort );
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzname  );
+            if ( $osm_base ) {
+                if ( $start_download ) {
+                    $osmbaseabs     = strtotime( $osm_base );
+                    $startabs       = strtotime( $start_download );
+                    $age_osm_base   = $startabs - $osmbaseabs;
+                    if ( $age_osm_base > 3600 ) {
+                        printf( "    <td class=\"statistics-date-marked\">%s</td>\n", $osm_base );
+                    } else {
+                        printf( "    <td class=\"statistics-date\">%s</td>\n", $osm_base );
+                    }
+                } else {
+                    printf( "    <td class=\"statistics-date\">%s</td>\n", $osm_base );
+                }
+            } else {
+                printf( "    <td class=\"statistics-date\"></td>\n");
+            }
             if ( $start_download && $end_download ) {
                 $sabs                 = strtotime( $start_download );
                 $eabs                 = strtotime( $end_download );
@@ -67,7 +84,7 @@
                 #}
             } else {
                 if ( $osm_xml_file_name && $size_download == 0 ) {
-                    printf( "    <td class=\"statistics-size\">failed</td>\n" );
+                    printf( "    <td class=\"statistics-size-marked\">failed</td>\n" );
                 } else {
                     printf( "    <td class=\"statistics-size\"></td>\n" );
                 }
@@ -129,6 +146,7 @@
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
         printf( "    <th class=\"statistics-network\">%d</th>\n", $count );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );

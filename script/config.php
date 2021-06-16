@@ -201,6 +201,14 @@
         return( '' );
     }
 
+    function GetOsmBase() {
+        global $details_hash;
+        if ( isset($details_hash['OSM_BASE']) ) {
+            return( $details_hash['OSM_BASE'] );
+        }
+        return( '' );
+    }
+
     function GetRoutesLink() {
         global $details_hash;
         if ( isset($details_hash['ROUTES_LINK']) ) {

@@ -169,8 +169,10 @@ code             { font-weight: 500; font-size: 1.1em; }
 .statistics-network          { text-align:left;   }
 .statistics-text             { text-align:left;   }
 .statistics-date             { text-align:center; }
+.statistics-date-marked      { text-align:center; background-color: orange; }
 .statistics-duration         { text-align:right; }
 .statistics-size             { text-align:right; }
+.statistics-size-marked      { text-align:right; background-color: orange; }
 .statistics-number           { text-align:right; }
 
 /**************************************/

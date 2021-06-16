@@ -1,6 +1,7 @@
 <tr class="statistics-tableheaderrow">
     <th class="statistics-name" rowspan="2">Name</th>
     <th class="statistics-date" colspan="3">Timezone</th>
+    <th class="statistics-date" colspan="1">OSM Data</th>
     <th class="statistics-date" colspan="3">Download</th>
     <th class="statistics-date" colspan="1">Routes Data</th>
     <th class="statistics-date" colspan="3">Analysis</th>
@@ -9,6 +10,7 @@
     <th class="statistics-name">UTC +/-</th>
     <th class="statistics-name">Abbr.</th>
     <th class="statistics-name">Name</th>
+    <th class="statistics-date">As Of</th>
     <th class="statistics-date">Started</th>
     <th class="statistics-duration">Duration [h:m:s]</th>
     <th class="statistics-size">Size [MB]</th>
