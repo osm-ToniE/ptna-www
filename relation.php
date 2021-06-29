@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    $lang     = ( $_GET['lang'] && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
+    $lang     = ( isset($_GET['lang']) && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
     $inc_lang = './' . $lang . '/';
 ?>
 <html lang="<?php echo $lang; ?>">
