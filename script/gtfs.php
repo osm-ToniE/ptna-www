@@ -2453,7 +2453,7 @@
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
                     echo '                                        <td class="gtfs-name">"ref" shall be taken from GTFS "route_long_name" instead of "route_short_name" (provided that "route_long_name" differs from "route_id")</td>' . "\n";
-                    if ( $osm["gtfs_short_name_hack1"] ) {
+                    if ( isset($osm["gtfs_short_name_hack1"]) ) {
                         echo '                                       <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                     } else {
                         echo '                                       <td class="gtfs-text"></td>' . "\n";
@@ -2498,14 +2498,14 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
-                    if ( $ptna["date"] ) {
+                    if ( isset($ptna["date"] ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Date</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["duration"] ) {
+                    if ( isset($ptna["duration"] ) {
                         $duration = $ptna["duration"];
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Duration</td>' . "\n";
@@ -2524,77 +2524,77 @@
                         echo '                            <td class="statistics-number">[hh:mm:ss]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["size_before"] ) {
+                    if ( isset($ptna["size_before"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">SQLite-DB size before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_before"]) / 1024 / 1024 ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["size_after"] ) {
+                    if ( isset($ptna["size_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">SQLite-DB size after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%2.2f", htmlspecialchars($ptna["size_after"]) / 1024 / 1024 ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[MB]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["routes_before"] ) {
+                    if ( isset($ptna["routes_before"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Routes before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["routes_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["routes_after"] ) {
+                    if ( isset($ptna["routes_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Routes after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["routes_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["trips_before"] ) {
+                    if ( isset($ptna["trips_before"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Trips before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["trips_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["trips_after"] ) {
+                    if ( isset($ptna["trips_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Trips after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["trips_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["stops_before"] ) {
+                    if ( isset($ptna["stops_before"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stops before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stops_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["stops_after"] ) {
+                    if ( isset($ptna["stops_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stops after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stops_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["stop_times_before"] ) {
+                    if ( isset($ptna["stop_times_before"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stop-Times before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stop_times_before"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["stop_times_after"] ) {
+                    if ( isset($ptna["stop_times_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Stop-Times after</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["stop_times_after"]) ) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[1]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( $ptna["shapes_before"] && $ptna["shapes_after"] ) {
+                    if ( isset($ptna["shapes_before"]) && isset($ptna["shapes_after"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Number of Shape Data before</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . sprintf( "%d", htmlspecialchars($ptna["shapes_before"]) ) . '</td>' . "\n";
