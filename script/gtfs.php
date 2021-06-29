@@ -500,7 +500,7 @@
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
-                if ( $feed_info["feed_publisher_name"] ) {
+                if ( isset($feed_info["feed_publisher_name"]) ) {
                     if ( $feed_info["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed_info["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed_info["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
@@ -513,7 +513,7 @@
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 }
-                if ( $feed_info["feed_start_date"] ) {
+                if ( isset($feed_info["feed_start_date"]) ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_start_date"], $parts ) ) {
                         echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
@@ -522,7 +522,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( $feed_info["feed_end_date"] ) {
+                if ( isset($feed_info["feed_end_date"]) ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_end_date"], $parts ) ) {
                         $class = "gtfs-date";
                         $today = new DateTime();
@@ -537,7 +537,11 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                echo '                            <td class="gtfs-number">' . htmlspecialchars($feed_info["feed_version"]) . '</td>' . "\n";
+                if ( isset($feed_info["feed_version"]) ) {
+                    echo '                            <td class="gtfs-number">' . htmlspecialchars($feed_info["feed_version"]) . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-number">&nbsp;</td>' . "\n";
+                }
                 if ( $ptna["release_date"] ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
@@ -596,7 +600,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( $ptna["details"] ) {
+                if ( isset($ptna["details"]) ) {
                     $details = $ptna["details"];
                 } else {
                     $details = 'Details, ...';

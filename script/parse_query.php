@@ -2,9 +2,13 @@
 
     # parse query parameters for language related things
 
-    $lang  = $_GET['lang'];
-    if ( !$lang ) {
-
+    $lang  = isset($_GET['lang']) ? $_GET['lang'] : '';
+    if ( $lang ) {
+        if ( !preg_match("/^[a-zA-Z0-9_-]+$/", $lang)) {
+            echo "<!-- override lang from '" . htmlspecialchars($lang) . "' to 'en' -->\n";
+            $lang = 'en';
+        }
+    } else {
         $lang = 'en';
 
         # now guess from URL
@@ -29,9 +33,6 @@
                    preg_match('/\/NI\//', $_SERVER['REQUEST_URI'])    ) {
             $lang = 'es';
         }
-    } elseif ( !preg_match("/^[a-zA-Z0-9_-]+$/", $lang)) {
-        echo "<!-- override lang from '" . htmlspecialchars($lang) . "' to 'en' -->\n";
-        $lang = 'en';
     }
     $html_lang = preg_replace( '/_/', '-', $lang );
     $ptna_lang = $lang;
@@ -39,15 +40,15 @@
 
     # parse query parameters for GTFS-Analysis and perform some conversion: 'network' for backward compatibility
 
-    $feed = $_GET['feed'];
+    $feed = isset($_GET['feed']) ? $_GET['feed'] : '';
     if ( $feed ) {
         $network      = $feed;
-        $release_date = $_GET['release_date'];
+        $release_date = isset($_GET['release_date']) ? $_GET['release_date'] : '';
         if ( $release_date ) {
             $network = $feed .'-' . $release_date;
         }
     } else {
-        $network = $_GET['network'];
+        $network = isset($_GET['network']) ? $_GET['network'] : '';
         if ( $network ) {
             $feed     = preg_replace( '/-previous.*$/',  '',          $network );
             $feed     = preg_replace( '/-long-term.*$/', '',          $feed );
@@ -57,7 +58,7 @@
             }
         }
     }
-    $route_id = $_GET['route_id'];
-    $trip_id  = $_GET['trip_id'];
-    $shape_id = $_GET['shape_id'];
+    $route_id = isset($_GET['route_id']) ? $_GET['route_id'] : '';
+    $trip_id  = isset($_GET['trip_id'])  ? $_GET['trip_id']  : '';
+    $shape_id = isset($_GET['shape_id']) ? $_GET['shape_id'] : '';
 ?>
