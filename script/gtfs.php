@@ -2498,14 +2498,14 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
-                    if ( isset($ptna["date"] ) {
+                    if ( isset($ptna["date"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Date</td>' . "\n";
                         echo '                            <td class="statistics-number">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
                         echo '                            <td class="statistics-number">[YYYY-MM-DD]</td>' . "\n";
                         echo '                        </tr>' . "\n";
                     }
-                    if ( isset($ptna["duration"] ) {
+                    if ( isset($ptna["duration"]) ) {
                         $duration = $ptna["duration"];
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Duration</td>' . "\n";
