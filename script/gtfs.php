@@ -766,11 +766,11 @@
                         }
 
                         $id_string = preg_replace( '/[^0-9A-Za-z_.-]/', '_', $osm_route_type . '_' . $route_short_name );
-                        if ( $id_markers{$id_string} ) {                                        # if the same combination appears more than one, add a number as suffix (e.g. "Bus A" of VMS in Saxony, Germany
-                            $id_markers{$id_string}++;
-                            $id_string .= '-' . $id_markers{$id_string};
+                        if ( isset($id_markers[$id_string]) ) {                                        # if the same combination appears more than one, add a number as suffix (e.g. "Bus A" of VMS in Saxony, Germany
+                            $id_markers[$id_string]++;
+                            $id_string .= '-' . $id_markers[$id_string];
                         } else {
-                            $id_markers{$id_string} = 1;
+                            $id_markers[$id_string] = 1;
                         }
 
                         echo '                        <tr id="' . $id_string . '" class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
