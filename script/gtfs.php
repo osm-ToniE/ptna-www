@@ -3157,19 +3157,19 @@
         if ( is_string($param) ) {
             $string = preg_replace( "/::[A-Z]+::/", "", $param );
         } else {
-            if ( isset($param['comment']) ) {
+            if ( isset($param['comment']) && $param['comment'] ) {
                 $string = preg_replace( "/::[A-Z]+::/", "", $param['comment'] );
             }
-            if ( isset($param['suspicious_start']) ) {
+            if ( isset($param['suspicious_start']) && $param['suspicious_start'] ) {
                 $string .= "\n" . $gtfs_strings['suspicious_start'] . " '" . $param['suspicious_start'] . "'";
             }
-            if ( isset($param['suspicious_end']) ) {
+            if ( isset($param['suspicious_end']) && $param['suspicious_end'] ) {
                 $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $param['suspicious_end'] . "'";
             }
-            if ( isset($param['subroute_of']) ) {
+            if ( isset($param['subroute_of']) && $param['subroute_of'] ) {
                 $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
             }
-            if ( isset($param['same_names_but_different_ids']) ) {
+            if ( isset($param['same_names_but_different_ids']) && $param['same_names_but_different_ids'] ) {
                 $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $param['same_names_but_different_ids'] );
             }
         }
