@@ -1106,6 +1106,7 @@
                         $osm_network        = htmlspecialchars($osm['network']);
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
+                        $osm_operator       = '';
                         if ( $osm['gtfs_agency_is_operator'] ) {
                             if ( $agency['agency_name'] != 'Sonstige' ) {
                                 $osm_operator   = isset($agency['agency_name']) ? htmlspecialchars($agency['agency_name']) : '';
