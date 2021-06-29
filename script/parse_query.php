@@ -2,8 +2,8 @@
 
     # parse query parameters for language related things
 
-    $lang  = (isset($_GET['lang']) && $_GET['lang']) ? $_GET['lang'] : '';
-    if ( $lang ) {
+    if ( isset($_GET['lang']) && $_GET['lang'] ) {
+        $lang = $_GET['lang'];
         if ( !preg_match("/^[a-zA-Z0-9_-]+$/", $lang)) {
             echo "<!-- override lang from '" . htmlspecialchars($lang) . "' to 'en' -->\n";
             $lang = 'en';
