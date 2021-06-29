@@ -1402,7 +1402,7 @@
                             }
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
-                            if ( $row["normalized_stop_name"] ) {
+                            if ( isset($row["normalized_stop_name"]) ) {
                                 echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["normalized_stop_name"]) . '</td>' . "\n";
                             } else {
                                 echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
@@ -1552,7 +1552,7 @@
                             $list_departure_times = explode( '|', $result['list_departure_times'] );
                             $list_service_ids     = explode( '|', $result['list_service_ids'] );
                             for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
-                                if ( isset($service_departure[$list_service_ids[$i]]) ) {
+                                if ( !isset($service_departure[$list_service_ids[$i]]) ) {
                                     $service_departure[$list_service_ids[$i]] = $list_departure_times[$i] . ',';
                                 } else {
                                     $service_departure[$list_service_ids[$i]] .= $list_departure_times[$i] . ',';
@@ -1561,7 +1561,7 @@
                             if ( isset($result['list_durations']) ) {
                                 $list_durations = explode( '|', $result['list_durations'] );
                                 for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
-                                    if ( isset($service_departure[$list_service_ids[$i]]) ) {
+                                    if ( !isset($service_departure[$list_service_ids[$i]]) ) {
                                         $service_durations[$list_service_ids[$i]] = $list_durations[$i] . ',';
                                     } else {
                                         $service_durations[$list_service_ids[$i]] .= $list_durations[$i] . ',';
