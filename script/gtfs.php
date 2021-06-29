@@ -2823,7 +2823,8 @@
 
                     $start_time = gettimeofday(true);
 
-                    $countrydir = array_shift( explode( '-', $feed ) );
+                    $feed_array  = explode( '-', $feed );
+                    $countrydir = array_shift( $feed_array );
 
                     $db = new SQLite3( $SqliteDb );
 
