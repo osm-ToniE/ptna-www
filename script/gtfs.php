@@ -337,9 +337,9 @@
             $last_month  = preg_replace( '/^\d\d\d\d-(\d\d)-\d\d$/', '\\1', $last );
 
             foreach ( $release_dates as $release_date ) {
-                $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $release_date );
+                $ym = 'Y' . preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $release_date );
 
-                if ( $relevant_dates[$ym] ) {
+                if ( isset($relevant_dates[$ym]) ) {
                     $relevant_dates[$ym]++;
                 } else {
                     $relevant_dates[$ym] = 1;
@@ -542,7 +542,7 @@
                 } else {
                     echo '                            <td class="gtfs-number">&nbsp;</td>' . "\n";
                 }
-                if ( $ptna["release_date"] ) {
+                if ( isset($ptna["release_date"]) ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
@@ -573,7 +573,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( $ptna["prepared"] ) {
+                if ( isset($ptna["prepared"]) ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["prepared"], $parts ) ) {
