@@ -2115,6 +2115,9 @@
                              isset($row['same_names_but_different_ids'])    ) {
                              $row['has_comments'] = 'yes';
                         }
+                        if ( !isset($row['shape_id']) ) {
+                            $row['shape_id'] = '';
+                        }
 
                         return $row;
                     }
