@@ -705,6 +705,8 @@
 
                     foreach ( $outerresult_array as $outerrow ) {
 
+                        $outerrow["route_desc"] = isset($outerrow["route_desc"]) ? $outerrow["route_desc"] : '';
+
                         if ( $outerrow["route_short_name"] != $last_route_short_name ||
                              $outerrow["agency_name"]      != $last_agency_name      ||
                              $outerrow["route_type"]       != $last_route_type       ||
@@ -722,7 +724,7 @@
                             }
                         }
 
-                        if ( isset($outerrow["route_type"]) ) {
+                        if ( $outerrow["route_type"] ) {
                             $route_type_text = RouteType2String( $outerrow["route_type"] );
                             $osm_route_type  = RouteType2OsmRoute( $outerrow["route_type"] );
                         } else {
