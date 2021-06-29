@@ -1016,6 +1016,8 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
+                    $ptna['language'] = isset($ptna['language']) ? $ptna['language'] : '';
+
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_stops';";
 
                     $sql_master = $db->querySingle( $sql, true );
