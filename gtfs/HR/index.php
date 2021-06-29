@@ -3,7 +3,7 @@
         include( '../../script/parse_query.php' );
         include( '../../script/gtfs.php'        );
 ?>
-<html lang="<?php echo $html_lang ?>">
+<html lang="<?php echo $html_lang; ?>">
 
 <?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 

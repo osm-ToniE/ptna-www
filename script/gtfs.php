@@ -2234,14 +2234,14 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Feed Publisher</td>' . "\n";
-                if ( $feed["feed_publisher_name"] ) {
-                    if ( $feed["feed_publisher_url"] ) {
+                if ( isset($feed["feed_publisher_name"]) ) {
+                    if ( isset($feed["feed_publisher_url"]) ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_publisher_name"]) . '</td>' . "\n";
                     }
-                } elseif ( $ptna["feed_publisher_name"] ) {
-                    if ( $ptna["feed_publisher_url"] ) {
+                } elseif ( isset($ptna["feed_publisher_name"]) ) {
+                    if ( isset($ptna["feed_publisher_url"]) ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="From PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
@@ -2253,19 +2253,27 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Feed Start Date</td>' . "\n";
-                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
-                    echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                if ( isset($feed["feed_start_date"]) ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_start_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_start_date"]) . '</td>' . "\n";
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Feed End Date</td>' . "\n";
-                if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
-                    echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                if ( isset($feed["feed_end_date"]) ) {
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed["feed_end_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-text">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
+                    } else {
+                        echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                    }
                 } else {
-                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_end_date"]) . '</td>' . "\n";
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
                 echo '                        </tr>' . "\n";
 
