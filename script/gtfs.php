@@ -1846,7 +1846,11 @@
 
                     $row = $db->querySingle( $sql, true );
 
-                    return $row["route_short_name"];
+                    if ( isset($row["route_short_name"]) ) {
+                        return $row["route_short_name"];
+                    } else {
+                        return '';
+                    }
 
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
