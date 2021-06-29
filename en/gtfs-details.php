@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
-        include( '../script/gtfs.php'        );
         include( '../script/parse_query.php' );
+        include( '../script/gtfs.php'        );
         $ptna_lang = "en";
         $html_lang = "en";
         if ( $release_date ) {
@@ -10,7 +10,7 @@
             $feed_and_release = $feed;
         }
 ?>
-<html lang=<?php echo $html_lang; ?>
+<html lang="<?php echo $html_lang; ?>">
 
 <?php $title="GTFS Details"; include('html-head.inc'); ?>
 

@@ -5,7 +5,7 @@
     $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
     $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
 
-    if ( $lang != '' ) {
+    if ( $lang ) {
         if ( $lang == 'en' ) {
             ;
         } elseif ( $lang == 'de' ) {
