@@ -15,7 +15,7 @@
 
         <main id="main" class="results">
 
-<?php $topic    = $_GET['topic'];
+<?php $topic    = isset($_GET['topic']) ? $_GET['topic'] : '';
       $duration = 0;
 ?>
 
