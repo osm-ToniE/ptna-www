@@ -667,7 +667,7 @@
 
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         # 1. ptna_routes because ptna_routes.route_id can be ''
                         # 2. routes      because routes.route_id is what we want and
                         #                2nd appearance overwrites 1st appearance of identical column names in the returned hash
@@ -822,7 +822,7 @@
                         $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_routes_comments';";
                         $sql_master = $db->querySingle( $sql, true );
 
-                        if ( $sql_master['name'] ) {
+                        if ( isset($sql_master['name']) ) {
                             $sql    = sprintf( "SELECT *
                                                 FROM   ptna_routes_comments
                                                 WHERE  route_id='%s';",
@@ -910,7 +910,7 @@
 
                     $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         $join_statement = 'LEFT OUTER JOIN ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
                     } else {
                         $join_statement = '';
@@ -1006,7 +1006,7 @@
 
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         $sql        = "SELECT * FROM osm";
 
                         $osm       = $db->querySingle( $sql, true );
@@ -1020,7 +1020,7 @@
 
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         $join_ptna_stops = 'LEFT OUTER JOIN ptna_stops ON stops.stop_id = ptna_stops.stop_id';
                     } else {
                         $join_ptna_stops = '';
@@ -1090,7 +1090,7 @@
                         $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
                         $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
                         $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
-                        if ( $osm['gtfs_short_name_hack1']                      &&
+                        if ( isset($osm['gtfs_short_name_hack1'])              &&
                             $routes['route_long_name']                         &&
                             $routes['route_id']                                &&
                             $routes['route_long_name'] != $routes['route_id']      ) {
@@ -1107,7 +1107,7 @@
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
                         $osm_operator       = '';
-                        if ( $osm['gtfs_agency_is_operator'] ) {
+                        if ( isset($osm['gtfs_agency_is_operator']) ) {
                             if ( $agency['agency_name'] != 'Sonstige' ) {
                                 $osm_operator   = isset($agency['agency_name']) ? htmlspecialchars($agency['agency_name']) : '';
                             }
@@ -1119,7 +1119,7 @@
                         $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
                         $osm_gtfs_shape_id      = isset($trips['shape_id']) ? htmlspecialchars( $trips['shape_id'] ) : '';
                         $osm_gtfs_trip_id_like  = '';
-                        if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
+                        if ( isset($osm['trip_id_regex']) && $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
                             $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                             if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
                                 $osm_gtfs_trip_id_like = "%" . $osm_gtfs_trip_id_like;
@@ -1459,7 +1459,7 @@
 
                 $sql_master = $db->querySingle( $sql, true );
 
-                if ( $sql_master['name'] ) {
+                if ( isset($sql_master['name']) ) {
 
                     $sql        = sprintf( "SELECT *
                                             FROM   ptna_trips
@@ -1540,7 +1540,7 @@
 
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
 
                         $sql    = sprintf( "SELECT DISTINCT *
                                             FROM            ptna_trips
@@ -2100,7 +2100,7 @@
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         $join_statement = 'LEFT OUTER JOIN ptna_trips_comments ON trips.trip_id = ptna_trips_comments.trip_id';
                     } else {
                         $join_statement = '';
@@ -2157,7 +2157,7 @@
                     $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_routes_comments';";
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         # 1. ptna_routes_comments   because ptna_routes_comments.route_id can be ''
                         # 2. routes                 because routes.route_id is what we want and
                         #                           2nd appearance overwrites 1st appearance of identical column names in the returned hash
@@ -2175,6 +2175,8 @@
                                       );
                     }
                     $row = $db->querySingle( $sql, true );
+
+                    $row['comment'] = isset($row['comment']) ? $row['comment'] : '';
 
                     return $row;
 
@@ -2376,7 +2378,7 @@
 
                 $sql_master = $db->querySingle( $sql, true );
 
-                if ( $sql_master['name'] ) {
+                if ( isset($sql_master['name']) ) {
 
                     $sql = sprintf( "SELECT * FROM osm;" );
 
@@ -2452,7 +2454,7 @@
 
                 $sql_master = $db->querySingle( $sql, true );
 
-                if ( $sql_master['name'] ) {
+                if ( isset($sql_master['name']) ) {
 
                     $sql = sprintf( "SELECT * FROM ptna_aggregation;" );
 
@@ -2599,7 +2601,7 @@
 
                 $sql_master = $db->querySingle( $sql, true );
 
-                if ( $sql_master['name'] ) {
+                if ( isset($sql_master['name']) ) {
 
                     $sql = sprintf( "SELECT * FROM ptna_analysis;" );
 
@@ -2635,7 +2637,7 @@
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE subroute_of != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
@@ -2706,7 +2708,7 @@
 
                 $sql_master = $db->querySingle( $sql, true );
 
-                if ( $sql_master['name'] ) {
+                if ( isset($sql_master['name']) ) {
 
                     $sql = sprintf( "SELECT * FROM ptna_normalization;" );
 
@@ -2790,7 +2792,7 @@
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
 
-                    if ( $sql_master['name'] ) {
+                    if ( isset($sql_master['name']) ) {
 
                         $result = $db->query( "PRAGMA table_info(ptna_trips_comments);" );
 
