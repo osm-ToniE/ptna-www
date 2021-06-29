@@ -250,7 +250,7 @@
         foreach ( $release_dates as $rd ) {
             $ym = preg_replace( '/^(\d\d\d\d)-(\d\d)-\d\d$/', '\\1\\2', $rd );
 
-            if ( $relevant_dates[$ym] ) {
+            if ( isset($relevant_dates[$ym]) ) {
                 $relevant_dates[$ym]++;
             } else {
                 $relevant_dates[$ym] = 1;
@@ -713,7 +713,9 @@
                             $last_route_short_name = $outerrow["route_short_name"];
                             $last_agency_name      = $outerrow["agency_name"];
                             $last_route_type       = $outerrow["route_type"];
-                            $last_route_desc       = $outerrow["route_desc"];
+                            if ( isset($outerrow["route_desc"]) ) {
+                                $last_route_desc       = $outerrow["route_desc"];
+                            }
                         }
 
                         if ( isset($outerrow["route_type"]) ) {
@@ -737,7 +739,7 @@
 
                         $innerresult = $db->query( $sql );
 
-                        if ( $outerrow['min_start_date'] && $outerrow['max_end_date'] ) {  # from ptna_routes, filled during gtfs-aggregation.pl
+                        if ( isset($outerrow['min_start_date']) && isset($outerrow['max_end_date']) ) {  # from ptna_routes, filled during gtfs-aggregation.pl
                             $min_start_date = $outerrow["min_start_date"];
                             $max_end_date   = $outerrow["max_end_date"];
                         } else {
@@ -800,7 +802,7 @@
                             echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["normalized_route_long_name"]) . '</span></td>' . "\n";
                         } elseif ( $outerrow["route_long_name"] ) {
                             echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_long_name"]) . '</span></td>' . "\n";
-                        } elseif ( $outerrow["route_desc"] ) {
+                        } elseif ( isset($outerrow["route_desc"]) ) {
                             echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_desc"]) . '</span></td>' . "\n";
                         } else {
                             echo '                            <td class="gtfs-text"><span class="route_long_name">' . htmlspecialchars($outerrow["route_id"]) . '</span></td>' . "\n";
@@ -1460,10 +1462,10 @@
                     if ( $result['trip_id'] ) {
                         $trip_id = $result['trip_id'];
                     }
-                    if ( $result['min_start_date'] && $result['max_end_date'] ) {   # from ptna_trips, filled during gtfs-aggregation.pl
+                    if ( isset($result['min_start_date']) && isset($result['max_end_date']) ) {   # from ptna_trips, filled during gtfs-aggregation.pl
                         $return_array["start_date"] = $result["min_start_date"];
                         $return_array["end_date"]   = $result["max_end_date"];
-                    } elseif ( $result['list_service_ids'] ) {
+                    } elseif ( isset($result['list_service_ids']) ) {
                         $has_list_service_ids = 1;
                         $temp_array = array();
                         $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
@@ -2092,11 +2094,11 @@
                                       );
                         $row = $db->querySingle( $sql, true );
 
-                        if ( $row['commment']                     ||
-                             $row['subroute_of']                  ||
-                             $row['suspicious_start']             ||
-                             $row['suspicious_end']               ||
-                             $row['same_names_but_different_ids']    ) {
+                        if ( isset($row['commment'])                     ||
+                             isset($row['subroute_of'])                  ||
+                             isset($row['suspicious_start'])             ||
+                             isset($row['suspicious_end'])               ||
+                             isset($row['same_names_but_different_ids'])    ) {
                              $row['has_comments'] = 'yes';
                         }
 
@@ -3089,19 +3091,19 @@
         if ( is_string($param) ) {
             $string = preg_replace( "/::[A-Z]+::/", "", $param );
         } else {
-            if ( $param['comment'] ) {
+            if ( isset($param['comment']) ) {
                 $string = preg_replace( "/::[A-Z]+::/", "", $param['comment'] );
             }
-            if ( $param['suspicious_start'] ) {
+            if ( isset($param['suspicious_start']) ) {
                 $string .= "\n" . $gtfs_strings['suspicious_start'] . " '" . $param['suspicious_start'] . "'";
             }
-            if ( $param['suspicious_end'] ) {
+            if ( isset($param['suspicious_end']) ) {
                 $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $param['suspicious_end'] . "'";
             }
-            if ( $param['subroute_of'] ) {
+            if ( isset($param['subroute_of']) ) {
                 $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
             }
-            if ( $param['same_names_but_different_ids'] ) {
+            if ( isset($param['same_names_but_different_ids']) ) {
                 $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $param['same_names_but_different_ids'] );
             }
         }
