@@ -5,7 +5,7 @@
     $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
     $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
 
-    if ( $lang ) {
+    if ( $lang != '' ) {
         if ( $lang == 'en' ) {
             ;
         } elseif ( $lang == 'de' ) {
@@ -2279,17 +2279,25 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Feed Version</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
+                if ( isset($feed["feed_version"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($feed["feed_version"]) . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Release Date</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                if ( isset($ptna["release_date"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["release_date"]) . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Release Url</td>' . "\n";
-                if ( $ptna["release_url"] ) {
+                if ( isset($ptna["release_url"]) ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["release_url"] . '">' . htmlspecialchars($ptna["release_url"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
@@ -2298,12 +2306,16 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Download Date</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
+                if ( isset($ptna["release_url"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
+                } else {
+                    echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Publisher\'s License</td>' . "\n";
-                if ( $ptna["original_license_url"] ) {
+                if ( isset($ptna["original_license_url"]) ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["original_license"]) . '</td>' . "\n";
@@ -2312,7 +2324,7 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">License given for use in OSM</td>' . "\n";
-                if ( $ptna["license_url"] ) {
+                if ( isset($ptna["license_url"]) ) {
                     echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["license_url"] . '">' . htmlspecialchars($ptna["license"]) . '</a></td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["license"]) . '</td>' . "\n";
@@ -2321,7 +2333,7 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Has Shape Data</td>' . "\n";
-                if ( $ptna["has_shapes"] ) {
+                if ( isset($ptna["has_shapes"]) ) {
                     echo '                           <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
@@ -2330,7 +2342,7 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Consider calendar data</td>' . "\n";
-                if ( $ptna["consider_calendar"] ) {
+                if ( isset($ptna["consider_calendar"]) ) {
                     echo '                           <td class="gtfs-text"><img src="/img/CheckMark.png" width=32 height=32 alt="yes" /></td>' . "\n";
                 } else {
                     echo '                           <td class="gtfs-text"></td>' . "\n";
@@ -2339,22 +2351,38 @@
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data prepared for PTNA</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
+                if ( isset($ptna["prepared"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["prepared"])   . '</td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-text"></td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data aggregated for PTNA</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["aggregated"]) . '</td>' . "\n";
+                if ( isset($ptna["aggregated"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["aggregated"]) . '</td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-text"></td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data analyzed for PTNA</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["analyzed"])   . '</td>' . "\n";
+                if ( isset($ptna["analyzed"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["analyzed"])   . '</td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-text"></td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">GTFS data normalized for PTNA</td>' . "\n";
-                echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["normalized"])  . '</td>' . "\n";
+                if ( isset($ptna["normalized"]) ) {
+                    echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["normalized"])  . '</td>' . "\n";
+                } else {
+                    echo '                           <td class="gtfs-text"></td>' . "\n";
+                }
                 echo '                        </tr>' . "\n";
 
                 $stop_time = gettimeofday(true);
