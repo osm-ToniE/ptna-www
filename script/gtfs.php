@@ -1108,7 +1108,7 @@
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
                         if ( $osm['gtfs_agency_is_operator'] ) {
                             if ( $agency['agency_name'] != 'Sonstige' ) {
-                                $osm_operator   = htmlspecialchars($agency['agency_name']);
+                                $osm_operator   = isset($agency['agency_name']) ? htmlspecialchars($agency['agency_name']) : '';
                             }
                         }
                         $osm_ref_trips          = htmlspecialchars( $trip_id );
@@ -1116,7 +1116,7 @@
                         $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
                         $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
                         $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
-                        $osm_gtfs_shape_id      = htmlspecialchars( $trips['shape_id'] );
+                        $osm_gtfs_shape_id      = isset($trips['shape_id']) ? htmlspecialchars( $trips['shape_id'] ) : '';
                         if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
                             $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                             if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
@@ -1561,7 +1561,7 @@
                             if ( isset($result['list_durations']) ) {
                                 $list_durations = explode( '|', $result['list_durations'] );
                                 for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
-                                    if ( !isset($service_departure[$list_service_ids[$i]]) ) {
+                                    if ( !isset($service_durations[$list_service_ids[$i]]) ) {
                                         $service_durations[$list_service_ids[$i]] = $list_durations[$i] . ',';
                                     } else {
                                         $service_durations[$list_service_ids[$i]] .= $list_durations[$i] . ',';
