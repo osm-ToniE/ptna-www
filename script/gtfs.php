@@ -462,8 +462,8 @@
                 $PreviousSqliteDb = FindGtfsSqliteDb( $feed, 'previous' );
                 if ( $PreviousSqliteDb ) {
                     $prev = GetPtnaDetails( $feed, 'previous' );
-                    if ( $prev['release_date'] ) {
-                        if ( $ptna['language'] == 'de' ) {
+                    if ( isset($prev['release_date']) ) {
+                        if ( isset($ptna['language']) == 'de' ) {
                             $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
                             $compare_img_title  = 'vergleiche Versionen';
                         } else {
@@ -471,7 +471,7 @@
                             $compare_img_title  = 'compare versions';
                         }
                     } else {
-                        if ( $ptna['language'] == 'de' ) {
+                        if ( isset($ptna['language']) == 'de' ) {
                             $previous_img_title = 'vorherige Version';
                             $compare_img_title  = 'vergleiche Versionen';
                         } else {
@@ -1118,6 +1118,7 @@
                         $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
                         $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
                         $osm_gtfs_shape_id      = isset($trips['shape_id']) ? htmlspecialchars( $trips['shape_id'] ) : '';
+                        $osm_gtfs_trip_id_like  = '';
                         if ( $osm['trip_id_regex'] && preg_match("/^".$osm['trip_id_regex']."$/",$trip_id) ) {
                             $osm_gtfs_trip_id_like = preg_replace( "/".$osm['trip_id_regex']."/","\\1", $trip_id );
                             if ( !preg_match("/^^\(/",$osm['trip_id_regex']) ) {
@@ -1788,11 +1789,15 @@
                                     echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
                                     echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
                                     echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
-                                    #if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
-                                    #    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
-                                    #} else {
-                                        echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
-                                    #}
+                                    if ( isset($row["shape_dist_traveled"]) ) {
+                                        #if ( preg_match('/^\d+(\.\d+)?$/',$row["shape_dist_traveled"],$parts) ) {
+                                        #    echo '                              <td class="gtfs-distance">'  . sprintf( "%.3f", $parts[0]/1000) . '</td>' . "\n";
+                                        #} else {
+                                            echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
+                                        #}
+                                    } else {
+                                        echo '                              <td class="gtfs-distance">&nbsp;</td>' . "\n";
+                                    }
                                     echo '                          </tr>' . "\n";
                                 }
                                 echo '                      </tbody>' . "\n";
