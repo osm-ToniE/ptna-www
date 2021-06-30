@@ -1883,7 +1883,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $trip_id    = isset($trip['trip_id']) ? '$trip['trip_id']' : '';
+                    $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT route_id
