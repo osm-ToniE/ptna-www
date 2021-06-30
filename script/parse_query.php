@@ -57,6 +57,8 @@
             $feed     = preg_replace( '/-\d\d\d\d-\d\d-\d\d.*$/', '', $feed );
             if ( $feed != $network ) {
                 $release_date = preg_replace( '/^.*-(previous|long-term|\d\d\d\d-\d\d-\d\d).*$/', '\\1', $network );
+            } else {
+                $release_date = '';
             }
         } else {
             $feed = '';
