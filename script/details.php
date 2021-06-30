@@ -30,7 +30,17 @@
         }
 
         $details_hash = [];
-        $details_hash['OLD_OR_NEW'] = 'old';
+        $details_hash['REGION_LINK']  = '';
+        $details_hash['REGION_NAME']  = '';
+        $details_hash['NETWORK_LINK'] = '';
+        $details_hash['NETWORK_NAME'] = '';
+        $details_hash['NEW_DATE_UTC'] = '';
+        $details_hash['NEW_DATE_LOC'] = '';
+        $details_hash['OLD_DATE_UTC'] = '';
+        $details_hash['OLD_DATE_LOC'] = '';
+        $details_hash['OLD_OR_NEW']   = 'old';
+        $details_hash['ROUTES_LINK']  = '';
+        $details_hash['ROUTES_NAME']  = '';
         if ( file_exists($details_filename) ) {
             $lines = file( $details_filename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
             foreach ( $lines as $line ) {

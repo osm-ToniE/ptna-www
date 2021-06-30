@@ -58,6 +58,9 @@
             if ( $feed != $network ) {
                 $release_date = preg_replace( '/^.*-(previous|long-term|\d\d\d\d-\d\d-\d\d).*$/', '\\1', $network );
             }
+        } else {
+            $feed = '';
+            $release_date = '';
         }
     }
     $route_id = isset($_GET['route_id']) ? $_GET['route_id'] : '';

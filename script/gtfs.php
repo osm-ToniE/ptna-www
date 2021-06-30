@@ -1035,7 +1035,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $rep_trip_id    = $trip['trip_id'];
+                    $rep_trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $rep_trip_id ) {
                         $sql = sprintf( "SELECT *
@@ -1386,7 +1386,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $trip_id    = $trip['trip_id'];
+                    $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
@@ -1751,7 +1751,7 @@
 
                         $trip       = $db->querySingle( $sql, true );
 
-                        if ( $trip['trip_id'] ) {
+                        if ( isset($trip['trip_id']) && $trip['trip_id'] ) {
                             $sql        = sprintf( "SELECT shape_id
                                                     FROM   trips
                                                     WHERE  trip_id='%s'",
@@ -1883,7 +1883,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $trip_id    = $trip['trip_id'];
+                    $trip_id    = isset($trip['trip_id']) ? '$trip['trip_id']' : '';
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT route_id
@@ -2101,7 +2101,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $trip_id    = $trip['trip_id'];
+                    $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips_comments';";
                     $sql_master = $db->querySingle( $sql, true );
