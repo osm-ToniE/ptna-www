@@ -1928,7 +1928,7 @@
 
                     $trip       = $db->querySingle( $sql, true );
 
-                    $trip_id    = $trip['trip_id'];
+                    $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
                         $sql = sprintf( "SELECT route_short_name
@@ -2125,7 +2125,7 @@
                              isset($row['suspicious_start'])             ||
                              isset($row['suspicious_end'])               ||
                              isset($row['same_names_but_different_ids'])    ) {
-                             $row['has_comments'] = 'yes';
+                            $row['has_comments'] = 'yes';
                         } else {
                             $row['has_comments'] = '';
                         }
