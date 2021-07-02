@@ -2126,11 +2126,6 @@
                              isset($row['suspicious_end'])               ||
                              isset($row['same_names_but_different_ids'])    ) {
                             $row['has_comments'] = 'yes';
-                        } else {
-                            $row['has_comments'] = '';
-                        }
-                        if ( !isset($row['shape_id']) ) {
-                            $row['shape_id'] = '';
                         }
 
                         return $row;

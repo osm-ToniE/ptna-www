@@ -30,8 +30,8 @@
         $route_short_name = 'not set';
     }
     $trips            = GetTripDetails( $feed, $release_date, $trip_id );
-    $has_comments     = $trips["has_comments"];
-    $shape_id         = $trips["shape_id"];
+    $has_comments     = isset($trips["has_comments"]) ? $trips["has_comments"] : '';
+    $shape_id         = isset($trips["shape_id"])     ? $trips["shape_id"]     : '';
     if ( $release_date ) {
         $feed_and_release = $feed . ' - ' . $release_date;
     } else {
