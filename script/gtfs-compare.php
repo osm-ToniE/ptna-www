@@ -97,10 +97,14 @@
                     }
                     echo $indent . '    <td class="gtfs-name">' . $release_date . '</td>' . "\n";
                     $feed_info = GetFeedDetails( $feed, $release_date );
-                    echo $indent . '    <td style="border-left-width: 1px;">' . htmlspecialchars($feed_info['feed_publisher_name']) . '</td>' . "\n";
-                    echo $indent . '    <td style="border-left-width: 1px;">' . htmlspecialchars($feed_info['feed_start_date']) . '</td>' . "\n";
-                    echo $indent . '    <td style="border-left-width: 1px;">' . htmlspecialchars($feed_info['feed_end_date']) . '</td>' . "\n";
-                    echo $indent . '    <td style="border-left-width: 1px;">' . htmlspecialchars($feed_info['feed_version']) . '</td>' . "\n";
+                    $info = isset($feed_info['feed_publisher_name']) ? htmlspecialchars($feed_info['feed_publisher_name']) : '&nbsp;';
+                    echo $indent . '    <td style="border-left-width: 1px;">' . $info . '</td>' . "\n";
+                    $info = isset($feed_info['feed_start_date'])     ? htmlspecialchars($feed_info['feed_start_date']) : '&nbsp;';
+                    echo $indent . '    <td style="border-left-width: 1px;">' . $info . '</td>' . "\n";
+                    $info = isset($feed_info['feed_end_date'])       ? htmlspecialchars($feed_info['feed_end_date']) : '&nbsp;';
+                    echo $indent . '    <td style="border-left-width: 1px;">' . $info . '</td>' . "\n";
+                    $info = isset($feed_info['feed_version'])        ? htmlspecialchars($feed_info['feed_version']) : '&nbsp;';
+                    echo $indent . '    <td style="border-left-width: 1px;">' . $info . '</td>' . "\n";
                     echo $indent . "</tr>\n";
                 }
             } else {

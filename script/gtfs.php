@@ -445,14 +445,14 @@
                 $LongTermSqliteDb = FindGtfsSqliteDb( $feed, 'long-term' );
                 if ( $LongTermSqliteDb ) {
                     $lt = GetPtnaDetails( $feed, 'long-term' );
-                    if ( $lt['release_date'] ) {
-                        if ( $lt['language'] == 'de' ) {
+                    if ( isset($lt['release_date']) && $lt['release_date'] ) {
+                        if ( isset($lt['language']) && $lt['language'] == 'de' ) {
                             $long_term_img_title = 'Langzeit-Version von ' . $lt['release_date'];
                         } else {
                             $long_term_img_title = 'long term version as of ' . $lt['release_date'];
                         }
                     } else {
-                        if ( $ptna['language'] == 'de' ) {
+                        if ( isset($ptna['language']) && $ptna['language'] == 'de' ) {
                             $long_term_img_title = 'Langzeit-Version';
                         } else {
                             $long_term_img_title = 'long term version';
@@ -462,8 +462,8 @@
                 $PreviousSqliteDb = FindGtfsSqliteDb( $feed, 'previous' );
                 if ( $PreviousSqliteDb ) {
                     $prev = GetPtnaDetails( $feed, 'previous' );
-                    if ( isset($prev['release_date']) ) {
-                        if ( isset($ptna['language']) == 'de' ) {
+                    if ( isset($prev['release_date']) && $prev['release_date'] ) {
+                        if ( isset($ptna['language']) && $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version von ' . $prev['release_date'];
                             $compare_img_title  = 'vergleiche Versionen';
                         } else {
@@ -471,7 +471,7 @@
                             $compare_img_title  = 'compare versions';
                         }
                     } else {
-                        if ( isset($ptna['language']) == 'de' ) {
+                        if ( isset($ptna['language']) && $ptna['language'] == 'de' ) {
                             $previous_img_title = 'vorherige Version';
                             $compare_img_title  = 'vergleiche Versionen';
                         } else {
@@ -491,8 +491,8 @@
 #                    echo '<a href="/gtfs/compare-feeds.php?feed=' . urlencode($feed) . '"><img src="/img/compare19.png" title="' . htmlspecialchars($compare_img_title) . '" /></a>';
 #                }
                 echo '</td>' . "\n";
-                if ( $ptna["network_name"] ) {
-                    if ( $ptna["network_name_url"] ) {
+                if ( isset($ptna["network_name"]) && $ptna["network_name"] ) {
+                    if ( isset($ptna["network_name_url"]) && $ptna["network_name_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["network_name_url"] . '">' . htmlspecialchars($ptna["network_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["network_name"]) . '</td>' . "\n";
@@ -500,20 +500,20 @@
                 } else {
                     echo '                            <td class="gtfs-text">&nbsp;</td>' . "\n";
                 }
-                if ( isset($feed_info["feed_publisher_name"]) ) {
-                    if ( $feed_info["feed_publisher_url"] ) {
+                if ( isset($feed_info["feed_publisher_name"]) && $feed_info["feed_publisher_name"] ) {
+                    if ( isset($feed_info["feed_publisher_url"]) && $feed_info["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $feed_info["feed_publisher_url"] . '" title="From GTFS">' . htmlspecialchars($feed_info["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($feed_info["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 } else {
-                    if ( $ptna["feed_publisher_url"] ) {
+                    if ( isset($ptna["feed_publisher_url"]) && $ptna["feed_publisher_url"] ) {
                         echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["feed_publisher_url"] . '" title="From PTNA">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</a></td>' . "\n";
                     } else {
                         echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["feed_publisher_name"]) . '</td>' . "\n";
                     }
                 }
-                if ( isset($feed_info["feed_start_date"]) ) {
+                if ( isset($feed_info["feed_start_date"]) && $feed_info["feed_start_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_start_date"], $parts ) ) {
                         echo '                            <td class="gtfs-date">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                     } else {
@@ -522,7 +522,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( isset($feed_info["feed_end_date"]) ) {
+                if ( isset($feed_info["feed_end_date"]) && $feed_info["feed_end_date"] ) {
                     if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $feed_info["feed_end_date"], $parts ) ) {
                         $class = "gtfs-date";
                         $today = new DateTime();
@@ -537,12 +537,12 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( isset($feed_info["feed_version"]) ) {
+                if ( isset($feed_info["feed_version"]) && $feed_info["feed_version"] ) {
                     echo '                            <td class="gtfs-number">' . htmlspecialchars($feed_info["feed_version"]) . '</td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-number">&nbsp;</td>' . "\n";
                 }
-                if ( isset($ptna["release_date"]) ) {
+                if ( isset($ptna["release_date"]) && $ptna["release_date"] ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["release_date"], $parts ) ) {
@@ -565,7 +565,7 @@
                             }
                         }
                     }
-                    if ( $ptna["release_url"] ) {
+                    if ( isset($ptna["release_url"]) && $ptna["release_url"] ) {
                         echo '                            <td class="' . $tdclass . '"><a target="_blank" href="' . $ptna["release_url"] . '"><span ' . $txclasstag . '>' . htmlspecialchars($ptna["release_date"]) . '</span></a></td>' . "\n";
                     } else {
                         echo '                            <td class="' . $tdclass . '"><span ' . $txclasstag . '>' . htmlspecialchars($ptna["release_date"]) . '</span></td>' . "\n";
@@ -573,7 +573,7 @@
                 } else {
                     echo '                            <td class="gtfs-date">&nbsp;</td>' . "\n";
                 }
-                if ( isset($ptna["prepared"]) ) {
+                if ( isset($ptna["prepared"]) && $ptna["prepared"] ) {
                     $tdclass    = "gtfs-date";
                     $txclasstag = "";
                     if ( preg_match( "/^(\d{4})-(\d{2})-(\d{2})$/", $ptna["prepared"], $parts ) ) {
@@ -1894,7 +1894,11 @@
 
                         $row = $db->querySingle( $sql, true );
 
-                        return $row["route_id"];
+                        if ( isset($row["route_id"]) ) {
+                            return $row["route_id"];
+                        } else {
+                            return '';
+                        }
                     }
 
                 } catch ( Exception $ex ) {
@@ -1940,7 +1944,11 @@
 
                         $row = $db->querySingle( $sql, true );
 
-                        return $row["route_short_name"];
+                        if ( isset($row["route_short_name"]) ) {
+                            return $row["route_short_name"];
+                        } else {
+                            return '';
+                        }
                     }
 
                 } catch ( Exception $ex ) {
@@ -1986,7 +1994,11 @@
 
                         $row = $db->querySingle( $sql, true );
 
-                        return $row["trip_id"];
+                        if ( isset($row["trip_id"]) ) {
+                            return $row["trip_id"];
+                        } else {
+                            return '';
+                        }
                     }
 
                 } catch ( Exception $ex ) {
@@ -2176,8 +2188,6 @@
                                       );
                     }
                     $row = $db->querySingle( $sql, true );
-
-                    $row['comment'] = isset($row['comment']) ? $row['comment'] : '';
 
                     return $row;
 

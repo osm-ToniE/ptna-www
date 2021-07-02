@@ -20,7 +20,7 @@
                      $route_short_name = '__not_set__';
                 }
                 $ptna    = GetRouteDetails( $feed, $release_date, $route_id );
-                $comment = $ptna["comment"];
+                $comment = isset($ptna["comment"]) ? $ptna["comment"] : '';
                 if ( $release_date ) {
                     $feed_and_release = $feed . ' - ' . $release_date;
                 } else {

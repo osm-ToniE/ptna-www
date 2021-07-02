@@ -41,11 +41,11 @@
 
 <?php
     $ptna = GetPtnaDetails( $feed, $release_date );
-    if ( $ptna['comment'] ) {
+    if ( isset($ptna['comment']) && $ptna['comment'] ) {
         printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
     }
     $osm = GetOsmDetails( $feed, $release_date );
-    if ( $osm['gtfs_agency_is_operator'] ) {
+    if ( isset($osm['gtfs_agency_is_operator']) && $osm['gtfs_agency_is_operator'] ) {
         $include_agency = 1;
     } else {
         $include_agency = 0;
