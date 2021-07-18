@@ -146,6 +146,8 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Orizo", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-PAC-RTM", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-PAC-Var", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Vaucluse", "fr", "Configuration" ); ?>
