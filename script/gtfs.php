@@ -724,7 +724,7 @@
                             }
                         }
 
-                        if ( $outerrow["route_type"] ) {
+                        if ( isset($outerrow["route_type"]) ) {
                             $route_type_text = RouteType2String( $outerrow["route_type"] );
                             $osm_route_type  = RouteType2OsmRoute( $outerrow["route_type"] );
                         } else {
