@@ -133,6 +133,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VLMÜ", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-VRG", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-VSL", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VVM-Mainfranken", "de", "Konfiguration" ); ?>
