@@ -75,9 +75,9 @@
     $duration += CreateGtfsEntry( "DE-BW-Filsland" );
     #$duration += CreateGtfsEntry( "DE-BW-HVG" );
     #$duration += CreateGtfsEntry( "DE-BW-Rexer" );
-    $duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
-    $duration += CreateGtfsEntry( "DE-BW-SWHN" );
-    $duration += CreateGtfsEntry( "DE-RP-VRN" );
+    #$duration += CreateGtfsEntry( "DE-BW-S-Bahn-Stuttgart" );
+    #$duration += CreateGtfsEntry( "DE-BW-SWHN" );
+    #$duration += CreateGtfsEntry( "DE-RP-VRN" );
 ?>
                     </tbody>
                 </table>
