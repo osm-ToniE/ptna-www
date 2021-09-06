@@ -7,13 +7,13 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="USA"><img src="/img/USA32.png" alt="flag of the USA" /> Results for the USA</h2>
-      
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksUSA">
@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "US-Flixbus", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-Flixbus", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-AK-Anchorage-PTD", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
@@ -36,4 +37,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
