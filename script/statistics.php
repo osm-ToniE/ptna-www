@@ -84,7 +84,7 @@
                 #}
             } else {
                 if ( $osm_xml_file_name && $size_download == 0 ) {
-                    printf( "    <td class=\"statistics-size-marked\">failed</td>\n" );
+                    printf( "    <td class=\"statistics-size-marked\"><a href=\"/en/showlogs.php?network=%s\">failed</a></td>\n", $network );
                 } else {
                     printf( "    <td class=\"statistics-size\"></td>\n" );
                 }
@@ -159,5 +159,18 @@
         printf( "    <th class=\"statistics-date\">%d</th>\n", $count_has_changes );
         printf( "</tr>\n" );
     }
+
+    function PrintNetworkAnalysisLogs( $network ) {
+        global $path_to_work;
+
+        $logfilename = $path_to_work . 'log/' . $network . '.log';
+        if ( file_exists($logfilename) ) {
+            $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
+            foreach ( $lines as $line ) {
+                printf( "%s\n", $line );
+            }
+        }
+    }
+
 
 ?>
