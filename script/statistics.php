@@ -167,6 +167,9 @@
         if ( file_exists($logfilename) ) {
             $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
             foreach ( $lines as $line ) {
+                $line = preg_replace( '/\/osm\/ptna\/work/', '$WORK_LOC', $line );
+                $line = preg_replace( '/\/osm\/ptna\/www/',  '$WWW_LOC',  $line );
+                $line = preg_replace( '/\/osm\/ptna/',       '$PTNA_LOC', $line );
                 printf( "%s\n", $line );
             }
         }
