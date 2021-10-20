@@ -170,7 +170,7 @@
                 $line = preg_replace( '/\/osm\/ptna\/work/', '$WORK_LOC', $line );
                 $line = preg_replace( '/\/osm\/ptna\/www/',  '$WWW_LOC',  $line );
                 $line = preg_replace( '/\/osm\/ptna/',       '$PTNA_LOC', $line );
-                printf( "%s\n", $line );
+                printf( "%s\n", htmlspecialchars($line) );
             }
         }
     }
