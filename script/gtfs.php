@@ -315,6 +315,13 @@
         $number_of_dot_boxes    = 1;    # at the start
         $time_line_covers_boxes = 0;    # dots at the start, arrow at the end
 
+        # here are fall-back values
+        $last_year   = date( "Y" );
+        $last_month  = date( "n" );
+        $start_year  = intdiv( ($last_year * 12 + $last_month) - $gtfs_show_number_of_months, 12 );
+        $start_month = (($last_year * 12 + $last_month) - $gtfs_show_number_of_months) % 12 + 1;
+        $date_rows   = 1;
+
         if ( count($release_dates) > 0 ) {
             #print_r($release_dates );
             # ensure that this month and year is shown in the time line
@@ -347,13 +354,6 @@
                 $date_rows = ( $relevant_dates[$ym] > $date_rows ) ? $relevant_dates[$ym] : $date_rows;
             }
         }
-
-        # here are fall-back values
-        if ( !$last_year   ) { $last_year   = date( "Y" ); }
-        if ( !$last_month  ) { $last_month  = date( "n" ); }
-        if ( !$start_year  ) { $start_year  = intdiv( ($last_year * 12 + $last_month) - $gtfs_show_number_of_months, 12 ); }
-        if ( !$start_month ) { $start_month = (($last_year * 12 + $last_month) - $gtfs_show_number_of_months) % 12 + 1; }
-        if ( !$date_rows   ) { $date_rows   = 1; }
 
         # echo 'last_year = ' . $last_year . ', start_year = ' . $start_year . ', last_month = ' . $last_month . ', start_month = ' . $start_month . ', date_rows = ' . $date_rows . "<br>\n\n";
 
