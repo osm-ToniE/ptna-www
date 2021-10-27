@@ -22,6 +22,7 @@
             $size_download     = GetOsmXmlFileSizeByte();
             $routes_link       = GetRoutesLink();
             $osm_base          = GetOsmBase();
+            $routes_size       = GetRoutesSize();
             $routes_date       = GetRoutesDate();
             $analysis_webpath  = GetHtmlFileWebPath();
             $start_analysis    = GetStartAnalysisDate();
@@ -89,14 +90,18 @@
                     printf( "    <td class=\"statistics-size\"></td>\n" );
                 }
             }
-            if ( $routes_date ) {
-                if ( $routes_link ) {
-                    printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $routes_link, $routes_date );
+            if ( $routes_size != '-1') {
+                if ( $routes_date ) {
+                    if ( $routes_link ) {
+                        printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $routes_link, $routes_date );
+                    } else {
+                        printf( "    <td class=\"statistics-date\">%s</td>\n", $routes_date );
+                    }
                 } else {
-                    printf( "    <td class=\"statistics-date\">%s</td>\n", $routes_date );
+                    printf( "    <td class=\"statistics-date\"></td>\n");
                 }
             } else {
-                printf( "    <td class=\"statistics-date\"></td>\n");
+                printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\">failed</a></td>\n", $network );
             }
             if ( $start_analysis && $end_analysis ) {
                 $sabs                 = strtotime( $start_analysis );

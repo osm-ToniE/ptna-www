@@ -222,6 +222,14 @@
         return( '' );
     }
 
+    function GetRoutesSize() {
+        global $details_hash;
+        if ( isset($details_hash['ROUTES_SIZE']) ) {
+            return( $details_hash['ROUTES_SIZE'] );
+        }
+        return( 0 );
+    }
+
     function GetRoutesDate() {
         global $details_hash;
         if ( isset($details_hash['ROUTES_TIMESTAMP_LOC']) ) {
