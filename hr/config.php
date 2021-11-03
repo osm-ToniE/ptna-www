@@ -7,7 +7,7 @@
 
     <body>
 
-<?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
+<?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } else { $found = ''; } ?>
 
       <div id="wrapper">
 
@@ -126,4 +126,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

@@ -7,10 +7,10 @@
 
     <body>
 
-<?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } ?>
-        
+<?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } else { $found = ''; } ?>
+
       <div id="wrapper">
-      
+
 <?php include "header.inc" ?>
 
         <nav id="navigation">
@@ -40,7 +40,7 @@
                     I dati così ottenuti consentono un'analisi delle linee di trasporto pubblico secondo cui ad es. il percorso può anche essere verificato per completezza.
                     Nodi, modi e relazioni (fermate e piattaforme) e i loro tag possono essere verificati rispetto al loro "ruolo" nella relazione.
                 </p>
-                
+
                 <?php if ( $found ) {
                           $query = htmlentities( GetOverpassQuery() );
                           $fsize = GetOsmXmlFileSizeByte();
@@ -48,7 +48,7 @@
                           $rname = htmlentities( GetRegionName() );
                           if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
                           if ( $fsize ) { printf( "<p>Questa query attualmente recapita approssimativamente %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
-                          if ( $rlink ) { 
+                          if ( $rlink ) {
                               printf( "<p>Mostra <a href=\"/en/index.php#searcharea\">l'area di ricerca</a> " );
                               if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
                               printf( "sulla <a href=\"%s\">mappa OSM</a>.</p>\n", $rlink );
@@ -66,7 +66,7 @@
                     Gli <a href="/en/index.php#messages">errori e commenti</a> riportati da PTNA possono essere controllati da una varietà di <a href="/en/index.php#options">opzioni di analisi</a>.<br />
                     Ecco un elenco di opzioni di analisi e i loro valori.<br />
                 </p>
-    
+
                 <table id="message-table">
                     <thead>
                         <tr class="message-tableheaderrow">
@@ -92,7 +92,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPagePtna(); 
+                        <?php $link = GetDiscussionPagePtna();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Discussione generale per PTNA</a> in the OSM Wiki.", $link );
                               } else {
@@ -106,7 +106,7 @@
                 <div class="indent">
 
                     <p>
-                        <?php $link = GetDiscussionPageNetwork(); 
+                        <?php $link = GetDiscussionPageNetwork();
                               if ( $link ) {
                                   printf( "<a href=\"%s\">Discussione per questa analisi</a>, questa 'network' nel Wiki di OSM.", $link );
                               } else {
@@ -126,4 +126,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
