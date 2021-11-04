@@ -226,7 +226,7 @@
             <tr class="message-tablerow" id="option-ptv1-compatibility">
                 <td class="message-option">ptv1-compatibility</td>
                 <td class="message-default">no</td>
-                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; für einen Punkt neben der Straße wird wie &#039;public_transport&#039; = &#039;platform&#039; behandelt, wenn &#039;role&#039; = &#039;platform&#039;.<br />allow: die Kompatibilität mit alten bus-stops (aka: PTv1) wird stillschweigend angenommen<br />no: keine Kompatibilität mit alten bus-stops (aka: PTv1)<br />show: die Kompatibilität mit alten bus-stops (aka: PTv1) wird angenommen und angezeigt.</td>
+                <td class="message-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; für einen Punkt neben der Straße wird wie &#039;public_transport&#039; = &#039;platform&#039; behandelt, wenn &#039;role&#039; = &#039;platform&#039;.<br />allow: die Kompatibilität mit alten bus-stops (aka: PTv1) wird stillschweigend angenommen<br />no: keine Kompatibilität mit alten bus-stops (aka: PTv1)<br />show: die Kompatibilität mit alten bus-stops (aka: PTv1) wird angenommen und angezeigt.<br />Siehe auch: <a href="https://wiki.openstreetmap.org/w/index.php?title=Proposed_features/Public_Transport&oldid=625726#Compatibility_with_well_known_tags">OSM-Wiki: Kompatibilität mit bekannten Tags</a>.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow" id="option-ref-separator">
