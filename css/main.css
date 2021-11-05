@@ -138,11 +138,20 @@ code             { font-weight: 500; font-size: 1.1em; }
 .message-description      { text-align:left; }
 .message-fix              { text-align:left; }
 .message-image            { text-align:left; }
-
 .message-tooltip                            { position: relative;  display: inline-block; }
 .message-tooltip       .message-tooltiptext { visibility: hidden;  background-color: black; width: 694px; color: #fff; text-align: center; padding: 3px; top: -5px;right: -5px; position: absolute; z-index: 3; }
 .message-tooltip:hover .message-tooltiptext { visibility: visible; }
 
+#option-table img         { width: 100px; z-index: 1; }
+#option-table img:hover   { transform: translate(-295%,325%) scale(7.0); z-index: 2; }
+.option-tableheaderrow    { background-color: #dddddd; text-align:left; }
+.option-option            { white-space:nowrap; }
+.option-default           { text-align:left; }
+.option-description       { text-align:left; }
+.option-image             { text-align:left; }
+.option-tooltip                           { position: relative;  display: inline-block; }
+.option-tooltip       .option-tooltiptext { visibility: hidden;  background-color: black; width: 694px; color: #fff; text-align: center; padding: 3px; top: -5px;right: -5px; position: absolute; z-index: 3; }
+.option-tooltip:hover .option-tooltiptext { visibility: visible; }
 
 #analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 #analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
