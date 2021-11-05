@@ -145,6 +145,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #option-table img         { width: 100px; z-index: 1; }
 #option-table img:hover   { transform: translate(-295%,325%) scale(7.0); z-index: 2; }
 .option-tableheaderrow    { background-color: #dddddd; text-align:left; }
+.option-tablerow          { background-color: white;   text-align:left; vertical-align:top;   }
 .option-option            { white-space:nowrap; }
 .option-default           { text-align:left; }
 .option-description       { text-align:left; }
