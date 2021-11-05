@@ -272,7 +272,6 @@
                                    <li>er ist eindeutig, denn z.b. einen Landkreis: admin_level=6 mit name="Coburg" mag es weltweit mehrfach geben.</li>
                                    <li>eine Relation mit type=boundary kann Lücken enthalten, es werden dann keine Daten runter geladen.</li>
                                 </ul>
-                            </li>
 		    </div> <!-- searcharea -->
 
 		    <h4 id="searchdata">Auswahl und Abspeichern aller relevanten Route und deren Route-Master Relationen</h4>
@@ -281,7 +280,7 @@
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 		    </div> <!-- searchdata -->
-		
+
 		    <h4 id="searchoutput">Ausgabe der relevanten Informationen</h4>
                     <div class="indent">
                         <p>
@@ -572,4 +571,3 @@
 	</div> <!-- wrapper -->
     </body>
 </html>
-
