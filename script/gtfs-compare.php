@@ -203,7 +203,7 @@
                 $feed2_routes = GetGtfsRoutes($feedDB2);
                 $maxcount = count($feed2_routes) > $maxcount ? count($feed2_routes) : $maxcount;
             }
-            if ( issset($_GET['type']) && $_GET['type'] == 'd' ) {
+            if ( isset($_GET['type']) && $_GET['type'] == 'd' ) {
                 echo $indent . "<tr>\n";
                 echo $indent . '   <td><input type="hidden" name="feed"         value="' . $feed .          '">'  . $feed         . "</td>\n";
                 echo $indent . '   <td><input type="hidden" name="release_date" value="' . $release_date  . '"> ' . $release_date . "</td>\n";
