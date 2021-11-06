@@ -46,7 +46,7 @@
                     $startabs       = strtotime( $start_download );
                     $age_osm_base   = $startabs - $osmbaseabs;
                     if ( $age_osm_base > 3600 ) {
-                        printf( "    <td class=\"statistics-date-marked\">%s</td>\n", $osm_base );
+                        printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\">%s</a></td>\n", $network, $osm_base );
                     } else {
                         printf( "    <td class=\"statistics-date\">%s</td>\n", $osm_base );
                     }
