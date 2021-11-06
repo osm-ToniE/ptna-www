@@ -159,7 +159,7 @@
         $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
         $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         if ( $feedDB1 && $feedDB2 ) {
-            if ( $_GET['type'] == 'd' ) {
+            if ( isset($_GET['type']) && $_GET['type'] == 'd' ) {
                 echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($button_text) . '</button></th</tr>' . "\n";
                 echo $indent . '<tr><th class="gtfs-name">feed</td>' . "\n";
                 echo $indent . '    <th class="gtfs-name">release_date</td>' . "\n";
@@ -203,7 +203,7 @@
                 $feed2_routes = GetGtfsRoutes($feedDB2);
                 $maxcount = count($feed2_routes) > $maxcount ? count($feed2_routes) : $maxcount;
             }
-            if ( $_GET['type'] == 'd' ) {
+            if ( issset($_GET['type']) && $_GET['type'] == 'd' ) {
                 echo $indent . "<tr>\n";
                 echo $indent . '   <td><input type="hidden" name="feed"         value="' . $feed .          '">'  . $feed         . "</td>\n";
                 echo $indent . '   <td><input type="hidden" name="release_date" value="' . $release_date  . '"> ' . $release_date . "</td>\n";
@@ -227,7 +227,7 @@
             } else {
                 $left  = 0;
                 $right = 0;
-                while ( $feed1_routes[$left] || $feed2_routes[$right] ) {
+                while ( (isset($feed1_routes[$left]) && $feed1_routes[$left]) || (isset($feed2_routes[$right]) && $feed2_routes[$right]) ) {
                     if ( $left == 0 ) {
                         $leftchecked = ' checked="checked"';
                     } else {
@@ -239,7 +239,7 @@
                         $rightchecked = '';
                     }
                     echo $indent . "<tr>\n";
-                    if ( $feed1_routes[$left] && $feed2_routes[$right] ) {
+                    if ( isset($feed1_routes[$left]) && $feed1_routes[$left] && isset($feed2_routes[$right]) && $feed2_routes[$right] ) {
                         if ( $feed1_routes[$left]['sort_key'] == $feed2_routes[$right]['sort_key'] ) {
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left]['route_id']) . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['route_short_name'])                         . "</td>\n";
@@ -281,7 +281,7 @@
                             $right++;
                         }
                     } else {
-                        if ( $feed1_routes[$left] ) {
+                        if ( isset($feed1_routes[$left]) && $feed1_routes[$left] ) {
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left]['route_id'])                        . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['route_short_name'])                        . "</td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars(RouteType2OsmRoute($feed1_routes[$left]['route_type']))    . "</td>\n";
