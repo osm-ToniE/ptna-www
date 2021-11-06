@@ -91,6 +91,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-LAVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-LVG", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-MVV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-OVG", "de", "Konfiguration" ); ?>
