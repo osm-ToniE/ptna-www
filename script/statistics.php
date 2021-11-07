@@ -176,6 +176,7 @@
                 $line = preg_replace( '/\/osm\/ptna\/www/',   '$WWW_LOC',   $line );
                 $line = preg_replace( '/\/osm\/ptna/',        '$PTNA_LOC',  $line );
                 $line = preg_replace( '/\/home\/toni\/ptna/', '$PTNA_PATH', $line );
+                $line = preg_replace( '/toni osm/',           'user group', $line );
                 printf( "%s\n", htmlspecialchars($line) );
             }
         }
