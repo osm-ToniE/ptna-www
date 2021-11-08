@@ -117,6 +117,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VBP-VLP", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-VDW", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-VGA", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VGI", "de", "Konfiguration" ); ?>
