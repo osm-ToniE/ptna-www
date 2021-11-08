@@ -197,7 +197,11 @@
 
                     <?php CreateNewFullEntry( "DE-SN-VVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-ST-PVGS", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-ST-stendalbus", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-TH-VGLG", "de", "Konfiguration" ); ?>
 
