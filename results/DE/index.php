@@ -157,6 +157,8 @@
 
                     <?php CreateNewFullEntry( "DE-MV-MVVG", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-MV-VVR", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-NI-BVE", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NI-VEJ", "de", "Konfiguration" ); ?>
