@@ -47,6 +47,7 @@
     $duration += CreateGtfsEntry( "DE-BW-VVS" );
     $duration += CreateGtfsEntry( "DE-BW-bodo" );
     $duration += CreateGtfsEntry( "DE-BW-naldo" );
+    $duration += CreateGtfsEntry( "DE-BY-MVG" );
     $duration += CreateGtfsEntry( "DE-BY-MVV" );
     $duration += CreateGtfsEntry( "DE-NW-AVV" );
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
