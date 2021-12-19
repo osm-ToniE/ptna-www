@@ -1117,7 +1117,7 @@
                         }
                         $osm_ref_trips          = htmlspecialchars( $trip_id );
                         $osm_gtfs_feed          = htmlspecialchars( $feed );
-                        $osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
+                        #$osm_gtfs_release_date  = htmlspecialchars( $ptna["release_date"] );
                         $osm_gtfs_route_id      = htmlspecialchars( $routes['route_id'] );
                         $osm_gtfs_trip_id       = htmlspecialchars( $trip_id );
                         $osm_gtfs_shape_id      = isset($trips['shape_id']) ? htmlspecialchars( $trips['shape_id'] ) : '';
@@ -1204,10 +1204,10 @@
                         echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
+                        #echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        #echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                        #echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
+                        #echo '                            </tr>' . "\n";
                         if ( $osm_gtfs_route_id ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
@@ -1288,10 +1288,10 @@
                         echo '                                <td class="gtfs-name">gtfs:feed</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_gtfs_feed . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                        echo '                            <tr class="gtfs-tablerow">' . "\n";
-                        echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
-                        echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
-                        echo '                            </tr>' . "\n";
+                        #echo '                            <tr class="gtfs-tablerow">' . "\n";
+                        #echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
+                        #echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
+                        #echo '                            </tr>' . "\n";
                         if ( $osm_gtfs_route_id ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
