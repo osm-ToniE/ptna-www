@@ -3,6 +3,7 @@
     $gtfs_strings['subroute_of']                    = 'Trip is subroute of:';
     $gtfs_strings['suspicious_start']               = 'Suspicious start of trip: same';
     $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
+    $gtfs_strings['suspicious_number_of_stops']     = 'Suspicious number of stops:';
     $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
 
     if ( $lang ) {
@@ -12,6 +13,7 @@
             $gtfs_strings['subroute_of']                    = 'Fahrt ist Teilroute von:';
             $gtfs_strings['suspicious_start']               = 'Verdächtiger Anfang der Fahrt: gleiche';
             $gtfs_strings['suspicious_end']                 = 'Verdächtiges Ende der Fahrt: gleiche';
+            $gtfs_strings['suspicious_number_of_stops']     = 'Verdächtige Anzahl von Haltestellen:';
             $gtfs_strings['same_names_but_different_ids']   = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
         }
     }
@@ -67,7 +69,7 @@
         $release_dates  = array();          # i.e. all months are relevant
 
         if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
-            $release_dates =GetGtfsFeedReleaseDatesNonEmpty( $feed );
+            $release_dates = GetGtfsFeedReleaseDatesNonEmpty( $feed );
 
             rsort( $release_dates );
 
@@ -2137,6 +2139,7 @@
                              isset($row['subroute_of'])                  ||
                              isset($row['suspicious_start'])             ||
                              isset($row['suspicious_end'])               ||
+                             isset($row['suspicious_number_of_stops'])   ||
                              isset($row['same_names_but_different_ids'])    ) {
                             $row['has_comments'] = 'yes';
                         }
@@ -2686,6 +2689,14 @@
                     $sql_master = $db->querySingle( $sql, true );
 
                     if ( isset($sql_master['name']) ) {
+                        $sql     = sprintf( "PRAGMA table_info(ptna_trips_comments)" );
+                        $result  = $db->query( $sql );
+                        $columns = [];
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            if ( $row["name"] ) {
+                                $columns[$row["name"]] = 1;
+                            }
+                        }
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE subroute_of != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
@@ -2721,6 +2732,17 @@
                             echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPEND">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
                             echo '                            <td class="statistics-number">[1]</td>' . "\n";
                             echo '                        </tr>' . "\n";
+                        }
+                        if ( isset($columns['suspicious_number_of_stops']) ) {
+                            $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_number_of_stops != '';" );
+                            $ptna = $db->querySingle( $sql, true );
+                            if ( $ptna["count"] ) {
+                                echo '                        <tr class="statistics-tablerow">' . "\n";
+                                echo '                            <td class="statistics-name">Trips with suspicious number of stops</td>' . "\n";
+                                echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUSPCOUNT">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                                echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                                echo '                        </tr>' . "\n";
+                            }
                         }
                     }
                 }
@@ -2848,6 +2870,7 @@
                         $col_name['SUBR']      = '';
                         $col_name['SUSPSTART'] = '';
                         $col_name['SUSPEND']   = '';
+                        $col_name['SUSPCOUNT'] = '';
                         $col_name['IDENT']     = '';
                         while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                             if ( $row["name"] == 'subroute_of' ) {
@@ -2858,6 +2881,9 @@
                             }
                             elseif ( $row["name"] == 'suspicious_end' ) {
                                 $col_name['SUSPEND']  = 'suspicious_end';
+                            }
+                            elseif ( $row["name"] == 'suspicious_number_of_stops' ) {
+                                $col_name['SUSPCOUNT']  = 'suspicious_number_of_stops';
                             }
                             elseif ( $row["name"] == 'same_names_but_different_ids' ) {
                                 $col_name['IDENT']  = 'same_names_but_different_ids';
@@ -3175,6 +3201,9 @@
             }
             if ( isset($param['suspicious_end']) && $param['suspicious_end'] ) {
                 $string .= "\n" . $gtfs_strings['suspicious_end'] . " '" . $param['suspicious_end'] . "'";
+            }
+            if ( isset($param['suspicious_number_of_stops']) && $param['suspicious_number_of_stops'] ) {
+                $string .= "\n" . $gtfs_strings['suspicious_number_of_stops'] . " '" . $param['suspicious_number_of_stops'] . "'";
             }
             if ( isset($param['subroute_of']) && $param['subroute_of'] ) {
                 $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
