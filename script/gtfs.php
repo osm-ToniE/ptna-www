@@ -2976,7 +2976,7 @@
         $route_type_to_string["115"] = 'Vehicle Transport Rail Service';
         $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
         $route_type_to_string["117"] = 'Additional Rail Service';
-        $route_type_to_string["200"] = 'Coach Service 	Yes';
+        $route_type_to_string["200"] = 'Coach Service';
         $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
         $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
         $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
