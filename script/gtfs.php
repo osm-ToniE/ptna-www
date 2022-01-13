@@ -1002,13 +1002,13 @@
                                      . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
                                      . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . " ); -->\n";
 
-        if ( $feed                  && preg_match("/^[a-zA-Z0-9_.-]+$/",   $feed)                     &&
-             ($release_date == ''   || preg_match("/^[0-9-]+$/",           $release_date) )           &&
-             $route_id              && preg_match("/^[a-zA-Z0-9_.:-]+$/",  $route_id)                 &&
-             $route_short_name      && preg_match("/^[a-zA-Z0-9_. -]+$/",  $route_short_name)         &&
-             $osm_ref               && preg_match("/^[a-zA-Z0-9_. -]+$/",  $osm_ref)                  &&
-             $osm_route_type        && preg_match("/^[a-zA-Z0-9_.-]+$/",   $osm_route_type)           &&
-             $ptna_analysis_source  && preg_match("/^[a-zA-Z0-9_.-]+$/",   $ptna_analysis_source)        ) {
+        if ( $feed                  && preg_match("/^[a-zA-Z0-9_.-]+$/",     $feed)                     &&
+             ($release_date == ''   || preg_match("/^[0-9-]+$/",             $release_date) )           &&
+             $route_id              && preg_match("/^[a-zA-Z0-9_.:-]+$/",    $route_id)                 &&
+             $route_short_name      && preg_match("/^[a-zA-Z0-9_. \/-]+$/",  $route_short_name)         &&
+             $osm_ref               && preg_match("/^[a-zA-Z0-9_. \/-]+$/",  $osm_ref)                  &&
+             $osm_route_type        && preg_match("/^[a-zA-Z0-9_.-]+$/",     $osm_route_type)           &&
+             $ptna_analysis_source  && preg_match("/^[a-zA-Z0-9_.-]+$/",     $ptna_analysis_source)        ) {
 
             $prefixparts = explode( '-', $ptna_analysis_source );
             $countrydir  = array_shift( $prefixparts );
@@ -1055,6 +1055,7 @@
         } else {
             echo '                            <tr class="gtfs-tablerow">' . "\n";
             echo '                                <td class="gtfs-name">Error</td>' . "\n";
+            echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
             echo '                                <td class="gtfs-name"> feed = '                 . htmlspecialchars($feed)
                                                                     . ", release_date = "         . htmlspecialchars($release_date)
                                                                     . ", route_id = "             . htmlspecialchars($route_id)
