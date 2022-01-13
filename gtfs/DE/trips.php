@@ -25,12 +25,6 @@
                 }
                 $osm = GetOsmDetails( $feed, $release_date );
                 $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
-                if ( $feed == 'DE-BY-MVV' || $feed == 'DE-BY-MVG' ) {
-                    $ptna_analysis_source = 'DE-BY-MVV';
-                }
-                elseif ( $feed == 'DE-SN-VMS' ) {
-                    $ptna_analysis_source = 'DE-SN-VMS';
-                }
             ?>
 
             <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>
