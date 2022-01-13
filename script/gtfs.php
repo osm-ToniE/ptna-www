@@ -990,6 +990,8 @@
 
     function CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source ) {
 
+        global $path_to_www;
+
         $start_time = gettimeofday(true);
 
         echo "<!-- CreateLinksToPtnaData( feed = "                 . htmlspecialchars($feed)
@@ -1018,10 +1020,38 @@
                 $analysis_filename = $ptna_analysis_source . '-Analysis.html';
                 $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
             }
-            echo '                            <tr class="gtfs-tablerow">' . "\n";
-            echo '                                <td class="gtfs-number"><a href="' . $analysis_webpath . '#' . $osm_route_type . '_' . $osm_ref . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
-            echo '                                <td class="gtfs-name">'            . "... hier kommt noch was ..." . '</td>' . "\n";
-            echo '                            </tr>' . "\n";
+
+            $analysis_filepath = $path_to_www . preg_replace("/^\//",'',$analysis_webpath);
+
+            $shell_command = "egrep 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
+            #echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
+            $matching_ptna_lines = shell_exec( $shell_command );
+            #echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
+            $matching_ptna_array = explode( "\n", $matching_ptna_lines );
+            foreach ( $matching_ptna_array as $match ) {
+                if ( preg_match("/data-ref/",$match) ) {
+                    $id        = preg_replace('/".*$/','',preg_replace('/^.*id="/','',$match));
+                    $data_info = preg_replace('/ <a.*$/','',preg_replace('/".*$/','',preg_replace('/^.*data-info="/','',$match)));
+                    $osm_route = preg_replace('/_.*$/','',$id);
+                    if ( preg_match("/$route_id/",$match) ) {
+                        $good_id_match = ' style="background-color: lightgreen;"';
+                    } else {
+                        $good_id_match = '';
+                    }
+                    if ( $osm_route == $osm_route_type ) {
+                        $good_route_match = ' style="background-color: lightgreen;"';
+                    } else {
+                        $good_route_match = '';
+                    }
+                    echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
+                    echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
+                    echo '                                <td class="gtfs-name"'   . $good_route_match . '>'          . htmlspecialchars($osm_route) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
+                    echo '                            </tr>' . "\n";
+                } elseif ( $match ) {
+                    echo "<!-- ". htmlspecialchars($match) . " -->\n";
+                }
+            }
         } else {
             echo '                            <tr class="gtfs-tablerow">' . "\n";
             echo '                                <td class="gtfs-name">Error</td>' . "\n";

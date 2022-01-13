@@ -25,7 +25,12 @@
                 }
                 $osm = GetOsmDetails( $feed, $release_date );
                 $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
-                $ptna_analysis_source = ($feed == 'DE-BY-MVV' | $feed == 'DE-BY-MVG') ? 'DE-BY-MVV' : '';
+                if ( $feed == 'DE-BY-MVV' || $feed == 'DE-BY-MVG' ) {
+                    $ptna_analysis_source = 'DE-BY-MVV';
+                }
+                elseif ( $feed == 'DE-SN-VMS' ) {
+                    $ptna_analysis_source = 'DE-SN-VMS';
+                }
             ?>
 
             <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>
@@ -59,9 +64,6 @@
                             $osm_ref          =  $route_short_name;
                             if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
                                 $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
-                                if ( $osm_route_type == 'share_taxi' ) {
-                                    $osm_route_type = 'bus';
-                                }
                             }
                             $duration = CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source );
 ?>
