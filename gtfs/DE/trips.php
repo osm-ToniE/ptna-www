@@ -15,17 +15,17 @@
 
         <main id="main" class="results">
             <?php
-                $route_short_name = GetGtfsRouteShortNameFromRouteId( $feed, $release_date, $route_id );
-                if ( !$route_short_name ) {
-                     $route_short_name = '__not_set__';
-                }
-                $ptna    = GetRouteDetails( $feed, $release_date, $route_id );
-                $comment = isset($ptna["comment"]) ? $ptna["comment"] : '';
+                $route            = GetRouteDetails( $feed, $release_date, $route_id );
+                $comment          =  isset($route["comment"])                                         ? $route["comment"]                        : '';
+                $route_short_name = (isset($route["route_short_name"]) && $route["route_short_name"]) ? $route["route_short_name"]               : '???';
                 if ( $release_date ) {
                     $feed_and_release = $feed . ' - ' . $release_date;
                 } else {
                     $feed_and_release = $feed;
                 }
+                $osm = GetOsmDetails( $feed, $release_date );
+                $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
+                $ptna_analysis_source = ($feed == 'DE-BY-MVV' | $feed == 'DE-BY-MVG') ? 'DE-BY-MVV' : '';
             ?>
 
             <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Deutschland"; } ?></h2>
@@ -43,6 +43,34 @@
 
                 </div>
 
+<?php if ( $ptna_analysis_source ): ?>
+                <h3 id="ptna-data">PTNA-Analysedaten für diese Linie</h3>
+                <div class="indent">
+<?php include $lang_dir.'gtfs-ptna-head.inc' ?>
+
+                    <table id="gtfs-ptna">
+                        <thead>
+<?php include $lang_dir.'gtfs-ptna-trth.inc' ?>
+                        </thead>
+                        <tbody>
+<?php
+                            $osm_route_type   =  isset($route["route_type"]) ? RouteType2OsmRoute($route["route_type"]) : '???';
+                            $osm_vehicle      =  OsmRoute2Vehicle($osm_route_type,$ptna_lang);
+                            $osm_ref          =  $route_short_name;
+                            if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
+                                $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
+                                if ( $osm_route_type == 'share_taxi' ) {
+                                    $osm_route_type = 'bus';
+                                }
+                            }
+                            $duration = CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source );
+?>
+                        </tbody>
+                    </table>
+                    <?php printf( "<p>Suche benötigte %f Sekunden</p>\n", $duration ); ?>
+               </div>
+<?php endif; ?>
+
                 <h3 id="routes">Existierende Linienvarianten</h3>
                 <div class="indent">
 
@@ -59,6 +87,7 @@
 
                     <?php printf( "<p>SQL-Abfrage benötigte %f Sekunden</p>\n", $duration ); ?>
                 </div>
+
             </div>
 
         </main> <!-- main -->

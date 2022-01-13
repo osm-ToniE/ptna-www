@@ -731,7 +731,7 @@
                             $osm_route_type  = RouteType2OsmRoute( $outerrow["route_type"] );
                         } else {
                             $route_type_text = '???';
-                            $osm_route_type  = 'not set';
+                            $osm_route_type  = '???';
                         }
 
                         if ( $ptna['consider_calendar'] ) {
@@ -768,7 +768,7 @@
                             }
                         }
 
-                        $route_short_name = "not set";
+                        $route_short_name = '???';
                         if ( $outerrow["route_short_name"] ) {
                             $route_short_name = $outerrow["route_short_name"];
                         }
@@ -985,6 +985,59 @@
         }
 
         return 0;
+    }
+
+
+    function CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source ) {
+
+        $start_time = gettimeofday(true);
+
+        echo "<!-- CreateLinksToPtnaData( feed = "                 . htmlspecialchars($feed)
+                                     . ", release_date = "         . htmlspecialchars($release_date)
+                                     . ", route_id = "             . htmlspecialchars($route_id)
+                                     . ", route_short_name = "     . htmlspecialchars($route_short_name)
+                                     . ", osm_ref = "              . htmlspecialchars($osm_ref)
+                                     . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
+                                     . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . " ); -->\n";
+
+        if ( $feed                  && preg_match("/^[a-zA-Z0-9_.-]+$/",   $feed)                     &&
+             ($release_date == ''   || preg_match("/^[0-9-]+$/",           $release_date) )           &&
+             $route_id              && preg_match("/^[a-zA-Z0-9_.:-]+$/",  $route_id)                 &&
+             $route_short_name      && preg_match("/^[a-zA-Z0-9_. -]+$/",  $route_short_name)         &&
+             $osm_ref               && preg_match("/^[a-zA-Z0-9_. -]+$/",  $osm_ref)                  &&
+             $osm_route_type        && preg_match("/^[a-zA-Z0-9_.-]+$/",   $osm_route_type)           &&
+             $ptna_analysis_source  && preg_match("/^[a-zA-Z0-9_.-]+$/",   $ptna_analysis_source)        ) {
+
+            $prefixparts = explode( '-', $ptna_analysis_source );
+            $countrydir  = array_shift( $prefixparts );
+            if ( count($prefixparts) > 1 ) {
+                $subdir = array_shift( $prefixparts );
+                $analysis_filename = $subdir . '/' . $ptna_analysis_source . '-Analysis.html';
+                $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
+            } else {
+                $analysis_filename = $ptna_analysis_source . '-Analysis.html';
+                $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
+            }
+            echo '                            <tr class="gtfs-tablerow">' . "\n";
+            echo '                                <td class="gtfs-number"><a href="' . $analysis_webpath . '#' . $osm_route_type . '_' . $osm_ref . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
+            echo '                                <td class="gtfs-name">'            . "... hier kommt noch was ..." . '</td>' . "\n";
+            echo '                            </tr>' . "\n";
+        } else {
+            echo '                            <tr class="gtfs-tablerow">' . "\n";
+            echo '                                <td class="gtfs-name">Error</td>' . "\n";
+            echo '                                <td class="gtfs-name"> feed = '                 . htmlspecialchars($feed)
+                                                                    . ", release_date = "         . htmlspecialchars($release_date)
+                                                                    . ", route_id = "             . htmlspecialchars($route_id)
+                                                                    . ", route_short_name = "     . htmlspecialchars($route_short_name)
+                                                                    . ", osm_ref = "              . htmlspecialchars($osm_ref)
+                                                                    . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
+                                                                    . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
+            echo '                            </tr>' . "\n";
+        }
+
+        $stop_time = gettimeofday(true);
+
+        return $stop_time - $start_time;
     }
 
 
