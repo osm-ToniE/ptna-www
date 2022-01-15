@@ -45,10 +45,12 @@
         if ( file_exists($details_filename) ) {
             $lines = file( $details_filename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
             foreach ( $lines as $line ) {
-                list($key,$value)    = explode( '=', $line, 2 );
-                $key                 = rtrim(ltrim($key));
-                $details_hash[$key]  = rtrim(ltrim($value));
-                $entries_found++;
+                if ( preg_match("/=/",$line) ) {
+                    list($key,$value)    = explode( '=', $line, 2 );
+                    $key                 = rtrim(ltrim($key));
+                    $details_hash[$key]  = rtrim(ltrim($value));
+                    $entries_found++;
+                }
             }
         }
         $filename_hash = [];
