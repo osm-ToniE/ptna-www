@@ -3189,16 +3189,44 @@
 
         $rt = strtolower(RouteType2String($rt));
 
-        if ( preg_match("/trolleybus/",$rt) ) {
-            $rt = '50';
-        } elseif ( preg_match("/demand and response bus/",$rt) ) {
-            $rt = '60';
-        } elseif ( preg_match("/tram/",$rt) ) {
+        if ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
+            $rt = '20';
+        } elseif ( preg_match("/tram/",$rt) || preg_match("/streetcar/",$rt) || preg_match("/light rail/",$rt) ) {
             $rt = '30';
-        } elseif ( preg_match("/bus/",$rt) ) {
+        } elseif ( preg_match("/coach/",$rt) ) {
             $rt = '40';
+        } elseif ( preg_match("/bus/",$rt) ) {
+            if ( preg_match("/express/",$rt) ) {
+                $rt = '51';
+            } elseif ( preg_match("/regional/",$rt) ) {
+                $rt = '53';
+            } elseif ( preg_match("/local/",$rt) ) {
+                $rt = '54';
+            } elseif ( preg_match("/night/",$rt) ) {
+                $rt = '55';
+            } elseif ( preg_match("/school/",$rt) ) {
+                $rt = '56';
+            } elseif ( preg_match("/rail replacement/",$rt) ) {
+                $rt = '57';
+            } elseif ( preg_match("/sightseeing/",$rt) ) {
+                $rt = '58';
+            } elseif ( preg_match("/miscellaneous/",$rt) ) {
+                $rt = '58';
+            } elseif ( preg_match("/trolleybus/",$rt) ) {
+                $rt = '60';
+            } elseif ( preg_match("/demand and response bus/",$rt) ) {
+                $rt = '61';
+            } else {
+                $rt = '52';
+            }
+        } elseif ( preg_match("/taxi/",$rt) ) {
+            $rt = '69';
         } elseif ( preg_match("/monorail/",$rt) ) {
             $rt = '70';
+        } elseif ( preg_match("/funicular/",$rt) ) {
+            $rt = '80';
+        } elseif ( preg_match("/aerial/",$rt) ) {
+            $rt = '90';
         } elseif ( preg_match("/ferry/",$rt) || preg_match("/water transport service/",$rt) ) {
             $rt = '99';
         } elseif ( preg_match("/rail/",$rt)  || preg_match("/train/",$rt)) {
@@ -3215,14 +3243,8 @@
             } else {
                 $rt = '19';
             }
-        } elseif ( preg_match("/funicular/",$rt) ) {
-            $rt = '80';
-        } elseif ( preg_match("/aerial/",$rt) ) {
-            $rt = '90';
-        } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
-            $rt = '20';
         } else {
-            $rt = '40';
+            $rt = '63';
         }
 
         return $rt;
