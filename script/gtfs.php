@@ -1032,7 +1032,11 @@
                 if ( preg_match("/data-ref/",$match) ) {
                     $id        = preg_replace('/".*$/','',preg_replace('/^.*id="/','',$match));
                     $data_info = preg_replace('/ *GTFS,*$/','',preg_replace('/<.*?>/','',preg_replace('/".*$/','',preg_replace('/^.*data-info="/','',$match))));
-                    $osm_route = preg_replace('/_.*$/','',$id);
+                    if ( preg_match("/^share_taxi/",$id) ){
+                        $osm_route = 'share_taxi';
+                    } else {
+                        $osm_route = preg_replace('/_.*$/','',$id);
+                    }
                     if ( preg_match("/$route_id/",$match) ) {
                         $good_id_match = ' style="background-color: lightgreen;"';
                     } else {
