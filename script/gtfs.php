@@ -1031,7 +1031,7 @@
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
                     $id        = preg_replace('/".*$/','',preg_replace('/^.*id="/','',$match));
-                    $data_info = preg_replace('/ <a.*$/','',preg_replace('/".*$/','',preg_replace('/^.*data-info="/','',$match)));
+                    $data_info = preg_replace('/ *GTFS,*$/','',preg_replace('/<.*?>/','',preg_replace('/".*$/','',preg_replace('/^.*data-info="/','',$match))));
                     $osm_route = preg_replace('/_.*$/','',$id);
                     if ( preg_match("/$route_id/",$match) ) {
                         $good_id_match = ' style="background-color: lightgreen;"';
@@ -1044,9 +1044,10 @@
                         $good_route_match = '';
                     }
                     echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($route_short_name) . '</a></td>' . "\n";
+                    echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($osm_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>'          . htmlspecialchars($osm_route) . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                 } elseif ( $match ) {
                     echo "<!-- ". htmlspecialchars($match) . " -->\n";
@@ -1061,8 +1062,8 @@
                                                                     . ", route_id = "             . htmlspecialchars($route_id)
                                                                     . ", route_short_name = "     . htmlspecialchars($route_short_name)
                                                                     . ", osm_ref = "              . htmlspecialchars($osm_ref)
-                                                                    . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
-                                                                    . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
+                                                                    . ", osm_route_type = "       . htmlspecialchars($osm_route_type) . '</td>' . "\n";
+            echo '                                <td class="gtfs-name">'                         . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
             echo '                            </tr>' . "\n";
         }
 

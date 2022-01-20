@@ -56,6 +56,13 @@
                             $osm_route_type   =  isset($route["route_type"]) ? RouteType2OsmRoute($route["route_type"]) : '???';
                             $osm_vehicle      =  OsmRoute2Vehicle($osm_route_type,$ptna_lang);
                             $osm_ref          =  $route_short_name;
+                            if ( isset($osm['gtfs_short_name_hack1'])              &&
+                                 $osm['gtfs_short_name_hack1']                     &&
+                                 $route['route_long_name']                         &&
+                                 $route['route_id']                                &&
+                                 $route['route_long_name'] != $route['route_id']      ) {
+                                 $osm_ref = $route['route_long_name'];
+                            }
                             if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
                                 $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                             }

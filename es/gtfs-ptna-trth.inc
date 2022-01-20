@@ -2,4 +2,5 @@
                                 <th class="gtfs-name">Route</th>
                                 <th class="gtfs-name">OSM route</th>
                                 <th class="gtfs-name">Information</th>
+                                <th class="gtfs-name">PTNA</th>
                             </tr>
