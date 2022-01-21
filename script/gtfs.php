@@ -1050,8 +1050,8 @@
                     echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
                     echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($osm_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>'          . htmlspecialchars($osm_route) . '</td>' . "\n";
-                    echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                 } elseif ( $match ) {
                     echo "<!-- ". htmlspecialchars($match) . " -->\n";
@@ -1061,13 +1061,13 @@
             echo '                            <tr class="gtfs-tablerow">' . "\n";
             echo '                                <td class="gtfs-name">Error</td>' . "\n";
             echo '                                <td class="gtfs-name">&nbsp;</td>' . "\n";
+            echo '                                <td class="gtfs-name">'                         . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
             echo '                                <td class="gtfs-name"> feed = '                 . htmlspecialchars($feed)
                                                                     . ", release_date = "         . htmlspecialchars($release_date)
                                                                     . ", route_id = "             . htmlspecialchars($route_id)
                                                                     . ", route_short_name = "     . htmlspecialchars($route_short_name)
                                                                     . ", osm_ref = "              . htmlspecialchars($osm_ref)
                                                                     . ", osm_route_type = "       . htmlspecialchars($osm_route_type) . '</td>' . "\n";
-            echo '                                <td class="gtfs-name">'                         . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
             echo '                            </tr>' . "\n";
         }
 
