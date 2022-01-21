@@ -2561,6 +2561,16 @@
                         echo '                                       <td class="gtfs-text"></td>' . "\n";
                     }
                     echo '                                    </tr>' . "\n";
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">Where to search for PTNA analysis information of routes</td>' . "\n";
+                    if ( isset($osm["ptna_analysis"]) ) {
+                        echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["ptna_analysis"]) . ' </td>' . "\n";
+                    } else {
+                        echo '                                       <td class="gtfs-text"></td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
+
                }
 
                 $stop_time = gettimeofday(true);
