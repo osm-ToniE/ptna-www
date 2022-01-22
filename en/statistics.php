@@ -6,7 +6,7 @@
 <?php include('../script/statistics.php'); ?>
 
     <body>
-
+      <script src="/script/sort-table.js"></script>
       <div id="wrapper">
 
 <?php include "header.inc" ?>
@@ -17,7 +17,7 @@
             <p>
             </p>
 
-            <table id="message-table">
+            <table id="message-table" class="js-sort-table">
                 <thead>
 <?php include 'statistics-trth.inc' ?>
                 </thead>
@@ -43,4 +43,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

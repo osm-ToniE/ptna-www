@@ -1,21 +1,22 @@
 <tr class="statistics-tableheaderrow">
-    <th class="statistics-name" rowspan="2">Name</th>
-    <th class="statistics-date" colspan="3">Timezone</th>
-    <th class="statistics-date" colspan="1">OSM Data</th>
-    <th class="statistics-date" colspan="3">Download</th>
-    <th class="statistics-date" colspan="1">Routes Data</th>
-    <th class="statistics-date" colspan="3">Analysis</th>
+    <th class="statistics-name js-sort-none" colspan="1" >Network</th>
+    <th class="statistics-date js-sort-none" colspan="3">Timezone</th>
+    <th class="statistics-date js-sort-none" colspan="1">OSM Data</th>
+    <th class="statistics-date js-sort-none" colspan="3">Download</th>
+    <th class="statistics-date js-sort-none" colspan="1">Routes Data</th>
+    <th class="statistics-date js-sort-none" colspan="3">Analysis</th>
 </tr>
 <tr class="statistics-tableheaderrow">
-    <th class="statistics-name">UTC +/-</th>
-    <th class="statistics-name">Abbr.</th>
-    <th class="statistics-name">Name</th>
-    <th class="statistics-date">As Of</th>
-    <th class="statistics-date">Started</th>
-    <th class="statistics-duration">Duration [h:m:s]</th>
-    <th class="statistics-size">Size [MB]</th>
-    <th class="statistics-date">Last Modified</th>
-    <th class="statistics-date">Started</th>
-    <th class="statistics-duration">Duration [h:m:s]</th>
-    <th class="statistics-date">Has Changes</th>
+    <th class="statistics-name js-sort-string">Name&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-name js-sort-string">UTC +/-&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-name js-sort-string">Abbr.&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-name js-sort-string">Name&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-date js-sort-string">As Of&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-date js-sort-string">Started&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-duration js-sort-number">Duration [h:m:s]&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-size js-sort-number">Size [MB]&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-date js-sort-string">Last Modified&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-date js-sort-string">Started&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-duration js-sort-number">Duration [h:m:s]&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th class="statistics-date js-sort-number">Changes&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>

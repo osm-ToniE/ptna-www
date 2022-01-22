@@ -123,11 +123,11 @@
             }
             if ( $has_changes && $diff_webpath ) {
                 if ( $html_diff > 0 ) {
-                    $html_diff_str = ' (' .  $html_diff . ')';
+                    $html_diff_str = $html_diff;
                 } else {
                     $html_diff_str = '';
                 }
-                printf( "    <td class=\"statistics-date\"><a href=\"%s\">yes</a>%s</td>\n", $diff_webpath, $html_diff_str );
+                printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $diff_webpath, $html_diff_str );
                 $count_has_changes++;
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");

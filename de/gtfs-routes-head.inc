@@ -1,3 +1,3 @@
                 <p>
-                    Die erste Spalte der Tabelle enthält einen Link auf eine Auswertung der GTFS Daten für die jeweilige Linie.
+                    Die erste Spalte der Tabelle enthält einen Link auf eine Auswertung der GTFS Daten für die jeweilige Linie. Die Tabelle ist über alle Spalten sortierbar.
                 </p>
