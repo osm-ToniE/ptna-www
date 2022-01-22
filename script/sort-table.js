@@ -11,11 +11,12 @@
  */
 
 /**
- * 2022-01-22: changes for https://ptna.openstreetmap.de on two lines including now the following code (changed "content: ...")
+ * 2022-01-22: changes for https://ptna.openstreetmap.de on some lines including now the following code
  *
  * sheet.insertRule('table.js-sort-table.js-sort-asc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21C8";position: absolute; transform: translate(-100%, 0);}', 0);
  * sheet.insertRule('table.js-sort-table.js-sort-desc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21CA";position: absolute; transform: translate(-100%, 0);}', 0);*
- *
+ * helper function for sorting GTFS-route_short_name class="js-sort-routeshortname"
+ * change "tablerowalt" (alternative colour) to "tablerow" (normal colour, same for all rows) class
  */
 
 /**
@@ -77,6 +78,7 @@ function sortTable(Table, col, dir) {
     } else {
         sortTable.sortFunc = 'string';
     }
+
     // Set the headers for the active column to have the decorative class
     Table.querySelectorAll('.js-sort-active').forEach(function(Node) {
         Node.className = Node.className.replace(/ ?js-sort-active\b/, '');
@@ -91,6 +93,7 @@ function sortTable(Table, col, dir) {
 
     for (i = 0; i < TBody.rows.length; i++) {
         rows[i] = TBody.rows[i];
+        rows[i].className = rows[i].className.replace(/tablerowalt/, 'tablerow');
     }
     if ('none' != sortTable.sortFunc) {
         rows.sort(sortTable.compareRow);
@@ -208,6 +211,30 @@ sortTable.input = function(Cell) {
     }
 
     return sortTable.string(Cell);
+};
+
+/**
+ * Helper function that converts a table cell (TD) to a comparable value
+ * Converts innerHTML to a string with special settings
+ * Convert GTFS-route_short_name into a special string
+ * - strings starting with digit(s) into sprintf( ";%20s%s ;",   number, rest )
+ * - strings including digit(s) into     sprintf( ";%s%20s%s ;", character(s), number, rest)
+ * - all other into                      sprintf( ";%s%20s ;",    string, ' ' )
+ * nearly the same as in gtfs.ph in function CreateGtfsRoutesEntry()
+ * @param Cell A TD DOM object
+ * @returns {string}
+ */
+sortTable.routeshortname = function(Cell) {
+    var routeshortname = sortTable.stripTags(Cell.innerHTML);
+    if ( routeshortname.match(/^[0-9][0-9]*.*$/) ) {
+        routeshortname = routeshortname.replace(/^([0-9][0-9]*)/, function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
+    } else if ( routeshortname.match(/^[^0-9][^0-9]*[0-9][0-9]*.*$/) ) {
+        routeshortname = routeshortname.replace(/([0-9][0-9]*)/,  function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
+     } else {
+        routeshortname = routeshortname + ' '.repeat(20);
+    }
+    console.log( "routeshortname = ;" + routeshortname + ' ;' );
+    return ';' + routeshortname + ' ;';
 };
 
 /**

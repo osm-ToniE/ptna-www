@@ -774,7 +774,7 @@
                         }
 
                         $id_string = preg_replace( '/[^0-9A-Za-z_.-]/', '_', $osm_route_type . '_' . $route_short_name );
-                        if ( isset($id_markers[$id_string]) ) {                                        # if the same combination appears more than one, add a number as suffix (e.g. "Bus A" of VMS in Saxony, Germany
+                        if ( isset($id_markers[$id_string]) ) {                                        # if the same combination appears more than once, add a number as suffix (e.g. "Bus A" of VMS in Saxony, Germany
                             $id_markers[$id_string]++;
                             $id_string .= '-' . $id_markers[$id_string];
                         } else {
@@ -782,8 +782,9 @@
                         }
 
                         echo '                        <tr id="' . $id_string . '" class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
-                        echo '                            <td class="gtfs-name"><a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
+                        echo '                            <td class="gtfs-name"><a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">-' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
                         echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
+                        echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($osm_route_type) . '</span></td>' . "\n";
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $min_start_date, $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
