@@ -225,7 +225,7 @@ sortTable.input = function(Cell) {
  * @returns {string}
  */
 sortTable.routeshortname = function(Cell) {
-    var routeshortname = sortTable.stripTags(Cell.innerHTML);
+    var routeshortname = sortTable.stripTags(Cell.innerHTML).replace(/ /g,'');
     if ( routeshortname.match(/^[0-9][0-9]*.*$/) ) {
         routeshortname = routeshortname.replace(/^([0-9][0-9]*)/, function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
     } else if ( routeshortname.match(/^[^0-9][^0-9]*[0-9][0-9]*.*$/) ) {
@@ -233,7 +233,6 @@ sortTable.routeshortname = function(Cell) {
      } else {
         routeshortname = routeshortname + ' '.repeat(20);
     }
-    console.log( "routeshortname = ;" + routeshortname + ' ;' );
     return ';' + routeshortname + ' ;';
 };
 
