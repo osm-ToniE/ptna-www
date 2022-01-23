@@ -7,13 +7,14 @@
         } else {
             $feed_and_release = $feed;
         }
-    ?>
+?>
 <html lang="<?php echo $html_lang ?>">
 
 <?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <script src="/script/ptna-list.js"></script>
+      <script src="/script/sort-table.js"></script>
 
       <div id="wrapper">
 
@@ -21,7 +22,7 @@
 
         <main id="main" class="results">
 
-        <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Australia</span>'; } ?></h2>
+            <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Australia</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>
@@ -56,7 +57,7 @@
 
                     <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download as CSV list for PTNA</button>
 
-                    <table id="gtfs-routes">
+                    <table id="gtfs-routes" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>

@@ -7,13 +7,14 @@
         } else {
             $feed_and_release = $feed;
         }
-    ?>
+?>
 <html lang="<?php echo $html_lang ?>">
 
 <?php $title="GTFS Analysis"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
       <script src="/script/ptna-list.js"></script>
+      <script src="/script/sort-table.js"></script>
 
       <div id="wrapper">
 
@@ -56,7 +57,7 @@
 
                     <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download as CSV list for PTNA</button>
 
-                    <table id="gtfs-routes">
+                    <table id="gtfs-routes" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>

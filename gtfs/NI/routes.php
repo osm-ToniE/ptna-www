@@ -14,6 +14,7 @@
 
     <body>
       <script src="/script/ptna-list.js"></script>
+      <script src="/script/sort-table.js"></script>
 
       <div id="wrapper">
 
@@ -22,7 +23,7 @@
         <main id="main" class="results">
 
             <h2 id="NI"><a href="index.php"><img src="/img/Nicaragua32.png" alt="bandera Nicaragua" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Nicaragua</span>'; } ?></h2>
-             <div class="indent">
+            <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>
                 <div class="indent">
@@ -56,7 +57,7 @@
 
                     <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download as CSV list for PTNA</button>
 
-                    <table id="gtfs-routes">
+                    <table id="gtfs-routes" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>

@@ -14,6 +14,7 @@
 
     <body>
       <script src="/script/ptna-list.js"></script>
+      <script src="/script/sort-table.js"></script>
 
       <div id="wrapper">
 
@@ -56,7 +57,7 @@
 
                     <button class="button-create" type="button" onclick="ptnalistdownload( <?php echo $include_agency; ?> )">Download som en CSV-liste til PTNA</button>
 
-                    <table id="gtfs-routes">
+                    <table id="gtfs-routes" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>
