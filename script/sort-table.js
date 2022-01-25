@@ -15,7 +15,7 @@
  *
  * sheet.insertRule('table.js-sort-table.js-sort-asc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21C8";position: absolute; transform: translate(-100%, 0);}', 0);
  * sheet.insertRule('table.js-sort-table.js-sort-desc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21CA";position: absolute; transform: translate(-100%, 0);}', 0);*
- * helper function for sorting GTFS-route_short_name class="js-sort-routeshortname"
+ * helper function for sorting GTFS-route_short_name class="js-sort-routename"
  * change "tablerowalt" (alternative colour) to "tablerow" (normal colour, same for all rows) class
  */
 
@@ -216,7 +216,7 @@ sortTable.input = function(Cell) {
 /**
  * Helper function that converts a table cell (TD) to a comparable value
  * Converts innerHTML to a string with special settings
- * Convert GTFS-route_short_name into a special string
+ * Convert GTFS-route_short_name or route_long_name into a special string
  * - strings starting with digit(s) into sprintf( ";%20s%s ;",   number, rest )
  * - strings including digit(s) into     sprintf( ";%s%20s%s ;", character(s), number, rest)
  * - all other into                      sprintf( ";%s%20s ;",    string, ' ' )
@@ -224,16 +224,16 @@ sortTable.input = function(Cell) {
  * @param Cell A TD DOM object
  * @returns {string}
  */
-sortTable.routeshortname = function(Cell) {
-    var routeshortname = sortTable.stripTags(Cell.innerHTML).replace(/ /g,'');
-    if ( routeshortname.match(/^[0-9][0-9]*.*$/) ) {
-        routeshortname = routeshortname.replace(/^([0-9][0-9]*)/, function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
-    } else if ( routeshortname.match(/^[^0-9][^0-9]*[0-9][0-9]*.*$/) ) {
-        routeshortname = routeshortname.replace(/([0-9][0-9]*)/,  function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
+sortTable.routename = function(Cell) {
+    var routename = sortTable.stripTags(Cell.innerHTML).replace(/[ ()-]/g,'');
+    if ( routename.match(/^[0-9][0-9]*.*$/) ) {
+        routename = routename.replace(/^([0-9][0-9]*)/, function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
+    } else if ( routename.match(/^[^0-9][^0-9]*[0-9][0-9]*.*$/) ) {
+        routename = routename.replace(/([0-9][0-9]*)/,  function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
      } else {
-        routeshortname = routeshortname + ' '.repeat(20);
+        routename = routename + ' '.repeat(20);
     }
-    return ';' + routeshortname + ' ;';
+    return ';' + routename + ' ;';
 };
 
 /**
