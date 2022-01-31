@@ -1025,19 +1025,25 @@
 
             $analysis_filepath = $path_to_www . preg_replace("/^\//",'',$analysis_webpath);
 
-            $shell_command = "egrep 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
-            #echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
+            # allow each character of osm_ref be followed by zero or more ' '
+            # do not consider any blanks in osm_ref and the route_short_name (osm_ref is derived from route_short_name)
+            $match_osm_ref = preg_replace('/\s*/','',$osm_ref);
+            $match_osm_ref = preg_replace('/(.)/','${1}\\s*',$match_osm_ref);
+
+            $shell_command = "egrep 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $match_osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
+            echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
             $matching_ptna_lines = shell_exec( $shell_command );
-            #echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
+            echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
             $matching_ptna_array = explode( "\n", $matching_ptna_lines );
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
                     $id        = preg_replace('/".*$/','',preg_replace('/^.*id="/','',$match));
+                    $data_ref  = preg_replace('/".*$/','',preg_replace('/^.*data-ref="/','',$match));
                     $data_info = preg_replace('/ *GTFS,*$/','',preg_replace('/<.*?>/','',preg_replace('/".*$/','',preg_replace('/^.*data-info="/','',$match))));
                     if ( preg_match("/^share_taxi/",$id) ){
-                        $osm_route = 'share_taxi';
-                    } else {
-                        $osm_route = preg_replace('/_.*$/','',$id);
+                        $osm_route  = 'share_taxi';
+                   } else {
+                        $osm_route  = preg_replace('/_.*$/','',$id);
                     }
                     if ( preg_match("/$route_id/",$match) ) {
                         $good_id_match = ' style="background-color: lightgreen;"';
@@ -1050,7 +1056,7 @@
                         $good_route_match = '';
                     }
                     echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($osm_ref) . '</a></td>' . "\n";
+                    echo '                                <td class="gtfs-number"' . $good_id_match    . '><a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($data_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>'          . htmlspecialchars($osm_route) . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
