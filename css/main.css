@@ -66,7 +66,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 .attention                { background-color: yellow; }
 
-.results-tableheaderrow   { background-color: #dddddd; }
+.results-tableheaderrow   { background-color: #bbbbbb; }
 .results-tablerow         { background-color: white;   }
 .results-name             { text-align:left; white-space:nowrap; }
 .results-text             { text-align:left; }
@@ -83,7 +83,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #gtfsmap                  { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
 
 .gtfs-intro               { float:left; max-width:47.6% }
-.gtfs-tableheaderrow      { background-color: #dddddd;   }
+.gtfs-tableheaderrow      { background-color: #bbbbbb;   }
 .gtfs-tablerow            { background-color: white;     }
 .gtfs-tablerowalt         { background-color: #efefef; }
 .gtfs-name                { text-align:left; white-space:nowrap; }
@@ -130,7 +130,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 #message-table img        { width: 100px; z-index: 1; }
 #message-table img:hover  { transform: translate(-295%,325%) scale(7.0); z-index: 2; }
-.message-tableheaderrow   { background-color: #dddddd; text-align:left; }
+.message-tableheaderrow   { background-color: #bbbbbb; text-align:left; }
 .message-tablerow         { background-color: white;   text-align:left; vertical-align:top;   }
 .message-text             { text-align:left; }
 .message-type             { text-align:left; }
@@ -144,7 +144,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 #option-table img         { width: 100px; z-index: 1; }
 #option-table img:hover   { transform: translate(-295%,325%) scale(7.0); z-index: 2; }
-.option-tableheaderrow    { background-color: #dddddd; text-align:left; }
+.option-tableheaderrow    { background-color: #bbbbbb; text-align:left; }
 .option-tablerow          { background-color: white;   text-align:left; vertical-align:top;   }
 .option-option            { white-space:nowrap; }
 .option-default           { text-align:left; }
@@ -159,8 +159,8 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis ol              { list-style: none; }
 #analysis img             { width: 20px; vertical-align: top; }
-#analysis .tableheaderrow { background-color: LightSteelBlue;   }
-#analysis .sketchline     { background-color: LightBlue;        }
+#analysis .tableheaderrow { background-color: #bbbbbb;   }
+#analysis .sketchline     { background-color: #cccccc;        }
 #analysis .sketch         { text-align:left;  font-weight: 500; }
 #analysis .csvinfo        { text-align:right; font-size: 0.8em; }
 #analysis .ref            { white-space:nowrap; }
@@ -173,7 +173,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis .date_from      { white-space:nowrap; }
 #analysis .attention      { background-color: yellow; font-weight: 500; font-size: 1.2em; }
 
-.statistics-tableheaderrow   { background-color: #dddddd; }
+.statistics-tableheaderrow   { background-color: #bbbbbb; }
 .statistics-tablerow         { background-color: white;   }
 .statistics-name             { text-align:left; white-space:nowrap; }
 .statistics-network          { text-align:left;   }
@@ -196,7 +196,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .relationtable            { min-width: 431px; max-width: 100%; width: 100%}
 
 .tableFixHead             { overflow-y: auto; height: 562px;}
-.tableFixHead thead       { background-color: #dddddd; position: sticky; top: 0; }
+.tableFixHead thead       { background-color: #bbbbbb; position: sticky; top: 0; }
 .tableFixHead th          { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
 
 .symbol                   { text-align: center; padding: 0; border-width: 0px; height:32px;}
@@ -264,5 +264,5 @@ input.hackbox {
 /* settings for the active tab */
 .tabs>li>label.tab_active {
   border-bottom:1px solid black;
-  background-color:#dddddd;
+  background-color:#bbbbbb;
 }

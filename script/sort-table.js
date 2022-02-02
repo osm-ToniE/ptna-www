@@ -317,8 +317,8 @@ sortTable.init = function() {
     var element = document.createElement('style');
     document.head.insertBefore(element, document.head.childNodes[0]);
     var sheet = element.sheet;
-    sheet.insertRule('table.js-sort-table.js-sort-asc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21C8";position: absolute; transform: translate(-100%, 0);}', 0);
-    sheet.insertRule('table.js-sort-table.js-sort-desc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21CA";position: absolute; transform: translate(-100%, 0);}', 0);
+    sheet.insertRule('table.js-sort-table.js-sort-asc thead tr > .js-sort-active:not(.js-sort-none):before {content: "\\21C8";position: absolute; background-color: #bbbbbb;}', 0);
+    sheet.insertRule('table.js-sort-table.js-sort-desc thead tr > .js-sort-active:not(.js-sort-none):before {content: "\\21CA";position: absolute; background-color: #bbbbbb;}', 0);
 };
 
 // Run sortTable.init() when the page loads
