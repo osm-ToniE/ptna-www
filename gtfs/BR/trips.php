@@ -8,6 +8,7 @@
 <?php $title="GTFS Análise"; $lang_dir="../../$ptna_lang/"; include $lang_dir.'html-head.inc'; ?>
 
     <body>
+      <script src="/script/sort-table.js"></script>
 
       <div id="wrapper">
 
@@ -47,7 +48,7 @@
                 <div class="indent">
 <?php include $lang_dir.'gtfs-ptna-head.inc' ?>
 
-                    <table id="gtfs-ptna">
+                    <table id="gtfs-ptna" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-ptna-trth.inc' ?>
                         </thead>
@@ -70,12 +71,15 @@
 ?>
                         </tbody>
                     </table>
-                    <?php printf( "<p>Search took %f seconds to complete</p>\n", $duration ); ?>
+<?php echo    "                '*' : there is a match with the GTFS-Route-ID\n";
+      printf( "                <p>Search took %f seconds to complete</p>\n", $duration );
+?>
                </div>
 <?php endif; ?>
 
                 <h3 id="routes">Existing Route Variants</h3>
                 <div class="indent">
+
 <?php include $lang_dir.'gtfs-trips-head.inc' ?>
 
                     <table id="gtfs-trips">
