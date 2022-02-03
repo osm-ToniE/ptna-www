@@ -1064,7 +1064,9 @@
                                 );
                     if ( preg_match("/^share_taxi/",$id) ){
                         $osm_route  = 'share_taxi';
-                   } else {
+                    } else if ( preg_match("/^light_rail/",$id) ){
+                        $osm_route  = 'light_rail';
+                    } else {
                         $osm_route  = preg_replace('/_.*$/','',$id);
                     }
                     if ( preg_match("/$route_id/",$match) ) {
