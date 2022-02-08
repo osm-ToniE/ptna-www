@@ -8,7 +8,7 @@
 </tr>
 <tr class="statistics-tableheaderrow">
     <th class="statistics-name js-sort-string">&#x21C5;Name</th>
-    <th class="statistics-name js-sort-string">&#x21C5;UTC +/-</th>
+    <th class="statistics-name js-sort-utc">&#x21C5;UTC +/-</th>
     <th class="statistics-name js-sort-string">&#x21C5;Abbr.</th>
     <th class="statistics-name js-sort-string">&#x21C5;Name</th>
     <th class="statistics-date js-sort-string">&#x21C5;As Of</th>

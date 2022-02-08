@@ -224,7 +224,7 @@ sortTable.input = function(Cell) {
  * @param Cell A TD DOM object
  * @returns {string}
  */
-sortTable.routename = function(Cell) {
+ sortTable.routename = function(Cell) {
     var routename = sortTable.stripTags(Cell.innerHTML).replace(/[ ()-]/g,'');
     if ( routename.match(/^[0-9][0-9]*.*$/) ) {
         routename = routename.replace(/^([0-9][0-9]*)/, function(str,p1,offset,s) { return ' '.repeat(20-p1.length) + p1} );
@@ -234,6 +234,17 @@ sortTable.routename = function(Cell) {
         routename = routename + ' '.repeat(20);
     }
     return ';' + routename + ' ;';
+};
+
+/**
+ * Helper function that converts a table cell (TD) to a comparable value
+ * Converts innerHTML to a value
+ * Convert UTC+/-... to a number
+ * @param Cell A TD DOM object
+ * @returns {string}
+ */
+sortTable.utc = function(Cell) {
+    return parseFloat(sortTable.stripTags(Cell.innerHTML).replace(/^UTC/,'').replace(/-0/,'-').replace(/\+0/,'').replace(/:/g,'.').replace(/\+/,''));
 };
 
 /**
