@@ -30,7 +30,8 @@
 
             <h2 id="AU"><a href="index.php"><img src="/img/Australia32.png" alt="Flag of Australia" /></a> GTFS Analysis for <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Route "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Australia"; } ?></h2>
             <div class="indent">
-            <h3 id="feeds">Available GTFS sources</h3>
+
+                <h3 id="feeds">Available GTFS sources</h3>
                 <div class="indent">
 
 <?php   $months_short = array( "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" );
@@ -58,6 +59,7 @@
                             $osm_ref          =  $route_short_name;
                             if ( isset($osm['gtfs_short_name_hack1'])              &&
                                  $osm['gtfs_short_name_hack1']                     &&
+                                 isset($route['route_long_name'])                  &&
                                  $route['route_long_name']                         &&
                                  $route['route_id']                                &&
                                  $route['route_long_name'] != $route['route_id']      ) {

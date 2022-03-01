@@ -59,6 +59,7 @@
                             $osm_ref          =  $route_short_name;
                             if ( isset($osm['gtfs_short_name_hack1'])              &&
                                  $osm['gtfs_short_name_hack1']                     &&
+                                 isset($route['route_long_name'])                  &&
                                  $route['route_long_name']                         &&
                                  $route['route_id']                                &&
                                  $route['route_long_name'] != $route['route_id']      ) {
