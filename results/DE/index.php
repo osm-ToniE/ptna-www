@@ -113,6 +113,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VAB", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-VBP", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BY-VBP-VLP", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VDW", "de", "Konfiguration" ); ?>
