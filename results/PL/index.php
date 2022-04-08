@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl_PL">
+<html lang="pl-PL">
 
 <?php $title="Results"; $inc_lang='../../pl_PL/'; include $inc_lang.'html-head.inc'; ?>
 
