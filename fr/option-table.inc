@@ -94,7 +94,7 @@
             <tr class="option-tablerow" id="option-check-service-type">
                 <td class="option-option">check-service-type</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Check value of &#039;service&#039; tag for &#039;highway&#039; = &#039;service&#039;.<br />Suspicious values: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
+                <td class="option-description">Check value of &#039;service&#039; tag for &#039;highway&#039; = &#039;service&#039;.<br />Valeurs suspectes: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-stop-position">
@@ -226,7 +226,7 @@
             <tr class="option-tablerow" id="option-ptv1-compatibility">
                 <td class="option-option">ptv1-compatibility</td>
                 <td class="option-default">no</td>
-                <td class="option-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; sur un point proche de la route est considéré comme &#039;public_transport&#039; = &#039;platform&#039; si &#039;role&#039; = &#039;platform&#039;.<br />allow: Implique la compatibilité avec les bus-stops (aka : PTv1)<br />no: Incompatible avec les bus-stops (aka : PTv1)<br />show: Implique et montre la compatibilité avec les bus-stops (aka : PTv1).<br />See also: <a href="https://wiki.openstreetmap.org/w/index.php?title=Proposed_features/Public_Transport&oldid=625726#Compatibility_with_well_known_tags">OSM-Wiki: Compatibility with well known tags</a>.</td>
+                <td class="option-description">allow|no|show<br />&#039;highway&#039; = &#039;bus_stop&#039; sur un point proche de la route est considéré comme &#039;public_transport&#039; = &#039;platform&#039; si &#039;role&#039; = &#039;platform&#039;.<br />allow: Implique la compatibilité avec les bus-stops (aka : PTv1)<br />no: Incompatible avec les bus-stops (aka : PTv1)<br />show: Implique et montre la compatibilité avec les bus-stops (aka : PTv1).<br />Voir aussi : <a href="https://wiki.openstreetmap.org/w/index.php?title=Proposed_features/Public_Transport&oldid=625726#Compatibility_with_well_known_tags">OSM-Wiki: Compatibility with well known tags</a>.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-ref-separator">
