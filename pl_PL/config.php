@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ( $found ) { PrintOptionDetails( "pl_PL" ); } ?>
+                        <?php if ( $found ) { PrintOptionDetails( "en" ); } ?>
                     </tbody>
                 </table>
             </div>
