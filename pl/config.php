@@ -63,7 +63,7 @@
             <div class="indent">
 
                 <p>
-                    The <a href="/en/index.php#messages">errors and comments</a> reported by PTNA can be controlled by a variety of <a href="/en/index.php#options">analysis options</a>.<br />
+                    The <a href="/pl_PL/index.php#messages">errors and comments</a> reported by PTNA can be controlled by a variety of <a href="/pl_PL/index.php#options">analysis options</a>.<br />
                     Here is a list of analysis options and their values.<br />
                 </p>
 
@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ( $found ) { PrintOptionDetails( "en" ); } ?>
+                        <?php if ( $found ) { PrintOptionDetails( "pl_PL" ); } ?>
                     </tbody>
                 </table>
             </div>
