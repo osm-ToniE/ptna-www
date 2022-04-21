@@ -85,8 +85,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-DGF", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-FRG", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-Kim", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-LAVV", "de", "Konfiguration" ); ?>
@@ -101,8 +99,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-RBO", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-REG", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-RoVG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-RVO", "de", "Konfiguration" ); ?>
@@ -115,8 +111,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VBP", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-VBP-VLP", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-VDW", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VGI", "de", "Konfiguration" ); ?>
@@ -126,8 +120,6 @@
                     <?php CreateNewFullEntry( "DE-BY-VGRI", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VLC", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "DE-BY-VLD", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VLK", "de", "Konfiguration" ); ?>
 
