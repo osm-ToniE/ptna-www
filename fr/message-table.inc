@@ -590,14 +590,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire manquant avec &#039;ref&#039; = &#039;%s&#039; et &#039;route&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Cet itinéraire est attendu comme &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) selon les données CSV, mais n&#039;existe pas dans les données fournies (voir section : &quot;API Requête Overpass&quot;).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire sans nœud(s)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -978,6 +970,14 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Missing route for &#039;ref&#039;=&#039;%s&#039; and &#039;route&#039;=&#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cet itinéraire est attendu comme &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) selon les données CSV, mais n&#039;existe pas dans les données fournies (voir section : &quot;API Requête Overpass&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
