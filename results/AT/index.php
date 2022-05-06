@@ -22,9 +22,11 @@
     </thead>
     <tbody>
 
-        <?php CreateNewFullEntry( "AT-6-VVSt-Graz", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-6-VVSt-Graz", "de", "Konfiguration" ); ?>
 
-    </tbody>
+    <?php CreateNewFullEntry( "AT-7-VVT", "de", "Konfiguration" ); ?>
+
+</tbody>
 </table>
 
 </main> <!-- main -->
