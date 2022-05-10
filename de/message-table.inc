@@ -302,6 +302,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Fehlende Linie für &#039;ref&#039; = &#039;%s&#039; und &#039;route&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description">Diese Route wird laut CSV-Daten als &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) erwartet, existiert aber nicht im gegebenen Datensatz (siehe Abschnitt: &quot;Overpass-API Abfrage&quot;).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -338,14 +346,6 @@
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Missing route for &#039;ref&#039;=&#039;%s&#039; and &#039;route&#039;=&#039;%s&#039;</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description">Diese Route wird laut CSV-Daten als &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) erwartet, existiert aber nicht im gegebenen Datensatz (siehe Abschnitt: &quot;Overpass-API Abfrage&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

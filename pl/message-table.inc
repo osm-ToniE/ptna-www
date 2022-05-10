@@ -214,6 +214,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Brakująca trasa dla &#039;ref&#039;=&#039;%s&#039; i &#039;route&#039;=&#039;%s&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description">This route is expected as &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) according to CSV data, but does not exist in the given data set (see also section: &quot;Overpass API Query&quot;).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Error in input data: insufficient data for nodes</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -234,14 +242,6 @@
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description">Route-Master: There is more than one Route-Master for this line = &#039;ref&#039; (different &#039;network&#039;-tags?).<br />Route: There is more than one Route Master for this line = &#039;ref&#039; plus the parent Route Master of this route.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Missing route for &#039;ref&#039;=&#039;%s&#039; and &#039;route&#039;=&#039;%s&#039;</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description">This route is expected as &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) according to CSV data, but does not exist in the given data set (see also section: &quot;Overpass API Query&quot;).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
