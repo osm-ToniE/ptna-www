@@ -30,7 +30,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route has a match with &#039;%s&#039; = &#039;%s&#039; of other Route(s)</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;Itinéraire est identique à &#039;%s&#039; d&#039;un ou plusieurs autres Itinéraires</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -38,7 +38,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route is identical to &#039;%s&#039; of other Route(s)</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route has a match with &#039;%s&#039; = &#039;%s&#039; of other Route(s)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -358,7 +358,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a ni d&#039;arrêt &#039;public_transport&#039; = &#039;stop_position&#039; ni de plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">Itinéraire PTv2 : il n&#039;y a aucun arrêt &#039;public_transport&#039; = &#039;stop_position&#039; ni aucune plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -398,7 +398,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a qu&#039;une seul plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">Itinéraire PTv2 : il n&#039;y a qu&#039;une seule plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
