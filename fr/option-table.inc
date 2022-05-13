@@ -70,7 +70,7 @@
             <tr class="option-tablerow" id="option-check-platform">
                 <td class="option-option">check-platform</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Check that for instance &#039;bus&#039; = &#039;yes&#039; is set on a PTv2 bus stop having &#039;public_transport&#039; = &#039;platform&#039;. PTv2 does not require this though.</td>
+                <td class="option-description">Vérifiez que, par exemple, &#039;bus&#039; = &#039;yes&#039; est défini sur un arrêt de bus PTv2 qui a l&#039;attribut &#039;public_transport&#039; = &#039;platform&#039;. Toutefois, le schéma PTv2 ne le considère pas comme nécessaire. </td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-roundabouts">
@@ -100,7 +100,7 @@
             <tr class="option-tablerow" id="option-check-stop-position">
                 <td class="option-option">check-stop-position</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Check that for instance &#039;bus&#039; = &#039;yes&#039; is set on a PTv2 bus stop having &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
+                <td class="option-description">Vérifiez que, par exemple, &#039;bus&#039; = &#039;yes&#039; est défini sur un arrêt de bus PTv2 qui a l&#039;attribut &#039;public_transport&#039; = &#039;stop_position&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-version">

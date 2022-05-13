@@ -30,7 +30,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;Itinéraire est identique à &#039;%s&#039; d&#039;un ou plusieurs autres Itinéraires</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire a une correspondance avec &#039;%s&#039; = &#039;%s&#039; d&#039;un ou plusieurs autres itinéraires</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -38,7 +38,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route has a match with &#039;%s&#039; = &#039;%s&#039; of other Route(s)</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire est identique à &#039;%s&#039; d&#039;un ou plusieurs autres itinéraires</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -46,11 +46,11 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; is set but neither &#039;gtfs:trip_id&#039; nor &#039;gtfs:trip_id:sample&#039; is set: consider setting one of them as they provide additional information about stops (their names, sequence and locations).</td>
+                <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; est défini, mais ni &#039;gtfs:trip_id&#039; ni &#039;gtfs:trip_id:sample&#039; ne le sont: définir l&#039;un des deux permettrait d&#039;avoir des informations additionnelles sur les arrêts (noms, séquences, emplacements).</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-gtfs</td>
-                <td class="message-description">GTFS shape data provides (only) information about the itinerary of the vehicle. In addition, GTFS trip data provides useful information about stops: their names, their sequences and their locations. This additional information can be used to compare OSM data with GTFS data.</td>
-                <td class="message-fix">Add either &#039;gtfs:trip_id&#039; or &#039;gtfs:trip_id:sample&#039; information.</td>
+                <td class="message-description">Les données GTFS des tracés (shape) contiennent (uniquement) des informations à propos du parcours du véhicule. De plus, les données GTFS des trajets offrent des informations utiles sur les arrêts: leurs noms, séquences et emplacements. Ces informations supplémentaires peuvent être utilisées pour comparer les données OSM avec celles des GTFS.</td>
+                <td class="message-fix">Ajoutez soit l&#039;information de &#039;gtfs:trip_id&#039; soit celle de &#039;gtfs:trip_id:sample&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -105,7 +105,7 @@
                 <td class="message-text">Il y a plusieurs groupements d’itinéraires</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Groupement d&#039;itinéraires : Il y a plus d&#039;une relation pour ce groupement d&#039;itinéraires = &#039;ref&#039; (attributs &#039;network&#039; différents ?)<br />Itinéraire : il y a plus d&#039;une relation groupement d&#039;itinéraires pour cet cet itinéraire=&#039;ref&#039; et le groupement d&#039;itinéraires de cet itinéraire.</td>
+                <td class="message-description">Groupement d&#039;itinéraires : Il y a plus d&#039;une relation pour ce groupement d&#039;itinéraires = &#039;ref&#039; (attributs &#039;network&#039; différents ?)<br />Itinéraire : il y a plus d&#039;une relation groupement d&#039;itinéraires pour cet itinéraire=&#039;ref&#039; et le groupement d&#039;itinéraires de cet itinéraire.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
