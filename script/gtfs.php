@@ -2529,7 +2529,7 @@
                 echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
             }
         } else {
-            echo "Sqlite DB not found for feed = '" . $htmlspecialchars($feed) . "'\n";
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
         return 0;
