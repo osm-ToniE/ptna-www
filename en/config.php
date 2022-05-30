@@ -14,7 +14,7 @@
 <?php include "header.inc" ?>
 
         <nav id="navigation">
-            <h2 id="de">Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
+            <h2 id="en">Configuration details <?php if ( $found ) { printf( "for %s", $_GET['network'] ); } ?></h2>
             <ul>
                 <li><a href="#overpass-api">Overpass-API Query</a></li>
                 <li><a href="#options">Analysis options</a></li>
