@@ -1606,8 +1606,13 @@
                         $temp_array = array();
                         $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
                         $where_clause = "service_id='";
+                        $counter = 0;
                         foreach ( $temp_array as $service_id ) {
                             $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                            $counter = $counter + 1;
+                            if ( $counter > 999 ) {
+                                break;
+                            }
                         }
                         $sql = sprintf( "SELECT start_date,end_date
                                          FROM   calendar
@@ -1701,8 +1706,13 @@
 
                             $service_ids = array_flip( array_flip( $list_service_ids ) );
                             $where_clause = "service_id='";
+                            $counter = 1;
                             foreach ( $service_ids as $service_id ) {
                                 $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                                $counter = $counter + 1;
+                                if ( $counter > 999 ) {
+                                    break;
+                                }
                             }
                             $sql = sprintf( "SELECT *
                                              FROM   calendar
@@ -1830,6 +1840,14 @@
                                 echo '                                ' . $service_row;
                                 echo '                            </tr>' . "\n";
                             }
+                            if ( $counter > 999 ) {
+                                echo '                            <tr class="gtfs-tablerow">' . "\n";
+                                echo '                              <td class="gtfs-text" colspan=14>' . "\n";
+                                echo '                                  There are even more ... but we exeeded the query limit of the database';
+                                echo '                              </td>' . "\n";
+                                echo '                            </tr>' . "\n";
+                            }
+
                         }
                     }
                     $db->close();
@@ -3226,7 +3244,11 @@
         } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
             $rt = 'subway';
         } else {
-            $rt = 'bus';
+            if ( $rt >= 1000 && $rt < 2000 ) {
+                $rt = 'ferry';
+            } else {
+                $rt = 'bus';
+            }
         }
 
         return $rt;
