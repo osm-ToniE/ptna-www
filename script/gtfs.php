@@ -3211,7 +3211,7 @@
         $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes
         $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes
 
-        if ( $route_type_to_string[$rt] ) {
+        if ( isset($route_type_to_string[$rt]) ) {
             return $route_type_to_string[$rt];
         } else {
             return $rt;
@@ -3244,7 +3244,7 @@
         } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
             $rt = 'subway';
         } else {
-            if ( $rt >= 1000 && $rt < 2000 ) {
+            if ( preg_match("/^[0-9]+$/",$rt) && $rt >= 1000 && $rt < 2000 ) {
                 $rt = 'ferry';
             } else {
                 $rt = 'bus';
