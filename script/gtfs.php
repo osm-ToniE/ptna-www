@@ -783,7 +783,7 @@
                         }
 
                         echo '                        <tr id="' . $id_string . '" class="gtfs-tablerow' . $alternative_or_not . '">' . "\n";
-                        echo '                            <td class="gtfs-name"><a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">-' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
+                        echo '                            <td class="gtfs-name"><a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($outerrow["route_id"]) . '"><span class="route_short_name">' . htmlspecialchars($route_short_name) . '</span><span class="route_id" style="display: none;">' . htmlspecialchars($outerrow["route_id"]) . '</span></a></td>' . "\n";
                         echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($route_type_text) . '</span></td>' . "\n";
                         echo '                            <td class="gtfs-text"><span class="route_type">' . htmlspecialchars($osm_route_type) . '</span></td>' . "\n";
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $min_start_date, $parts ) ) {
