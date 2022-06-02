@@ -23,7 +23,8 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "NO-Hele" );
-?>
+    $duration += CreateGtfsEntry( "NO-03-Ruter" );
+    ?>
                     </tbody>
                 </table>
 

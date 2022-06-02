@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <!--- <?php CreateNewFullEntry( "NO-", "no", "Configuration" ); ?> --->
+                    <?php CreateNewFullEntry( "NO-03-Ruter", "no", "Configuration" ); ?>
 
                 </tbody>
             </table>
