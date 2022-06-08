@@ -59,7 +59,7 @@
                 </table>
                 </div>
 
-                <h3 id="nosupport">Auslaufender Support für GTFS Analysen</h3>
+<!--                <h3 id="nosupport">Auslaufender Support für GTFS Analysen</h3>
                 <div class="indent">
                 <p>
                     Für die folgenden GTFS-Quellen läuft der Support durch PTNA (vorläufig) aus.
@@ -81,6 +81,7 @@
 ?>
                     </tbody>
                 </table>
+-->
 
 <?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
             </div>
