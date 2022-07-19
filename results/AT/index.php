@@ -32,8 +32,6 @@
 
     <?php CreateNewFullEntry( "AT-6-VVSt", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-6-VVSt-Graz", "de", "Konfiguration" ); ?>
-
     <?php CreateNewFullEntry( "AT-7-VVT", "de", "Konfiguration" ); ?>
 
     <?php CreateNewFullEntry( "AT-8-VVV", "de", "Konfiguration" ); ?>
