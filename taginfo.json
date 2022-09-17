@@ -1,0 +1,127 @@
+{
+  "data_format": 1,
+  "data_url": "https://raw.githubusercontent.com/osm-ToniE/ptna-www/master/taginfo.json",
+  "data_updated": "20220917T002950Z",
+  "project": {
+    "name": "PTNA - Public Transport Network Analysis",
+    "description": "PTNA provides a daily analysis of public transport lines mapped in OSM. Such lines are described in OSM by relations of type 'route' and 'route_master' and the categories 'train', 'subway', 'bus'. The analyzes are carried out for selected areas and networks.",
+    "project_url": "https://ptna.openstreetmap.de/",
+    "doc_url": "https://ptna.openstreetmap.de/en/index.php",
+    "icon_url": "https://ptna.openstreetmap.de/img/logo.png",
+    "contact_name": "ToniE",
+    "contact_email": "osm-ToniE@web.de"
+  },
+  "tags": [
+    {
+      "key": "route_master",
+      "value": "coach",
+      "description": "Allow 'route_master' = 'coach' and 'route' = 'coach' (although they are inofficial).",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "route",
+      "value": "coach",
+      "description": "Allow 'route_master' = 'coach' and 'route' = 'coach' (although they are inofficial).",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "bus",
+      "description": "Ways are used which cannot be used explicitly or implicitly ('construction', 'access', ...) and where 'bus' = 'yes', 'bus' = 'designated', 'bus' = 'official', 'psv' =' yes', ... is not set. This applies to 'barrier' = '...' as well.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "highway",
+      "value": "bus_stop",
+      "description": "'highway' = 'bus_stop' can be set on nodes only, not on ways or areas.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "gtfs_id",
+      "description": "Check 'gtfs:*' tags for validity, ...",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "gtfs:id",
+      "description": "Check 'gtfs:*' tags for validity, ...",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "name",
+      "description": "Check of 'name' = '...ref: from => to' respectively 'name' ='...ref: from => via => ... => to'.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "network",
+      "description": "Check the value of 'network', ... whether the separator is actually the semicolon ';' (w/o Blanks).",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "public_transport",
+      "value": "platform",
+      "description": "Check that for instance 'bus' = 'yes' is set on a PTv2 bus stop having 'public_transport' = 'platform'. PTv2 does not require this though.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "route_ref",
+      "description": "Check whether the tag 'route_ref' on the stops of a route includes the value of 'ref' of the route (provided 'route_ref' exists).",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "service",
+      "description": "Check value of 'service' tag for 'highway' = 'service'. Suspicious values: 'drive-through', driveway', 'emergency_access', 'parking_aisle'",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "public_transport",
+      "value": "stop_position",
+      "description": "Check that for instance 'bus' = 'yes' is set on a PTv2 bus stop having 'public_transport' = 'stop_position'.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "public_transport:version",
+      "description": "Check of 'public_transport:version' = '...' on Route-Master and Route.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "railway",
+      "description": "Check whether the used way types are appropriate for the vehicle type ('train' using 'railway' = 'rail', 'tram' using 'railway' = 'tram', 'bus' using 'highway' = '...', ...).",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "colour",
+      "description": "SketchLine considers the value of 'colour' = '...' of Route-Master or Route.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "gtfs:feed",
+      "description": "Take this value as GTFS feed for option 'link-gtfs' if the relation does not provide the tags 'gtfs:feed', 'operator:guid' or 'network:guid'.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "operator:guid",
+      "description": "Take this value as GTFS feed for option 'link-gtfs' if the relation does not provide the tags 'gtfs:feed', 'operator:guid' or 'network:guid'.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "network:guid",
+      "description": "Take this value as GTFS feed for option 'link-gtfs' if the relation does not provide the tags 'gtfs:feed', 'operator:guid' or 'network:guid'.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "gtfs:route_id",
+      "description": "Provide links to GTFS-Analysis for 'gtfs:route_id' or 'gtfs:trip_id' tags.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "gtfs:trip_id",
+      "description": "Provide links to GTFS-Analysis for 'gtfs:route_id' or 'gtfs:trip_id' tags.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    },
+    {
+      "key": "public_transport",
+      "value": "platform",
+      "description": "Check that for instance 'bus' = 'yes' is set on a PTv2 bus stop having 'public_transport' = 'platform'. PTv2 does not require this though.",
+      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
+    }
+ ]
+}
