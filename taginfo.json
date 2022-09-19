@@ -1,7 +1,7 @@
 {
   "data_format": 1,
   "data_url": "https://raw.githubusercontent.com/osm-ToniE/ptna-www/master/taginfo.json",
-  "data_updated": "20220917T002950Z",
+  "data_updated": "20220919T162300Z",
   "project": {
     "name": "PTNA - Public Transport Network Analysis",
     "description": "PTNA provides a daily analysis of public transport lines mapped in OSM. Such lines are described in OSM by relations of type 'route' and 'route_master' and the categories 'train', 'subway', 'bus'. The analyzes are carried out for selected areas and networks.",
@@ -33,16 +33,6 @@
       "key": "highway",
       "value": "bus_stop",
       "description": "'highway' = 'bus_stop' can be set on nodes only, not on ways or areas.",
-      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
-    },
-    {
-      "key": "gtfs_id",
-      "description": "Check 'gtfs:*' tags for validity, ...",
-      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
-    },
-    {
-      "key": "gtfs:id",
-      "description": "Check 'gtfs:*' tags for validity, ...",
       "doc_url": "https://ptna.openstreetmap.de/en/index.php"
     },
     {
@@ -117,11 +107,5 @@
       "description": "Provide links to GTFS-Analysis for 'gtfs:route_id' or 'gtfs:trip_id' tags.",
       "doc_url": "https://ptna.openstreetmap.de/en/index.php"
     },
-    {
-      "key": "public_transport",
-      "value": "platform",
-      "description": "Check that for instance 'bus' = 'yes' is set on a PTv2 bus stop having 'public_transport' = 'platform'. PTv2 does not require this though.",
-      "doc_url": "https://ptna.openstreetmap.de/en/index.php"
-    }
  ]
 }
