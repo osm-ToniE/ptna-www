@@ -1,7 +1,7 @@
 {
   "data_format": 1,
   "data_url": "https://raw.githubusercontent.com/osm-ToniE/ptna-www/master/taginfo.json",
-  "data_updated": "20220919T162300Z",
+  "data_updated": "20220919T171600Z",
   "project": {
     "name": "PTNA - Public Transport Network Analysis",
     "description": "PTNA provides a daily analysis of public transport lines mapped in OSM. Such lines are described in OSM by relations of type 'route' and 'route_master' and the categories 'train', 'subway', 'bus'. The analyzes are carried out for selected areas and networks.",
@@ -106,6 +106,6 @@
       "key": "gtfs:trip_id",
       "description": "Provide links to GTFS-Analysis for 'gtfs:route_id' or 'gtfs:trip_id' tags.",
       "doc_url": "https://ptna.openstreetmap.de/en/index.php"
-    },
- ]
+    }
+  ]
 }
