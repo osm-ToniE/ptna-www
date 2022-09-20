@@ -52,6 +52,7 @@
                                 <li><a href="#approach">Approach</a></li>
                                 <li><a href="#options">Analysis Options</a></li>
                                 <li><a href="#messages">Messages</a></li>
+                                <li><a href="#taginfo">PTNA on 'taginfo'</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -61,6 +62,8 @@
                         <li><a href="#ptna">ptna</a></li>
                         <li><a href="#ptnanetworks">ptna-networks</a></li>
                         <li><a href="#ptnawww">ptna-www</a></li>
+                        <li><a href="#gtfs">gtfs</a></li>
+                        <li><a href="#gtfsfeeds">gtfs-feeds</a></li>
                     </ul>
                 </li>
             </ul>
@@ -264,7 +267,7 @@
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
 		            </div> <!-- searchdata -->
-		
+
 		            <h4 id="searchoutput">Output of data</h4>
                     <div class="indent">
                         <p>
@@ -443,6 +446,20 @@
 
                     </div> <!-- "messages" -->
 
+                    <h4 id="taginfo">PTNA on 'taginfo'</h4>
+                    <div class="indent">
+                        <p>
+                            PTNA and the
+                            '<a href="https://wiki.openstreetmap.org/wiki/FR:Attributs"     title="What are'tags', OSM Wiki"    >tags</a>' analysed by PTNA are listed at
+                            '<a href="https://wiki.openstreetmap.org/wiki/Taginfo/Projects" title="Taginfo Projects im OSM Wiki">taginfo-projects</a>' as a
+                             <a href="https://taginfo.openstreetmap.org/projects/ptna"      title="PTNA als Projekt bei taginfo-projects">project</a>.
+                            <ul>
+                                <li><a href="https://taginfo.openstreetmap.org/projects/ptna#tags" title="'tags' analysed by PTNA">Analysis</a></li>
+                                <li><a href="https://github.com/taginfo/taginfo-projects"          title="Taginfo Projects on GitHub">taginfo-projects on GitHub</a></li>
+                            </ul>
+                        </p>
+                    </div> <!-- "taginfo" -->
+
                 </div> <!-- "checks" -->
             </div> <!-- "analysis" -->
 
@@ -460,7 +477,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
                     <p>
-                        See: <a href="https://github.com/osm-ToniE/ptna">ptna auf GitHub</a>
+                        See: <a href="https://github.com/osm-ToniE/ptna">ptna on GitHub</a>
                     </p>
                 </div> <!-- "ptna" -->
 
@@ -470,7 +487,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
                     <p>
-                        See: <a href="https://github.com/osm-ToniE/ptna-networks">ptna-networks auf GitHub</a>
+                        See: <a href="https://github.com/osm-ToniE/ptna-networks">ptna-networks on GitHub</a>
                     </p>
                 </div> <!-- "ptnanetworks" -->
 
@@ -480,9 +497,29 @@
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
                     <p>
-                        See: <a href="https://github.com/osm-ToniE/ptna-www">ptna-www auf GitHub</a>
+                        See: <a href="https://github.com/osm-ToniE/ptna-www">ptna-www on GitHub</a>
                     </p>
                 </div> <!-- "ptnawww" -->
+
+                <h3 id="gtfs">gtfs</h3>
+                <div class="indent">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/gtfs">gtfs on GitHub</a>
+                    </p>
+                </div> <!-- "gtfs" -->
+
+                <h3 id="gtfsfeeds">gtfs-feeds</h3>
+                <div class="indent">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/gtfs-feeds">gtfs-feeds on GitHub</a>
+                    </p>
+                </div> <!-- "gtfsfeeds" -->
             </div> <!-- "code" -->
         </main>
 

@@ -52,6 +52,7 @@
                                 <li><a href="#approach">Vorgehensweise</a></li>
                                 <li><a href="#options">Auswertungsoptionen</a></li>
                                 <li><a href="#messages">Meldungen</a></li>
+                                <li><a href="#taginfo">PTNA bei 'taginfo'</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -61,6 +62,8 @@
                         <li><a href="#ptna">ptna</a></li>
                         <li><a href="#ptnanetworks">ptna-networks</a></li>
                         <li><a href="#ptnawww">ptna-www</a></li>
+                        <li><a href="#gtfs">gtfs</a></li>
+                        <li><a href="#gtfsfeeds">gtfs-feeds</a></li>
                     </ul>
                 </li>
             </ul>
@@ -509,7 +512,7 @@
 
 <?php include "option-table.inc" ?>
 
-                    </div> <!-- "messages" -->
+                    </div> <!-- "options" -->
 
                     <h4 id="messages">Meldungen</h4>
                     <div class="indent">
@@ -520,6 +523,20 @@
 <?php include "message-table.inc" ?>
 
                     </div> <!-- "messages" -->
+
+                    <h4 id="taginfo">PTNA bei 'taginfo'</h4>
+                    <div class="indent">
+                        <p>
+                            PTNA und die von PTNA ausgewerteten
+                            '<a href="https://wiki.openstreetmap.org/wiki/DE:Attribut"      title="Was sind 'tags', OSM Wiki"   >tags</a>' sind bei
+                            '<a href="https://wiki.openstreetmap.org/wiki/Taginfo/Projects" title="Taginfo Projects im OSM Wiki">taginfo-projects</a>' als
+                             <a href="https://taginfo.openstreetmap.org/projects/ptna"      title="PTNA als Projekt bei taginfo-projects">Projekt</a> gelistet.
+                            <ul>
+                                <li><a href="https://taginfo.openstreetmap.org/projects/ptna#tags" title="Von PTNA analysierte 'tags'">Analyse</a></li>
+                                <li><a href="https://github.com/taginfo/taginfo-projects"          title="Taginfo Projects auf GitHub">taginfo-projects auf GitHub</a></li>
+                            </ul>
+                        </p>
+                    </div> <!-- "taginfo" -->
 
                 </div> <!-- "checks" -->
             </div> <!-- "analysis" -->
@@ -561,6 +578,26 @@
                         Siehe: <a href="https://github.com/osm-ToniE/ptna-www">ptna-www auf GitHub</a>
                     </p>
                 </div> <!-- "ptnawww" -->
+
+                <h3 id="gtfs">gtfs</h3>
+                <div class="indent">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/gtfs">gtfs auf GitHub</a>
+                    </p>
+                </div> <!-- "gtfs" -->
+
+                <h3 id="gtfsfeeds">gtfs-feeds</h3>
+                <div class="indent">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                    </p>
+                    <p>
+                        Siehe: <a href="https://github.com/osm-ToniE/gtfs-feeds">gtfs-feeds auf GitHub</a>
+                    </p>
+                </div> <!-- "gtfsfeeds" -->
             </div> <!-- "code" -->
         </main>
 
