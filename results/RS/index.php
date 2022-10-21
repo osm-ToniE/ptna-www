@@ -22,9 +22,17 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "RS-00-Beograd", "sr", "Конфигурација" ); ?>
+                <?php CreateNewFullEntry( "RS-00-Beograd", "sr", "Конфигурација" ); ?>
 
-                </tbody>
+                <?php CreateNewFullEntry( "RS-01-SUTRANS", "sr", "Конфигурација" ); ?>
+
+                <?php CreateNewFullEntry( "RS-12-KGBUS", "sr", "Конфигурација" ); ?>
+
+                <?php CreateNewFullEntry( "RS-16-GP-UZICE", "sr", "Конфигурација" ); ?>
+
+                <?php CreateNewFullEntry( "RS-20-JGP-NIS", "sr", "Конфигурација" ); ?>
+
+</tbody>
             </table>
 
         </main> <!-- main -->
