@@ -23,7 +23,11 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "RS-00-BGPREVOZ" );
-?>
+    $duration += CreateGtfsEntry( "RS-01-SUTRANS" );
+    $duration += CreateGtfsEntry( "RS-12-KGBUS" );
+    $duration += CreateGtfsEntry( "RS-16-GP-UZICE" );
+    $duration += CreateGtfsEntry( "RS-20-JGP-NIS" );
+    ?>
                     </tbody>
                 </table>
 
