@@ -1102,6 +1102,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: suspicious access restriction (%s) to way. Check whether this should be &#039;%s&#039;=&#039;yes&#039;.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">l&#039;attribut &#039;route&#039; n&#039;est pas défini : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
