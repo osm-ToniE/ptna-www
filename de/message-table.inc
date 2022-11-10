@@ -1102,14 +1102,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: suspicious access restriction (%s) to way. Check whether this should be &#039;%s&#039;=&#039;yes&#039;.</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Route: unklare Befahrbarkeit (%s) auf Weg</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-access</td>
@@ -1123,6 +1115,22 @@
                 <td class="message-option">check-access</td>
                 <td class="message-description">Der Schlüssel &#039;construction&#039; ist gesetzt und der Schlüssel &#039;highway&#039; hat nicht den Wert &#039;construction&#039;. Baustellen an Straßen und Wegen werden üblicherweise durch die Kombination von &#039;highway&#039; = &#039;construction&#039; und &#039;construction = &#039;xxx&#039; gekennzeichnet, wobei &#039;xxx&#039; dem vorherigen Wert des Schlüssels &#039;highway&#039; entspricht. Sind die Bauarbeiten beendet, erhält der Schlüssel &#039;highway&#039; seinen ursprünglichen Wert zurück oder einen anderen Wert, dabei wird dann der Schlüssel &#039;construction&#039; gelöscht. Manchmal wird vergessen, den Schlüssel &#039;construction&#039; zu löschen, was als Fehler angesehen werden kann. <br />Beispiel: &#039;construction&#039; = &#039;primary&#039; und &#039;highway&#039; = &#039;primary&#039; anstatt &#039;highway&#039; = &#039;construction&#039;.</td>
                 <td class="message-fix">Überprüfe ob die Bauarbeiten beendet sind oder nicht. Wenn ja, lösche den Schlüssel &#039;construction&#039;. Wenn nein, prüfe, welcher Wert für den Schlüssel &#039;highway&#039; passend ist.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: verdächtige Beschränkung (%s) auf Weg. Prüfe, ob das nicht &#039;%s&#039;=&#039;yes&#039; oder &#039;psv&#039;=&#039;yes&#039; sein sollte</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: verdächtige Beschränkung (%s) auf Weg. Prüfe, ob das nicht &#039;%s:lanes&#039;=&#039;%s&#039; sein sollte</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
