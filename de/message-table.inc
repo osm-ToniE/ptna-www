@@ -262,6 +262,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Das erste Zeichen der Zeile (&#039;%s&#039;) ist reserviert. Bitte das erste CSV-Feld in doppelte Anführungszeichen setzten (&quot;...&quot;). Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Die CSV-Daten enthalten zu viele &#039;;&#039;. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Die CSV-Daten: Date Feld &#039;gtfs_feed&#039; (=  &#039;%s&#039;) ist falsch. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Die CSV-Daten: Date Feld &#039;release_date&#039; (=  &#039;%s&#039;) ist falsch. Es sollte ein Datum (JJJJ-MM-TT) sein, oder &#039;latest&#039;, &#039;previous&#039; oder &#039;long-term&#039;. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Die Route ist direktes Element von mehr als einem Route-Master: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
