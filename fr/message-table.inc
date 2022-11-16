@@ -1102,6 +1102,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: restricted access (&#039;bus&#039;=&#039;school&#039;) to way for a route relation not tagged with &#039;bus&#039;=&#039;school&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: suspicious access restriction (%s) to way. Check whether this should be &#039;%s&#039;=&#039;yes&#039; or &#039;psv&#039;=&#039;yes&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
