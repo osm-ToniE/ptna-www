@@ -7,16 +7,16 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
-            <h2 id="EU"><img src="/img/Nicaragua32.png" alt="bandera Nicaragua" /> Resultados para Nicaragua</h2>
-      
+            <h2 id="NI"><img src="/img/Nicaragua32.png" alt="bandera Nicaragua" /> Resultados para Nicaragua</h2>
+
 <?php include $inc_lang.'results-head.inc' ?>
 
-            <table id="networksEU">
+            <table id="networksNI">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
@@ -36,4 +36,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
