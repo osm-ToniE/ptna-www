@@ -70,14 +70,14 @@
             if ( $osm_xml_file_name && $size_download ) {
                 #if ( isset($size_total_files[$osm_xml_file_name]) ) {
                     if ( $start_download && $end_download ) {
-                        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download / 1024 / 1024 );
+                        printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
                         $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
                     } else {
                         printf( "    <td class=\"statistics-size\">reused</td>\n" );
                     }
                 #} else {
                 #    if ( $start_download && $end_download ) {
-                #        printf( "    <td class=\"statistics-size\">%.1f</td>\n", $size_download / 1024 / 1024 );
+                #        printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
                 #        $size_total_files[$osm_xml_file_name] = $size_download;
                 #    } else {
                 #        printf( "    <td class=\"statistics-size\">?</td>\n" );

@@ -47,7 +47,7 @@
                           $rlink = GetRegionLink();
                           $rname = htmlentities( GetRegionName() );
                           if ( $query ) { printf( "<p><code>%s</code></p>\n", $query ); }
-                          if ( $fsize ) { printf( "<p>This query currently delivers approximately %.1f MB.\n</p>", $fsize / 1024 / 1024 ); }
+                          if ( $fsize ) { printf( "<p>This query currently delivers approximately %.3f MB.\n</p>", $fsize / 1024 / 1024 ); }
                           if ( $rlink ) {
                               printf( "<p>Show the <a href=\"/en/index.php#searcharea\">search area</a> " );
                               if ( $rname ) { printf( "\"<strong>%s</strong>\" ", $rname ); }
