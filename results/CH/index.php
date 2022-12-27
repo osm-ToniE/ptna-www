@@ -33,6 +33,8 @@
                 </thead>
                 <tbody>
 
+                    <?php CreateNewFullEntry( "CH-KtGR", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "CH-KtUR", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "CH-OTV", "de", "Konfiguration" ); ?>
