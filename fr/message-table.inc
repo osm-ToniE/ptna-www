@@ -24,7 +24,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039; : la &#039;,&#039; (virgule) comme valeur de séparateur devrait être remplacée par un &#039;;&#039; (point-virgule) sans espace</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -185,8 +185,8 @@
                 <td class="message-text">Itinéraire : le type de voie utilisé (%s)</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-service-type</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">The vehicle uses a service way with a &#039;service&#039; tag which is considered as not suitable for public transport routes. Public transport routes should not use service ways tagged with &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; or &#039;parking_aisle&#039;.</td>
+                <td class="message-fix">Check the route and consider deleting the &#039;service&#039; tag from the way.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -640,7 +640,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;attribut &#039;%s&#039; = &#039;%s&#039; de cet arrêt comprend des espaces en trop autour du séparateur  &#039;;&#039; (point-virgule)</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -688,7 +688,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;attribut &#039;network&#039; = &#039;%s&#039; devrait être la forme courte</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-short-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -696,7 +696,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;attribut &#039;network&#039; = &#039;%s&#039; devrait être la forme longue</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-long-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -712,7 +712,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;attribut &#039;network:long&#039; correspond à la forme longue</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -720,7 +720,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;attribut &#039;network:long&#039; est une forme longue</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>

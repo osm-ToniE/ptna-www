@@ -24,7 +24,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039; includes the separator value &#039;;&#039; (semi-colon) with sourrounding blank</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -64,7 +64,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (comma) as separator value should be replaced by &#039;;&#039; (semi-colon) without blank</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -120,7 +120,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; should be long form</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-long-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -128,7 +128,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; should be short form</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-short-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -144,7 +144,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network:long&#039; pasuje do długiej formy</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -152,7 +152,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network:long&#039; to długa forma</td>
                 <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1017,8 +1017,8 @@
                 <td class="message-text">Route: using way type (%s)</td>
                 <td class="message-type">Uwagi</td>
                 <td class="message-option">check-service-type</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">The vehicle uses a service way with a &#039;service&#039; tag which is considered as not suitable for public transport routes. Public transport routes should not use service ways tagged with &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; or &#039;parking_aisle&#039;.</td>
+                <td class="message-fix">Check the route and consider deleting the &#039;service&#039; tag from the way.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

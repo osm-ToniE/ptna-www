@@ -202,8 +202,8 @@
             <tr class="option-tablerow" id="option-no-additional-navigation">
                 <td class="option-option">no-additional-navigation</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description"></td>
-                <td class="option-image"></td>
+                <td class="option-description">Es werden keinen zusätzlichen Navigationshilfen oberhalb der Tabellen ausgegeben.</td>
+                <td class="option-image"><div class="option-tooltip"><img src="/img/option-no_additional_navigation.png" alt="no-additional-navigation" /><span class="option-tooltiptext">no-additional-navigation</span></div></td>
             </tr>
             <tr class="option-tablerow" id="option-operator-regex">
                 <td class="option-option">operator-regex</td>
@@ -214,7 +214,7 @@
             <tr class="option-tablerow" id="option-or-separator">
                 <td class="option-option">or-separator</td>
                 <td class="option-default">|</td>
-                <td class="option-description"></td>
+                <td class="option-description">Diese Option setzt den ODER-Separator für das &#039;ref&#039; Feld in der CSV-Liste der Routen.<br />Beispiel: &#039;250|250a|250b&#039; : definiert, dass hier Routen mit &#039;ref&#039; = &#039;250&#039; und &#039;ref&#039; = &#039;250a&#039; und &#039;ref&#039; = &#039;250b&#039; erlaubt sind.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-positive-notes">
@@ -232,7 +232,7 @@
             <tr class="option-tablerow" id="option-ref-separator">
                 <td class="option-option">ref-separator</td>
                 <td class="option-default">/</td>
-                <td class="option-description"></td>
+                <td class="option-description">Diese Option setzt den &#039;network-ref&#039;-Separator für das &#039;ref&#039; Feld in der CSV-Liste der Routen.<br />Beispiel: &#039;605/50&#039; : definiert, dass hier &#039;ref&#039; von zwei &#039;network&#039; erwartet werden.<br />Es wird geprüft, ob &#039;ref:network1 &#039;= &#039;605&#039; und &#039;ref:network2&#039; = &#039;50&#039; existieren.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-relaxed-begin-end-for">
@@ -244,7 +244,7 @@
             <tr class="option-tablerow" id="option-separator">
                 <td class="option-option">separator</td>
                 <td class="option-default">;</td>
-                <td class="option-description"></td>
+                <td class="option-description">Diese Option setzt der Feld-Separator für die CSV-Liste der Routen.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-show-gtfs">

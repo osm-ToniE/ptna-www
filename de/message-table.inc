@@ -56,7 +56,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039; enthält das Trennzeichen &#039;;&#039; (Semikolon) mit umgebendem Leerzeichen</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -64,7 +64,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">check-osm-separator</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -144,7 +144,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Kurzform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-short-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -152,7 +152,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network&#039; = &#039;%s&#039; sollte in Langform angegeben werden</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">expect-network-long<br />expect-network-short<br />expect-long-for</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -168,7 +168,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network:long&#039; ist Langform</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -176,7 +176,7 @@
             <tr class="message-tablerow">
                 <td class="message-text">&#039;network:long&#039; passt zur Langform</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
+                <td class="message-option">positive-notes</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1105,8 +1105,8 @@
                 <td class="message-text">Route: benutzter Wegtyp (%s)</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-service-type</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
+                <td class="message-description">Das Fahrzeug nutzt einen Serviceweg mit einem &#039;service&#039; tag der als nicht passend für ÖPNV-Routen erachtet wird. ÖPNV-Routen sollten keine Servicewege nutzen, welche mit &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergency&#039;, &#039;drive-through&#039; oder &#039;parking_aisle&#039; getagged sind.</td>
+                <td class="message-fix">Prüfe die Route und erwäge das &#039;service&#039; tag vom Serviceweg zu löschen.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
