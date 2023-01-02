@@ -7,14 +7,14 @@
 
     <body>
 
-<?php if ( isset($_GET['network']) ) { $found = ReadDetails( $_GET['network'] ); } else { $found = ''; } ?>
+<?php if ( isset($network) ) { $found = ReadDetails( $network ); } else { $found = ''; } ?>
 
       <div id="wrapper">
 
 <?php include "header.inc" ?>
 
         <nav id="navigation">
-            <h2 id="de">Konfigurationsdetails <?php if ( $found ) { printf( "für %s", $_GET['network'] ); } ?></h2>
+            <h2 id="de">Konfigurationsdetails <?php if ( $found ) { printf( "für %s", $network ); } ?></h2>
             <ul>
                 <li><a href="#overpass-api">Overpass-API Abfrage</a></li>
                 <li><a href="#options">Auswertungsoptionen</a></li>

@@ -3,7 +3,10 @@
 
 <?php $title="Statistics"; include('html-head.inc'); ?>
 
-<?php include('../script/statistics.php'); ?>
+<?php
+    include('../script/parse_query.php');
+    include('../script/statistics.php');
+    ?>
 
     <body>
       <script src="/script/sort-table.js"></script>

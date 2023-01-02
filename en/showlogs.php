@@ -19,8 +19,8 @@
 
             <pre>
 <?php
-                    if ( isset($_GET['network']) ) {
-                        PrintNetworkAnalysisLogs( $_GET['network'] );
+                    if ( isset($network) ) {
+                        PrintNetworkAnalysisLogs( $network );
                     }
 ?>
             </pre>
