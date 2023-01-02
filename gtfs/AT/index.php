@@ -31,7 +31,7 @@
     $duration += CreateGtfsEntry( "AT-6-VVSt" );
     $duration += CreateGtfsEntry( "AT-7-VVT" );
     $duration += CreateGtfsEntry( "AT-8-VVV" );
-    ?>
+?>
                     </tbody>
                 </table>
 
