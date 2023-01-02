@@ -15,8 +15,9 @@
 
         # now guess from URL
 
-        if ( preg_match('/\/DE\//', $_SERVER['REQUEST_URI']) ||
+        if ( preg_match('/\/AT\//', $_SERVER['REQUEST_URI']) ||
              preg_match('/\/CH\//', $_SERVER['REQUEST_URI']) ||
+             preg_match('/\/DE\//', $_SERVER['REQUEST_URI']) ||
              preg_match('/\/LI\//', $_SERVER['REQUEST_URI'])       ) {
             $lang = 'de';
         } elseif ( preg_match('/\/FR\//', $_SERVER['REQUEST_URI']) ) {
