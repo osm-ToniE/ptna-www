@@ -68,12 +68,14 @@
                             if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
                                 $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                             }
-                            $duration = CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source );
+                            $entries = CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source );
 ?>
                         </tbody>
                     </table>
-<?php echo    "                '*' : there is a match with the GTFS-Route-ID\n";
-      printf( "                <p>Search took %f seconds to complete</p>\n", $duration );
+<?php if ( $entries['good_matches'] > 0 ) {
+          echo    "                '*' : there is a match with the GTFS-Route-ID\n";
+      }
+      printf( "                <p>Search took %f seconds to complete</p>\n", $entries['duration'] );
 ?>
                </div>
 <?php endif; ?>

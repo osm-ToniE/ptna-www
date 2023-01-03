@@ -1035,8 +1035,11 @@
             $matching_ptna_lines = shell_exec( $shell_command );
             echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
             $matching_ptna_array = explode( "\n", $matching_ptna_lines );
+            $matches = 0;
+            $good_matches = 0;
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
+                    $matches += 1;
                     $id        = preg_replace('/".*$/','',
                                     preg_replace('/^.*id="/','',$match)
                                  );
@@ -1072,6 +1075,7 @@
                     if ( preg_match("/$route_id/",$match) ) {
                         $good_id_match     = ' style="background-color: lightgreen;"';
                         $good_id_indicator = '* ';
+                        $good_matches     += 1;
                     } else {
                         $good_id_match     = '';
                         $good_id_indicator = '';
@@ -1107,7 +1111,11 @@
 
         $stop_time = gettimeofday(true);
 
-        return $stop_time - $start_time;
+        $ret['duration']     = $stop_time - $start_time;
+        $ret['matches']      = $matches;
+        $ret['good_matches'] = $good_matches;
+
+        return $ret;
     }
 
 
