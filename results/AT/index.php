@@ -22,19 +22,19 @@
     </thead>
     <tbody>
 
-    <?php CreateNewFullEntry( "AT-139-VOR", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-OÖVV", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-2-VKG", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-SVV", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-4-OÖVV", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-VKG", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-5-SVV", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-VOR", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-6-VVSt", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-VVSt", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-7-VVT", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-VVT", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-8-VVV", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-VVV", "de", "Konfiguration" ); ?>
 
 </tbody>
 </table>

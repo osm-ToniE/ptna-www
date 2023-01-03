@@ -23,14 +23,14 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "AT-Eisenbahn" );
-    $duration += CreateGtfsEntry( "AT-139-VOR" );
-    $duration += CreateGtfsEntry( "AT-2-VKG" );
-    $duration += CreateGtfsEntry( "AT-4-Linz-AG" );
-    $duration += CreateGtfsEntry( "AT-4-OÖVV" );
-    $duration += CreateGtfsEntry( "AT-5-SVV" );
-    $duration += CreateGtfsEntry( "AT-6-VVSt" );
-    $duration += CreateGtfsEntry( "AT-7-VVT" );
-    $duration += CreateGtfsEntry( "AT-8-VVV" );
+    $duration += CreateGtfsEntry( "AT-Linz-AG" );
+    $duration += CreateGtfsEntry( "AT-OÖVV" );
+    $duration += CreateGtfsEntry( "AT-VKG" );
+    $duration += CreateGtfsEntry( "AT-VOR" );
+    $duration += CreateGtfsEntry( "AT-SVV" );
+    $duration += CreateGtfsEntry( "AT-VVSt" );
+    $duration += CreateGtfsEntry( "AT-VVT" );
+    $duration += CreateGtfsEntry( "AT-VVV" );
 ?>
                     </tbody>
                 </table>
