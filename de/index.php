@@ -20,7 +20,7 @@
                     </ul>
                 </li>
                 <li><a href="#networkroutes">Die zum Verkehrsverbund gehörigen Linien</a></li>
-                <li><a href="#analysis">Die Analyse</a>
+                <li><a href="#analysis">Die Public Transport Network Analyse</a>
                     <ul>
                         <li><a href="#routesdescription">Beschreibung der erwarteten Linien</a></li>
                         <li><a href="#overpass">Download der Daten aus OSM</a></li>
@@ -56,6 +56,8 @@
                             </ul>
                         </li>
                     </ul>
+                </li>
+                <li><a href="#gtfsanalysis">Die GTFS Analyse</a>
                 </li>
                 <li><a href="#code">Der Code</a>
                     <ul>
@@ -225,7 +227,7 @@
 
             <hr />
 
-            <h2 id="analysis">Die Analyse</h2>
+            <h2 id="analysis">Die Public Transport Analyse</h2>
             <div class="indent">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
@@ -253,7 +255,7 @@
                     </p>
                     Die Abfrage selber gliedert sich in 3 große Teile:
 
-		    <h4 id="searcharea">Definition des Suchgebietes</h4>
+		            <h4 id="searcharea">Definition des Suchgebietes</h4>
                     <div class="indent">
                         Folgenden Möglichkeiten gibt es:
                                 <ul>
@@ -275,21 +277,21 @@
                                    <li>er ist eindeutig, denn z.b. einen Landkreis: admin_level=6 mit name="Coburg" mag es weltweit mehrfach geben.</li>
                                    <li>eine Relation mit type=boundary kann Lücken enthalten, es werden dann keine Daten runter geladen.</li>
                                 </ul>
-		    </div> <!-- searcharea -->
+		            </div> <!-- searcharea -->
 
-		    <h4 id="searchdata">Auswahl und Abspeichern aller relevanten Route und deren Route-Master Relationen</h4>
+		            <h4 id="searchdata">Auswahl und Abspeichern aller relevanten Route und deren Route-Master Relationen</h4>
                     <div class="indent">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                         </p>
-		    </div> <!-- searchdata -->
+		            </div> <!-- searchdata -->
 
-		    <h4 id="searchoutput">Ausgabe der relevanten Informationen</h4>
+		            <h4 id="searchoutput">Ausgabe der relevanten Informationen</h4>
                     <div class="indent">
                         <p>
                             Siehe: <a href="https://wiki.openstreetmap.org/wiki/User:ToniE/analyze-routes#Download_der_Daten_via_Overpass-API_Abfrage">OSM Wiki</a>
                         </p>
-		    </div> <!-- searchoutput -->
+		            </div> <!-- searchoutput -->
                     <p>
                         Beispiel: Overpass-API query für <a href="https://wiki.openstreetmap.org/wiki/Talk:M%C3%BCnchen/Transportation/Analyse#Overpass-API_Abfrage">Münchner Verkehrs- und Tarifverbund</a>
                     </p>
@@ -543,7 +545,16 @@
 
             <hr />
 
-            <h2 id="code">Der Code</h2>
+            <h2 id="gtfsanalysis">Die GTFS Analyse</h2>
+            <div class="indent">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisici elit, …
+                </p>
+            </div> <!-- "gtfsanalysis" -->
+
+
+
+                <h2 id="code">Der Code</h2>
             <div class="indent">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
