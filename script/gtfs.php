@@ -867,12 +867,21 @@
            if (  $route_id ) {
 
                 try {
+                    $list_separator = '|';
 
                     set_time_limit( 30 );
 
                     $start_time = gettimeofday(true);
 
                     $db         = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
 
                     $sql        = sprintf( "SELECT   trip_id
                                             FROM     trips
@@ -887,11 +896,13 @@
 
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
-                        $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'|') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  |') AS stop_name_list
+                        $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'%s') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  %s') AS stop_name_list
                                          FROM     stops
                                          JOIN     stop_times on stop_times.stop_id = stops.stop_id
                                          WHERE    stop_times.trip_id='%s'
                                          ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
+                                         $list_separator,
+                                         $list_separator,
                                          SQLite3::escapeString($outerrow["trip_id"])
                                       );
 
@@ -900,10 +911,10 @@
                         if ( $innerrow["stop_id_list"] && !isset($stoplist[$innerrow["stop_id_list"]]) ) {
                             $stoplist[$innerrow["stop_id_list"]] = $outerrow["trip_id"];
                             # the next 4 lines are used to sort the output 'trip_array' by frist, by last and then by via stop names
-                            $stop_name_array = explode( '  |', $innerrow["stop_name_list"] );
+                            $stop_name_array = explode( '  '.$list_separator, $innerrow["stop_name_list"] );
                             $first_stop_name = array_shift( $stop_name_array );
                             $last_stop_name  = array_pop(   $stop_name_array );
-                            $stop_names      = $first_stop_name . '  |' . $last_stop_name . '  |' . implode('  |',$stop_name_array) . '  |' . $outerrow["trip_id"];
+                            $stop_names      = $first_stop_name . '  ' . $list_separator . $last_stop_name . '  ' . $list_separator . implode('  '.$list_separator,$stop_name_array) . '  ' . $list_separator . $outerrow["trip_id"];
                             array_push( $trip_array, $stop_names );
                         }
                     }
@@ -922,7 +933,7 @@
 
                     foreach ( $trip_array as $stop_names ) {
 
-                        $stop_name_array = explode( '  |', $stop_names );
+                        $stop_name_array = explode( '  '.$list_separator, $stop_names );
                         $trip_id         = array_pop($stop_name_array);
                         $first_stop_name = array_shift( $stop_name_array );
                         $last_stop_name  = array_shift( $stop_name_array ); # last stop name ist really the second in the list
@@ -1128,6 +1139,7 @@
            if ( $trip_id ) {
 
                try {
+                    $list_separator = '|';
 
                     set_time_limit( 30 );
 
@@ -1151,6 +1163,10 @@
 
                     $ptna['language'] = isset($ptna['language']) ? $ptna['language'] : '';
 
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_stops';";
 
                     $sql_master = $db->querySingle( $sql, true );
@@ -1163,8 +1179,8 @@
 
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
-                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                     $trip       = $db->querySingle( $sql, true );
 
@@ -1506,6 +1522,7 @@
            if ( $trip_id ) {
 
                try {
+                    $list_separator = '|';
 
                     set_time_limit( 30 );
 
@@ -1513,10 +1530,18 @@
 
                     $db = new SQLite3( $SqliteDb );
 
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
-                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                     $trip       = $db->querySingle( $sql, true );
 
@@ -1590,6 +1615,15 @@
         if ( $db ) {
 
             if ( $trip_id ) {
+                $list_separator = '|';
+
+                $sql        = "SELECT * FROM ptna";
+
+                $ptna       = $db->querySingle( $sql, true );
+
+                if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                    $list_separator = $ptna['list_separator'];
+                }
 
                 $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
 
@@ -1612,7 +1646,7 @@
                     } elseif ( isset($result['list_service_ids']) ) {
                         $has_list_service_ids = 1;
                         $temp_array = array();
-                        $temp_array = array_flip( array_flip( explode( '|', $result['list_service_ids'] ) ) );
+                        $temp_array = array_flip( array_flip( explode( $list_separator, $result['list_service_ids'] ) ) );
                         $where_clause = "service_id='";
                         $counter = 0;
                         foreach ( $temp_array as $service_id ) {
@@ -1672,10 +1706,19 @@
            if ( $trip_id ) {
 
                try {
+                    $list_separator = '|';
 
                     $start_time = gettimeofday(true);
 
                     $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
 
                     $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_trips';";
 
@@ -1685,15 +1728,15 @@
 
                         $sql    = sprintf( "SELECT DISTINCT *
                                             FROM            ptna_trips
-                                            WHERE           trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id)
+                                            WHERE           trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator
                                          );
                         $result = $db->querySingle( $sql, true );
 
                         if ( isset($result['list_trip_ids']) && isset($result['list_departure_times']) && isset($result['list_service_ids']) ) {
-                            $list_trip_ids        = explode( '|', $result['list_trip_ids'] );
-                            $list_departure_times = explode( '|', $result['list_departure_times'] );
-                            $list_service_ids     = explode( '|', $result['list_service_ids'] );
+                            $list_trip_ids        = explode( $list_separator, $result['list_trip_ids'] );
+                            $list_departure_times = explode( $list_separator, $result['list_departure_times'] );
+                            $list_service_ids     = explode( $list_separator, $result['list_service_ids'] );
                             for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
                                 if ( !isset($service_departure[$list_service_ids[$i]]) ) {
                                     $service_departure[$list_service_ids[$i]] = $list_departure_times[$i] . ',';
@@ -1702,7 +1745,7 @@
                                 }
                             }
                             if ( isset($result['list_durations']) ) {
-                                $list_durations = explode( '|', $result['list_durations'] );
+                                $list_durations = explode( $list_separator, $result['list_durations'] );
                                 for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
                                     if ( !isset($service_durations[$list_service_ids[$i]]) ) {
                                         $service_durations[$list_service_ids[$i]] = $list_durations[$i] . ',';
@@ -1885,6 +1928,7 @@
            if ( $trip_id ) {
 
                try {
+                    $list_separator = '|';
 
                     $start_time = gettimeofday(true);
 
@@ -1894,12 +1938,16 @@
 
                     $ptna       = $db->querySingle( $sql, true );
 
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     if ( $ptna["has_shapes"] ) {
 
                         $sql        = sprintf( "SELECT trip_id
                                                 FROM   ptna_trips
-                                                WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                                SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                                WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                                SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                         $trip       = $db->querySingle( $sql, true );
 
@@ -2025,13 +2073,22 @@
             if ( $trip_id ) {
 
                 try {
+                    $list_separator = '|';
 
                     $db = new SQLite3( $SqliteDb );
 
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
-                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                     $trip       = $db->querySingle( $sql, true );
 
@@ -2074,13 +2131,22 @@
             if ( $trip_id ) {
 
                 try {
+                    $list_separator = '|';
 
                     $db = new SQLite3( $SqliteDb );
 
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
-                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                     $trip       = $db->querySingle( $sql, true );
 
@@ -2255,13 +2321,22 @@
             if ( $trip_id ) {
 
                 try {
+                    $list_separator = '|';
 
                     $db  = new SQLite3( $SqliteDb );
 
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( isset($ptna['list_separator']) && $ptna['list_separator'] ) {
+                        $list_separator = $ptna['list_separator'];
+                    }
+
                     $sql        = sprintf( "SELECT trip_id
                                             FROM   ptna_trips
-                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s|%%' OR list_trip_ids LIKE '%%|%s|%%' OR list_trip_ids LIKE '%%|%s'",
-                                            SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id), SQLite3::escapeString($trip_id) );
+                                            WHERE  trip_id='%s' OR list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s'",
+                                            SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator, SQLite3::escapeString($trip_id), $list_separator );
 
                     $trip       = $db->querySingle( $sql, true );
 
