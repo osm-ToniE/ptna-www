@@ -1003,6 +1003,8 @@
                                      . ", osm_ref = "              . htmlspecialchars($osm_ref)
                                      . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
                                      . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . " ); -->\n";
+        $matches      = 0;
+        $good_matches = 0;
 
         if ( $feed                  && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",     $feed)                     &&
              ($release_date == ''   || preg_match("/^[0-9-]+$/",              $release_date) )           &&
@@ -1035,8 +1037,6 @@
             $matching_ptna_lines = shell_exec( $shell_command );
             echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
             $matching_ptna_array = explode( "\n", $matching_ptna_lines );
-            $matches = 0;
-            $good_matches = 0;
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
                     $matches += 1;
