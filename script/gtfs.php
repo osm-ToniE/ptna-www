@@ -3141,6 +3141,8 @@
                             }
                         }
 
+                        $sql = '';
+
                         if ( $topic ) {
                             if ( $col_name[$topic] ) {
                                 $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
@@ -3173,14 +3175,16 @@
                                         );
                         }
 
-                        $result = $db->query( $sql );
+                        if ( $sql ) {
+                            $result = $db->query( $sql );
 
-                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                            echo '                            <tr class="gtfs-tablerow">'    . "\n";
-                            echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
-                            echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
-                            echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row) . '</td>' . "\n";
-                            echo '                            </tr>' . "\n";
+                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                                echo '                            <tr class="gtfs-tablerow">'    . "\n";
+                                echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
+                                echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
+                                echo '                                <td class="gtfs-comment">' . HandlePtnaComment($row) . '</td>' . "\n";
+                                echo '                            </tr>' . "\n";
+                            }
                         }
                     }
 
