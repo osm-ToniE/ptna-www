@@ -4,6 +4,7 @@
     $gtfs_strings['suspicious_start']               = 'Suspicious start of trip: same';
     $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
     $gtfs_strings['suspicious_number_of_stops']     = 'Suspicious number of stops:';
+    $gtfs_strings['suspicious_trip_duration']       = 'Suspicious travel time:';
     $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
 
     if ( $lang ) {
@@ -14,6 +15,7 @@
             $gtfs_strings['suspicious_start']               = 'Verdächtiger Anfang der Fahrt: gleiche';
             $gtfs_strings['suspicious_end']                 = 'Verdächtiges Ende der Fahrt: gleiche';
             $gtfs_strings['suspicious_number_of_stops']     = 'Verdächtige Anzahl von Haltestellen:';
+            $gtfs_strings['suspicious_trip_duration']       = 'Verdächtige Fahrzeit:';
             $gtfs_strings['same_names_but_different_ids']   = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
         }
     }
@@ -2978,6 +2980,17 @@
                                 echo '                        </tr>' . "\n";
                             }
                         }
+                        if ( isset($columns['suspicious_trip_duration']) ) {
+                            $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_trip_duration != '';" );
+                            $ptna = $db->querySingle( $sql, true );
+                            if ( $ptna["count"] ) {
+                                echo '                        <tr class="statistics-tablerow">' . "\n";
+                                echo '                            <td class="statistics-name">Trips with suspicious travel time</td>' . "\n";
+                                echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=TIME">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                                echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                                echo '                        </tr>' . "\n";
+                            }
+                        }
                     }
                 }
 
@@ -3106,6 +3119,7 @@
                         $col_name['SUSPEND']   = '';
                         $col_name['SUSPCOUNT'] = '';
                         $col_name['IDENT']     = '';
+                        $col_name['TIME']      = '';
                         while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                             if ( $row["name"] == 'subroute_of' ) {
                                 $col_name['SUBR']  = 'subroute_of';
@@ -3119,23 +3133,36 @@
                             elseif ( $row["name"] == 'suspicious_number_of_stops' ) {
                                 $col_name['SUSPCOUNT']  = 'suspicious_number_of_stops';
                             }
+                            elseif ( $row["name"] == 'suspicious_trip_duration' ) {
+                                $col_name['TIME']  = 'suspicious_trip_duration';
+                            }
                             elseif ( $row["name"] == 'same_names_but_different_ids' ) {
                                 $col_name['IDENT']  = 'same_names_but_different_ids';
                             }
                         }
 
                         if ( $topic ) {
-                            $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
-                                             FROM               ptna_trips_comments
-                                             JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
-                                             JOIN               routes             ON   trips.route_id              = routes.route_id
-                                             WHERE              %s != ''
-                                             ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
-                                             $col_name[$topic], $col_name[$topic]
-                                        );
+                            if ( $col_name[$topic] ) {
+                                $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
+                                                 FROM               ptna_trips_comments
+                                                 JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
+                                                 JOIN               routes             ON   trips.route_id              = routes.route_id
+                                                 WHERE              %s != ''
+                                                 ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                                 $col_name[$topic], $col_name[$topic]
+                                              );
+                            }
                         } else {
                             $col_names = sprintf( "%s,%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
                             $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
+                            if ( $col_name['SUSPCOUNT'] ) {
+                                $col_names = sprintf( "%s,%s", $col_names, $col_name['SUSPCOUNT'] );
+                                $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['SUSPCOUNT'] );
+                            }
+                            if ( $col_name['TIME'] ) {
+                                $col_names = sprintf( "%s,%s", $col_names, $col_name['TIME'] );
+                                $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['TIME'] );
+                            }
                             $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
                                              FROM               ptna_trips_comments
                                              JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
@@ -3476,6 +3503,9 @@
             }
             if ( isset($param['suspicious_number_of_stops']) && $param['suspicious_number_of_stops'] ) {
                 $string .= "\n" . $gtfs_strings['suspicious_number_of_stops'] . " '" . $param['suspicious_number_of_stops'] . "'";
+            }
+            if ( isset($param['suspicious_trip_duration']) && $param['suspicious_trip_duration'] ) {
+                $string .= "\n" . $gtfs_strings['suspicious_trip_duration'] . " '" . $param['suspicious_trip_duration'] . "'";
             }
             if ( isset($param['subroute_of']) && $param['subroute_of'] ) {
                 $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
