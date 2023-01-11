@@ -22,6 +22,7 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "FR-PAC-Mistral" );
     $duration += CreateGtfsEntry( "FR-PAC-Orizo" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Proximite" );
