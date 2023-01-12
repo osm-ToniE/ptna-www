@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                <?php CreateNewFullEntry( "SI-Ljubljana-MPP", "en", "Konfiguracija" ); ?>
+                <?php CreateNewFullEntry( "SI-Ljubljana-LPP", "en", "Konfiguracija" ); ?>
 
                 </tbody>
             </table>
