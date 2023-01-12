@@ -898,11 +898,15 @@
 
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
+                        # the 'ORDER BY CAST(...) ASC' is not safe, does not sort by stop_sequence as expected
+                        # see gtfs-aggregate-ptna-sqlite.pl - FillNewStopTimesTable, where we ensure that stop_times entries are sorted ascending
+                        # need to find a better way to do that here and not depend on the stop_times being sorted ascending over stop_sequence per trip_id in advance
+                        # --> needs a while loop over all sorted stop_id, stop_name of a trip_id to simulate the GROUP_CONCAT()
                         $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'%s') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  %s') AS stop_name_list
                                          FROM     stops
                                          JOIN     stop_times on stop_times.stop_id = stops.stop_id
                                          WHERE    stop_times.trip_id='%s'
-                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
+                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC;",
                                          $list_separator,
                                          $list_separator,
                                          SQLite3::escapeString($outerrow["trip_id"])
@@ -1009,13 +1013,13 @@
 
         $start_time = gettimeofday(true);
 
-        echo "<!-- CreateLinksToPtnaData( feed = "                 . htmlspecialchars($feed)
-                                     . ", release_date = "         . htmlspecialchars($release_date)
-                                     . ", route_id = "             . htmlspecialchars($route_id)
-                                     . ", route_short_name = "     . htmlspecialchars($route_short_name)
-                                     . ", osm_ref = "              . htmlspecialchars($osm_ref)
-                                     . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
-                                     . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . " ); -->\n";
+        #echo "<!-- CreateLinksToPtnaData( feed = "                 . htmlspecialchars($feed)
+        #                             . ", release_date = "         . htmlspecialchars($release_date)
+        #                             . ", route_id = "             . htmlspecialchars($route_id)
+        #                             . ", route_short_name = "     . htmlspecialchars($route_short_name)
+        #                             . ", osm_ref = "              . htmlspecialchars($osm_ref)
+        #                             . ", osm_route_type = "       . htmlspecialchars($osm_route_type)
+        #                             . ", ptna_analysis_source = " . htmlspecialchars($ptna_analysis_source) . " ); -->\n";
         $matches      = 0;
         $good_matches = 0;
 
@@ -1046,9 +1050,9 @@
             $match_osm_ref = preg_replace('/(.)/','${1}\\s*',$match_osm_ref);
 
             $shell_command = "egrep 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $match_osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
-            echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
+            #echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
             $matching_ptna_lines = shell_exec( $shell_command );
-            echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
+            #echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
             $matching_ptna_array = explode( "\n", $matching_ptna_lines );
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
@@ -1554,7 +1558,7 @@
                                          FROM     stop_times
                                          JOIN     stops ON stop_times.stop_id = stops.stop_id
                                          WHERE    stop_times.trip_id='%s'
-                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER);",
+                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC;",
                                          SQLite3::escapeString($trip_id)
                                     );
 
@@ -1968,7 +1972,7 @@
                                 $sql = sprintf( "SELECT   *
                                                 FROM     shapes
                                                 WHERE    shape_id='%s'
-                                                ORDER BY CAST (shape_pt_sequence AS INTEGER);",
+                                                ORDER BY CAST (shape_pt_sequence AS INTEGER) ASC;",
                                                 SQLite3::escapeString($shape_id)
                                             );
 
