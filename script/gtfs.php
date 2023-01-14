@@ -898,15 +898,14 @@
 
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
 
-                        # the 'ORDER BY CAST(...) ASC' is not safe, does not sort by stop_sequence as expected
+                        # an 'ORDER BY CAST(stop_sequence as INTEGER) ASC' is not safe, does not sort by stop_sequence as expected.
+                        # GTFS refences says anyway that they must be sorted asc
                         # see gtfs-aggregate-ptna-sqlite.pl - FillNewStopTimesTable, where we ensure that stop_times entries are sorted ascending
-                        # need to find a better way to do that here and not depend on the stop_times being sorted ascending over stop_sequence per trip_id in advance
-                        # --> needs a while loop over all sorted stop_id, stop_name of a trip_id to simulate the GROUP_CONCAT()
+                        # even if the original GTFS data is wrongly sorted (desc or not at all)
                         $sql = sprintf( "SELECT   GROUP_CONCAT(stop_times.stop_id,'%s') AS stop_id_list, GROUP_CONCAT(stops.stop_name,'  %s') AS stop_name_list
                                          FROM     stops
                                          JOIN     stop_times on stop_times.stop_id = stops.stop_id
-                                         WHERE    stop_times.trip_id='%s'
-                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC;",
+                                         WHERE    stop_times.trip_id='%s';",
                                          $list_separator,
                                          $list_separator,
                                          SQLite3::escapeString($outerrow["trip_id"])
