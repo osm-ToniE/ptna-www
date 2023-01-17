@@ -24,11 +24,11 @@
 <?php
     $duration += CreateGtfsEntry( "FR-PAC-Lignes-d-Azur" );
     $duration += CreateGtfsEntry( "FR-PAC-Mistral" );
-    #$duration += CreateGtfsEntry( "FR-PAC-Orizo" );
-    #$duration += CreateGtfsEntry( "FR-PAC-Palmbus" );
+    $duration += CreateGtfsEntry( "FR-PAC-Orizo" );
+    $duration += CreateGtfsEntry( "FR-PAC-Palmbus" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Urbain" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Scolaire" );
-    #$duration += CreateGtfsEntry( "FR-PAC-Zest" );
+    $duration += CreateGtfsEntry( "FR-PAC-Zest" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Proximite" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Scolaire" );
