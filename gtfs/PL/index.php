@@ -23,6 +23,7 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "PL-14-ZTM-Warszawa" );
+    $duration += CreateGtfsEntry( "PL-24-ZTM-Katowice" );
 ?>
                     </tbody>
                 </table>
