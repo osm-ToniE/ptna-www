@@ -141,6 +141,8 @@
 
                     <?php CreateNewFullEntry( "DE-HH-HVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-MV-NAHBUS", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-MV-MVVG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-MV-VVR", "de", "Konfiguration" ); ?>
