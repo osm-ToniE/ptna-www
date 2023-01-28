@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="sl">
 
-<?php $title="Results"; $inc_lang='../../en/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="Results"; $inc_lang='../../sl/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/entries.php'); ?>
 
@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                <?php CreateNewFullEntry( "SI-Ljubljana-LPP", "en", "Konfiguracija" ); ?>
+                <?php CreateNewFullEntry( "SI-Ljubljana-LPP", "sl", "Konfiguracija" ); ?>
 
                 </tbody>
             </table>
