@@ -25,9 +25,9 @@
     $duration += CreateGtfsEntry( "AT-Eisenbahn" );
     $duration += CreateGtfsEntry( "AT-Linz-AG" );
     $duration += CreateGtfsEntry( "AT-OÖVV" );
+    $duration += CreateGtfsEntry( "AT-SVV" );
     $duration += CreateGtfsEntry( "AT-VKG" );
     $duration += CreateGtfsEntry( "AT-VOR" );
-    $duration += CreateGtfsEntry( "AT-SVV" );
     $duration += CreateGtfsEntry( "AT-VVSt" );
     $duration += CreateGtfsEntry( "AT-VVT" );
     $duration += CreateGtfsEntry( "AT-VVV" );
