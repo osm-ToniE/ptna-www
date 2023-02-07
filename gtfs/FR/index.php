@@ -26,8 +26,10 @@
     $duration += CreateGtfsEntry( "FR-PAC-Mistral" );
     $duration += CreateGtfsEntry( "FR-PAC-Orizo" );
     $duration += CreateGtfsEntry( "FR-PAC-Palmbus" );
+    $duration += CreateGtfsEntry( "FR-PAC-RTM" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Urbain" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Scolaire" );
+    $duration += CreateGtfsEntry( "FR-PAC-Trans-Agglo" );
     $duration += CreateGtfsEntry( "FR-PAC-Zest" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Proximite" );
