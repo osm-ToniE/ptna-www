@@ -1088,7 +1088,12 @@
                     } else {
                         $osm_route  = preg_replace('/_.*$/','',$id);
                     }
-                    if ( preg_match("/$route_id/",$match) ) {
+                    $escaped_route_id = preg_replace('/\./','\\.',
+                                            preg_replace('/\+/','\\+',
+                                                preg_replace('/\|/','\\|',$route_id)
+                                            )
+                                        );
+                    if ( preg_match("/$escaped_route_id/",$match) ) {
                         $good_id_match     = ' style="background-color: lightgreen;"';
                         $good_id_indicator = '* ';
                         $good_matches     += 1;
