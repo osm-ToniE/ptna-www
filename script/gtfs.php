@@ -1873,7 +1873,11 @@
                                     $departures  = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
                                     $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
-                                    if ( count($different_durations) == 1 ) {
+                                    if ( $result['list_durations'] ) {
+                                        if ( count($different_durations) == 1 ) {
+                                            sort( $unique_departures );
+                                        }
+                                    } else {
                                         sort( $unique_departures );
                                     }
                                     $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
