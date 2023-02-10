@@ -1872,15 +1872,13 @@
                                     $service_row .= '<td class="gtfs-text"' . $style_width_departures . '>';
                                     $departures  = preg_replace( "/(\d{1,2}:\d\d):\d\d,/", "\\1,", $service_departure[$row["service_id"]] );
                                     $departures  = preg_replace( "/,$/", "", $departures );
-                                    $unique_departures = array_flip( array_flip( explode( ',', $departures ) ) );
-                                    if ( $result['list_durations'] ) {
-                                        if ( count($different_durations) == 1 ) {
-                                            sort( $unique_departures );
-                                        }
+                                    if ( $result['list_durations'] && count($different_durations) > 1 ) {
+                                        $array_departures = explode( ',', $departures );
                                     } else {
-                                        sort( $unique_departures );
+                                        $array_departures = array_flip( array_flip( explode( ',', $departures ) ) );
+                                        sort( $array_departures );
                                     }
-                                    $service_row .= htmlspecialchars( implode( ', ', $unique_departures ) );
+                                    $service_row .= htmlspecialchars( implode( ', ', $array_departures ) );
                                     $service_row .= "</td>\n                                ";
                                     $service_row .= '<td class="gtfs-text"' . $style_width_durations . '>';
                                     if ( $result['list_durations'] ) {
