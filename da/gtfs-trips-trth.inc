@@ -1,9 +1,10 @@
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-name" rowspan="2">Variant</th>
-                            <th class="gtfs-name" rowspan="2">Trip-ID</th>
-                            <th class="gtfs-name" colspan="2">Gyldighed</th>
-                            <th class="gtfs-name" colspan="3">Stops</th>
-                            <th class="gtfs-name" colspan="1">PTNA info om varianten</th>
+                            <th class="gtfs-name"    rowspan="2">Variant</th>
+                            <th class="gtfs-name"    rowspan="2">Trip-ID</th>
+                            <th class="gtfs-comment" rowspan="2">Antal ture</th>
+                            <th class="gtfs-name"    colspan="2">Gyldighed</th>
+                            <th class="gtfs-name"    colspan="3">Stops</th>
+                            <th class="gtfs-comment" colspan="1">PTNA info om varianten</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-date">Af</th>

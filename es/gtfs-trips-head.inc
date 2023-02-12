@@ -2,6 +2,9 @@
     echo "                <p>\n";
     echo "                    The second column of the table contains a link to an evaluation of the GTFS data for each variant (the GTFS trips) of the route.\n";
     echo "                </p>\n";
+    echo "                <p>\n";
+    echo "                    The third column of the table contains a rough calculation of the number of journeys in the validity period.\n";
+    echo "                </p>\n";
 
     if ( $comment ) {
         echo "                <p>\n";

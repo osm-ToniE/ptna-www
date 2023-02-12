@@ -1,9 +1,10 @@
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-name" rowspan="2">Variant</th>
-                            <th class="gtfs-name" rowspan="2">Trip-ID</th>
-                            <th class="gtfs-name" colspan="2">Valid</th>
-                            <th class="gtfs-name" colspan="3">Stops</th>
-                            <th class="gtfs-name" colspan="1">PTNA info</th>
+                            <th class="gtfs-name"    rowspan="2">Variant</th>
+                            <th class="gtfs-name"    rowspan="2">Trip-ID</th>
+                            <th class="gtfs-comment" rowspan="2">Number of rides</th>
+                            <th class="gtfs-name"    colspan="2">Valid</th>
+                            <th class="gtfs-name"    colspan="3">Stops</th>
+                            <th class="gtfs-comment" colspan="1">PTNA info</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-date">From</th>

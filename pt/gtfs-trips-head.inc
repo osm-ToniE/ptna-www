@@ -2,6 +2,9 @@
     echo "                <p>\n";
     echo "                    A segunda coluna da tabela contém um link para a análise dos dados GTFS para cada trajeto (arquivo trips.txt do GTFS) da linha.\n";
     echo "                </p>\n";
+    echo "                <p>\n";
+    echo "                    A terceira coluna da tabela contém um cálculo aproximado do número de viagens no período de validade.\n";
+    echo "                </p>\n";
 
     if ( $comment ) {
         echo "                <p>\n";

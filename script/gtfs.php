@@ -757,7 +757,7 @@
                             $min_start_date = '20500101';
                             $max_end_date   = '19700101';
                             while ( $innerrow=$innerresult->fetchArray(SQLITE3_ASSOC) ) {
-                                $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $innerrow["trip_id"] );
+                                $start_end_array = GetStartEndDateAndRidesOfIdenticalTrips( $db, $innerrow["trip_id"], False );
                                 if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
                                     if ( $start_end_array["start_date"] < $min_start_date ) {
                                         $min_start_date = $start_end_array["start_date"];
@@ -953,32 +953,33 @@
 
                         $ptnarow = $db->querySingle( $sql, true );
 
-                        $start_end_array = GetStartEndDateOfIdenticalTrips( $db, $trip_id );
+                        $start_end_rides_array = GetStartEndDateAndRidesOfIdenticalTrips( $db, $trip_id, True );
 
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
                         echo '                            <td class="gtfs-number">' . $index . '</td>' . "\n";
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
-                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["start_date"], $parts ) ) {
+                        echo '                            <td class="gtfs-number">' . htmlspecialchars($start_end_rides_array["rides"]) . '</td>' . "\n";
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_rides_array["start_date"], $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
-                            if ( $start_end_array["start_date"] > $today->format('Ymd') )
+                            if ( $start_end_rides_array["start_date"] > $today->format('Ymd') )
                             {
                                 $class = "gtfs-datenew";
                             }
                             echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_array["start_date"]) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_rides_array["start_date"]) . '</td>' . "\n";
                         }
-                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_array["end_date"], $parts ) ) {
+                        if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_rides_array["end_date"], $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
-                            if ( $start_end_array["end_date"] < $today->format('Ymd') )
+                            if ( $start_end_rides_array["end_date"] < $today->format('Ymd') )
                             {
                                 $class = "gtfs-dateold";
                             }
                             echo '                            <td class="' . $class . '">' . $parts[1] . '-' .  $parts[2] . '-' .  $parts[3] . '</td>' . "\n";
                         } else {
-                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_array["end_date"]) . '</td>' . "\n";
+                            echo '                            <td class="gtfs-date">' . htmlspecialchars($start_end_rides_array["end_date"]) . '</td>' . "\n";
                         }
                         echo '                            <td class="gtfs-name">'     . htmlspecialchars($first_stop_name)            . '</td>' . "\n";
                         echo '                            <td class="gtfs-text">'     . htmlspecialchars($via_stop_names)             . '</td>' . "\n";
@@ -1612,15 +1613,20 @@
     }
 
 
-    function GetStartEndDateOfIdenticalTrips( $db, $trip_id ) {
+    function GetStartEndDateAndRidesOfIdenticalTrips( $db, $trip_id, $get_rides ) {
 
         $return_array = array();
 
         $return_array["start_date"] = '20500101';
         $return_array["end_date"]   = '19700101';
+        if ( $get_rides ) {
+            $return_array["rides"]   = 0;
+            $weekdays = array( "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" );
+        }
 
         $has_min_max_dates    = 0;
         $has_list_service_ids = 0;
+        $has_rides            = 0;
 
         if ( $db ) {
 
@@ -1653,37 +1659,90 @@
                     if ( isset($result['min_start_date']) && isset($result['max_end_date']) ) {   # from ptna_trips, filled during gtfs-aggregation.pl
                         $return_array["start_date"] = $result["min_start_date"];
                         $return_array["end_date"]   = $result["max_end_date"];
-                    } elseif ( isset($result['list_service_ids']) ) {
-                        $has_list_service_ids = 1;
-                        $temp_array = array();
-                        $temp_array = array_flip( array_flip( explode( $list_separator, $result['list_service_ids'] ) ) );
-                        $where_clause = "service_id='";
-                        $counter = 0;
-                        foreach ( $temp_array as $service_id ) {
-                            $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
-                            $counter = $counter + 1;
-                            if ( $counter > 999 ) {
-                                break;
-                            }
+                        $has_min_max_dates  = 1;
+                        if ( isset($result['rides']) ) {
+                            $return_array["rides"] = $result['rides'];
+                            $has_rides = 1;
                         }
-                        $sql = sprintf( "SELECT start_date,end_date
-                                         FROM   calendar
-                                         WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
-
-                        $result = $db->query( $sql );
-
-                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
-                            if ( $row["start_date"] < $return_array["start_date"] ) {
-                                $return_array["start_date"] = $row["start_date"];
+                    }
+                    if ( isset($result['list_service_ids']) && $has_rides == 0 ) {
+                        if ( isset($result['rides']) ) {
+                            $return_array["rides"] = $result['rides'];
+                            $has_rides = 1;
+                        }
+                        if ( $has_min_max_dates == 0 || $has_rides == 0 ) {
+                            $has_list_service_ids = 1;
+                            #$departures_array = array_count_values( explode( $list_separator, $result['list_departure_times'] ) );
+                            #print "<!-- list_departure_times: " . count(explode( $list_separator, $result['list_departure_times'])) . ' = ' . $result['list_departure_times'] . " -->\n";
+                            #print "<!-- departure_times: " . implode(',',array_keys($departures_array)) . " -->\n";
+                            #print "<!-- counts: " . implode(',',array_values($departures_array)) . " -->\n";
+                            $service_id_array = array_count_values( explode( $list_separator, $result['list_service_ids'] ) );
+                            #print "<!-- list_service_ids: " . count(explode( $list_separator, $result['list_service_ids'])) . ' = ' . $result['list_service_ids'] . " -->\n";
+                            #print "<!-- service_ids: " . implode(',',array_keys($service_id_array)) . " -->\n";
+                            #print "<!-- counts: " . implode(',',array_values($service_id_array)) . " -->\n";
+                            $where_clause = "service_id='";
+                            $counter = 0;
+                            foreach ( array_keys($service_id_array) as $service_id ) {
+                                $where_clause .= SQLite3::escapeString($service_id) . "' OR service_id='";
+                                $counter = $counter + 1;
+                                if ( $counter > 999 ) {
+                                    break;
+                                }
                             }
-                            if ( $row["end_date"] > $return_array["end_date"] ) {
-                                $return_array["end_date"]   = $row["end_date"];
+                            $days_of_service_id_array = array();
+                            $sql = sprintf( "SELECT *
+                                            FROM   calendar
+                                            WHERE  %s;", preg_replace( "/ OR service_id='$/", "", $where_clause ) );
+
+                            $result = $db->query( $sql );
+
+                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                                if ( $has_min_max_dates == 0 ) {
+                                    if ( $row["start_date"] < $return_array["start_date"] ) {
+                                        $return_array["start_date"] = $row["start_date"];
+                                    }
+                                    if ( $row["end_date"] > $return_array["end_date"] ) {
+                                        $return_array["end_date"]   = $row["end_date"];
+                                    }
+                                }
+                                if ( $get_rides && $has_rides == 0 && $row["start_date"] < $row["end_date"] ) {
+                                    $servive_id = $row["service_id"];
+                                    $interval = date_diff(date_create($row["start_date"]), date_create($row["end_date"]));
+                                    #print "<!-- Totaldays: " . $servive_id . '=' . $interval->format("%a") . " -->\n";
+                                    $days_of_week = 0;
+                                    foreach ( $weekdays as $dow ) {
+                                        if ( $row[$dow] == 1 ) {
+                                            $days_of_week += 1;
+                                        }
+                                    }
+                                    $days_of_service_id_array[$servive_id] = floor($interval->format("%a") * $days_of_week / 7);
+                                    #print "<!-- Service days per week: " . $days_of_week . ' -> ' . $servive_id . '=' . $days_of_service_id_array[$servive_id] . " -->\n";
+                                    $sql_also_on = sprintf( "SELECT COUNT(exception_type) as also_on
+                                                            FROM   calendar_dates
+                                                            WHERE  service_id='%s' AND exception_type=1;",
+                                                            SQLite3::escapeString($servive_id) );
+                                    $also_on = $db->querySingle( $sql_also_on, true );
+                                    $sql_not_on  = sprintf( "SELECT COUNT(exception_type) as not_on
+                                                            FROM   calendar_dates
+                                                            WHERE  service_id='%s' AND exception_type=2;",
+                                                            SQLite3::escapeString($servive_id) );
+                                    $not_on = $db->querySingle( $sql_not_on, true );
+                                    $days_of_service_id_array[$servive_id] += $also_on['also_on'];
+                                    #print "<!-- Also on days: " . $also_on['also_on'] . ' -> ' . $servive_id . '=' . $days_of_service_id_array[$servive_id] . " -->\n";
+                                    $days_of_service_id_array[$servive_id] -= $not_on['not_on'];
+                                    #print "<!-- Not on days: " . $not_on['not_on'] . ' -> ' . $servive_id . '=' . $days_of_service_id_array[$servive_id] . " -->\n";
+                                    $days_of_service_id_array[$servive_id] *= $service_id_array[$servive_id];
+                                    #print "<!-- Rides per day: " . $service_id_array[$servive_id] . ' -> ' . $servive_id . '=' . $days_of_service_id_array[$servive_id] . " -->\n";
+                                    $return_array["rides"] += $days_of_service_id_array[$servive_id];
+                                }
                             }
                         }
                     }
                 }
 
+                # alternatively, if there are no 'list_service_ids' and no 'min_date' and no 'max_date' columns in 'ptna_trips' tablethe DB
                 if ( $has_min_max_dates == 0 && $has_list_service_ids == 0 ) {
+                    print "<!-- Oops! Shouldn't come here -->\n";
                     $sql = sprintf( "SELECT start_date,end_date
                                      FROM   calendar
                                      JOIN   trips ON trips.service_id = calendar.service_id
