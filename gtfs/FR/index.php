@@ -26,6 +26,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-Bandol-et-Sanary-sur-mer" );
     $duration += CreateGtfsEntry( "FR-PAC-Lignes-d-Azur" );
     $duration += CreateGtfsEntry( "FR-PAC-Mistral" );
+    $duration += CreateGtfsEntry( "FR-PAC-Mouvenbus" );
     $duration += CreateGtfsEntry( "FR-PAC-Orizo" );
     $duration += CreateGtfsEntry( "FR-PAC-Palmbus" );
     $duration += CreateGtfsEntry( "FR-PAC-RTM" );
