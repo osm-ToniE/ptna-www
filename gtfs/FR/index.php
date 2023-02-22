@@ -22,6 +22,7 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "FR-ARA-Montelibus" );
     $duration += CreateGtfsEntry( "FR-PAC-Altigo" );
     $duration += CreateGtfsEntry( "FR-PAC-Bandol-et-Sanary-sur-mer" );
     $duration += CreateGtfsEntry( "FR-PAC-Lignes-d-Azur" );
@@ -34,6 +35,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Scolaire" );
     $duration += CreateGtfsEntry( "FR-PAC-TEDbus" );
     $duration += CreateGtfsEntry( "FR-PAC-Trans-Agglo" );
+    $duration += CreateGtfsEntry( "FR-PAC-TransCoVe" );
     $duration += CreateGtfsEntry( "FR-PAC-Zest" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Proximite" );
