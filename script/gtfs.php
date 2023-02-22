@@ -1023,13 +1023,13 @@
         $matches      = 0;
         $good_matches = 0;
 
-        if ( $feed                  && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",           $feed)                     &&
+        if ( $feed                  && preg_match("/^[a-zA-ZÖô0-9_.-]+$/",          $feed)                     &&
              ($release_date == ''   || preg_match("/^[0-9-]+$/",                    $release_date) )           &&
              $route_id              && preg_match("/^[a-zA-ZÖ0-9_. :\|\+-]+$/",     $route_id)                 &&
              $route_short_name      && preg_match("/^[a-zA-ZÖ0-9_. \(\)\/-]+$/",    $route_short_name)         &&
              $osm_ref               && preg_match("/^[a-zA-ZÖ0-9_. \(\)\/-]+$/",    $osm_ref)                  &&
              $osm_route_type        && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",           $osm_route_type)           &&
-             $ptna_analysis_source  && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",           $ptna_analysis_source)        ) {
+             $ptna_analysis_source  && preg_match("/^[a-zA-ZÖô0-9_.-]+$/",          $ptna_analysis_source)        ) {
 
             $prefixparts = explode( '-', $ptna_analysis_source );
             $countrydir  = array_shift( $prefixparts );
