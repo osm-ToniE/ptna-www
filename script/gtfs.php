@@ -1263,16 +1263,17 @@
                             $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
-                        $osm_website        = isset($routes['route_url'])            ? htmlspecialchars($routes['route_url'])            : htmlspecialchars($agency['agency_url']);
                         $osm_from           = isset($stops1['normalized_stop_name']) ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
                         $osm_to             = isset($stops2['normalized_stop_name']) ? htmlspecialchars($stops2['normalized_stop_name']) : htmlspecialchars($stops2['stop_name']);
                         $osm_network        = htmlspecialchars($osm['network']);
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
                         $osm_operator       = '';
+                        $osm_website        = '';
                         if ( isset($osm['gtfs_agency_is_operator']) && $osm['gtfs_agency_is_operator'] ) {
                             if ( $agency['agency_name'] != 'Sonstige' ) {
                                 $osm_operator   = isset($agency['agency_name']) ? htmlspecialchars($agency['agency_name']) : '';
+                                $osm_website    = isset($routes['route_url'])   ? htmlspecialchars($routes['route_url'])   : htmlspecialchars($agency['agency_url']);
                             }
                         }
                         $osm_ref_trips          = htmlspecialchars( $trip_id );
