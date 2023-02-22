@@ -32,6 +32,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-RTM" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Urbain" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Scolaire" );
+    $duration += CreateGtfsEntry( "FR-PAC-TEDbus" );
     $duration += CreateGtfsEntry( "FR-PAC-Trans-Agglo" );
     $duration += CreateGtfsEntry( "FR-PAC-Zest" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
