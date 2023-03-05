@@ -25,6 +25,7 @@
                 <?php CreateNewFullEntry( "US-Flixbus", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-AK-Anchorage-PTD", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-CA-SantaCruz", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
