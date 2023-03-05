@@ -8,7 +8,7 @@ const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
 const defaultzoom   = 10;
 
-const members_per_timeout = 5;
+const members_per_timeout = 10000;
 
 const osmlicence    = 'Map data &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
 const attribution   = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -46,6 +46,11 @@ var aBar;
 var number_of_match     = {};
 var label_of_object     = {}
 var latlonroute         = {};
+
+var htmltableplatform   = [];
+var htmltablestop       = [];
+var htmltableother      = [];
+var htmltableroute      = [];
 
 
 function showrelation() {
@@ -410,18 +415,12 @@ function handleMember( relation_id, index ) {
                     map.fitBounds( getRelationBounds() );
                 }
 
-                html = "";
-                html += "<tr>";
-                html += "    <td class=\"results-number\">"             + number_of_match[match]++                                + "</td>";
-                html += "    <td class=\"results-number\">"             + (index+1)                                               + "</td>";
-                html += "    <td class=\"results-name\"><span class=\"" + attention['role'] + "\">"  + htmlEscape(role)           + "</span></td>";
-                html += "    <td class=\"results-text\">"               + htmlEscape(name)                                        + "</td>";
-                html += "    <td class=\"results-name\"><span class=\"" + attention['id']   + "\">"  + getObjectLinks( id, type ) + "</span></td>";
-        //                if ( match == "route" ) {
-        //                    html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
-        //                }
-                html += "</tr>\n";
-                document.getElementById(match+"-members").innerHTML += html;
+                array=[number_of_match[match]++, (index+1), role, name, id, type, attention['role'], attention['id']];
+
+                if ( match == "platform" )   { htmltableplatform.push(array); }
+                else if ( match == "stop" )  { htmltablestop.push(array);     }
+                else if ( match == "other" ) { htmltableother.push(array);    }
+                else if ( match == "route" ) { htmltableroute.push(array);    }
 
             }
 
@@ -446,12 +445,37 @@ function handleMember( relation_id, index ) {
             L.polyline(latlonroute['stop'],{color:colours['stop'],weight:3,fill:false}).bindPopup("Stop-Position Route").addTo( layerstopsroute );
         }
 
+        addtable(htmltableplatform, "platform" );
+        addtable(htmltablestop,     "stop" );
+        addtable(htmltableother,    "other" );
+        addtable(htmltableroute,    "route" );
+
         map.fitBounds( getRelationBounds() );
 
         finalizeAnalysisProgress();
 
     }
 
+}
+
+
+function addtable( data , match) {
+
+    html = "";
+
+    for ( var a in data ) {
+        html += "<tr>";
+        html += "    <td class=\"results-number\">"             + data[a][0]                                                       + "</td>";
+        html += "    <td class=\"results-number\">"             + data[a][1]                                                       + "</td>";
+        html += "    <td class=\"results-name\"><span class=\"" + data[a][6] + "\">"  + htmlEscape(data[a][2])                     + "</span></td>";
+        html += "    <td class=\"results-text\">"               + htmlEscape(data[a][3])                                           + "</td>";
+        html += "    <td class=\"results-name\"><span class=\"" + data[a][7]   + "\">"  + getObjectLinks( data[a][4], data[a][5] ) + "</span></td>";
+        // if ( match == "route" ) {
+        //     html += "    <td class=\"symbol\"><img src=\"/img/" + wayimg + ".png\" width=\"32\" height=\"32\"></td>";
+        // }
+        html += "</tr>\n";
+    }
+    document.getElementById(match+"-members").innerHTML += html;
 }
 
 
