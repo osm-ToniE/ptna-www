@@ -28,7 +28,8 @@ var colours         = {};
 
 
 var relation_id;
-var analysiscounter = 2;    // 1.) writeRelationTable, 2.) ... iteration over members
+var downloadstartms = 0;
+var analysisstartms = 0;
 var is_PTv2         = 0;
 var osm_data        = [];
 var osm_data_index  = 0;
@@ -58,11 +59,7 @@ function showrelation() {
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
     dBar        = document.getElementById('download');
-    dBar.max    = 20;
-    dBar.value  = 0;
     aBar        = document.getElementById('analysis');
-    aBar.max    = 100;
-    aBar.value  = 0;
 
     //  empty tiles
 	var nomap  = L.tileLayer('');
@@ -159,10 +156,16 @@ function showrelation() {
         var request = new XMLHttpRequest();
         request.open( "GET", url );
         request.onprogress = function() {
-            dBar.value++;
-            document.getElementById('download_text').innerText = (dBar.value * 50).toString();
+            const d = new Date();
+            var usedms = d.getTime() - downloadstartms;
+            dBar.value = usedms;
+            document.getElementById('download_text').innerText = usedms.toString();
         }
         request.onreadystatechange = function() {
+            const d = new Date();
+            var usedms = d.getTime() - downloadstartms;
+            dBar.value = usedms;
+            document.getElementById('download_text').innerText = usedms.toString();
             if ( request.readyState === 4 ) {
                 if ( request.status === 200 ) {
                     var type = request.getResponseHeader( "Content-Type" );
@@ -176,6 +179,9 @@ function showrelation() {
                 }
             }
         };
+
+        const d = new Date();
+        downloadstartms = d.getTime();
 
         request.send();
 
@@ -244,12 +250,9 @@ function getRelationBounds() {
 }
 
 
-function writeRelationTable( ) {
+function writeRelationTable() {
 
     var object = OSM_Relations[relation_id];
-
-    analysiscounter  = OSM_Relations[relation_id]['members'].length;
-    aBar.max         = analysiscounter;
 
     document.getElementById("osm-relation").innerHTML += ' ' + getObjectLinks( relation_id, "relation" );
 
@@ -267,7 +270,6 @@ function writeRelationTable( ) {
             document.getElementById("relation-values").innerHTML = html;
         }
     }
-    updateAnalysisProgress( 1 );
 
 }
 
@@ -286,7 +288,10 @@ function IterateOverMembers() {
         // start analyzing the first (index = 0) member
         // function restarts itself with setTimeout() with 0 msec break, just to keep the browser responsive
 
-        setTimeout( handleMember, 0, relation_id, 0 );
+        const d = new Date();
+        analysisstartms = d.getTime();
+
+        handleMember( relation_id, 0 );
 
     }
 }
@@ -721,13 +726,16 @@ function parseHttpResponse( data ) {
 
 
 function updateAnalysisProgress( increment ) {
-    increment = increment || 1;
-    aBar.value += increment;
-    document.getElementById('analysis_text').innerText = Math.floor((100 / analysiscounter) * aBar.value).toString();
+    const d = new Date();
+    var usedms = d.getTime() - downloadstartms;
+    aBar.value = usedms;
+    document.getElementById('analysis_text').innerText = usedms.toString();
 }
 
 
 function finalizeAnalysisProgress() {
-    aBar.value = analysiscounter + 1;
-    document.getElementById('analysis_text').innerText = "100";
+    const d = new Date();
+    var usedms = d.getTime() - downloadstartms;
+    aBar.value = usedms;
+    document.getElementById('analysis_text').innerText = usedms.toString();
 }
