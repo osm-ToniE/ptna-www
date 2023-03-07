@@ -26,6 +26,7 @@
                 <?php CreateNewFullEntry( "US-AK-Anchorage-PTD", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-CA-SantaCruz", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-IL-Pace", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
