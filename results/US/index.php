@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                <?php CreateNewFullEntry( "US-Amtrak", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-Flixbus", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-AK-Anchorage-PTD", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-CA-SantaCruz", "en", "Configuration" ); ?>
