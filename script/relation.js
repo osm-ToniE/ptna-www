@@ -484,6 +484,20 @@ function addtable( data , match) {
 }
 
 
+function PopupContent (id, type, match, label, name) {
+
+    if ( match == "platform" ) { txt="Platform" }
+    else if ( match == "stop" ) { txt="Stop" }
+    else if ( match == "route" ) { txt="Way" }
+    else { txt="Other" }
+
+    a = "<b>" + txt + " " + label.toString() + ': ' + name + "</b></br>";
+    a += getObjectLinks( id, type )
+
+   return a;
+}
+
+
 function drawObject( id, type, match, label_number, name ) {
 
     if ( type == "node" ) {
@@ -506,16 +520,16 @@ function drawNode( id, match, label, name, set_marker, set_circle ) {
     var lon = OSM_Nodes[id]['lon'];
     if ( match == "platform" ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerplatforms);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Platform " + label.toString() + ': ' + name).addTo(layerplatforms);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatforms);
     } else if ( match == "stop"     ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerstops);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Stop " + label.toString() + ': ' + name).addTo(layerstops);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerstops);
     } else if ( match == "route"     ) {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerways);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Way " + label.toString() + ': ' + name).addTo(layerways);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerways);
     } else {
         if ( set_circle ) L.circle([lat,lon],{color:colours[match],radius:0.75,fill:true}).addTo(layerothers);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup("Other " + label.toString() + ': ' + name).addTo(layerothers);
+        if ( set_marker ) L.marker([lat,lon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerothers);
     }
     if ( lat < minlat ) minlat = lat;
     if ( lat > maxlat ) maxlat = lat;
@@ -552,15 +566,21 @@ function drawWay( id, match, label, name, set_marker ) {
     }
 
     if ( match == 'platform' ) {
-        if ( set_marker ) drawNode( nodes[0], match, label, name, true, false )
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Platform " + label.toString() + ': ' + name).addTo( layerplatforms );
+        mlat = OSM_Nodes[nodes[0]]['lat'];
+        mlon = OSM_Nodes[nodes[0]]['lon'];
+        if ( set_marker ) L.marker([mlat,mlon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms);
+
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo( layerplatforms );
     } else if ( match == 'stop' ) {
-        if ( set_marker ) drawNode( nodes[0], match, label, name, true, false )
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Stop " + label.toString() + ': ' + name).addTo( layerstops );
+        mlat = OSM_Nodes[nodes[0]]['lat'];
+        mlon = OSM_Nodes[nodes[0]]['lon'];
+        if ( set_marker ) L.marker([mlat,mlon],{color:colours[match],icon:icons[match]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms);
+
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo( layerstops );
     } else if ( match == "route" ) {
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Way " + label.toString() + ': ' + name).addTo( layerways );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo( layerways );
     } else {
-        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup("Other " + label.toString() + ': ' + name).addTo( layerothers );
+        L.polyline(polyline_array,{color:colours[match],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo( layerothers );
     }
 
     return [OSM_Nodes[nodes[0]]['lat'],OSM_Nodes[nodes[0]]['lon']];
