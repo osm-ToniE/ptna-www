@@ -77,8 +77,8 @@ code             { font-weight: 500; font-size: 1.1em; }
 .results-analyzed         { text-align:center; }
 .results-analyzed-old     { text-align:center; }
 .results-analyzed-new     { text-align:center; background-color: orange; }
-.results-discussion       { text-align:left; white-space:nowrap; }
-.results-route            { text-align:left; white-space:nowrap; }
+.results-discussion       { text-align:left; }
+.results-route            { text-align:left; }
 
 #gtfsmap                  { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
 
@@ -163,8 +163,8 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis .sketchline     { background-color: #cccccc;        }
 #analysis .sketch         { text-align:left;  font-weight: 500; }
 #analysis .csvinfo        { text-align:right; font-size: 0.8em; }
-#analysis .ref            { white-space:nowrap; }
-#analysis .relation       { white-space:nowrap; }
+#analysis .ref            { text-align:left; }
+#analysis .relation       { text-align:left; }
 #analysis .PTv            { text-align:center; }
 #analysis .number         { text-align:right; }
 #analysis .gtfs_feed      { white-space:nowrap; }
