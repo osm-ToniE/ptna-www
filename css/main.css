@@ -154,7 +154,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .option-tooltip       .option-tooltiptext { visibility: hidden;  background-color: black; width: 694px; color: #fff; text-align: center; padding: 3px; top: -5px;right: -5px; position: absolute; z-index: 3; }
 .option-tooltip:hover .option-tooltiptext { visibility: visible; }
 
-#analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+#analysis table           { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; max-width:100%; }
 #analysis th              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis td              { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 #analysis ol              { list-style: none; }
