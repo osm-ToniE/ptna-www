@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "IT-PI-Servizio-Urbano-Pisa", "it", "Configurazione" ); ?>
+                <?php CreateNewFullEntry( "IT-PI-Servizio-Urbano-Pisa", "it", "Configurazione" ); ?>
+                <?php CreateNewFullEntry( "IT-RM-ATAC", "it", "Configurazione" ); ?>
 
                 </tbody>
             </table>
