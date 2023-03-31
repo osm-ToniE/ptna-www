@@ -7,13 +7,13 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="CO"><img src="/img/Colombia32.png" alt="bandera Colombia" /> Resultados para Colombia</h2>
-      
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksCO">
@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "CO-BOY-Duitama", "es", "Configuración" ); ?>
+                <?php CreateNewFullEntry( "CO-BOY-Duitama", "es", "Configuración" ); ?>
+                <?php CreateNewFullEntry( "CO-DC-Bogota", "es", "Configuración" ); ?>
 
                 </tbody>
             </table>
@@ -36,4 +37,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-
