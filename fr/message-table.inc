@@ -1158,6 +1158,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; has an empty value.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Values of tags must not be empty.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; includes potentially problematic character &#039;%s&#039; in key. Value of tag: &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description">Voir aussi : <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#problem">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; includes whitespace character &#039;%s&#039; (=%#2x) in key. Value of tag: &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description">Voir aussi : <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#space">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">l&#039;attribut &#039;route&#039; n&#039;est pas défini : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>

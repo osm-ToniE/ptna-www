@@ -1062,6 +1062,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; has an empty value.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description">Values of tags must not be empty.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; includes potentially problematic character &#039;%s&#039; in key. Value of tag: &#039;%s&#039;</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description">Zobacz także: <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#problem">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;%s&#039; includes whitespace character &#039;%s&#039; (=%#2x) in key. Value of tag: &#039;%s&#039;</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description">Zobacz także: <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#space">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">The tag &#039;line&#039; (=&#039;%s&#039;) is reserved for &#039;power&#039; = &#039;line&#039; related tagging. For public transport &#039;route_master&#039; and &#039;route&#039; are used.</td>
                 <td class="message-type">Uwagi</td>
                 <td class="message-option"></td>

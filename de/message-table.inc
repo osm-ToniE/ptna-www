@@ -254,6 +254,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Das Tag &#039;%s&#039; enthält das Leerzeichen &#039;%s&#039; (=%#2x) im Schlüssel. Wert des Tags: &#039;%s&#039;.</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description">Siehe auch: <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#space">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Das Tag &#039;%s&#039; enthält das potentiell problematische Zeichen &#039;%s&#039; im Schlüssel. Wert des Tags: &#039;%s&#039;.</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description">Siehe auch: <a href="https://taginfo.openstreetmap.org/reports/characters_in_keys#problem">taginfo</a>.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Das Tag &#039;%s&#039; hat einen leeren Wert.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description">Werte von Tags dürfen nicht leer sein.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Das Tag &#039;line&#039; (=&#039;%s&#039;) ist reserviert für &#039;power&#039; = &#039;line&#039; spezifisches Tagging. Für Public Transport werden &#039;route_master&#039; und &#039;route&#039; genutzt.</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
