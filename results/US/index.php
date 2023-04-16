@@ -28,7 +28,9 @@
                 <?php CreateNewFullEntry( "US-CA-SantaCruz", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Pace", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-IN-ECT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-WI-MCTS", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
