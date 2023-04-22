@@ -66,34 +66,8 @@ function ptnalistdownload( include_agency ) {
                     } else {
                         route_short_name = value;
                     }
-                } else if ( key == "route_type" ) {
-                    value = value.toLowerCase();
-                    if ( value.match('trolleybus') != null ) {
-                        value = 'trolleybus';
-                    } else if ( value.match('demand and response bus') != null ) {
-                        value = 'share_taxi';
-                    } else if ( value.match('tram') != null ) {
-                        value = 'tram';
-                    } else if ( value.match('bus') != null ) {
-                        value = 'bus';
-                    } else if ( value.match('monorail') != null ) {
-                        value = 'monorail';
-                    } else if ( value.match('ferry') != null || value.match('water transport service') != null ) {
-                        value = 'ferry';
-                    } else if ( value.match('rail') != null ) {
-                        value = 'train';
-                    } else if ( value.match('funicular') != null ) {
-                        value = 'funicular';
-                    } else if ( value.match('metro') != null || value.match('subway') != null || value.match('underground') != null ) {
-                        value = 'subway';
-                    } else {
-                        value = 'bus';
-                    }
-                    if ( value.match(';') != null ) {
-                        route_type = '"' + value + '"';
-                    } else {
-                        route_type = value;
-                    }
+                } else if ( key == "route_type" ) {     // this is anyway the OSM route-type column wich appears after the GTFS route_type column
+                    route_type = value.toLowerCase();
                 } else if ( key == "route_long_name")  {
                     // if ( value.match(';') != null ) {
                     //     route_long_name = '"' + value + '"';
