@@ -94,7 +94,7 @@
             <tr class="option-tablerow" id="option-check-service-type">
                 <td class="option-option">check-service-type</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Vérifiez la valeur de l&#039;attribut &#039;service&#039; pour &#039;highway&#039; = &#039;service&#039;.<br />Valeurs suspectes: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
+                <td class="option-description">Vérifiez la valeur de l&#039;attribut &#039;service&#039; pour &#039;highway&#039; = &#039;service&#039;.<br />Valeurs douteuses: &#039;drive-through&#039;, driveway&#039;, &#039;emergency_access&#039;, &#039;parking_aisle&#039;</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-stop-position">
@@ -202,7 +202,7 @@
             <tr class="option-tablerow" id="option-no-additional-navigation">
                 <td class="option-option">no-additional-navigation</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Do not print the additional navigation buttons on top of the tables.</td>
+                <td class="option-description">N&#039;affiche pas les boutons de navigation additionnels en haut des tableaux.</td>
                 <td class="option-image"><div class="option-tooltip"><img src="/img/option-no_additional_navigation.png" alt="no-additional-navigation" /><span class="option-tooltiptext">no-additional-navigation</span></div></td>
             </tr>
             <tr class="option-tablerow" id="option-operator-regex">
@@ -214,7 +214,7 @@
             <tr class="option-tablerow" id="option-or-separator">
                 <td class="option-option">or-separator</td>
                 <td class="option-default">|</td>
-                <td class="option-description">This sets the OR separator in the &#039;ref&#039; field of the CSV list of routes.<br />Example: &#039;250|250a|250b&#039; : defines that routes with &#039;ref&#039; = &#039;250&#039; and &#039;ref&#039; = &#039;250a&#039; and &#039;ref&#039; = &#039;250b&#039; are allowed here.</td>
+                <td class="option-description">Ceci définit le séparateur OU (&#039;OR&#039;) dans le champ &#039;ref&#039; de la liste CSV des itinéraires.<br />Exemple : &#039;250|250a|250b&#039; : définit que l&#039;itinéraire avec la référence &#039;ref&#039; = &#039;250&#039; et référence &#039;ref&#039; = &#039;250a&#039; et référence &#039;ref&#039; = &#039;250b&#039; sont pris en considération dans ce cas.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-positive-notes">
@@ -232,7 +232,7 @@
             <tr class="option-tablerow" id="option-ref-separator">
                 <td class="option-option">ref-separator</td>
                 <td class="option-default">/</td>
-                <td class="option-description">This sets the &#039;network-ref&#039; separator in the &#039;ref&#039; field of the CSV list of routes.<br />Example: &#039;605/50&#039; : defines that here &#039;ref&#039; of two &#039;network&#039; are valid.<br />It is checked, whether &#039;ref:network1&#039; = &#039;605&#039; and &#039;ref:network2&#039; = &#039;50&#039; exist.</td>
+                <td class="option-description">Ceci définit le champ séparateur &#039;network-ref&#039; dans le champ &#039;ref&#039; de la liste CSV des itinéraires.<br />Exemple : &#039;605/50&#039; indique que 2 références de 2 réseaux &#039;network&#039; sont valides.<br />La vérification sera faite, si &#039;ref:network1&#039; = &#039;605&#039; et &#039;ref:network2&#039; = &#039;50&#039; existent.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-relaxed-begin-end-for">
@@ -244,7 +244,7 @@
             <tr class="option-tablerow" id="option-separator">
                 <td class="option-option">separator</td>
                 <td class="option-default">;</td>
-                <td class="option-description">This sets the field separator in the CSV list of routes.</td>
+                <td class="option-description">Ceci définit le champ séparateur dans la liste CSV des itinéraires.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-show-gtfs">
