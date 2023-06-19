@@ -49,7 +49,7 @@
                 <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; est défini, mais ni &#039;gtfs:trip_id&#039; ni &#039;gtfs:trip_id:sample&#039; ne le sont: définir l&#039;un des deux permettrait d&#039;avoir des informations additionnelles sur les arrêts (noms, séquences, emplacements).</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-gtfs</td>
-                <td class="message-description">Les données GTFS des tracés (shape) contiennent (uniquement) des informations à propos du parcours du véhicule. De plus, les données GTFS des trajets offrent des informations utiles sur les arrêts: leurs noms, séquences et emplacements. Ces informations supplémentaires peuvent être utilisées pour comparer les données OSM avec celles des GTFS.</td>
+                <td class="message-description">Les données GTFS des tracés (shape) contiennent (uniquement) des informations à propos de l&#039;itinéraire du véhicule. De plus, les données GTFS des trajets offrent des informations utiles sur les arrêts: leurs noms, séquences et emplacements. Ces informations supplémentaires peuvent être utilisées pour comparer les données OSM avec celles des GTFS.</td>
                 <td class="message-fix">Ajoutez soit l&#039;information de &#039;gtfs:trip_id&#039; soit celle de &#039;gtfs:trip_id:sample&#039;.</td>
                 <td class="message-image"></td>
             </tr>
@@ -182,14 +182,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : le type de voie utilisé (%s)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-service-type</td>
-                <td class="message-description">Le véhicule utilise une voie de type &#039;service&#039; qui n&#039;est pas considérée comme appropriée pour les itinéraires de transports en commun. Les itinéraires de transports en commune ne devraient pas utiliser des voies indiquées avec &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; ou &#039;parking_aisle&#039;.</td>
-                <td class="message-fix">Vérifiez l&#039;itinéraire et envisager d&#039;effacer l&#039;attribut &#039;service&#039; de la voie.</td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire : restriction (%s) d&#039;accès douteuse sur des voies. Vérifier si celle-ci devrait être &#039;%s&#039;=&#039;yes&#039; ou &#039;psv&#039;=&#039;yes&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -211,6 +203,14 @@
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Itinéraire : utilise le type de voie (%s)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-service-type</td>
+                <td class="message-description">Le véhicule utilise une voie de type &#039;service&#039; qui n&#039;est pas considérée comme appropriée pour les itinéraires de transports en commun. Les itinéraires de transports en commune ne devraient pas utiliser des voies indiquées avec &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; ou &#039;parking_aisle&#039;.</td>
+                <td class="message-fix">Vérifiez l&#039;itinéraire et envisager d&#039;effacer l&#039;attribut &#039;service&#039; de la voie.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -486,7 +486,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la première voie du parcours précède le premier arrêt %s, il est recommandé de la retirer de cet itinéraire</td>
+                <td class="message-text">Itinéraire PTv2 : la première voie de l&#039;itinéraire précède le premier arrêt %s, il est recommandé de la retirer de cet itinéraire</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
@@ -542,6 +542,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Itinéraire PTv2 : le nom comporte plusieurs &#039;=&gt;&#039; mais le tag &#039;via&#039; n&#039;est pas défini</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire PTv2 : le premier arrêt de la première voie n&#039;est pas le premier arrêt de l&#039;itinéraire : %s au lieu de %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
@@ -558,7 +566,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le premier nœud de la voie n&#039;est pas le premier arrêt du parcours : %s au lieu de %s</td>
+                <td class="message-text">Itinéraire PTv2 : le premier nœud de la voie n&#039;est pas le premier arrêt de l&#039;itinéraire : %s au lieu de %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
@@ -889,7 +897,7 @@
                 <td class="message-text">L&#039;itinéraire existe dans la zone extraite mais son code de ligne &#039;ref&#039; n&#039;est pas défini : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">L&#039;itinéraire fait partie de ce groupement d&#039;itinéraires mais n&#039;a pas d&#039;attribut &#039;ref&#039; (%s= numéro du parcours)</td>
+                <td class="message-description">L&#039;itinéraire fait partie de ce groupement d&#039;itinéraires mais n&#039;a pas d&#039;attribut &#039;ref&#039; (%s= numéro de l&#039;itinéraire)</td>
                 <td class="message-fix">Voir section &quot;Lignes de transport public sans &#039;ref&#039;&quot; de l&#039;analyse</td>
                 <td class="message-image"></td>
             </tr>
@@ -1132,14 +1140,6 @@
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="Parcours PTv2 : a un trou, consistent en %d segments. Le trou apparaît sur le chemin" /><span class="message-tooltiptext">Parcours PTv2 : a un trou, consistent en %d segments. Le trou apparaît sur le chemin</span></div></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Parcours PTv2 : le nom comporte plusieurs &#039;=&gt;&#039; mais le tag &#039;via&#039; n&#039;est pas défini</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Parcours PTv2 : utilise %d rond-point complet mais n&#039;utilise que des segments</td>

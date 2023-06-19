@@ -256,13 +256,13 @@
             <tr class="option-tablerow" id="option-strict-network">
                 <td class="option-option">strict-network</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Exclut les Lignes et Parcours sans &#039;network&#039;.</td>
+                <td class="option-description">Exclut les groupement d&#039;itinéraires (&#039;route_master&#039;) et itinéraires (&#039;route&#039;) sans &#039;network&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-strict-operator">
                 <td class="option-option">strict-operator</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Exclus les Lignes et Parcours sans &#039;operator&#039;.</td>
+                <td class="option-description">Exclut les groupement d&#039;itinéraires (&#039;route_master&#039;) et itinéraires (&#039;route&#039;) sans &#039;operator&#039;.</td>
                 <td class="option-image"></td>
             </tr>
         </tbody>
