@@ -326,6 +326,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039;=&#039;%s&#039; et l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini mais l&#039;attribut &#039;%s&#039; est défini</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039;=&#039;%s&#039; mais l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>

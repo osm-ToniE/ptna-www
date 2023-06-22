@@ -446,6 +446,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;role&#039; = &#039;%s&#039; and &#039;public_transport&#039; is not set but &#039;%s&#039; is set</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: &#039;role&#039; = &#039;%s&#039; but &#039;public_transport&#039; is not set</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
