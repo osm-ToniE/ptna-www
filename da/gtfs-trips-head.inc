@@ -4,7 +4,8 @@
     echo "                </p>\n";
     echo "                <p>\n";
     echo "                    Den tredje kolonne i tabellen indeholder en grov beregning af antallet af rejser i gyldighedsperioden.\n";
-    echo "                </p>\n";
+    echo "                    Hvor det er relevant, er antallet af ture inklusive delruter angivet i parentes. Kun for data analyseret i juli 2023 eller senere.\n";
+   echo "                </p>\n";
 
     if ( $comment ) {
         echo "                <p>\n";

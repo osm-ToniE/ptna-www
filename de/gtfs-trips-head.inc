@@ -4,6 +4,7 @@
     echo "                </p>\n";
     echo "                <p>\n";
     echo "                    Die dritte Spalte der Tabelle enthält eine grobe Berechnung der Anzahl der Fahrten im Gültigkeitszeitraum.\n";
+    echo "                    In Klammern ist gegebenenfalls die Anzahl der Fahrten inklusive der Teilrouten angegeben. Gilt nur für Daten, die im Juli 2023 oder später analysiert werden.\n";
     echo "                </p>\n";
 
     if ( $comment ) {

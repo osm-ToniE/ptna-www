@@ -958,7 +958,11 @@
                         echo '                        <tr class="gtfs-tablerow">' . "\n";
                         echo '                            <td class="gtfs-number">' . $index . '</td>' . "\n";
                         echo '                            <td class="gtfs-name"><a href="single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '">' . htmlspecialchars($trip_id) . '</a></td>' . "\n";
-                        echo '                            <td class="gtfs-number">' . htmlspecialchars($start_end_rides_array["rides"]) . '</td>' . "\n";
+                        if ( $start_end_rides_array["sum_rides"] > $start_end_rides_array["rides"] ) {
+                            echo '                            <td class="gtfs-number">' . htmlspecialchars($start_end_rides_array["rides"]) . ' (' . htmlspecialchars($start_end_rides_array["sum_rides"]) . ')</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-number">' . htmlspecialchars($start_end_rides_array["rides"]) . '</td>' . "\n";
+                        }
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_rides_array["start_date"], $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
@@ -1621,7 +1625,8 @@
         $return_array["start_date"] = '20500101';
         $return_array["end_date"]   = '19700101';
         if ( $get_rides ) {
-            $return_array["rides"]   = 0;
+            $return_array["rides"]     = -1;
+            $return_array["sum_rides"] = -1;
             $weekdays = array( "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" );
         }
 
@@ -1661,14 +1666,16 @@
                         $return_array["start_date"] = $result["min_start_date"];
                         $return_array["end_date"]   = $result["max_end_date"];
                         $has_min_max_dates  = 1;
-                        if ( isset($result['rides']) ) {
-                            $return_array["rides"] = $result['rides'];
+                        if ( isset($result['rides']) && isset($result['sum_rides']) ) {
+                            $return_array["rides"]     = $result['rides'];
+                            $return_array["sum_rides"] = $result['sum_rides'];
                             $has_rides = 1;
                         }
                     }
                     if ( isset($result['list_service_ids']) && $has_rides == 0 ) {
-                        if ( isset($result['rides']) ) {
-                            $return_array["rides"] = $result['rides'];
+                        if ( isset($result['rides']) && isset($result['sum_rides']) ) {
+                            $return_array["rides"]     = $result['rides'];
+                            $return_array["sum_rides"] = $result['sum_rides'];
                             $has_rides = 1;
                         }
                         if ( $has_min_max_dates == 0 || $has_rides == 0 ) {
@@ -1697,6 +1704,7 @@
 
                             $result = $db->query( $sql );
 
+                            $return_array["rides"] = 0;
                             while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                                 if ( $has_min_max_dates == 0 ) {
                                     if ( $row["start_date"] < $return_array["start_date"] ) {
@@ -1706,7 +1714,7 @@
                                         $return_array["end_date"]   = $row["end_date"];
                                     }
                                 }
-                                if ( $get_rides && $has_rides == 0 && $row["start_date"] < $row["end_date"] ) {
+                                if ( $get_rides && $has_rides == 0 && $row["start_date"] <= $row["end_date"] ) {
                                     $servive_id = $row["service_id"];
                                     $interval = date_diff(date_create($row["start_date"]), date_create($row["end_date"]));
                                     #print "<!-- Totaldays: " . $servive_id . '=' . $interval->format("%a") . " -->\n";
@@ -1716,7 +1724,10 @@
                                             $days_of_week += 1;
                                         }
                                     }
-                                    $days_of_service_id_array[$servive_id] = floor($interval->format("%a") * $days_of_week / 7);
+                                    $days_of_service_id_array[$servive_id] = ceil($interval->format("%a") * $days_of_week / 7);
+                                    if ( $days_of_service_id_array[$servive_id] < 1 && $days_of_week > 0 ) {
+                                        $days_of_service_id_array[$servive_id] = $days_of_week;
+                                    }
                                     #print "<!-- Service days per week: " . $days_of_week . ' -> ' . $servive_id . '=' . $days_of_service_id_array[$servive_id] . " -->\n";
                                     $sql_also_on = sprintf( "SELECT COUNT(exception_type) as also_on
                                                             FROM   calendar_dates

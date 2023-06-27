@@ -4,6 +4,7 @@
     echo "                </p>\n";
     echo "                <p>\n";
     echo "                    The third column of the table contains a rough calculation of the number of journeys in the validity period.\n";
+    echo "                    Where applicable, the number of trips including sub-routes is given in parentheses. Only for data analyzed in July 2023 or later.\n";
     echo "                </p>\n";
 
     if ( $comment ) {
