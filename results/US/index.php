@@ -29,6 +29,7 @@
                 <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Pace", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IN-ECT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-MBTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-WI-MCTS", "en", "Configuration" ); ?>
 
