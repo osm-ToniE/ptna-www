@@ -23,6 +23,13 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "US-MA-MBTA" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Bronx-Bus" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Brooklyn-Bus" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Bus-Company" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Manhattan-Bus" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Queens-Bus" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Staten-Island-Bus" );
+    $duration += CreateGtfsEntry( "US-NY-MTA-Subway" );
 ?>
                     </tbody>
                 </table>
