@@ -151,6 +151,8 @@
 
                     <?php CreateNewFullEntry( "DE-NI-BVE", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-NI-CeBus", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-NI-GVH", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NI-VEJ", "de", "Konfiguration" ); ?>
