@@ -159,6 +159,49 @@ function route_master_osm() {
 }
 
 
+function copy_to_clipboard( id, success_msg, error_msg ) {
+
+    var relation_table      = document.getElementById( id );
+
+    if ( relation_table ) {
+
+        var relation_tablebody = relation_table.getElementsByTagName( "tbody" )[0];
+        var tag_list           = relation_tablebody.getElementsByTagName( "tr" );
+
+        var clipboard;
+
+        clipboard  = "";
+
+        //    evaluate all rows
+
+        for ( var i = 0; i < tag_list.length; i++ )
+        {
+            var tag_node   = tag_list[i];
+            var sub_td     = tag_node.getElementsByTagName( "td" );
+
+            // evaluate 1st and 2nd column of rows
+
+            clipboard += sub_td[0].innerText + '=' + sub_td[1].innerText + "\r\n";
+        }
+
+        navigator.clipboard.writeText(clipboard);
+
+        if ( success_msg ) {
+            alert( success_msg + ":\r\n" + clipboard );
+        } else {
+            alert( "Copied to Clipboard:\r\n\r\n" + clipboard );
+        }
+    } else {
+        if ( error_msg ) {
+            alert( error_msg + ": " + id );
+        } else {
+            alert( "Could not find table with ID: " + id );
+        }
+    }
+
+}
+
+
 function route_osm() {
 
     var feed                = document.getElementById( "feed" ).firstChild.data;

@@ -92,6 +92,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .gtfs-lat                 { text-align:center; }
 .gtfs-lon                 { text-align:center; }
 .gtfs-distance            { text-align:right;  }
+.gtfs-button              { text-align:right;  }
 .gtfs-id                  { text-align:center; }
 .gtfs-date                { text-align:center; }
 .gtfs-dateold             { text-align:center; background-color: orange; }

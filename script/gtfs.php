@@ -1303,7 +1303,7 @@
                         echo '                        <thead>' . "\n";
                         echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                         echo '                                <th class="gtfs-name">Route-Master</th>' . "\n";
-                        echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_master_osm()">Create *.osm template for JOSM</button></th>' . "\n";
+                        echo '                                <th class="gtfs-button"><button class="button-create" type="button" onclick="copy_to_clipboard(\'osm-route-master\')">Copy to Clipboard</button></th>' . "\n";
                         echo '                            </tr>' . "\n";
                         echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                         echo '                                <th class="gtfs-name">Key</th>' . "\n";
@@ -1387,7 +1387,7 @@
                         echo '                        <thead>' . "\n";
                         echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                         echo '                                <th class="gtfs-name">Route</th>' . "\n";
-                        echo '                                <th class="gtfs-name"><button class="button-create" type="button" onclick="route_osm()">Create *.osm template for JOSM</button></th>' . "\n";
+                        echo '                                <th class="gtfs-button"><button class="button-create" type="button" onclick="copy_to_clipboard(\'osm-route\')">Copy to Clipboard</button></th>' . "\n";
                         echo '                            </tr>' . "\n";
                         echo '                            <tr class="gtfs-tableheaderrow">' . "\n";
                         echo '                                <th class="gtfs-name">Key</th>' . "\n";
