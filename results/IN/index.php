@@ -34,19 +34,19 @@
 
                     <?php CreateNewFullEntry( "IN-MH-Mumbai", "en", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry( "IN-MH-Nagpur", "en", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry( "IN-MH-Pune", "en", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "IN-RJ-Jaipur", "en", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry( "IN-TN-Chennai", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "IN-TG-Hyderabad", "en", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry( "IN-TS-Hyderabad", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "IN-TN-Chennai", "en", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "IN-UP-Kanpur", "en", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "IN-UP-Lucknow", "en", "Configuration" ); ?>
-
-                    <?php CreateNewFullEntry( "IN-UP-Nagpur", "en", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "IN-UP-Noida", "en", "Configuration" ); ?>
 
