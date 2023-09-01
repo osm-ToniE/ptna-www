@@ -72,7 +72,7 @@
         $feedDB2 = FindGtfsSqliteDb( $feed2, '' );
 
         if ( $feedDB1 && $feedDB2 ) {
-            if ( $feed && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed) ) {
+            if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed) ) {
                 $release_dates = GetGtfsFeedReleaseDatesNonEmpty( $feed );
                 rsort( $release_dates );
             }
@@ -110,7 +110,7 @@
             } else {
                 $release_dates2  = array();
 
-                if ( $feed2 && preg_match("/^[a-zA-Z0-9_.-]+$/", $feed2) ) {
+                if ( $feed2 && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed2) ) {
                     $release_dates2 = GetGtfsFeedReleaseDatesNonEmpty( $feed2 );
                     rsort( $release_dates2 );
                 }
