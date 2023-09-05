@@ -15,8 +15,24 @@
         include $lang_dir.'html-head.inc';
 ?>
 
-    <body>
-
+    <body onload="toggle('hideable')">
+      <script>function toggle(thisname) {
+                  button_text = 'Hide Unchanged';
+                  tr=document.getElementsByTagName('tr');
+                  for (i=0;i<tr.length;i++){
+                      if (tr[i].getAttribute(thisname)){
+                          if ( tr[i].style.display=='none' ){
+                             tr[i].style.display = '';
+                             button_text = 'Hide Unchanged';
+                          } else {
+                             tr[i].style.display = 'none';
+                             button_text = 'Show all';
+                          }
+                      }
+                  }
+                  document.getElementById('show-hide').innerHTML = button_text;
+              }
+      </script>
       <div id="wrapper">
 
 <?php   include $lang_dir.'header.inc'; ?>
@@ -31,7 +47,9 @@
             <div class="indent">
 
                 <form method="get" action="compare-routes.php">
-                    <table id="versions-table" class="compare">
+                    <button class="button-create" type="submit"><?php echo htmlspecialchars($STR_compare_routes); ?></button>
+                    <button id="show-hide" class="button-create" type="button" onclick="toggle('hideable');">Hide Unchanged</button>
+                    <table  id="versions-table" class="compare">
                         <thead>
 <?php $duration = CreateCompareVersionsTableHead( $feed, $feed2, $release_date, $release_date2 ); ?>
                         </thead>

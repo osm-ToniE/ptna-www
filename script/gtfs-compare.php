@@ -171,8 +171,6 @@
                 echo $indent . '    <th class="gtfs-name">Line (type, route_id, route_long_name)</td>'   . "\n";
                 echo $indent . '</tr>' . "\n";
            } else {
-                echo $indent . '<tr><th colspan="9" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($STR_compare_routes) . '</button></th</tr>' . "\n";
-                echo $indent . '</tr>' . "\n";
                 if ( $feed == $feed2 ) {
                     echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="feed"  value="' . $feed  . '"><input type="hidden" name="feed2" value="' . $feed2 . '">&nbsp;</th>' . "\n";
                 } else {
@@ -261,9 +259,19 @@
                     } else {
                         $rightchecked = '';
                     }
-                    echo $indent . "<tr>\n";
                     if ( isset($feed1_routes[$left]) && $feed1_routes[$left] && isset($feed2_routes[$right]) && $feed2_routes[$right] ) {
                         if ( $feed1_routes[$left]['sort_key'] == $feed2_routes[$right]['sort_key'] ) {
+                            if ( $feed1_routes[$left]['number_of_variants']          != $feed2_routes[$right]['number_of_variants']          ||
+                                 $feed1_routes[$left]['number_of_stops']             != $feed2_routes[$right]['number_of_stops']             ||
+                                 $feed1_routes[$left]['number_of_unique_stopids']    != $feed2_routes[$right]['number_of_unique_stopids']    ||
+                                 $feed1_routes[$left]['number_of_unique_stopnames']  != $feed2_routes[$right]['number_of_unique_stopnames']  ||
+                                 $feed1_routes[$left]['md5_over_stopid_sequences']   != $feed2_routes[$right]['md5_over_stopid_sequences']   ||
+                                 $feed1_routes[$left]['md5_over_stopname_sequences'] != $feed2_routes[$right]['md5_over_stopname_sequences'] ||
+                                 $feed1_routes[$left]['md5_over_stoppos_sequences']  != $feed2_routes[$right]['md5_over_stoppos_sequences']     ) {
+                                echo $indent . "<tr>\n";
+                            } else{
+                                echo $indent . '<tr hideable="yes">'."\n";
+                            }
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id"  value="' . htmlspecialchars($feed1_routes[$left]['route_id']) . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2" value="' . htmlspecialchars($feed2_routes[$right]['route_id']) . '"' . $rightchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;" class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['route_short_name'])                           . "</td>\n";
@@ -324,9 +332,11 @@
                             } else {
                                 echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['route_long_name']) . '" versus "' .  htmlspecialchars($feed2_routes[$right]['route_long_name']) . '"</td>' . "\n";
                             }
+                            echo $indent . "</tr>\n";
                             $left++;
                             $right++;
                         } elseif ( $feed1_routes[$left]['sort_key'] < $feed2_routes[$right]['sort_key'] ) {
+                            echo $indent . "<tr>\n";
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left]['route_id']) . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;">&nbsp;</td>'. "\n";
                             echo $indent . '    <td style="border-left-width: 2px;" class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['route_short_name'])                         . "</td>\n";
@@ -343,9 +353,11 @@
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['agency_name']) . '"</td>' . "\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['route_long_name']) . '"</td>' . "\n";
+                            echo $indent . "</tr>\n";
                             $left++;
                         } else {
                             # $feed1_routes[$left]['sort_key'] > $feed2_routes[$right]['sort_key']
+                            echo $indent . "<tr>\n";
                             echo $indent . '    <td style="border-left-width: 2px;">&nbsp;</td>' . "\n";
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right]['route_id']) . '"' . $rightchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;" class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['route_short_name']) . "</td>\n";
@@ -362,10 +374,12 @@
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['agency_name']) . '"</td>' . "\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['route_long_name']) . '"</td>' . "\n";
+                            echo $indent . "</tr>\n";
                             $right++;
                         }
                     } else {
                         if ( isset($feed1_routes[$left]) && $feed1_routes[$left] ) {
+                            echo $indent . "<tr>\n";
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id"  value="'        . htmlspecialchars($feed1_routes[$left]['route_id']) . '"' . $leftchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;">&nbsp;</td>' . "\n";
                             echo $indent . '    <td style="border-left-width: 2px;" class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['route_short_name']) . "</td>\n";
@@ -382,8 +396,10 @@
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['agency_name']) . '"</td>' . "\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['route_long_name']) . '"</td>' . "\n";
+                            echo $indent . "</tr>\n";
                             $left++;
                         } else {
+                            echo $indent . "<tr>\n";
                             echo $indent . '    <td style="border-left-width: 2px;">&nbsp;</td>' . "\n";
                             echo $indent . '    <td style="border-left-width: 2px;"><input type="radio" name="route_id2"  value="' . htmlspecialchars($feed2_routes[$right]['route_id']) . '"' . $rightchecked . "></td>\n";
                             echo $indent . '    <td style="border-left-width: 2px;" class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['route_short_name']) . "</td>\n";
@@ -400,10 +416,10 @@
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['agency_name']) . '"</td>' . "\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['route_long_name']) . '"</td>' . "\n";
+                            echo $indent . "</tr>\n";
                             $right++;
                         }
                     }
-                    echo $indent . "</tr>\n";
                 }
             }
         }
@@ -593,7 +609,13 @@
                         array_push($route_stop_pos_md5_array, md5(implode(';',$trip_stop_pos_array)));
                     }
                     $outerrow['min_start_date']               = $min_start_date != '20500101' ? $min_start_date : '';
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $outerrow['min_start_date'], $parts ) ) {
+                        $outerrow['min_start_date'] = $parts[1] . '-' . $parts[2] . '-' . $parts[3];
+                    }
                     $outerrow['max_end_date']                 = $max_end_date   != '19700101' ? $max_end_date : '';
+                    if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $outerrow['max_end_date'], $parts ) ) {
+                        $outerrow['max_end_date'] = $parts[1] . '-' . $parts[2] . '-' . $parts[3];
+                    }
                     $outerrow['number_of_variants']           = $number_of_variants;
                     $outerrow['number_of_stops']              = count($route_stop_id_array);
                     $outerrow['number_of_unique_stopids']     = count(array_unique($route_stop_id_array));
