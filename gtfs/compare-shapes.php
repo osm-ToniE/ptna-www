@@ -23,18 +23,24 @@
 
         <main id="main" class="results">
 
-            <h2 id="compare-shapes"><?php echo $STR_compare_gtfs_shapes; ?></h2>
+            <h2 id="compare-shapes"><?php echo $STR_compare_gtfs_shapes;
+                                          if ( $feed == $feed2 ) {
+                                             echo ' - ' . $feed;
+                                          }
+                                     ?></h2>
             <div class="indent">
 
                 <table id="versions-table" class="compare">
                     <thead>
-<?php CreateCompareShapesTableHead( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
+<?php $duration = CreateCompareShapesTableHead( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
                     </thead>
                     <tbody>
-<?php CreateCompareShapesTableBody( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
+<?php $duration += CreateCompareShapesTableBody( $feed, $feed2, $release_date, $release_date2, $shape_id, $shape_id2 ); ?>
                     </tbody>
                 </table>
+                <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
 
+                <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
             </div>
 
         </main> <!-- main -->

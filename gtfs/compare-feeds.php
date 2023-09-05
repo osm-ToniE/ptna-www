@@ -23,20 +23,25 @@
 
         <main id="main" class="results">
 
-            <h2 id="compare-feeds"><?php echo $STR_compare_gtfs_feeds; ?></h2>
+            <h2 id="compare-feeds"><?php echo $STR_compare_gtfs_feeds;
+                                         if ( $feed == $feed2 ) {
+                                            echo ' - ' . $feed;
+                                         }
+                                    ?></h2>
             <div class="indent">
 
                 <form method="get" action="compare-versions.php">
                     <table id="feeds-table" class="compare">
                         <thead>
-<?php CreateCompareFeedsTableHead( $STR_compare_versions, $feed, $feed2 ); ?>
+<?php $duration = CreateCompareFeedsTableHead( $feed, $feed2 ); ?>
                         </thead>
                         <tbody>
-<?php CreateCompareFeedsTableBody( $feed, $feed2 ); ?>
+<?php $duration += CreateCompareFeedsTableBody( $feed, $feed2 ); ?>
                         </tbody>
                     </table>
                     <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
 
+                    <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
                 </form>
 
             </div>

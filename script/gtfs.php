@@ -3397,6 +3397,12 @@
         $route_type_to_string["906"] = 'All Tram Services';
         $route_type_to_string["907"] = 'Aerial Lift Service';               # Switzerland: 'Kabinenbahn'
         $route_type_to_string["1000"] = 'Water Transport Service';                # Yes
+        $route_type_to_string["1002"] = 'National Car Ferry Service';             # ENTUR Norway
+        $route_type_to_string["1004"] = 'Local Car Ferry Service';                # ENTUR Norway
+        $route_type_to_string["1008"] = 'Local Passenger Ferry Service';          # ENTUR Norway
+        $route_type_to_string["1013"] = 'Car High-Speed Ferry Service';           # ENTUR Norway
+        $route_type_to_string["1014"] = 'Passenger High-Speed Ferry Service';     # ENTUR Norway
+        $route_type_to_string["1015"] = 'Sightseeing Boat Service';               # ENTUR Norway
         $route_type_to_string["1100"] = 'Air Service';
         $route_type_to_string["1200"] = 'Ferry Service';                    # Yes
         $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
@@ -3458,67 +3464,52 @@
 
     function RouteType2OsmRouteImportance( $rt ) {
 
-        $rt = strtolower(RouteType2String($rt));
+        $rts = strtolower(RouteType2String($rt));
 
-        if ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
-            $rt = '20';
-        } elseif ( preg_match("/tram/",$rt) || preg_match("/streetcar/",$rt) || preg_match("/light rail/",$rt) ) {
-            $rt = '30';
-        } elseif ( preg_match("/coach/",$rt) ) {
-            $rt = '40';
-        } elseif ( preg_match("/bus/",$rt) ) {
-            if ( preg_match("/express/",$rt) ) {
-                $rt = '51';
-            } elseif ( preg_match("/regional/",$rt) ) {
-                $rt = '53';
-            } elseif ( preg_match("/local/",$rt) ) {
-                $rt = '54';
-            } elseif ( preg_match("/night/",$rt) ) {
-                $rt = '55';
-            } elseif ( preg_match("/school/",$rt) ) {
-                $rt = '56';
-            } elseif ( preg_match("/rail replacement/",$rt) ) {
-                $rt = '57';
-            } elseif ( preg_match("/sightseeing/",$rt) ) {
-                $rt = '58';
-            } elseif ( preg_match("/miscellaneous/",$rt) ) {
-                $rt = '58';
-            } elseif ( preg_match("/trolleybus/",$rt) ) {
-                $rt = '60';
-            } elseif ( preg_match("/demand and response bus/",$rt) ) {
-                $rt = '61';
-            } else {
-                $rt = '52';
+        if ( preg_match("/metro/",$rts) || preg_match("/subway/",$rts) || preg_match("/underground/",$rts) ) {
+            $rti = '20';
+        } elseif ( preg_match("/tram/",$rts) || preg_match("/streetcar/",$rts) || preg_match("/light rail/",$rts) ) {
+            $rti= '30';
+        } elseif ( preg_match("/coach/",$rts) ) {
+            $rti= '40.' . sprintf("%02d",$rt % 200);
+        } elseif ( $rt == 3 || ($rt >= 700 && $rt < 800) ) {
+            if ( $rt == 701 ) {     # Regional Bus service shall have lower prio than Express Bus service
+                $rt = 702;
+            } elseif ( $rt == 702) {
+                $rt = 701;
+            } elseif ( $rt == 3 ) {
+                $rt = 701;
             }
-        } elseif ( preg_match("/taxi/",$rt) ) {
-            $rt = '69';
-        } elseif ( preg_match("/monorail/",$rt) ) {
-            $rt = '70';
-        } elseif ( preg_match("/funicular/",$rt) ) {
-            $rt = '80';
-        } elseif ( preg_match("/aerial/",$rt) ) {
-            $rt = '90';
-        } elseif ( preg_match("/ferry/",$rt) || preg_match("/water transport service/",$rt) ) {
-            $rt = '99';
-        } elseif ( preg_match("/rail/",$rt)  || preg_match("/train/",$rt)) {
-            if ( preg_match("/high speed/",$rt) ) {
-                $rt = '10';
-            } elseif ( preg_match("/long distance/",$rt) ) {
-                $rt = '11';
-            } elseif ( preg_match("/inter regional/",$rt) ) {
-                $rt = '12';
-            } elseif ( preg_match("/regional/",$rt) ) {
-                $rt = '14';
-            } elseif ( preg_match("/suburban/",$rt) ) {
-                $rt = '16';
+            $rti= '50.' . sprintf("%02d",$rt % 700);
+        } elseif ( preg_match("/taxi/",$rts) ) {
+            $rti= '69';
+        } elseif ( preg_match("/monorail/",$rts) ) {
+            $rti= '70';
+        } elseif ( preg_match("/funicular/",$rts) ) {
+            $rti= '80';
+        } elseif ( $rt == 4 || ($rt >= 1000 && $rt < 1100) ) {
+            $rti= '99.' . sprintf("%02d",$rt % 1100);
+        } elseif ( $rt == 6 || ($rt >= 1300 && $rt < 1400) ) {
+            $rti= '90';
+        } elseif ( preg_match("/rail/",$rts)  || preg_match("/train/",$rts)) {
+            if ( preg_match("/high speed/",$rts) ) {
+                $rti= '10';
+            } elseif ( preg_match("/long distance/",$rts) ) {
+                $rti= '11';
+            } elseif ( preg_match("/inter regional/",$rts) ) {
+                $rti= '12';
+            } elseif ( preg_match("/regional/",$rts) ) {
+                $rti= '14';
+            } elseif ( preg_match("/suburban/",$rts) ) {
+                $rti= '16';
             } else {
-                $rt = '19';
+                $rti= '19';
             }
         } else {
-            $rt = '63';
+            $rti= '63';
         }
 
-        return $rt;
+        return $rti;
     }
 
 

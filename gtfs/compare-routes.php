@@ -23,20 +23,25 @@
 
         <main id="main" class="results">
 
-            <h2 id="compare-routes"><?php echo $STR_compare_gtfs_routes; ?></h2>
+            <h2 id="compare-routes"><?php echo $STR_compare_gtfs_routes;
+                                          if ( $feed == $feed2 ) {
+                                             echo ' - ' . $feed;
+                                          }
+                                     ?></h2>
             <div class="indent">
 
                 <form method="get" action="compare-trips.php">
                     <table id="routes-table" class="compare">
                         <thead>
-<?php CreateCompareRoutesTableHead( $STR_compare_trips, $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
+<?php $duration = CreateCompareRoutesTableHead( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
                         </thead>
                         <tbody>
-<?php CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
+<?php $duration += CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
                         </tbody>
                     </table>
                     <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
 
+                    <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
                 </form>
 
             </div>
