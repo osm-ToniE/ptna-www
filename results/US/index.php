@@ -29,7 +29,11 @@
                 <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Pace", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IN-ECT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-GATRA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-LRTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-MBTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-MWRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-PVTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NY-MTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-UT-All", "en", "Configuration" ); ?>
