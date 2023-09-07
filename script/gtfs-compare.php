@@ -298,19 +298,19 @@
                                 echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_unique_stopnames']) . " versus " .  htmlspecialchars($feed2_routes[$right]['number_of_unique_stopnames']) . "</td>\n";
                             }
                             if ( $feed1_routes[$left]['md5_over_stopid_sequences'] == $feed2_routes[$right]['md5_over_stopid_sequences'] ) {
-                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
                             } else {
-                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopid_sequences']) . " versus " .  htmlspecialchars($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopid_sequences']) . " versus " .  ShortenMD5String($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
                             }
                             if ( $feed1_routes[$left]['md5_over_stopname_sequences'] == $feed2_routes[$right]['md5_over_stopname_sequences'] ) {
-                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
                             } else {
-                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopname_sequences']) . " versus " .  htmlspecialchars($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopname_sequences']) . " versus " .  ShortenMD5String($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
                             }
                             if ( $feed1_routes[$left]['md5_over_stoppos_sequences'] == $feed2_routes[$right]['md5_over_stoppos_sequences'] ) {
-                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
                             } else {
-                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stoppos_sequences']) . " versus " .  htmlspecialchars($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
+                                echo $indent . '    <td class="gtfs-name" style="background-color: orange; border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stoppos_sequences']) . " versus " .  ShortenMD5String($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
                             }
                             if ( $feed1_routes[$left]['min_start_date'] == $feed2_routes[$right]['min_start_date'] ) {
                                 echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['min_start_date']) . "</td>\n";
@@ -346,9 +346,9 @@
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_stops']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_unique_stopids']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_unique_stopnames']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['min_start_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['agency_name']) . '"</td>' . "\n";
@@ -367,9 +367,9 @@
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_stops']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_unique_stopids']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_unique_stopnames']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['min_start_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['agency_name']) . '"</td>' . "\n";
@@ -389,9 +389,9 @@
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_stops']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_unique_stopids']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['number_of_unique_stopnames']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopid_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stopname_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed1_routes[$left]['md5_over_stoppos_sequences']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed1_routes[$left]['min_start_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed1_routes[$left]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed1_routes[$left]['agency_name']) . '"</td>' . "\n";
@@ -409,9 +409,9 @@
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_stops']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_unique_stopids']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['number_of_unique_stopnames']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
-                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stopid_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stopname_sequences']) . "</td>\n";
+                            echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . ShortenMD5String($feed2_routes[$right]['md5_over_stoppos_sequences']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">' . htmlspecialchars($feed2_routes[$right]['min_start_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name">' . htmlspecialchars($feed2_routes[$right]['max_end_date']) . "</td>\n";
                             echo $indent . '    <td class="gtfs-name" style="border-left-width: 2px;">"' . htmlspecialchars($feed2_routes[$right]['agency_name']) . '"</td>' . "\n";
@@ -641,4 +641,14 @@
         return $return_array;
     }
 
+
+    function ShortenMD5String( $string ) {
+
+        $ret = $string;
+
+        if ( strlen($string) > 8 ) {
+            $ret = substr($string,0,5) . '...';
+        }
+        return $ret;
+    }
 ?>
