@@ -22,7 +22,11 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "US-MA-GATRA" );
+    $duration += CreateGtfsEntry( "US-MA-LRTA" );
     $duration += CreateGtfsEntry( "US-MA-MBTA" );
+    $duration += CreateGtfsEntry( "US-MA-MWRTA" );
+    $duration += CreateGtfsEntry( "US-MA-PVTA" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Bronx-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Brooklyn-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Bus-Company" );
