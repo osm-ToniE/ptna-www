@@ -3195,15 +3195,15 @@
                             echo '                            <td class="statistics-number">[1]</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
-                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_stops_but_different_shape_ids != '';" );
-                        $ptna = $db->querySingle( $sql, true );
-                        if ( $ptna["count"] ) {
-                            echo '                        <tr class="statistics-tablerow">' . "\n";
-                            echo '                            <td class="statistics-name">Trips with identical stops but different shape-ids</td>' . "\n";
-                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=DIFFSHAPES">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
-                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
-                            echo '                        </tr>' . "\n";
-                        }
+#                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_stops_but_different_shape_ids != '';" );
+#                        $ptna = $db->querySingle( $sql, true );
+#                        if ( $ptna["count"] ) {
+#                            echo '                        <tr class="statistics-tablerow">' . "\n";
+#                            echo '                            <td class="statistics-name">Trips with identical stops but different shape-ids</td>' . "\n";
+#                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=DIFFSHAPES">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+#                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+#                            echo '                        </tr>' . "\n";
+#                        }
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_start != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
