@@ -1,22 +1,24 @@
 <?php
 
-    $gtfs_strings['subroute_of']                    = 'Trip is subroute of:';
-    $gtfs_strings['suspicious_start']               = 'Suspicious start of trip: same';
-    $gtfs_strings['suspicious_end']                 = 'Suspicious end of trip: same';
-    $gtfs_strings['suspicious_number_of_stops']     = 'Suspicious number of stops:';
-    $gtfs_strings['suspicious_trip_duration']       = 'Suspicious travel time:';
-    $gtfs_strings['same_names_but_different_ids']   = 'Trips have same Stop-Names but different Stop-Ids:';
+    $gtfs_strings['subroute_of']                        = 'Trip is subroute of:';
+    $gtfs_strings['suspicious_start']                   = 'Suspicious start of trip: same';
+    $gtfs_strings['suspicious_end']                     = 'Suspicious end of trip: same';
+    $gtfs_strings['suspicious_number_of_stops']         = 'Suspicious number of stops:';
+    $gtfs_strings['suspicious_trip_duration']           = 'Suspicious travel time:';
+    $gtfs_strings['same_names_but_different_ids']       = 'Trips have same Stop-Names but different Stop-Ids:';
+    $gtfs_strings['same_stops_but_different_shape_ids'] = 'Trips have same Stops but different Shape-Ids:';
 
     if ( $lang ) {
         if ( $lang == 'en' ) {
             ;
         } elseif ( $lang == 'de' ) {
-            $gtfs_strings['subroute_of']                    = 'Fahrt ist Teilroute von:';
-            $gtfs_strings['suspicious_start']               = 'Verdächtiger Anfang der Fahrt: gleiche';
-            $gtfs_strings['suspicious_end']                 = 'Verdächtiges Ende der Fahrt: gleiche';
-            $gtfs_strings['suspicious_number_of_stops']     = 'Verdächtige Anzahl von Haltestellen:';
-            $gtfs_strings['suspicious_trip_duration']       = 'Verdächtige Fahrzeit:';
-            $gtfs_strings['same_names_but_different_ids']   = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
+            $gtfs_strings['subroute_of']                        = 'Fahrt ist Teilroute von:';
+            $gtfs_strings['suspicious_start']                   = 'Verdächtiger Anfang der Fahrt: gleiche';
+            $gtfs_strings['suspicious_end']                     = 'Verdächtiges Ende der Fahrt: gleiche';
+            $gtfs_strings['suspicious_number_of_stops']         = 'Verdächtige Anzahl von Haltestellen:';
+            $gtfs_strings['suspicious_trip_duration']           = 'Verdächtige Fahrzeit:';
+            $gtfs_strings['same_names_but_different_ids']       = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
+            $gtfs_strings['same_stops_but_different_shape_ids'] = 'Fahrten haben gleiche Haltestellen aber unterschiedliche Routen-Ids:';
         }
     }
 
@@ -885,7 +887,7 @@
                         $list_separator = $ptna['list_separator'];
                     }
 
-                    $sql        = sprintf( "SELECT   trip_id
+                    $sql        = sprintf( "SELECT   *
                                             FROM     trips
                                             WHERE    route_id='%s'
                                             ORDER BY trip_id;",
@@ -897,6 +899,8 @@
                     $trip_array = array ();
 
                     while ( $outerrow=$outerresult->fetchArray(SQLITE3_ASSOC) ) {
+                        $trip_id = $outerrow["trip_id"];
+                        $shape_id = isset($outerrow["shape_id"]) ? $outerrow["shape_id"] : '-';
 
                         # an 'ORDER BY CAST(stop_sequence as INTEGER) ASC' is not safe, does not sort by stop_sequence as expected.
                         # GTFS refences says anyway that they must be sorted asc
@@ -908,13 +912,13 @@
                                          WHERE    stop_times.trip_id='%s';",
                                          $list_separator,
                                          $list_separator,
-                                         SQLite3::escapeString($outerrow["trip_id"])
+                                         SQLite3::escapeString($trip_id)
                                       );
 
                         $innerrow = $db->querySingle( $sql, true );
-
-                        if ( $innerrow["stop_id_list"] && !isset($stoplist[$innerrow["stop_id_list"]]) ) {
-                            $stoplist[$innerrow["stop_id_list"]] = $outerrow["trip_id"];
+                        # print "<!-- trip_id = " . $trip_id . " shape_id = . " . $shape_id . " stop_id_list = . " . $innerrow["stop_id_list"] . " -->\n";
+                        if ( $innerrow["stop_id_list"] && !isset($stoplist[$innerrow["stop_id_list"].$list_separator.$shape_id]) ) {
+                            $stoplist[$innerrow["stop_id_list"].$list_separator.$shape_id] = $outerrow["trip_id"];
                             # the next 4 lines are used to sort the output 'trip_array' by frist, by last and then by via stop names
                             $stop_name_array = explode( '  '.$list_separator, $innerrow["stop_name_list"] );
                             $first_stop_name = array_shift( $stop_name_array );
@@ -2058,7 +2062,7 @@
                                 $result = $db->query( $sql );
 
                                 echo "              <hr />\n\n";
-                                echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h3>' ."\n";
+                                echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h2>' ."\n";
                                 echo '              <div class="indent">' . "\n";
                                 echo '                  <table id="gtfs-shape">' . "\n";
                                 echo '                      <thead>' . "\n";
@@ -2095,6 +2099,158 @@
                                 echo '                  </table>' . "\n";
                                 echo '              </div>' . "\n";
                             }
+                        }
+                    }
+                    $db->close();
+
+                    $stop_time = gettimeofday(true);
+
+                    return $stop_time - $start_time;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
+        }
+
+        return 0;
+    }
+
+
+    function CreateGtfsShapeEntry( $feed, $release_date, $shape_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
+
+        if ( $SqliteDb != '') {
+
+           if ( $shape_id ) {
+
+               try {
+                    $start_time = gettimeofday(true);
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( $ptna["has_shapes"] ) {
+
+                        $sql = sprintf( "SELECT   *
+                                         FROM     shapes
+                                         WHERE    shape_id='%s'
+                                         ORDER BY CAST (shape_pt_sequence AS INTEGER) ASC;",
+                                         SQLite3::escapeString($shape_id)
+                                    );
+
+                        $result = $db->query( $sql );
+
+                        echo "              <hr />\n\n";
+                        echo '              <h2 id="shapes">GTFS Shape Data, Shape-id: "' . $shape_id . '"</h2>' ."\n";
+                        echo '              <div class="indent">' . "\n";
+                        echo '                  <table id="gtfs-shape">' . "\n";
+                        echo '                      <thead>' . "\n";
+                        echo '                          <tr class="gtfs-tableheaderrow">' . "\n";
+                        echo '                              <th class="gtfs-name">Number</th>' . "\n";
+                        echo '                              <th class="gtfs-number">Latitude</th>' . "\n";
+                        echo '                              <th class="gtfs-number">Longitude</th>' . "\n";
+                        echo '                              <th class="gtfs-distance">Distance</th>' . "\n";
+                        echo '                          </tr>' . "\n";
+                        echo '                      </thead>' . "\n";
+                        echo '                      <tbody>' . "\n";
+                        $counter = 1;
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            echo '                          <tr class="gtfs-tablerow">' . "\n";
+                            if ( isset($row["shape_pt_sequence"]) ) {
+                                echo '                              <td class="gtfs-number">'  . $row["shape_pt_sequence"] . '</td>' . "\n";
+                            } else {
+                                echo '                              <td class="gtfs-number">'  . $counter++ . '</td>' . "\n";
+                            }
+                            if ( isset($row["shape_pt_lat"]) ) {
+                                echo '                              <td class="gtfs-lat">'     . htmlspecialchars($row["shape_pt_lat"])        . '</td>' . "\n";
+                            } else {
+                                echo '                              <td class="gtfs-lat">&nbsp;</td>' . "\n";
+                            }
+                            if ( isset($row["shape_pt_lon"]) ) {
+                                echo '                              <td class="gtfs-lon">'     . htmlspecialchars($row["shape_pt_lon"])        . '</td>' . "\n";
+                            } else {
+                                echo '                              <td class="gtfs-lon">&nbsp;</td>' . "\n";
+                            }
+                            if ( isset($row["shape_dist_traveled"]) ) {
+                                echo '                              <td class="gtfs-distance">'  . htmlspecialchars($row["shape_dist_traveled"]) . '</td>' . "\n";
+                            } else {
+                                echo '                              <td class="gtfs-distance">&nbsp;</td>' . "\n";
+                            }
+                            echo '                          </tr>' . "\n";
+                        }
+                        echo '                      </tbody>' . "\n";
+                        echo '                  </table>' . "\n";
+                        echo '              </div>' . "\n";
+                    }
+                    $db->close();
+
+                    $stop_time = gettimeofday(true);
+
+                    return $stop_time - $start_time;
+
+                } catch ( Exception $ex ) {
+                    echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
+                }
+            }
+        } else {
+            echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
+        }
+
+        return 0;
+    }
+
+
+    function CreateGtfsShapeTripList( $feed, $release_date, $shape_id ) {
+
+        $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
+
+        if ( $SqliteDb != '') {
+
+           if ( $shape_id ) {
+
+               try {
+                    $start_time = gettimeofday(true);
+
+                    $db = new SQLite3( $SqliteDb );
+
+                    $sql        = "SELECT * FROM ptna";
+
+                    $ptna       = $db->querySingle( $sql, true );
+
+                    if ( $ptna["has_shapes"] ) {
+
+                        $sql = sprintf( "SELECT   *
+                                         FROM     trips
+                                         JOIN     routes ON routes.route_id = trips.route_id
+                                         WHERE    shape_id='%s'
+                                         ORDER BY route_short_name ASC, trip_id DESC;",
+                                         SQLite3::escapeString($shape_id)
+                                    );
+
+                        $result = $db->query( $sql );
+
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            echo '              <li class="gtfs-name"><a href="single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode(htmlspecialchars($row["trip_id"])) . '">';
+                            if ( isset($row["route_short_name"]) ) {
+                                echo htmlspecialchars($row["route_short_name"]);
+                            } else {
+                                echo '???';
+                            }
+                            echo ' - '  . htmlspecialchars($row["trip_id"]) . '</a>';
+                            if ( isset($row["trip_short_name"]) ) {
+                                echo ' - ' . htmlspecialchars($row["trip_short_name"]);
+                            }
+                            if ( isset($row["trip_headsign"]) ) {
+                                echo ' => ' . htmlspecialchars($row["trip_headsign"]);
+                            }
+                            echo '</li>' . "\n";
                         }
                     }
                     $db->close();
@@ -2448,12 +2604,13 @@
                                       );
                         $row = $db->querySingle( $sql, true );
 
-                        if ( isset($row['commment'])                     ||
-                             isset($row['subroute_of'])                  ||
-                             isset($row['suspicious_start'])             ||
-                             isset($row['suspicious_end'])               ||
-                             isset($row['suspicious_number_of_stops'])   ||
-                             isset($row['same_names_but_different_ids'])    ) {
+                        if ( isset($row['commment'])                           ||
+                             isset($row['subroute_of'])                        ||
+                             isset($row['suspicious_start'])                   ||
+                             isset($row['suspicious_end'])                     ||
+                             isset($row['suspicious_number_of_stops'])         ||
+                             isset($row['same_names_but_different_ids'])       ||
+                             isset($row['same_stops_but_different_shape_ids'])    ) {
                             $row['has_comments'] = 'yes';
                         }
 
@@ -3038,6 +3195,15 @@
                             echo '                            <td class="statistics-number">[1]</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
+                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_stops_but_different_shape_ids != '';" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( $ptna["count"] ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">Trips with identical stops but different shape-ids</td>' . "\n";
+                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=DIFFSHAPES">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_start != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
@@ -3225,6 +3391,9 @@
                             }
                             elseif ( $row["name"] == 'same_names_but_different_ids' ) {
                                 $col_name['IDENT']  = 'same_names_but_different_ids';
+                            }
+                            elseif ( $row["name"] == 'same_stops_but_different_shape_ids' ) {
+                                $col_name['DIFFSHAPES']  = 'same_stops_but_different_shape_ids';
                             }
                         }
 
@@ -3594,6 +3763,9 @@
             }
             if ( isset($param['same_names_but_different_ids']) && $param['same_names_but_different_ids'] ) {
                 $string .= "\n" . $gtfs_strings['same_names_but_different_ids'] . " " . preg_replace( "/,\s*/",", ", $param['same_names_but_different_ids'] );
+            }
+            if ( isset($param['same_stops_but_different_shape_ids']) && $param['same_stops_but_different_shape_ids'] ) {
+                $string .= "\n" . $gtfs_strings['same_stops_but_different_shape_ids'] . " " . preg_replace( "/,\s*/",", ", $param['same_stops_but_different_shape_ids'] );
             }
         }
         $string = preg_replace("/^\n/","", $string );

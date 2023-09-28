@@ -11,6 +11,7 @@ const defaultzoom   = 10;
 var map;
 var layerplatforms;
 var layerplatformsroute;
+var layershaperoute;
 var red_icon;
 var blue_icon;
 var icons           = {};
@@ -224,5 +225,140 @@ function showtriponmap() {
     var shape_route    = L.polyline(polyline_shapes_array,{color:colours['shape'],weight:3,fill:false}).bindPopup("Shape Route").addTo( layershaperoute );
 
     map.fitBounds(platform_route.getBounds());
+
+}
+
+
+function showshapeonmap() {
+
+    //  empty tiles
+	var nomap  = L.tileLayer('');
+
+    //  OpenStreetMap's Standard tile layer
+	var osmorg = L.tileLayer(  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		                        maxZoom: 19,
+		                        attribution: attribution
+	                        } );
+
+    //  OpenStreetMap's DE Style
+    var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+                                maxZoom: 19,
+                                attribution: osmlicence + 'Imagery &copy; <a href="http://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
+                            } );
+
+    // 	OSM France
+    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmfr = L.tileLayer(    'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+		                        maxZoom: 19,
+		                        attribution: attribution
+	                        } );
+
+    // 	opentopomap
+    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmtopo = L.tileLayer(  'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+		                        maxZoom: 17,
+		                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			                    'SRTM | Kartendarstellung: Â© <a href="http://opentopomap.org/">OpenTopoMap</a> '  +
+			                    '<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
+	                        } );
+
+    // 	ÖPNV-karte
+    // 	http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
+	var oepnv = L.tileLayer(    'http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
+		                        maxZoom: 19,
+		                        attribution: attribution
+	                        });
+
+    //  Transport Map
+    // 	http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
+    var transpmap = L.tileLayer(    'http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
+		                            maxZoom: 19,
+		                            attribution: attribution
+                                } );
+
+    // Variables for the data
+    layershaperoute     = L.layerGroup();
+
+    map = L.map( 'gtfsmap', { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layershaperoute] } );
+
+    var baseMaps = {
+                    "OpenStreetMap's Standard"  : osmorg,
+                    "OSM Deutscher Style"       : osmde,
+                    "OSM France"                : osmfr,
+                    // "OpenTopoMap"               : osmtopo,
+                    "none"                      : nomap
+                    // "ÖPNV-Karte": oepnv,
+                    // "Transport Map (without API-Key!)": transpmap
+                   };
+
+    var overlayMaps = { "<span style='color: red'>Route</span>" : layershaperoute };
+
+    var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    map.addLayer(layershaperoute);
+
+    red_icon   = L.icon( { iconUrl: '/img/red-marker-icon.png',   iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    blue_icon  = L.icon( { iconUrl: '/img/blue-marker-icon.png',  iconSize: [25,41], iconAnchor: [13,41], popupAnchor: [13,-41], tooltipAnchor: [13,-35] } );
+    icons      = { shape: red_icon, platform: blue_icon };
+    colours    = { shape: 'red',    platform: 'blue'    };
+
+    var polyline_shapes_array   = [];
+
+    var gpx_lat_array  = [];
+    var gpx_lon_array  = [];
+    var label_string   = '';
+
+    var sh_table = document.getElementById( "gtfs-shape" );
+
+    if ( sh_table ) {
+
+        var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
+        var sh_list     = sh_listnode.getElementsByTagName( "tr" );
+
+        //    evaluate all gtfs-shape rows
+        for ( var i = 0; i < sh_list.length; i++ )
+        {
+            var sh_node    = sh_list[i];
+            var sub_td     = sh_node.getElementsByTagName( "td" );
+
+            var gpx_lat  = "-1";
+            var gpx_lon  = "-1";
+
+            //    evaluate all columns of gtfs-single-trip rows
+            for ( var j = 0; j < sub_td.length; j++ )
+            {
+                var keyvalue = sub_td[j];
+
+
+                if ( keyvalue.firstChild ) {
+                    var value = keyvalue.firstChild.data;
+                }
+                else {
+                    var value = "-1";
+                }
+
+                var key = keyvalue.getAttribute("class");
+
+                if ( key == "gtfs-lat" )
+                {
+                    gpx_lat  = value;
+                }
+                else if ( key == "gtfs-lon")
+                {
+                    gpx_lon = value;
+                }
+            }
+
+            polyline_shapes_array.push( [gpx_lat, gpx_lon] );
+
+        }
+
+        map.addLayer(layershaperoute);
+
+    }
+
+    var shape_route    = L.polyline(polyline_shapes_array,{color:colours['shape'],weight:3,fill:false}).bindPopup("Shape Route").addTo( layershaperoute );
+
+    map.fitBounds(shape_route.getBounds());
 
 }

@@ -14,7 +14,8 @@ function gpxdownload() {
     metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
     metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
 
-    var filename = feed + "_Route_" + route_short_name + "_" + trip_id + ".gpx";
+    var filename = feed + "_Route_" + route_short_name + "_Trip_" + trip_id + ".gpx";
+        filename = filename.replace(/[^A-Za-z0-9_.-]/g,'_');
 
     //    <time> xsd:dateTime </time>
     var dateobj  = new Date();
@@ -132,6 +133,96 @@ function gpxdownload() {
 
     //    compile GPS output
     var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n${wpt} <rte>\r\n${rte} </rte>\r\n</gpx>`;
+
+
+
+    // create file
+
+    var element = document.createElement('a');
+    element.setAttribute( 'href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(gpx_gesamt) );
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+
+}
+
+
+function gpxdownloadforshape() {
+
+    var feed                = document.getElementById("feed").firstChild.data;
+    var shape_id            = document.getElementById("shape_id").firstChild.data;
+
+    //   fill Meta data
+    var metadata     = "";
+    metadata        += "  <name>" + feed + ", Shape " + shape_id + "</name>\r\n"
+    metadata        += "  <desc>GTFS Analysis for " + feed + "</desc>\r\n"
+    metadata        += "  <src>https://ptna.openstreetmap.de/gtfs/index.html</src>\r\n"
+    metadata        += "  <link>https://ptna.openstreetmap.de/</link>\r\n"
+
+    var filename = feed + "_Shape_" + shape_id + ".gpx";
+        filename = filename.replace(/[^A-Za-z0-9_.-]/g,'_');
+
+    //    <time> xsd:dateTime </time>
+    var dateobj  = new Date();
+    var date     = dateobj.toISOString();
+    metadata    += "  <time>" + date + "</time>\r\n"
+
+    var sh_table = document.getElementById( "gtfs-shape" );
+
+    if ( sh_table ) {
+
+        rte = "";
+
+        var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
+        var sh_list     = sh_listnode.getElementsByTagName( "tr" );
+
+        //    evaluate all gtfs-shape rows
+        for ( var i = 0; i < sh_list.length; i++ )
+        {
+            var sh_node    = sh_list[i];
+            var sub_td     = sh_node.getElementsByTagName( "td" );
+
+            var gpx_lat  = "-1";
+            var gpx_lon  = "-1";
+
+            //    evaluate all columns of gtfs-single-trip rows
+            for ( var j = 0; j < sub_td.length; j++ )
+            {
+                var keyvalue = sub_td[j];
+
+
+                if ( keyvalue.firstChild ) {
+                    var value = keyvalue.firstChild.data;
+                }
+                else {
+                    var value = "-1";
+                }
+
+                var key = keyvalue.getAttribute("class");
+
+                if ( key == "gtfs-lat" )
+                {
+                    gpx_lat  = value;
+                }
+                else if ( key == "gtfs-lon")
+                {
+                    gpx_lon = value;
+                }
+            }
+
+            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+
+        }
+    }
+
+
+    //    compile GPS output
+    var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n$<rte>\r\n${rte} </rte>\r\n</gpx>`;
 
 
 
