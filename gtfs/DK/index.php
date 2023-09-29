@@ -15,6 +15,9 @@
 
             <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS Analyser for Danmark</h2>
             <div class="indent">
+                <p>
+                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates. The Release-URL is not reachable. An automated download is no longer possible.</span>
+                </p>
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsDK">
                     <thead>
