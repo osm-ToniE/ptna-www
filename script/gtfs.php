@@ -18,7 +18,7 @@
             $gtfs_strings['suspicious_number_of_stops']         = 'Verdächtige Anzahl von Haltestellen:';
             $gtfs_strings['suspicious_trip_duration']           = 'Verdächtige Fahrzeit:';
             $gtfs_strings['same_names_but_different_ids']       = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
-            $gtfs_strings['same_stops_but_different_shape_ids'] = 'Fahrten haben gleiche Haltestellen aber unterschiedliche Routen-Ids:';
+            $gtfs_strings['same_stops_but_different_shape_ids'] = 'Fahrten haben gleiche Haltestellen aber unterschiedliche Shape-Ids:';
         }
     }
 
