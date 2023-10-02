@@ -22,8 +22,8 @@
 
 <?php
     if ( !$trip_id && $shape_id ) {
-        $trip_id      = GetGtfsTripIdFromShapeId( $feed, $release_date, $shape_id );
-    }
+        echo '<script>window.location.replace("shape.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&shape_id=' . urlencode($shape_id) . '");</script>';
+   }
     $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
     $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
     if ( !$route_short_name ) {

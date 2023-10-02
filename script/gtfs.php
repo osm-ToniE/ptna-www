@@ -2426,9 +2426,11 @@
     }
 
 
-    function GetGtfsTripIdFromShapeId( $feed, $release_date, $shape_id ) {
+    function GetGtfsTripIdsFromShapeId( $feed, $release_date, $shape_id ) {
 
         $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
+
+        $ret_array = array();
 
         if ( $SqliteDb != '' ) {
 
@@ -2455,15 +2457,14 @@
                                          SQLite3::escapeString($shape_id)
                                       );
 
-                        $row = $db->querySingle( $sql, true );
+                        $row = $db->query( $sql );
 
-                        if ( isset($row["trip_id"]) ) {
-                            return $row["trip_id"];
-                        } else {
-                            return '';
+                        while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            if ( isset($row["trip_id"]) ) {
+                                array_push($ret_array,$row["trip_id"]);
+                            }
                         }
                     }
-
                 } catch ( Exception $ex ) {
                     echo "Sqlite DB could not be opened: " . htmlspecialchars($ex->getMessage()) . "\n";
                 }
@@ -2472,7 +2473,7 @@
             echo "Sqlite DB not found for feed = '" . htmlspecialchars($feed) . "'\n";
         }
 
-        return '';
+        return $ret_array;
     }
 
 
@@ -3195,15 +3196,17 @@
                             echo '                            <td class="statistics-number">[1]</td>' . "\n";
                             echo '                        </tr>' . "\n";
                         }
-#                        $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_stops_but_different_shape_ids != '';" );
-#                        $ptna = $db->querySingle( $sql, true );
-#                        if ( $ptna["count"] ) {
-#                            echo '                        <tr class="statistics-tablerow">' . "\n";
-#                            echo '                            <td class="statistics-name">Trips with identical stops but different shape-ids</td>' . "\n";
-#                            echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=DIFFSHAPES">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
-#                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
-#                            echo '                        </tr>' . "\n";
-#                        }
+                        if ( isset($columns['same_stops_but_different_shape_ids']) ) {
+                            $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE same_stops_but_different_shape_ids != '';" );
+                            $ptna = $db->querySingle( $sql, true );
+                            if ( $ptna["count"] ) {
+                                echo '                        <tr class="statistics-tablerow">' . "\n";
+                                echo '                            <td class="statistics-name">Trips with identical stops but different shape-ids</td>' . "\n";
+                                echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=DIFFSHAPES">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                                echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                                echo '                        </tr>' . "\n";
+                            }
+                        }
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_start != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
@@ -3284,7 +3287,7 @@
 
                     $ptna = $db->querySingle( $sql, true );
 
-                    if ( $ptna["date"] ) {
+                    if ( isset($ptna["date"]) ) {
                         echo '                        <tr class="statistics-tablerow">' . "\n";
                         echo '                            <td class="statistics-name">Date</td>' . "\n";
                         echo '                            <td class="statistics-date">'  . htmlspecialchars($ptna["date"]) . '</td>' . "\n";
