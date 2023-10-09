@@ -15,6 +15,7 @@
 
             <h2 id="FR"><a href="index.php"><img src="/img/France32.png" alt="drapeau français" /></a> Analyse GTFS pour la France</h2>
             <div class="indent">
+            <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates "FR-PAC-Mouvenbus". The Release-URL is not reachable. An automated download is no longer possible.</span>
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsFR">
                     <thead>
