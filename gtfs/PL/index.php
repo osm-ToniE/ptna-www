@@ -16,7 +16,7 @@
             <h2 id="PL"><a href="index.php"><img src="/img/Poland32.png" alt="Flaga Polski" /></a> GTFS wyniki dla Polski</h2>
             <div class="indent">
                 <p>
-                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates "PL-24-ZTM-Katowice". The Release-URL is not reachable. An automated download is no longer possible.</span>
+                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates "PL-24-ZTM-Katowice". The Release-URL is not reachable via 'curl' and 'wget': a firewall rule seems to block that. An automated download is no longer possible.</span>
                 </p>
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsPL">
