@@ -1006,6 +1006,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route-Master hat %d Element, bei dem &#039;role&#039; gesetzt ist</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route-Master hat mehr Routen als im Datensatz tatsächlich passend gefunden wurden (%d gegenüber %d)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>

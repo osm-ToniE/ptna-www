@@ -934,6 +934,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route-Master has %d member with &#039;role&#039; being set</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route-Master has less Routes than actually match (%d versus %d) in the given data set</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
