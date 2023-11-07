@@ -24,6 +24,8 @@
 
                 <?php CreateNewFullEntry( "CA-MB-WT", "en", "Configuration" ); ?>
 
+                <?php CreateNewFullEntry( "CA-ON-Burlington-Transit", "en", "Configuration" ); ?>
+
                 </tbody>
             </table>
 
