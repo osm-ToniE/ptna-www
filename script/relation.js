@@ -350,6 +350,12 @@ function handleMember( relation_id, index ) {
                              member['tags']['highway']              &&
                              member['tags']['highway'] == "bus_stop"   ) {
                             attention['id'] = "attention";
+                        } else {
+                            if ( role != "stop"            &&
+                                 role != "stop_exit_only"  &&
+                                 role != "stop_entry_only"    ) {
+                                attention['role'] = "attention";
+                            }
                         }
                     }
                 } else {
@@ -378,6 +384,8 @@ function handleMember( relation_id, index ) {
                                  member['tags']['highway']              &&
                                  member['tags']['highway'] == "bus_stop"   ) {
                                 attention['id'] = "attention";
+                            } else {
+                                attention['role'] = "attention";
                             }
                         }
                     } else {
