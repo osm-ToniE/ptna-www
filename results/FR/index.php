@@ -24,6 +24,8 @@
 
                     <?php CreateNewFullEntry("FR-ARA-Drôme", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-GES-CTS", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-IDF-aerial", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-IDF-albatrans", "fr", "Configuration" ); ?>
