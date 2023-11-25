@@ -1271,8 +1271,12 @@
                             $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
-                        $osm_from           = isset($stops1['normalized_stop_name']) ? htmlspecialchars($stops1['normalized_stop_name']) : htmlspecialchars($stops1['stop_name']);
-                        $osm_to             = isset($stops2['normalized_stop_name']) ? htmlspecialchars($stops2['normalized_stop_name']) : htmlspecialchars($stops2['stop_name']);
+                        $osm_from           = isset($stops1['normalized_stop_name'])
+                                                  ? '<span class="normalized-name" title="GTFS: stop_name=' . htmlspecialchars($stops1["stop_name"]) . '">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
+                                                  : htmlspecialchars($stops1['stop_name']);
+                        $osm_to             = isset($stops2['normalized_stop_name'])
+                                                  ? '<span class="normalized-name" title="GTFS: stop_name=' . htmlspecialchars($stops2["stop_name"]) . '">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
+                                                  : htmlspecialchars($stops2['stop_name']);
                         $osm_network        = htmlspecialchars($osm['network']);
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
@@ -1568,11 +1572,12 @@
                     $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
-                        $sql = sprintf( "SELECT   stop_times.stop_id,stop_times.departure_time,stops.*
-                                         FROM     stop_times
-                                         JOIN     stops ON stop_times.stop_id = stops.stop_id
-                                         WHERE    stop_times.trip_id='%s'
-                                         ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC;",
+                        $sql = sprintf( "SELECT          *, stop_times.stop_id
+                                         FROM            stop_times
+                                         JOIN            stops ON stop_times.stop_id = stops.stop_id
+                                         LEFT OUTER JOIN ptna_stops ON stop_times.stop_id = ptna_stops.stop_id
+                                         WHERE           stop_times.trip_id='%s'
+                                         ORDER BY        CAST (stop_times.stop_sequence AS INTEGER) ASC;",
                                          SQLite3::escapeString($trip_id)
                                     );
 
@@ -1586,7 +1591,7 @@
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
                             if ( isset($row["normalized_stop_name"]) ) {
-                                echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["normalized_stop_name"]) . '</td>' . "\n";
+                                echo '                                <td class="gtfs-stop-name normalized-name"><div title="GTFS: stop_name=' . htmlspecialchars($row["stop_name"]) . '">' . htmlspecialchars($row["normalized_stop_name"]) . '</div></td>' . "\n";
                             } else {
                                 echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
                             }

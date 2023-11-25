@@ -65,6 +65,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .clearing                 { clear: both; }
 
 .attention                { background-color: yellow; }
+.normalized-name          { background-color: lightgreen; }
 
 .results-tableheaderrow   { background-color: #bbbbbb; }
 .results-tablerow         { background-color: white;   }
