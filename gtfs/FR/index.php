@@ -23,6 +23,7 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "FR-ARA-Montelibus" );
+    $duration += CreateGtfsEntry( "FR-CVL-TAO" );
     $duration += CreateGtfsEntry( "FR-GES-CTS" );
     $duration += CreateGtfsEntry( "FR-PAC-Altigo" );
     $duration += CreateGtfsEntry( "FR-PAC-Bandol-et-Sanary-sur-mer" );
