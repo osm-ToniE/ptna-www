@@ -23,7 +23,7 @@ function gpxdownload() {
     metadata    += "  <time>" + date + "</time>\r\n"
 
     var wpt = "";
-    var rte = "";
+    var trk = "";
 
     var wp_table = document.getElementById( "gtfs-single-trip" );
 
@@ -76,7 +76,7 @@ function gpxdownload() {
             }
 
             wpt += " <wpt lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"><name>" + gpx_name + "</name></wpt>\r\n";
-            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+            trk += "    <trkpt lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></trkpt>\r\n";
 
         }
     }
@@ -86,7 +86,7 @@ function gpxdownload() {
 
     if ( sh_table ) {
 
-        rte = "";
+        trk = "";
 
         var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
         var sh_list     = sh_listnode.getElementsByTagName( "tr" );
@@ -125,14 +125,14 @@ function gpxdownload() {
                 }
             }
 
-            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+            trk += "    <trkpt lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></trkpt>\r\n";
 
         }
     }
 
 
     //    compile GPS output
-    var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n${wpt} <rte>\r\n${rte} </rte>\r\n</gpx>`;
+    var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n${wpt} <trk>\r\n  <trkseg>\t\n${trk}  </trkseg>\r\n </trk>\r\n</gpx>`;
 
 
 
@@ -176,7 +176,7 @@ function gpxdownloadforshape() {
 
     if ( sh_table ) {
 
-        rte = "";
+        trk = "";
 
         var sh_listnode = sh_table.getElementsByTagName( "tbody" )[0];
         var sh_list     = sh_listnode.getElementsByTagName( "tr" );
@@ -215,14 +215,14 @@ function gpxdownloadforshape() {
                 }
             }
 
-            rte += "  <rtept lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></rtept>\r\n";
+            trk += "    <trkpt lat=\"" + gpx_lat + "\" lon=\"" + gpx_lon + "\"></trkpt>\r\n";
 
         }
     }
 
 
     //    compile GPS output
-    var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n$<rte>\r\n${rte} </rte>\r\n</gpx>`;
+    var gpx_gesamt=`<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\r\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1">\r\n <metadata>\r\n${metadata} </metadata>\r\n$<trk>\r\n  <trkseg>\r\n${trk}  </trkseg>\r\n </trk>\r\n</gpx>`;
 
 
 
