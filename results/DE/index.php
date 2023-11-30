@@ -153,6 +153,8 @@
 
                     <?php CreateNewFullEntry( "DE-MV-VVW", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-MV-Vorpommern-Greifswald", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-NI-BVE", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NI-CeBus", "de", "Konfiguration" ); ?>
