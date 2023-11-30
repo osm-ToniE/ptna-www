@@ -143,6 +143,8 @@
 
                     <?php CreateNewFullEntry( "DE-HH-HVV", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-MV-KGVP", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-MV-MVVG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-MV-NAHBUS", "de", "Konfiguration" ); ?>
@@ -152,8 +154,6 @@
                     <?php CreateNewFullEntry( "DE-MV-VVR", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-MV-VVW", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "DE-MV-Vorpommern-Greifswald", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NI-BVE", "de", "Konfiguration" ); ?>
 
