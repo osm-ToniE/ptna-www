@@ -205,6 +205,8 @@
 
                     <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-ST-marego", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-ST-stendalbus", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-TH-VGLG", "de", "Konfiguration" ); ?>
