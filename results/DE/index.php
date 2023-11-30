@@ -147,6 +147,8 @@
 
                     <?php CreateNewFullEntry( "DE-MV-NAHBUS", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-MV-VLP", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-MV-VVR", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-MV-VVW", "de", "Konfiguration" ); ?>
