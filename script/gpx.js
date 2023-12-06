@@ -57,8 +57,16 @@ function gpxdownload() {
 
                 var key = keyvalue.getAttribute("class");
 
-                if ( key == "gtfs-stop-name" )
+                if ( key == "gtfs-stop-name"  )
                 {
+                    gpx_name = (i+1) + ': ' +  value.replace(/&/g, "&amp;")
+                                                    .replace(/</g, "&lt;")
+                                                    .replace(/>/g, "&gt;")
+                                                    .replace(/"/g, "&quot;")
+                                                    .replace(/'/g, "&#039;");
+                }
+                else if ( key == "gtfs-stop-name normalized-name" ) {
+                    value = keyvalue.firstChild.firstChild.data;
                     gpx_name = (i+1) + ': ' +  value.replace(/&/g, "&amp;")
                                                     .replace(/</g, "&lt;")
                                                     .replace(/>/g, "&gt;")

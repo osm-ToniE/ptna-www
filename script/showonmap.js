@@ -139,6 +139,10 @@ function showtriponmap() {
                 {
                     gpx_name = value;
                 }
+                else if ( key == "gtfs-stop-name normalized-name" ) {
+                    value = keyvalue.firstChild.firstChild.data;
+                    gpx_name = value;
+                }
                 else if ( key == "gtfs-lat" )
                 {
                     gpx_lat  = value;
