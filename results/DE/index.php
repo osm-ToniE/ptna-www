@@ -161,6 +161,8 @@
 
                     <?php CreateNewFullEntry( "DE-NI-GVH", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-NI-NHP", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-NI-VEJ", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-NI-VGC", "de", "Konfiguration" ); ?>
