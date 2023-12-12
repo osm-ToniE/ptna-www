@@ -636,7 +636,7 @@
             }
         } else {
             echo '                        <tr class="gtfs-tablerow">' . "\n";
-            echo '                            <td class="gtfs-name">' . htmlspecialchars($feed) . '</a></td>' . "\n";
+            echo '                            <td class="gtfs-name">' . htmlspecialchars($feed) . '</td>' . "\n";
             echo '                            <td class="gtfs-comment" colspan=8>SQLite DB: data base not found (data not yet available?)</td>' . "\n";
             echo '                        </tr>' . "\n";
         }
