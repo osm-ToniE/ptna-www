@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry("FR-ARA-Drôme", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-ARA-Drome", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
 
