@@ -22,7 +22,7 @@
     </thead>
     <tbody>
 
-    <?php CreateNewFullEntry( "AT-OÖVV", "de", "Konfiguration" ); ?>
+    <?php CreateNewFullEntry( "AT-OOeVV", "de", "Konfiguration" ); ?>
 
     <?php CreateNewFullEntry( "AT-SVV", "de", "Konfiguration" ); ?>
 

@@ -46,11 +46,11 @@
                             </thead>
                             <tbody>
                                 <tr><td class="gtfs-number">1</td>
-                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td rowspan="2"><button class="button-create" type="submit"><?php echo preg_replace('/ /','<br />',$STR_compare_feeds); ?></button></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
-                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,12 +77,12 @@
                             </thead>
                             <tbody>
                                  <tr><td class="gtfs-number">1</td>
-                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date" value="<?php echo $release_date; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td rowspan="2"><button class="button-create" type="submit"><?php echo preg_replace('/ /','<br />',$STR_compare_versions); ?></button></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
-                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date2" value="<?php echo $release_date2; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                 </tr>
                             </tbody>
@@ -112,13 +112,13 @@
                             </thead>
                             <tbody>
                                 <tr><td class="gtfs-number">1</td>
-                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date" value="<?php echo $release_date; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="route_id" value="<?php echo $route_id; ?>"></td>
                                     <td rowspan="2"><button class="button-create" type="submit"><?php echo preg_replace('/ /','<br />',$STR_compare_routes); ?></button></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
-                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date2" value="<?php echo $release_date2; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="route_id2" value="<?php echo $route_id2; ?>"></td>
                                 </tr>
@@ -149,13 +149,13 @@
                             </thead>
                             <tbody>
                                 <tr><td class="gtfs-number">1</td>
-                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date" value="<?php echo $release_date; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="trip_id" value="<?php echo $trip_id; ?>"></td>
                                     <td rowspan="2"><button class="button-create" type="submit"><?php echo preg_replace('/ /','<br />',$STR_compare_trips); ?></button></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
-                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date2" value="<?php echo $release_date2; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="trip_id2" value="<?php echo $trip_id2; ?>"></td>
                                 </tr>
@@ -186,13 +186,13 @@
                             </thead>
                             <tbody>
                                 <tr><td class="gtfs-number">1</td>
-                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed" value="<?php echo $feed; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date" value="<?php echo $release_date; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="shape_id" value="<?php echo $shape_id; ?>"></td>
                                     <td rowspan="2"><button class="button-create" type="submit"><?php echo preg_replace('/ /','<br />',$STR_compare_shapes); ?></button></td>
                                 </tr>
                                 <tr><td class="gtfs-number">2</td>
-                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z-]+$"></td>
+                                    <td class="gtfs-name"><input type="text" name="feed2" value="<?php echo $feed2; ?>" maxlength="30" pattern="^[0-9A-Za-z_.-]+$"></td>
                                     <td class="gtfs-name"><input type="text" name="release_date2" value="<?php echo $release_date2; ?>" size="10" maxlength="10" pattern="^((20\d{2}-(0[1-9]|1[012]|[1-9])-(31|30|0[1-9]|[12][0-9]|[1-9]))|long-term|previous|latest)$"></td>
                                     <td class="gtfs-name"><input type="text" name="shape_id2" value="<?php echo $shape_id2; ?>"></td>
                                 </tr>

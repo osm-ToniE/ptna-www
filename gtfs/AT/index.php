@@ -24,7 +24,7 @@
 <?php
     $duration += CreateGtfsEntry( "AT-Eisenbahn" );
     $duration += CreateGtfsEntry( "AT-Linz-AG" );
-    $duration += CreateGtfsEntry( "AT-OÖVV" );
+    $duration += CreateGtfsEntry( "AT-OOeVV" );
     $duration += CreateGtfsEntry( "AT-SVV" );
     $duration += CreateGtfsEntry( "AT-VKG" );
     $duration += CreateGtfsEntry( "AT-VOR" );

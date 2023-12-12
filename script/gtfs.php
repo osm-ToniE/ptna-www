@@ -32,7 +32,7 @@
         } else {
             $feed_release = $feed;
         }
-        if ( $feed_release && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed_release) ) {
+        if ( $feed_release && preg_match("/^[0-9A-Za-z_.-]+$/", $feed_release) ) {
             $feed_parts = explode( '-', $feed );
             $countrydir = array_shift( $feed_parts );
 
@@ -72,7 +72,7 @@
 
         $release_dates  = array();          # i.e. all months are relevant
 
-        if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed) ) {
+        if ( $feed && preg_match("/^[0-9A-Za-z_.-]+$/", $feed) ) {
             $release_dates = GetGtfsFeedReleaseDatesNonEmpty( $feed );
 
             rsort( $release_dates );
@@ -112,7 +112,7 @@
 
         $release_dates  = array();          # i.e. all months are relevant
 
-        if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed) ) {
+        if ( $feed && preg_match("/^[0-9A-Za-z_.-]+$/", $feed) ) {
             $release_dates = GetGtfsFeedReleaseDates( $feed );
             CreateGtfsTimeLineBasis( $release_dates, $months_short );
             CreateGtfsTimeLineEntries( $feed, $release_date, $release_dates );
@@ -129,7 +129,7 @@
 
         $release_dates_array = array();
 
-        if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed) ) {
+        if ( $feed && preg_match("/^[0-9A-Za-z_.-]+$/", $feed) ) {
             $feed_parts = explode( '-', $feed );
             $countrydir = array_shift( $feed_parts );
             $subdir     = array_shift( $feed_parts );
@@ -159,7 +159,7 @@
 
         $release_dates_array = array();
 
-        if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/", $feed) ) {
+        if ( $feed && preg_match("/^[0-9A-Za-z_.-]+$/", $feed) ) {
             $feed_parts = explode( '-', $feed );
             $countrydir = array_shift( $feed_parts );
             $subdir     = array_shift( $feed_parts );
@@ -189,7 +189,7 @@
     function GtfsReadLink( $feed, $linkname ) {
         global $path_to_work;
 
-        if ( $feed && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",$feed) ) {
+        if ( $feed && preg_match("/^[0-9A-Za-z_.-]+$/",$feed) ) {
             $feed_parts = explode( '-', $feed );
             $countrydir = array_shift( $feed_parts );
             $subdir     = array_shift( $feed_parts );
@@ -220,7 +220,7 @@
     function GtfsDbSize( $feed, $release_date ) {
         global $path_to_work;
 
-        if ( $feed          && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",$feed)              &&
+        if ( $feed          && preg_match("/^[0-9A-Za-z_.-]+$/",$feed)              &&
              $release_date  && preg_match("/^\d\d\d\d-\d\d-\d\d+$/",$release_date)      ) {
 
             $feed_parts = explode( '-', $feed );
@@ -1031,13 +1031,13 @@
         $matches      = 0;
         $good_matches = 0;
 
-        if ( $feed                  && preg_match("/^[a-zA-ZÖô0-9_.-]+$/",          $feed)                     &&
-             ($release_date == ''   || preg_match("/^[0-9-]+$/",                    $release_date) )           &&
-             $route_id              && preg_match("/^[a-zA-ZÖ0-9_. :\|\+-]+$/",     $route_id)                 &&
-             $route_short_name      && preg_match("/^[a-zA-ZÖ0-9_. \(\)\/-]+$/",    $route_short_name)         &&
-             $osm_ref               && preg_match("/^[a-zA-ZÖ0-9_. \(\)\/-]+$/",    $osm_ref)                  &&
-             $osm_route_type        && preg_match("/^[a-zA-ZÖ0-9_.-]+$/",           $osm_route_type)           &&
-             $ptna_analysis_source  && preg_match("/^[a-zA-ZÖô0-9_.-]+$/",          $ptna_analysis_source)        ) {
+        if ( $feed                  && preg_match("/^[0-9A-Za-z_.-]+$/",          $feed)                     &&
+             ($release_date == ''   || preg_match("/^[0-9-]+$/",                  $release_date) )           &&
+             $route_id              && preg_match("/^[a-zA-Z0-9_. :\|\+-]+$/",    $route_id)                 &&
+             $route_short_name      && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $route_short_name)         &&
+             $osm_ref               && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $osm_ref)                  &&
+             $osm_route_type        && preg_match("/^[0-9A-Za-z_.-]+$/",          $osm_route_type)           &&
+             $ptna_analysis_source  && preg_match("/^[0-9A-Za-z_.-]+$/",          $ptna_analysis_source)        ) {
 
             $prefixparts = explode( '-', $ptna_analysis_source );
             $countrydir  = array_shift( $prefixparts );
@@ -3355,7 +3355,7 @@
 
         if ( $SqliteDb != '') {
 
-           if ( !$topic || preg_match("/^[ a-zA-ZÖ0-9_.-]+$/", $topic) ) {
+           if ( !$topic || preg_match("/^[ 0-9A-Za-z_.-]+$/", $topic) ) {
 
                 try {
 
