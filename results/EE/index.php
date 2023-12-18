@@ -22,9 +22,11 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "EE-Koik", "et", "Konfiguratsioon" ); ?>
+                <?php CreateNewFullEntry( "EE-Koik", "et", "Konfiguratsioon" ); ?>
 
-                </tbody>
+                <?php CreateNewFullEntry( "EE-37-TallinnaTransport", "et", "Konfiguratsioon" ); ?>
+
+</tbody>
             </table>
 
         </main> <!-- main -->
