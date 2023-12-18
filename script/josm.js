@@ -186,11 +186,11 @@ function copy_to_clipboard( id, success_msg, error_msg ) {
 
         navigator.clipboard.writeText(clipboard);
 
-        if ( success_msg ) {
-            alert( success_msg + ":\r\n" + clipboard );
-        } else {
-            alert( "Copied to Clipboard:\r\n\r\n" + clipboard );
-        }
+        // if ( success_msg ) {
+        //     alert( success_msg + ":\r\n" + clipboard );
+        // } else {
+        //     alert( "Copied to Clipboard:\r\n\r\n" + clipboard );
+        // }
     } else {
         if ( error_msg ) {
             alert( error_msg + ": " + id );
