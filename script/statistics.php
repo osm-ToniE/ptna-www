@@ -85,7 +85,7 @@
                 #}
             } else {
                 if ( $osm_xml_file_name && $size_download == 0 ) {
-                    printf( "    <td class=\"statistics-size-marked\"><a href=\"/en/showlogs.php?network=%s\" title=\"Either download from Overpass-API server failed completely or the downloaded dataset is empty\">failed</a></td>\n", $network );
+                    printf( "    <td class=\"statistics-size-marked\">Download via Overpass-API failed</td>\n", $network );
                 } else {
                     printf( "    <td class=\"statistics-size\"></td>\n" );
                 }
@@ -98,10 +98,10 @@
                         printf( "    <td class=\"statistics-date\">%s</td>\n", $routes_date );
                     }
                 } else {
-                    printf( "    <td class=\"statistics-date\"></td>\n");
+                    printf( "    <td class=\"statistics-date\">Not configured</td>\n");
                 }
             } else {
-                printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\" title=\"Download from OSM-Wiki server failed, the analysis might show lots of changes\">failed</a></td>\n", $network );
+                printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed</td>\n", $network );
             }
             if ( $start_analysis && $end_analysis ) {
                 $sabs                 = strtotime( $start_analysis );
@@ -132,6 +132,7 @@
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
             }
+            printf( "    <td class=\"statistics-size-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">Log</a></td>\n", $network );
             printf( "</tr>\n" );
          }
     }
@@ -162,6 +163,7 @@
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
         printf( "    <th class=\"statistics-date\">%d</th>\n", $count_has_changes );
+        printf( "    <th class=\"statistics-name\"></th>\n" );
         printf( "</tr>\n" );
     }
 

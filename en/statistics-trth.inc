@@ -5,6 +5,7 @@
     <th class="statistics-date js-sort-none" colspan="3">Download</th>
     <th class="statistics-date js-sort-none" colspan="1">Routes Data</th>
     <th class="statistics-date js-sort-none" colspan="3">Analysis</th>
+    <th class="statistics-date js-sort-none" colspan="1">Log</th>
 </tr>
 <tr class="statistics-tableheaderrow">
     <th class="statistics-name js-sort-string">&#x21C5;Name</th>
@@ -19,4 +20,5 @@
     <th class="statistics-date js-sort-string">&#x21C5;Started</th>
     <th class="statistics-duration js-sort-number">&#x21C5;Duration [h:m:s]</th>
     <th class="statistics-date js-sort-number">&#x21C5;Changes</th>
+    <th class="statistics-date js-sort-none">Data</th>
 </tr>
