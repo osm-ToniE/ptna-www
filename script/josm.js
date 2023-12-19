@@ -169,6 +169,8 @@ function copy_to_clipboard( id, success_msg, error_msg ) {
         var tag_list           = relation_tablebody.getElementsByTagName( "tr" );
 
         var clipboard;
+        var key;
+        var value;
 
         clipboard  = "";
 
@@ -181,7 +183,18 @@ function copy_to_clipboard( id, success_msg, error_msg ) {
 
             // evaluate 1st and 2nd column of rows
 
-            clipboard += sub_td[0].innerText + '=' + sub_td[1].innerText + "\r\n";
+            key   = sub_td[0].innerText;
+            value = sub_td[1].innerText;
+
+            if ( key === 'colour' &&
+                 (value.toLowerCase === '#ffffff'.toLowerCase ||
+                  value.toLowerCase === '#fff'.toLowerCase    ||
+                  value             === '#000000'             ||
+                  value             === '#000'                  ) )
+            {
+                continue;
+            }
+            clipboard += key + '=' + value + "\r\n";
         }
 
         navigator.clipboard.writeText(clipboard);
