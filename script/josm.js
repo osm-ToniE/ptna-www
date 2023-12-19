@@ -188,9 +188,7 @@ function copy_to_clipboard( id, success_msg, error_msg ) {
 
             if ( key === 'colour' &&
                  (value.toLowerCase === '#ffffff'.toLowerCase ||
-                  value.toLowerCase === '#fff'.toLowerCase    ||
-                  value             === '#000000'             ||
-                  value             === '#000'                  ) )
+                  value.toLowerCase === '#fff'.toLowerCase      ) )
             {
                 continue;
             }
