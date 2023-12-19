@@ -24,6 +24,8 @@
 
                 <?php CreateNewFullEntry( "EE-Koik", "et", "Konfiguratsioon" ); ?>
 
+                <?php CreateNewFullEntry( "EE-Elron", "et", "Konfiguratsioon" ); ?>
+
                 <?php CreateNewFullEntry( "EE-Tallinna-Transport", "et", "Konfiguratsioon" ); ?>
 
 </tbody>
