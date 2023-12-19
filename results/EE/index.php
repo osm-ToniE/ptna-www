@@ -26,7 +26,7 @@
 
                 <?php CreateNewFullEntry( "EE-Elron", "et", "Konfiguratsioon" ); ?>
 
-                <?php CreateNewFullEntry( "EE-Tallinna-Transport", "et", "Konfiguratsioon" ); ?>
+                <?php CreateNewFullEntry( "EE-Tallinna_Transport", "et", "Konfiguratsioon" ); ?>
 
 </tbody>
             </table>
