@@ -2805,7 +2805,21 @@
                 echo '                        <tr class="statistics-tablerow">' . "\n";
                 echo '                            <td class="gtfs-name">Publisher\'s License</td>' . "\n";
                 if ( isset($ptna["original_license_url"]) && $ptna["original_license_url"] ) {
-                    echo '                            <td class="gtfs-text"><a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a></td>' . "\n";
+                    echo '                            <td class="gtfs-text">';
+                    $list_original_license     = explode(';',$ptna["original_license"]);
+                    $list_original_license_url = explode(';',$ptna["original_license_url"]);
+                    if ( count($list_original_license) == count($list_original_license_url) ) {
+                        $counter = count($list_original_license);
+                        for ( $i = 0; $i < $counter; $i++ ) {
+                            echo '<a target="_blank" href="' . $list_original_license_url[$i] . '">' . htmlspecialchars($list_original_license[$i]) . '</a>';
+                            if ( $i < $counter-1 ) {
+                                echo ' ; ';
+                            }
+                        }
+                    } else {
+                        echo '<a target="_blank" href="' . $ptna["original_license_url"] . '">' . htmlspecialchars($ptna["original_license"]) . '</a>';
+                    }
+                    echo '</td>' . "\n";
                 } else {
                     echo '                            <td class="gtfs-text">' . htmlspecialchars($ptna["original_license"]) . '</td>' . "\n";
                 }
