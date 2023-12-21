@@ -142,6 +142,8 @@
 
                     <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-OCC-Tisseo", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-PAC-Alpes-de-Haute-Provence", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Alpes-Maritimes", "fr", "Configuration" ); ?>
