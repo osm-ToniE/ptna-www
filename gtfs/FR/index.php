@@ -26,6 +26,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
     $duration += CreateGtfsEntry( "FR-CVL-TAO" );
     $duration += CreateGtfsEntry( "FR-GES-CTS" );
+    $duration += CreateGtfsEntry( "FR-OCC-Tisseo" );
     $duration += CreateGtfsEntry( "FR-PAC-Altigo" );
     $duration += CreateGtfsEntry( "FR-PAC-Bandol-et-Sanary-sur-mer" );
     $duration += CreateGtfsEntry( "FR-PAC-Lignes-d-Azur" );
