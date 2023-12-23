@@ -35,6 +35,7 @@
                 <?php CreateNewFullEntry( "US-MA-MWRTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-PVTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NY-MTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-RI-RIPTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-UT-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-WI-MCTS", "en", "Configuration" ); ?>

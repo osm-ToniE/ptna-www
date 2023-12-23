@@ -34,6 +34,7 @@
     $duration += CreateGtfsEntry( "US-NY-MTA-Queens-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Staten-Island-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Subway" );
+    $duration += CreateGtfsEntry( "US-RI-RIPTA" );
 ?>
                     </tbody>
                 </table>
