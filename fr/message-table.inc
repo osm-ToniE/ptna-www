@@ -982,6 +982,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Le groupement d&#039;itinéraire a %d membre avec un rôle</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Le groupement d&#039;itinéraires contient des nœud(s)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -1183,14 +1191,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs itinéraires mais pas de groupement d&#039;itinéraires</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route-Master has %d member with &#039;role&#039; being set</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
