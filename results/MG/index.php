@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="USA"><img src="/img/Madagascar32.png" alt="flag of the USA" /> Results for Madagascar</h2>
+            <h2 id="MG"><img src="/img/Madagascar32.png" alt="flag of Madagaska" /> Results for Madagascar</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
