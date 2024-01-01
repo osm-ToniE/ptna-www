@@ -22,7 +22,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="NL"><a href="index.php"><img src="/img/Netherlands32.png" alt="Flag of the Netherlands" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">the Netherlands</span>'; } ?></h2>
+            <h2 id="NL"><a href="index.php"><img src="/img/Netherlands32.png" alt="Vlag van Nederland" /></a> GTFS analyse voor <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Nederland</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>
