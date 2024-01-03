@@ -30,7 +30,7 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-B-ATM", "ca", "Configuració" ); ?>
+                    <?php CreateNewFullEntry( "ES-B-ATM", "es", "Configuración" ); ?>
 
                 </tbody>
             </table>
