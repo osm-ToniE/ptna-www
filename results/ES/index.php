@@ -12,11 +12,11 @@
 
         <main id="main" class="results">
 
-            <h2 id="CO"><img src="/img/Spain32.png" alt="bandera España" /> Resultados para España</h2>
+            <h2 id="ES"><img src="/img/Spain32.png" alt="bandera España" /> Resultados para España</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
-            <table id="networksCO">
+            <table id="networksES">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
@@ -29,6 +29,8 @@
                     <?php CreateNewFullEntry( "ES-AR-Z-CTAZ", "es", "Configuración" ); ?>
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
+
+                    <?php CreateNewFullEntry( "ES-B-ATM", "ca", "Configuració" ); ?>
 
                 </tbody>
             </table>
