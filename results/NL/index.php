@@ -22,9 +22,13 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "NL-???", "nl", "Configuratie" ); ?>
+                <?php CreateNewFullEntry( "NL-HRN", "nl", "Configuratie" ); ?>
 
-                </tbody>
+                <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie" ); ?>
+
+                <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie" ); ?>
+
+</tbody>
             </table>
 
         </main> <!-- main -->
