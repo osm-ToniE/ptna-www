@@ -30,7 +30,19 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMB", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "ES-CT-ATMB", "es", "Configuración" ); ?> <!-- Barcelona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-ATMG", "es", "Configuración en progreso" ); ?> <!-- Girona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-ATML", "es", "Configuración en progreso" ); ?> <!-- Lleida -->
+
+                    <?php CreateNewFullEntry( "ES-CT-ATMT", "es", "Configuración en progreso" ); ?> <!-- Camp de Tarragona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-VE", "es", "Configuración en progreso" ); ?> <!-- Terres de l’Ebre -->
+
+                    <?php CreateNewFullEntry( "ES-CT-VG", "es", "Configuración en progreso" ); ?> <!-- Girona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-VP", "es", "Configuración en progreso" ); ?> <!-- Alt Pirineu i Aran -->
 
                 </tbody>
             </table>
