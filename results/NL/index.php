@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="NL"><img src="/img/Netherlands32.png" alt="Vlag van Nderland" /> Resultaten voor Nederland</h2>
+            <h2 id="NL"><img src="/img/Netherlands32.png" alt="Vlag van Nederland" /> Resultaten voor Nederland</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
@@ -22,11 +22,11 @@
                 </thead>
                 <tbody>
 
-                <?php CreateNewFullEntry( "NL-HRN", "nl", "Configuratie bezig" ); ?>
+                <?php CreateNewFullEntry( "NL-HRN", "nl", "Configuratie" ); ?>
 
-                <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie bezig" ); ?>
+                <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie" ); ?>
 
-                <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie bezig" ); ?>
+                <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie" ); ?>
 
 </tbody>
             </table>
