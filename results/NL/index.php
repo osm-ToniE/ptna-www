@@ -26,7 +26,7 @@
 
                 <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie bezig" ); ?>
 
-                <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie bezig ); ?>
+                <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie bezig" ); ?>
 
 </tbody>
             </table>
