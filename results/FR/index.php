@@ -24,6 +24,8 @@
 
                     <?php CreateNewFullEntry("FR-ARA-Drome", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-Bibus", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
