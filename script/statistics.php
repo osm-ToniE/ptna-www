@@ -187,7 +187,7 @@
     function StatisticsPrintServerLoad() {
         $output_array = explode( "\n", shell_exec( "top -bn1" ) );
         foreach ( $output_array as $line ) {
-            if ( preg_match("/CPU.s/",$line) ) {
+            if ( preg_match("/us, /",$line) ) {
                 printf( "%s", $line );
             }
         }
