@@ -187,6 +187,7 @@
     function StatisticsPrintServerLoad() {
         $output_array = explode( "\n", shell_exec( "top -bn1" ) );
         foreach ( $output_array as $line ) {
+            printf( "<!-- %s -->\n", $line );
             if ( preg_match("/us, /",$line) ) {
                 printf( "%s", $line );
             }
