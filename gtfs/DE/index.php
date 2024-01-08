@@ -15,7 +15,6 @@
 
             <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für Deutschland</h2>
             <div class="indent">
-            <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">Keine Updates mehr für "DE-BY-VGN". Die Release-URL ist via 'curl' und 'wget' nicht mehr erreichbar: Eine Firewall-Regel scheint das zu blockeieren. Ein automatischer Update ist nicht mehr möglich.</span>
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsDE">
                     <thead>
