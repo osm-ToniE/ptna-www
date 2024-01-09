@@ -265,5 +265,11 @@
                 <td class="option-description">Route-Master und Route Relationen mit leerem &#039;operator&#039; werden nicht berücksichtigt.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-table-show-also">
+                <td class="option-option">table-show-also</td>
+                <td class="option-default"></td>
+                <td class="option-description">Zeige auch die Werte für diese Tags in der Tabelle der Liste der &#039;positiven&#039; Routen.<br />Beispiel: &#045;&#045;table-show-also=from,via,to</td>
+                <td class="option-image"></td>
+            </tr>
         </tbody>
     </table>

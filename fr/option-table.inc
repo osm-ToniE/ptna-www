@@ -265,5 +265,11 @@
                 <td class="option-description">Exclut les groupement d&#039;itinéraires (&#039;route_master&#039;) et itinéraires (&#039;route&#039;) sans &#039;operator&#039;.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-table-show-also">
+                <td class="option-option">table-show-also</td>
+                <td class="option-default"></td>
+                <td class="option-description">Show also the values of these tags in the table for the list of &#039;positive&#039; routes.<br />Exemple: &#045;&#045;table-show-also=from,via,to</td>
+                <td class="option-image"></td>
+            </tr>
         </tbody>
     </table>
