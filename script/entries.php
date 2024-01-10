@@ -1,8 +1,8 @@
 <?php
     include('../../script/details.php');
 
-    function PrintAnalysis( $network, $filename ) {
-        if ( $filename && file_exists($filename) && filesize($filename) > 0 ) {
+    function PrintAnalysis( $network, $filename, $filepath ) {
+        if ( $filename && file_exists($filepath) && filesize($filepath) > 0 ) {
             echo '<td data-ref="'.$network.'-name" class="results-name"><a href="'.$filename.'" title="analysis data">'.$network.'</a></td>';
         } else {
             echo '<td data-ref="'.$network.'-name" class="results-name attention">'.$network.' (see the <a href="/en/showlogs.php?network='.$network.'">log</a> file)</td>';;
@@ -108,7 +108,7 @@
 
         echo '<tr class="results-tablerow">';
         echo "\n                        ";
-        PrintAnalysis( $network, $filename_hash['ANALYSIS'] );
+        PrintAnalysis( $network, $filename_hash['ANALYSIS'], $filename_hash['ANALYSISFILEPATH'] );
         echo "\n                        ";
         PrintRegion( $network, $details_hash['REGION_LINK'], $details_hash['REGION_NAME'] );
         echo "\n                        ";
@@ -133,7 +133,7 @@
 
         echo '<tr class="results-tablerow">';
         echo "\n                        ";
-        PrintAnalysis( $network, $filename_hash['ANALYSIS'] );
+        PrintAnalysis( $network, $filename_hash['ANALYSIS'], $filename_hash['ANALYSISFILEPATH'] );
         echo "\n                        ";
         PrintRegion( $network, $details_hash['REGION_LINK'], $details_hash['REGION_NAME'] );
         echo "\n                        ";

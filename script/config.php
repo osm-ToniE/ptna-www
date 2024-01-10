@@ -239,10 +239,10 @@
         return( '' );
     }
 
-    function GetHtmlFileName() {
+    function GetHtmlFilePath() {
         global $filename_hash;
-        if ( isset($filename_hash['ANALYSIS']) ) {
-            return( $filename_hash['ANALYSIS'] );
+        if ( isset($filename_hash['ANALYSISFILEPATH']) ) {
+            return( $filename_hash['ANALYSISFILEPATH'] );
         }
         return( '' );
     }

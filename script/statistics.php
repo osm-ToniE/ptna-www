@@ -25,7 +25,7 @@
             $routes_size       = GetRoutesSize();
             $routes_date       = GetRoutesDate();
             $analysis_webpath  = GetHtmlFileWebPath();
-            $analysis_filename = GetHtmlFileName();
+            $analysis_filepath = GetHtmlFilePath();
             $start_analysis    = GetStartAnalysisDate();
             $end_analysis      = GetEndAnalysisDate();
             $duration_analysis = 0;
@@ -111,7 +111,7 @@
                     $duration_analysis = 1;
                 }
                 $analysis_total_secs += $duration_analysis;
-                if ( $analysis_webpath && file_exists($analysis_filename) && filesize($analysis_filename) > 0 ) {
+                if ( $analysis_webpath && file_exists($analysis_filepath) && filesize($analysis_filepath) > 0 ) {
                     printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $analysis_webpath, $start_analysis );
                 } else {
                     printf( "    <td class=\"statistics-date attention\">%s</td>\n", $start_analysis );
