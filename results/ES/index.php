@@ -30,6 +30,14 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
+                    <!-- see also: https://community.openstreetmap.org/t/ptna-i-arees-de-transport-network-guid/107647 -->
+
+                    <?php CreateNewFullEntry( "ES-CT-AB", "es", "Configuración en progreso" ); ?> <!-- Airport Barcelona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-AG", "es", "Configuración en progreso" ); ?> <!-- Airport Girona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-VP", "es", "Configuración en progreso" ); ?> <!-- Airport Reus -->
+
                     <?php CreateNewFullEntry( "ES-CT-ATMB", "es", "Configuración" ); ?> <!-- Barcelona -->
 
                     <?php CreateNewFullEntry( "ES-CT-ATMG", "es", "Configuración en progreso" ); ?> <!-- Girona -->
@@ -37,6 +45,12 @@
                     <?php CreateNewFullEntry( "ES-CT-ATML", "es", "Configuración en progreso" ); ?> <!-- Lleida -->
 
                     <?php CreateNewFullEntry( "ES-CT-ATMT", "es", "Configuración en progreso" ); ?> <!-- Camp de Tarragona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-TB", "es", "Configuración en progreso" ); ?> <!-- Tourism Barcelona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-TG", "es", "Configuración en progreso" ); ?> <!-- Tourism Girona -->
+
+                    <?php CreateNewFullEntry( "ES-CT-TT", "es", "Configuración en progreso" ); ?> <!-- Tourism Tarragona -->
 
                     <?php CreateNewFullEntry( "ES-CT-VE", "es", "Configuración en progreso" ); ?> <!-- Terres de l’Ebre -->
 
