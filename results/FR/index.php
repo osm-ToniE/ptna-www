@@ -144,7 +144,7 @@
 
                     <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-OCC-Tisseo", "fr", "Configuration" ); ?>
 
