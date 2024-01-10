@@ -5,7 +5,11 @@
         if ( $filename && file_exists($filepath) && filesize($filepath) > 0 ) {
             echo '<td data-ref="'.$network.'-name" class="results-name"><a href="'.$filename.'" title="analysis data">'.$network.'</a></td>';
         } else {
-            echo '<td data-ref="'.$network.'-name" class="results-name attention">'.$network.' (see the <a href="/en/showlogs.php?network='.$network.'">log</a> file)</td>';;
+            if ( file_exists($filepath) && filesize($filepath) == 0 ) {
+                echo '<td data-ref="'.$network.'-name" class="results-name attention">'.$network.' (see the <a href="/en/showlogs.php?network='.$network.'">log</a> file)</td>';;
+            } else {
+                echo '<td data-ref="'.$network.'-name" class="results-name">'.$network.'</td>';;
+            }
         }
     }
     function PrintRegion( $network, $link, $name ) {

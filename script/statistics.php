@@ -114,7 +114,11 @@
                 if ( $analysis_webpath && file_exists($analysis_filepath) && filesize($analysis_filepath) > 0 ) {
                     printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $analysis_webpath, $start_analysis );
                 } else {
-                    printf( "    <td class=\"statistics-date attention\">%s</td>\n", $start_analysis );
+                    if ( file_exists($analysis_filepath) && filesize($analysis_filepath) == 0 ) {
+                        printf( "    <td class=\"statistics-date attention\">%s</td>\n", $start_analysis );
+                    } else {
+                        printf( "    <td class=\"statistics-date\">%s</td>\n", $start_analysis );
+                    }
                 }
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_analysis/60, $duration_analysis%60 );
             } else {
