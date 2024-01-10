@@ -10,21 +10,11 @@
 
 <?php include $inc_lang.'header.inc' ?>
 
-       <nav id="navigation">
-            <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> Auswertungen für Deutschland</h2>
-            <ul>
-                <li><a href="#bahnverkehr">Bahnverkehr in Deutschland</a></li>
-                <li><a href="#verkehrsverbuende">Verkehrsverbünde in Deutschland</a></li>
-             </ul>
-        </nav>
-
-        <hr />
-
         <main id="main" class="results">
 
-<?php include $inc_lang.'results-head.inc' ?>
+        <h2 id="DE"><img src="/img/Germany32.png" alt="deutsche Flagge" /> Auswertungen für Deutschland</h2>
 
-            <hr />
+<?php include $inc_lang.'results-head.inc' ?>
 
             <h2 id="bahnverkehr">Bahnverkehr in Deutschland</h2>
             <table id="networksDEBahn">
