@@ -17,18 +17,18 @@
         if ( count($prefixparts) > 1 ) {
             $subdir = array_shift( $prefixparts );
             $details_filename  = $path_to_work . $countrydir . '/' . $subdir . '/' . $network . '-Analysis-details.txt';
-            $analysis_filename = $countrydir . '/' . $subdir . '/' . $network . '-Analysis.html';
+            $analysis_filename = $subdir . '/' . $network . '-Analysis.html';
             $diff_filename     = $subdir . '/' . $network . '-Analysis.diff.html';
             $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
             $diff_webpath      = "/results/" . $countrydir . '/' . $diff_filename;
         } else {
             $details_filename  = $path_to_work . $countrydir . '/' . $network . '-Analysis-details.txt';
-            $analysis_filename = $countrydir . '/' . $network . '-Analysis.html';
+            $analysis_filename = $network . '-Analysis.html';
             $diff_filename     = $network . '-Analysis.diff.html';
             $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
             $diff_webpath      = "/results/" . $countrydir . '/' . $diff_filename;
         }
-        $analysis_filepath = $path_to_www  .  "/results/" . $analysis_filename;
+        $analysis_filepath = $path_to_www  .  "/results/" . $countrydir . '/' . $analysis_filename;
 
         $details_hash = [];
         $details_hash['REGION_LINK']  = '';
