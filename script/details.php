@@ -28,7 +28,7 @@
             $analysis_webpath  = "/results/" . $countrydir . '/' . $analysis_filename;
             $diff_webpath      = "/results/" . $countrydir . '/' . $diff_filename;
         }
-        $analysis_filepath = $path_to_www  .  "/results/" . $countrydir . '/' . $analysis_filename;
+        $analysis_filepath = $path_to_www  . $analysis_webpath;
 
         $details_hash = [];
         $details_hash['REGION_LINK']  = '';
