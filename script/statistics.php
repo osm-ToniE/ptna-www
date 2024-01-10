@@ -25,12 +25,12 @@
             $routes_size       = GetRoutesSize();
             $routes_date       = GetRoutesDate();
             $analysis_webpath  = GetHtmlFileWebPath();
+            $analysis_filename = GetHtmlFileName();
             $start_analysis    = GetStartAnalysisDate();
             $end_analysis      = GetEndAnalysisDate();
             $duration_analysis = 0;
             $has_changes       = HasChanges();
             $html_diff         = GetHtmlDiff();
-            $analysis_webpath  = GetHtmlFileWebPath();
             $diff_webpath      = GetDiffFileWebPath();
             $tzname            = GetDetailsTZNAME();
             $tzshort           = GetDetailsTZSHORT();
@@ -111,10 +111,10 @@
                     $duration_analysis = 1;
                 }
                 $analysis_total_secs += $duration_analysis;
-                if ( $analysis_webpath ) {
+                if ( $analysis_webpath && file_exists($analysis_filename) && filesize($analysis_filename) > 0 ) {
                     printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $analysis_webpath, $start_analysis );
                 } else {
-                    printf( "    <td class=\"statistics-date\">%s</td>\n", $start_analysis );
+                    printf( "    <td class=\"statistics-date attention\">%s</td>\n", $start_analysis );
                 }
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_analysis/60, $duration_analysis%60 );
             } else {

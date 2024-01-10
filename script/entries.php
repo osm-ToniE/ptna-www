@@ -2,10 +2,10 @@
     include('../../script/details.php');
 
     function PrintAnalysis( $network, $filename ) {
-        if ( $filename && file_exists($filename) ) {
+        if ( $filename && file_exists($filename) && filesize($filename) > 0 ) {
             echo '<td data-ref="'.$network.'-name" class="results-name"><a href="'.$filename.'" title="analysis data">'.$network.'</a></td>';
         } else {
-            echo '<td data-ref="'.$network.'-name" class="results-name">'.$network.'</td>';;
+            echo '<td data-ref="'.$network.'-name" class="results-name attention">'.$network.' (see the <a href="/en/showlogs.php?network='.$network.'">log</a> file)</td>';;
         }
     }
     function PrintRegion( $network, $link, $name ) {

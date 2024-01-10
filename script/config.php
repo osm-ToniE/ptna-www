@@ -239,6 +239,14 @@
         return( '' );
     }
 
+    function GetHtmlFileName() {
+        global $filename_hash;
+        if ( isset($filename_hash['ANALYSIS']) ) {
+            return( $filename_hash['ANALYSIS'] );
+        }
+        return( '' );
+    }
+
     function GetHtmlFileWebPath() {
         global $filename_hash;
         if ( isset($filename_hash['ANALYSISWEBPATH']) ) {
