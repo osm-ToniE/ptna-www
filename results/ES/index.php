@@ -36,7 +36,7 @@
 
                     <?php CreateNewFullEntry( "ES-CT-AG", "es", "Configuración en progreso" ); ?> <!-- Airport Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-VP", "es", "Configuración en progreso" ); ?> <!-- Airport Reus -->
+                    <?php CreateNewFullEntry( "ES-CT-AR", "es", "Configuración en progreso" ); ?> <!-- Airport Reus -->
 
                     <?php CreateNewFullEntry( "ES-CT-ATMB", "es", "Configuración" ); ?> <!-- Barcelona -->
 
