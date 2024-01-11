@@ -7,14 +7,13 @@
     function InitOptionsHash() {
         global $options_hash;
 
-        $options_hash['language']                   = 'en';
         $options_hash['allow-coach']                = 'OFF';
         $options_hash['check-access']               = 'OFF';
         $options_hash['check-bus-stop']             = 'OFF';
         $options_hash['check-gtfs']                 = 'OFF';
         $options_hash['check-motorway-link']        = 'OFF';
-        $options_hash['check-name']                 = 'OFF';
         $options_hash['check-name-relaxed']         = 'OFF';
+        $options_hash['check-name']                 = 'OFF';
         $options_hash['check-osm-separator']        = 'OFF';
         $options_hash['check-platform']             = 'OFF';
         $options_hash['check-roundabouts']          = 'OFF';
@@ -25,13 +24,14 @@
         $options_hash['check-version']              = 'OFF';
         $options_hash['check-way-type']             = 'OFF';
         $options_hash['coloured-sketchline']        = 'OFF';
-        $options_hash['expect-network-long']        = 'OFF';
         $options_hash['expect-network-long-as']     = '';
         $options_hash['expect-network-long-for']    = '';
-        $options_hash['expect-network-short']       = 'OFF';
+        $options_hash['expect-network-long']        = 'OFF';
         $options_hash['expect-network-short-as']    = '';
         $options_hash['expect-network-short-for']   = '';
+        $options_hash['expect-network-short']       = 'OFF';
         $options_hash['gtfs-feed']                  = '';
+        $options_hash['language']                   = 'en';
         $options_hash['link-gtfs']                  = 'OFF';
         $options_hash['max-error']                  = '';
         $options_hash['multiple-ref-type-entries']  = 'analyze';
@@ -39,15 +39,16 @@
         $options_hash['network-short-regex']        = '';
         $options_hash['no-additional-navigation']   = 'OFF';
         $options_hash['operator-regex']             = '';
+        $options_hash['or-separator']               = '|';
         $options_hash['positive-notes']             = 'OFF';
         $options_hash['ptv1-compatibility']         = 'no';
+        $options_hash['ref-separator']              = '/';
         $options_hash['relaxed-begin-end-for']      = '';
+        $options_hash['separator']                  = ';';
         $options_hash['show-gtfs']                  = 'OFF';
         $options_hash['strict-network']             = 'OFF';
         $options_hash['strict-operator']            = 'OFF';
-        $options_hash['separator']                  = ';';
-        $options_hash['or-separator']               = '|';
-        $options_hash['ref-separator']              = '/';
+        $options_hash['table-show-also']            = '';
     }
 
     function ReadOptionDetails() {
