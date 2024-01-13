@@ -48,17 +48,17 @@
                     <!-- NL-FR-FR 	        Fryslân 	                                            Provincie Fryslân -->
                     <?php CreateNewFullEntry( "NL-FR-FR", "nl", "Configuratie wordt voorbereid" ); ?>
 
-                    <!-- NL-GD-VL 	        Treindienst Amersfoort - Ede-Wageningen (Valleilijn) 	Provincie Gelderland -->
-                    <?php CreateNewFullEntry( "NL-GD-VL", "nl", "Configuratie wordt voorbereid" ); ?>
-
-                    <!-- NL-GD-VZ 	        Veluwe-Zuid 	                                        Provincie Gelderland -->
-                    <?php CreateNewFullEntry( "NL-GD-VZ", "nl", "Configuratie wordt voorbereid" ); ?>
-
                     <!-- NL-GE-AN 	        Arnhem Nijmegen 	                                    Provincie Gelderland -->
-                    <?php CreateNewFullEntry( "NL-GE-AN", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-GE-AN", "nl", "Configuratie" ); ?>
 
                     <!-- NL-GE-ARL 	        Achterhoek-Rivierenland                                 Provincie Gelderland -->
-                    <?php CreateNewFullEntry( "NL-GE-ARL", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-GE-ARL", "nl", "Configuratie" ); ?>
+
+                    <!-- NL-GE-VL 	        Treindienst Amersfoort - Ede-Wageningen (Valleilijn) 	Provincie Gelderland -->
+                    <?php CreateNewFullEntry( "NL-GE-VL", "nl", "Configuratie" ); ?>
+
+                    <!-- NL-GE-VZ 	        Veluwe-Zuid 	                                        Provincie Gelderland -->
+                    <?php CreateNewFullEntry( "NL-GE-VZ", "nl", "Configuratie" ); ?>
 
                     <!-- NL-GR_DR-GD  	    Publiek Vervoer Groningen-Drenthe 	                    OV-bureau Groningen-Drenthe (OVBGD) -->
                     <?php CreateNewFullEntry( "NL-GR_DR-GD", "nl", "Configuratie wordt voorbereid" ); ?>
@@ -88,13 +88,13 @@
                     <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-GV 	        Gooi- en Vechtstreek 	                                Provincie Noord-Holland -->
-                    <?php CreateNewFullEntry( "NL-NH-GV", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-GV", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-HIJ 	        Haarlem-IJmond 	                                        Provincie Noord-Holland -->
-                    <?php CreateNewFullEntry( "NL-NH-HIJ", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-HIJ", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-NHN 	 	    Noord-Holland Noord 	                                Provincie Noord-Holland -->
-                    <?php CreateNewFullEntry( "NL-NH-NHN", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-NHN", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-NZKV 	    IJ- en Noordzeekanaalveren 	                            Gemeente Amsterdam  -->
                     <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie" ); ?>
