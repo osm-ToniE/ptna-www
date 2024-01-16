@@ -44,10 +44,10 @@
 #                echo $indent . '    <th colspan="4" class="gtfs-name"><input type="checkbox" name="type" value="d">Drop down list</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
                 echo $indent . '<tr><th colspan="3" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed . '</th>' . "\n";
-                echo $indent . '    <th style="border-left-width: 1px;">feed_publisher_name</th>' . "\n";
-                echo $indent . '    <th style="border-left-width: 1px;">feed_start_date</th>' . "\n";
-                echo $indent . '    <th style="border-left-width: 1px;">feed_end_date</th>' . "\n";
-                echo $indent . '    <th style="border-left-width: 1px;">feed_version</th>' . "\n";
+                echo $indent . '    <th style="border-left-width: 1px">feed_publisher_name</th>' . "\n";
+                echo $indent . '    <th style="border-left-width: 1px">feed_start_date</th>' . "\n";
+                echo $indent . '    <th style="border-left-width: 1px">feed_end_date</th>' . "\n";
+                echo $indent . '    <th style="border-left-width: 1px">feed_version</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
             } else {
                 echo $indent . '<tr><th colspan="7" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($STR_compare_versions) . '</button></th>' . "\n";
@@ -166,40 +166,40 @@
         if ( $feedDB1 && $feedDB2 ) {
             if ( isset($_GET['type']) && $_GET['type'] == 'd' ) {
                 echo $indent . '<tr><th colspan="3" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($STR_compare_routes) . '</button></th</tr>' . "\n";
-                echo $indent . '<tr><th class="gtfs-name">feed</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name">release_date</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name">Line (type, route_id, route_long_name)</td>'   . "\n";
+                echo $indent . '<tr><th class="gtfs-name">feed</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name">release_date</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name">Line (type, route_id, route_long_name)</th>'   . "\n";
                 echo $indent . '</tr>' . "\n";
            } else {
                 if ( $feed == $feed2 ) {
-                    echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="feed"  value="' . $feed  . '"><input type="hidden" name="feed2" value="' . $feed2 . '">&nbsp;</th>' . "\n";
+                    echo $indent . '<tr><th colspan="2" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed"  value="' . $feed  . '"><input type="hidden" name="feed2" value="' . $feed2 . '">&nbsp;</th>' . "\n";
                 } else {
-                    echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed  . "</th>\n";
-                    echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="feed2" value="' . $feed2 . '">'  . $feed2 . "</th>\n";
+                    echo $indent . '<tr><th colspan="1" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed  . "</th>\n";
+                    echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed2" value="' . $feed2 . '">'  . $feed2 . "</th>\n";
                 }
-                echo $indent . '    <th colspan="3" class="gtfs-name" style="border-left-width: 2px">Route</td>' . "\n";
-                echo $indent . '    <th colspan="4" class="gtfs-name" style="border-left-width: 2px">Number of</td>' . "\n";
-                echo $indent . '    <th colspan="3" class="gtfs-name" style="border-left-width: 2px">Stop sequence indicator by</td>' . "\n";
-                echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 2px">Dates</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px">&nbsp;</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px">&nbsp;</td>' . "\n";
+                echo $indent . '    <th colspan="3" class="gtfs-name" style="border-left-width: 2px">Route</th>' . "\n";
+                echo $indent . '    <th colspan="4" class="gtfs-name" style="border-left-width: 2px">Number of</th>' . "\n";
+                echo $indent . '    <th colspan="3" class="gtfs-name" style="border-left-width: 2px">Stop sequence indicator by</th>' . "\n";
+                echo $indent . '    <th colspan="2" class="gtfs-name" style="border-left-width: 2px">Dates</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px">&nbsp;</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px">&nbsp;</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
-                echo $indent . '<tr><th class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="release_date"  value="' . $release_date  . '">' . $release_date_display  . '</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="release_date"  value="' . $release_date2 . '">' . $release_date2_display . '</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">route_short_name</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name">route_type</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name">route_id</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Variants</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Stops</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_id</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_name</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_id</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_name</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_lat / stop_lon</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Start</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name">End</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">agency_name</td>' . "\n";
-                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">route_long_name</td>' . "\n";
+                echo $indent . '<tr><th class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="release_date"  value="' . $release_date  . '">' . $release_date_display  . '</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;"><input type="hidden" name="release_date2" value="' . $release_date2 . '">' . $release_date2_display . '</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">route_short_name</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name">route_type</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name">route_id</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Variants</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Stops</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_id</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_name</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_id</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_name</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">stop_lat / stop_lon</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">Start</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name">End</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">agency_name</th>' . "\n";
+                echo $indent . '    <th class="gtfs-name" style="border-left-width: 2px;">route_long_name</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
             }
         } else {
