@@ -82,7 +82,7 @@
                     <?php CreateNewFullEntry( "NL-NB-ZOB", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-NH-AML 	        Amstelland-Meerlanden 	                                Vervoerregio Amsterdam -->
-                    <?php CreateNewFullEntry( "NL-NH-AML", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-AML", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-ASD 	        Stadsvervoer Amsterdam 	                                Vervoerregio Amsterdam -->
                     <?php CreateNewFullEntry( "NL-NH-ASD", "nl", "Configuratie" ); ?>
@@ -100,10 +100,10 @@
                     <?php CreateNewFullEntry( "NL-NH-NZKV", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-SHL          Schiphol Landside/Airside 	                            Schiphol -->
-                    <?php CreateNewFullEntry( "NL-NH-SHL", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-SHL", "nl", "Configuratie" ); ?>
 
                     <!-- NL-NH-ZAWA         Zaanstreek-Waterland 	                                Vervoerregio Amsterdam -->
-                    <?php CreateNewFullEntry( "NL-NH-ZAWA", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-NH-ZAWA", "nl", "Configuratie" ); ?>
 
                     <!-- NL-OV_DR-VDL       Vechtdallijnen 	                                        Provincies Overijssel en Drenthe -->
                     <?php CreateNewFullEntry( "NL-OV_DR-VDL", "nl", "Configuratie wordt voorbereid" ); ?>
