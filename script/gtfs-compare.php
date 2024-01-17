@@ -25,6 +25,11 @@
     } else {
         $shape_id2      = isset($_GET['shape_id']) ? $_GET['shape_id'] : '';
     }
+    if ( isset($_GET['relation']) ) {
+        $osm_relation    = $_GET['relation'];
+    } else {
+        $osm_relation    = '';
+    }
 
 
     #
@@ -431,33 +436,102 @@
     #
     # called from compare-routes.php
     #
+    # colour palette: 11 colours
+    # #00ff00
+    # #6aef00
+    # #91df00
+    # #aecd00
+    # #c4ba00
+    # #d7a700
+    # #e59100
+    # #f17a00
+    # #f96000
+    # #fe4000
+    # #ff0000
+    #
 
-    function CreateCompareRoutesTableHead( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ) {
-        global $STR_compare_trips;
-        global $STR_invalid_input_data;
-
+    function CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation ) {
         $start_time = gettimeofday(true);
         $indent = '                            ';
-        $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
-        $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
-        if ( $feedDB1 && $feedDB2 ) {
-            ;
-        } else {
-            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
-        }
-        $stop_time = gettimeofday(true);
-        return $stop_time - $start_time;
-    }
-
-    function CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ) {
-        $start_time = gettimeofday(true);
-        $indent = '                            ';
-        $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
-        $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
-        if ( $feedDB1 && $feedDB2 ) {
-            ;
-        }
+        #$feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
+        #if ( $feed2 ) {
+        #    $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
+        #}
+        #if ( $feedDB1 && ( $feedDB2 || $osm_relation ) ) {
+            echo '<table id="routes-table" class="compare">' . "\n";
+            echo '    <thead>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th rowspan="2" colspan="3" style="background-color: #6698FF">Low Score<br/>Small values indicate a good match between GTFS trip and OSM route!<br/>For a more detailed comparison, click on a number.' . "</th>\n";
+            echo '            <th colspan="4" style="background-color: #bbbbbb" title="Route-Master Relation-ID 67811"><a target="_blank" href="https://www.openstreetmap.org/relation/67811">OSM route</a>' . "</th>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th style="background-color: #cccccc" title="Relation-ID 9797611">Neuperlach Süd (S/U)<br/>... 4 stops ...<br/>Ottobrunn, Ortsmitte' . "</th>\n";
+            echo '            <th style="background-color: #dddddd" title="Relation-ID 1549762">Neuperlach Süd (S/U)<br/>... 13 stops ...<br/>Brunnthal, Zusestraße' . "</th>\n";
+            echo '            <th style="background-color: #cccccc" title="Relation-ID 9797610">Ottobrunn, Jahnstraße<br/>... 3 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
+            echo '            <th style="background-color: #dddddd" title="Relation-ID 1549761">Brunnthal, Zusestraße<br/>... 12 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
+            echo '        </tr>' . "\n";
+            echo '    </thead>' . "\n";
+            echo '    <tbody>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" rowspan="7" style="background-color: #bbbbbb" title="route_id 19-210-s24-1"><a target="_blank" href="/gtfs/DE/trips.php?feed=DE-BY-MVV&release_date=&route_id=19-210-s24-1">GTFS route</a>' . "</th>\n";
+            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 242.T0.19-210-s24-1.5.R">Brunnthal, Zusestraße ... 0 stops ... Brunnthal, Zusestraße' . "</th>\n";
+            echo '            <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtiger Anfang der Fahrt: gleiche \'stop_name\'. Verdächtiges Ende der Fahrt: gleiche \'stop_name\'. Verdächtige Anzahl von Haltestellen: \'2\'. Verdächtige Fahrzeit: \'0:00\'"/>' . "</td>\n";
+            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
+            echo '            <td align="center" style="background-color: #d7a700">6' . "</td>\n";
+            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 320.T0.19-210-s24-1.1.H">Brunnthal, Zusestraße ... 12 stops ... Neuperlach Süd' . "</th>\n";
+            echo '            <td align="center" style="background-color: #dddddd">&nbsp;' . "</td>\n";
+            echo '            <td align="center" style="background-color: #ff0000">11' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
+            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
+            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 1.T0.19-210-s24-1.4.R">Neuperlach Süd ... 13 stops ... Brunnthal, Zusestraße' . "</th>\n";
+            echo '            <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
+            echo '            <td align="center" style="background-color: #ff0000">11' . "</td>\n";
+            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
+            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
+            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 222.T0.19-210-s24-1.3.H">Neuperlach Süd ... 0 stops ... Ottobrunn, Jahnstraße' . "</th>\n";
+            echo '            <td align="center" style="background-color: #dddddd"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtige Anzahl von Haltestellen: \'2\'"/>' . "</td>\n";
+            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
+            echo '            <td align="center" style="background-color: #d7a700">6' . "</td>\n";
+            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 225.T0.19-210-s24-1.7.R">Neuperlach Süd ... 4 stops ... Ottobrunn, Ortsmitte' . "</th>\n";
+            echo '            <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
+            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
+            echo '            <td align="center" style="background-color: #91df00">3' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 219.T0.19-210-s24-1.2.H">Ottobrunn, Jahnstraße ... 3 stops ... Neuperlach Süd' . "</th>\n";
+            echo '            <td align="center" style="background-color: #dddddd"><img src="/img/Information32.png" height="18" width="18" alt="Information" title="Fahrt ist Teilroute von: 320.T0.19-210-s24-1.1.H"/>' . "</td>\n";
+            echo '            <td align="center" style="background-color: #fe4000">10' . "</td>\n";
+            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
+            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
+            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '        <tr>' . "\n";
+            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 308.T0.19-210-s24-1.6.R">Ottobrunn, Ortsmitte ... 0 stops ... Neuperlach Süd' . "</th>\n";
+            echo '            <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtige Anzahl von Haltestellen: \'2\'"/>' . "</td>\n";
+            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
+            echo '            <td align="center" style="background-color: #6aef00">1' . "</td>\n";
+            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
+            echo '        </tr>' . "\n";
+            echo '    </tbody>' . "\n";
+            echo '</table>' . "\n";
+        #}
         $stop_time = gettimeofday(true);
         return $stop_time - $start_time;
     }

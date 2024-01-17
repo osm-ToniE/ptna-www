@@ -23,27 +23,29 @@
 
         <main id="main" class="results">
 
-            <h2 id="compare-routes"><?php echo $STR_compare_gtfs_routes;
+            <h2 id="compare-routes">DE-BY-MVV Bus 210: compare GTFS route (<a target="_blank" href="/gtfs/DE/trips.php?feed=DE-BY-MVV&release_date=&route_id=19-210-s24-1">19-210-s24-1</a>) with OSM route_master (<a target="_blank" href="https://www.openstreetmap.org/relation/67811">67811</a>)<!-- <?php echo $STR_compare_gtfs_routes;
                                           if ( $feed == $feed2 ) {
                                              echo ' - ' . $feed;
                                           }
-                                     ?></h2>
+                                     ?> --> </h2>
             <div class="indent">
-
+                <p>
+                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">This is proof-of-concept (fake) data based on a specific bus: DE-BY-MVV Bus 210. Just to discuss the layout of this page, ...</span>
+                </p>
                 <form method="get" action="compare-trips.php">
-                    <table id="routes-table" class="compare">
-                        <thead>
-<?php $duration = CreateCompareRoutesTableHead( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
-                        </thead>
-                        <tbody>
-<?php $duration += CreateCompareRoutesTableBody( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2 ); ?>
-                        </tbody>
-                    </table>
+<?php $duration = CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation ); ?>
                     <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
-
                     <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
                 </form>
+            </div>
 
+            <hr />
+
+            <h2 id="calculate-score"><?php echo "Calculation of Score"; ?></h2>
+            <div class="indent">
+                <p>
+                    Currently, the scores are not calulated but set manually to an arbritary value.
+                </p>
             </div>
 
         </main> <!-- main -->
