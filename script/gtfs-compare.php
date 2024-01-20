@@ -25,8 +25,8 @@
     } else {
         $shape_id2      = isset($_GET['shape_id']) ? $_GET['shape_id'] : '';
     }
-    if ( isset($_GET['relation']) ) {
-        $osm_relation    = $_GET['relation'];
+    if ( isset($_GET['relation_id']) ) {
+        $osm_relation    = $_GET['relation_id'];
     } else {
         $osm_relation    = '';
     }
@@ -177,7 +177,7 @@
                 echo $indent . '</tr>' . "\n";
            } else {
                 if ( $feed == $feed2 ) {
-                    echo $indent . '<tr><th colspan="2" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed"  value="' . $feed  . '"><input type="hidden" name="feed2" value="' . $feed2 . '">&nbsp;</th>' . "\n";
+                    echo $indent . '<tr><th colspan="2" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed"  value="' . $feed  . '"><input type="hidden" name="feed2" value="' . $feed2 . '">Release Date</th>' . "\n";
                 } else {
                     echo $indent . '<tr><th colspan="1" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed"  value="' . $feed  . '">'  . $feed  . "</th>\n";
                     echo $indent . '    <th colspan="1" class="gtfs-name" style="border-left-width: 2px"><input type="hidden" name="feed2" value="' . $feed2 . '">'  . $feed2 . "</th>\n";
@@ -436,102 +436,124 @@
     #
     # called from compare-routes.php
     #
-    # colour palette: 11 colours
+    # colour palette: 6 resp. 11 colours RGB
     # #00ff00
-    # #6aef00
+    #         #6aef00
     # #91df00
-    # #aecd00
+    #         #aecd00
     # #c4ba00
-    # #d7a700
+    #         #d7a700
     # #e59100
-    # #f17a00
+    #         #f17a00
     # #f96000
-    # #fe4000
+    #         #fe4000
     # #ff0000
     #
 
-    function CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation ) {
+    function CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation, $ptna_lang ) {
         $start_time = gettimeofday(true);
-        $indent = '                            ';
+        $indent = '                ';
         #$feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
         #if ( $feed2 ) {
         #    $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
         #}
         #if ( $feedDB1 && ( $feedDB2 || $osm_relation ) ) {
-            echo '<table id="routes-table" class="compare">' . "\n";
-            echo '    <thead>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th rowspan="2" colspan="3" style="background-color: #6698FF">Low Score<br/>Small values indicate a good match between GTFS trip and OSM route!<br/>For a more detailed comparison, click on a number.' . "</th>\n";
-            echo '            <th colspan="4" style="background-color: #bbbbbb" title="Route-Master Relation-ID 67811"><a target="_blank" href="https://www.openstreetmap.org/relation/67811">OSM route</a>' . "</th>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th style="background-color: #cccccc" title="Relation-ID 9797611">Neuperlach Süd (S/U)<br/>... 4 stops ...<br/>Ottobrunn, Ortsmitte' . "</th>\n";
-            echo '            <th style="background-color: #dddddd" title="Relation-ID 1549762">Neuperlach Süd (S/U)<br/>... 13 stops ...<br/>Brunnthal, Zusestraße' . "</th>\n";
-            echo '            <th style="background-color: #cccccc" title="Relation-ID 9797610">Ottobrunn, Jahnstraße<br/>... 3 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
-            echo '            <th style="background-color: #dddddd" title="Relation-ID 1549761">Brunnthal, Zusestraße<br/>... 12 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
-            echo '        </tr>' . "\n";
-            echo '    </thead>' . "\n";
-            echo '    <tbody>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" rowspan="7" style="background-color: #bbbbbb" title="route_id 19-210-s24-1"><a target="_blank" href="/gtfs/DE/trips.php?feed=DE-BY-MVV&release_date=&route_id=19-210-s24-1">GTFS route</a>' . "</th>\n";
-            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 242.T0.19-210-s24-1.5.R">Brunnthal, Zusestraße ... 0 stops ... Brunnthal, Zusestraße' . "</th>\n";
-            echo '            <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtiger Anfang der Fahrt: gleiche \'stop_name\'. Verdächtiges Ende der Fahrt: gleiche \'stop_name\'. Verdächtige Anzahl von Haltestellen: \'2\'. Verdächtige Fahrzeit: \'0:00\'"/>' . "</td>\n";
-            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
-            echo '            <td align="center" style="background-color: #d7a700">6' . "</td>\n";
-            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 320.T0.19-210-s24-1.1.H">Brunnthal, Zusestraße ... 12 stops ... Neuperlach Süd' . "</th>\n";
-            echo '            <td align="center" style="background-color: #dddddd">&nbsp;' . "</td>\n";
-            echo '            <td align="center" style="background-color: #ff0000">11' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
-            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
-            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 1.T0.19-210-s24-1.4.R">Neuperlach Süd ... 13 stops ... Brunnthal, Zusestraße' . "</th>\n";
-            echo '            <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
-            echo '            <td align="center" style="background-color: #ff0000">11' . "</td>\n";
-            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
-            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
-            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 222.T0.19-210-s24-1.3.H">Neuperlach Süd ... 0 stops ... Ottobrunn, Jahnstraße' . "</th>\n";
-            echo '            <td align="center" style="background-color: #dddddd"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtige Anzahl von Haltestellen: \'2\'"/>' . "</td>\n";
-            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
-            echo '            <td align="center" style="background-color: #d7a700">6' . "</td>\n";
-            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 225.T0.19-210-s24-1.7.R">Neuperlach Süd ... 4 stops ... Ottobrunn, Ortsmitte' . "</th>\n";
-            echo '            <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
-            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
-            echo '            <td align="center" style="background-color: #91df00">3' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #dddddd" title="trip_id 219.T0.19-210-s24-1.2.H">Ottobrunn, Jahnstraße ... 3 stops ... Neuperlach Süd' . "</th>\n";
-            echo '            <td align="center" style="background-color: #dddddd"><img src="/img/Information32.png" height="18" width="18" alt="Information" title="Fahrt ist Teilroute von: 320.T0.19-210-s24-1.1.H"/>' . "</td>\n";
-            echo '            <td align="center" style="background-color: #fe4000">10' . "</td>\n";
-            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
-            echo '            <td align="center" style="background-color: #00ff00">0' . "</td>\n";
-            echo '            <td align="center" style="background-color: #c4ba00">5' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '        <tr>' . "\n";
-            echo '            <th align="right" style="background-color: #cccccc" title="trip_id 308.T0.19-210-s24-1.6.R">Ottobrunn, Ortsmitte ... 0 stops ... Neuperlach Süd' . "</th>\n";
-            echo '            <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" title="Verdächtige Anzahl von Haltestellen: \'2\'"/>' . "</td>\n";
-            echo '            <td align="center" style="background-color: #e59100">7' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f96000">9' . "</td>\n";
-            echo '            <td align="center" style="background-color: #6aef00">1' . "</td>\n";
-            echo '            <td align="center" style="background-color: #f17a00">8' . "</td>\n";
-            echo '        </tr>' . "\n";
-            echo '    </tbody>' . "\n";
-            echo '</table>' . "\n";
-        #}
+            echo "\n";
+            echo $indent . '<div class="tableFixHead" style="height: 300px">' . "\n";
+            echo $indent . '    <table id="routes-table" class="compare">' . "\n";
+            echo $indent . '        <thead>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <th rowspan="2" colspan="3" style="background-color: #6698FF; text-align: left">' .
+                                            'Small values indicate a good match between GTFS trip and OSM route.<br/>&nbsp;- xS == number of stops differs by "x"<br/>&nbsp;- yP == number of stops where positions differ by more than 10 meters<br/>For a more detailed comparison, click on a number.' . "</th>\n";
+            echo $indent . '                <th colspan="4" style="background-color: #bbbbbb" title="Route-Master Relation-ID 67811"><a target="_blank" href="https://www.openstreetmap.org/relation/67811">OSM route_master</a>' . "</th>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <th style="background-color: #cccccc" ' .
+                                            'title="Relation-ID 9797611">Neuperlach Süd (S/U)<br/>... 4 stops ...<br/>Ottobrunn, Ortsmitte' . "</th>\n";
+            echo $indent . '                <th style="background-color: #dddddd" ' .
+                                            'title="Relation-ID 1549762">Neuperlach Süd (S/U)<br/>... 13 stops ...<br/>Brunnthal, Zusestraße' . "</th>\n";
+            echo $indent . '                <th style="background-color: #cccccc" ' .
+                                            'title="Relation-ID 9797610">Ottobrunn, Jahnstraße<br/>... 3 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
+            echo $indent . '                <th style="background-color: #dddddd" ' .
+                                            'title="Relation-ID 1549761">Brunnthal, Zusestraße<br/>... 12 stops ...<br/>Neuperlach Süd (S/U)' . "</th>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '        </thead>' . "\n";
+            echo $indent . '        <tbody>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  rowspan="7" style="background-color: #bbbbbb" ' .
+                                            'title="route_id 19-210-s24-1"><a target="_blank" href="/gtfs/DE/trips.php?feed=DE-BY-MVV&release_date=&route_id=19-210-s24-1">GTFS route</a>' . "</td>\n";
+            echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
+                                            'title="trip_id 242.T0.19-210-s24-1.5.R">Brunnthal, Zusestraße ... 0 stops ... Brunnthal, Zusestraße' . "</td>\n";
+            echo $indent . '                    <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" ' .
+                                            'title="Suspicious start of trip: same \'stop_name\'.' . "\n" .
+                                            'Suspicious end of trip: same \'stop_name\'.' . "\n" .
+                                            'Suspicious number of stops: \'2\'.' . "\n" .
+                                            'Suspicious travel time: \'0:00\'"/>' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #c4ba00">4S / 8P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #d7a700">13S / 16P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #91df00">3S / 7P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f96000">12S / 13P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
+                                            'title="trip_id 320.T0.19-210-s24-1.1.H">Brunnthal, Zusestraße ... 12 stops ... Neuperlach Süd' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #dddddd">&nbsp;' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">8S / 20P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f96000">1S / 29P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #e59100">9S / 9P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #00ff00">0S / 0P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
+                                            'title="trip_id 1.T0.19-210-s24-1.4.R">Neuperlach Süd ... 13 stops ... Brunnthal, Zusestraße' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #e59100">9S / 9P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #00ff00">0S / 0P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">10S / 19P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #c4ba00">1S / 14P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
+                                            'title="trip_id 222.T0.19-210-s24-1.3.H">Neuperlach Süd ... 0 stops ... Ottobrunn, Jahnstraße' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #dddddd"><img src="/img/Attention32.png" height="18" width="18" alt="Information" ' .
+                                            'title="Suspicious number of stops: \'2\'"/>' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #91df00">4S / 6P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">13S / 15P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #91df00">3S / 7P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f96000">12S / 13P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
+                                            'title="trip_id 225.T0.19-210-s24-1.7.R">Neuperlach Süd ... 4 stops ... Ottobrunn, Ortsmitte' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #00ff00">0S / 0P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #e59100">9S / 9P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #91df00">1S / 9P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">8S / 18P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
+                                            'title="trip_id 219.T0.19-210-s24-1.2.H">Ottobrunn, Jahnstraße ... 3 stops ... Neuperlach Süd' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #dddddd"><img src="/img/Information32.png" height="18" width="18" alt="Information" title="Trip is subroute of: 320.T0.19-210-s24-1.1.H"/>' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #e59100">1S / 18P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">10S / 18P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #00ff00">0S / 0P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #e59100">9S / 10P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
+                                            'title="trip_id 308.T0.19-210-s24-1.6.R">Ottobrunn, Ortsmitte ... 0 stops ... Neuperlach Süd' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" ' .
+                                            'title="Suspicious number of stops: \'2\'"/>' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #c4ba00">4S / 8P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">13S / 15P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #91df00">3S / 5P' . "</td>\n";
+            echo $indent . '                <td align="center" style="background-color: #ff0000">12S / 14P' . "</td>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '        </tbody>' . "\n";
+            echo $indent . '    </table>' . "\n";
+            echo $indent . '</div>' . "\n";
+            #}
         $stop_time = gettimeofday(true);
         return $stop_time - $start_time;
     }

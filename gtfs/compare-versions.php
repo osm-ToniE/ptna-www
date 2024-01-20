@@ -17,21 +17,21 @@
 
     <body onload="toggle('hideable')">
       <script>function toggle(thisname) {
-                  button_text = 'Hide Unchanged';
-                  tr=document.getElementsByTagName('tr');
-                  for (i=0;i<tr.length;i++){
-                      if (tr[i].getAttribute(thisname)){
-                          if ( tr[i].style.display=='none' ){
-                             tr[i].style.display = '';
-                             button_text = 'Hide Unchanged';
-                          } else {
-                             tr[i].style.display = 'none';
-                             button_text = 'Show all';
-                          }
-                      }
-                  }
-                  document.getElementById('show-hide').innerHTML = button_text;
-              }
+                button_text = 'Hide Unchanged';
+                tr=document.getElementsByTagName('tr');
+                for (i=0;i<tr.length;i++){
+                    if (tr[i].getAttribute(thisname)){
+                        if ( tr[i].style.display=='none' ){
+                           tr[i].style.display = '';
+                           button_text = 'Hide Unchanged';
+                        } else {
+                           tr[i].style.display = 'none';
+                           button_text = 'Show all';
+                        }
+                    }
+                }
+                document.getElementById('show-hide').innerHTML = button_text;
+            }
       </script>
       <div id="wrapper">
 
@@ -44,13 +44,16 @@
                                                 echo ' - ' . $feed;
                                             }
                                       ?></h2>
-            <div class="indent">
+            <div class="indent tableFixHead" style="height: 700">
 
                 <form method="get" action="compare-routes.php">
-                    <button class="button-create" type="submit"><?php echo htmlspecialchars($STR_compare_routes); ?></button>
-                    <button id="show-hide" class="button-create" type="button" onclick="toggle('hideable');">Hide Unchanged</button>
                     <table  id="versions-table" class="compare">
                         <thead>
+                            <?php echo '<tr>' . "\n" . '    <th colspan="16" style="text-align: left">' . "\n";
+                                  echo '        <button class="button-create" type="submit">' . htmlspecialchars($STR_compare_routes) . '</button>' . "\n";
+                                  echo '        <button id="show-hide" class="button-create" type="button" onclick="toggle(\'hideable\');">Hide Unchanged</button>' . "\n";
+                                  echo "    </th>\n</tr>\n";
+                            ?>
 <?php $duration = CreateCompareVersionsTableHead( $feed, $feed2, $release_date, $release_date2 ); ?>
                         </thead>
                         <tbody>
