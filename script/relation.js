@@ -1,8 +1,11 @@
 //
 //
 //
-const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
-const OSM_API_URL_SUFFIX = '/full.json';
+//const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
+//const OSM_API_URL_SUFFIX = '/full.json';
+
+const OSM_API_URL_PREFIX = 'http://overpass-api.de/api/interpreter?data=[out:json];relation(';
+const OSM_API_URL_SUFFIX = ');(._;>>;);out;';
 
 const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
