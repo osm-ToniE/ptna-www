@@ -11,7 +11,11 @@
         }
         include( '../script/gtfs.php'         );
         include( '../script/gtfs-compare.php' );
-        $title=$STR_gtfs_comparison;
+        if ( $osm_relation ) {
+            $title="Compare GTFS trip with OSM route";
+        } else {
+            $title="Compare GTFS trip with GTFS trip";
+        }
         include $lang_dir.'html-head.inc';
 ?>
 
@@ -23,26 +27,24 @@
 
         <main id="main" class="results">
 
-            <h2 id="compare-trips"><?php echo $STR_compare_gtfs_trips;
-                                         if ( $feed == $feed2 ) {
-                                            echo ' - ' . $feed;
-                                         }
-                                    ?></h2>
+        <?php   if ( $osm_relation ): ?>
+            <h2 id="compare-routes">Compare GTFS trip with OSM route</h2>
+<?php   else: ?>
+            <h2 id="compare-routes">Compare GTFS trip with GTFS trip</h2>
+<?php   endif ?>
             <div class="indent">
-
-                <form method="get" action="compare-shapes.php">
-                    <table id="trips-table" class="compare">
-                        <thead>
-<?php $duration = CreateCompareTripsTableHead( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2 ); ?>
-                        </thead>
-                        <tbody>
-<?php $duration += CreateCompareTripsTableBody( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2 ); ?>
-                        </tbody>
-                    </table>
-                    <?php if ( $ptna_lang != 'en' ) { echo '<input type="hidden" name="lang" value="' . $ptna_lang . '">'; } ?>
-
-                    <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
-                </form>
+                <p>
+                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">This is proof-of-concept (fake) data based on a specific bus: DE-BY-MVV Bus 210. Just to discuss the layout of this page, ...</span>
+                </p>
+                <table id="trips-table" class="compare">
+                    <thead>
+<?php $duration = CreateCompareTripsTableHead( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
+                    </thead>
+                    <tbody>
+<?php $duration += CreateCompareTripsTableBody( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
+                    </tbody>
+                </table>
+                <?php printf( "<!-- " . $STR_sql_queries_took . " -->\n", $duration ); ?>
             </div>
 
         </main> <!-- main -->

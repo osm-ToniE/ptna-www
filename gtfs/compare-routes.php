@@ -11,7 +11,11 @@
         }
         include( '../script/gtfs.php'         );
         include( '../script/gtfs-compare.php' );
-        $title=$STR_gtfs_comparison;
+        if ( $osm_relation ) {
+            $title="Compare GTFS route with OSM route_master";
+        } else {
+            $title="Compare GTFS route with GTFS route";
+        }
         include $lang_dir.'html-head.inc';
 ?>
 
@@ -30,7 +34,13 @@
                     <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">This is proof-of-concept (fake) data based on a specific bus: DE-BY-MVV Bus 210. Just to discuss the layout of this page, ...</span>
                 </p>
                 <?php $duration = CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation, $ptna_lang ); ?>
-                <?php printf( $STR_sql_queries_took . "\n", $duration ); ?>
+                <?php printf( "<!-- " . $STR_sql_queries_took . " -->\n", $duration ); ?>
+                Small values indicate a good match between GTFS trip and OSM route.
+                    <ul>
+                        <li>xS == number of stops differs by "x"</li>
+                        <li>yP == number of stops where positions differ by more than 10 meters</li>
+                    </ul>
+                For a more detailed comparison, click on a number.
             </div>
 <?php   else: ?>
             <h2 id="compare-routes">Compare GTFS route with GTFS route</h2>
