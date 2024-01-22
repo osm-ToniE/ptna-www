@@ -32,6 +32,13 @@
     } else {
         $osm_relation    = '';
     }
+    if ( isset($_GET['poc']) ) {
+        $prove_of_concept = 1;
+    } elseif  ( isset($_GET['prove-of-concept']) ) {
+        $prove_of_concept = 1;
+    } else {
+        $prove_of_concept = 0;
+    }
 
 
     #
@@ -491,7 +498,7 @@
                                             'Suspicious end of trip: same \'stop_name\'.' . "\n" .
                                             'Suspicious number of stops: \'2\'.' . "\n" .
                                             'Suspicious travel time: \'0:00\'"/>' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #c4ba00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=' . htmlspecialchars($feed) . '&release_date=' . htmlspecialchars($release_date) . '&trip_id=' . htmlspecialchars("242.T0.19-210-s24-1.5.R") . '&relation=' . htmlspecialchars("9797611") . '" title="">4S / 8P' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #c4ba00"><a target="_blank"  href="/gtfs/compare-trips.php?poc&feed=' . htmlspecialchars($feed) . '&release_date=' . htmlspecialchars($release_date) . '&trip_id=' . htmlspecialchars("242.T0.19-210-s24-1.5.R") . '&relation=' . htmlspecialchars("9797611") . '" title="">4S / 8P' . "</a></td>\n";
             echo $indent . '                <td align="center" style="background-color: #d7a700"><a target="_blank"  href="" title="">13S / 16P' . "</a></td>\n";
             echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">3S / 7P' . "</a></td>\n";
             echo $indent . '                <td align="center" style="background-color: #f96000"><a target="_blank"  href="" title="">12S / 13P' . "</a></td>\n";
@@ -565,30 +572,306 @@
     # called from compare-trips.php
     #
 
-    function CreateCompareTripsTableHead( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ) {
+    function CreateCompareTripsTable( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ) {
         global $STR_compare_shapes;
         global $STR_invalid_input_data;
 
         $start_time = gettimeofday(true);
-        $indent = '                            ';
-        $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
-        $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
-        if ( $feedDB1 && $feedDB2 ) {
-            ;
-        } else {
-            if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
-            if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
-        }
-        $stop_time = gettimeofday(true);
-        return $stop_time - $start_time;
-    }
-
-    function CreateCompareTripsTableBody( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ) {
-        $start_time = gettimeofday(true);
-        $indent = '                            ';
-        $feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
-        $feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
-        if ( $feedDB1 && $feedDB2 ) {
+        $indent = '                ';
+        #$feedDB1 = FindGtfsSqliteDb( $feed,  $release_date  );
+        #$feedDB2 = FindGtfsSqliteDb( $feed2, $release_date2 );
+        #if ( $feedDB1 && $feedDB2 ) {
+        #    ;
+        #} else {
+        #    if ( !$feedDB1 )                                                            { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed'  = '" . htmlspecialchars($feed)  . "' + 'release_date'   = '" . htmlspecialchars($release_date)   . "'</p>\n"; }
+        #    if ( !$feedDB2 && ($feed != $feed2 || $release_date != $release_date2) )    { echo "<p>" . htmlspecialchars($STR_invalid_input_data) . ": 'feed2' = '" . htmlspecialchars($feed2) . "' + 'release_date2'  = '" . htmlspecialchars($release_date2)  . "'</p>\n"; }
+        #}
+        if ( $osm_relation == 9797611 ) {
+            $feed = "DE-BY-MVV";
+            echo "\n";
+            echo $indent . '<div class="tableFixHead" style="height: 900px; max-height: 660px">' . "\n";
+            echo $indent . '    <table id="trips-table" class="compare">' . "\n";
+            echo $indent . '        <thead style="background-color: #bbbbbb"' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <th style="background-color: #6698FF; text-align: center" rowspan="2">Stop<br/>Number' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center" colspan="4">Stop data of GTFS trip (' . $trip_id . ")</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center" colspan="3">Distance' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center" colspan="5">Platform data of OSM route (' . $osm_relation . ")</th>\n";
+            echo $indent . '                <th style="background-color: #6698FF; text-align: center" rowspan="2">Platform<br/>Number' . "</th>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">stop_id' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">stop_lat' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">stop_lon' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: right">stop_name' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center" colspan="3">[m]' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: left">name' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: left">ref_name' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">lat' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">lon' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb; text-align: center">ref:IFOPT' . "</th>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '        </thead>' . "\n";
+            echo $indent . '        <tbody>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center">1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">de:09184:2315:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">48.04049</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">11.66140</td>' . "\n";
+            echo $indent . '                <td style="text-align: right">Brunnthal, Zusestraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: yellow">40</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left">Zusestraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left">Brunnthal, Zusestraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: yellow">48.04081</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: yellow">11.66148</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2315:0:2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">1</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center">57</td>' . "\n";
+            echo $indent . '                <td>&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">653</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center">2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">de:09184:2315:0:2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">48.04096</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">11.66142</td>' . "\n";
+            echo $indent . '                <td style="text-align: right">Brunnthal, Zusestraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">638</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Willy-Messerschmitt-Straße /</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Willy-Messerschmitt-Straße, Taufkirchen (Kreis München)</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.04639</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65870</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2437:0:2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">2</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">630</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #3 of OSM">1260</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Lilienthalstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Lilienthalstraße, Taufkirchen (Kreis München)</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.05150</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65507</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2389:0:2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">3</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">481</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #4 of OSM">1280</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Einsteinstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Einsteinstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.05245</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66137</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2245:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">4</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">304</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #5 of OSM">1440</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Röntgenstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Röntgenstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.05371</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66500</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2247:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">5</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">306</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #6 of OSM">1720</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Robert-Koch-Straße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Robert-Koch-Straße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.05576</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66773</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2203:3:3</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">6</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">418</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #7 of OSM">2050</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Ottostraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Ottostraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.05919</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66544</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2192:1:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">7</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">299</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #8 of OSM">2300</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Hubertusstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Hubertusstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.06160</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66367</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2242:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">8</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">420</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #9 of OSM">2670</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Ottobrunn, Ortsmitte</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Ortsmitte, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.06499</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.66119</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2238:1:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">9</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">370</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #10 of OSM">3010</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Jahnstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Jahnstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.06793</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65887</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2235:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">10</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">433</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #11 of OSM">3410</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Bahnhofstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Bahnhofstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.07136</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65611</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2236:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">12</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">372</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #12 of OSM">3570</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Alte Landstraße</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Alte Landstraße, Ottobrunn</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.07429</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65372</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2189:0:1</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">12</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">487</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #13 of OSM">4230</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Werner-Heisenberg-Weg</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Werner-Heisenberg-Weg, Neubiberg</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.07844</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.64403</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09184:2302:0:2</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">13</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td colspan="7">&nbsp;' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">1370</td>' . "\n";
+            echo $indent . '                <td colspan="5">&nbsp;' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <td style="text-align: center" colspan="5">&nbsp;</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange" title="Distance between stop #2 of GTFS and stop #14 of OSM">5560</td>' . "\n";
+            echo $indent . '                <td style="text-align: center"><img src="/img/dot_grey32.png" height="18"></td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange">Neuperlach Süd</td>' . "\n";
+            echo $indent . '                <td style="text-align: left; background-color: orange"></td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">48.08948</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">11.65162</td>' . "\n";
+            echo $indent . '                <td style="text-align: center; background-color: orange">de:09162:1010:5:5</td>' . "\n";
+            echo $indent . '                <td style="text-align: center">14</td>' . "\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '        </tbody>' . "\n";
+            echo $indent . '        <tfoot>' . "\n";
+            echo $indent . '            <tr>' . "\n";
+            echo $indent . '                <th style="background-color: orange;  text-align: center">2' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center" colspan="4">GTFS trip (' . $trip_id . ")</th>\n";
+            echo $indent . '                <th style="background-color: orange"  text-align: center">57' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center">&nbsp;' . "</th>\n";
+            echo $indent . '                <th style="background-color: orange"  text-align: center">6543' . "</th>\n";
+            echo $indent . '                <th style="background-color: #bbbbbb" text-align: center" colspan="5">OSM route (' . $osm_relation . ")</th>\n";
+            echo $indent . '                <th style="background-color: orange;  text-align: center">14' . "</th>\n";
+            echo $indent . '            </tr>' . "\n";
+            echo $indent . '        </tfoot>' . "\n";
+            echo $indent . '    </table>' . "\n";
+            echo $indent . '</div>' . "\n";
+        } elseif ( $osm_relation == 1549761 ) {
             ;
         }
         $stop_time = gettimeofday(true);

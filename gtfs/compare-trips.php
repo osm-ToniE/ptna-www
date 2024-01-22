@@ -27,25 +27,19 @@
 
         <main id="main" class="results">
 
-        <?php   if ( $osm_relation ): ?>
+<?php   if ( $prove_of_concept ): ?>
             <h2 id="compare-routes">Compare GTFS trip with OSM route</h2>
-<?php   else: ?>
-            <h2 id="compare-routes">Compare GTFS trip with GTFS trip</h2>
-<?php   endif ?>
             <div class="indent">
                 <p>
                     <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">This is proof-of-concept (fake) data based on a specific bus: DE-BY-MVV Bus 210. Just to discuss the layout of this page, ...</span>
                 </p>
-                <table id="trips-table" class="compare">
-                    <thead>
-<?php $duration = CreateCompareTripsTableHead( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
-                    </thead>
-                    <tbody>
-<?php $duration += CreateCompareTripsTableBody( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
-                    </tbody>
-                </table>
-                <?php printf( "<!-- " . $STR_sql_queries_took . " -->\n", $duration ); ?>
+
+                <?php CreateCompareTripsTable( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
+
             </div>
+<?php   else: ?>
+            <h2 id="compare-routes">Compare GTFS trip with GTFS trip</h2>
+<?php   endif ?>
 
         </main> <!-- main -->
 

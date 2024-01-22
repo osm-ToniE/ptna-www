@@ -27,14 +27,15 @@
 
         <main id="main" class="results">
 
-<?php   if ( $osm_relation ): ?>
+<?php   if ( $prove_of_concept ): ?>
             <h2 id="compare-routes">Compare GTFS route with OSM route_master</h2>
             <div class="indent">
                 <p>
                     <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">This is proof-of-concept (fake) data based on a specific bus: DE-BY-MVV Bus 210. Just to discuss the layout of this page, ...</span>
                 </p>
-                <?php $duration = CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation, $ptna_lang ); ?>
-                <?php printf( "<!-- " . $STR_sql_queries_took . " -->\n", $duration ); ?>
+
+                <?php CreateCompareRoutesTable( $feed, $feed2, $release_date, $release_date2, $route_id, $route_id2, $osm_relation, $ptna_lang ); ?>
+
                 Small values indicate a good match between GTFS trip and OSM route.
                     <ul>
                         <li>xS == number of stops differs by "x"</li>
