@@ -188,7 +188,7 @@ function showrelation() {
                         alert( url + " did not return JSON data but " + type );
                     }
                 } else {
-                    alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
+                    alert( "Response Code:\n" + request.statusText + "\n\nRequest:\n" + request.responseURL  + "\n\nResponseheaders:\n" + request.getAllResponseHeaders() + "\n\nResponse:\n" + request.responseText );
                 }
             }
         };
@@ -773,7 +773,7 @@ function parseHttpResponse( data ) {
 
 function updateAnalysisProgress( increment ) {
     const d = new Date();
-    var usedms = d.getTime() - downloadstartms;
+    var usedms = d.getTime() - analysisstartms;
     aBar.value = usedms;
     document.getElementById('analysis_text').innerText = usedms.toString();
 }
