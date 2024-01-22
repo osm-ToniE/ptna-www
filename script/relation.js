@@ -179,6 +179,14 @@ function showrelation() {
                     }
                 } else if ( request.status === 410 ) {
                     alert( "Relation does not exist (" + relation_id + ")" );
+                } else if ( request.status === 0 ) {
+                    alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
+                    var type = request.getResponseHeader( "Content-Type" );
+                    if ( type.match(/application\/json/) ) {
+                        readHttpResponse( request.responseText );
+                    } else {
+                        alert( url + " did not return JSON data but " + type );
+                    }
                 } else {
                     alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
                 }
