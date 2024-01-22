@@ -2,7 +2,7 @@
 //
 //
 const attribution   = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-const osmlicence    = 'Map data &copy; <a href="http://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
+const osmlicence    = 'Map data &copy; <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="https://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
 
 const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
@@ -32,35 +32,35 @@ function showtriponmap() {
     //  OpenStreetMap's DE Style
     var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
                                 maxZoom: 19,
-                                attribution: osmlicence + 'Imagery &copy; <a href="http://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
+                                attribution: osmlicence + 'Imagery &copy; <a href="https://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
                             } );
 
     // 	OSM France
-    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
-	var osmfr = L.tileLayer(    'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    // 	https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmfr = L.tileLayer(    'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
 		                        attribution: attribution
 	                        } );
 
     // 	opentopomap
-    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+    // 	https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
 	var osmtopo = L.tileLayer(  'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 		                        maxZoom: 17,
-		                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-			                    'SRTM | Kartendarstellung: Â© <a href="http://opentopomap.org/">OpenTopoMap</a> '  +
+		                        attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			                    'SRTM | Kartendarstellung: Â© <a href="https://opentopomap.org/">OpenTopoMap</a> '  +
 			                    '<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
 	                        } );
 
     // 	ÖPNV-karte
-    // 	http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
-	var oepnv = L.tileLayer(    'http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
+    // 	https://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
+	var oepnv = L.tileLayer(    'https://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
 		                        attribution: attribution
 	                        });
 
     //  Transport Map
-    // 	http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
-    var transpmap = L.tileLayer(    'http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
+    // 	https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
+    var transpmap = L.tileLayer(    'https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
 		                            maxZoom: 19,
 		                            attribution: attribution
                                 } );
@@ -247,35 +247,35 @@ function showshapeonmap() {
     //  OpenStreetMap's DE Style
     var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
                                 maxZoom: 19,
-                                attribution: osmlicence + 'Imagery &copy; <a href="http://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
+                                attribution: osmlicence + 'Imagery &copy; <a href="https://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
                             } );
 
     // 	OSM France
-    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
-	var osmfr = L.tileLayer(    'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+    // 	https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+	var osmfr = L.tileLayer(    'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
 		                        attribution: attribution
 	                        } );
 
     // 	opentopomap
-    // 	http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
+    // 	https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png
 	var osmtopo = L.tileLayer(  'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 		                        maxZoom: 17,
-		                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-			                    'SRTM | Kartendarstellung: Â© <a href="http://opentopomap.org/">OpenTopoMap</a> '  +
+		                        attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			                    'SRTM | Kartendarstellung: Â© <a href="https://opentopomap.org/">OpenTopoMap</a> '  +
 			                    '<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>'
 	                        } );
 
     // 	ÖPNV-karte
-    // 	http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
-	var oepnv = L.tileLayer(    'http://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
+    // 	https://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png
+	var oepnv = L.tileLayer(    'https://toolserver.org/~cmarqu/hill/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
 		                        attribution: attribution
 	                        });
 
     //  Transport Map
-    // 	http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
-    var transpmap = L.tileLayer(    'http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
+    // 	https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png
+    var transpmap = L.tileLayer(    'https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', {
 		                            maxZoom: 19,
 		                            attribution: attribution
                                 } );
