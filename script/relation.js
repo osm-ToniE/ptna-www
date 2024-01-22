@@ -174,11 +174,13 @@ function showrelation() {
                     var type = request.getResponseHeader( "Content-Type" );
                     if ( type.match(/application\/json/) ) {
                         readHttpResponse( request.responseText );
+                    } else {
+                        alert( url + " did not return JSON data but " + type );
                     }
                 } else if ( request.status === 410 ) {
                     alert( "Relation does not exist (" + relation_id + ")" );
                 } else {
-                    alert( "Response Code: " + request.status );
+                    alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
                 }
             }
         };
@@ -752,6 +754,10 @@ function parseHttpResponse( data ) {
     // console.log( '>' + osm_data[osm_data_index]["attribution"] + "<" );
     // console.log( '>' + osm_data[osm_data_index]["license"] + "<" );
 
+    if ( osm_data[osm_data_index]["elements"].length === 0 ) {
+        alert( "Data not found");
+        client.abort();
+    }
     fillNodesWaysRelations();
 
 }
