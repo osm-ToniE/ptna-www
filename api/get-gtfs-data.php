@@ -27,7 +27,7 @@
     $elements                   = "";
 
     header( 'Content-Type: application/json', TRUE, 200 );
-    echo '{ "generator" : { "host" : ' . json_encode($_['SERVER_NAME']) . ', "version" : "PTNA API ' . PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
+    echo '{ "generator" : { "version" : "PTNA API ' . PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
     echo '"params" : { ';
     if ( $feed ) {
         echo ' "feed" : ' . json_encode($feed);
