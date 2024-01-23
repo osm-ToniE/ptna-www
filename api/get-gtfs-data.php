@@ -1,6 +1,10 @@
 <?php
-    include('../script/globals.php');
-    define("PTNA_VERSION",substr(file_get_contents(realpath($path_to_www.'.git/ORIG_HEAD')),0,6));
+    if ( isset($_['SERVER_NAME']) && $_['SERVER_NAME'] != 'localhost' ) {
+        include('../script/globals.php');
+        define("PTNA_VERSION",substr(file_get_contents(realpath($path_to_www.'.git/ORIG_HEAD')),0,6));
+    } else {
+        define("PTNA_VERSION","on localhost");
+    }
 
     date_default_timezone_set('UTC');
 
