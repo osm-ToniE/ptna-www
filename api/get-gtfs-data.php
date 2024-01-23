@@ -1,4 +1,6 @@
 <?php
+    date_default_timezone_set('UTC');
+
     if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) {
         include('../script/globals.php');
         define("PTNA_VERSION",substr(file_get_contents(realpath($path_to_www.'.git/ORIG_HEAD')),0,6));
@@ -7,8 +9,6 @@
         define("PTNA_VERSION","on localhost");
         define("PTNA_DATE",date("Y-m-d\TH:i:s\Z"));
     }
-
-    date_default_timezone_set('UTC');
 
     # parse query parameters
 
