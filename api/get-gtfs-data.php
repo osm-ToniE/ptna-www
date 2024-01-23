@@ -1,5 +1,6 @@
 <?php
-    define("PTNA_VERSION",substr(file_get_contents(realpath(__DIR__.'/../.git/ORIG_HEAD')),0,12));
+    include('../script/globals.php');
+    define("PTNA_VERSION",substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,12));
 
     date_default_timezone_set('UTC');
 
@@ -22,7 +23,7 @@
     $elements                   = "";
 
     header( 'Content-Type: application/json', TRUE, 200 );
-    echo '{ "generator" : { "version" : "PTNA API ' . $PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
+    echo '{ "generator" : { "version" : "PTNA API ' . PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
     echo '"params" : { ';
     if ( $feed ) {
         echo ' "feed" : ' . json_encode($feed);
@@ -35,13 +36,13 @@
     } elseif ( $trip_id ) {
         echo ', "trip_id" : ' . json_encode($trip_id);
     }
-    echo ' } },\r\n';
+    echo " } },\r\n";
     echo '"feed_info" : { ';
     echo '"feed_version" : ' . json_encode($gtfs_feed_version) . ', ';
     echo '"feed_start_date" : ' . json_encode($gtfs_feed_start_date) . ', ';
     echo '"feed_end_date" : ' . json_encode($gtfs_feed_end_date) . ',';
     echo '"feed_publisher_name" : ' . json_encode($gtfs_feed_publisher_name) . ', "feed_publisher_url" : ' . json_encode($gtfs_feed_publisher_url) . ' },';
-    echo '"license" : {  "text" : ' . json_encode($gtfs_license) . ', "url" : ' . json_encode($gtfs_license_url) . '},\r\n';
+    echo '"license" : {  "text" : ' . json_encode($gtfs_license) . ', "url" : ' . json_encode($gtfs_license_url) . "},\r\n";
     echo '"timestamp" : ' . json_encode(date("Y-m-d\TH:i:s\Z")) . ",\r\n";
     echo '"elements" : [ ' . $elements . "] }\r\n";
 ?>
