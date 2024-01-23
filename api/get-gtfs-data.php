@@ -1,4 +1,5 @@
 <?php
+    define("PTNA_VERSION",substr(file_get_contents(realpath(__DIR__.'/../.git/ORIG_HEAD')),0,12));
 
     date_default_timezone_set('UTC');
 
@@ -21,7 +22,7 @@
     $elements                   = "";
 
     header( 'Content-Type: application/json', TRUE, 200 );
-    echo '{ "generator" : { "version" : "PTNA API $Format:%ci$ ($Format:%h$)", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
+    echo '{ "generator" : { "version" : "PTNA API ' . $PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
     echo '"params" : { ';
     if ( $feed ) {
         echo ' "feed" : ' . json_encode($feed);
