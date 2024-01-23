@@ -34,13 +34,13 @@
     } elseif ( $trip_id ) {
         echo ', "trip_id" : ' . json_encode($trip_id);
     }
-    echo ' } }, ';
+    echo ' } },\r\n';
     echo '"feed_info" : { ';
     echo '"feed_version" : ' . json_encode($gtfs_feed_version) . ', ';
     echo '"feed_start_date" : ' . json_encode($gtfs_feed_start_date) . ', ';
     echo '"feed_end_date" : ' . json_encode($gtfs_feed_end_date) . ',';
     echo '"feed_publisher_name" : ' . json_encode($gtfs_feed_publisher_name) . ', "feed_publisher_url" : ' . json_encode($gtfs_feed_publisher_url) . ' },';
-    echo '"license" : {  "text" : ' . json_encode($gtfs_license) . ', "url" : ' . json_encode($gtfs_license_url) . '}, ';
+    echo '"license" : {  "text" : ' . json_encode($gtfs_license) . ', "url" : ' . json_encode($gtfs_license_url) . '},\r\n';
     echo '"timestamp" : ' . json_encode(date("Y-m-d\TH:i:s\Z")) . ",\r\n";
     echo '"elements" : [ ' . $elements . "] }\r\n";
 ?>
