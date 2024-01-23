@@ -1,5 +1,5 @@
 <?php
-    if ( isset($_['SERVER_NAME']) && $_['SERVER_NAME'] != 'localhost' ) {
+    if ( isset($_['SERVER_NAME']) ) {
         include('../script/globals.php');
         define("PTNA_VERSION",substr(file_get_contents(realpath($path_to_www.'.git/ORIG_HEAD')),0,6));
     } else {
@@ -27,7 +27,7 @@
     $elements                   = "";
 
     header( 'Content-Type: application/json', TRUE, 200 );
-    echo '{ "generator" : { "version" : "PTNA API ' . PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
+    echo '{ "generator" : { "host" : ' . json_encode($_['SERVER_NAME']) . ', "version" : "PTNA API ' . PTNA_VERSION . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
     echo '"params" : { ';
     if ( $feed ) {
         echo ' "feed" : ' . json_encode($feed);
