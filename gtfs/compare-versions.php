@@ -44,7 +44,7 @@
                                                 echo ' - ' . $feed;
                                             }
                                       ?></h2>
-            <div class="indent tableFixHead" style="height: 700">
+            <div class="indent tableFixHeadCompare" style="height: 700">
 
                 <form method="get" action="compare-routes.php">
                     <table  id="versions-table" class="compare">

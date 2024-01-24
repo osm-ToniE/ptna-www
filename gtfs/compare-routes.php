@@ -39,7 +39,7 @@
                 Small values indicate a good match between GTFS trip and OSM route.
                     <ul>
                         <li>xS == number of stops differs by "x"</li>
-                        <li>yP == number of stops where positions differ by more than 10 meters</li>
+                        <li>yP == number of stops where positions differ by more than 20 meters (~ maximum length of a bus)</li>
                     </ul>
                 For a more detailed comparison, click on a number.
             </div>
