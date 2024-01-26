@@ -277,9 +277,14 @@ input.hackbox {
 .compare a                  { text-decoration: none; color: #000; }
 
 .tableFixHeadCompare        { overflow-y: auto; height: 562px;}
-.tableFixHeadCompare thead  { background-color: #bbbbbb; position: sticky; top: 0; }
+.tableFixHeadCompare thead  { position: sticky; top: 0; }
 .tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
 
-.compare-trips-left         { background-color: DarkSeaGreen }
+.compare-trips-head         { background-color: #bbbbbb; text-align: center }
+.compare-trips-body         { text-align: center }
+.compare-trips-foot         { background-color: #bbbbbb; text-align: center }
+.compare-trips-left         { background-color: #fc0fc0 }
 .compare-trips-middle       { background-color: #bbbbbb; text-align: center }
-.compare-trips-right        { background-color: CornflowerBlue }
+.compare-trips-right        { background-color: #6495ed }
+.compare-trips-minor        { background-color: yellow }
+.compare-trips-error        { background-color: orange }

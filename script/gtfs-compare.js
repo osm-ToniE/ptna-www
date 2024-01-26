@@ -137,7 +137,7 @@ function showcomparison() {
     right_icon  = L.icon( { iconUrl: '/img/marker-right.png',  iconSize: [24,24], iconAnchor: [0,24],  popupAnchor: [0,0], tooltipAnchor: [24,-32] } );
     left_icon   = L.icon( { iconUrl: '/img/marker-left.png',   iconSize: [24,24], iconAnchor: [24,24], popupAnchor: [0,0], tooltipAnchor: [-24,-32] } );
     icons      = { osm: right_icon,       platform: right_icon,       route: right_icon,       gtfs: left_icon,      stop: left_icon,      shape: left_icon };
-    colours    = { osm: 'CornflowerBlue', platform: 'CornflowerBlue', route: 'CornflowerBlue', gtfs: 'DarkSeaGreen', stop: 'DarkSeaGreen', shape: 'DarkSeaGreen'    };
+    colours    = { osm: '#6495ed', platform: '#6495ed', route: '#6495ed', gtfs: '#fc0fc0', stop: '#fc0fc0', shape: '#fc0fc0'    };
 
     relation_id = URLparse()["relation"];
 
@@ -176,7 +176,11 @@ function showcomparison() {
                         alert( url + " did not return JSON data but " + type );
                     }
                 } else {
-                    alert( "Response Code:\n" + request.statusText + "\n\nRequest:\n" + request.responseURL  + "\n\nResponseheaders:\n" + request.getAllResponseHeaders() + "\n\nResponse:\n" + request.responseText );
+                    alert(  "Response Code:\n"       + request.statusText              +
+                            "\n\nRequest:\n"         + request.responseURL             +
+                            "\n\nResponseheaders:\n" + request.getAllResponseHeaders() +
+                            "\n\nResponse:\n"        + request.responseText            +
+                            "\n\nDid you disable JavaScript?"                            );
                 }
             }
         };
