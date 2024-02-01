@@ -127,10 +127,10 @@
                     <?php CreateNewFullEntry( "NL-ZE-ZE", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-ZH-DMG 	        Drechtsteden, Molenlanden en Gorinchem 	                Provincie Zuid-Holland -->
-                    <?php CreateNewFullEntry( "NL-ZH-DMG", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-DMG", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZH-GA 	        Treindienst Gouda-Alphen aan den Rijn 	                Provincie Zuid-Holland  -->
-                    <?php CreateNewFullEntry( "NL-ZH-GA", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-GA", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZH-HLSTD 	    Gaaglanden Stad 	                                    MRDH -->
                     <?php CreateNewFullEntry( "NL-ZH-HLSTD", "nl", "Configuratie wordt voorbereid" ); ?>
@@ -139,7 +139,7 @@
                     <?php CreateNewFullEntry( "NL-ZH-HLSTR", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-ZH-HWGO         Hoeksche Waard - Goeree-Overflakkee 	                Provincie Zuid-Holland -->
-                    <?php CreateNewFullEntry( "NL-ZH-HWGO", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-HWGO", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZH-PS 	        Parkshuttle Rivium 	                                    MRDH -->
                     <?php CreateNewFullEntry( "NL-ZH-PS", "nl", "Configuratie wordt voorbereid" ); ?>
@@ -160,13 +160,13 @@
                     <?php CreateNewFullEntry( "NL-ZH-VR", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-ZH-WRD  	    Personenvervoer over water Rotterdam - Drechtsteden 	Provincie Zuid-Holland -->
-                    <?php CreateNewFullEntry( "NL-ZH-WRD", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-WRD", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZH-WRS  	    Personenvervoer over water in Rotterdam en Schiedam 	MRDH, Gemeente Rotterdam, Havenbedrijf Rotterdam  -->
                     <?php CreateNewFullEntry( "NL-ZH-WRS ", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-ZH-ZHN  	    Zuid-Holland Noord 	                                    Provincie Zuid-Holland -->
-                    <?php CreateNewFullEntry( "NL-ZH-ZHN", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-ZHN", "nl", "Configuratie" ); ?>
 
                 </tbody>
             </table>
