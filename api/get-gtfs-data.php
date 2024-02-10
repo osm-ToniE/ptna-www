@@ -31,31 +31,34 @@ FillGeneratorInfo();
 
 $start_time = gettimeofday(true);
 
-$SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
+if ( $feed ) {
+    $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
-if ( $SqliteDb != '' ) {
+    if ( $SqliteDb != '' ) {
 
-    try {
-        $db         = new SQLite3( $SqliteDb );
+        try {
+            $db         = new SQLite3( $SqliteDb );
 
-        if ( $full ) { FillTableInfo( $db, 'osm' );    }
-                       FillTableInfo( $db, 'feed_info' );
-        if ( $full ) { FillTableInfo( $db, 'agency' ); }
-        FillLicense( $db );
+            if ( $full ) { FillTableInfo( $db, 'osm' );    }
+                        FillTableInfo( $db, 'feed_info' );
+            if ( $full ) { FillTableInfo( $db, 'agency' ); }
+            FillLicense( $db );
 
-        if ( $route_id ) {
-            $elements = FillRouteElements( $db, $route_id, $full );
-        } elseif ( $trip_id ) {
-            $elements = FillTripElements( $db, $trip_id, $full );
+            if ( $route_id ) {
+                $elements = FillRouteElements( $db, $route_id, $full );
+            } elseif ( $trip_id ) {
+                $elements = FillTripElements( $db, $trip_id, $full );
+            }
+
+        } catch ( Exception $ex ) {
+            echo '    "error" : ' . json_encode(sprintf("%s - feed = '%s'",$ex->getMessage(),$feed)) . ",\r\n";
         }
-
-    } catch ( Exception $ex ) {
-        echo '    "error" : "' . $ex->getMessage() . "\r\n";
+    } else {
+        echo '    "error" : ' . json_encode(sprintf("Data base for GTFS feed ('%s') not found",$feed)) . ",\r\n";
     }
 } else {
-    echo '    "error" : "SQLite DB: data base not found",' . "\r\n";
+    echo '    "error" : "Name of GTFS feed not specified: use parameter \'feed\'",' . "\r\n";
 }
-
 $duration = gettimeofday(true) - $start_time;
 echo '    "duration" : '. json_encode(sprintf("%.6F",$duration)) . ",\r\n";
 echo '    "elements" : ' . "[ " . $elements . "\r\n    ]\r\n}\r\n";
@@ -247,7 +250,7 @@ function FillTripElements( $db, $trip_id, $full ) {
                 (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
             $node_string  = "\r\n{ ";
             $node_string .= '"type" : "node", ';
-            $node_string .= '"id" : ' . json_encode($stops_infos['stop_id']) . ', ';
+            $node_string .= '"id" : ' . json_encode('stop-'.$stops_infos['stop_id']) . ', ';
             $node_string .= '"lat" : ' . json_encode($stops_infos['stop_lat']) . ', ';
             $node_string .= '"lon" : ' . json_encode($stops_infos['stop_lon']) . ', ';
             $node_string .= '"tags" : { ';
@@ -285,9 +288,8 @@ function FillTripElements( $db, $trip_id, $full ) {
                     $node_string .= implode( ', ', $ptna_array );
                 }
             }
-
             $node_string .= ' } }';
-            array_push( $member_array, '    { "ref" : ' . json_encode($stops_infos['stop_id']) . ', "role" : "platform", "type" : "node" }' );
+            array_push( $member_array, '    { "ref" : ' . json_encode('stop-'.$stops_infos['stop_id']) . ', "role" : "platform", "type" : "node" }' );
         }
         array_push( $element_array, $node_string );
     }
@@ -328,19 +330,19 @@ function FillTripElements( $db, $trip_id, $full ) {
                 if ( isset($shapes_infos['shape_pt_lat']) && isset($shapes_infos['shape_pt_lon']) && isset($shapes_infos['shape_pt_sequence']) ) {
                     $node_string  = "\r\n{ ";
                     $node_string .= '"type" : "node", ';
-                    $node_string .= '"id" : ' . json_encode($shape_id . '-' . $shapes_infos['shape_pt_sequence']) . ', ';
+                    $node_string .= '"id" : ' . json_encode('shape-'.$shape_id.'-'.$shapes_infos['shape_pt_sequence']) . ', ';
                     $node_string .= '"lat" : ' . json_encode($shapes_infos['shape_pt_lat']) . ', ';
                     $node_string .= '"lon" : ' . json_encode($shapes_infos['shape_pt_lon']);
                     $node_string .= ' }';
                     array_push( $element_array, $node_string );
-                    array_push( $shape_node_array, json_encode($shape_id . '-' . $shapes_infos['shape_pt_sequence']) );
+                    array_push( $shape_node_array, json_encode('shape-'.$shape_id.'-'.$shapes_infos['shape_pt_sequence']) );
                 }
             }
             if ( count($shape_node_array) > 0 ) {
-                array_push( $member_array, '    { "ref" : ' . json_encode($shape_id) . ', "role" : "", "type" : "way" }' );
+                array_push( $member_array, '    { "ref" : ' . json_encode('shape-'.$shape_id) . ', "role" : "", "type" : "way" }' );
                 $way_string  = "\r\n{ ";
                 $way_string .= '"type" : "way", ';
-                $way_string .= '"id" : ' . json_encode($shape_id) . ', ';
+                $way_string .= '"id" : ' . json_encode('shape-'.$shape_id) . ', ';
                 $way_string .= '"nodes" : [ ' . implode( ', ', $shape_node_array );
                 $way_string .= " ] }";
                 array_push( $element_array, $way_string );
@@ -349,7 +351,7 @@ function FillTripElements( $db, $trip_id, $full ) {
         $return_string  = implode( ', ', $element_array );
         $return_string .= ",\r\n{ ";
         $return_string .= '"type" : "trip", ';
-        $return_string .= '"id" : ' . json_encode($trip_id) . ', ';
+        $return_string .= '"id" : ' . json_encode('trip-'.$trip_id) . ', ';
         $return_string .= '"members" : [ ';
         $return_string .= implode( ', ', $member_array );
         $return_string .= ' ], ';
