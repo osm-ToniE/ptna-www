@@ -26,15 +26,8 @@ $elements                   = "";
 
 header( 'Content-Type: application/json', true, 200 );
 echo "{\r\n";
-echo '    "generator" : { "version" : "PTNA ' . PTNA_VERSION . '", "date" : "' . PTNA_DATE . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
-echo '"params" : { ';
-$params_array = array();
-foreach ( array_keys($_GET) as $get_key ) {
-    array_push( $params_array, json_encode($get_key) . ' : '. json_encode($_GET[$get_key]) );
-}
-echo implode(', ', $params_array );
-echo " } },\r\n";
 echo '    "timestamp" : ' . json_encode(date("Y-m-d\TH:i:s\Z")) . ",\r\n";
+FillGeneratorInfo();
 
 $start_time = gettimeofday(true);
 
@@ -45,7 +38,9 @@ if ( $SqliteDb != '' ) {
     try {
         $db         = new SQLite3( $SqliteDb );
 
-        FillFeedInfo( $db );
+        if ( $full ) { FillTableInfo( $db, 'osm' );    }
+                       FillTableInfo( $db, 'feed_info' );
+        if ( $full ) { FillTableInfo( $db, 'agency' ); }
         FillLicense( $db );
 
         if ( $route_id ) {
@@ -64,6 +59,23 @@ if ( $SqliteDb != '' ) {
 $duration = gettimeofday(true) - $start_time;
 echo '    "duration" : '. json_encode(sprintf("%.6F",$duration)) . ",\r\n";
 echo '    "elements" : ' . "[ " . $elements . "\r\n    ]\r\n}\r\n";
+
+
+######################
+#
+#
+#
+######################
+function FillGeneratorInfo() {
+    echo '    "generator" : { "version" : "PTNA ' . PTNA_VERSION . '", "date" : "' . PTNA_DATE . '", "url" : "https://ptna.openstreetmap.de/api/get-gtfs-data.php", ';
+    echo '"params" : { ';
+    $params_array = array();
+    foreach ( array_keys($_GET) as $get_key ) {
+        array_push( $params_array, json_encode($get_key) . ' : '. json_encode($_GET[$get_key]) );
+    }
+    echo implode(', ', $params_array );
+    echo " } },\r\n";
+}
 
 
 function FindGtfsSqliteDb( $feed, $release_date ) {
@@ -113,28 +125,30 @@ function FindGtfsSqliteDb( $feed, $release_date ) {
 }
 
 
-function FillFeedInfo( $db ) {
+function FillTableInfo( $db, $table_name ) {
 
-    $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='feed_info';";
+    $sql = sprintf( "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';", SQLite3::escapeString($table_name) );
 
     $sql_master = $db->querySingle( $sql, true );
 
     if ( isset($sql_master['name']) ) {
 
-        $sql = sprintf( "SELECT * FROM feed_info" );
+        $sql = sprintf( "SELECT * FROM %s", SQLite3::escapeString($table_name) );
 
         $result = $db->query( $sql );
 
         $json_out_array = array();
 
-        echo '    "feed_info" : { ';
-        while ( $feed_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
-            foreach ( array_keys($feed_infos) as $feed_info ) {
-                array_push( $json_out_array, json_encode($feed_info) . ' : ' . json_encode($feed_infos[$feed_info]) );
+        echo '    ' . json_encode($table_name) . ' : [ ';
+        while ( $table_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
+            $json_row_array = array();
+            foreach ( array_keys($table_infos) as $table_info ) {
+                array_push( $json_row_array, json_encode($table_info) . ' : ' . json_encode($table_infos[$table_info]) );
             }
+            array_push( $json_out_array, '{ ' . implode( ', ', $json_row_array ) . ' }' );
         }
         echo implode( ', ', $json_out_array );
-        echo " },\r\n";
+        echo " ],\r\n";
     }
 }
 

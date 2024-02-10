@@ -1,11 +1,11 @@
 //
 //
 //
-//const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
-//const OSM_API_URL_SUFFIX = '/full.json';
 
-const OSM_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation(';
-const OSM_API_URL_SUFFIX = ');(._;>>;);out;';
+const OVERPASS_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation(';
+const OVERPASS_API_URL_SUFFIX = ');(._;>>;);out;';
+
+const PTNA_API_URL = '/api/get-gtfs-data.php';
 
 const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
@@ -26,9 +26,18 @@ var icons           = {};
 var colours         = {};
 
 
+var feed;
+var release_date;
+var trip_id;
+var feed2;
+var release_date2;
+var trip_id2;
 var relation_id;
+
 var downloadstartms = 0;
 var analysisstartms = 0;
+var leftHTTPresponseText = '';
+var rightHTTPresponseText = '';
 var is_PTv2         = 0;
 var osm_data        = [];
 var osm_data_index  = 0;
@@ -40,7 +49,10 @@ var minlat          =   90;
 var maxlon          = -180;
 var minlon          =  180;
 
-var dBar;
+var CMP_DATA        = {};
+
+var dBarLeft;
+var dBarRight;
 var aBar;
 
 var number_of_match     = {};
@@ -48,12 +60,9 @@ var label_of_object     = {}
 var latlonroute         = {};
 
 
-function showcomparison() {
+function showtripcomparison() {
 
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
-
-    dBar        = document.getElementById('download');
-    aBar        = document.getElementById('analysis');
 
     //  empty tiles
 	var nomap  = L.tileLayer('');
@@ -102,17 +111,17 @@ function showcomparison() {
 
     // Variables for the data
     layerrightshape          = L.layerGroup();
-    layerrightstops      = L.layerGroup();
-    layerrightstopsroute = L.layerGroup();
-    layerleftshape         = L.layerGroup();
-    layerleftstops         = L.layerGroup();
-    layerleftstopsroute    = L.layerGroup();
+    layerrightstops          = L.layerGroup();
+    layerrightstopsroute     = L.layerGroup();
+    layerleftshape           = L.layerGroup();
+    layerleftstops           = L.layerGroup();
+    layerleftstopsroute      = L.layerGroup();
 
     map  = L.map( 'comparemap',  { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [osmorg, layerrightstops] } );
 
     var baseMaps = {
                     "OpenStreetMap's Standard"  : osmorg,
-                    "OSM Deutscher Style"       : osmde,
+                    "OSM German Style"          : osmde,
                     "OSM France"                : osmfr,
                     // "OpenTopoMap"               : osmtopo,
                     "none"                      : nomap
@@ -120,15 +129,41 @@ function showcomparison() {
                     // "Transport Map (without API-Key!)": transpmap
                    };
 
-    var overlayMaps = { '<span class="compare-trips-left">GTFS shape</span>'              : layerleftshape,
-                        '<span class="compare-trips-left">GTFS Stops</span>'              : layerleftstops,
-                        '<span class="compare-trips-left">GTFS Stops Route</span>'        : layerleftstopsroute,
-                        '<span class="compare-trips-right">OSM Shape</span>'              : layerrightshape,
-                        '<span class="compare-trips-right">OSM Platforms</span>'          : layerrightstops,
-                        '<span class="compare-trips-right">OSM Platform Route</span>'     : layerrightstopsroute
-                      };
+    var overlayMapsGtfsGtfs = { '<span class="compare-trips-left">GTFS Shape</span>'              : layerleftshape,
+                                '<span class="compare-trips-left">GTFS Stops</span>'              : layerleftstops,
+                                '<span class="compare-trips-left">GTFS Stops Route</span>'        : layerleftstopsroute,
+                                '<span class="compare-trips-right">GTFS Shape 2</span>'           : layerrightshape,
+                                '<span class="compare-trips-right">GTFS Stops 2</span>'           : layerrightstops,
+                                '<span class="compare-trips-right">GTFS Stops 2 Route</span>'     : layerrightstopsroute
+                                };
 
-    var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
+    var overlayMapsGtfsOsm  = { '<span class="compare-trips-left">GTFS Shape</span>'              : layerleftshape,
+                                '<span class="compare-trips-left">GTFS Stops</span>'              : layerleftstops,
+                                '<span class="compare-trips-left">GTFS Stops Route</span>'        : layerleftstopsroute,
+                                '<span class="compare-trips-right">OSM Shape</span>'              : layerrightshape,
+                                '<span class="compare-trips-right">OSM Platforms</span>'          : layerrightstops,
+                                '<span class="compare-trips-right">OSM Platform Route</span>'     : layerrightstopsroute
+                              };
+
+    var layers;
+
+    feed          = URLparse()["feed"]          || '';
+    feed2         = URLparse()["feed2"]         || '';
+    release_date  = URLparse()["release_date"]  || '';
+    release_date2 = URLparse()["release_date2"] || '';
+    trip_id       = URLparse()["trip_id"]       || '';
+    trip_id2      = URLparse()["trip_id2"]      || '';
+    relation_id   = URLparse()["relation"]      || '';
+
+    if ( relation_id !== '' ) {
+        layers    = L.control.layers(baseMaps, overlayMapsGtfsOsm).addTo(map);
+    } else {
+        layers    = L.control.layers(baseMaps, overlayMapsGtfsGtfs).addTo(map);
+    }
+
+    dBarLeft   = document.getElementById('download_left');
+    dBarRight  = document.getElementById('download_right');
+    aBar       = document.getElementById('analysis');
 
     map.addLayer(layerrightstopsroute);
     map.addLayer(layerleftstops);
@@ -136,69 +171,190 @@ function showcomparison() {
 
     right_icon  = L.icon( { iconUrl: '/img/marker-right.png',  iconSize: [24,24], iconAnchor: [0,24],  popupAnchor: [0,0], tooltipAnchor: [24,-32] } );
     left_icon   = L.icon( { iconUrl: '/img/marker-left.png',   iconSize: [24,24], iconAnchor: [24,24], popupAnchor: [0,0], tooltipAnchor: [-24,-32] } );
-    icons      = { osm: right_icon,       platform: right_icon,       route: right_icon,       gtfs: left_icon,      stop: left_icon,      shape: left_icon };
-    colours    = { osm: '#6495ed', platform: '#6495ed', route: '#6495ed', gtfs: '#fc0fc0', stop: '#fc0fc0', shape: '#fc0fc0'    };
+    icons      = { osm: right_icon, platform: right_icon, route: right_icon, gtfs: left_icon, stop: left_icon, shape: left_icon };
+    colours    = { osm: '#6495ed',  platform: '#6495ed',  route: '#6495ed',  gtfs: '#fc0fc0', stop: '#fc0fc0', shape: '#fc0fc0' };
 
-    relation_id = URLparse()["relation"];
+    // start downloading "left" data first by analyzing URI parameters 'feed', 'release_date' and 'route_id/'trip_id'
+    // once done, it will start downloading "right" data afterwards: either using URI 'relation' or 'feed2', 'release_date2' and 'route_id2'/'trip_id2'
+    // there is no parallel processing
+    download_left_data();
 
-    if ( relation_id.match(/^\d+$/) ) {
-
-        var url     = `${OSM_API_URL_PREFIX}${relation_id}${OSM_API_URL_SUFFIX}`;
-        var request = new XMLHttpRequest();
-        request.open( "GET", url );
-        request.onprogress = function() {
-            const d = new Date();
-            var usedms = d.getTime() - downloadstartms;
-            dBar.value = usedms;
-            document.getElementById('download_text').innerText = usedms.toString();
-        }
-        request.onreadystatechange = function() {
-            const d = new Date();
-            var usedms = d.getTime() - downloadstartms;
-            dBar.value = usedms;
-            document.getElementById('download_text').innerText = usedms.toString();
-            if ( request.readyState === 4 ) {
-                if ( request.status === 200 ) {
-                    var type = request.getResponseHeader( "Content-Type" );
-                    if ( type.match(/application\/json/) ) {
-                        readHttpResponse( request.responseText );
-                    } else {
-                        alert( url + " did not return JSON data but " + type );
-                    }
-                } else if ( request.status === 410 ) {
-                    alert( "Relation does not exist (" + relation_id + ")" );
-                } else if ( request.status === 0 ) {
-                    alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
-                    var type = request.getResponseHeader( "Content-Type" );
-                    if ( type.match(/application\/json/) ) {
-                        readHttpResponse( request.responseText );
-                    } else {
-                        alert( url + " did not return JSON data but " + type );
-                    }
-                } else {
-                    alert(  "Response Code:\n"       + request.statusText              +
-                            "\n\nRequest:\n"         + request.responseURL             +
-                            "\n\nResponseheaders:\n" + request.getAllResponseHeaders() +
-                            "\n\nResponse:\n"        + request.responseText            +
-                            "\n\nDid you disable JavaScript?"                            );
-                }
-            }
-        };
-
-        const d = new Date();
-        downloadstartms = d.getTime();
-
-        request.send();
-
-    } else {
-        alert( "Relation ID is not a number (" + relation_id + ")" );
-    }
 }
 
 
-function readHttpResponse( responseText ) {
+//
+// 'left' data is always GTFS data, for the time being only 'trip_id' data
+//
+function download_left_data() {
 
-    parseHttpResponse( responseText );
+    if ( feed ) {
+        if ( feed.match(/^[0-9A-Za-z_.-]+$/) ) {
+
+            if ( release_date === '' || release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+                if ( trip_id !== '' ) {
+                    var url     = PTNA_API_URL     +
+                                  '?feed='         + encodeURIComponent(feed)         +
+                                  '&release_date=' + encodeURIComponent(release_date) +
+                                  '&trip_id='      + encodeURIComponent(trip_id)      +
+                                  '&full';
+                } else {
+                    alert( "Parameter 'trip_id' is not set" );
+                    return false;
+                }
+                var request = new XMLHttpRequest();
+                request.open( "GET", url );
+                request.onprogress = function() {
+                    const d = new Date();
+                    var usedms = d.getTime() - downloadstartms;
+                    dBarLeft.value = usedms;
+                    document.getElementById('download_left_text').innerText = usedms.toString();
+                }
+                request.onreadystatechange = function() {
+                    const d = new Date();
+                    var usedms = d.getTime() - downloadstartms;
+                    dBarLeft.value = usedms;
+                    document.getElementById('download_left_text').innerText = usedms.toString();
+                    if ( request.readyState === 4 ) {
+                        if ( request.status === 200 ) {
+                            var type = request.getResponseHeader( "Content-Type" );
+                            if ( type.match(/application\/json/) ) {
+                                leftHTTPresponseText = request.responseText;
+                                download_right_data();
+                            } else {
+                                alert( url + " did not return JSON data but " + type );
+                            }
+                        } else if ( request.status === 410 ) {
+                            alert( "Relation does not exist (" + relation_id + ")" );
+                        } else if ( request.status === 0 ) {
+                            alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
+                            var type = request.getResponseHeader( "Content-Type" );
+                            if ( type.match(/application\/json/) ) {
+                                leftHTTPresponseText = request.responseText;
+                                download_right_data();
+                            } else {
+                                alert( url + " did not return JSON data but " + type );
+                            }
+                        } else {
+                            alert(  "Response Code:\n"       + request.statusText              +
+                                    "\n\nRequest:\n"         + request.responseURL             +
+                                    "\n\nResponseheaders:\n" + request.getAllResponseHeaders() +
+                                    "\n\nResponse:\n"        + request.responseText            +
+                                    "\n\nDid you disable JavaScript?"                            );
+                        }
+                    }
+                };
+
+                const d = new Date();
+                downloadstartms = d.getTime();
+
+                request.send();
+
+            } else {
+                alert( "Parameter 'release_date' is invalid (" + release_date + ")" );
+            }
+        } else {
+            alert( "Parameter 'feed' is invalid (" + feed + ")" );
+        }
+    } else {
+        alert( "Parameter 'feed' is not specified" );
+    }
+}
+
+//
+// 'right' data can be OSM relation or a second GTFS data set
+//
+function download_right_data() {
+
+    var url     = '';
+    var request = new XMLHttpRequest();
+
+    if ( relation_id !== '' ) {
+        if ( relation_id.match(/^\d+$/) ) {
+            url  = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
+        } else {
+            alert( "Relation ID is not a number (" + relation_id + ")" );
+            return false;
+        }
+    } else if ( feed2 !== '' ) {
+        if ( feed2.match(/^[0-9A-Za-z_.-]+$/) ) {
+            if ( release_date2 === '' || release_date2.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+                if ( trip_id2 !== '' ) {
+                    url = PTNA_API_URL     +
+                        '?feed='         + encodeURIComponent(feed2)         +
+                        '&release_date=' + encodeURIComponent(release_date2) +
+                        '&trip_id='      + encodeURIComponent(trip_id2)      +
+                        '&full';
+                } else {
+                    alert( "Parameter 'trip_id2' is not set" );
+                    return false;
+                }
+            } else {
+                alert( "Parameter 'release_date2' is invalid (" + release_date2 + ")" );
+                return false;
+            }
+        } else {
+            alert( "Parameter 'feed2' is invalid (" + feed2 + ")" );
+            return false;
+        }
+    } else {
+        alert( "Neither parameter 'feed2' nor parameter 'relation' is set" );
+        return false;
+    }
+
+    request.open( "GET", url );
+    request.onprogress = function() {
+        const d = new Date();
+        var usedms = d.getTime() - downloadstartms;
+        dBarRight.value = usedms;
+        document.getElementById('download_right_text').innerText = usedms.toString();
+    };
+    request.onreadystatechange = function() {
+        const d = new Date();
+        var usedms = d.getTime() - downloadstartms;
+        dBarRight.value = usedms;
+        document.getElementById('download_right_text').innerText = usedms.toString();
+        if ( request.readyState === 4 ) {
+            if ( request.status === 200 ) {
+                var type = request.getResponseHeader( "Content-Type" );
+                if ( type.match(/application\/json/) ) {
+                    rightHTTPresponseText = request.responseText;
+                    parseHttpResponses();
+                } else {
+                    alert( url + " did not return JSON data but " + type );
+                }
+            } else if ( request.status === 410 ) {
+                alert( "Relation does not exist (" + relation_id + ")" );
+            } else if ( request.status === 0 ) {
+                alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
+                var type = request.getResponseHeader( "Content-Type" );
+                if ( type.match(/application\/json/) ) {
+                    rightHTTPresponseText = request.responseText;
+                    parseHttpResponses();
+                } else {
+                    alert( url + " did not return JSON data but " + type );
+                }
+            } else {
+                alert(  "Response Code:\n"       + request.statusText              +
+                        "\n\nRequest:\n"         + request.responseURL             +
+                        "\n\nResponseheaders:\n" + request.getAllResponseHeaders() +
+                        "\n\nResponse:\n"        + request.responseText            +
+                        "\n\nDid you disable JavaScript?"                            );
+            }
+        }
+    };
+
+    const d = new Date();
+    downloadstartms = d.getTime();
+
+    request.send();
+
+}
+
+
+function parseHttpResponses() {
+
+    parseLeftHttpResponse( leftHTTPresponseText );
+    parseRightHttpResponse( rightHTTPresponseText );
 
     IterateOverMembers();
 }
@@ -654,7 +810,7 @@ function htmlEscape( str ) {
 
 function downloadRelationSync( relation_id  ) {
 
-    var url     = `${OSM_API_URL_PREFIX}${relation_id}${OSM_API_URL_SUFFIX}`;
+    var url     = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
     var request = new XMLHttpRequest();
     request.open( "GET", url, false );
     request.onreadystatechange = function() {
@@ -677,9 +833,15 @@ function downloadRelationSync( relation_id  ) {
 }
 
 
-function parseHttpResponse( data ) {
+function parseLeftHttpResponse( data ) {
 
-    // console.log( '>' + data.toString() + "<\n" );
+    console.log( '>' + data.toString() + "<\n" );
+
+}
+
+function parseRightHttpResponse( data ) {
+
+    console.log( '>' + data.toString() + "<\n" );
 
     osm_data[osm_data_index] = JSON.parse( data.toString() )
 
@@ -708,7 +870,7 @@ function updateAnalysisProgress( increment ) {
 
 function finalizeAnalysisProgress() {
     const d = new Date();
-    var usedms = d.getTime() - downloadstartms;
+    var usedms = d.getTime() - analysisstartms;
     aBar.value = usedms;
     document.getElementById('analysis_text').innerText = usedms.toString();
 }
