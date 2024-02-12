@@ -36,10 +36,11 @@ var relation_id;
 
 var downloadstartms = 0;
 var analysisstartms = 0;
-var JSON_data        = { 'left' : {}, 'right' : {} };
-var DATA_Nodes       = { 'left' : {}, 'right' : {} };
-var DATA_Ways        = { 'left' : {}, 'right' : {} };
-var DATA_Relations   = { 'left' : {}, 'right' : {} };
+var JSON_data       = { 'left' : {}, 'right' : {} };
+var DATA_Nodes      = { 'left' : {}, 'right' : {} };
+var DATA_Ways       = { 'left' : {}, 'right' : {} };
+var DATA_Relations  = { 'left' : {}, 'right' : {} };
+var CMP_List        = { 'left' : [], 'right' : [] };
 var maxlat          =  -90;
 var minlat          =   90;
 var maxlon          = -180;
@@ -179,6 +180,14 @@ async function showtripcomparison() {
         IterateOverMembers( 'right', relation_id.toString() );
     } else {
         IterateOverMembers( 'right', trip_id2.toString() );
+    }
+
+    console.log(CMP_List);
+
+    if ( relation_id !== '' ) {
+        CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
+    } else {
+        CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'GTFS' );
     }
 
 }
@@ -381,6 +390,8 @@ function handleMembers( lor, relation_id ) {
         var type        = object['members'][index]["type"];
         var id          = object['members'][index]["ref"];
         var name        = '';
+        var lat         = 0;
+        var lon         = 0;
 
         if ( type == "node" ) {
             member = DATA_Nodes[lor][id];
@@ -456,9 +467,15 @@ function handleMembers( lor, relation_id ) {
 
             name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || member['ptna'] && member['ptna']['stop_name'] || member['tags'] && member['tags']['stop_name'] || '';
 
-            latlonroute[lor][match].push( drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name) ) );
+            [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name) )
 
-            if ( match == "shape" && number_of_match[match] == 1 ) {
+            latlonroute[lor][match].push( [lat,lon] );
+
+            if ( match === 'platform' || match === 'stop' ) {
+                CMP_List[lor].push( { 'id':id, 'type':type, 'lat':lat, 'lon':lon, 'tags':member['tags'], 'ptna':member['ptna'] } );
+            }
+
+            if ( (match === "shape" || match === 'route') && number_of_match[match] == 1 ) {
                 map.fitBounds( getRelationBounds() );
             }
 
@@ -753,6 +770,87 @@ function parseHttpResponse( lor, data ) {
         client.abort();
     }
     fillNodesWaysRelations( lor );
+
+}
+
+
+function CreateTripsCompareTable( cmp_list, left, right ) {
+
+    var body_row_template = {};
+
+    const div   = document.getElementById('trips-table-div');
+    const table = document.getElementById('trips-table');
+    const thead = document.getElementById('trips-table-thead');
+    const tbody = document.getElementById('trips-table-tbody');
+    const tfoot = document.getElementById('trips-table-tfoot');
+
+    // left &#x2BC7;
+    // right &#x2BC8;
+    // up &#x2BC5;
+    // down &#x2BC6;
+    if ( right === 'OSM' ) {
+        body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '', 'stop_name' : '',
+                              'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
+                              'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',      'gtfs:stop_id' : '', 'ref:IFOPT' : '', 'platform_number' : ''
+                            };
+    } else {
+        body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '',  'stop_name' : '',
+                              'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
+                              'stop_number2': '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : ''
+                            };
+    }
+
+    var body_rows = [];
+    var body_row  = {};
+    var left_len  = cmp_list['left'].length;
+    var right_len = cmp_list['right'].length;
+
+    var max_len = (left_len > right_len) ? left_len : right_len;
+
+    // magic calculation of visible height of table, before scrolling is enabled
+    div.style["height"] = (max_len * 2) + 4 + "em";
+
+    for ( var i = 0; i < max_len; i++ ) {
+        body_row = {...body_row_template};
+        if ( i < left_len ) {
+            if ( cmp_list['left'][i]['tags'] ) {
+                body_row['stop_number'] = i+1;
+                body_row['stop_id']     = cmp_list['left'][i]['tags']['stop_id']   || '';
+                body_row['stop_lat']    = cmp_list['left'][i]['lat']               || '';
+                body_row['stop_lon']    = cmp_list['left'][i]['lon']               || '';
+                body_row['stop_name']   = (cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name']) || cmp_list['left'][i]['tags']['stop_name']  || '';
+            }
+        }
+        if ( i < right_len ) {
+            if ( cmp_list['right'][i]['tags'] ) {
+                if ( right === 'OSM' ) {
+                    body_row['platform_number'] = i+1;
+                    body_row['name']         = cmp_list['right'][i]['tags']['name']         || '';
+                    body_row['ref_name']     = cmp_list['right'][i]['tags']['ref_name']     || '';
+                    body_row['lat']          = cmp_list['right'][i]['lat']                  || '';
+                    body_row['lon']          = cmp_list['right'][i]['lon']                  || '';
+                    body_row['gtfs:stop_id'] = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
+                    body_row['ref:IFOPT']    = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
+                } else {
+                    body_row['stop_number2'] = i+1;
+                    body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id']   || '';
+                    body_row['stop_lat2']    = cmp_list['right'][i]['lat']               || '';
+                    body_row['stop_lon2']    = cmp_list['right'][i]['lon']               || '';
+                    body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
+                }
+            }
+        }
+        if ( i < left_len && i < right_len ) {
+            body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']])
+        } else if ( i < left_len ) {
+            body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']])
+        } else if ( i < right_len) {
+            body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']])
+        }
+        body_rows.push( {...body_row} );
+    }
+
+    console.log( body_rows );
 
 }
 

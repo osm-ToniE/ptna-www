@@ -105,7 +105,17 @@
                     }
                 ?>
                 <div class="indent">
-                    <?php CreateCompareTripsTableStopsPlatforms( $feed, $feed2, $release_date, $release_date2, $trip_id, $trip_id2, $osm_relation ); ?>
+                    <div id="trips-table-div" class="tableFixHeadCompare" style="height: 2em; max-height: 43em">
+                        <!-- table will be filled on the fly using JavaScript ; arrows &#x2BC7; &#x2BC8;-->
+                        <table id="trips-table" class="compare">
+                            <thead id="trips-table-head" class="compare-trips-head">
+                            </thead>
+                            <tbody id="trips-table-body" class="compare-trips-body">
+                            </tbody>
+                            <tfoot id="trips-table-foot" class="compare-trips-foot">
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
                 <script>
                     showtripcomparison();
