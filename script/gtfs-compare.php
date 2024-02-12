@@ -596,7 +596,7 @@
             echo $indent . '                <th class="compare-trips-left" rowspan="2">Stop<br/>Number' . "</th>\n";
             echo $indent . '                <th class="compare-trips-left" colspan="4">Stop data of GTFS trip (' . $trip_id . ")</th>\n";
             echo $indent . '                <th rowspan="2" colspan="3">Distance<br/>[m]' . "</th>\n";
-            echo $indent . '                <th class="compare-trips-right" colspan="5">Platform data of OSM route (r' . $osm_relation . ")</th>\n";
+            echo $indent . '                <th class="compare-trips-right" colspan="6">Platform data of OSM route (r' . $osm_relation . ")</th>\n";
             echo $indent . '                <th class="compare-trips-right" rowspan="2">Platform<br/>Number' . "</th>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
@@ -608,6 +608,7 @@
             echo $indent . '                <th class="compare-trips-right" style="text-align: left">ref_name' . "</th>\n";
             echo $indent . '                <th class="compare-trips-right">lat' . "</th>\n";
             echo $indent . '                <th class="compare-trips-right">lon' . "</th>\n";
+            echo $indent . '                <th class="compare-trips-right">gtfs:stop_id' . "</th>\n";
             echo $indent . '                <th class="compare-trips-right">ref:IFOPT' . "</th>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '        </thead>' . "\n";
@@ -625,6 +626,7 @@
             echo $indent . '                <td style="text-align: left">Brunnthal, Zusestraße</td>' . "\n";
             echo $indent . '                <td>48.04081</td>' . "\n";
             echo $indent . '                <td>11.66148</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2315:0:2</td>' . "\n";
             echo $indent . '                <td>1</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -648,6 +650,7 @@
             echo $indent . '                <td style="text-align: left">Willy-Messerschmitt-Straße, Taufkirchen (Kreis München)</td>' . "\n";
             echo $indent . '                <td>48.04639</td>' . "\n";
             echo $indent . '                <td>11.65870</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2437:0:2</td>' . "\n";
             echo $indent . '                <td>2</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -671,6 +674,7 @@
             echo $indent . '                <td style="text-align: left">Lilienthalstraße, Taufkirchen (Kreis München)</td>' . "\n";
             echo $indent . '                <td>48.05150</td>' . "\n";
             echo $indent . '                <td>11.65507</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2389:0:2</td>' . "\n";
             echo $indent . '                <td>3</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -694,6 +698,7 @@
             echo $indent . '                <td style="text-align: left">Einsteinstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.05245</td>' . "\n";
             echo $indent . '                <td>11.66137</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2245:0:1</td>' . "\n";
             echo $indent . '                <td>4</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -717,7 +722,8 @@
             echo $indent . '                <td style="text-align: left">Röntgenstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.05371</td>' . "\n";
             echo $indent . '                <td>11.66500</td>' . "\n";
-            echo $indent . '                <td style="text-align: centere">de:09184:2247:0:1</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
+            echo $indent . '                <td>de:09184:2247:0:1</td>' . "\n";
             echo $indent . '                <td>5</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr style="display: none">' . "\n";
@@ -740,6 +746,7 @@
             echo $indent . '                <td style="text-align: left">Robert-Koch-Straße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.05576</td>' . "\n";
             echo $indent . '                <td>11.66773</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2203:3:3</td>' . "\n";
             echo $indent . '                <td>6</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -763,6 +770,7 @@
             echo $indent . '                <td style="text-align: left">Ottostraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.05919</td>' . "\n";
             echo $indent . '                <td>11.66544</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2192:1:1</td>' . "\n";
             echo $indent . '                <td>7</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -786,6 +794,7 @@
             echo $indent . '                <td style="text-align: left">Hubertusstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.06160</td>' . "\n";
             echo $indent . '                <td>11.66367</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2242:0:1</td>' . "\n";
             echo $indent . '                <td>8</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -809,6 +818,7 @@
             echo $indent . '                <td style="text-align: left">Ortsmitte, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.06499</td>' . "\n";
             echo $indent . '                <td>11.66119</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2238:1:1</td>' . "\n";
             echo $indent . '                <td>9</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -832,6 +842,7 @@
             echo $indent . '                <td style="text-align: left">Jahnstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.06793</td>' . "\n";
             echo $indent . '                <td>11.65887</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2235:0:1</td>' . "\n";
             echo $indent . '                <td>10</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -855,6 +866,7 @@
             echo $indent . '                <td style="text-align: left">Bahnhofstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.07136</td>' . "\n";
             echo $indent . '                <td>11.65611</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2236:0:1</td>' . "\n";
             echo $indent . '                <td>11</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -878,6 +890,7 @@
             echo $indent . '                <td style="text-align: left">Alte Landstraße, Ottobrunn</td>' . "\n";
             echo $indent . '                <td>48.07429</td>' . "\n";
             echo $indent . '                <td>11.65372</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09184:2189:0:1</td>' . "\n";
             echo $indent . '                <td>12</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -901,7 +914,8 @@
             echo $indent . '                <td style="text-align: left">Werner-Heisenberg-Weg, Neubiberg</td>' . "\n";
             echo $indent . '                <td>48.07844</td>' . "\n";
             echo $indent . '                <td>11.65162</td>' . "\n";
-            echo $indent . '                <td style="text-align: centerde">de:09184:2302:0:2</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
+            echo $indent . '                <td>de:09184:2302:0:2</td>' . "\n";
             echo $indent . '                <td>13</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr style="display: none">' . "\n";
@@ -924,6 +938,7 @@
             echo $indent . '                <td style="text-align: left"></td>' . "\n";
             echo $indent . '                <td>48.08948</td>' . "\n";
             echo $indent . '                <td>11.64403</td>' . "\n";
+            echo $indent . '                <td>&nbsp;</td>' . "\n";
             echo $indent . '                <td>de:09162:1010:5:5</td>' . "\n";
             echo $indent . '                <td>14</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
@@ -933,7 +948,7 @@
             echo $indent . '                <th class="compare-trips-left">14' . "</th>\n";
             echo $indent . '                <th class="compare-trips-left" colspan="4">GTFS trip (' . $trip_id . ")</th>\n";
             echo $indent . '                <th colspan="3">&nbsp;' . "</th>\n";
-            echo $indent . '                <th class="compare-trips-right" colspan="5">OSM route (r' . $osm_relation . ")</th>\n";
+            echo $indent . '                <th class="compare-trips-right" colspan="6">OSM route (r' . $osm_relation . ")</th>\n";
             echo $indent . '                <th class="compare-trips-right">14' . "</th>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '        </tfoot>' . "\n";
