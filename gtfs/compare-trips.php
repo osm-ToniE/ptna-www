@@ -31,7 +31,6 @@
 
             <main id="main" class="results">
 
-<?php   if ( $prove_of_concept ): ?>
                 <div id="comparemap"></div>
                 <div class="compare-intro">
 
@@ -110,7 +109,7 @@
                         <table id="trips-table" class="compare">
                             <thead id="trips-table-head" class="compare-trips-head">
                             </thead>
-                            <tbody id="trips-table-body" class="compare-trips-body">
+                            <tbody id="trips-table-tbody" class="compare-trips-body">
                             </tbody>
                             <tfoot id="trips-table-foot" class="compare-trips-foot">
                             </tfoot>
@@ -120,9 +119,6 @@
                 <script>
                     showtripcomparison();
                 </script>
-<?php   else: ?>
-                <h2 id="compare-trips-map">Compare GTFS trip with GTFS trip</h2>
-<?php   endif ?>
 
             </main> <!-- main -->
 
