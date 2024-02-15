@@ -143,9 +143,9 @@ async function showtripcomparison() {
     var layers;
 
     feed          = URLparse()["feed"]          || '';
-    feed2         = URLparse()["feed2"]         || '';
+    feed2         = URLparse()["feed2"]         || feed;
     release_date  = URLparse()["release_date"]  || '';
-    release_date2 = URLparse()["release_date2"] || '';
+    release_date2 = URLparse()["release_date2"] || release_date;
     trip_id       = URLparse()["trip_id"]       || '';
     trip_id2      = URLparse()["trip_id2"]      || '';
     relation_id   = URLparse()["relation"]      || '';
@@ -805,9 +805,9 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     } else {
         fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','stop_name2','stop_id2','stop_lat2','stop_lon2','stop_number2'];
     }
-    body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '', 'stop_name' : '',
+    body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '',  'stop_name' : '',
                           'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
-                          'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',      'gtfs:stop_id' : '', 'ref:IFOPT' : '', 'platform_number' : '',
+                          'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',       'gtfs:stop_id' : '', 'ref:IFOPT' : '', 'platform_number' : '',
                           'stop_name2'  : '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : ''
                         };
     body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'] };
@@ -818,10 +818,20 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     var row_style   = {};
     var left_len    = cmp_list['left'].length;
     var right_len   = cmp_list['right'].length;
-    var left_name_parts  = '';
-    var right_name_parts = '';
+    var left_name_parts          = '';
+    var right_name_parts         = '';
+    var max_len                  = Math.max(left_len,right_len);
+    var count_fields             = { 'ref_name' : 0, 'gtfs:stop_id' : 0, 'ref:IFOPT' : 0 };
+    var distances                = [ 20, 100, 1000 ];
+    var scores                   = { 'stops'     : Math.abs(left_len-right_len),
+                                     'distance'  : Array(distances.length).fill(0),
+                                     'name'      : 0,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
+                                     'ref_name'  : 0,  // GTFS 'stop_name' versus OSM 'ref_name'
+                                     'stop_id'   : 0,  // GTFS 'stop_id' versus GTFS 'stop_id' or OSM 'gtfs:stop_id'
+                                     'ref:IFOPT' : 0   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                   };
 
-    var max_len = (left_len > right_len) ? left_len : right_len;
+
 
     if ( left_len > 0 && right_len > 0 ) {
         // magic calculation of visible height of table, before scrolling is enabled
@@ -849,6 +859,11 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         body_row['lon']          = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
                         body_row['gtfs:stop_id'] = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
                         body_row['ref:IFOPT']    = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
+                        for ( field in count_fields ) {
+                            if ( body_row[field] !== '' ) {
+                                count_fields[field]++;
+                            }
+                        }
                     } else {
                         body_row['stop_number2'] = i+1;
                         body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
@@ -866,23 +881,26 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                 body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
             }
 
-            if ( body_row['stop_id2'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['ref:IFOPT']) ) {
+            if ( body_row['stop_id'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['ref:IFOPT']) ) {
                 if ( body_row['stop_id2'] !== '' ) {
                     if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
                         row_style['stop_id']  = ['background-color:orange'];
                         row_style['stop_id2'] = ['background-color:orange'];
+                        scores['stop_id']++;
                     }
                 } else {
                     if ( body_row['gtfs:stop_id'] !== '' ) {
                         if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
                             row_style['stop_id']      = ['background-color:orange'];
                             row_style['gtfs:stop_id'] = ['background-color:orange'];
+                            scores['stop_id']++;
                         }
                     }
                     if ( body_row['ref:IFOPT'] !== '' ) {
                         if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
                             row_style['stop_id']   = ['background-color:orange'];
                             row_style['ref:IFOPT'] = ['background-color:orange'];
+                            scores['ref:IFOPT']++;
                         }
                     }
                 }
@@ -892,10 +910,12 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                     if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
                         row_style['stop_name'].push('background-color:orange');
                         row_style['stop_name2'].push('background-color:orange');
+                        scores['name']++;
                     }
                 } else {
                     if ( body_row['name'] !== '' ) {
-                        if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) ) {
+                        if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) &&
+                             !body_row['name'].toString().match(body_row['stop_name'].toString())    ) {
                             if ( body_row['stop_name'].toString().match(',') &&
                                 body_row['name'].toString().match(',')         ) {
                                 left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
@@ -906,14 +926,17 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                                         !left_name_parts[1].match(right_name_parts[0])    ) {
                                             row_style['stop_name'].push('background-color:orange');
                                             row_style['name'].push('background-color:orange');
+                                            scores['name']++;
                                         }
                                 } else {
                                     row_style['stop_name'].push('background-color:orange');
                                     row_style['name'].push('background-color:orange');
+                                    scores['name']++;
                                 }
                             } else {
                                 row_style['stop_name'].push('background-color:orange');
                                 row_style['name'].push('background-color:orange');
+                                scores['name']++;
                             }
                         }
                     }
@@ -928,35 +951,42 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                                     if ( !left_name_parts[0].match(right_name_parts[1]) ||
                                         !left_name_parts[1].match(right_name_parts[0])    ) {
                                         row_style['ref_name'].push('background-color:orange');
+                                        scores['ref_name']++;
                                     }
                                 } else {
                                     row_style['ref_name'].push('background-color:orange');
+                                    scores['ref_name']++;
                                 }
                             } else {
                                 row_style['ref_name'].push('background-color:orange');
+                                scores['ref_name']++;
                             }
                         }
                     }
                 }
             }
-            if ( Number(body_row['distance']) > 20 ) {
+            if ( Number(body_row['distance']) > distances[0] ) {
                 var style_it = 'background-color:yellow';
-                if ( Number(body_row['distance']) > 100 ) {
+                var index    = 0;
+                if ( Number(body_row['distance']) > distances[1] ) {
                     style_it = 'background-color:orange';
+                    index    = 1;
                 }
-                if ( Number(body_row['distance']) > 1000 ) {
+                if ( Number(body_row['distance']) > distances[2] ) {
                     style_it = 'background-color:red';
+                    index    = 2;
                 }
                 row_style['distance']  = [style_it];
+                scores['distance'][index]++;
                 if ( body_row['stop_lat'] !== '' && body_row['stop_lon'] !== '' &&
-                    body_row['lat']      !== '' && body_row['lon']      !== ''    ) {
+                     body_row['lat']      !== '' && body_row['lon']      !== ''    ) {
                     row_style['stop_lat']  = [style_it];
                     row_style['stop_lon']  = [style_it];
                     row_style['lat']       = [style_it];
                     row_style['lon']       = [style_it];
                 }
                 if ( body_row['stop_lat']  !== '' && body_row['stop_lon']  !== '' &&
-                    body_row['stop_lat2'] !== '' && body_row['stop_lon2'] !== ''    ) {
+                     body_row['stop_lat2'] !== '' && body_row['stop_lon2'] !== ''    ) {
                     row_style['stop_lat']  = [style_it];
                     row_style['stop_lon']  = [style_it];
                     row_style['stop_lat2'] = [style_it];
@@ -968,20 +998,25 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
         }
 
         console.log( body_rows );
-        console.log( row_styles );
+        //console.log( row_styles );
 
         for ( var i = 0; i < body_rows.length; i++ ) {
             tr = document.createElement('tr');
             for ( var field of fields ) {
-                td = document.createElement('td');
-                td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
-                if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
-                    td.style.cssText += row_styles[i][field].join(';');
+                if ( !(field in count_fields) || count_fields[field] > 0 ) {
+                    td = document.createElement('td');
+                    td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
+                    if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
+                        td.style.cssText += row_styles[i][field].join(';');
+                    }
+                    tr.appendChild(td);
                 }
-                tr.appendChild(td);
             }
             tbody.appendChild(tr);
         }
+        count_fields['stops'] = max_len;
+        console.log( count_fields );
+        console.log( scores );
     }
 }
 
