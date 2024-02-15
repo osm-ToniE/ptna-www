@@ -362,7 +362,7 @@ function IterateOverMembers( lor, rel_id ) {
     latlonroute[lor]['shape']    = [];
     latlonroute[lor]['other']    = [];
 
-    if ( object ) {
+    if ( object && object['type'] === 'relation' && object['tags'] && (object['tags']['type'] === 'route' || object['tags']['type'] === 'trip') ) {
 
         const d = new Date();
         analysisstartms = d.getTime();
@@ -766,8 +766,16 @@ function parseHttpResponse( lor, data ) {
     // console.log( '>' + JSON_data["license"] + "<" );
 
     if ( JSON_data[lor]["elements"].length === 0 ) {
-        alert( "Data not found");
-        client.abort();
+        if ( lor === 'left' ) {
+            alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+        } else {
+            if ( relation_id !== '' ) {
+                alert( "OSM relation = " + relation_id + " not found");
+            } else {
+                alert( "GTFS for data for trip_id2 =  " + trip_id2 + " not found");
+            }
+        }
+        throw new Error("ERROR");
     }
     fillNodesWaysRelations( lor );
 
@@ -815,164 +823,166 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
 
     var max_len = (left_len > right_len) ? left_len : right_len;
 
-    // magic calculation of visible height of table, before scrolling is enabled
-    div.style["height"] = (max_len * 2) + 4 + "em";
+    if ( left_len > 0 && right_len > 0 ) {
+        // magic calculation of visible height of table, before scrolling is enabled
+        div.style["height"] = (max_len * 2) + 4 + "em";
 
-    for ( var i = 0; i < max_len; i++ ) {
-        body_row = {...body_row_template};
-        row_style = JSON.parse(JSON.stringify(body_row_style));
-        if ( i < left_len ) {
-            if ( cmp_list['left'][i]['tags'] ) {
-                body_row['stop_number'] = i+1;
-                body_row['stop_id']     = cmp_list['left'][i]['tags']['stop_id'] || '';
-                body_row['stop_lat']    = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
-                body_row['stop_lon']    = parseFloat(cmp_list['left'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
-                body_row['stop_name']   = (cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name']) || cmp_list['left'][i]['tags']['stop_name']  || '';
+        for ( var i = 0; i < max_len; i++ ) {
+            body_row = {...body_row_template};
+            row_style = JSON.parse(JSON.stringify(body_row_style));
+            if ( i < left_len ) {
+                if ( cmp_list['left'][i]['tags'] ) {
+                    body_row['stop_number'] = i+1;
+                    body_row['stop_id']     = cmp_list['left'][i]['tags']['stop_id'] || '';
+                    body_row['stop_lat']    = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
+                    body_row['stop_lon']    = parseFloat(cmp_list['left'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
+                    body_row['stop_name']   = (cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name']) || cmp_list['left'][i]['tags']['stop_name']  || '';
+                }
             }
-        }
-        if ( i < right_len ) {
-            if ( cmp_list['right'][i]['tags'] ) {
-                if ( right === 'OSM' ) {
-                    body_row['platform_number'] = i+1;
-                    body_row['name']         = cmp_list['right'][i]['tags']['name']         || '';
-                    body_row['ref_name']     = cmp_list['right'][i]['tags']['ref_name']     || '';
-                    body_row['lat']          = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
-                    body_row['lon']          = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
-                    body_row['gtfs:stop_id'] = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
-                    body_row['ref:IFOPT']    = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
+            if ( i < right_len ) {
+                if ( cmp_list['right'][i]['tags'] ) {
+                    if ( right === 'OSM' ) {
+                        body_row['platform_number'] = i+1;
+                        body_row['name']         = cmp_list['right'][i]['tags']['name']         || '';
+                        body_row['ref_name']     = cmp_list['right'][i]['tags']['ref_name']     || '';
+                        body_row['lat']          = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
+                        body_row['lon']          = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
+                        body_row['gtfs:stop_id'] = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
+                        body_row['ref:IFOPT']    = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
+                    } else {
+                        body_row['stop_number2'] = i+1;
+                        body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
+                        body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
+                        body_row['stop_lon2']    = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
+                        body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
+                    }
+                }
+            }
+            if ( i < left_len && i < right_len ) {
+                body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+            } else if ( i < left_len ) {
+                body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
+            } else if ( i < right_len) {
+                body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+            }
+
+            if ( body_row['stop_id2'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['ref:IFOPT']) ) {
+                if ( body_row['stop_id2'] !== '' ) {
+                    if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
+                        row_style['stop_id']  = ['background-color:orange'];
+                        row_style['stop_id2'] = ['background-color:orange'];
+                    }
                 } else {
-                    body_row['stop_number2'] = i+1;
-                    body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
-                    body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
-                    body_row['stop_lon2']    = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
-                    body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
-                }
-            }
-        }
-        if ( i < left_len && i < right_len ) {
-            body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
-        } else if ( i < left_len ) {
-            body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
-        } else if ( i < right_len) {
-            body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
-        }
-
-        if ( body_row['stop_id2'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['ref:IFOPT']) ) {
-            if ( body_row['stop_id2'] !== '' ) {
-                if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
-                    row_style['stop_id']  = ['background-color:orange'];
-                    row_style['stop_id2'] = ['background-color:orange'];
-                }
-            } else {
-                if ( body_row['gtfs:stop_id'] !== '' ) {
-                    if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
-                        row_style['stop_id']      = ['background-color:orange'];
-                        row_style['gtfs:stop_id'] = ['background-color:orange'];
+                    if ( body_row['gtfs:stop_id'] !== '' ) {
+                        if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
+                            row_style['stop_id']      = ['background-color:orange'];
+                            row_style['gtfs:stop_id'] = ['background-color:orange'];
+                        }
                     }
-                }
-                if ( body_row['ref:IFOPT'] !== '' ) {
-                    if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
-                        row_style['stop_id']   = ['background-color:orange'];
-                        row_style['ref:IFOPT'] = ['background-color:orange'];
+                    if ( body_row['ref:IFOPT'] !== '' ) {
+                        if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
+                            row_style['stop_id']   = ['background-color:orange'];
+                            row_style['ref:IFOPT'] = ['background-color:orange'];
+                        }
                     }
                 }
             }
-        }
-        if ( body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
-            if ( body_row['stop_name2'] && body_row['stop_name2'] ) {
-                if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
-                    row_style['stop_name'].push('background-color:orange');
-                    row_style['stop_name2'].push('background-color:orange');
-                }
-            } else {
-                if ( body_row['name'] !== '' ) {
-                    if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) ) {
-                        if ( body_row['stop_name'].toString().match(',') &&
-                             body_row['name'].toString().match(',')         ) {
-                            left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
-                            right_name_parts = body_row['name'].replace(/,\s+/g,',').split(',');
-                            if ( left_name_parts.length  == 2 && left_name_parts[0]  && left_name_parts[1]  &&
-                                 right_name_parts.length == 2 && right_name_parts[0] && right_name_parts[1]    ) {
-                                if ( !left_name_parts[0].match(right_name_parts[1]) ||
-                                     !left_name_parts[1].match(right_name_parts[0])    ) {
-                                        row_style['stop_name'].push('background-color:orange');
-                                        row_style['name'].push('background-color:orange');
-                                    }
+            if ( body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
+                if ( body_row['stop_name2'] && body_row['stop_name2'] ) {
+                    if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
+                        row_style['stop_name'].push('background-color:orange');
+                        row_style['stop_name2'].push('background-color:orange');
+                    }
+                } else {
+                    if ( body_row['name'] !== '' ) {
+                        if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) ) {
+                            if ( body_row['stop_name'].toString().match(',') &&
+                                body_row['name'].toString().match(',')         ) {
+                                left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
+                                right_name_parts = body_row['name'].replace(/,\s+/g,',').split(',');
+                                if ( left_name_parts.length  == 2 && left_name_parts[0]  && left_name_parts[1]  &&
+                                    right_name_parts.length == 2 && right_name_parts[0] && right_name_parts[1]    ) {
+                                    if ( !left_name_parts[0].match(right_name_parts[1]) ||
+                                        !left_name_parts[1].match(right_name_parts[0])    ) {
+                                            row_style['stop_name'].push('background-color:orange');
+                                            row_style['name'].push('background-color:orange');
+                                        }
+                                } else {
+                                    row_style['stop_name'].push('background-color:orange');
+                                    row_style['name'].push('background-color:orange');
+                                }
                             } else {
                                 row_style['stop_name'].push('background-color:orange');
                                 row_style['name'].push('background-color:orange');
                             }
-                        } else {
-                            row_style['stop_name'].push('background-color:orange');
-                            row_style['name'].push('background-color:orange');
                         }
                     }
-                }
-                if ( body_row['ref_name'] !== '' ) {
-                    if ( !body_row['stop_name'].toString().match(body_row['ref_name'].toString()) ) {
-                        if ( body_row['stop_name'].toString().match(',') &&
-                             body_row['ref_name'].toString().match(',')     ) {
-                            left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
-                            right_name_parts = body_row['ref_name'].replace(/,\s+/g,',').split(',');
-                            if ( left_name_parts.length  == 2 &&
-                                 right_name_parts.length == 2    ) {
-                                if ( !left_name_parts[0].match(right_name_parts[1]) ||
-                                     !left_name_parts[1].match(right_name_parts[0])    ) {
+                    if ( body_row['ref_name'] !== '' ) {
+                        if ( !body_row['stop_name'].toString().match(body_row['ref_name'].toString()) ) {
+                            if ( body_row['stop_name'].toString().match(',') &&
+                                body_row['ref_name'].toString().match(',')     ) {
+                                left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
+                                right_name_parts = body_row['ref_name'].replace(/,\s+/g,',').split(',');
+                                if ( left_name_parts.length  == 2 &&
+                                    right_name_parts.length == 2    ) {
+                                    if ( !left_name_parts[0].match(right_name_parts[1]) ||
+                                        !left_name_parts[1].match(right_name_parts[0])    ) {
+                                        row_style['ref_name'].push('background-color:orange');
+                                    }
+                                } else {
                                     row_style['ref_name'].push('background-color:orange');
                                 }
                             } else {
                                 row_style['ref_name'].push('background-color:orange');
                             }
-                        } else {
-                            row_style['ref_name'].push('background-color:orange');
                         }
                     }
                 }
             }
+            if ( Number(body_row['distance']) > 20 ) {
+                var style_it = 'background-color:yellow';
+                if ( Number(body_row['distance']) > 100 ) {
+                    style_it = 'background-color:orange';
+                }
+                if ( Number(body_row['distance']) > 1000 ) {
+                    style_it = 'background-color:red';
+                }
+                row_style['distance']  = [style_it];
+                if ( body_row['stop_lat'] !== '' && body_row['stop_lon'] !== '' &&
+                    body_row['lat']      !== '' && body_row['lon']      !== ''    ) {
+                    row_style['stop_lat']  = [style_it];
+                    row_style['stop_lon']  = [style_it];
+                    row_style['lat']       = [style_it];
+                    row_style['lon']       = [style_it];
+                }
+                if ( body_row['stop_lat']  !== '' && body_row['stop_lon']  !== '' &&
+                    body_row['stop_lat2'] !== '' && body_row['stop_lon2'] !== ''    ) {
+                    row_style['stop_lat']  = [style_it];
+                    row_style['stop_lon']  = [style_it];
+                    row_style['stop_lat2'] = [style_it];
+                    row_style['stop_lon2'] = [style_it];
+                }
+            }
+            body_rows.push( {...body_row} );
+            row_styles.push( {...row_style} );
         }
-        if ( Number(body_row['distance']) > 10 ) {
-            var style_it = 'background-color:yellow';
-            if ( Number(body_row['distance']) <= 100 ) {
-                style_it = 'background-color:orange';
-            } else if ( Number(body_row['distance']) > 1000 ) {
-                style_it = 'background-color:red';
+
+        console.log( body_rows );
+        console.log( row_styles );
+
+        for ( var i = 0; i < body_rows.length; i++ ) {
+            tr = document.createElement('tr');
+            for ( var field of fields ) {
+                td = document.createElement('td');
+                td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
+                if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
+                    td.style.cssText += row_styles[i][field].join(';');
+                }
+                tr.appendChild(td);
             }
-            row_style['distance']  = [style_it];
-            if ( body_row['stop_lat'] !== '' && body_row['stop_lon'] !== '' &&
-                 body_row['lat']      !== '' && body_row['lon']      !== ''    ) {
-                row_style['stop_lat']  = [style_it];
-                row_style['stop_lon']  = [style_it];
-                row_style['lat']       = [style_it];
-                row_style['lon']       = [style_it];
-            }
-            if ( body_row['stop_lat']  !== '' && body_row['stop_lon']  !== '' &&
-                 body_row['stop_lat2'] !== '' && body_row['stop_lon2'] !== ''    ) {
-                row_style['stop_lat']  = [style_it];
-                row_style['stop_lon']  = [style_it];
-                row_style['stop_lat2'] = [style_it];
-                row_style['stop_lon2'] = [style_it];
-            }
+            tbody.appendChild(tr);
         }
-        body_rows.push( {...body_row} );
-        row_styles.push( {...row_style} );
     }
-
-    console.log( body_rows );
-    console.log( row_styles );
-
-    for ( var i = 0; i < body_rows.length; i++ ) {
-        tr = document.createElement('tr');
-        for ( var field of fields ) {
-            td = document.createElement('td');
-            td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
-            if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
-                td.style.cssText += row_styles[i][field].join(';');
-            }
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-    }
-
 }
 
 
