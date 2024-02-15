@@ -65,7 +65,7 @@
                 echo $indent . '</tr>' . "\n";
             } else {
                 echo $indent . '<tr><th colspan="7" class="gtfs-name"><button class="button-create" type="submit">' . htmlspecialchars($STR_compare_versions) . '</button></th>' . "\n";
-#                echo $indent . '    <th colspan="4" class="gtfs-name"><input type="checkbox" name="type" value="d">Drop down liste</th>' . "\n";
+#                echo $indent . '    <th colspan="4" class="gtfs-name"><input type="checkbox" name="type" value="d">Drop down list</th>' . "\n";
                 echo $indent . '</tr>' . "\n";
                 echo $indent . '<tr><th colspan="2" class="gtfs-name"><input type="hidden" name="feed"  value="' . $feed  . '">' . $feed  . '</th>' . "\n";
                 echo $indent . '    <th colspan="2" class="gtfs-name"><input type="hidden" name="feed2" value="' . $feed2 . '">' . $feed2 . '</th>' . "\n";
