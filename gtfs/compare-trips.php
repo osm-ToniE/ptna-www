@@ -95,9 +95,9 @@
 
                     <hr/>
 
-                    <h2 id="scores">Scores (low-score)</h2>
+                    <h2 id="scores">Scores (low score)</h2>
                     <div class="indent">
-                        <p>The values show how well the two trips match, smaller is better.</p>
+                        <p>The values indicate how well the two routes match, smaller is better.</p>
                         <div>
                             <table id="scores-table" class="scores-table scores">
                                 <thead id="scores-table-thead" class="scores-table-thead">
