@@ -280,11 +280,20 @@ input.hackbox {
 .tableFixHeadCompare thead  { position: sticky; top: 0; }
 .tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
 
-.compare-trips-head         { background-color: #bbbbbb; text-align: center }
-.compare-trips-body         { text-align: center }
-.compare-trips-foot         { background-color: #bbbbbb; text-align: center }
+.compare-trips-thead        { background-color: #bbbbbb; text-align: center }
+.compare-trips-tbody        { text-align: center }
+.compare-trips-tfoot        { background-color: #bbbbbb; text-align: center }
 .compare-trips-left         { background-color: #fc0fc0 }
 .compare-trips-middle       { background-color: #bbbbbb; text-align: center }
 .compare-trips-right        { background-color: #6495ed }
 .compare-trips-minor        { background-color: yellow }
 .compare-trips-error        { background-color: orange }
+
+.scores-table               { border-width: 1px; border-style: solid; border-collapse: collapse }
+.scores-table-thead         { background-color: #bbbbbb; text-align: center }
+.scores-table-tbody         { text-align: left }
+.scores-table-tfoot         { background-color: #bbbbbb; text-align: center }
+.scores th,td               { border-width: 1px; border-style: solid; border-collapse: collapse; }
+.scores td                  { border-width: 1px; border-style: solid; border-collapse: collapse; }
+.scores-center              { text-align: center }
+.scores-no-padding          { text-align: center; padding: 0em; vertical-align: middle; }

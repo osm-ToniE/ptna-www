@@ -92,6 +92,85 @@
                             </li>
                         </ul>
                     </div>
+
+                    <hr/>
+
+                    <h2 id="scores">Scores (low-score)</h2>
+                    <div class="indent">
+                        <p>The values show how well the two trips match, smaller is better.</p>
+                        <div>
+                            <table id="scores-table" class="scores-table scores">
+                                <thead id="scores-table-thead" class="scores-table-thead">
+                                    <tr>
+                                        <th colspan="2">Score</th>
+                                        <th>Mismatch</th>
+                                        <th>Weight</th>
+                                        <th rowspan="2">Description</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Over-all</th>
+                                        <th>Individual</th>
+                                        <th>[%]</th>
+                                        <th>[1]</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scores-table-tbody" class="scores-table-tbody">
+                                    <tr>
+                                        <td rowspan="8" class="scores-no-padding"><img id="score-traffic-signals" src="/img/Traffic-Lights-Off.svg" alt="Over-all scrore Off" title="Over-all scrore Off"/></td>
+                                        <td id="score-stops-class"  class="scores-center"></td>
+                                        <td id="score-stops"        class="scores-center"></td>
+                                        <td id="score-stops-weight" class="scores-center">4</td>
+                                        <td id="score-stops-text">mismatch of number of stops</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-distances0-class"  class="scores-center"></td>
+                                        <td id="score-distances0"        class="scores-center"></td>
+                                        <td id="score-distances0-weight" class="scores-center">1</td>
+                                        <td id="score-distances0-text">mismatch of positions of stops by more than %d m</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-distances1-class"  class="scores-center"></td>
+                                        <td id="score-distances1"        class="scores-center"></td>
+                                        <td id="score-distances1-weight" class="scores-center">4</td>
+                                        <td id="score-distances1-text">mismatch of positions of stops by more than %d m</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-distances2-class"  class="scores-center"></td>
+                                        <td id="score-distances2"        class="scores-center"></td>
+                                        <td id="score-distances2-weight" class="scores-center">6</td>
+                                        <td id="score-distances2-text">mismatch of positions of stops by more than %d m</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-names-class"  class="scores-center"></td>
+                                        <td id="score-names"        class="scores-center"></td>
+                                        <td id="score-names-weight" class="scores-center">2</td>
+                                        <td id="score-names-text">mismatch of names of stops</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-ref-name-class" class="scores-center">n/a</td>
+                                        <td id="score-ref-name" class="scores-center">n/a</td>
+                                        <td class="scores-center">1</td>
+                                        <td>mismatch of 'stop_name' of GTFS with 'ref_name' of OSM</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-stop-id-class" class="scores-center">n/a</td>
+                                        <td id="score-stop-id" class="scores-center">n/a</td>
+                                        <td class="scores-center">2</td>
+                                        <td>mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-ref-ifopt-class" class="scores-center">n/a</td>
+                                        <td id="score-ref-ifopt" class="scores-center">n/a</td>
+                                        <td class="scores-center">2</td>
+                                        <td>mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM</td>
+                                    </tr>
+                                 </tbody>
+                                <tfoot id="scores-table-tfoot" class="scores-table-tfoot">
+                                </tfoot>
+                            </table>
+                            <span>"n/a" : these combinations have not been detected</span>
+                        </div>
+                    </div>
                 </div>
 
                 <hr class="clearing"/>
@@ -107,11 +186,11 @@
                     <div id="trips-table-div" class="tableFixHeadCompare" style="height: 2em; max-height: 43em">
                         <!-- table will be filled on the fly using JavaScript ; arrows &#x2BC7; &#x2BC8;-->
                         <table id="trips-table" class="compare">
-                            <thead id="trips-table-head" class="compare-trips-head">
+                            <thead id="trips-table-thead" class="compare-trips-thead">
                             </thead>
-                            <tbody id="trips-table-tbody" class="compare-trips-body">
+                            <tbody id="trips-table-tbody" class="compare-trips-tbody">
                             </tbody>
-                            <tfoot id="trips-table-foot" class="compare-trips-foot">
+                            <tfoot id="trips-table-tfoot" class="compare-trips-tfoot">
                             </tfoot>
                         </table>
                     </div>

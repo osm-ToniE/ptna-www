@@ -896,7 +896,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                             scores['stop_id']++;
                         }
                     }
-                    if ( body_row['ref:IFOPT'] !== '' ) {
+                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].match(':') > 2 ) {
+                        // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 3 ':'
                         if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
                             row_style['stop_id']   = ['background-color:orange'];
                             row_style['ref:IFOPT'] = ['background-color:orange'];

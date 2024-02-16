@@ -591,7 +591,7 @@
             echo "\n";
             echo $indent . '<div id="trips-table-div" class="tableFixHeadCompare" style="height: 32em; max-height: 43em">' . "\n";
             echo $indent . '    <table id="trips-table" class="compare">' . "\n";
-            echo $indent . '        <thead id="trips-table-head" class="compare-trips-head">' . "\n";
+            echo $indent . '        <thead id="trips-table-head" class="compare-trips-thead">' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <th class="compare-trips-left" rowspan="2">Stop<br/>Number' . "</th>\n";
             echo $indent . '                <th class="compare-trips-left" colspan="4">Stop data of GTFS trip (' . $trip_id . ")</th>\n";
@@ -612,7 +612,7 @@
             echo $indent . '                <th class="compare-trips-right">ref:IFOPT' . "</th>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '        </thead>' . "\n";
-            echo $indent . '        <tbody id="trips-table-body" class="compare-trips-body">' . "\n";
+            echo $indent . '        <tbody id="trips-table-body" class="compare-trips-tbody">' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td>1</td>' . "\n";
             echo $indent . '                <td>de:09184:2315:0:2</td>' . "\n";
@@ -943,7 +943,7 @@
             echo $indent . '                <td>14</td>' . "\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '        </tbody>' . "\n";
-            echo $indent . '        <tfoot id="trips-table-foot" class="compare-trips-foot">' . "\n";
+            echo $indent . '        <tfoot id="trips-table-foot" class="compare-trips-tfoot">' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <th class="compare-trips-left">14' . "</th>\n";
             echo $indent . '                <th class="compare-trips-left" colspan="4">GTFS trip (' . $trip_id . ")</th>\n";
