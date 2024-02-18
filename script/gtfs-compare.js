@@ -182,7 +182,7 @@ async function showtripcomparison() {
         IterateOverMembers( 'right', trip_id2.toString() );
     }
 
-    console.log(CMP_List);
+    //console.log(CMP_List);
 
     if ( relation_id !== '' ) {
         CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
@@ -755,7 +755,7 @@ function downloadRelationSync( relation_id  ) {
 
 function parseHttpResponse( lor, data ) {
 
-    console.log( 'Left-or-Right = ' + lor + ' >' + data.toString() + "<\n" );
+    // console.log( 'Left-or-Right = ' + lor + ' >' + data.toString() + "<\n" );
 
     JSON_data[lor] = JSON.parse( data.toString() )
 
@@ -822,24 +822,25 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     var right_name_parts         = '';
     var max_len                  = Math.max(left_len,right_len);
     var scores                   = { 'distances' : [ 20, 100, 1000 ],
-                                     'mismatch_percent_to_colour' : { // colour if actual value is greater or equal number
-                                        0  : '#6aef00',
-                                        5  : '#aecd00',
-                                        15 : '#d7a700',
+                                     'mismatch_percent_to_color' : { // colour if actual value is greater or equal number
+                                        55 : '#fe4000',
                                         30 : '#f17a00',
-                                        55 : '#fe4000'
+                                        15 : '#d7a700',
+                                        5  : '#aecd00',
+                                        0  : '#6aef00'
                                      },
                                      'weights'   : {
-                                        'stops'        : 4,
-                                        'distance'     : [1,4,6],
+                                        'stops'        : 10,
+                                        'distance'     : [1,4,12],
                                         'name'         : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
                                         'ref_name'     : 1,  // GTFS 'stop_name' versus OSM 'ref_name'
-                                        'stop_id2'     : 1,  // GTFS 'stop_id' versus GTFS 'stop_id'
-                                        'gtfs:stop_id' : 1,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'    : 1   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'stop_id2'     : 2,  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'gtfs:stop_id' : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
+                                        'ref:IFOPT'    : 2   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
                                      'totals'    : {
                                         'stops'        : max_len,
+                                        'distance'     : [max_len,max_len,max_len],
                                         'name'         : 0,  // right side: GTFS 'stop_name' or OSM 'name'
                                         'ref_name'     : 0,  // right side: OSM 'ref_name'
                                         'stop_id2'     : 0,  // right side: GTFS 'stop_id'
@@ -872,7 +873,9 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                                         'stop_id2'     : '',
                                         'gtfs:stop_id' : '',
                                         'ref:IFOPT'    : ''
-                                     }
+                                     },
+                                     'over_all_color'  : '',
+                                     'over_all_score'  : ''
                                    };
 
 
@@ -940,8 +943,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                             scores['mismatch_count']['gtfs:stop_id']++;
                         }
                     }
-                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].match(':') > 2 ) {
-                        // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 3 ':'
+                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
+                        // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 2 ':'
                         if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
                             row_style['stop_id']   = ['background-color:orange'];
                             row_style['ref:IFOPT'] = ['background-color:orange'];
@@ -1022,7 +1025,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                     index    = 2;
                 }
                 row_style['distance']  = [style_it];
-                score['mismatch_count']['distance'][index]++;
+                scores['mismatch_count']['distance'][index]++;
                 if ( body_row['stop_lat'] !== '' && body_row['stop_lon'] !== '' &&
                      body_row['lat']      !== '' && body_row['lon']      !== ''    ) {
                     row_style['stop_lat']  = [style_it];
@@ -1042,11 +1045,12 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
             row_styles.push( {...row_style} );
         }
 
-        console.log( body_rows );
-        //console.log( row_styles );
-        console.log( scores );
+        // console.log( body_rows );
+        // console.log( row_styles );
 
         CalculateScores( scores );
+
+        console.log( scores );
 
         FillTripsTable( fields, body_rows, row_styles, scores );
 
@@ -1056,7 +1060,52 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
 
 
 function CalculateScores( scores ) {
-;
+    var weighted_scores     = 0;
+    var accumulated_weights = 0;
+    for ( var field in scores['totals'] ) {
+        if ( Array.isArray(scores['totals'][field]) ) {
+            for ( var i = 0; i < scores['totals'][field].length; i++ ) {
+                if ( scores['totals'][field][i] > 0 ) {
+                    scores['mismatch_percent'][field][i] = (scores['mismatch_count'][field][i] / scores['totals'][field][i] * 100).toFixed(0);
+                    scores['mismatch_color'][field][i]   = GetScoreColor( scores, scores['mismatch_percent'][field][i] );
+                    weighted_scores     += (scores['mismatch_percent'][field][i] * scores['weights'][field][i]);
+                    accumulated_weights += scores['weights'][field][i];
+                }
+            }
+        } else {
+            if ( scores['totals'][field] > 0 ) {
+                scores['mismatch_percent'][field] = (scores['mismatch_count'][field] / scores['totals'][field] * 100).toFixed(0);
+                scores['mismatch_color'][field]   = GetScoreColor( scores, scores['mismatch_percent'][field] );
+                weighted_scores     += (scores['mismatch_percent'][field] * scores['weights'][field]);
+                accumulated_weights += scores['weights'][field];
+            }
+        }
+    }
+    if ( accumulated_weights > 0 ) {
+        scores['over_all_score'] = (weighted_scores / accumulated_weights).toFixed(0);
+        scores['over_all_color'] = GetScoreColor( scores, scores['over_all_score'] );
+    }
+}
+
+
+function GetScoreColor( scores, value ) {
+    var limits = Object.keys(scores['mismatch_percent_to_color']).sort(compareNumbersReverse);
+    for ( var i = 0; i < limits.length; i++ ) {
+        if ( parseFloat(value) >= parseFloat(limits[i]) ) {
+            return scores['mismatch_percent_to_color'][limits[i]];
+        }
+    }
+    return '';
+}
+
+
+function compareNumbers(a, b) {
+    return a - b;
+}
+
+
+function compareNumbersReverse(a, b) {
+    return b -a;
 }
 
 
@@ -1105,6 +1154,9 @@ function FillTripsScoresTable( scores ) {
                 if ( field === 'distance' ) {
                     elem_text.innerHTML = elem_text.innerHTML.replace('xx',scores['distances'][i]);
                 }
+                if ( scores['mismatch_color'][field][i] !== '' ) {
+                    elem_color.style = 'background-color: ' + scores['mismatch_color'][field][i];
+                }
             }
         } else {
             elem        = document.getElementById(score_fields_to_ids[field]);
@@ -1114,12 +1166,20 @@ function FillTripsScoresTable( scores ) {
             elem_weight.innerHTML = scores['weights'][field];
             if ( scores['totals'][field] > 0 ) {
                 elem.innerHTML = scores['mismatch_percent'][field];
+                if ( scores['mismatch_color'][field] !== '' ) {
+                    elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
+                }
             } else {
                 elem.innerHTML = 'n/a';
             }
         }
     }
-
+    elem_color       = document.getElementById('score-total');
+    elem_color.style = 'background-color: ' + scores['over_all_color'];
+    elem             = document.createElement('span');
+    elem.innerHTML   = '&nbsp;'
+    elem.setAttribute( 'title', scores['over_all_score']+"%");
+    elem_color.appendChild(elem);
 }
 
 
