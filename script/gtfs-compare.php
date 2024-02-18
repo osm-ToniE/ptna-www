@@ -445,7 +445,7 @@
     #
     # called from compare-routes.php
     #
-    # colour palette: 6 resp. 11 colours RGB
+    # colour palette: 5 resp. 11 colours RGB
     # #00ff00
     #         #6aef00
     # #91df00
