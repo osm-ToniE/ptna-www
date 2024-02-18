@@ -175,6 +175,10 @@ async function showtripcomparison() {
     await download_left_data().then( (data)  => parseHttpResponse( 'left', data ) );
     await download_right_data().then( (data) => parseHttpResponse( 'right', data ) );
 
+    console.log(DATA_Nodes);
+    console.log(DATA_Ways);
+    console.log(DATA_Relations);
+
     IterateOverMembers( 'left', trip_id.toString() );
     if ( relation_id !== '' ) {
         IterateOverMembers( 'right', relation_id.toString() );
@@ -182,7 +186,7 @@ async function showtripcomparison() {
         IterateOverMembers( 'right', trip_id2.toString() );
     }
 
-    //console.log(CMP_List);
+    console.log(CMP_List);
 
     if ( relation_id !== '' ) {
         CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
@@ -803,7 +807,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     if ( right === 'OSM' ) {
         fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','ref:IFOPT','platform_number'];
     } else {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','stop_name2','stop_id2','stop_lat2','stop_lon2','stop_number2'];
+        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','stop_name2','stop_lat2','stop_lon2','stop_id2','stop_number2'];
     }
     body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '',  'stop_name' : '',
                           'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
@@ -841,7 +845,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                                      'totals'    : {
                                         'stops'        : max_len,
                                         'distance'     : [max_len,max_len,max_len],
-                                        'name'         : 0,  // right side: GTFS 'stop_name' or OSM 'name'
+                                        'name'         : 0,  // right side: OSM 'name'
                                         'ref_name'     : 0,  // right side: OSM 'ref_name'
                                         'stop_id2'     : 0,  // right side: GTFS 'stop_id'
                                         'gtfs:stop_id' : 0,  // right side: OSM 'gtfs:stop_id'
@@ -917,6 +921,14 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
                         body_row['stop_lon2']    = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
                         body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
+                        for ( var field in scores['totals'] ) {
+                            if ( field in body_row && body_row[field] !== '' ) {
+                                scores['totals'][field]++;
+                            }
+                        }
+                        if ( body_row['stop_name2'] !== '' ) {
+                            scores['totals']['name']++;
+                        }
                     }
                 }
             }
@@ -1045,8 +1057,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
             row_styles.push( {...row_style} );
         }
 
-        // console.log( body_rows );
-        // console.log( row_styles );
+        console.log( body_rows );
+        console.log( row_styles );
 
         CalculateScores( scores );
 
@@ -1135,7 +1147,7 @@ function FillTripsScoresTable( scores ) {
                                   'name'         : 'score-name',
                                   'ref_name'     : 'score-ref-name',
                                   'stop_id2'     : 'score-stop-id',
-                                  'gtfs:stop_id' : 'score-stop-id',
+                                  'gtfs:stop_id' : 'score-gtfs-stop-id',
                                   'ref:IFOPT'    : 'score-ref-ifopt'
                                 };
     var elem;
