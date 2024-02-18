@@ -1082,7 +1082,7 @@ function CalculateScores( scores ) {
         }
     }
     if ( accumulated_weights > 0 ) {
-        scores['over_all_score'] = (weighted_scores / accumulated_weights).toFixed(0);
+        scores['over_all_score'] = (weighted_scores / accumulated_weights).toFixed(2);
         scores['over_all_color'] = GetScoreColor( scores, scores['over_all_score'] );
     }
 }
