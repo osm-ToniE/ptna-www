@@ -205,7 +205,10 @@ async function download_left_data() {
     if ( feed ) {
         if ( feed.match(/^[0-9A-Za-z_.-]+$/) ) {
 
-            if ( release_date === '' || release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+            if ( release_date === ''                        ||
+                 release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ||
+                 release_date === 'previous'                ||
+                 release_date === 'long-term'                  ) {
                 if ( trip_id !== '' ) {
                     var url     = PTNA_API_URL     +
                                   '?feed='         + encodeURIComponent(feed)         +
@@ -271,7 +274,10 @@ async function download_right_data() {
         }
     } else if ( feed2 !== '' ) {
         if ( feed2.match(/^[0-9A-Za-z_.-]+$/) ) {
-            if ( release_date2 === '' || release_date2.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+            if ( release_date2 === ''                        ||
+                 release_date2.match(/^\d\d\d\d-\d\d-\d\d$/) ||
+                 release_date2 === 'previous'                ||
+                 release_date2 === 'long-term'                  ) {
                 if ( trip_id2 !== '' ) {
                     var url = PTNA_API_URL     +
                         '?feed='         + encodeURIComponent(feed2)         +
