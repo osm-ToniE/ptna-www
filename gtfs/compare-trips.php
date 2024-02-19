@@ -99,67 +99,63 @@
                     <div class="indent">
                         <p>The values indicate how well the two routes match, smaller is better.</p>
                         <div>
+                            <!-- table will be filled on the fly using JavaScript -->
                             <table id="scores-table" class="scores-table scores">
                                 <thead id="scores-table-thead" class="scores-table-thead">
                                     <tr>
                                         <th colspan="2">Score</th>
-                                        <th>Mismatch</th>
                                         <th>Weight</th>
                                         <th rowspan="2">Description</th>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
                                         <th>Indiv.</th>
-                                        <th>[%]</th>
                                         <th>[1]</th>
                                     </tr>
                                 </thead>
                                 <tbody id="scores-table-tbody" class="scores-table-tbody">
                                     <tr>
-                                        <td id="score-total" rowspan="8" class="scores-no-padding"></td>
-                                        <td id="score-stops-color"></td>
+                                        <td id="score-total" rowspan="9" class="scores-no-padding"></td>
                                         <td id="score-stops"        class="scores-center"></td>
                                         <td id="score-stops-weight" class="scores-center"></td>
                                         <td id="score-stops-text">mismatch of number of stops</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-distance0-color"  class="scores-center"></td>
                                         <td id="score-distance0"        class="scores-center"></td>
                                         <td id="score-distance0-weight" class="scores-center"></td>
                                         <td id="score-distance0-text">mismatch of positions of stops by more than xx m</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-distance1-color"  class="scores-center"></td>
                                         <td id="score-distance1"        class="scores-center"></td>
                                         <td id="score-distance1-weight" class="scores-center"></td>
                                         <td id="score-distance1-text">mismatch of positions of stops by more than xx m</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-distance2-color"  class="scores-center"></td>
                                         <td id="score-distance2"        class="scores-center"></td>
                                         <td id="score-distance2-weight" class="scores-center"></td>
                                         <td id="score-distance2-text">mismatch of positions of stops by more than xx m</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-name-color"  class="scores-center"></td>
                                         <td id="score-name"        class="scores-center"></td>
                                         <td id="score-name-weight" class="scores-center"></td>
                                         <td id="score-name-text">mismatch of names of stops</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-ref-name-color" class="scores-center"></td>
                                         <td id="score-ref-name" class="scores-center"></td>
                                         <td id="score-ref-name-weight" class="scores-center"></td>
                                         <td id="score-ref-name-text">mismatch of 'stop_name' of GTFS with 'ref_name' of OSM</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-stop-id-color" class="scores-center"></td>
                                         <td id="score-stop-id" class="scores-center"></td>
                                         <td id="score-stop-id-weight" class="scores-center"></td>
-                                        <td id="score-stop-id-text">mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM</td>
+                                        <td id="score-stop-id-text">mismatch of 'stop_id' of GTFS stops</td>
                                     </tr>
                                     <tr>
-                                        <td id="score-ref-ifopt-color" class="scores-center"></td>
+                                        <td id="score-gtfs-stop-id" class="scores-center"></td>
+                                        <td id="score-gtfs-stop-id-weight" class="scores-center"></td>
+                                        <td id="score-gtfs-stop-id-text">mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM</td>
+                                    </tr>
+                                    <tr>
                                         <td id="score-ref-ifopt" class="scores-center"></td>
                                         <td id="score-ref-ifopt-weight" class="scores-center"></td>
                                         <td id="score-ref-ifopt-text">mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM</td>
