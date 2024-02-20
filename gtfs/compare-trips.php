@@ -61,7 +61,7 @@
                                         $feed_parts = explode( '-', $feed );
                                         $countrydir = array_shift( $feed_parts );
                                         if ( $release_date ) {
-                                            echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id) . '</a> of ' . htmlspecialchars($feed) . ' as of ' . htmlspecialchars($release_date);
+                                            echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id) . '</a> of ' . htmlspecialchars($feed) . ', Version: ' . htmlspecialchars($release_date);
                                         } else {
                                             echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id) . '</a> of ' . htmlspecialchars($feed);
                                         }
@@ -80,7 +80,7 @@
                                         $feed_parts = explode( '-', $feed2 );
                                         $countrydir = array_shift( $feed_parts );
                                         if ( $release_date2 ) {
-                                            echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($trip_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id2) . '</a> of ' . htmlspecialchars($feed2) . ' as of ' . htmlspecialchars($release_date2);
+                                            echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($trip_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id2) . '</a> of ' . htmlspecialchars($feed2) . ', Version: ' . htmlspecialchars($release_date2);
                                         } else {
                                             echo '<span style="display: inline-block; width: 5em">GTFS trip</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($trip_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id2) . '</a> of ' . htmlspecialchars($feed2);
                                         }
