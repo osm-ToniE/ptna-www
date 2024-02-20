@@ -473,7 +473,7 @@
             echo $indent . '    <table id="routes-table" class="compare">' . "\n";
             echo $indent . '        <thead>' . "\n";
             echo $indent . '            <tr>' . "\n";
-            echo $indent . '                <th rowspan="2" colspan="3" style="background-color: #6698FF; text-align: left">&nbsp;' . "</th>\n";
+            echo $indent . '                <th rowspan="2" colspan="3" style="background-color: #6698FF; text-center: left;  font-weight: 1000; font-size:2.0em;">Scores (low score)' . "</th>\n";
             echo $indent . '                <th colspan="4" style="background-color: #bbbbbb" title="Route-Master relation-ID 67811"><a target="_blank" href="https://www.openstreetmap.org/relation/67811">OSM route_master</a>' . "</th>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
@@ -498,66 +498,66 @@
                                             'Suspicious end of trip: same \'stop_name\'.' . "\n" .
                                             'Suspicious number of stops: \'2\'.' . "\n" .
                                             'Suspicious travel time: \'0:00\'"/>' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #c4ba00"><a target="_blank"  href="" title="">&nbsp;<!-- 4S / 8P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #d7a700"><a target="_blank"  href="" title="">&nbsp;<!-- 13S / 16P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">&nbsp;<!-- 3S / 7P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #f96000"><a target="_blank"  href="" title="">&nbsp;<!-- 12S / 13P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=242.T0.19-210-s24-1.5.R&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">63.19' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=242.T0.19-210-s24-1.5.R&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">62.75' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=242.T0.19-210-s24-1.5.R&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">62.81' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=242.T0.19-210-s24-1.5.R&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">61.78' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
                                             'title="GTFS trip_id 320.T0.19-210-s24-1.1.H">Brunnthal, Zusestraße ... 12 stops ... Neuperlach Süd' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #dddddd">&nbsp;' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 8S / 20P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #f96000"><a target="_blank"  href="" title="">&nbsp;<!-- 1S / 29P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #e59100"><a target="_blank"  href="" title="">&nbsp;<!-- 9S / 9P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #00ff00"><a target="_blank"  href="/gtfs/compare-trips.php?poc&feed=' . htmlspecialchars($feed) . '&release_date=' . htmlspecialchars($release_date) . '&trip_id=' . htmlspecialchars("320.T0.19-210-s24-1.1.H") . '&relation=' . htmlspecialchars("1549761") . '" title="">0S / 0P' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=320.T0.19-210-s24-1.1.H&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">61.94' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=320.T0.19-210-s24-1.1.H&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">49.22' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=320.T0.19-210-s24-1.1.H&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">70.50' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #6aef00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=320.T0.19-210-s24-1.1.H&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">0.47' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
                                             'title="GTFS trip_id 1.T0.19-210-s24-1.4.R">Neuperlach Süd ... 13 stops ... Brunnthal, Zusestraße' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #e59100"><a target="_blank"  href="" title="">&nbsp;<!-- 9S / 9P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #00ff00"><a target="_blank"  href="" title="">&nbsp;<!-- 0S / 0P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 10S / 19P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #c4ba00"><a target="_blank"  href="" title="">&nbsp;<!-- 1S / 14P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f17a00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=1.T0.19-210-s24-1.4.R&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">39.94' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #6aef00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=1.T0.19-210-s24-1.4.R&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">0.88' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=1.T0.19-210-s24-1.4.R&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">66.38' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=1.T0.19-210-s24-1.4.R&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">50.31' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
                                             'title="GTFS trip_id 222.T0.19-210-s24-1.3.H">Neuperlach Süd ... 0 stops ... Ottobrunn, Jahnstraße' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #dddddd"><img src="/img/Attention32.png" height="18" width="18" alt="Information" ' .
                                             'title="Suspicious number of stops: \'2\'"/>' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">&nbsp;<!-- 4S / 6P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 13S / 15P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">&nbsp;<!-- 3S / 7P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #f96000"><a target="_blank"  href="" title="">&nbsp;<!-- 12S / 13P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f17a00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=222.T0.19-210-s24-1.3.H&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">36.84' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=222.T0.19-210-s24-1.3.H&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">54.38' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=222.T0.19-210-s24-1.3.H&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">52.81' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=222.T0.19-210-s24-1.3.H&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">56.72' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
                                             'title="GTFS trip_id 225.T0.19-210-s24-1.7.R">Neuperlach Süd ... 4 stops ... Ottobrunn, Ortsmitte' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #cccccc">&nbsp;' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #00ff00"><a target="_blank"  href="" title="">&nbsp;<!-- 0S / 0P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #e59100"><a target="_blank"  href="" title="">&nbsp;<!-- 9S / 9P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">&nbsp;<!-- 1S / 9P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 8S / 18P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #6aef00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=225.T0.19-210-s24-1.7.R&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">0.00' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f17a00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=225.T0.19-210-s24-1.7.R&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">39.31' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f17a00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=225.T0.19-210-s24-1.7.R&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">42.31' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=225.T0.19-210-s24-1.7.R&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">53.13' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #dddddd" ' .
                                             'title="GTFS trip_id 219.T0.19-210-s24-1.2.H">Ottobrunn, Jahnstraße ... 3 stops ... Neuperlach Süd' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #dddddd"><img src="/img/Information32.png" height="18" width="18" alt="Information" title="Trip is subroute of: 320.T0.19-210-s24-1.1.H"/>' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #e59100"><a target="_blank"  href="" title="">&nbsp;<!-- 1S / 18P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 10S / 18P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #00ff00"><a target="_blank"  href="" title="">&nbsp;<!-- 0S / 0P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #e59100"><a target="_blank"  href="" title="">&nbsp;<!-- 9S / 10P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #f17a00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=219.T0.19-210-s24-1.2.H&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">39.97' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=219.T0.19-210-s24-1.2.H&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">57.19' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #6aef00"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=219.T0.19-210-s24-1.2.H&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">0.00' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=219.T0.19-210-s24-1.2.H&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">60.56' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '            <tr>' . "\n";
             echo $indent . '                <td align="right"  style="background-color: #cccccc" ' .
                                             'title="GTFS trip_id 308.T0.19-210-s24-1.6.R">Ottobrunn, Ortsmitte ... 0 stops ... Neuperlach Süd' . "</td>\n";
             echo $indent . '                <td align="center" style="background-color: #cccccc"><img src="/img/Attention32.png" height="18" width="18" alt="Information" ' .
                                             'title="Suspicious number of stops: \'2\'"/>' . "</td>\n";
-            echo $indent . '                <td align="center" style="background-color: #c4ba00"><a target="_blank"  href="" title="">&nbsp;<!-- 4S / 8P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 13S / 15P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #91df00"><a target="_blank"  href="" title="">&nbsp;<!-- 3S / 5P -->' . "</a></td>\n";
-            echo $indent . '                <td align="center" style="background-color: #ff0000"><a target="_blank"  href="" title="">&nbsp;<!-- 12S / 14P -->' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=308.T0.19-210-s24-1.6.R&relation=9797611" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">63.19' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=308.T0.19-210-s24-1.6.R&relation=1549762" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">66.53' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=308.T0.19-210-s24-1.6.R&relation=9797610" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">50.31' . "</a></td>\n";
+            echo $indent . '                <td align="center" style="background-color: #fe4000"><a target="_blank"  href="/gtfs/compare-trips.php?feed=DE-BY-MVV&trip_id=308.T0.19-210-s24-1.6.R&relation=1549761" title="xS / (a,b,c)P / xN / xR / xI / xG / xF">63.97' . "</a></td>\n";
             echo $indent . '            </tr>' . "\n";
             echo $indent . '        </tbody>' . "\n";
             echo $indent . '    </table>' . "\n";
