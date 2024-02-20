@@ -216,14 +216,16 @@ function FillTripElements( $db, $trip_id, $full ) {
     $element_array            = array();
     $table_array              = array();
     $member_array             = array();
+    $list_separator           = '|';
+    $rep_trip_id              = $trip_id;
 
     $sql = "SELECT name FROM sqlite_master WHERE type='table';";
 
     $sql_master = $db->query( $sql );
 
     while ( $table_infos=$sql_master->fetchArray(SQLITE3_ASSOC) ) {
-        if ( $table_infos['name'] == 'ptna_stops' ) {
-            $table_array['ptna_stops'] = true;
+        if ( $table_infos['name'] == 'ptna_trips' ) {
+            $table_array['ptna_trips'] = true;
         }
         if ( $table_infos['name'] == 'ptna_stops' ) {
             $table_array['ptna_stops'] = true;
@@ -236,12 +238,34 @@ function FillTripElements( $db, $trip_id, $full ) {
         }
     }
 
+    $sql  = sprintf( "SELECT * FROM ptna;" );
+    $ptna = $db->query( $sql );
+    while ( $ptna_infos=$ptna->fetchArray(SQLITE3_ASSOC) ) {
+        if ( isset($ptna_infos['list_separator']) ) {
+            $list_separator = $ptna_infos['list_separator'];
+        }
+    }
+
+    if ( $table_array['ptna_trips'] ) {
+        $sql  = sprintf( "SELECT trip_id FROM ptna_trips WHERE (list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s');",
+                          SQLite3::escapeString($trip_id), SQLite3::escapeString($list_separator),
+                          SQLite3::escapeString($list_separator), SQLite3::escapeString($trip_id), SQLite3::escapeString($list_separator),
+                          SQLite3::escapeString($list_separator), SQLite3::escapeString($trip_id)
+                       );
+        $trids = $db->query( $sql );
+        while ( $trids_info=$trids->fetchArray(SQLITE3_ASSOC) ) {
+            if ( isset($trids_info['trip_id']) ) {
+                $rep_trip_id = $trids_info['trip_id'];
+            }
+        }
+    }
+
     $sql = sprintf( "SELECT   stops.*
                      FROM     stops
                      JOIN     stop_times ON stop_times.stop_id = stops.stop_id
                      WHERE    stop_times.trip_id='%s'
                      ORDER BY CAST (stop_times.stop_sequence AS INTEGER) ASC;",
-                     SQLite3::escapeString($trip_id)
+                     SQLite3::escapeString($rep_trip_id)
                   );
     $stops = $db->query( $sql );
 
@@ -298,7 +322,7 @@ function FillTripElements( $db, $trip_id, $full ) {
         $sql = sprintf( "SELECT   *
                          FROM     trips
                          WHERE    trip_id='%s';",
-                         SQLite3::escapeString($trip_id)
+                         SQLite3::escapeString($rep_trip_id)
                     );
         $trips = $db->query( $sql );
 
@@ -364,7 +388,7 @@ function FillTripElements( $db, $trip_id, $full ) {
             $sql = sprintf( "SELECT   *
                             FROM     ptna_trips_comments
                             WHERE    trip_id='%s';",
-                            SQLite3::escapeString($trip_id)
+                            SQLite3::escapeString($rep_trip_id)
                         );
             $trips = $db->query( $sql );
 
