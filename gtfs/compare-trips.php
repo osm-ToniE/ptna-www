@@ -202,5 +202,8 @@
 <?php include $lang_dir.'gtfs-footer.inc' ?>
 
         </div> <!-- wrapper -->
+
+        <iframe style="display:none" id="hiddenIframe" name="hiddenIframe"></iframe>
+
     </body>
 </html>

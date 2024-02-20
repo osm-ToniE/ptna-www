@@ -186,6 +186,7 @@ async function showtripcomparison() {
         IterateOverMembers( 'right', trip_id2.toString() );
     }
 
+    console.log("CMP_List");
     console.log(CMP_List);
 
     if ( relation_id !== '' ) {
@@ -811,14 +812,14 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     // up &#x2BC5;
     // down &#x2BC6;
     if ( right === 'OSM' ) {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','ref:IFOPT','platform_number'];
+        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','ref:IFOPT','platform_number','Edit<br/>with'];
     } else {
         fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','stop_name2','stop_lat2','stop_lon2','stop_id2','stop_number2'];
     }
     body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '',  'stop_name' : '',
                           'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
-                          'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',       'gtfs:stop_id' : '', 'ref:IFOPT' : '', 'platform_number' : '',
-                          'stop_name2'  : '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : ''
+                          'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',       'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
+                          'stop_name2'  : '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : '', 'Edit<br/>with' : ''
                         };
     body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'] };
 
@@ -921,6 +922,19 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                             if ( field in body_row && body_row[field] !== '' ) {
                                 scores['totals'][field]++;
                             }
+                        }
+                        if ( cmp_list['right'][i]['type'] === 'node' ) {
+                            body_row['Edit<br/>with'] = '<img src="/img/Node.svg" alt="Node"> <small>' +
+                                                        '<a href="https://osm.org/edit?editor=id&amp;node=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
+                        } else if ( cmp_list['right'][i]['type'] === 'way' ) {
+                            body_row['Edit<br/>with'] = '<img src="/img/Way.svg" alt="Ways"> <small>' +
+                                                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
+                        } else if ( cmp_list['right'][i]['type'] === 'relation' ) {
+                            body_row['Edit<br/>with'] = '<img src="/img/Relation.svg" alt="Relation"> <small>' +
+                                                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
                         }
                     } else {
                         body_row['stop_number2'] = i+1;
@@ -1066,11 +1080,13 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
             row_styles.push( {...row_style} );
         }
 
+        console.log("body_rows");
         console.log( body_rows );
         // console.log( row_styles );
 
         CalculateScores( scores );
 
+        console.log("scores");
         console.log( scores );
 
         FillTripsTable( fields, body_rows, row_styles, scores );
@@ -1159,12 +1175,22 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         if ( scores['totals']['gtfs:stop_id'] > 0 ) { colspan++; }
         if ( scores['totals']['ref:IFOPT']    > 0 ) { colspan++; }
         th           = document.createElement('th');
-        th.innerHTML = 'Platform data of OSM route (r' + relation_id + ')';
+        th.innerHTML =  'Platform data of OSM route ' +
+                        '<img src="/img/Relation.svg" alt="Relation"> ' +
+                        '<a href="/relation.php?id=' + relation_id + '" title="Link to PTNA" target="_blank">' + relation_id + '</a> <small>(' +
+                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + relation_id + '" title="Edit in iD">iD</a>, ' +
+                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + relation_id + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>, ' +
+                        '<a href="https://relatify.monicz.dev/?relation=' + relation_id + '&amp;load=1" target="_blank" title="Edit in Relatify">Relatify</a>)</small>';
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', colspan );
         tr.appendChild(th);
         th            = document.createElement('th');
         th.innerHTML  = 'Platform<br/>Number';
+        th.setAttribute( 'class', "compare-trips-right" );
+        th.setAttribute( 'rowspan', 2 );
+        tr.appendChild(th);
+        th            = document.createElement('th');
+        th.innerHTML  = 'Edit<br/>with';
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'rowspan', 2 );
         tr.appendChild(th);
