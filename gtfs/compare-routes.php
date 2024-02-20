@@ -11,11 +11,11 @@
         }
         include( '../script/gtfs.php'         );
         include( '../script/gtfs-compare.php' );
-        if ( $osm_relation ) {
+        #if ( $osm_relation ) {
             $title="Compare GTFS route with OSM route_master";
-        } else {
-            $title="Compare GTFS route with GTFS route";
-        }
+        #} else {
+        #    $title="Compare GTFS route with GTFS route";
+        #}
         include $lang_dir.'html-head.inc';
 ?>
 
