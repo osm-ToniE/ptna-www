@@ -186,7 +186,7 @@ async function showtripcomparison() {
         IterateOverMembers( 'right', trip_id2.toString() );
     }
 
-    // console.log(CMP_List);
+    console.log(CMP_List);
 
     if ( relation_id !== '' ) {
         CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
@@ -892,7 +892,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
 
     if ( left_len > 0 && right_len > 0 ) {
         // magic calculation of visible height of table, before scrolling is enabled
-        div.style["height"] = (max_len * 2) + "em";
+        div.style["height"] = ((max_len * 2) + 3) + "em";
+        div.style["min-height"] = 24 + "em";
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -1063,7 +1064,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
             row_styles.push( {...row_style} );
         }
 
-        // console.log( body_rows );
+        console.log( body_rows );
         // console.log( row_styles );
 
         CalculateScores( scores );
