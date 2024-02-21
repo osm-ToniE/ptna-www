@@ -120,9 +120,6 @@ code             { font-weight: 500; font-size: 1.1em; }
 #routes-table             { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 #trips-table              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 #shapes-table             { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
-.compare table            { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
-.compare th               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; background-color: #bbbbbb; }
-.compare td               { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 
 .ptna-data textarea       { overflow: auto;    }
 
@@ -274,11 +271,17 @@ input.hackbox {
 
 #comparemap                 { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
 .compare-intro              { float:left; max-width:47.6% }
+
+.compare table              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+.compare th                 { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
+.compare td                 { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 .compare a                  { text-decoration: none; color: #000; }
 
 .tableFixHeadCompare        { overflow-y: auto; height: 562px;}
 .tableFixHeadCompare thead  { position: sticky; top: 0; }
 .tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
+
+.compare-versions-thead     { background-color: #bbbbbb; text-align: center }
 
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }

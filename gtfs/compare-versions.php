@@ -48,7 +48,7 @@
 
                 <form method="get" action="compare-routes.php">
                     <table  id="versions-table" class="compare">
-                        <thead>
+                        <thead class="compare-versions-thead">
                             <?php echo '<tr>' . "\n" . '    <th colspan="16" style="text-align: left">' . "\n";
                                   echo '        <button class="button-create" type="submit">' . htmlspecialchars($STR_compare_routes) . '</button>' . "\n";
                                   echo '        <button id="show-hide" class="button-create" type="button" onclick="toggle(\'hideable\');">Hide Unchanged</button>' . "\n";
