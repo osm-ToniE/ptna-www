@@ -403,6 +403,8 @@ function handleMembers( lor, relation_id ) {
         var name        = '';
         var lat         = 0;
         var lon         = 0;
+        var ref_lat     = 0;
+        var ref_lon     = 0;
 
         if ( type == "node" ) {
             member = DATA_Nodes[lor][id];
@@ -478,7 +480,20 @@ function handleMembers( lor, relation_id ) {
 
             name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || member['ptna'] && member['ptna']['stop_name'] || member['tags'] && member['tags']['stop_name'] || '';
 
-            [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name) )
+            if ( is_GTFS ) {
+                // GTFS is always type='node', so no need for ref_lat and ref_lon
+                [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name), 0, 0 );
+            } else {
+                // OSM is always lor='right'
+                if ( CMP_List['right'].length < CMP_List['left'].length ) {
+                    ref_lat = CMP_List['left'][CMP_List['right'].length]['lat'];
+                    ref_lon = CMP_List['left'][CMP_List['right'].length]['lon'];
+                } else {
+                    ref_lat = CMP_List['left'][CMP_List['left'].length-1]['lat'];
+                    ref_lon = CMP_List['left'][CMP_List['left'].length-1]['lon'];
+                }
+                [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon );
+            }
 
             latlonroute[lor][match].push( [lat,lon] );
 
@@ -528,14 +543,14 @@ function PopupContent (id, type, match, label, name) {
 }
 
 
-function drawObject( lor, id, type, match, label_number, name ) {
+function drawObject( lor, id, type, match, label_number, name, ref_lat, ref_lon ) {
 
     if ( type == "node" ) {
         return drawNode( lor, id, match, label_number, name, true, true );
     } else if ( type == "way" ) {
-        return drawWay( lor, id, match, label_number, name, true );
+        return drawWay( lor, id, match, label_number, name, true, ref_lat, ref_lon );
     } else if ( type == "relation" ) {
-        return drawRelation( lor, id, match, label_number, name, true )
+        return drawRelation( lor, id, match, label_number, name, true, ref_lat, ref_lon )
     }
     return [0,0];
 }
@@ -567,13 +582,15 @@ function drawNode( lor, id, match, label, name, set_marker, set_circle ) {
 }
 
 
-function drawWay( lor, id, match, label, name, set_marker ) {
+function drawWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
 
     var lat = 0;
     var lon = 0;
+    var closest_lat = 0;
+    var closest_lon = 0;
 
     var polyline_array = [];
     var node_id;
@@ -590,29 +607,31 @@ function drawWay( lor, id, match, label, name, set_marker ) {
         if ( lon > maxlon ) maxlon = lon;
 
         polyline_array.push( [ lat, lon ] );
+
     }
+    closest_lat = DATA_Nodes[lor][nodes[0]]['lat'];
+    closest_lon = DATA_Nodes[lor][nodes[0]]['lon'];
 
     if ( match == 'platform' ) {
-        mlat = DATA_Nodes[lor][nodes[0]]['lat'];
-        mlon = DATA_Nodes[lor][nodes[0]]['lon'];
-        if ( set_marker ) L.marker([mlat,mlon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        [ closest_lat, closest_lon ] = GetClosestLatLon( map, polyline_array, [ref_lat, ref_lon] );
+        console.log( polyline_array, [ref_lat, ref_lon] );
+
+        if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
 
         L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
     } else if ( match == 'stop' ) {
-        mlat = DATA_Nodes[lor][nodes[0]]['lat'];
-        mlon = DATA_Nodes[lor][nodes[0]]['lon'];
-        if ( set_marker ) L.marker([mlat,mlon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
 
         L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
     } else if ( match == "route" || match == "shape" ) {
         L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
     }
 
-    return [DATA_Nodes[lor][nodes[0]]['lat'],DATA_Nodes[lor][nodes[0]]['lon']];
+    return [closest_lat, closest_lon];
 }
 
 
-function drawRelation( lor, id, match, label, name, set_marker ) {
+function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -652,9 +671,9 @@ function drawRelation( lor, id, match, label, name, set_marker ) {
             }
             if ( DATA_Ways[member_id] ) {
                 if ( have_set_marker ) {
-                    drawWay( lor, member_id, match, label, name, false );
+                    drawWay( lor, member_id, match, label, name, false, ref_lat, ref_lon );
                 } else {
-                    [lat,lon] = drawWay( lor, member_id, match, label, name, true );
+                    [lat,lon] = drawWay( lor, member_id, match, label, name, true, ref_lat, ref_lon );
                     have_set_marker = 1;
                 }
             } else {
@@ -829,6 +848,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     var row_style   = {};
     var left_len    = cmp_list['left'].length;
     var right_len   = cmp_list['right'].length;
+    var right_lat   = 0;
+    var right_lon   = 0;
     var left_name_parts          = '';
     var right_name_parts         = '';
     var max_len                  = Math.max(left_len,right_len);
@@ -1136,6 +1157,35 @@ function GetScoreColor( scores, value ) {
         }
     }
     return '';
+}
+
+
+function GetClosestLatLon( map, latlonAA, latlonA ) {
+    var mindist = Infinity;
+    if ( latlonAA.length > 0 ) {
+        for (i = 0, l = latlonAA.length; i < l; i++) {
+            var latlon = latlonAA[i];
+            distance = map.distance(latlonA, latlon);
+            if (distance < mindist) {
+                mindist = distance;
+                result  = latlon;
+            }
+        }
+        return result;
+    }
+    return latlonA;
+}
+
+
+function GetNodesOfObject( object_id, object_type ) {
+    if ( object_type === 'node') {
+        return [ object_id ];
+    } else if ( object_type === 'way') {
+
+    } else if ( object_type === 'relation' ) {
+    }
+
+    return [];
 }
 
 
