@@ -821,7 +821,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                           'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',       'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
                           'stop_name2'  : '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : '', 'Edit<br/>with' : ''
                         };
-    body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'] };
+    body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
 
     var body_rows   = [];
     var row_styles  = [];
@@ -925,16 +925,19 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         }
                         if ( cmp_list['right'][i]['type'] === 'node' ) {
                             body_row['Edit<br/>with'] = '<img src="/img/Node.svg" alt="Node"> <small>' +
+                                                        '<a href="https://osm.org/node/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
                                                         '<a href="https://osm.org/edit?editor=id&amp;node=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
                         } else if ( cmp_list['right'][i]['type'] === 'way' ) {
                             body_row['Edit<br/>with'] = '<img src="/img/Way.svg" alt="Ways"> <small>' +
+                                                        '<a href="https://osm.org/way/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
                                                         '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
                         } else if ( cmp_list['right'][i]['type'] === 'relation' ) {
                             body_row['Edit<br/>with'] = '<img src="/img/Relation.svg" alt="Relation"> <small>' +
+                                                        '<a href="https://osm.org/relation/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
                                                         '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a></small>';
+                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
                         }
                     } else {
                         body_row['stop_number2'] = i+1;
@@ -1176,8 +1179,8 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         if ( scores['totals']['ref:IFOPT']    > 0 ) { colspan++; }
         th           = document.createElement('th');
         th.innerHTML =  'Platform data of OSM route ' +
-                        '<img src="/img/Relation.svg" alt="Relation"> ' +
-                        '<a href="/relation.php?id=' + relation_id + '" title="Link to PTNA" target="_blank">' + relation_id + '</a> <small>(' +
+                        '<img src="/img/Relation.svg" alt="Relation"> <small>' +
+                        '<a href="https://osm.org/relation/' + relation_id + '" title="Link to OSM" target="_blank">' + relation_id + '</a> (' +
                         '<a href="https://osm.org/edit?editor=id&amp;relation=' + relation_id + '" title="Edit in iD">iD</a>, ' +
                         '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + relation_id + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>, ' +
                         '<a href="https://relatify.monicz.dev/?relation=' + relation_id + '&amp;load=1" target="_blank" title="Edit in Relatify">Relatify</a>)</small>';

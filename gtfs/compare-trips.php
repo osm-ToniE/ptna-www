@@ -103,14 +103,13 @@
                             <table id="scores-table" class="scores-table scores">
                                 <thead id="scores-table-thead" class="scores-table-thead">
                                     <tr>
-                                        <th colspan="2">Score</th>
-                                        <th>Weight</th>
+                                        <th colspan="2">Score [%]</th>
+                                        <th rowspan="2">Weight<br/>[1]</th>
                                         <th rowspan="2">Description</th>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
                                         <th>Indiv.</th>
-                                        <th>[1]</th>
                                     </tr>
                                 </thead>
                                 <tbody id="scores-table-tbody" class="scores-table-tbody">
@@ -165,6 +164,7 @@
                                 </tfoot>
                             </table>
                             <span>"n/a" : these combinations have not been detected</span>
+                            <p><span style="font-weight: 1000; font-size:1.2em;">Before fixing potential errors in OSM data: consider that GTFS data can be wrong as well!</span></p>
                         </div>
                     </div>
                 </div>
