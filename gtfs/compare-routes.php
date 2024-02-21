@@ -50,7 +50,7 @@
                     <li>xS == number of stops differ by "x%"</li>
                     <li>(a,b,c)P == percentage of stops where positions differ by more than 20 / 100 / 1000 meters</li>
                     <li>xN == percentage of stops where the 'name' differs (GTFS-'stop_name' / OSM-'name')</li>
-                    <li>xR == percentage of stops where the GTFS-'Stop_name' fiffers from OSM-'ref_name' (if tagged)</li>
+                    <li>xR == percentage of stops where the GTFS-'stop_name' differs from OSM-'ref_name' (if tagged)</li>
                     <li>xI == percentage of stops where the GTFS-'stop_id' differ (GTFS/GTFS comparison)</li>
                     <li>xG == percentage of stops where the GTFS-'stop_id' differs from OSM-'gtfs:stop_id' (if tagged)</li>
                     <li>xF == percentage of stops where the GTFS-'stop_id' differs from OSM-'ref:IFOPT' (if tagged)</li>
