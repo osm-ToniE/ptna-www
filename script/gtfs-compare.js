@@ -1019,17 +1019,16 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                     }
                 } else {
                     if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
-                        if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) &&
-                             !body_row['name'].toString().match(body_row['stop_name'].toString()) &&
-                             body_row['stop_name'].toString() !== body_row['name'].toString()        ) {
+                        if ( body_row['stop_name'].toString().indexOf(body_row['name'].toString()) == -1 &&
+                             body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1    ) {
                             if ( body_row['stop_name'].toString().match(',') &&
-                                body_row['name'].toString().match(',')         ) {
+                                 body_row['name'].toString().match(',')         ) {
                                 left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
                                 right_name_parts = body_row['name'].replace(/,\s+/g,',').split(',');
                                 if ( left_name_parts.length  == 2 && left_name_parts[0]  && left_name_parts[1]  &&
                                      right_name_parts.length == 2 && right_name_parts[0] && right_name_parts[1]    ) {
-                                    if ( !left_name_parts[0].match(right_name_parts[1]) ||
-                                        !left_name_parts[1].match(right_name_parts[0])    ) {
+                                    if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
+                                         left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
                                             row_style['stop_name'].push('background-color:orange');
                                             row_style['name'].push('background-color:orange');
                                             scores['mismatch_count']['name']++;
@@ -1047,16 +1046,15 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         }
                     }
                     if ( body_row['ref_name'] !== '' ) {
-                        if ( !body_row['stop_name'].toString().match(body_row['ref_name'].toString()) &&
-                             body_row['stop_name'].toString() !== body_row['ref_name'].toString()        ) {
+                        if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 ) {
                             if ( body_row['stop_name'].toString().match(',') &&
-                                body_row['ref_name'].toString().match(',')     ) {
+                                 body_row['ref_name'].toString().match(',')     ) {
                                 left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
                                 right_name_parts = body_row['ref_name'].replace(/,\s+/g,',').split(',');
                                 if ( left_name_parts.length  == 2 &&
                                      right_name_parts.length == 2    ) {
-                                    if ( !left_name_parts[0].match(right_name_parts[1]) ||
-                                        !left_name_parts[1].match(right_name_parts[0])    ) {
+                                    if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
+                                         left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
                                         row_style['ref_name'].push('background-color:orange');
                                         scores['mismatch_count']['ref_name']++;
                                     }
