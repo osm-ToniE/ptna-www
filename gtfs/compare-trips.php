@@ -103,9 +103,9 @@
                             <table id="scores-table" class="scores-table scores">
                                 <thead id="scores-table-thead" class="scores-table-thead">
                                     <tr>
-                                        <th colspan="2">Score [%]</th>
-                                        <th rowspan="2">Weight<br/>[1]</th>
+                                        <th colspan="2">Score</th>
                                         <th rowspan="2">Description</th>
+                                        <th rowspan="2">Weight</th>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
@@ -116,48 +116,48 @@
                                     <tr>
                                         <td id="score-total" rowspan="9" class="scores-no-padding"></td>
                                         <td id="score-stops"        class="scores-center"></td>
-                                        <td id="score-stops-weight" class="scores-center"></td>
                                         <td id="score-stops-text">mismatch of number of stops</td>
+                                        <td id="score-stops-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-distance0"        class="scores-center"></td>
-                                        <td id="score-distance0-weight" class="scores-center"></td>
                                         <td id="score-distance0-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance0-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-distance1"        class="scores-center"></td>
-                                        <td id="score-distance1-weight" class="scores-center"></td>
                                         <td id="score-distance1-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance1-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-distance2"        class="scores-center"></td>
-                                        <td id="score-distance2-weight" class="scores-center"></td>
                                         <td id="score-distance2-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance2-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-name"        class="scores-center"></td>
-                                        <td id="score-name-weight" class="scores-center"></td>
                                         <td id="score-name-text">mismatch of names of stops</td>
+                                        <td id="score-name-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-ref-name" class="scores-center"></td>
-                                        <td id="score-ref-name-weight" class="scores-center"></td>
                                         <td id="score-ref-name-text">mismatch of 'stop_name' of GTFS with 'ref_name' of OSM</td>
+                                        <td id="score-ref-name-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-stop-id" class="scores-center"></td>
-                                        <td id="score-stop-id-weight" class="scores-center"></td>
                                         <td id="score-stop-id-text">mismatch of 'stop_id' of GTFS stops</td>
+                                        <td id="score-stop-id-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-gtfs-stop-id" class="scores-center"></td>
-                                        <td id="score-gtfs-stop-id-weight" class="scores-center"></td>
                                         <td id="score-gtfs-stop-id-text">mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM</td>
+                                        <td id="score-gtfs-stop-id-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-ref-ifopt" class="scores-center"></td>
-                                        <td id="score-ref-ifopt-weight" class="scores-center"></td>
                                         <td id="score-ref-ifopt-text">mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM</td>
+                                        <td id="score-ref-ifopt-weight" class="scores-center"></td>
                                     </tr>
                                  </tbody>
                                 <tfoot id="scores-table-tfoot" class="scores-table-tfoot">
