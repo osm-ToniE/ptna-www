@@ -933,7 +933,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                 if ( cmp_list['right'][i]['tags'] ) {
                     if ( right === 'OSM' ) {
                         body_row['platform_number'] = i+1;
-                        body_row['name']         = cmp_list['right'][i]['tags']['name']         || '';
+                        body_row['name']         = cmp_list['right'][i]['tags']['name']         || '&nbsp;'; // always present this column
                         body_row['ref_name']     = cmp_list['right'][i]['tags']['ref_name']     || '';
                         body_row['lat']          = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
                         body_row['lon']          = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
@@ -1018,7 +1018,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         scores['mismatch_count']['name']++;
                     }
                 } else {
-                    if ( body_row['name'] !== '' ) {
+                    if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
                         if ( !body_row['stop_name'].toString().match(body_row['name'].toString()) &&
                              !body_row['name'].toString().match(body_row['stop_name'].toString()) &&
                              body_row['stop_name'].toString() !== body_row['name'].toString()        ) {
