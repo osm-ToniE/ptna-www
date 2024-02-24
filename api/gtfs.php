@@ -286,53 +286,57 @@ function FillTripElements( $db, $trip_id, $full ) {
                   );
     $stops = $db->query( $sql );
 
+    $already_printed = array();
     while ( $stops_infos=$stops->fetchArray(SQLITE3_ASSOC) ) {
         if ( isset($stops_infos['stop_id']) &&  isset($stops_infos['stop_lat']) &&  isset($stops_infos['stop_lon']) &&
              (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
-            $node_string  = "\r\n{ ";
-            $node_string .= '"type" : "node", ';
-            $node_string .= '"id" : ' . json_encode($stops_infos['stop_id']) . ', ';
-            $node_string .= '"lat" : ' . json_encode($stops_infos['stop_lat']) . ', ';
-            $node_string .= '"lon" : ' . json_encode($stops_infos['stop_lon']) . ', ';
-            $node_string .= '"tags" : { ';
-            $tags_array = array();
-            foreach ( array_keys($stops_infos) as $stops_info ) {
-                if ( $stops_infos[$stops_info] ) {
-                    array_push( $tags_array, json_encode($stops_info) . ' : ' . json_encode($stops_infos[$stops_info]) );
+            if ( !$already_printed[$stops_infos['stop_id']]) {
+                $already_printed[$stops_infos['stop_id']] = 1;
+                $node_string  = "\r\n{ ";
+                $node_string .= '"type" : "node", ';
+                $node_string .= '"id" : ' . json_encode($stops_infos['stop_id']) . ', ';
+                $node_string .= '"lat" : ' . json_encode($stops_infos['stop_lat']) . ', ';
+                $node_string .= '"lon" : ' . json_encode($stops_infos['stop_lon']) . ', ';
+                $node_string .= '"tags" : { ';
+                $tags_array = array();
+                foreach ( array_keys($stops_infos) as $stops_info ) {
+                    if ( $stops_infos[$stops_info] ) {
+                        array_push( $tags_array, json_encode($stops_info) . ' : ' . json_encode($stops_infos[$stops_info]) );
+                    }
                 }
-            }
-            $node_string .= implode( ', ', $tags_array );
+                $node_string .= implode( ', ', $tags_array );
 
-            if ( $table_array['ptna_stops'] ) {
-                $sql = sprintf( "SELECT   *
-                                 FROM     ptna_stops
-                                 WHERE    stop_id='%s';",
-                                 SQLite3::escapeString($stops_infos['stop_id'])
-                            );
-                $ptna_stops = $db->query( $sql );
-                $ptna_array = array();
-                while ( $ptna_stops_infos=$ptna_stops->fetchArray(SQLITE3_ASSOC) ) {
-                    foreach ( array_keys($ptna_stops_infos) as $ptna_stops_info ) {
-                        if ( $ptna_stops_info != "stop_id" ) {
-                            if ( $ptna_stops_infos[$ptna_stops_info] ) {
-                                if ( $ptna_stops_info == 'normalized_stop_name' ) {
-                                    array_push( $ptna_array, json_encode('stop_name') . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
-                                } else {
-                                    array_push( $ptna_array, json_encode($ptna_stops_info) . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
+                if ( $table_array['ptna_stops'] ) {
+                    $sql = sprintf( "SELECT   *
+                                    FROM     ptna_stops
+                                    WHERE    stop_id='%s';",
+                                    SQLite3::escapeString($stops_infos['stop_id'])
+                                );
+                    $ptna_stops = $db->query( $sql );
+                    $ptna_array = array();
+                    while ( $ptna_stops_infos=$ptna_stops->fetchArray(SQLITE3_ASSOC) ) {
+                        foreach ( array_keys($ptna_stops_infos) as $ptna_stops_info ) {
+                            if ( $ptna_stops_info != "stop_id" ) {
+                                if ( $ptna_stops_infos[$ptna_stops_info] ) {
+                                    if ( $ptna_stops_info == 'normalized_stop_name' ) {
+                                        array_push( $ptna_array, json_encode('stop_name') . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
+                                    } else {
+                                        array_push( $ptna_array, json_encode($ptna_stops_info) . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
+                                    }
                                 }
                             }
                         }
                     }
+                    if ( count($ptna_array) > 0 ) {
+                        $node_string .= '}, "ptna" : { ';
+                        $node_string .= implode( ', ', $ptna_array );
+                    }
                 }
-                if ( count($ptna_array) > 0 ) {
-                    $node_string .= '}, "ptna" : { ';
-                    $node_string .= implode( ', ', $ptna_array );
-                }
+                $node_string .= ' } }';
+                array_push( $element_array, $node_string );
             }
-            $node_string .= ' } }';
             array_push( $member_array, '    { "ref" : ' . json_encode($stops_infos['stop_id']) . ', "role" : "stop", "type" : "node" }' );
         }
-        array_push( $element_array, $node_string );
     }
 
     if ( count($member_array) > 0 ) {
