@@ -218,6 +218,10 @@ function FillTripElements( $db, $trip_id, $full ) {
     $member_array             = array();
     $list_separator           = '|';
     $rep_trip_id              = $trip_id;
+    $list_trip_ids            = '';
+    $list_service_ids         = '';
+    $service_id               = '';
+    $route_id                 = '';
 
     $sql = "SELECT name FROM sqlite_master WHERE type='table';";
 
@@ -247,7 +251,7 @@ function FillTripElements( $db, $trip_id, $full ) {
     }
 
     if ( $table_array['ptna_trips'] ) {
-        $sql  = sprintf( "SELECT trip_id FROM ptna_trips WHERE (list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s');",
+        $sql  = sprintf( "SELECT trip_id, list_trip_ids, list_service_ids FROM ptna_trips WHERE (list_trip_ids LIKE '%s%s%%' OR list_trip_ids LIKE '%%%s%s%s%%' OR list_trip_ids LIKE '%%%s%s');",
                           SQLite3::escapeString($trip_id), SQLite3::escapeString($list_separator),
                           SQLite3::escapeString($list_separator), SQLite3::escapeString($trip_id), SQLite3::escapeString($list_separator),
                           SQLite3::escapeString($list_separator), SQLite3::escapeString($trip_id)
@@ -257,6 +261,19 @@ function FillTripElements( $db, $trip_id, $full ) {
             if ( isset($trids_info['trip_id']) ) {
                 $rep_trip_id = $trids_info['trip_id'];
             }
+            if ( isset($trids_info['list_trip_ids']) ) {
+                $list_trip_ids = $trids_info['list_trip_ids'];
+            }
+            if ( isset($trids_info['list_service_ids']) ) {
+                $list_service_ids = $trids_info['list_service_ids'];
+            }
+        }
+        if ( $list_trip_ids && $list_service_ids ) {
+            # find service_id which fits to this trip_id (not to rep_trip_id)
+            $array_trip_ids    = explode( $list_separator, $list_trip_ids    );
+            $array_service_ids = explode( $list_separator, $list_service_ids );
+            $index             =  array_search( $trip_id, $array_trip_ids );
+            $service_id        = $array_service_ids[$index];
         }
     }
 
@@ -271,7 +288,7 @@ function FillTripElements( $db, $trip_id, $full ) {
 
     while ( $stops_infos=$stops->fetchArray(SQLITE3_ASSOC) ) {
         if ( isset($stops_infos['stop_id']) &&  isset($stops_infos['stop_lat']) &&  isset($stops_infos['stop_lon']) &&
-                (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
+             (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
             $node_string  = "\r\n{ ";
             $node_string .= '"type" : "node", ';
             $node_string .= '"id" : ' . json_encode($stops_infos['stop_id']) . ', ';
@@ -331,13 +348,20 @@ function FillTripElements( $db, $trip_id, $full ) {
         $shape_id   = '';
         while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
             foreach ( array_keys($trips_infos) as $trips_info ) {
-                if ( $trips_infos[$trips_info] ) {
+                if ( $trips_info == 'trip_id' ) {
+                    array_push( $tags_array, json_encode('trip_id') . ' : ' . json_encode($trip_id) );
+                } else if ( $trips_info == 'service_id' ) {
+                    if ( $service_id ) {
+                        array_push( $tags_array, json_encode('service_id') . ' : ' . json_encode($service_id) );
+                    }
+                } else if ( $trips_infos[$trips_info] ) {
                     array_push( $tags_array, json_encode($trips_info) . ' : ' . json_encode($trips_infos[$trips_info]) );
-                } elseif ( $trips_info == 'trip_id' ) {
-                    array_push( $tags_array, json_encode($trips_info) . ' : ' . json_encode($trip_id) );
                 }
                 if ( $trips_info == 'shape_id' ) {
                     $shape_id = $trips_infos[$trips_info];
+                }
+                if ( $trips_info == 'route_id' ) {
+                    $route_id = $trips_infos[$trips_info];
                 }
             }
         }
@@ -384,6 +408,7 @@ function FillTripElements( $db, $trip_id, $full ) {
 
         $return_string .= implode( ', ', $tags_array );
 
+        $return_string .= '}, "ptna" : { ';
         if ( isset($table_array['ptna_trips_comments']) ) {
             $sql = sprintf( "SELECT   *
                             FROM     ptna_trips_comments
@@ -403,12 +428,29 @@ function FillTripElements( $db, $trip_id, $full ) {
                 }
             }
             if ( count($ptna_array) > 0 ) {
-                $return_string .= '}, "ptna" : { ';
-                $return_string .= implode( ', ', $ptna_array );
+                $return_string .= implode( ', ', $ptna_array ) . ', ';
             }
         }
 
-        $return_string .= '} }';
+        $return_string .= '"route" : { ';
+        $sql = sprintf( "SELECT   *
+                         FROM     routes
+                         WHERE    route_id='%s';",
+                         SQLite3::escapeString($route_id)
+                      );
+        $route = $db->query( $sql );
+
+        $ptna_array = array();
+        while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
+            foreach ( array_keys($route_infos) as $route_info ) {
+                if ( $route_info != "route_id" ) {
+                    if ( $route_infos[$route_info] ) {
+                        array_push( $ptna_array, json_encode($route_info) . ' : ' . json_encode($route_infos[$route_info]) );
+                    }
+                }
+            }
+        }
+        $return_string .= implode( ', ', $ptna_array ) . '} } }';
     }
 
     return $return_string;
