@@ -23,6 +23,9 @@ $gtfs_license               = "Creative Commons Attribution License (cc-by)";
 $gtfs_license_url           = "https://opendefinition.org/licenses/cc-by/";
 
 $elements                   = "";
+$NODE_elements              = array();
+$WAY_elements               = array();
+$RELATION_elements          = array();
 
 header( 'Content-Type: application/json', true, 200 );
 echo "{\r\n";
@@ -49,6 +52,12 @@ if ( $feed ) {
             } elseif ( $trip_id ) {
                 $elements = FillTripElements( $db, $trip_id, $full );
             }
+
+           #$elements  = AddNodes2Elements();
+
+            #$elements .= AddWays2Elements();
+
+            #$elements .= AddRelations2Elements();
 
         } catch ( Exception $ex ) {
             echo '    "error" : ' . json_encode(sprintf("%s - feed = '%s'",$ex->getMessage(),$feed)) . ",\r\n";
@@ -290,7 +299,7 @@ function FillTripElements( $db, $trip_id, $full ) {
     while ( $stops_infos=$stops->fetchArray(SQLITE3_ASSOC) ) {
         if ( isset($stops_infos['stop_id']) &&  isset($stops_infos['stop_lat']) &&  isset($stops_infos['stop_lon']) &&
              (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
-            if ( !$already_printed[$stops_infos['stop_id']]) {
+            if ( !isset($already_printed[$stops_infos['stop_id']])) {
                 $already_printed[$stops_infos['stop_id']] = 1;
                 $node_string  = "\r\n{ ";
                 $node_string .= '"type" : "node", ';
@@ -411,8 +420,9 @@ function FillTripElements( $db, $trip_id, $full ) {
         $return_string .= '"tags" : { ';
 
         $return_string .= implode( ', ', $tags_array );
+        # end of trip tags
+        $return_string .= '}';
 
-        $return_string .= '}, "ptna" : { ';
         if ( isset($table_array['ptna_trips_comments']) ) {
             $sql = sprintf( "SELECT   *
                             FROM     ptna_trips_comments
@@ -432,29 +442,58 @@ function FillTripElements( $db, $trip_id, $full ) {
                 }
             }
             if ( count($ptna_array) > 0 ) {
-                $return_string .= implode( ', ', $ptna_array ) . ', ';
+                $return_string .= ', "ptna" : { ';
+                $return_string .= implode( ', ', $ptna_array );
+                $return_string .= '}';
             }
         }
+        # end of trip relation
+        $return_string .= ' }';
 
-        $return_string .= '"route" : { ';
-        $sql = sprintf( "SELECT   *
-                         FROM     routes
-                         WHERE    route_id='%s';",
-                         SQLite3::escapeString($route_id)
-                      );
-        $route = $db->query( $sql );
+        if ( $full && $route_id ) {
+            $return_string .= ",\r\n{ ";
+                $return_string .= '"type" : "relation", ';
+                $return_string .= '"id" : ' . json_encode($route_id) . ', ';
+                $return_string .= '"members" : [ ';
 
-        $ptna_array = array();
-        while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
-            foreach ( array_keys($route_infos) as $route_info ) {
-                if ( $route_info != "route_id" ) {
-                    if ( $route_infos[$route_info] ) {
-                        array_push( $ptna_array, json_encode($route_info) . ' : ' . json_encode($route_infos[$route_info]) );
-                    }
+            $sql = sprintf( "SELECT   trip_id
+                             FROM     trips
+                             WHERE    route_id='%s';",
+                             SQLite3::escapeString($route_id)
+                          );
+            $trips = $db->query( $sql );
+
+            $member_array = array();
+            while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
+                foreach ( array_keys($trips_infos) as $trips_info ) {
+                    array_push( $member_array, '    { "ref" : ' . json_encode($trips_infos[$trips_info]) . ', "role" : "", "type" : "relation" }' );
                 }
             }
+            $return_string .= implode( ', ', $member_array );
+            $return_string .= ' ], ';
+            $return_string .= '"tags" : { ';
+
+            $sql = sprintf( "SELECT   *
+                             FROM     trips
+                             WHERE    trip_id='%s';",
+                             SQLite3::escapeString($rep_trip_id)
+            );
+            $sql = sprintf( "SELECT   *
+                    FROM     routes
+                    WHERE    route_id='%s';",
+                    SQLite3::escapeString($route_id)
+                );
+            $route = $db->query( $sql );
+
+            $tags_array = array();
+            array_push( $tags_array, '"type" : "route"' );
+            while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
+                foreach ( array_keys($route_infos) as $route_info ) {
+                    array_push( $tags_array, json_encode($route_info) . ' : ' . json_encode($route_infos[$route_info]) );
+                }
+            }
+            $return_string .= implode( ', ', $tags_array ) . '} }';
         }
-        $return_string .= implode( ', ', $ptna_array ) . '} } }';
     }
 
     return $return_string;
