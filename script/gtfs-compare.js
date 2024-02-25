@@ -831,14 +831,14 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     // up &#x2BC5;
     // down &#x2BC6;
     if ( right === 'OSM' ) {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','ref:IFOPT','platform_number','Edit<br/>with'];
+        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','ref:IFOPT','platform_number','Edit<br/>with'];
     } else {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','arrow_left','distance','arrow_right','stop_name2','stop_lat2','stop_lon2','stop_id2','stop_number2'];
+        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','stop_id2','stop_number2'];
     }
-    body_row_template = { 'stop_number' : '',         'stop_id' : '',  'stop_lat' : '',            'stop_lon' : '',  'stop_name' : '',
-                          'arrow_left'  : '&#x2BC7;', 'distance' : '', 'arrow_right' : '&#x2BC8;',
-                          'name': '',                 'ref_name': '',  'lat' : '',                 'lon' : '',       'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
-                          'stop_name2'  : '',         'stop_id2': '',  'stop_lat2' : '',           'stop_lon2' : '', 'stop_number2' : '', 'Edit<br/>with' : ''
+    body_row_template = { 'stop_number' : '',         'stop_id'    : '', 'stop_lat'    : '',         'stop_lon'  : '', 'stop_name'    : '', 'info' : '',
+                          'arrow_left'  : '&#x2BC7;', 'distance'   : '', 'arrow_right' : '&#x2BC8;',
+                          'name': '',                 'ref_name'   : '', 'lat'         : '',         'lon'       : '', 'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
+                          'info2'       : '',         'stop_name2' : '', 'stop_id2'    : '',         'stop_lat2' : '', 'stop_lon2'    : '', 'stop_number2' : '', 'Edit<br/>with' : ''
                         };
     body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
 
@@ -926,7 +926,15 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                     body_row['stop_id']     = cmp_list['left'][i]['tags']['stop_id'] || '';
                     body_row['stop_lat']    = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
                     body_row['stop_lon']    = parseFloat(cmp_list['left'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
-                    body_row['stop_name']   = (cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name']) || cmp_list['left'][i]['tags']['stop_name']  || '';
+                    if ( cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name'] ) {
+                        body_row['stop_name'] = cmp_list['left'][i]['ptna']['stop_name'];
+                        if ( cmp_list['left'][i]['tags']['stop_name'] &&
+                             cmp_list['left'][i]['tags']['stop_name'].toString() !== body_row['stop_name'].toString() ){
+                             body_row['info'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=' + cmp_list['left'][i]['tags']['stop_name'].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/\//,'&#x2F') + '"/>';
+                        }
+                    } else {
+                        body_row['stop_name'] = cmp_list['left'][i]['tags']['stop_name'] || '';
+                    }
                 }
             }
             if ( i < right_len ) {
@@ -966,6 +974,15 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
                         body_row['stop_lon2']    = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
                         body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
+                        if ( cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name'] ) {
+                            body_row['stop_name2'] = cmp_list['right'][i]['ptna']['stop_name'];
+                            if ( cmp_list['right'][i]['tags']['stop_name'] &&
+                                 cmp_list['right'][i]['tags']['stop_name'].toString() !== body_row['stop_name2'].toString() ){
+                                 body_row['info2'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=' + cmp_list['right'][i]['tags']['stop_name'].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/\//,'&#x2F') + '"/>';
+                            }
+                        } else {
+                            body_row['stop_name2'] = cmp_list['right'][i]['tags']['stop_name'] || '';
+                        }
                         for ( var field in scores['totals'] ) {
                             if ( field in body_row && body_row[field] !== '' ) {
                                 scores['totals'][field]++;
@@ -1020,7 +1037,8 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                 } else {
                     if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['name'].toString()) == -1 &&
-                             body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1    ) {
+                             body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
+                             body_row['stop_name'].toString() !== body_row['name'].toString()               ) {
                             if ( body_row['stop_name'].toString().match(',') &&
                                  body_row['name'].toString().match(',')         ) {
                                 left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
@@ -1046,7 +1064,9 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         }
                     }
                     if ( body_row['ref_name'] !== '' ) {
-                        if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 ) {
+                        if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 &&
+                             body_row['ref_name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
+                             body_row['stop_name'].toString() !== body_row['ref_name'].toString()               ) {
                             if ( body_row['stop_name'].toString().match(',') &&
                                  body_row['ref_name'].toString().match(',')     ) {
                                 left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
@@ -1212,7 +1232,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th           = document.createElement('th');
     th.innerHTML = 'Stop data of GTFS trip (' + trip_id + ')';
     th.setAttribute( 'class', "compare-trips-left" );
-    th.setAttribute( 'colspan', 4 );
+    th.setAttribute( 'colspan', 5 );
     tr.appendChild(th);
     th           = document.createElement('th');
     th.innerHTML = 'Distance<br/>[m]';
@@ -1250,7 +1270,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th           = document.createElement('th');
         th.innerHTML = 'Stop data of GTFS trip (' + trip_id2 + ')';
         th.setAttribute( 'class', "compare-trips-right" );
-        th.setAttribute( 'colspan', 4 );
+        th.setAttribute( 'colspan', 5 );
         tr.appendChild(th);
         th            = document.createElement('th');
         th.innerHTML  = 'Stop<br/>Number';
@@ -1276,6 +1296,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th           = document.createElement('th');
     th.innerHTML = 'stop_name';
     th.setAttribute( 'class', "compare-trips-left" );
+    th.setAttribute( 'colspan', 2 );
     tr.appendChild(th);
 
     if ( relation_id !== '' ) {
@@ -1315,6 +1336,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th           = document.createElement('th');
         th.innerHTML = 'stop_name';
         th.setAttribute( 'class', "compare-trips-right" );
+        th.setAttribute( 'colspan', 2 );
         tr.appendChild(th);
         th           = document.createElement('th');
         th.innerHTML = 'stop_lat';
@@ -1338,7 +1360,13 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         for ( var field of fields ) {
             if ( !(field in scores['totals']) || scores['totals'][field] ) {
                 td = document.createElement('td');
-                td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
+                if ( field === 'info'          || field === 'info2'       ||
+                     field === 'arrow_left'    || field === 'arrow_right' ||
+                     field === 'Edit<br/>with'                               ) {
+                    td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
+                } else {
+                    td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field].toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;').replace(/\//,'&#x2F');
+                }
                 if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
                     td.style.cssText += row_styles[i][field].join(';');
                 }
