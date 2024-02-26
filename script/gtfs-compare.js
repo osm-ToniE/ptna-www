@@ -475,7 +475,11 @@ function handleMembers( lor, relation_id ) {
                 }
             }
 
-            label_of_object[id] = number_of_match[match].toString();
+            if ( label_of_object[id] ) {
+                label_of_object[id] = label_of_object[id] + "+" + number_of_match[match].toString();
+            } else {
+                label_of_object[id] = number_of_match[match].toString();
+            }
             number_of_match[match]++;
 
             name = member['tags'] && member['tags']['name'] || member['tags'] && member['tags']['ref'] || member['tags'] && member['tags']['description'] || member['ptna'] && member['ptna']['stop_name'] || member['tags'] && member['tags']['stop_name'] || '';
