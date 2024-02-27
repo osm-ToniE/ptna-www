@@ -618,7 +618,7 @@ function drawWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
 
     if ( match == 'platform' ) {
         [ closest_lat, closest_lon ] = GetClosestLatLon( map, polyline_array, [ref_lat, ref_lon] );
-        console.log( polyline_array, [ref_lat, ref_lon] );
+        //console.log( polyline_array, [ref_lat, ref_lon] );
 
         if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
 
@@ -673,7 +673,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             if ( !DATA_Ways[lor][member_id] ) {
                 downloadRelationSync( id );
             }
-            if ( DATA_Ways[member_id] ) {
+            if ( DATA_Ways[lor][member_id] ) {
                 if ( have_set_marker ) {
                     drawWay( lor, member_id, match, label, name, false, ref_lat, ref_lon );
                 } else {
@@ -687,7 +687,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             //
             // deep dive into member relations only for type=route relations
             //
-            if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[id]["tags"]["type"] && DATA_Relations[id]["tags"]["type"] == "route" ) {
+            if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] && DATA_Relations[lor][id]["tags"]["type"] == "route" ) {
                 if ( !DATA_Relations[lor][member_id] ) {
                     downloadRelationSync( id );
                 }
@@ -698,7 +698,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
                     console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
                 }
             } else {
-                if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[id]["tags"]["type"] ) {
+                if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] ) {
                     console.log( "No deep dive into relations of type = " + DATA_Relations[lor][id]["tags"]["type"]  );
                 } else {
                     console.log( "No deep dive into relations other than type = route" );
