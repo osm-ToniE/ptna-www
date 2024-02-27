@@ -657,7 +657,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
 
         if ( member_type == "node" ) {
             if ( !DATA_Nodes[lor][member_id] ) {
-                downloadRelationSync( id );
+                downloadRelationSync( id, lor );
             }
             if ( DATA_Nodes[lor][member_id] ) {
                 if ( have_set_marker ) {
@@ -671,7 +671,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             }
         } else if ( member_type == "way" ) {
             if ( !DATA_Ways[lor][member_id] ) {
-                downloadRelationSync( id );
+                downloadRelationSync( id, lor );
             }
             if ( DATA_Ways[lor][member_id] ) {
                 if ( have_set_marker ) {
@@ -689,7 +689,7 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             //
             if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] && DATA_Relations[lor][id]["tags"]["type"] == "route" ) {
                 if ( !DATA_Relations[lor][member_id] ) {
-                    downloadRelationSync( id );
+                    downloadRelationSync( id, lor );
                 }
                 if ( DATA_Relations[lor][member_id] ) {
                     console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
@@ -762,17 +762,18 @@ function htmlEscape( str ) {
 }
 
 
-function downloadRelationSync( relation_id  ) {
+function downloadRelationSync( relation_id, lor ) {
 
     var url     = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
     var request = new XMLHttpRequest();
+    console.log( "downloadRelationSync(" + id + "," + lor + ") -> " + url );
     request.open( "GET", url, false );
     request.onreadystatechange = function() {
         if ( request.readyState === 4 ) {
             if ( request.status === 200 ) {
                 var type = request.getResponseHeader( "Content-Type" );
                 if ( type.match(/application\/json/) ) {
-                    parseHttpResponse( request.responseText );
+                    parseHttpResponse( lor, request.responseText );
                 }
             } else if ( request.status === 410 ) {
                 alert( "Relation does not exist (" + relation_id + ")" );
