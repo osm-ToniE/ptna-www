@@ -1140,7 +1140,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
 
         FillTripsScoresTable( scores );
     } else {
-        if ( left_len === 0 && right_len == 0 ) {
+        if ( left_len === 0 && right_len === 0 ) {
             if ( right === 'OSM' ) {
                 alert( "There are no GTFS-stops and no OSM-platforms" );
             } else {
