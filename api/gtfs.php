@@ -4,11 +4,13 @@ date_default_timezone_set('UTC');
 include('../script/globals.php');
 
 if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) {
-    define("PTNA_VERSION",substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
+    define("PTNA_VERSION",PTNA . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
+    define("PTNA_URL","https://ptna.openstreetmap.de/api/gtfs.php");
 } else {
-    define("PTNA_VERSION","on localhost");
+    define("PTNA_VERSION","PTNA on localhost");
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z"));
+    define("PTNA_URL","localhost/api/gtfs.php");
 }
 
 # parse query parameters
@@ -18,6 +20,9 @@ $release_date = isset($_GET['release_date']) ? $_GET['release_date'] : '';
 $route_id     = isset($_GET['route_id'])     ? $_GET['route_id']     : '';
 $trip_id      = isset($_GET['trip_id'])      ? $_GET['trip_id']      : '';
 $full         = isset($_GET['full'])         ? true                  : false;
+$ptna         = isset($_GET['ptna'])         ? true                  : false;
+
+$start_time = gettimeofday(true);
 
 $gtfs_license               = "Creative Commons Attribution License (cc-by)";
 $gtfs_license_url           = "https://opendefinition.org/licenses/cc-by/";
@@ -28,11 +33,12 @@ $WAY_elements               = array();
 $RELATION_elements          = array();
 
 header( 'Content-Type: application/json', true, 200 );
-echo "{\r\n";
-echo '    "timestamp" : ' . json_encode(date("Y-m-d\TH:i:s\Z")) . ",\r\n";
-FillGeneratorInfo();
 
-$start_time = gettimeofday(true);
+$json_response = array();
+
+$json_response['timestamp'] = date("Y-m-d\TH:i:s\Z");
+AddGeneratorInfo();
+$json_response['elements']  = array();
 
 if ( $feed ) {
     $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
@@ -42,51 +48,58 @@ if ( $feed ) {
         try {
             $db         = new SQLite3( $SqliteDb );
 
-            if ( $full ) { FillTableInfo( $db, 'osm' );    }
-                           FillTableInfo( $db, 'feed_info' );
-            if ( $full ) { FillTableInfo( $db, 'agency' ); }
-            FillLicense( $db );
+            if ( $ptna ) { AddSingleTableRow( $db, 'ptna' );   }
+            if ( $ptna ) { AddSingleTableRow( $db, 'osm' );    }
+            if ( $full ) { AddMultiTableRows( $db, 'agency' ); }
+            AddSingleTableRow( $db, 'feed_info' );
+            AddLicenseInfo( $db );
 
             if ( $route_id ) {
-                $elements = FillRouteElements( $db, $route_id, $full );
+                $elements = AddlRoute2NodesWaysRelations( $db, $route_id, $full, $ptna );
             } elseif ( $trip_id ) {
-                $elements = FillTripElements( $db, $trip_id, $full );
+                $elements = AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna );
             }
 
-           #$elements  = AddNodes2Elements();
-
-            #$elements .= AddWays2Elements();
-
-            #$elements .= AddRelations2Elements();
+            AddNodes();
+            AddWays();
+            AddRelations();
 
         } catch ( Exception $ex ) {
-            echo '    "error" : ' . json_encode(sprintf("%s - feed = '%s'",$ex->getMessage(),$feed)) . ",\r\n";
+            $json_response['error'] = sprintf("%s - feed = '%s'",$ex->getMessage(),$feed);
         }
     } else {
-        echo '    "error" : ' . json_encode(sprintf("Data base for GTFS feed ('%s') not found",$feed)) . ",\r\n";
+        if ( $release_date ) {
+            $json_response['error'] = sprintf("Data base for GTFS feed ('%s') not found",$feed);
+        } else {
+            $json_response['error'] = sprintf("Data base for GTFS feed ('%s') and version ('%s') not found",$feed,$release_date);
+        }
     }
 } else {
-    echo '    "error" : "Name of GTFS feed not specified: use parameter \'feed\'",' . "\r\n";
+    $json_response['error'] = "Name of GTFS feed not specified: use parameter 'feed'";
 }
+
 $duration = gettimeofday(true) - $start_time;
-echo '    "duration" : '. json_encode(sprintf("%.6F",$duration)) . ",\r\n";
-echo '    "elements" : ' . "[ " . $elements . "\r\n    ]\r\n}\r\n";
+$json_response['duration'] = sprintf("%.6F",$duration);
 
+echo json_encode( $json_response );
 
 ######################
 #
 #
 #
 ######################
-function FillGeneratorInfo() {
-    echo '    "generator" : { "version" : "PTNA ' . PTNA_VERSION . '", "date" : "' . PTNA_DATE . '", "url" : "https://ptna.openstreetmap.de/api/gtfs.php", ';
-    echo '"params" : { ';
+
+function AddGeneratorInfo() {
+    global $json_response;
+    $json_response['generator'] = array();
+    $json_response['generator']['version'] = PTNA_VERSION;
+    $json_response['generator']['date']    = PTNA_DATE;
+    $json_response['generator']['url']     = PTNA_URL;
+    $json_response['generator']['params']  = array();
     $params_array = array();
     foreach ( array_keys($_GET) as $get_key ) {
-        array_push( $params_array, json_encode($get_key) . ' : '. json_encode($_GET[$get_key]) );
+        $json_response['generator']['params'][$get_key] = $_GET[$get_key];
     }
-    echo implode(', ', $params_array );
-    echo " } },\r\n";
 }
 
 
@@ -137,7 +150,8 @@ function FindGtfsSqliteDb( $feed, $release_date ) {
 }
 
 
-function FillTableInfo( $db, $table_name ) {
+function AddSingleTableRow( $db, $table_name ) {
+    global $json_response;
 
     $sql = sprintf( "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';", SQLite3::escapeString($table_name) );
 
@@ -145,27 +159,47 @@ function FillTableInfo( $db, $table_name ) {
 
     if ( isset($sql_master['name']) ) {
 
+        $json_response[$table_name] = array();
+        $info                       = array();
+
+        $sql = sprintf( "SELECT * FROM %s LIMIT 1;", SQLite3::escapeString($table_name) );
+
+        $result = $db->querySingle( $sql, true );
+
+        foreach ( array_keys($result) as $table_info ) {
+            $json_response[$table_name][$table_info] = $result[$table_info];
+        }
+    }
+}
+
+function AddMultiTableRows( $db, $table_name ) {
+    global $json_response;
+
+    $sql = sprintf( "SELECT name FROM sqlite_master WHERE type='table' AND name='%s';", SQLite3::escapeString($table_name) );
+
+    $sql_master = $db->querySingle( $sql, true );
+
+    if ( isset($sql_master['name']) ) {
+
+        $json_response[$table_name] = array();
+        $info                       = array();
+
         $sql = sprintf( "SELECT * FROM %s", SQLite3::escapeString($table_name) );
 
         $result = $db->query( $sql );
 
-        $json_out_array = array();
-
-        echo '    ' . json_encode($table_name) . ' : [ ';
         while ( $table_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
-            $json_row_array = array();
             foreach ( array_keys($table_infos) as $table_info ) {
-                array_push( $json_row_array, json_encode($table_info) . ' : ' . json_encode($table_infos[$table_info]) );
+                $info[$table_info] = $table_infos[$table_info];
             }
-            array_push( $json_out_array, '{ ' . implode( ', ', $json_row_array ) . ' }' );
+            array_push( $json_response[$table_name], $info );
         }
-        echo implode( ', ', $json_out_array );
-        echo " ],\r\n";
     }
 }
 
 
-function FillLicense( $db ) {
+function AddLicenseInfo( $db ) {
+    global $json_response;
 
     $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna';";
 
@@ -173,34 +207,64 @@ function FillLicense( $db ) {
 
     if ( isset($sql_master['name']) ) {
 
+        $json_response['license'] = array();
+
         $sql = sprintf( "SELECT * FROM ptna" );
 
         $result = $db->query( $sql );
 
-        $license_array = array();
-
-        echo '    "license" : { ';
         while ( $ptna_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
             if ( isset($ptna_infos['original_license'] ) ) {
-                array_push( $license_array, '"type" : ' . json_encode($ptna_infos['original_license']) );
+                $json_response['license']['type'] = $ptna_infos['original_license'];
             }
             if ( isset($ptna_infos['original_license_url'] ) ) {
-                array_push( $license_array, '"url" : ' . json_encode($ptna_infos['original_license_url']) );
+                $json_response['license']['url'] = $ptna_infos['original_license_url'];
             }
             if ( isset($ptna_infos['license'] ) ) {
-                array_push( $license_array, '"use for OSM" : ' . json_encode($ptna_infos['license']) );
+                $json_response['license']['use for OSM'] = $ptna_infos['license'];
             }
             if ( isset($ptna_infos['license'] ) ) {
-                array_push( $license_array, '"url for OSM" : ' . json_encode($ptna_infos['license_url']) );
+                $json_response['license']['url for OSM'] = $ptna_infos['license_url'];
             }
         }
-        echo implode( ', ', $license_array );
-        echo " },\r\n";
+   }
+}
+
+
+function AddNodes() {
+    global $json_response;
+    global $NODE_elements;
+
+    foreach ( array_keys($NODE_elements) as $node_info ) {
+        array_push( $json_response['elements'], $NODE_elements[$node_info] );
     }
 }
 
 
-function FillRouteElements( $db, $route_id, $full ) {
+function AddWays() {
+    global $json_response;
+    global $WAY_elements;
+
+    foreach ( array_keys($WAY_elements) as $way_info ) {
+        array_push( $json_response['elements'], $WAY_elements[$way_info] );
+    }
+}
+
+
+function AddRelations() {
+    global $json_response;
+    global $RELATION_elements;
+
+    foreach ( array_keys($RELATION_elements) as $relation_info ) {
+        array_push( $json_response['elements'], $RELATION_elements[$relation_info] );
+    }
+}
+
+
+function AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna ) {
+    global $NODE_elements;
+    global $WAY_elements;
+    global $RELATION_elements;
 
     $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_route';";
 
@@ -219,7 +283,10 @@ function FillRouteElements( $db, $route_id, $full ) {
 }
 
 
-function FillTripElements( $db, $trip_id, $full ) {
+function AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna ) {
+    global $NODE_elements;
+    global $WAY_elements;
+    global $RELATION_elements;
 
     $return_string            = '';
     $element_array            = array();
@@ -231,6 +298,7 @@ function FillTripElements( $db, $trip_id, $full ) {
     $list_service_ids         = '';
     $service_id               = '';
     $route_id                 = '';
+    $node_string              = '';
 
     $sql = "SELECT name FROM sqlite_master WHERE type='table';";
 
@@ -252,8 +320,8 @@ function FillTripElements( $db, $trip_id, $full ) {
     }
 
     $sql  = sprintf( "SELECT * FROM ptna;" );
-    $ptna = $db->query( $sql );
-    while ( $ptna_infos=$ptna->fetchArray(SQLITE3_ASSOC) ) {
+    $ptna_table = $db->query( $sql );
+    while ( $ptna_infos=$ptna_table->fetchArray(SQLITE3_ASSOC) ) {
         if ( isset($ptna_infos['list_separator']) ) {
             $list_separator = $ptna_infos['list_separator'];
         }
@@ -295,27 +363,25 @@ function FillTripElements( $db, $trip_id, $full ) {
                   );
     $stops = $db->query( $sql );
 
-    $already_printed = array();
     while ( $stops_infos=$stops->fetchArray(SQLITE3_ASSOC) ) {
         if ( isset($stops_infos['stop_id']) &&  isset($stops_infos['stop_lat']) &&  isset($stops_infos['stop_lon']) &&
              (!isset($stops_infos['location_type']) || $stops_infos['location_type'] == '' || $stops_infos['location_type'] == 0) ) {
-            if ( !isset($already_printed[$stops_infos['stop_id']])) {
-                $already_printed[$stops_infos['stop_id']] = 1;
-                $node_string  = "\r\n{ ";
-                $node_string .= '"type" : "node", ';
-                $node_string .= '"id" : ' . json_encode($stops_infos['stop_id']) . ', ';
-                $node_string .= '"lat" : ' . json_encode($stops_infos['stop_lat']) . ', ';
-                $node_string .= '"lon" : ' . json_encode($stops_infos['stop_lon']) . ', ';
-                $node_string .= '"tags" : { ';
-                $tags_array = array();
+            array_push( $member_array, [ 'ref'  => $stops_infos['stop_id'],
+                                            'role' => 'stop',
+                                            'type' => 'node' ]
+                        );
+            if ( !isset($NODE_elements[$stops_infos['stop_id']])) {
+                $tmp_array = array();
+                $tmp_array['type'] = 'node';
+                $tmp_array['id']   = $stops_infos['stop_id'];
+                $tmp_array['lat']  = $stops_infos['stop_lat'];
+                $tmp_array['lon']  = $stops_infos['stop_lon'];
+                $tmp_array['tags'] = array();
                 foreach ( array_keys($stops_infos) as $stops_info ) {
-                    if ( $stops_infos[$stops_info] ) {
-                        array_push( $tags_array, json_encode($stops_info) . ' : ' . json_encode($stops_infos[$stops_info]) );
-                    }
+                    $tmp_array['tags'][$stops_info] = $stops_infos[$stops_info];
                 }
-                $node_string .= implode( ', ', $tags_array );
 
-                if ( $table_array['ptna_stops'] ) {
+                if ( $ptna && $table_array['ptna_stops'] ) {
                     $sql = sprintf( "SELECT   *
                                     FROM     ptna_stops
                                     WHERE    stop_id='%s';",
@@ -328,23 +394,20 @@ function FillTripElements( $db, $trip_id, $full ) {
                             if ( $ptna_stops_info != "stop_id" ) {
                                 if ( $ptna_stops_infos[$ptna_stops_info] ) {
                                     if ( $ptna_stops_info == 'normalized_stop_name' ) {
-                                        array_push( $ptna_array, json_encode('stop_name') . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
+                                        $ptna_array['stop_name'] = $ptna_stops_infos[$ptna_stops_info];
                                     } else {
-                                        array_push( $ptna_array, json_encode($ptna_stops_info) . ' : ' . json_encode($ptna_stops_infos[$ptna_stops_info]) );
+                                        $ptna_array[$ptna_stops_info] = $ptna_stops_infos[$ptna_stops_info];
                                     }
                                 }
                             }
                         }
                     }
-                    if ( count($ptna_array) > 0 ) {
-                        $node_string .= '}, "ptna" : { ';
-                        $node_string .= implode( ', ', $ptna_array );
+                    if ( count($ptna_array) ) {
+                        $tmp_array['ptna'] = $ptna_array;
                     }
                 }
-                $node_string .= ' } }';
-                array_push( $element_array, $node_string );
+                $NODE_elements[$stops_infos['stop_id']] = $tmp_array;
             }
-            array_push( $member_array, '    { "ref" : ' . json_encode($stops_infos['stop_id']) . ', "role" : "stop", "type" : "node" }' );
         }
     }
 
@@ -356,24 +419,23 @@ function FillTripElements( $db, $trip_id, $full ) {
                     );
         $trips = $db->query( $sql );
 
-        $tags_array = array();
-        array_push( $tags_array, '"type" : "trip"' );
+        $tags_array = [ 'type' => 'trip' ];
         $shape_id   = '';
         while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
             foreach ( array_keys($trips_infos) as $trips_info ) {
-                if ( $trips_info == 'trip_id' ) {
-                    array_push( $tags_array, json_encode('trip_id') . ' : ' . json_encode($trip_id) );
-                } else if ( $trips_info == 'service_id' ) {
+                if ( $trips_info === 'trip_id' ) {
+                    $tags_array['trip_id'] = $trip_id;
+                } else if ( $trips_info === 'service_id' ) {
                     if ( $service_id ) {
-                        array_push( $tags_array, json_encode('service_id') . ' : ' . json_encode($service_id) );
+                        $tags_array['service_id'] = $service_id;
                     }
                 } else if ( $trips_infos[$trips_info] ) {
-                    array_push( $tags_array, json_encode($trips_info) . ' : ' . json_encode($trips_infos[$trips_info]) );
+                    $tags_array[$trips_info] = $trips_infos[$trips_info];
                 }
-                if ( $trips_info == 'shape_id' ) {
+                if ( $trips_info === 'shape_id' ) {
                     $shape_id = $trips_infos[$trips_info];
                 }
-                if ( $trips_info == 'route_id' ) {
+                if ( $trips_info === 'route_id' ) {
                     $route_id = $trips_infos[$trips_info];
                 }
             }
@@ -387,116 +449,102 @@ function FillTripElements( $db, $trip_id, $full ) {
                           );
             $shapes = $db->query( $sql );
 
-            $shape_node_array = array ();
+            $shape_node_array = array();
             while ( $shapes_infos=$shapes->fetchArray(SQLITE3_ASSOC) ) {
                 if ( isset($shapes_infos['shape_pt_lat']) && isset($shapes_infos['shape_pt_lon']) && isset($shapes_infos['shape_pt_sequence']) ) {
-                    $node_string  = "\r\n{ ";
-                    $node_string .= '"type" : "node", ';
-                    $node_string .= '"id" : ' . json_encode($shape_id.'-'.$shapes_infos['shape_pt_sequence']) . ', ';
-                    $node_string .= '"lat" : ' . json_encode($shapes_infos['shape_pt_lat']) . ', ';
-                    $node_string .= '"lon" : ' . json_encode($shapes_infos['shape_pt_lon']);
-                    $node_string .= ' }';
-                    array_push( $element_array, $node_string );
-                    array_push( $shape_node_array, json_encode($shape_id.'-'.$shapes_infos['shape_pt_sequence']) );
+                    $id = $shape_id.'-'.$shapes_infos['shape_pt_sequence'];
+                    if ( !isset($NODE_elements[$id])) {
+                        $tmp_array = array();
+                        $tmp_array['type']  = 'node';
+                        $tmp_array['id']    = $id;
+                        $tmp_array['lat']   = $shapes_infos['shape_pt_lat'];
+                        $tmp_array['lon']   = $shapes_infos['shape_pt_lon'];
+                        $NODE_elements[$id] = $tmp_array;
+                    }
+                    array_push( $shape_node_array, $shape_id.'-'.$shapes_infos['shape_pt_sequence'] );
                 }
             }
             if ( count($shape_node_array) > 0 ) {
-                array_push( $member_array, '    { "ref" : ' . json_encode($shape_id) . ', "role" : "", "type" : "way" }' );
-                $way_string  = "\r\n{ ";
-                $way_string .= '"type" : "way", ';
-                $way_string .= '"id" : ' . json_encode($shape_id) . ', ';
-                $way_string .= '"nodes" : [ ' . implode( ', ', $shape_node_array );
-                $way_string .= " ] }";
-                array_push( $element_array, $way_string );
+                array_push( $member_array, [ 'ref'  => $shape_id, 'role' => '', 'type' => 'way' ] );
+                if ( !isset($WAY_elements[$shape_id])) {
+                    $tmp_array = array();
+                    $tmp_array['type']       = 'way';
+                    $tmp_array['id']         = $shape_id;
+                    $tmp_array['nodes']      = $shape_node_array;
+                    $WAY_elements[$shape_id] = $tmp_array;
+                }
             }
         }
-        $return_string  = implode( ', ', $element_array );
-        $return_string .= ",\r\n{ ";
-        $return_string .= '"type" : "relation", ';
-        $return_string .= '"id" : ' . json_encode($trip_id) . ', ';
-        $return_string .= '"members" : [ ';
-        $return_string .= implode( ', ', $member_array );
-        $return_string .= ' ], ';
-        $return_string .= '"tags" : { ';
+        if ( !isset($RELATION_elements[$trip_id])) {
+            $tmp_array = array();
+            $tmp_array['type']           = 'relation';
+            $tmp_array['id']             = $trip_id;
+            $tmp_array['members']        = $member_array;
+            $tmp_array['tags']           = $tags_array;
+            if ( $ptna && isset($table_array['ptna_trips_comments']) ) {
+                $sql = sprintf( "SELECT   *
+                                 FROM     ptna_trips_comments
+                                 WHERE    trip_id='%s';",
+                                 SQLite3::escapeString($rep_trip_id)
+                              );
+                $trips = $db->query( $sql );
 
-        $return_string .= implode( ', ', $tags_array );
-        # end of trip tags
-        $return_string .= '}';
-
-        if ( isset($table_array['ptna_trips_comments']) ) {
-            $sql = sprintf( "SELECT   *
-                            FROM     ptna_trips_comments
-                            WHERE    trip_id='%s';",
-                            SQLite3::escapeString($rep_trip_id)
-                        );
-            $trips = $db->query( $sql );
-
-            $ptna_array = array();
-            while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
-                foreach ( array_keys($trips_infos) as $trips_info ) {
-                    if ( $trips_info != "trip_id" ) {
-                        if ( $trips_infos[$trips_info] ) {
-                            array_push( $ptna_array, json_encode($trips_info) . ' : ' . json_encode($trips_infos[$trips_info]) );
+                $ptna_array = array();
+                while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
+                    foreach ( array_keys($trips_infos) as $trips_info ) {
+                        if ( $trips_info != "trip_id" ) {
+                            if ( $trips_infos[$trips_info] ) {
+                                $ptna_array[$trips_info] = $trips_infos[$trips_info];
+                            }
                         }
                     }
                 }
+                if ( count($ptna_array) ) {
+                    $tmp_array['ptna'] = $ptna_array;
+                }
             }
-            if ( count($ptna_array) > 0 ) {
-                $return_string .= ', "ptna" : { ';
-                $return_string .= implode( ', ', $ptna_array );
-                $return_string .= '}';
-            }
+            $RELATION_elements[$trip_id] = $tmp_array;
         }
-        # end of trip relation
-        $return_string .= ' }';
 
         if ( $full && $route_id ) {
-            $return_string .= ",\r\n{ ";
-                $return_string .= '"type" : "relation", ';
-                $return_string .= '"id" : ' . json_encode($route_id) . ', ';
-                $return_string .= '"members" : [ ';
+            if ( !isset($RELATION_elements[$route_id])) {
+                $tmp_array         = array();
+                $tmp_array['type'] = 'relation';
+                $tmp_array['id']   = $route_id;
 
-            $sql = sprintf( "SELECT   trip_id
-                             FROM     trips
-                             WHERE    route_id='%s';",
-                             SQLite3::escapeString($route_id)
-                          );
-            $trips = $db->query( $sql );
+                $sql = sprintf( "SELECT   trip_id
+                                 FROM     trips
+                                 WHERE    route_id='%s';",
+                                 SQLite3::escapeString($route_id)
+                              );
+                $trips = $db->query( $sql );
 
-            $member_array = array();
-            while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
-                foreach ( array_keys($trips_infos) as $trips_info ) {
-                    array_push( $member_array, '    { "ref" : ' . json_encode($trips_infos[$trips_info]) . ', "role" : "", "type" : "relation" }' );
+                $member_array = array();
+                while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
+                    foreach ( array_keys($trips_infos) as $trips_info ) {
+                        array_push( $member_array, [ 'ref'  => $trips_infos[$trips_info], 'role' => '', 'type' => 'relation' ] );
+                    }
                 }
-            }
-            $return_string .= implode( ', ', $member_array );
-            $return_string .= ' ], ';
-            $return_string .= '"tags" : { ';
 
-            $sql = sprintf( "SELECT   *
-                             FROM     trips
-                             WHERE    trip_id='%s';",
-                             SQLite3::escapeString($rep_trip_id)
-            );
-            $sql = sprintf( "SELECT   *
-                    FROM     routes
-                    WHERE    route_id='%s';",
-                    SQLite3::escapeString($route_id)
-                );
-            $route = $db->query( $sql );
+                $sql = sprintf( "SELECT   *
+                                 FROM     routes
+                                 WHERE    route_id='%s';",
+                                 SQLite3::escapeString($route_id)
+                    );
+                $route = $db->query( $sql );
 
-            $tags_array = array();
-            array_push( $tags_array, '"type" : "route"' );
-            while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
-                foreach ( array_keys($route_infos) as $route_info ) {
-                    array_push( $tags_array, json_encode($route_info) . ' : ' . json_encode($route_infos[$route_info]) );
+                $tags_array = [ 'type' => 'route' ];
+                while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
+                    foreach ( array_keys($route_infos) as $route_info ) {
+                        $tags_array[$route_info] = $route_infos[$route_info];
+                    }
                 }
+                $tmp_array['members']         = $member_array;
+                $tmp_array['tags']            = $tags_array;
+                $RELATION_elements[$route_id] = $tmp_array;
             }
-            $return_string .= implode( ', ', $tags_array ) . '} }';
         }
     }
-
-    return $return_string;
 }
 
 ?>
