@@ -51,7 +51,7 @@ var dBarRight;
 var aBar;
 
 var number_of_match     = {};
-var label_of_object     = {}
+var label_of_object     = {};
 var latlonroute         = { 'left' : {}, 'right' : {} };
 
 
@@ -366,7 +366,9 @@ function getRelationBounds() {
 function IterateOverMembers( lor, rel_id ) {
     var object = DATA_Relations[lor][rel_id];
 
-    number_of_match         = { platform:1, stop:1, route:1, shape:1, other:1 };
+    number_of_match = { 'platform':1, 'stop':1, 'route':1, 'shape':1, 'other':1 };
+    label_of_object = {};
+
     latlonroute[lor]['platform'] = [];
     latlonroute[lor]['stop']     = [];
     latlonroute[lor]['route']    = [];
@@ -476,9 +478,9 @@ function handleMembers( lor, relation_id ) {
             }
 
             if ( label_of_object[id] ) {
-                label_of_object[id] = label_of_object[id] + "+" + number_of_match[match].toString();
+                label_of_object[id] = label_of_object[id] + "+" + number_of_match[match];
             } else {
-                label_of_object[id] = number_of_match[match].toString();
+                label_of_object[id] = number_of_match[match];
             }
             number_of_match[match]++;
 
