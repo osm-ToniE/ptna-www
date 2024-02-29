@@ -55,7 +55,7 @@ if ( $feed ) {
             AddLicenseInfo( $db );
 
             if ( $route_id ) {
-                $elements = AddlRoute2NodesWaysRelations( $db, $route_id, $full, $ptna );
+                $elements = AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna );
             } elseif ( $trip_id ) {
                 $elements = AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna );
             }
@@ -262,23 +262,23 @@ function AddRelations() {
 
 
 function AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna ) {
-    global $NODE_elements;
-    global $WAY_elements;
     global $RELATION_elements;
 
-    $sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_route';";
+    AddRouteOnly2Relations( $db, $route_id, $full, $ptna );
 
-    $sql_master = $db->querySingle( $sql, true );
-
-    if ( isset($sql_master['name']) ) {
-
-        $sql = sprintf( "SELECT * FROM ptna_route" );
-
-        $result = $db->query( $sql );
-
-        $element_array = array();
-
-        return implode( ', ', $element_array );
+    if ( $full ) {
+        if ( isset($RELATION_elements[$route_id]) ) {
+            if ( isset($RELATION_elements[$route_id]['tags'])                    &&
+                 isset($RELATION_elements[$route_id]['tags']['type'])            &&
+                       $RELATION_elements[$route_id]['tags']['type'] === 'route' &&
+                 isset($RELATION_elements[$route_id]['members'])                    ) {
+                foreach ( $RELATION_elements[$route_id]['members'] as $member) {
+                    if ( isset($member['ref']) && isset($member['type']) && $member['type'] === 'relation' ) {
+                        AddTrip2NodesWaysRelations( $db, $member['ref'], $full, $ptna );
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -507,43 +507,64 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna ) {
         }
 
         if ( $full && $route_id ) {
-            if ( !isset($RELATION_elements[$route_id])) {
-                $tmp_array         = array();
-                $tmp_array['type'] = 'relation';
-                $tmp_array['id']   = $route_id;
+            AddRouteOnly2Relations( $db, $route_id, $full, $ptna );
+        }
+    }
+}
 
-                $sql = sprintf( "SELECT   trip_id
-                                 FROM     trips
-                                 WHERE    route_id='%s';",
-                                 SQLite3::escapeString($route_id)
-                              );
-                $trips = $db->query( $sql );
 
-                $member_array = array();
-                while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
-                    foreach ( array_keys($trips_infos) as $trips_info ) {
-                        array_push( $member_array, [ 'ref'  => $trips_infos[$trips_info], 'role' => '', 'type' => 'relation' ] );
-                    }
-                }
+function AddRouteOnly2Relations( $db, $route_id, $full, $ptna ) {
+    global $RELATION_elements;
 
-                $sql = sprintf( "SELECT   *
-                                 FROM     routes
-                                 WHERE    route_id='%s';",
-                                 SQLite3::escapeString($route_id)
-                    );
-                $route = $db->query( $sql );
+    if ( !isset($RELATION_elements[$route_id])) {
+        $table_array              = array();
+        $sql = "SELECT name FROM sqlite_master WHERE type='table';";
 
-                $tags_array = [ 'type' => 'route' ];
-                while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
-                    foreach ( array_keys($route_infos) as $route_info ) {
-                        $tags_array[$route_info] = $route_infos[$route_info];
-                    }
-                }
-                $tmp_array['members']         = $member_array;
-                $tmp_array['tags']            = $tags_array;
-                $RELATION_elements[$route_id] = $tmp_array;
+        $sql_master = $db->query( $sql );
+
+        while ( $table_infos=$sql_master->fetchArray(SQLITE3_ASSOC) ) {
+            if ( $table_infos['name'] == 'ptna_routes' ) {
+                $table_array['ptna_routes'] = true;
+            }
+            if ( $table_infos['name'] == 'ptna_routes_comments' ) {
+                $table_array['ptna_routes_comments'] = true;
             }
         }
+
+        $tmp_array         = array();
+        $tmp_array['type'] = 'relation';
+        $tmp_array['id']   = $route_id;
+
+        $sql = sprintf( "SELECT   trip_id
+                         FROM     trips
+                         WHERE    route_id='%s';",
+                         SQLite3::escapeString($route_id)
+                      );
+        $trips = $db->query( $sql );
+
+        $member_array = array();
+        while ( $trips_infos=$trips->fetchArray(SQLITE3_ASSOC) ) {
+            foreach ( array_keys($trips_infos) as $trips_info ) {
+                array_push( $member_array, [ 'ref'  => $trips_infos[$trips_info], 'role' => '', 'type' => 'relation' ] );
+            }
+        }
+
+        $sql = sprintf( "SELECT   *
+                         FROM     routes
+                         WHERE    route_id='%s';",
+                         SQLite3::escapeString($route_id)
+                      );
+        $route = $db->query( $sql );
+
+        $tags_array = [ 'type' => 'route' ];
+        while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
+            foreach ( array_keys($route_infos) as $route_info ) {
+                $tags_array[$route_info] = $route_infos[$route_info];
+            }
+        }
+        $tmp_array['members']         = $member_array;
+        $tmp_array['tags']            = $tags_array;
+        $RELATION_elements[$route_id] = $tmp_array;
     }
 }
 
