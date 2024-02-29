@@ -215,7 +215,7 @@ async function download_left_data() {
                                   '?feed='         + encodeURIComponent(feed)         +
                                   '&release_date=' + encodeURIComponent(release_date) +
                                   '&trip_id='      + encodeURIComponent(trip_id)      +
-                                  '&full';
+                                  '&full&ptna';
                     const d = new Date();
                     downloadstartms = d.getTime();
 
@@ -284,7 +284,7 @@ async function download_right_data() {
                         '?feed='         + encodeURIComponent(feed2)         +
                         '&release_date=' + encodeURIComponent(release_date2) +
                         '&trip_id='      + encodeURIComponent(trip_id2)      +
-                        '&full';
+                        '&full&ptna';
                     const d = new Date();
                     downloadstartms = d.getTime();
 
