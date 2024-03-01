@@ -937,7 +937,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                         body_row['stop_name'] = cmp_list['left'][i]['ptna']['stop_name'];
                         if ( cmp_list['left'][i]['tags']['stop_name'] &&
                              cmp_list['left'][i]['tags']['stop_name'].toString() !== body_row['stop_name'].toString() ){
-                             body_row['info'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=' + htmlEscape(cmp_list['left'][i]['tags']['stop_name']) + '"/>';
+                             body_row['info'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['left'][i]['tags']['stop_name']) + '\'"/>';
                         }
                     } else {
                         body_row['stop_name'] = cmp_list['left'][i]['tags']['stop_name'] || '';
@@ -985,7 +985,7 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
                             body_row['stop_name2'] = cmp_list['right'][i]['ptna']['stop_name'];
                             if ( cmp_list['right'][i]['tags']['stop_name'] &&
                                  cmp_list['right'][i]['tags']['stop_name'].toString() !== body_row['stop_name2'].toString() ){
-                                 body_row['info2'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=' + htmlEscape(cmp_list['right'][i]['tags']['stop_name']) + '"/>';
+                                 body_row['info2'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['right'][i]['tags']['stop_name']) + '\'"/>';
                             }
                         } else {
                             body_row['stop_name2'] = cmp_list['right'][i]['tags']['stop_name'] || '';
