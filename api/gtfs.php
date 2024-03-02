@@ -4,7 +4,7 @@ date_default_timezone_set('UTC');
 include('../script/globals.php');
 
 if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) {
-    define("PTNA_VERSION",PTNA . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
+    define("PTNA_VERSION","PTNA " . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
     define("PTNA_URL","https://ptna.openstreetmap.de/api/gtfs.php");
 } else {
