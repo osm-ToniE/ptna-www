@@ -19,7 +19,6 @@ $feed         = isset($_GET['feed'])         ? $_GET['feed']         : '';
 $release_date = isset($_GET['release_date']) ? $_GET['release_date'] : '';
 $route_id     = isset($_GET['route_id'])     ? $_GET['route_id']     : '';
 $trip_id      = isset($_GET['trip_id'])      ? $_GET['trip_id']      : '';
-$full         = isset($_GET['full'])         ? true                  : false;
 $ptna         = isset($_GET['ptna'])         ? true                  : false;
 
 $start_time = gettimeofday(true);
@@ -50,14 +49,17 @@ if ( $feed ) {
 
             if ( $ptna ) { AddSingleTableRow( $db, 'ptna' );   }
             if ( $ptna ) { AddSingleTableRow( $db, 'osm' );    }
-            if ( $full ) { AddMultiTableRows( $db, 'agency' ); }
             AddSingleTableRow( $db, 'feed_info' );
             AddLicenseInfo( $db );
 
             if ( $route_id ) {
-                $elements = AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna );
+                $elements = AddRoute2NodesWaysRelations( $db, $route_id, $ptna );
+                AddAgencyOfRouteId( $db, $route_id );
             } elseif ( $trip_id ) {
-                $elements = AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna );
+                $elements = AddTrip2NodesWaysRelations( $db, $trip_id, $ptna );
+                AddAgencyOfTripId( $db, $trip_id );
+            } else {
+                AddMultiTableRows( $db, 'agency' );
             }
 
             AddNodes();
@@ -160,7 +162,12 @@ function AddSingleTableRow( $db, $table_name ) {
     if ( isset($sql_master['name']) ) {
 
         $json_response[$table_name] = array();
-        $info                       = array();
+
+        if ( $table_name === 'feed_info' ) {
+            $json_response[$table_name]['feed_publisher_name'] = '';
+            $json_response[$table_name]['feed_publisher_url'] = '';
+            $json_response[$table_name]['feed_lang'] = '';
+        }
 
         $sql = sprintf( "SELECT * FROM %s LIMIT 1;", SQLite3::escapeString($table_name) );
 
@@ -231,6 +238,39 @@ function AddLicenseInfo( $db ) {
 }
 
 
+function AddAgencyOfRouteId( $db, $route_id ) {
+    global $json_response;
+    global $RELATION_elements;
+
+    $json_response['agency'] = array();
+    if ( isset($RELATION_elements[$route_id]) ) {
+        if ( isset($RELATION_elements[$route_id]['tags'])              &&
+             isset($RELATION_elements[$route_id]['tags']['agency_id']) &&
+             $RELATION_elements[$route_id]['tags']['agency_id']           ) {
+            $sql = sprintf( "SELECT * FROM agency WHERE agency_id='%s' LIMIT 1", SQLite3::escapeString($RELATION_elements[$route_id]['tags']['agency_id']) );
+            $agency_infos = $db->querySingle( $sql, true );
+            foreach ( array_keys($agency_infos) as $agency_info ) {
+                $json_response['agency'][$agency_info] = $agency_infos[$agency_info];
+            }
+        }
+    }
+}
+
+function AddAgencyOfTripId( $db, $trip_id ) {
+    global $json_response;
+    global $RELATION_elements;
+
+    if ( isset($RELATION_elements[$trip_id]) ) {
+        if ( isset($RELATION_elements[$trip_id]['tags'])             &&
+             isset($RELATION_elements[$trip_id]['tags']['route_id']) &&
+             $RELATION_elements[$trip_id]['tags']['route_id']           ) {
+            AddAgencyOfRouteId( $db, $RELATION_elements[$trip_id]['tags']['route_id'] );
+        }
+    }
+
+}
+
+
 function AddNodes() {
     global $json_response;
     global $NODE_elements;
@@ -261,21 +301,19 @@ function AddRelations() {
 }
 
 
-function AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna ) {
+function AddRoute2NodesWaysRelations( $db, $route_id, $ptna ) {
     global $RELATION_elements;
 
-    AddRouteOnly2Relations( $db, $route_id, $full, $ptna );
+    AddRouteOnly2Relations( $db, $route_id, $ptna );
 
-    if ( $full ) {
-        if ( isset($RELATION_elements[$route_id]) ) {
-            if ( isset($RELATION_elements[$route_id]['tags'])                    &&
-                 isset($RELATION_elements[$route_id]['tags']['type'])            &&
-                       $RELATION_elements[$route_id]['tags']['type'] === 'route' &&
-                 isset($RELATION_elements[$route_id]['members'])                    ) {
-                foreach ( $RELATION_elements[$route_id]['members'] as $member) {
-                    if ( isset($member['ref']) && isset($member['type']) && $member['type'] === 'relation' ) {
-                        AddTrip2NodesWaysRelations( $db, $member['ref'], $full, $ptna );
-                    }
+    if ( isset($RELATION_elements[$route_id]) ) {
+        if ( isset($RELATION_elements[$route_id]['tags'])                    &&
+             isset($RELATION_elements[$route_id]['tags']['type'])            &&
+                   $RELATION_elements[$route_id]['tags']['type'] === 'route' &&
+             isset($RELATION_elements[$route_id]['members'])                    ) {
+            foreach ( $RELATION_elements[$route_id]['members'] as $member) {
+                if ( isset($member['ref']) && isset($member['type']) && $member['type'] === 'relation' ) {
+                    AddTrip2NodesWaysRelations( $db, $member['ref'], $ptna );
                 }
             }
         }
@@ -283,7 +321,7 @@ function AddRoute2NodesWaysRelations( $db, $route_id, $full, $ptna ) {
 }
 
 
-function AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna ) {
+function AddTrip2NodesWaysRelations( $db, $trip_id, $ptna ) {
     global $NODE_elements;
     global $WAY_elements;
     global $RELATION_elements;
@@ -441,7 +479,7 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna ) {
             }
         }
 
-        if ( $full && $shape_id ) {
+        if ( $shape_id ) {
             $sql = sprintf( "SELECT   *
                              FROM     shapes
                              WHERE    shape_id='%s' ORDER BY CAST (shape_pt_sequence AS INTEGER) ASC;",
@@ -506,14 +544,14 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $full, $ptna ) {
             $RELATION_elements[$trip_id] = $tmp_array;
         }
 
-        if ( $full && $route_id ) {
-            AddRouteOnly2Relations( $db, $route_id, $full, $ptna );
+        if ( $route_id ) {
+            AddRouteOnly2Relations( $db, $route_id, $ptna );
         }
     }
 }
 
 
-function AddRouteOnly2Relations( $db, $route_id, $full, $ptna ) {
+function AddRouteOnly2Relations( $db, $route_id, $ptna ) {
     global $RELATION_elements;
 
     if ( !isset($RELATION_elements[$route_id])) {
