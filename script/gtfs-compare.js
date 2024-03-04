@@ -11,8 +11,6 @@ const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
 const defaultzoom   = 10;
 
-const members_per_timeout = 10000;
-
 const osmlicence    = 'Map data &copy; <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, <a href="https://www.openstreetmap.org/copyright" target="_blank">ODbL</a> &mdash; ';
 const attribution   = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
@@ -215,7 +213,7 @@ async function download_left_data() {
                                   '?feed='         + encodeURIComponent(feed)         +
                                   '&release_date=' + encodeURIComponent(release_date) +
                                   '&trip_id='      + encodeURIComponent(trip_id)      +
-                                  '&full&ptna';
+                                  '&ptna';
                     const d = new Date();
                     downloadstartms = d.getTime();
 
@@ -284,7 +282,7 @@ async function download_right_data() {
                         '?feed='         + encodeURIComponent(feed2)         +
                         '&release_date=' + encodeURIComponent(release_date2) +
                         '&trip_id='      + encodeURIComponent(trip_id2)      +
-                        '&full&ptna';
+                        '&ptna';
                     const d = new Date();
                     downloadstartms = d.getTime();
 
