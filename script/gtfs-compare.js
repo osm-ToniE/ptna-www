@@ -26,9 +26,11 @@ var colours         = {};
 
 var feed;
 var release_date;
+var route_id;
 var trip_id;
 var feed2;
 var release_date2;
+var route_id2;
 var trip_id2;
 var relation_id;
 
@@ -187,12 +189,77 @@ async function showtripcomparison() {
     console.log("CMP_List");
     console.log(CMP_List);
 
+    var whats_right = 'GTFS';
     if ( relation_id !== '' ) {
-        CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
-    } else {
-        CreateTripsCompareTable( CMP_List, left = 'GTFS', right = 'GTFS' );
+        whats_right = 'OSM';
     }
+    var left_len  = CMP_List['left'].length;
+    var right_len = CMP_List['right'].length;
 
+    if ( left_len > 0 && right_len > 0 ) {
+        var score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = false );
+    } else {
+        if ( left_len === 0 && right_len === 0 ) {
+            if ( right === 'OSM' ) {
+                alert( "There are no GTFS-stops and no OSM-platforms" );
+            } else {
+                alert( "There are no GTFS-stops at all" );
+            }
+        } else if ( left_len === 0 ) {
+            alert( "There are no GTFS-stops" );
+        } else {
+            alert( "There are no OSM-platforms" );
+        }
+    }
+}
+
+
+async function showroutecomparison() {
+
+    if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
+
+    //  empty tiles
+	var nomap  = L.tileLayer('');
+
+    map  = L.map( 'hiddenmap',  { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [nomap] } );
+
+    feed          = URLparse()["feed"]           || '';
+    feed2         = URLparse()["feed2"]          || feed;
+    release_date  = URLparse()["release_date"]   || '';
+    release_date2 = URLparse()["release_date2"]  || '';
+    route_id      = URLparse()["route_id"]       || '';
+    route_id2     = URLparse()["route_id2"]      || '';
+    relation_id   = URLparse()["relation"]       || '';
+
+    dBarLeft   = document.getElementById('download_left');
+    dBarRight  = document.getElementById('download_right');
+    aBar       = document.getElementById('analysis');
+
+    await download_left_data().then( (data)  => parseHttpResponse( 'left', data ) );
+    await download_right_data().then( (data) => parseHttpResponse( 'right', data ) );
+
+    console.log("DATA_Nodes");
+    console.log(DATA_Nodes);
+    console.log("DATA_Ways");
+    console.log(DATA_Ways);
+    console.log("DATA_Relations");
+    console.log(DATA_Relations);
+
+    // IterateOverMembers( 'left', route_id.toString() );
+    // if ( relation_id !== '' ) {
+    //     IterateOverMembers( 'right', relation_id.toString() );
+    // } else {
+    //     IterateOverMembers( 'right', route_id2.toString() );
+    // }
+
+    console.log("CMP_List");
+    console.log(CMP_List);
+
+    // if ( relation_id !== '' ) {
+    //     CreateRoutesCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
+    // } else {
+    //     CreateRoutesCompareTable( CMP_List, left = 'GTFS', right = 'GTFS' );
+    // }
 }
 
 
@@ -208,12 +275,21 @@ async function download_left_data() {
                  release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ||
                  release_date === 'previous'                ||
                  release_date === 'long-term'                  ) {
-                if ( trip_id !== '' ) {
-                    var url     = PTNA_API_URL     +
+                if ( route_id !== '' || trip_id !== '' ) {
+                    var url = '';
+                    if ( route_id ) {
+                        url     = PTNA_API_URL     +
+                                  '?feed='         + encodeURIComponent(feed)         +
+                                  '&release_date=' + encodeURIComponent(release_date) +
+                                  '&route_id='     + encodeURIComponent(route_id)      +
+                                  '&ptna';
+                    } else {
+                        url     = PTNA_API_URL     +
                                   '?feed='         + encodeURIComponent(feed)         +
                                   '&release_date=' + encodeURIComponent(release_date) +
                                   '&trip_id='      + encodeURIComponent(trip_id)      +
                                   '&ptna';
+                    }
                     const d = new Date();
                     downloadstartms = d.getTime();
 
@@ -230,7 +306,7 @@ async function download_left_data() {
                         alert( "HTTP-Error: " + response.status );
                     }
                 } else {
-                    alert( "Parameter 'trip_id' is not set" );
+                    alert( "Neither parameter 'route_id' nor 'trip_id' is set" );
                 }
             } else {
                 alert( "Parameter 'release_date' is invalid (" + release_date + ")" );
@@ -277,12 +353,21 @@ async function download_right_data() {
                  release_date2.match(/^\d\d\d\d-\d\d-\d\d$/) ||
                  release_date2 === 'previous'                ||
                  release_date2 === 'long-term'                  ) {
-                if ( trip_id2 !== '' ) {
-                    var url = PTNA_API_URL     +
-                        '?feed='         + encodeURIComponent(feed2)         +
-                        '&release_date=' + encodeURIComponent(release_date2) +
-                        '&trip_id='      + encodeURIComponent(trip_id2)      +
-                        '&ptna';
+                if ( route_id2 !== '' || trip_id2 !== '' ) {
+                    var url = '';
+                    if ( route_id ) {
+                        url = PTNA_API_URL     +
+                              '?feed='         + encodeURIComponent(feed2)         +
+                              '&release_date=' + encodeURIComponent(release_date2) +
+                              '&route_id='     + encodeURIComponent(route_id2)     +
+                              '&ptna';
+                    } else {
+                        url = PTNA_API_URL     +
+                              '?feed='         + encodeURIComponent(feed2)         +
+                              '&release_date=' + encodeURIComponent(release_date2) +
+                              '&trip_id='      + encodeURIComponent(trip_id2)      +
+                              '&ptna';
+                    }
                     const d = new Date();
                     downloadstartms = d.getTime();
 
@@ -299,7 +384,7 @@ async function download_right_data() {
                         alert( "HTTP-Error: " + response.status );
                     }
                 } else {
-                    alert( "Parameter 'trip_id2' is not set" );
+                    alert( "Neither parameter 'route_id2' nor 'trip_id2' is set" );
                 }
             } else {
                 alert( "Parameter 'release_date2' is invalid (" + release_date2 + ")" );
@@ -486,7 +571,7 @@ function handleMembers( lor, relation_id ) {
 
             if ( is_GTFS ) {
                 // GTFS is always type='node', so no need for ref_lat and ref_lon
-                [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name), 0, 0 );
+                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), 0, 0 );
             } else {
                 // OSM is always lor='right'
                 if ( CMP_List['right'].length < CMP_List['left'].length ) {
@@ -496,7 +581,7 @@ function handleMembers( lor, relation_id ) {
                     ref_lat = CMP_List['left'][CMP_List['left'].length-1]['lat'];
                     ref_lon = CMP_List['left'][CMP_List['left'].length-1]['lon'];
                 }
-                [lat,lon] = drawObject( lor, id, type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon );
+                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon );
             }
 
             latlonroute[lor][match].push( [lat,lon] );
@@ -547,20 +632,20 @@ function PopupContent (id, type, match, label, name) {
 }
 
 
-function drawObject( lor, id, type, match, label_number, name, ref_lat, ref_lon ) {
+function handleObject( lor, id, type, match, label_number, name, ref_lat, ref_lon ) {
 
     if ( type == "node" ) {
-        return drawNode( lor, id, match, label_number, name, true, true );
+        return handleNode( lor, id, match, label_number, name, true, true );
     } else if ( type == "way" ) {
-        return drawWay( lor, id, match, label_number, name, true, ref_lat, ref_lon );
+        return handleWay( lor, id, match, label_number, name, true, ref_lat, ref_lon );
     } else if ( type == "relation" ) {
-        return drawRelation( lor, id, match, label_number, name, true, ref_lat, ref_lon )
+        return handleRelation( lor, id, match, label_number, name, true, ref_lat, ref_lon )
     }
     return [0,0];
 }
 
 
-function drawNode( lor, id, match, label, name, set_marker, set_circle ) {
+function handleNode( lor, id, match, label, name, set_marker, set_circle ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -586,7 +671,7 @@ function drawNode( lor, id, match, label, name, set_marker, set_circle ) {
 }
 
 
-function drawWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
+function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -635,7 +720,7 @@ function drawWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
 }
 
 
-function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
+function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -661,9 +746,9 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             }
             if ( DATA_Nodes[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    drawNode( lor, member_id, match, label, name, false, false );
+                    handleNode( lor, member_id, match, label, name, false, false );
                 } else {
-                    [lat,lon] = drawNode( lor, member_id, match, label, name, true, true );
+                    [lat,lon] = handleNode( lor, member_id, match, label, name, true, true );
                     have_set_marker = 1;
                 }
             } else {
@@ -675,9 +760,9 @@ function drawRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon
             }
             if ( DATA_Ways[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    drawWay( lor, member_id, match, label, name, false, ref_lat, ref_lon );
+                    handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon );
                 } else {
-                    [lat,lon] = drawWay( lor, member_id, match, label, name, true, ref_lat, ref_lon );
+                    [lat,lon] = handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon );
                     have_set_marker = 1;
                 }
             } else {
@@ -802,12 +887,20 @@ function parseHttpResponse( lor, data ) {
 
     if ( JSON_data[lor]["elements"].length === 0 ) {
         if ( lor === 'left' ) {
-            alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+            if ( route_id ) {
+                alert( "GTFS for data for route_id =  " + route_id + " not found");
+            } else {
+                alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+            }
         } else {
             if ( relation_id !== '' ) {
                 alert( "OSM relation = " + relation_id + " not found");
             } else {
-                alert( "GTFS for data for trip_id2 =  " + trip_id2 + " not found");
+                if ( route_id2 ) {
+                    alert( "GTFS for data for route_id2 =  " + route_id2 + " not found");
+                } else {
+                    alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+                }
             }
         }
         throw new Error("ERROR");
@@ -817,19 +910,10 @@ function parseHttpResponse( lor, data ) {
 }
 
 
-function CreateTripsCompareTable( cmp_list, left, right ) {
+function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) {
 
     var body_row_template = {};
     var fields            = [];
-
-    const div   = document.getElementById('trips-table-div');
-    const table = document.getElementById('trips-table');
-    const thead = document.getElementById('trips-table-thead');
-    const tbody = document.getElementById('trips-table-tbody');
-    const tfoot = document.getElementById('trips-table-tfoot');
-    var   tr;
-    var   th;
-    var   td;
 
     // left &#x2BC7;
     // right &#x2BC8;
@@ -853,8 +937,6 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
     var row_style   = {};
     var left_len    = cmp_list['left'].length;
     var right_len   = cmp_list['right'].length;
-    var right_lat   = 0;
-    var right_lon   = 0;
     var left_name_parts          = '';
     var right_name_parts         = '';
     var max_len                  = Math.max(left_len,right_len);
@@ -918,9 +1000,6 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
 
 
     if ( left_len > 0 && right_len > 0 ) {
-        // magic calculation of visible height of table, before scrolling is enabled
-        div.style["height"] = ((max_len * 2) + 3) + "em";
-        div.style["min-height"] = 24 + "em";
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -1136,22 +1215,15 @@ function CreateTripsCompareTable( cmp_list, left, right ) {
         console.log("scores");
         console.log( scores );
 
-        FillTripsTable( fields, body_rows, row_styles, scores );
-
-        FillTripsScoresTable( scores );
-    } else {
-        if ( left_len === 0 && right_len === 0 ) {
-            if ( right === 'OSM' ) {
-                alert( "There are no GTFS-stops and no OSM-platforms" );
-            } else {
-                alert( "There are no GTFS-stops at all" );
-            }
-        } else if ( left_len === 0 ) {
-            alert( "There are no GTFS-stops" );
-        } else {
-            alert( "There are no OSM-platforms" );
+        if ( !scores_only ) {
+            FillTripsTable( fields, body_rows, row_styles, scores );
+            FillTripsScoresTable( scores );
         }
+
+        return scores;
     }
+
+    return array();
 }
 
 
@@ -1235,10 +1307,15 @@ function compareNumbersReverse(a, b) {
 
 
 function FillTripsTable( fields, body_rows, row_styles, scores ) {
+    var div   = document.getElementById('trips-table-div');
     var thead = document.getElementById('trips-table-thead');
     var tbody = document.getElementById('trips-table-tbody');
     var tr;
     var td;
+
+    // magic calculation of visible height of table, before scrolling is enabled
+    div.style["height"] = ((body_rows.length * 2) + 3) + "em";
+    div.style["min-height"] = 24 + "em";
 
     tr           = document.createElement('tr');
     th           = document.createElement('th');
