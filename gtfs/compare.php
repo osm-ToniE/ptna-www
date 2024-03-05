@@ -12,11 +12,11 @@
         $title=$STR_gtfs_comparison;
         include $lang_dir.'html-head.inc';
 
-        $feed2          = $_GET['feed2'];
-        $release_date2  = $_GET['release_date2'];
-        $route_id2      = $_GET['route_id2'];
-        $trip_id2       = $_GET['trip_id2'];
-        $shape_id2      = $_GET['shape_id2'];
+        $feed2          = isset($_GET['feed2'])         ? $_GET['feed2']         : '';
+        $release_date2  = isset($_GET['release_date2']) ? $_GET['release_date2'] : '';
+        $route_id2      = isset($_GET['route_id2'])     ? $_GET['route_id2']     : '';
+        $trip_id2       = isset($_GET['trip_id2'])      ? $_GET['trip_id2']      : '';
+        $shape_id2      = isset($_GET['shape_id2'])     ? $_GET['shape_id2']     : '';
 
 ?>
 
