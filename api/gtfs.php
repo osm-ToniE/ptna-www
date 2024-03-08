@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('UTC');
+$before = memory_get_usage();
 
 include('../script/globals.php');
 
@@ -8,6 +9,7 @@ if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) 
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
     define("PTNA_URL","https://ptna.openstreetmap.de/api/gtfs.php");
 } else {
+    $old_limit = ini_set( "memory_limit", "-1" );
     define("PTNA_VERSION","PTNA on localhost");
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z"));
     define("PTNA_URL","localhost/api/gtfs.php");
@@ -82,6 +84,8 @@ if ( $feed ) {
 
 $duration = gettimeofday(true) - $start_time;
 $json_response['duration'] = sprintf("%.6F",$duration);
+$after = memory_get_usage();
+$json_response['size']     = $after - $before;
 
 echo json_encode( $json_response );
 
