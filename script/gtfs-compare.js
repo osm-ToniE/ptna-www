@@ -1268,19 +1268,37 @@ function GetScoreColor( scores, value ) {
 
 
 function GetClosestLatLon( map, latlonAA, latlonA ) {
-    var mindist = Infinity;
+    var mindist  = Infinity;
+    var distance = 0;
     if ( latlonAA.length > 0 ) {
         for (i = 0, l = latlonAA.length; i < l; i++) {
             var latlon = latlonAA[i];
             distance = map.distance(latlonA, latlon);
-            if (distance < mindist) {
+            if ( distance < mindist ) {
                 mindist = distance;
                 result  = latlon;
+            }
+            if ( i > 0 ) {
+                [distance,latlon] = GetDistanceFromPointToLine( latlonA, latlonAA[i-1], latlon );
+                if ( distance < mindist ) {
+                    mindist = distance;
+                    result  = latlon;
+                }
             }
         }
         return result;
     }
     return latlonA;
+}
+
+
+//
+// for "Distance from a point to a line" see:
+// https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
+//
+function GetDistanceFromPointToLine( point, line_point1, line_point2 ) {
+
+    return [ Infinity, point ];
 }
 
 
