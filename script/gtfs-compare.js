@@ -725,8 +725,7 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
     label = label || 0;
     name  = name  || '';
 
-    var lat = 0;
-    var lon = 0;
+    var list_of_lat_lon = [];
 
     var member_type;
     var member_role;
@@ -735,7 +734,8 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
 
     var members = DATA_Relations[lor][id]["members"];
 
-    for ( var j = 0; j < members.length; j++ ) {
+    var len = members.length;
+    for ( var j = 0; j < len; j++ ) {
         member_type = members[j]['type'];
         member_role = members[j]['role'];
         member_id   = members[j]['ref'];
@@ -746,9 +746,9 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
             }
             if ( DATA_Nodes[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    handleNode( lor, member_id, match, label, name, false, false );
+                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false ));
                 } else {
-                    [lat,lon] = handleNode( lor, member_id, match, label, name, true, true );
+                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true ));
                     have_set_marker = 1;
                 }
             } else {
@@ -760,9 +760,9 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
             }
             if ( DATA_Ways[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon );
+                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon ));
                 } else {
-                    [lat,lon] = handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon );
+                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon ));
                     have_set_marker = 1;
                 }
             } else {
@@ -793,7 +793,22 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
 
     }
 
-    return [ lat, lon ];
+    var result = [];
+    var lat = 0;
+    var lon = 0;
+    var mindist = Infinity;
+    var distance = 0;
+    len = list_of_lat_lon.length
+    for (var i = 0; i < len; i++ ) {
+        lat = list_of_lat_lon[i][0];
+        lon = list_of_lat_lon[i][1];
+        distance = map.distance([ref_lat, ref_lon],[lat,lon]);
+        if ( distance < mindist ) {
+            mindist = distance;
+            result  = [lat,lon];
+        }
+    }
+    return result;
 }
 
 
@@ -1101,7 +1116,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             scores['mismatch_count']['gtfs:stop_id']++;
                         }
                     }
-                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
+                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
                         // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 2 ':'
                         if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
                             row_style['stop_id']   = ['background-color:orange'];
@@ -1279,26 +1294,19 @@ function GetClosestLatLon( map, latlonAA, latlonA ) {
                 result  = latlon;
             }
             if ( i > 0 ) {
-                [distance,latlon] = GetDistanceFromPointToLine( latlonA, latlonAA[i-1], latlon );
+                var P1 = latlonAA[i-1];
+                var P2 = latlonAA[i];
+                distance = L.LineUtil.pointToSegmentDistance(L.point(latlonA),L.point(P1),L.point(P2));
                 if ( distance < mindist ) {
                     mindist = distance;
-                    result  = latlon;
+                    var P = L.LineUtil.closestPointOnSegment(L.point(latlonA),L.point(P1),L.point(P2));
+                    result = [ P.x, P.y ];
                 }
             }
         }
         return result;
     }
     return latlonA;
-}
-
-
-//
-// for "Distance from a point to a line" see:
-// https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Line_defined_by_two_points
-//
-function GetDistanceFromPointToLine( point, line_point1, line_point2 ) {
-
-    return [ Infinity, point ];
 }
 
 
