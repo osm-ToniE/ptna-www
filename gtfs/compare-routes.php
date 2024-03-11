@@ -42,15 +42,15 @@
                 ?>
                 <div class="indent">
 
-                    <span id="progress_section"><span style="display: inline-block; width: 11em">Download GTFS (left): </span><progress id="download_left" value=0 max=2000></progress> <span id="download_left_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>
+                    <span id="progress_section"><span style="display: inline-block; width: 11em">Download GTFS (left): </span><progress id="download_left" value=0 max=10000></progress> <span id="download_left_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>
                                                 <?php
                                                     if ( $osm_relation ) {
-                                                        echo '<span style="display: inline-block; width: 11em">Download OSM (right): </span><progress id="download_right" value=0 max=2000></progress> <span id="download_right_text"  style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 11em">Download OSM (right): </span><progress id="download_right"  value=0 max=10000></progress> <span id="download_right_text"  style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     } else {
-                                                        echo '<span style="display: inline-block; width: 11em">Download GTFS (right): </span><progress id="download_right" value=0 max=2000></progress> <span id="download_right_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 11em">Download GTFS (right): </span><progress id="download_right" value=0 max=10000></progress> <span id="download_right_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     }
                                                 ?>
-                                                <span style="display: inline-block; width: 11em">Analysis: </span><progress id="analysis" value=0 max=2000></progress> <span id="analysis_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms
+                                                <span style="display: inline-block; width: 11em">Analysis: </span><progress id="analysis" value=0 max=10000></progress> <span id="analysis_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms
                     </span>
                     <ul style="list-style-type: none; padding-left: 0px">
                         <li><img src="/img/marker-left.png"  alt="left marker"  height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; width: 3em">Left:</span>
@@ -59,9 +59,9 @@
                                     $feed_parts = explode( '-', $feed );
                                     $countrydir = array_shift( $feed_parts );
                                     if ( $release_date ) {
-                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($route_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id) . '</a> of ' . htmlspecialchars($feed) . ', Version: ' . htmlspecialchars($release_date);
+                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id) . '</a> of ' . htmlspecialchars($feed) . ', Version: ' . htmlspecialchars($release_date);
                                     } else {
-                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($route_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id) . '</a> of ' . htmlspecialchars($feed);
+                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id) . '</a> of ' . htmlspecialchars($feed);
                                     }
                                 }
                                 else {
@@ -78,9 +78,9 @@
                                     $feed_parts = explode( '-', $feed2 );
                                     $countrydir = array_shift( $feed_parts );
                                     if ( $release_date2 ) {
-                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($route_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id2) . '</a> of ' . htmlspecialchars($feed2) . ', Version: ' . htmlspecialchars($release_date2);
+                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&route_id=' . urlencode($route_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id2) . '</a> of ' . htmlspecialchars($feed2) . ', Version: ' . htmlspecialchars($release_date2);
                                     } else {
-                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($route_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id2) . '</a> of ' . htmlspecialchars($feed2);
+                                        echo '<span style="display: inline-block; width: 9em">GTFS route</span> <a href="/gtfs/' . $countrydir . '/trips.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&route_id=' . urlencode($route_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($route_id2) . '</a> of ' . htmlspecialchars($feed2);
                                     }
                                 }
                                 else {
@@ -90,6 +90,16 @@
                         </li>
                     </ul>
 
+                    <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 550px">
+                        <table id="routes-table">
+                            <thead id="routes-table-thead" class="compare-routes-thead">
+                            </thead>
+                            <tbody id="routes-table-tbody" class="compare-routes-tbody">
+                            </tbody>
+                            <tfoot id="routes-table-tfoot" class="compare-routes-tfoot">
+                            </tfoot>
+                        </table>
+                    </div>
 <?php else: ?>
                 <h2 id="compare-routes">Compare GTFS route with OSM route_master</h2>
                 <div class="indent">
@@ -120,10 +130,12 @@
                         <li>xF == percentage of stops where the GTFS-'stop_id' differs from OSM-'ref:IFOPT' (if tagged)</li>
                     </ul>
                 </div>
+<?php if ( isset($_GET['test']) ): ?>
                 <span id="hiddenmap"></span>
                 <script>
                         showroutecomparison();
                 </script>
+<?php endif; ?>
 
             </main> <!-- main -->
 

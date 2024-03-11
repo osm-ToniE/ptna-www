@@ -287,6 +287,15 @@ input.hackbox {
 
 .compare-left-right         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; text-align: left }
 
+.compare-routes-thead       { background-color: #bbbbbb; text-align: center }
+.compare-routes-tbody       { text-align: center }
+.compare-routes-tfoot       { background-color: #bbbbbb; text-align: center }
+.compare-routes-left        { background-color: #fc0fc0 }
+.compare-routes-middle      { background-color: #bbbbbb; text-align: center }
+.compare-routes-right       { background-color: #6495ed }
+.compare-routes-minor       { background-color: yellow }
+.compare-routes-error       { background-color: orange }
+
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }
 .compare-trips-tfoot        { background-color: #bbbbbb; text-align: center }

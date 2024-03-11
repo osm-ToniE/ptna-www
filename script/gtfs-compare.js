@@ -179,11 +179,14 @@ async function showtripcomparison() {
     // console.log(DATA_Ways);
     // console.log(DATA_Relations);
 
-    IterateOverMembers( 'left', trip_id.toString() );
+    const d = new Date();
+    analysisstartms = d.getTime();
+
+    IterateOverMembers( 'left', trip_id.toString(), draw_also=true );
     if ( relation_id !== '' ) {
-        IterateOverMembers( 'right', relation_id.toString() );
+        IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
     } else {
-        IterateOverMembers( 'right', trip_id2.toString() );
+        IterateOverMembers( 'right', trip_id2.toString(), draw_also=true );
     }
 
     console.log("CMP_List");
@@ -211,6 +214,8 @@ async function showtripcomparison() {
             alert( "There are no OSM-platforms" );
         }
     }
+
+    finalizeAnalysisProgress();
 }
 
 
@@ -245,21 +250,88 @@ async function showroutecomparison() {
     console.log("DATA_Relations");
     console.log(DATA_Relations);
 
-    // IterateOverMembers( 'left', route_id.toString() );
-    // if ( relation_id !== '' ) {
-    //     IterateOverMembers( 'right', relation_id.toString() );
-    // } else {
-    //     IterateOverMembers( 'right', route_id2.toString() );
-    // }
+    const d = new Date();
+    analysisstartms = d.getTime();
 
-    console.log("CMP_List");
-    console.log(CMP_List);
+    var left_len     = 0;
+    var right_len    = 0;
+    var score_table  = [];
+    var zero_data    = false;
 
-    // if ( relation_id !== '' ) {
-    //     CreateRoutesCompareTable( CMP_List, left = 'GTFS', right = 'OSM' );
-    // } else {
-    //     CreateRoutesCompareTable( CMP_List, left = 'GTFS', right = 'GTFS' );
-    // }
+    var CompareTable        = [];
+    var CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left',route_id,sort=true) };
+    var CompareTableColInfo = {};
+    var whats_right         = '';
+     if ( relation_id !== '' ) {
+        whats_right         = 'OSM';
+        if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
+             DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
+            if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
+                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route_master', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right',relation_id,sort=false) };
+            } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
+                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route', 'id' : relation_id, cols : [ relation_id ] };
+            } else {
+                alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
+                return;
+            }
+        } else {
+            alert( "OSM relation "  + relation_id + " does not exist (not downloaded) or has invalid tags") ;
+            return;
+        }
+    } else {
+        whats_right         = 'GTFS';
+        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right',route_id2,sort=true) };
+    }
+
+    var NumberOfRows = CompareTableRowInfo['rows'].length;
+    var NumberOfCols = CompareTableColInfo['cols'].length;
+    var increment    = 100 / NumberOfRows;
+
+    for ( var row = 0; row < NumberOfRows; row++ ) {
+        CompareTable.push( [] );
+        for ( var col = 0; col < NumberOfCols; col++ ) {
+            CMP_List = { 'left' : [], 'right' : [] };
+            IterateOverMembers( 'left',  CompareTableRowInfo['rows'][row].toString(), draw_also = false );
+            IterateOverMembers( 'right', CompareTableColInfo['cols'][col].toString(), draw_also = false );
+
+            console.log( "CMP_List[row=" + (row+1) + "][col=" + (col+1) + "]" );
+            console.log(CMP_List);
+
+            left_len  = CMP_List['left'].length;
+            right_len = CMP_List['right'].length;
+
+            if ( left_len > 0 && right_len > 0 ) {
+                score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = true );
+                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'] } );
+            } else {
+                CompareTable[row].push( { 'score' : -1, 'color' : 'white' } );
+                if ( left_len === 0 && right_len === 0 ) {
+                    if ( whats_right === 'OSM' ) {
+                        console.log( "There are no GTFS-stops and no OSM-platforms" );
+                    } else {
+                        console.log( "There are no GTFS-stops at all" );
+                    }
+                } else if ( left_len === 0 ) {
+                    console.log( "There are no GTFS-stops" );
+                } else {
+                    console.log( "There are no OSM-platforms" );
+                }
+                zero_data = true;
+                console.log( "CMP_List[row=" + row + "][col=" + col + "]" );
+                console.log( CMP_List );
+            }
+
+        }
+        updateAnalysisProgress( increment );
+    }
+
+    CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable );
+
+    if ( zero_data ) {
+        alert( "Some cells may not show valid data, there was missing data.\n\nSee the Console.log() in your browser for more details about 'CMP_List'.");
+    }
+
+    finalizeAnalysisProgress();
 }
 
 
@@ -377,7 +449,7 @@ async function download_right_data() {
                         const JsonResp = await response.json();
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
-                        dBarLeft.value = usedms;
+                        dBarRight.value = usedms;
                         document.getElementById('download_right_text').innerText = usedms.toString();
                         return JSON.stringify(JsonResp);
                     } else {
@@ -446,7 +518,7 @@ function getRelationBounds() {
 }
 
 
-function IterateOverMembers( lor, rel_id ) {
+function IterateOverMembers( lor, rel_id, draw_also ) {
     var object = DATA_Relations[lor][rel_id];
 
     number_of_match = { 'platform':1, 'stop':1, 'route':1, 'shape':1, 'other':1 };
@@ -460,16 +532,12 @@ function IterateOverMembers( lor, rel_id ) {
 
     if ( object && object['type'] === 'relation' && object['tags'] && (object['tags']['type'] === 'route' || object['tags']['type'] === 'trip') ) {
 
-        const d = new Date();
-        analysisstartms = d.getTime();
-
-        handleMembers( lor, rel_id );
-
+        handleMembers( lor, rel_id, draw_also );
     }
 }
 
 
-function handleMembers( lor, relation_id ) {
+function handleMembers( lor, relation_id, draw_also ) {
 
     var object = DATA_Relations[lor][relation_id];
     var is_GTFS = object['tags']['type'] === 'trip';
@@ -571,7 +639,7 @@ function handleMembers( lor, relation_id ) {
 
             if ( is_GTFS ) {
                 // GTFS is always type='node', so no need for ref_lat and ref_lon
-                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), 0, 0 );
+                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), 0, 0, draw_also );
             } else {
                 // OSM is always lor='right'
                 if ( CMP_List['right'].length < CMP_List['left'].length ) {
@@ -581,7 +649,7 @@ function handleMembers( lor, relation_id ) {
                     ref_lat = CMP_List['left'][CMP_List['left'].length-1]['lat'];
                     ref_lon = CMP_List['left'][CMP_List['left'].length-1]['lon'];
                 }
-                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon );
+                [lat,lon] = handleObject( lor, id, type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon, draw_also );
             }
 
             latlonroute[lor][match].push( [lat,lon] );
@@ -590,7 +658,7 @@ function handleMembers( lor, relation_id ) {
                 CMP_List[lor].push( { 'id':id, 'type':type, 'lat':lat, 'lon':lon, 'tags':member['tags'], 'ptna':member['ptna'] } );
             }
 
-            if ( (match === "shape" || match === 'route') && number_of_match[match] == 1 ) {
+            if ( draw_also && (match === "shape" || match === 'route') && number_of_match[match] == 1 ) {
                 map.fitBounds( getRelationBounds() );
             }
 
@@ -599,19 +667,19 @@ function handleMembers( lor, relation_id ) {
 
     // reached the end of the list
 
-    if ( is_GTFS ) {    // GTFS has so called 'stops'
-        if ( latlonroute[lor]['stop'].length > 1 ) {
-            L.polyline(latlonroute[lor]['stop'],{color:colours[lor],weight:3,fill:false}).bindPopup("GTFS Stop Route").addTo( layerplatformroute[lor] );
+    if ( draw_also ) {
+        if ( is_GTFS ) {    // GTFS has so called 'stops'
+            if ( latlonroute[lor]['stop'].length > 1 ) {
+                L.polyline(latlonroute[lor]['stop'],{color:colours[lor],weight:3,fill:false}).bindPopup("GTFS Stop Route").addTo( layerplatformroute[lor] );
+            }
+        } else {            // with OSM, we consider only 'platforms'
+            if ( latlonroute[lor]['platform'].length > 1 ) {
+                L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformroute[lor] );
+            }
         }
-    } else {            // with OSM, we consider only 'platforms'
-        if ( latlonroute[lor]['platform'].length > 1 ) {
-            L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformroute[lor] );
-        }
+
+        map.fitBounds( getRelationBounds() );
     }
-
-    map.fitBounds( getRelationBounds() );
-
-    finalizeAnalysisProgress();
 
 }
 
@@ -632,35 +700,37 @@ function PopupContent (id, type, match, label, name) {
 }
 
 
-function handleObject( lor, id, type, match, label_number, name, ref_lat, ref_lon ) {
+function handleObject( lor, id, type, match, label_number, name, ref_lat, ref_lon, draw_also ) {
 
     if ( type == "node" ) {
-        return handleNode( lor, id, match, label_number, name, true, true );
+        return handleNode( lor, id, match, label_number, name, true, true, draw_also );
     } else if ( type == "way" ) {
-        return handleWay( lor, id, match, label_number, name, true, ref_lat, ref_lon );
+        return handleWay( lor, id, match, label_number, name, true, ref_lat, ref_lon, draw_also );
     } else if ( type == "relation" ) {
-        return handleRelation( lor, id, match, label_number, name, true, ref_lat, ref_lon )
+        return handleRelation( lor, id, match, label_number, name, true, ref_lat, ref_lon, draw_also )
     }
     return [0,0];
 }
 
 
-function handleNode( lor, id, match, label, name, set_marker, set_circle ) {
+function handleNode( lor, id, match, label, name, set_marker, set_circle, draw_also ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
 
     var lat = DATA_Nodes[lor][id]['lat'];
     var lon = DATA_Nodes[lor][id]['lon'];
-    if ( match == "platform" ) {
-        if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
-    } else if ( match == "stop"     ) {
-        if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
-    } else if ( match == "route" || match == "shape" ) {
-        if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershape[lor]);
-        if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layershape[lor]);
+    if ( draw_also ) {
+        if ( match == "platform" ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
+        } else if ( match == "stop"     ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
+        } else if ( match == "route" || match == "shape" ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershape[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layershape[lor]);
+        }
     }
     if ( lat < minlat ) minlat = lat;
     if ( lat > maxlat ) maxlat = lat;
@@ -671,7 +741,7 @@ function handleNode( lor, id, match, label, name, set_marker, set_circle ) {
 }
 
 
-function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
+function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon, draw_also ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -705,22 +775,28 @@ function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) 
         [ closest_lat, closest_lon ] = GetClosestLatLon( map, polyline_array, [ref_lat, ref_lon] );
         //console.log( polyline_array, [ref_lat, ref_lon] );
 
-        if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        if ( draw_also ) {
+            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
 
-        L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        }
     } else if ( match == 'stop' ) {
-        if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        if ( draw_also ) {
+            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
 
-        L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+        }
     } else if ( match == "route" || match == "shape" ) {
-        L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
+        if ( draw_also ) {
+            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
+        }
     }
 
     return [closest_lat, closest_lon];
 }
 
 
-function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon ) {
+function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_lon, draw_also ) {
     match = match || 'other';
     label = label || 0;
     name  = name  || '';
@@ -746,9 +822,9 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
             }
             if ( DATA_Nodes[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false ));
+                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false, draw_also ));
                 } else {
-                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true ));
+                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true, draw_also ));
                     have_set_marker = 1;
                 }
             } else {
@@ -760,9 +836,9 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
             }
             if ( DATA_Ways[lor][member_id] ) {
                 if ( have_set_marker ) {
-                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon ));
+                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon, draw_also ));
                 } else {
-                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon ));
+                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon, draw_also ));
                     have_set_marker = 1;
                 }
             } else {
@@ -852,6 +928,26 @@ function getObjectLinks( id, type, is_GTFS ) {
 }
 
 
+function GetRelationMembersOfRelation( lor, relation_id, sort=false ) {
+
+    var ret_list = [];
+    if ( DATA_Relations[lor][relation_id]                           &&
+         DATA_Relations[lor][relation_id]['type']    === 'relation' &&
+         DATA_Relations[lor][relation_id]['members']                   ) {
+        var members_len = DATA_Relations[lor][relation_id]['members'].length;
+        for ( var i = 0; i< members_len; i++ ) {
+            if ( DATA_Relations[lor][relation_id]['members'][i]['type'] === 'relation' &&
+                 DATA_Relations[lor][relation_id]['members'][i]['ref']                    ) {
+                ret_list.push( DATA_Relations[lor][relation_id]['members'][i]['ref'] );
+            }
+        }
+        if ( sort ) {
+            ;
+        }
+    }
+
+    return ret_list;
+}
 function htmlEscape( str ) {
     return str
         .replace(/&/g, '&amp;')
@@ -903,18 +999,22 @@ function parseHttpResponse( lor, data ) {
     if ( JSON_data[lor]["elements"].length === 0 ) {
         if ( lor === 'left' ) {
             if ( route_id ) {
-                alert( "GTFS for data for route_id =  " + route_id + " not found");
+                alert( "GTFS for data for 'route_id' = '" + route_id + "' not found");
+            } else if ( trip_id ) {
+                alert( "GTFS for data for 'trip_id' = '" + trip_id + "' not found");
             } else {
-                alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+                alert( "Neither 'route_id' nor 'trip_id' are set for GTFS data");
             }
         } else {
             if ( relation_id !== '' ) {
-                alert( "OSM relation = " + relation_id + " not found");
+                alert( "OSM 'relation' = '" + relation_id + "' not found");
             } else {
                 if ( route_id2 ) {
-                    alert( "GTFS for data for route_id2 =  " + route_id2 + " not found");
+                    alert( "GTFS for data for 'route_id2' = '" + route_id2 + "' not found");
+                } else if ( trip_id2 ) {
+                    alert( "GTFS for data for 'trip_id2' = '" + trip_id + "' not found");
                 } else {
-                    alert( "GTFS for data for trip_id =  " + trip_id + " not found");
+                    alert( "Neither 'route_id2' nor 'trip_id2' are set for GTFS data, 'relation' not set for OSM data as well");
                 }
             }
         }
@@ -922,6 +1022,50 @@ function parseHttpResponse( lor, data ) {
     }
     fillNodesWaysRelations( lor );
 
+}
+
+
+function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable ) {
+
+    console.log( "CompareTableRowInfo" );
+    console.log( CompareTableRowInfo );
+    console.log( "CompareTableColInfo" );
+    console.log( CompareTableColInfo );
+    console.log( "CompareTable" );
+    console.log( CompareTable );
+
+    var row_count = CompareTable.length;
+    if ( row_count > 0 ) {
+        var col_count = CompareTable[0].length;
+        if ( col_count > 0 ) {
+            var div   = document.getElementById('routes-table-div');
+            // var thead = document.getElementById('routes-table-thead');
+            var tbody = document.getElementById('routes-table-tbody');
+            var tr;
+            var td;
+
+            // magic calculation of visible height of table, before scrolling is enabled
+            div.style["height"] = ((row_count * 2) + 3) + "em";
+            div.style["min-height"] = 14 + "em";
+
+            for ( var row = 0; row < row_count; row++ ) {
+                tr = document.createElement('tr');
+                col_count = CompareTable[row].length;
+                for ( var col = 0; col < col_count; col++ ) {
+                    td = document.createElement('td');
+                    if ( CompareTable[row][col]['score'] >= 0 ) {
+                        td.innerHTML = CompareTable[row][col]['score'].toString() + '%';
+                    } else {
+                        td.innerHTML = 'n/a';
+                   }
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            }
+        }
+    }
+
+    return;
 }
 
 
@@ -1552,8 +1696,12 @@ function FillTripsScoresTable( scores ) {
 function updateAnalysisProgress( increment ) {
     const d = new Date();
     var usedms = d.getTime() - analysisstartms;
-    aBar.value = usedms;
     document.getElementById('analysis_text').innerText = usedms.toString();
+    if ( increment ) {
+        aBar.value += increment;
+    } else {
+        aBar.value = usedms;
+    }
 }
 
 
