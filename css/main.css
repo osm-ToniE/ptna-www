@@ -290,11 +290,10 @@ input.hackbox {
 .compare-routes-thead       { background-color: #bbbbbb; text-align: center }
 .compare-routes-tbody       { text-align: center }
 .compare-routes-tfoot       { background-color: #bbbbbb; text-align: center }
-.compare-routes-left        { background-color: #fc0fc0 }
-.compare-routes-middle      { background-color: #bbbbbb; text-align: center }
-.compare-routes-right       { background-color: #6495ed }
-.compare-routes-minor       { background-color: yellow }
-.compare-routes-error       { background-color: orange }
+.compare-routes-right       { text-align: right }
+.compare-routes-left        { text-align: left }
+.no-border-right            { border-right-width: 0 }
+.no-border-left             { border-left-width: 0 }
 
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }
