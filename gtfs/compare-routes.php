@@ -24,6 +24,7 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
         <script src="/script/gtfs-compare.js"></script>
+        <script src="/script/sort-table.js"></script>
 
         <div id="wrapper">
 
@@ -42,15 +43,15 @@
                 ?>
                 <div class="indent">
 
-                    <span id="progress_section"><span style="display: inline-block; width: 11em">Download GTFS (left): </span><progress id="download_left" value=0 max=10000></progress> <span id="download_left_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>
+                    <span id="progress_section"><span style="display: inline-block; width: 13em">Download GTFS (rows): </span><progress id="download_left" value=0 max=10000></progress> <span id="download_left_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>
                                                 <?php
                                                     if ( $osm_relation ) {
-                                                        echo '<span style="display: inline-block; width: 11em">Download OSM (right): </span><progress id="download_right"  value=0 max=10000></progress> <span id="download_right_text"  style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 13em">Download OSM (columns): </span><progress id="download_right"  value=0 max=10000></progress> <span id="download_right_text"  style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     } else {
-                                                        echo '<span style="display: inline-block; width: 11em">Download GTFS (right): </span><progress id="download_right" value=0 max=10000></progress> <span id="download_right_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 13em">Download GTFS (columns): </span><progress id="download_right" value=0 max=10000></progress> <span id="download_right_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     }
                                                 ?>
-                                                <span style="display: inline-block; width: 11em">Analysis: </span><progress id="analysis" value=0 max=10000></progress> <span id="analysis_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms
+                                                <span style="display: inline-block; width: 13em">Analysis: </span><progress id="analysis" value=0 max=10000></progress> <span id="analysis_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms
                     </span>
                     <ul style="list-style-type: none; padding-left: 0px">
                         <li><img src="/img/marker-left.png"  alt="left marker"  height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; width: 3em">Left:</span>
@@ -91,7 +92,7 @@
                     </ul>
 
                     <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 550px">
-                        <table id="routes-table">
+                        <table id="routes-table" class="js-sort-table">
                             <thead id="routes-table-thead" class="compare-routes-thead">
                             </thead>
                             <tbody id="routes-table-tbody" class="compare-routes-tbody">
@@ -133,7 +134,7 @@
 <?php if ( isset($_GET['test']) ): ?>
                 <span id="hiddenmap"></span>
                 <script>
-                        showroutecomparison();
+                    showroutecomparison();
                 </script>
 <?php endif; ?>
 
