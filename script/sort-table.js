@@ -333,10 +333,10 @@ sortTable.init = function() {
 };
 
 // Run sortTable.init() when the page loads
-window.addEventListener
-    ? window.addEventListener('load', sortTable.init, false)
-    : window.attachEvent && window.attachEvent('onload', sortTable.init)
-    ;
+//window.addEventListener
+//    ? window.addEventListener('load', sortTable.init, false)
+//    : window.attachEvent && window.attachEvent('onload', sortTable.init)
+//    ;
 
 // Shim for IE11's lack of NodeList.prototype.forEach
 if (typeof NodeList.prototype.forEach !== "function") {

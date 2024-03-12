@@ -10,7 +10,14 @@
 
     <body>
       <script src="/script/sort-table.js"></script>
-      <div id="wrapper">
+      <script> // Run sortTable.init() when the page loads - disabled in sort-table.js for race-condition reasons
+                window.addEventListener
+                    ? window.addEventListener('load', sortTable.init, false)
+                    : window.attachEvent && window.attachEvent('onload', sortTable.init)
+                    ;
+      </script>
+
+    <div id="wrapper">
 
 <?php include "header.inc" ?>
 
