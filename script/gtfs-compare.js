@@ -332,6 +332,8 @@ async function showroutecomparison() {
     }
 
     finalizeAnalysisProgress();
+
+    sortTable.init();
 }
 
 
@@ -1039,25 +1041,51 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
         var col_count = CompareTable[0].length;
         if ( col_count > 0 ) {
             var div   = document.getElementById('routes-table-div');
-            // var thead = document.getElementById('routes-table-thead');
+            var table = document.getElementById('routes-table');
+            var thead = document.getElementById('routes-table-thead');
             var tbody = document.getElementById('routes-table-tbody');
             var tr;
             var td;
+            var th;
 
             // magic calculation of visible height of table, before scrolling is enabled
             div.style["height"] = ((row_count * 2) + 3) + "em";
             div.style["min-height"] = 14 + "em";
 
+            tr = document.createElement('tr');
+            th = document.createElement('th');
+            th.innerHTML = "&#x21C5;Scores (low score)";
+            th.className = 'js-sort-string';
+            tr.appendChild(th);
+            for ( var col = 0; col < col_count; col++ ) {
+                th = document.createElement('th');
+                if ( CompareTableColInfo['cols'][col] ) {
+                    th.innerHTML = '&#x21C5;' + CompareTableColInfo['cols'][col].toString();
+                    th.className = 'js-sort-number';
+                } else {
+                    th.innerHTML = 'n/a';
+                }
+                tr.appendChild(th);
+            }
+            thead.appendChild(tr);
+
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
-                col_count = CompareTable[row].length;
+                th = document.createElement('th');
+                if ( CompareTableRowInfo['rows'][row] ) {
+                    th.innerHTML = CompareTableRowInfo['rows'][row].toString();
+                } else {
+                    th.innerHTML = 'n/a';
+                }
+                tr.appendChild(th);
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
                     if ( CompareTable[row][col]['score'] >= 0 ) {
                         td.innerHTML = CompareTable[row][col]['score'].toString() + '%';
                     } else {
                         td.innerHTML = 'n/a';
-                   }
+                    }
+                    td.style['background-color'] = CompareTable[row][col]['color'];
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
