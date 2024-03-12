@@ -259,7 +259,7 @@ async function showroutecomparison() {
     var zero_data    = false;
 
     var CompareTable        = [];
-    var CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left',route_id,sort=true) };
+    var CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
     var CompareTableColInfo = {};
     var whats_right         = '';
      if ( relation_id !== '' ) {
@@ -267,9 +267,9 @@ async function showroutecomparison() {
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
-                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route_master', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right',relation_id,sort=false) };
+                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
-                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route', 'id' : relation_id, cols : [ relation_id ] };
+                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, cols : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
             } else {
                 alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
                 return;
@@ -280,19 +280,18 @@ async function showroutecomparison() {
         }
     } else {
         whats_right         = 'GTFS';
-        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right',route_id2,sort=true) };
+        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS trip', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
     }
 
     var NumberOfRows = CompareTableRowInfo['rows'].length;
     var NumberOfCols = CompareTableColInfo['cols'].length;
-    var increment    = 100 / NumberOfRows;
 
     for ( var row = 0; row < NumberOfRows; row++ ) {
         CompareTable.push( [] );
         for ( var col = 0; col < NumberOfCols; col++ ) {
             CMP_List = { 'left' : [], 'right' : [] };
-            IterateOverMembers( 'left',  CompareTableRowInfo['rows'][row].toString(), draw_also = false );
-            IterateOverMembers( 'right', CompareTableColInfo['cols'][col].toString(), draw_also = false );
+            IterateOverMembers( 'left',  CompareTableRowInfo['rows'][row]['id'].toString(), draw_also = false );
+            IterateOverMembers( 'right', CompareTableColInfo['cols'][col]['id'].toString(), draw_also = false );
 
             console.log( "CMP_List[row=" + (row+1) + "][col=" + (col+1) + "]" );
             console.log(CMP_List);
@@ -322,7 +321,7 @@ async function showroutecomparison() {
             }
 
         }
-        updateAnalysisProgress( increment );
+        updateAnalysisProgress();
     }
 
     CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable );
@@ -930,22 +929,51 @@ function getObjectLinks( id, type, is_GTFS ) {
 }
 
 
-function GetRelationMembersOfRelation( lor, relation_id, sort=false ) {
+function GetRelationMembersOfRelation( lor, type, relation_id, sort=false ) {
 
-    var ret_list = [];
+    var ret_list       = [];
+    var info_list      = [];
+    var attention_list = [];
+    var member_id      = 0;
+    var name           = relation_id.toString();
+    var display_name   = relation_id.toString();
+    var sort_name      = relation_id.toString();
     if ( DATA_Relations[lor][relation_id]                           &&
-         DATA_Relations[lor][relation_id]['type']    === 'relation' &&
-         DATA_Relations[lor][relation_id]['members']                   ) {
-        var members_len = DATA_Relations[lor][relation_id]['members'].length;
-        for ( var i = 0; i< members_len; i++ ) {
-            if ( DATA_Relations[lor][relation_id]['members'][i]['type'] === 'relation' &&
-                 DATA_Relations[lor][relation_id]['members'][i]['ref']                    ) {
-                ret_list.push( DATA_Relations[lor][relation_id]['members'][i]['ref'] );
+         DATA_Relations[lor][relation_id]['type']    === 'relation'    ) {}
+
+         if ( type === 'OSM' && DATA_Relations[lor][relation_id]['tags'] && DATA_Relations[lor][relation_id]['tags']['type'] === 'route' ) {
+
+            name = DATA_Relations[lor][relation_id]['tags']['name'] ? DATA_Relations[lor][relation_id]['tags']['name'] : relation_id.toString();
+            ret_list.push( { 'id'           : relation_id,
+                             'info'         : [],           // empty
+                             'attention'    : [],           // empty
+                             'name'         : name,         // 'name' of OSM relation if set
+                             'display_name' : name,         // 'name' of OSM relation if set
+                             'sort_name'    : name,         // 'name' of OSM relation if set
+                           } );
+        } else if ( DATA_Relations[lor][relation_id]['members'] ) {
+
+            var members_len = DATA_Relations[lor][relation_id]['members'].length;
+            for ( var i = 0; i< members_len; i++ ) {
+                if ( DATA_Relations[lor][relation_id]['members'][i]['type'] === 'relation' &&
+                     DATA_Relations[lor][relation_id]['members'][i]['ref']                    ) {
+
+                    member_id    = DATA_Relations[lor][relation_id]['members'][i]['ref'];
+                    name         = DATA_Relations[lor][member_id]['tags']['name'] ? DATA_Relations[lor][member_id]['tags']['name'] : member_id.toString();
+                    display_name = name;
+                    sort_name    = name;
+                    ret_list.push( { 'id'           : member_id,
+                                     'info'         : [],           // comments from ptna_trips
+                                     'attention'    : [],           // suspicious things from ptna_trips
+                                     'name'         : name,         // 'name' of OSM relation if set
+                                     'display_name' : display_name, // 'name' to be used on the routes compare table ('stop-1 ... x stops ... stop-n')
+                                     'sort_name'    : sort_name,    // 'name' to be used for sorting GTFS trips ('stop-1 stop-n stop-2 stop-3' ... 'stop-n')
+                                   } );
+                }
             }
-        }
-        if ( sort ) {
-            ;
-        }
+            if ( sort ) {
+                ;
+            }
     }
 
     return ret_list;
@@ -1040,8 +1068,8 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
     if ( row_count > 0 ) {
         var col_count = CompareTable[0].length;
         if ( col_count > 0 ) {
+            var span  = document.getElementById('compare-routes-columns-name');
             var div   = document.getElementById('routes-table-div');
-            var table = document.getElementById('routes-table');
             var thead = document.getElementById('routes-table-thead');
             var tbody = document.getElementById('routes-table-tbody');
             var tr;
@@ -1049,18 +1077,37 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             var th;
 
             // magic calculation of visible height of table, before scrolling is enabled
-            div.style["height"] = ((row_count * 2) + 3) + "em";
-            div.style["min-height"] = 14 + "em";
+            if ( col_count > 10 ) {
+                div.style["height"] = ((row_count * 2) + 4) * 2 + "em";  // consider string being split into two lines
+            } else {
+                div.style["height"] = ((row_count * 2) + 4) + "em";
+            }
+            div.style["min-height"] = 32 + "em";
+
+            span.innerHTML = htmlEscape(CompareTableColInfo['name']);
 
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = "&#x21C5;Scores (low score)";
+            th.innerHTML = "Scores&nbsp;(low&nbsp;scores)";
+            th.className = 'compare-routes-left js-sort-none';
+            th.setAttribute( 'colspan', 2 );
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerHTML = CompareTableColInfo['members'];
+            th.className = 'compare-routes-left js-sort-none';
+            th.setAttribute( 'colspan', col_count );
+            tr.appendChild(th);
+            thead.appendChild(tr);
+            tr = document.createElement('tr');
+            th = document.createElement('th');
+            th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
             th.className = 'js-sort-string';
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 th = document.createElement('th');
-                if ( CompareTableColInfo['cols'][col] ) {
-                    th.innerHTML = '&#x21C5;' + CompareTableColInfo['cols'][col].toString();
+                if ( CompareTableColInfo['cols'][col]['id'] ) {
+                    th.innerHTML = '&#x21C5;' + htmlEscape(CompareTableColInfo['cols'][col]['display_name'].toString());
                     th.className = 'js-sort-number';
                 } else {
                     th.innerHTML = 'n/a';
@@ -1071,17 +1118,27 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
-                th = document.createElement('th');
-                if ( CompareTableRowInfo['rows'][row] ) {
-                    th.innerHTML = CompareTableRowInfo['rows'][row].toString();
+                td = document.createElement('td');
+                if ( CompareTableRowInfo['rows'][row]['id'] ) {
+                    td.innerHTML = htmlEscape(CompareTableRowInfo['rows'][row]['display_name'].toString());
                 } else {
-                    th.innerHTML = 'n/a';
+                    td.innerHTML = 'n/a';
                 }
-                tr.appendChild(th);
+                td.className = 'compare-routes-right no-border-right';
+                tr.appendChild(td);
+                td = document.createElement('td');
+                if ( CompareTableRowInfo['rows'][row]['info'].length > 0      ||
+                     CompareTableRowInfo['rows'][row]['attention'].length > 0    ) {
+                    td.innerHTML = '';
+                } else {
+                    td.innerHTML = '';
+                }
+                td.className = 'compare-routes-right no-border-left';
+                tr.appendChild(td);
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
                     if ( CompareTable[row][col]['score'] >= 0 ) {
-                        td.innerHTML = CompareTable[row][col]['score'].toString() + '%';
+                        td.innerHTML = htmlEscape(CompareTable[row][col]['score'].toString()) + '%';
                     } else {
                         td.innerHTML = 'n/a';
                     }
@@ -1522,7 +1579,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th.setAttribute( 'rowspan', 2 );
     tr.appendChild(th);
     th           = document.createElement('th');
-    th.innerHTML = 'Stop data of GTFS trip (' + trip_id + ')';
+    th.innerHTML = 'Stop data of GTFS trip (' + htmlEscape(trip_id.toString()) + ')';
     th.setAttribute( 'class', "compare-trips-left" );
     th.setAttribute( 'colspan', 5 );
     tr.appendChild(th);
@@ -1541,10 +1598,10 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th           = document.createElement('th');
         th.innerHTML =  'Platform data of OSM route ' +
                         '<img src="/img/Relation.svg" alt="Relation"> <small>' +
-                        '<a href="https://osm.org/relation/' + relation_id + '" title="Link to OSM" target="_blank">' + relation_id + '</a> (' +
-                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + relation_id + '" title="Edit in iD">iD</a>, ' +
-                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + relation_id + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>, ' +
-                        '<a href="https://relatify.monicz.dev/?relation=' + relation_id + '&amp;load=1" target="_blank" title="Edit in Relatify">Relatify</a>)</small>';
+                        '<a href="https://osm.org/relation/' + encodeURIComponent(relation_id) + '" title="Link to OSM" target="_blank">' + htmlEscape(relation_id) + '</a> (' +
+                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + encodeURIComponent(relation_id) + '" title="Edit in iD">iD</a>, ' +
+                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + encodeURIComponent(relation_id) + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>, ' +
+                        '<a href="https://relatify.monicz.dev/?relation=' + encodeURIComponent(relation_id) + '&amp;load=1" target="_blank" title="Edit in Relatify">Relatify</a>)</small>';
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', colspan );
         tr.appendChild(th);
@@ -1560,7 +1617,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         tr.appendChild(th);
     } else {
         th           = document.createElement('th');
-        th.innerHTML = 'Stop data of GTFS trip (' + trip_id2 + ')';
+        th.innerHTML = 'Stop data of GTFS trip (' + htmlEscape(trip_id2) + ')';
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', 5 );
         tr.appendChild(th);
