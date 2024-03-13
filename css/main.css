@@ -281,7 +281,7 @@ input.hackbox {
 
 .tableFixHeadCompare        { overflow-y: auto; height: 562px;}
 .tableFixHeadCompare thead  { position: sticky; top: 0; }
-.tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; position: sticky; top: 0; }
+.tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
 .compare-versions-thead     { background-color: #bbbbbb; text-align: center }
 
@@ -292,8 +292,8 @@ input.hackbox {
 .compare-routes-tfoot       { background-color: #bbbbbb; text-align: center }
 .compare-routes-right       { text-align: right }
 .compare-routes-left        { text-align: left }
-.no-border-right            { border-right-width: 0 }
-.no-border-left             { border-left-width: 0 }
+.no-border-right            { border-right-width: 0px }
+.no-border-left             { border-left-width: 0px  }
 
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }
