@@ -286,6 +286,7 @@ async function showroutecomparison() {
     var NumberOfRows = CompareTableRowInfo['rows'].length;
     var NumberOfCols = CompareTableColInfo['cols'].length;
 
+    var alerts = [];
     for ( var row = 0; row < NumberOfRows; row++ ) {
         CompareTable.push( [] );
         for ( var col = 0; col < NumberOfCols; col++ ) {
@@ -307,13 +308,17 @@ async function showroutecomparison() {
                 if ( left_len === 0 && right_len === 0 ) {
                     if ( whats_right === 'OSM' ) {
                         console.log( "There are no GTFS-stops and no OSM-platforms" );
+                        alerts['There are no GTFS-stops and no OSM-platforms'] = 1;
                     } else {
                         console.log( "There are no GTFS-stops at all" );
+                        alerts['There are no GTFS-stops at all'] = 1;
                     }
                 } else if ( left_len === 0 ) {
                     console.log( "There are no GTFS-stops" );
+                    alerts['There are no GTFS-stops'] = 1;
                 } else {
                     console.log( "There are no OSM-platforms" );
+                    alerts['There are no OSM-platforms'] = 1;
                 }
                 zero_data = true;
                 console.log( "CMP_List[row=" + row + "][col=" + col + "]" );
@@ -327,7 +332,13 @@ async function showroutecomparison() {
     CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable );
 
     if ( zero_data ) {
-        alert( "Some cells may not show valid data, there was missing data.\n\nSee the Console.log() in your browser for more details about 'CMP_List'.");
+        var keys = [];
+        for (var key in alerts) {
+            if (alerts.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+        alert( "Some cells may not show valid data, there was missing data.\n\n'" + keys.join("'\n'") + "'" );
     }
 
     finalizeAnalysisProgress();
@@ -941,14 +952,14 @@ function GetRelationMembersOfRelation( lor, type, relation_id, sort=false ) {
     if ( DATA_Relations[lor][relation_id]                           &&
          DATA_Relations[lor][relation_id]['type']    === 'relation'    ) {}
 
-         if ( type === 'OSM' && DATA_Relations[lor][relation_id]['tags'] && DATA_Relations[lor][relation_id]['tags']['type'] === 'route' ) {
+        if ( type === 'OSM' && DATA_Relations[lor][relation_id]['tags'] && DATA_Relations[lor][relation_id]['tags']['type'] === 'route' ) {
 
             name = DATA_Relations[lor][relation_id]['tags']['name'] ? DATA_Relations[lor][relation_id]['tags']['name'] : relation_id.toString();
             ret_list.push( { 'id'           : relation_id,
                              'info'         : [],           // empty
                              'attention'    : [],           // empty
                              'name'         : name,         // 'name' of OSM relation if set
-                             'display_name' : name,         // 'name' of OSM relation if set
+                             'display_name' : htmlEscape(name).replace(/:\s*/g,':<br>').replace(/\s*\=\=*&gt;\s*/g,'<br>=&gt;<br>'),         // 'name' of OSM relation if set
                              'sort_name'    : name,         // 'name' of OSM relation if set
                            } );
         } else if ( DATA_Relations[lor][relation_id]['members'] ) {
@@ -960,7 +971,7 @@ function GetRelationMembersOfRelation( lor, type, relation_id, sort=false ) {
 
                     member_id    = DATA_Relations[lor][relation_id]['members'][i]['ref'];
                     name         = DATA_Relations[lor][member_id]['tags']['name'] ? DATA_Relations[lor][member_id]['tags']['name'] : member_id.toString();
-                    display_name = name;
+                    display_name = htmlEscape(name).replace(/:\s*/g,':<br>').replace(/\s*\=\=*&gt;\s*/g,'<br>=&gt;<br>');
                     sort_name    = name;
                     ret_list.push( { 'id'           : member_id,
                                      'info'         : [],           // comments from ptna_trips
@@ -1075,6 +1086,8 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             var tr;
             var td;
             var th;
+            var id = '';
+            var type = 'GTFS';
 
             // magic calculation of visible height of table, before scrolling is enabled
             if ( col_count > 10 ) {
@@ -1095,23 +1108,32 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th = document.createElement('th');
             th.innerHTML = CompareTableColInfo['members'];
             th.className = 'compare-routes-left js-sort-none';
-            th.setAttribute( 'colspan', col_count );
+            th.setAttribute( 'colspan', col_count*2 );
             tr.appendChild(th);
             thead.appendChild(tr);
             tr = document.createElement('tr');
             th = document.createElement('th');
             th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
-            th.className = 'js-sort-string';
-            th.setAttribute( 'colspan', 2 );
+            th.className = 'js-sort-string no-border-right';
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerHTML = '&nbsp;';
+            th.className = 'js-sort-none no-border-left';
             tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 th = document.createElement('th');
-                if ( CompareTableColInfo['cols'][col]['id'] ) {
-                    th.innerHTML = '&#x21C5;' + htmlEscape(CompareTableColInfo['cols'][col]['display_name'].toString());
-                    th.className = 'js-sort-number';
+                if ( CompareTableColInfo['cols'][col]['display_name'] ) {
+                    th.innerHTML = '&#x21C5;' + CompareTableColInfo['cols'][col]['display_name'].toString();
                 } else {
                     th.innerHTML = 'n/a';
                 }
+                th.className  = 'js-sort-number no-border-right';
+                tr.appendChild(th);
+                th   = document.createElement('th');
+                id   = CompareTableColInfo['cols'][col]['id'];
+                type = CompareTableColInfo['type'];
+                th.innerHTML = '<img onclick="ShowMore(this)" id="'+type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
+                th.className = 'js-sort-none no-border-left';
                 tr.appendChild(th);
             }
             thead.appendChild(tr);
@@ -1119,8 +1141,8 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
                 td = document.createElement('td');
-                if ( CompareTableRowInfo['rows'][row]['id'] ) {
-                    td.innerHTML = htmlEscape(CompareTableRowInfo['rows'][row]['display_name'].toString());
+                if ( CompareTableRowInfo['rows'][row]['display_name'] ) {
+                    td.innerHTML = CompareTableRowInfo['rows'][row]['display_name'].toString();
                 } else {
                     td.innerHTML = 'n/a';
                 }
@@ -1129,10 +1151,13 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 td = document.createElement('td');
                 if ( CompareTableRowInfo['rows'][row]['info'].length > 0      ||
                      CompareTableRowInfo['rows'][row]['attention'].length > 0    ) {
-                    td.innerHTML = '';
+                    td.innerHTML = '&nbsp;';
                 } else {
-                    td.innerHTML = '';
+                    td.innerHTML = '&nbsp;';
                 }
+                id   = CompareTableRowInfo['rows'][row]['id'];
+                type = CompareTableRowInfo['type'];
+                td.innerHTML = '<img onclick="ShowMore(this)" id="'+type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
                 td.className = 'compare-routes-right no-border-left';
                 tr.appendChild(td);
                 for ( var col = 0; col < col_count; col++ ) {
@@ -1143,6 +1168,16 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                         td.innerHTML = 'n/a';
                     }
                     td.style['background-color'] = CompareTable[row][col]['color'];
+                    td.className = 'no-border-right';
+                    tr.appendChild(td);
+                    td = document.createElement('td');
+                    if ( CompareTable[row][col]['score'] >= 0 ) {
+                        td.innerHTML = '&nbsp;';
+                    } else {
+                        td.innerHTML = '&nbsp;';
+                    }
+                    td.style['background-color'] = CompareTable[row][col]['color'];
+                    td.className = 'no-border-left';
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
@@ -1151,6 +1186,34 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
     }
 
     return;
+}
+
+
+function ShowMore( imgObj ) {
+    var id   = imgObj.id.toString();
+    var type = '';
+    var lor  = '';
+    if ( id.match(/^GTFS-/) ) {
+        type = 'GTFS';
+        id   = id.replace(/^GTFS-/,'');
+    } else if ( id.match(/^OSM-/) ) {
+        type = 'OSM';
+        id   = id.replace(/^OSM-/,'');
+    }
+    if ( id.match(/^row-/) ) {
+        lor = 'left';
+        id  = id.replace(/^row-/,'');
+    } else if ( id.match(/^col-/) ) {
+        lor = 'right';
+        id  = id.replace(/^col-/,'');
+    }
+    alert( "More information for '" + type + "' - '" + lor + "' " + id );
+}
+
+
+function ShowScores( imgObj ) {
+    var id   = imgObj.id.toString();
+    alert( "More score information for '" + id + "'" );
 }
 
 
