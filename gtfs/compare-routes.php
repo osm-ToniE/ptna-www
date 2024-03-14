@@ -73,7 +73,7 @@
                         <li><span style="display: inline-block; width: 5em">Columns:</span>
                             <?php
                                 if ( $osm_relation ) {
-                                    echo '<span id="compare-routes-columns-name" style="display: inline-block; width: 9em">OSM route_master</span> <a href="/relation.php?id=' . urlencode($osm_relation) . '" title="Link to PTNA" target="_blank">' . htmlspecialchars($osm_relation) . '</a>';
+                                    echo '<span id="compare-routes-columns-name" style="display: inline-block; width: 9em">OSM route_master</span> <a href="https://osm.org/relation/' . urlencode($osm_relation) . '" title="Link to OSM" target="_blank">' . htmlspecialchars($osm_relation) . '</a>';
                                 }
                                 else if ( $feed2 && $route_id2 && preg_match("/^[0-9A-Za-z_.-]+$/", $feed2) ) {
                                     $feed_parts = explode( '-', $feed2 );

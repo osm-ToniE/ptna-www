@@ -292,8 +292,11 @@ input.hackbox {
 .compare-routes-tfoot       { background-color: #bbbbbb; text-align: center }
 .compare-routes-right       { text-align: right }
 .compare-routes-left        { text-align: left }
+.compare-routes-even        { background-color: #cccccc; }
+.compare-routes-odd         { background-color: #dddddd; }
 .no-border-right            { border-right-width: 0px }
 .no-border-left             { border-left-width: 0px  }
+.compare-routes-link a      { text-decoration: none; color: #000; }
 
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }
@@ -312,3 +315,4 @@ input.hackbox {
 .scores td                  { border-width: 1px; border-style: solid; border-collapse: collapse; }
 .scores-center              { text-align: center }
 .scores-no-padding          { text-align: center; padding: 0em; vertical-align: middle; }
+.scores-link                { text-decoration: none; color: #000; }
