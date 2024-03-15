@@ -706,7 +706,7 @@ function PopupContent (id, type, match, label, name) {
     else { txt="Other" }
 
     a = "<b>" + txt + " " + label.toString() + ': ' + name + "</b></br>";
-    a += getObjectLinks( id, type, is_GTFS )
+    a += getObjectLinks( id, type, is_GTFS, is_Route=false );
 
    return a;
 }
@@ -900,38 +900,47 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
 }
 
 
-function getObjectLinks( id, type, is_GTFS ) {
+function getObjectLinks( id, type, is_GTFS, is_Route, feed='', release_date='' ) {
     var html = '';
 
     if ( is_GTFS ) {
+        var country = feed.replace(/-.*/,'');
         if ( type == "node" ) {
-            html  = "Stop-ID: " + id;
+            html  = "<img src=\"/img/Node.svg\" alt=\"Node\" title=\"GTFS stop\" height=\"18\" width=\"18\" /></a>";
         } else if ( type == "way" ) {
-            html  = "Shape-ID: " + id;
+            html  = "<img src=\"/img/Way.svg\" alt=\"Way\" title=\"GTFS shape\" height=\"18\" width=\"18\" /></a>";
         } else if ( type == "relation" ) {
-            html  = "Trip-ID: " + id;
+            if ( is_Route ) {
+                var url = '/gtfs/' + country + '/trips.php' +
+                '?feed='         + encodeURIComponent(feed) +
+                '&release_date=' + encodeURIComponent(release_date) +
+                '&trip_id='      + encodeURIComponent(id);
+                html  = "<a href=\"" + url + "\" target=\"_blank\" title=\"GTFS route\"><img src=\"/img/Relation.svg\" alt=\"Relation\" height=\"18\" width=\"18\" /></a>";
+            } else {
+                var url = '/gtfs/' + country + '/single-trip.php' +
+                '?feed='         + encodeURIComponent(feed) +
+                '&release_date=' + encodeURIComponent(release_date) +
+                '&trip_id='      + encodeURIComponent(id);
+                html  = "<a href=\"" + url + "\" target=\"_blank\" title=\"GTFS trip\"><img src=\"/img/Relation.svg\" alt=\"Relation\" height=\"18\" width=\"18\" /></a>";
+            }
         }
     } else {
         if ( type ) {
             if ( type == "node" ) {
-                html  = "<img src=\"/img/Node.svg\" alt=\"Node\" /> ";
-                html += "<a href=\"https://osm.org/node/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
-                html += "<a href=\"https://osm.org/edit?editor=id&amp;node=" + id + "\" title=\"Edit in iD\">iD</a>, ";
-                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>",
-                html += ")</small>"
+                html  = "<a href=\"https://osm.org/node/" + id + "\" target=\"_blank\" title=\"Browse on map\"><img src=\"/img/Node.svg\" alt=\"Node\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"https://osm.org/edit?editor=id&amp;node=" + id + "\" target=\"_blank\" title=\"Edit in iD\"><img src=\"/img/iD-logo32.png\" alt=\"iD\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\"><img src=\"/img/JOSM-logo32.png\" alt=\"JOSM\" height=\"18\" width=\"18\" /></a>";
             } else if ( type == "way" ) {
-                html  = "<img src=\"/img/Way.svg\" alt=\"Way\" /> ";
-                html += "<a href=\"https://osm.org/way/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
-                html += "<a href=\"https://osm.org/edit?editor=id&amp;way=" + id + "\" title=\"Edit in iD\">iD</a>, ";
-                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>",
-                html += ")</small>"
+                html  = "<a href=\"https://osm.org/way/" + id + "\" target=\"_blank\" title=\"Browse on map\"><img src=\"/img/Way.svg\" alt=\"Way\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"https://osm.org/edit?editor=id&amp;way=" + id + "\" target=\"_blank\" title=\"Edit in iD\"><img src=\"/img/iD-logo32.png\" alt=\"iD\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w" + id + "\" target=\"_blank\" target=\"hiddenIframe\" title=\"Edit in JOSM\"><img src=\"/img/JOSM-logo32.png\" alt=\"JOSM\" height=\"18\" width=\"18\" /></a>";
             } else if ( type == "relation" ) {
-                html  = "<img src=\"/img/Relation.svg\" alt=\"Relation\" /> ";
-                html += "<a href=\"https://osm.org/relation/" + id + "\" title=\"Browse on map\">" + id + "</a> <small>(";
-                html += "<a href=\"https://osm.org/edit?editor=id&amp;relation=" + id + "\" title=\"Edit in iD\">iD</a>, ";
-                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\">JOSM</a>, ",
-                html += "<a href=\"https://relatify.monicz.dev/?relation=" + id + "&load=1\" target=\"blank\" title=\"Edit in Relatify\">Relatify</a>",
-                html += ")</small>"
+                html  = "<a href=\"https://osm.org/relation/" + id + "\" target=\"_blank\" title=\"Browse on map\"><img src=\"/img/Relation.svg\" alt=\"Relation\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"https://osm.org/edit?editor=id&amp;relation=" + id + "\" target=\"_blank\" title=\"Edit in iD\"><img src=\"/img/iD-logo32.png\" alt=\"iD\" height=\"18\" width=\"18\" /></a> ";
+                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\"><img src=\"/img/JOSM-logo32.png\" alt=\"JOSM\" height=\"18\" width=\"18\" /></a>";
+                if ( is_Route ) {
+                    html += " <a href=\"https://relatify.monicz.dev/?relation=" + id + "&load=1\" target=\"_blank\" title=\"Edit in Relatify\"><img src=\"/img/Relatify-favicon32.png\" alt=\"Relatify\" height=\"18\" width=\"18\" /></a>";
+                }
             }
         }
     }
@@ -1043,9 +1052,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             // magic calculation of visible height of table, before scrolling is enabled
             if ( col_count > 10 ) {
-                div.style["height"] = ((row_count * 2) + 4) * 2 + "em";  // consider string being split into two lines
+                div.style["height"] = ((row_count * 2) + 4) * 4 + "em";  // consider string being split into two lines
             } else {
-                div.style["height"] = ((row_count * 2) + 4) + "em";
+                div.style["height"] = ((row_count * 2) + 4) * 4 + "em";
             }
             div.style["min-height"] = 32 + "em";
 
@@ -1070,31 +1079,28 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
-            th.className = 'compare-routes-left js-sort-string no-border-right';
+            th.className = 'compare-routes-left js-sort-string';
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = '&nbsp;';
-            th.className = 'js-sort-none no-border-left';
+            th.className = 'js-sort-none';
             tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
                 th = document.createElement('th');
                 if ( CompareTableColInfo['cols'][col]['display_name'] ) {
-                    th.innerHTML = '&#x21C5; <a href="' + GetRoutesColLink(CompareTableColInfo,col) + '"' +
-                                   ' target="_blank"' +
-                                   ' title="Show ' + CompareTableColInfo['type'] + ' information">' +
-                                   CompareTableColInfo['cols'][col]['display_name'].toString() +
-                                   '</a>';
+                    th.innerHTML = '&#x21C5; ' + CompareTableColInfo['cols'][col]['display_name'].toString() + '</a>';
                 } else {
                     th.innerHTML = 'n/a';
                 }
-                th.className  = col_class + ' compare-routes-link js-sort-number no-border-right';
+                th.className  = col_class + ' js-sort-number';
                 tr.appendChild(th);
                 th   = document.createElement('th');
                 id   = CompareTableColInfo['cols'][col]['id'];
                 type = CompareTableColInfo['type'];
-                th.innerHTML = '<img onclick="ShowMore(this)" id="'+type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
-                th.className = col_class + ' js-sort-none no-border-left';
+                th.innerHTML  = getObjectLinks( id, 'relation', is_GTFS=(type === 'GTFS'), is_Route=!is_GTFS, feed=CompareTableColInfo['feed'], release_date=CompareTableColInfo['release_date'] );
+                th.innerHTML += ' <img onclick="ShowMore(this)" id="'+type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
+                th.className = col_class + ' js-sort-none';
                 tr.appendChild(th);
             }
             thead.appendChild(tr);
@@ -1107,15 +1113,11 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(td);
                 td = document.createElement('td');
                 if ( CompareTableRowInfo['rows'][row]['display_name'] ) {
-                    td.innerHTML = '<a href="' + GetRoutesRowLink(CompareTableRowInfo,row) + '"' +
-                                   ' target="_blank"' +
-                                   ' title="Show ' + CompareTableRowInfo['type'] + ' information">' +
-                                   CompareTableRowInfo['rows'][row]['display_name'].toString() +
-                                   '</a>';
+                    td.innerHTML = CompareTableRowInfo['rows'][row]['display_name'].toString();
                 } else {
                     td.innerHTML = 'n/a';
                 }
-                td.className = 'compare-routes-odd compare-routes-link compare-routes-right no-border-right';
+                td.className = 'compare-routes-odd compare-routes-right';
                 tr.appendChild(td);
                 td = document.createElement('td');
                 if ( CompareTableRowInfo['rows'][row]['info'].length > 0      ||
@@ -1126,8 +1128,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 }
                 id   = CompareTableRowInfo['rows'][row]['id'];
                 type = CompareTableRowInfo['type'];
-                td.innerHTML = '<img onclick="ShowMore(this)" id="'+type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
-                td.className = 'compare-routes-odd compare-routes-right no-border-left';
+                td.innerHTML  = getObjectLinks( CompareTableRowInfo['rows'][row]['id'], 'relation', is_GTFS=true, is_Route=false, feed=CompareTableRowInfo['feed'], release_date=CompareTableRowInfo['release_date'] );
+                td.innerHTML += ' <img onclick="ShowMore(this)" id="'+type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
+                td.className = 'compare-routes-odd';
                 tr.appendChild(td);
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
@@ -1182,7 +1185,7 @@ function GetRelationMembersOfRelation( lor, type, relation_id, sort=false ) {
                              'info'          : [],                      // empty
                              'attention'     : [],                      // empty
                              'name'          : name,                    // 'name' of OSM relation if set
-                             'display_name'  : GetDisplayName( lor, type, member_id ), // 'name' of OSM relation if set
+                             'display_name'  : display_name,            // 'name' of OSM relation if set
                              'sort_name'     : name,                    // 'name' of OSM relation if set
                              'member_number' : 1
                            } );
@@ -1462,22 +1465,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                 scores['totals'][field]++;
                             }
                         }
-                        if ( cmp_list['right'][i]['type'] === 'node' ) {
-                            body_row['Edit<br/>with'] = '<img src="/img/Node.svg" alt="Node"> <small>' +
-                                                        '<a href="https://osm.org/node/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
-                                                        '<a href="https://osm.org/edit?editor=id&amp;node=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
-                        } else if ( cmp_list['right'][i]['type'] === 'way' ) {
-                            body_row['Edit<br/>with'] = '<img src="/img/Way.svg" alt="Ways"> <small>' +
-                                                        '<a href="https://osm.org/way/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
-                                                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
-                        } else if ( cmp_list['right'][i]['type'] === 'relation' ) {
-                            body_row['Edit<br/>with'] = '<img src="/img/Relation.svg" alt="Relation"> <small>' +
-                                                        '<a href="https://osm.org/relation/' + cmp_list['right'][i]['id'] + '" title="Link to OSM" target="_blank">' + cmp_list['right'][i]['id'] + '</a> (' +
-                                                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + cmp_list['right'][i]['id'] + '" title="Edit in iD">iD</a>, ' +
-                                                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + cmp_list['right'][i]['id'] + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>)</small>';
-                        }
+                        body_row['Edit<br/>with'] = getObjectLinks( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], is_GTFS=(right === 'GTFS'), is_Route=false );
                     } else {
                         body_row['stop_number2'] = i+1;
                         body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
