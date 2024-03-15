@@ -933,7 +933,7 @@ function getObjectLinks( id, type, is_GTFS, is_Route, feed='', release_date='' )
             } else if ( type == "way" ) {
                 html  = "<a href=\"https://osm.org/way/" + id + "\" target=\"_blank\" title=\"Browse on map\"><img src=\"/img/Way.svg\" alt=\"Way\" height=\"18\" width=\"18\" /></a> ";
                 html += "<a href=\"https://osm.org/edit?editor=id&amp;way=" + id + "\" target=\"_blank\" title=\"Edit in iD\"><img src=\"/img/iD-logo32.png\" alt=\"iD\" height=\"18\" width=\"18\" /></a> ";
-                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w" + id + "\" target=\"_blank\" target=\"hiddenIframe\" title=\"Edit in JOSM\"><img src=\"/img/JOSM-logo32.png\" alt=\"JOSM\" height=\"18\" width=\"18\" /></a>";
+                html += "<a href=\"http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w" + id + "\" target=\"hiddenIframe\" title=\"Edit in JOSM\"><img src=\"/img/JOSM-logo32.png\" alt=\"JOSM\" height=\"18\" width=\"18\" /></a>";
             } else if ( type == "relation" ) {
                 html  = "<a href=\"https://osm.org/relation/" + id + "\" target=\"_blank\" title=\"Browse on map\"><img src=\"/img/Relation.svg\" alt=\"Relation\" height=\"18\" width=\"18\" /></a> ";
                 html += "<a href=\"https://osm.org/edit?editor=id&amp;relation=" + id + "\" target=\"_blank\" title=\"Edit in iD\"><img src=\"/img/iD-logo32.png\" alt=\"iD\" height=\"18\" width=\"18\" /></a> ";
