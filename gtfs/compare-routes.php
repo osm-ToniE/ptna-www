@@ -91,7 +91,7 @@
                         </li>
                     </ul>
 
-                    <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 560px">
+                    <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 1000px">
                         <table id="routes-table" class="js-sort-table">
                             <thead id="routes-table-thead" class="compare-routes-thead">
                             </thead>
@@ -145,5 +145,8 @@
 <?php include $lang_dir.'gtfs-footer.inc' ?>
 
         </div> <!-- wrapper -->
+
+        <iframe style="display:none" id="hiddenIframe" name="hiddenIframe"></iframe>
+
     </body>
 </html>
