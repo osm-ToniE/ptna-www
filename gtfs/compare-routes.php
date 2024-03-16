@@ -91,7 +91,7 @@
                         </li>
                     </ul>
 
-                    <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 1000px">
+                    <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 900px">
                         <table id="routes-table" class="js-sort-table">
                             <thead id="routes-table-thead" class="compare-routes-thead">
                             </thead>
