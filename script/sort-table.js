@@ -311,8 +311,8 @@ sortTable.init = function() {
                     continue;
                 }
                 // Define which column the header should invoke sorting for
-                THead.rows[rowNum].cells[cellNum].setAttribute('data-js-sort-colNum', cellNum);
-                Handler = sortTable.getClickHandler(Tables[i], cellNum);
+                THead.rows[rowNum].cells[cellNum].setAttribute('data-js-sort-colNum', colNum);
+                Handler = sortTable.getClickHandler(Tables[i], colNum);
                 window.addEventListener
                     ? THead.rows[rowNum].cells[cellNum].addEventListener('click', Handler)
                     : window.attachEvent && THead.rows[rowNum].cells[cellNum].attachEvent('onclick', Handler);
