@@ -914,7 +914,7 @@ function getObjectLinks( id, type, is_GTFS, is_Route, feed='', release_date='' )
                 var url = '/gtfs/' + country + '/trips.php' +
                 '?feed='         + encodeURIComponent(feed) +
                 '&release_date=' + encodeURIComponent(release_date) +
-                '&trip_id='      + encodeURIComponent(id);
+                '&route_id='     + encodeURIComponent(id);
                 html  = "<a href=\"" + url + "\" target=\"_blank\" title=\"GTFS route\"><img src=\"/img/Relation.svg\" alt=\"Relation\" height=\"18\" width=\"18\" /></a>";
             } else {
                 var url = '/gtfs/' + country + '/single-trip.php' +
@@ -1052,9 +1052,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             // magic calculation of visible height of table, before scrolling is enabled
             if ( col_count > 10 ) {
-                div.style["height"] = ((row_count * 2) + 4) * 4 + "em";  // consider string being split into two lines
+                div.style["height"] = ((row_count * 2) + 4) * 2 + "em";  // consider string being split into two lines
             } else {
-                div.style["height"] = ((row_count * 2) + 4) * 4 + "em";
+                div.style["height"] = ((row_count * 2) + 4) + "em";
             }
             div.style["min-height"] = 32 + "em";
 
@@ -1064,37 +1064,18 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th = document.createElement('th');
             th.innerHTML = "Scores&nbsp;(low&nbsp;scores)";
             th.className = 'compare-routes-left js-sort-none';
+            th.setAttribute( 'rowspan', 2 );
             th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
             th.className = 'compare-routes-left js-sort-none';
-            th.setAttribute( 'colspan', col_count*2 );
+            th.setAttribute( 'colspan', col_count );
             tr.appendChild(th);
             thead.appendChild(tr);
             tr = document.createElement('tr');
-            th = document.createElement('th');
-            th.innerHTML = "&#x21C5;Num";
-            th.className = 'compare-routes-right js-sort-number';
-            tr.appendChild(th);
-            th = document.createElement('th');
-            th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
-            th.className = 'compare-routes-left js-sort-string';
-            tr.appendChild(th);
-            th = document.createElement('th');
-            th.innerHTML = '&nbsp;';
-            th.className = 'js-sort-none';
-            tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
-                th = document.createElement('th');
-                if ( CompareTableColInfo['cols'][col]['display_name'] ) {
-                    th.innerHTML = '&#x21C5; ' + CompareTableColInfo['cols'][col]['display_name'].toString() + '</a>';
-                } else {
-                    th.innerHTML = 'n/a';
-                }
-                th.className  = col_class + ' js-sort-number';
-                tr.appendChild(th);
                 th   = document.createElement('th');
                 id   = CompareTableColInfo['cols'][col]['id'];
                 type = CompareTableColInfo['type'];
@@ -1104,7 +1085,28 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
             }
             thead.appendChild(tr);
-
+            tr = document.createElement('tr');
+            th = document.createElement('th');
+            th.innerHTML = '<span title="Corresponds to the \'Variant\' number on the GTFS route page">&#x21C5;Num</span>';
+            th.className = 'compare-routes-right js-sort-number';
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
+            th.className = 'compare-routes-left js-sort-string';
+            th.setAttribute( 'colspan', 2 );
+            tr.appendChild(th);
+            for ( var col = 0; col < col_count; col++ ) {
+                col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
+                th = document.createElement('th');
+                if ( CompareTableColInfo['cols'][col]['display_name'] ) {
+                    th.innerHTML = '&#x21C5;&nbsp;' + CompareTableColInfo['cols'][col]['display_name'].toString() + '</a>';
+                } else {
+                    th.innerHTML = 'n/a';
+                }
+                th.className  = col_class + ' compare-routes-left compare-routes-top js-sort-number';
+                tr.appendChild(th);
+            }
+            thead.appendChild(tr);
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
                 td = document.createElement('td');
@@ -1117,20 +1119,20 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 } else {
                     td.innerHTML = 'n/a';
                 }
-                td.className = 'compare-routes-odd compare-routes-right';
+                td.className = 'compare-routes-odd compare-routes-left no-border-right';
                 tr.appendChild(td);
                 td = document.createElement('td');
                 if ( CompareTableRowInfo['rows'][row]['info'].length > 0      ||
                      CompareTableRowInfo['rows'][row]['attention'].length > 0    ) {
-                    td.innerHTML = '&nbsp;';
+                    td.innerHTML += '&nbsp;';
                 } else {
-                    td.innerHTML = '&nbsp;';
+                    td.innerHTML += '&nbsp;';
                 }
                 id   = CompareTableRowInfo['rows'][row]['id'];
                 type = CompareTableRowInfo['type'];
-                td.innerHTML  = getObjectLinks( CompareTableRowInfo['rows'][row]['id'], 'relation', is_GTFS=true, is_Route=false, feed=CompareTableRowInfo['feed'], release_date=CompareTableRowInfo['release_date'] );
+                td.innerHTML += getObjectLinks( CompareTableRowInfo['rows'][row]['id'], 'relation', is_GTFS=true, is_Route=false, feed=CompareTableRowInfo['feed'], release_date=CompareTableRowInfo['release_date'] );
                 td.innerHTML += ' <img onclick="ShowMore(this)" id="'+type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
-                td.className = 'compare-routes-odd';
+                td.className = 'compare-routes-odd no-border-left';
                 tr.appendChild(td);
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
@@ -1145,15 +1147,6 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     }
                     td.style['background-color'] = CompareTable[row][col]['color'];
                     td.className = 'compare-routes-link no-border-right';
-                    tr.appendChild(td);
-                    td = document.createElement('td');
-                    if ( CompareTable[row][col]['score'] >= 0 ) {
-                        td.innerHTML = '&nbsp;';
-                    } else {
-                        td.innerHTML = '&nbsp;';
-                    }
-                    td.style['background-color'] = CompareTable[row][col]['color'];
-                    td.className = 'no-border-left';
                     tr.appendChild(td);
                 }
                 tbody.appendChild(tr);
@@ -1220,33 +1213,92 @@ function GetRelationMembersOfRelation( lor, type, relation_id, sort=false ) {
 
 
 function GetDisplayName( lor, type, relation_id ) {
-    var display_name = DATA_Relations[lor][relation_id]['tags']['name'] ? htmlEscape(DATA_Relations[lor][relation_id]['tags']['name']) : htmlEscape(relation_id.toString());
+    var display_name = '';
+    var regex        = '';
+    var name_name    = '';
+    var stop_type    = '';
     if ( type === 'GTFS' ) {
+        regex     = /^stop$/;
+        name_name = 'stop_name';
+        stop_type = 'stop';
+    } else if ( type === 'OSM' ) {
+        regex     = /^platform/;
+        name_name = 'name';
+        stop_type = 'platform';
+    }
+    if ( regex && name_name) {
         if ( DATA_Relations[lor][relation_id]['members']            &&
              DATA_Relations[lor][relation_id]['members'].length > 0    ) {
-                var len = DATA_Relations[lor][relation_id]['members'].length;
-                var first_stop_id = 0;
-                for ( i = 0; i < len; i++ ) {
-                    if ( DATA_Relations[lor][relation_id]['members'][i]['role'] === 'stop' ) {
-                        first_stop_id = DATA_Relations[lor][relation_id]['members'][i]['ref'];
-                        break;
+            var len = DATA_Relations[lor][relation_id]['members'].length;
+            var first_match_id = '';
+            var last_match_id  = '';
+            var first_type     = '';
+            var last_type      = ''
+            var match_count    = 0;
+            for ( i = 0; i < len; i++ ) {
+                if ( DATA_Relations[lor][relation_id]['members'][i]['role'].match(regex) ) {
+                    match_count++
+                    if ( first_match_id === '' ) {
+                        first_match_id = DATA_Relations[lor][relation_id]['members'][i]['ref'];
+                        first_type     = DATA_Relations[lor][relation_id]['members'][i]['type'];
                     }
+                    last_match_id = DATA_Relations[lor][relation_id]['members'][i]['ref'];
+                    last_type     = DATA_Relations[lor][relation_id]['members'][i]['type'];
                 }
-                var last_stop_id = 0;
-                for ( i = len-1; i >= 0; i-- ) {
-                    if ( DATA_Relations[lor][relation_id]['members'][i]['role'] === 'stop' ) {
-                        last_stop_id = DATA_Relations[lor][relation_id]['members'][i]['ref'];
-                        break;
-                    }
-                }
-                var stop_name_first = (DATA_Nodes[lor][first_stop_id]['ptna'] && DATA_Nodes[lor][first_stop_id]['ptna']['stop_name']) ? DATA_Nodes[lor][first_stop_id]['ptna']['stop_name'] : DATA_Nodes[lor][first_stop_id]['tags']['stop_name'];
-                var stop_name_last  = (DATA_Nodes[lor][last_stop_id]['ptna']  && DATA_Nodes[lor][last_stop_id]['ptna']['stop_name'])  ? DATA_Nodes[lor][last_stop_id]['ptna']['stop_name']  : DATA_Nodes[lor][last_stop_id]['tags']['stop_name'];
-                display_name = htmlEscape(stop_name_first) + ' ...&nbsp;' + (len-2) + '&nbsp;stops&nbsp;... ' + htmlEscape(stop_name_last);
             }
-    } else if ( type === 'OSM' ) {
-        ;
+            if ( first_match_id && last_match_id && match_count >= 2 ) {
+                var name_first = '';
+                if ( first_type === 'node' ) {
+                    name_first = (DATA_Nodes[lor][first_match_id]['ptna'] && DATA_Nodes[lor][first_match_id]['ptna'][name_name])
+                                 ? DATA_Nodes[lor][first_match_id]['ptna'][name_name]
+                                 : (DATA_Nodes[lor][first_match_id]['tags'][name_name]
+                                   ? DATA_Nodes[lor][first_match_id]['tags'][name_name]
+                                   : '' );
+                } else if ( first_type === 'way' ) {
+                    name_first = (DATA_Ways[lor][first_match_id]['ptna'] && DATA_Ways[lor][first_match_id]['ptna'][name_name])
+                                 ? DATA_Ways[lor][first_match_id]['ptna'][name_name]
+                                 : (DATA_Ways[lor][first_match_id]['tags'][name_name]
+                                   ? DATA_Ways[lor][first_match_id]['tags'][name_name]
+                                   : '' );
+                } else if ( first_type === 'relation' ) {
+                    name_first = (DATA_Relations[lor][first_match_id]['ptna'] && DATA_Relations[lor][first_match_id]['ptna'][name_name])
+                                 ? DATA_Relations[lor][first_match_id]['ptna'][name_name]
+                                 : (DATA_Relations[lor][first_match_id]['tags'][name_name]
+                                   ? DATA_Relations[lor][first_match_id]['tags'][name_name]
+                                   : '' );
+                }
+                var name_last  = '';
+                if ( last_type === 'node' ) {
+                    name_last = (DATA_Nodes[lor][last_match_id]['ptna'] && DATA_Nodes[lor][last_match_id]['ptna'][name_name])
+                                 ? DATA_Nodes[lor][last_match_id]['ptna'][name_name]
+                                 : (DATA_Nodes[lor][last_match_id]['tags'][name_name]
+                                   ? DATA_Nodes[lor][last_match_id]['tags'][name_name]
+                                   : '' );
+                } else if ( last_type === 'way' ) {
+                    name_last = (DATA_Ways[lor][last_match_id]['ptna'] && DATA_Ways[lor][last_match_id]['ptna'][name_name])
+                                 ? DATA_Ways[lor][last_match_id]['ptna'][name_name]
+                                 : (DATA_Ways[lor][last_match_id]['tags'][name_name]
+                                   ? DATA_Ways[lor][last_match_id]['tags'][name_name]
+                                   : '' );
+                } else if ( last_type === 'relation' ) {
+                    name_last = (DATA_Relations[lor][last_match_id]['ptna'] && DATA_Relations[lor][last_match_id]['ptna'][name_name])
+                                 ? DATA_Relations[lor][last_match_id]['ptna'][name_name]
+                                 : (DATA_Relations[lor][last_match_id]['tags'][name_name]
+                                   ? DATA_Relations[lor][last_match_id]['tags'][name_name]
+                                   : '' );
+                }
+                if ( name_first && name_last && stop_type ) {
+                    stop_type += (match_count == 2 || match_count > 3) ? 's' : '';
+                    display_name = htmlEscape(name_first) + '<br/>=&gt;&nbsp;' + (match_count-2) + '&nbsp;' + stop_type + '&nbsp;=&gt;<br/>' + htmlEscape(name_last);
+                }
+            }
+        }
     }
-    return display_name.replace(/:\s*/,':<br/>').replace(/\s*==*&gt;\s*/g,'<br/>=&gt;<br/>');
+    if ( display_name === '' ) {
+        display_name = DATA_Relations[lor][relation_id]['tags']['name'] ? htmlEscape(DATA_Relations[lor][relation_id]['tags']['name']) : htmlEscape(relation_id.toString());
+        display_name.replace(/:\s*/,':<br/>').replace(/\s*==*&gt;\s*/g,'<br/>=&gt;<br/>').replace(' ...','<br/>...').replace('... ','...<br/>');
+    }
+    return display_name;
 }
 
 
