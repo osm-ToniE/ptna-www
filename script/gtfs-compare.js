@@ -1145,7 +1145,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     if ( CompareTable[row][col]['score'] >= 0 ) {
                         td.innerHTML = '<a href="' + GetRoutesScoreLink(CompareTableRowInfo,CompareTableColInfo,row,col ) + '"' +
                                        ' target="_blank"' +
-                                       ' title="Show detailed score information">' +
+                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col) + '">' +
                                        htmlEscape(CompareTable[row][col]['score'].toString()) + '%' +
                                        '</a>';
                     } else {
@@ -1354,6 +1354,19 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
         }
     }
     return ret_val;
+}
+
+
+function GetScoreDetailsAsTitle( CompareTable, row, col ) {
+    ret_string  = "Show detailed score information\n\n";
+    ret_string += "xS == number of stops differ by 'x%'\n";
+    ret_string += "(a,b,c)P ==  positions differ by more than 20 / 100 / 1000 meters\n";
+    ret_string += "xN == 'name' differs (GTFS-'stop_name' / OSM-'name')\n";
+    ret_string += "xR == GTFS-'stop_name' differs from OSM-'ref_name'\n";
+    ret_string += "xI == GTFS-'stop_id' differ (GTFS/GTFS comparison)\n";
+    ret_string += "xG == GTFS-'stop_id' differs from OSM-'gtfs:stop_id'\n";
+    ret_string += "xF == GTFS-'stop_id' differs from OSM-'ref:IFOPT'\n";
+    return ret_string;
 }
 
 
