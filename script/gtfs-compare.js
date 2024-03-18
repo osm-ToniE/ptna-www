@@ -1841,7 +1841,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th.setAttribute( 'rowspan', 2 );
     tr.appendChild(th);
     th           = document.createElement('th');
-    th.innerHTML = 'Stop data of GTFS trip (' + htmlEscape(trip_id.toString()) + ')';
+    th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, feed=feed, release_date=release_date ) + ' ' + htmlEscape(trip_id.toString());
     th.setAttribute( 'class', "compare-trips-left" );
     th.setAttribute( 'colspan', 5 );
     tr.appendChild(th);
@@ -1858,12 +1858,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         if ( scores['totals']['gtfs:stop_id'] > 0 ) { colspan++; }
         if ( scores['totals']['ref:IFOPT']    > 0 ) { colspan++; }
         th           = document.createElement('th');
-        th.innerHTML =  'Platform data of OSM route ' +
-                        '<img src="/img/Relation.svg" alt="Relation"> <small>' +
-                        '<a href="https://osm.org/relation/' + encodeURIComponent(relation_id) + '" title="Link to OSM" target="_blank">' + htmlEscape(relation_id) + '</a> (' +
-                        '<a href="https://osm.org/edit?editor=id&amp;relation=' + encodeURIComponent(relation_id) + '" title="Edit in iD">iD</a>, ' +
-                        '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + encodeURIComponent(relation_id) + '" target="hiddenIframe" title="Edit in JOSM">JOSM</a>, ' +
-                        '<a href="https://relatify.monicz.dev/?relation=' + encodeURIComponent(relation_id) + '&amp;load=1" target="_blank" title="Edit in Relatify">Relatify</a>)</small>';
+        th.innerHTML =  'Platform data of OSM route ' + GetObjectLinks( trip_id, 'relation', is_GTFS=false, is_Route=true ) + ' ' + htmlEscape(relation_id.toString());
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', colspan );
         tr.appendChild(th);
@@ -1879,7 +1874,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         tr.appendChild(th);
     } else {
         th           = document.createElement('th');
-        th.innerHTML = 'Stop data of GTFS trip (' + htmlEscape(trip_id2) + ')';
+        th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) + ' ' + htmlEscape(trip_id2.toString());
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', 5 );
         tr.appendChild(th);
