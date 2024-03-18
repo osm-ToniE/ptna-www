@@ -280,7 +280,7 @@ async function showroutecomparison() {
         }
     } else {
         whats_right         = 'GTFS';
-        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS trip', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
+        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
     }
 
     var NumberOfRows = CompareTableRowInfo['rows'].length;
@@ -344,6 +344,7 @@ async function showroutecomparison() {
     finalizeAnalysisProgress();
 
     sortTable.init();
+    ClickRoutesTable();
 }
 
 
@@ -1062,10 +1063,10 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = "Scores&nbsp;(low&nbsp;scores)";
+            th.innerHTML = 'Scores&nbsp;(low&nbsp;scores) <button id="hide-show" class="button-save" title="Hide selected rows/Show all rows" onclick="">Hide selected rows</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
-            th.setAttribute( 'colspan', 3 );
+            th.setAttribute( 'colspan', 4 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
@@ -1093,8 +1094,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = '<span title="Corresponds to the \'Variant\' number on the GTFS route page">&#x21C5;Num</span>';
+            th.innerHTML = '<span id="numberelement" title="Corresponds to the \'Variant\' number on the GTFS route page">&#x21C5;Num</span>';
             th.className = 'compare-routes-right js-sort-number';
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
@@ -1115,31 +1117,35 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
-                td = document.createElement('td');
-                td.innerHTML = (row+1).toString();
-                td.className = 'compare-routes-odd compare-routes-right';
-                tr.appendChild(td);
-                td = document.createElement('td');
+                th = document.createElement('th');
+                th.innerHTML = (row+1).toString();
+                th.className = 'compare-routes-odd compare-routes-right';
+                tr.appendChild(th);
+                th = document.createElement('th');
+                th.innerHTML = '<input id="row-' + (row+1).toString() + '" type="checkbox" />';
+                th.className = 'compare-routes-odd';
+                tr.appendChild(th);
+                th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['display_name'] ) {
-                    td.innerHTML = '<span title="id = ' + CompareTableRowInfo['rows'][row]['id'] + '">' + CompareTableRowInfo['rows'][row]['display_name'].toString() + '</span>';
+                    th.innerHTML = '<span title="id = ' + CompareTableRowInfo['rows'][row]['id'] + '">' + CompareTableRowInfo['rows'][row]['display_name'].toString() + '</span>';
                 } else {
-                    td.innerHTML = 'n/a';
+                    th.innerHTML = 'n/a';
                 }
-                td.className = 'compare-routes-odd compare-routes-left no-border-right';
-                tr.appendChild(td);
-                td = document.createElement('td');
+                th.className = 'compare-routes-odd compare-routes-left no-border-right';
+                tr.appendChild(th);
+                th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['attention'].length > 0 ) {
-                    td.innerHTML += '<img src="/img/Attention32.png" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['attention'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Attention32.png" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['attention'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['info'].length > 0  ) {
-                    td.innerHTML += '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['info'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['info'].join("\n")+'"> ';
                 }
                 id = CompareTableRowInfo['rows'][row]['id'];
                 source_type = CompareTableRowInfo['type'];
-                td.innerHTML += GetObjectLinks( id, 'relation', is_GTFS=true, is_Route=false, feed=CompareTableRowInfo['feed'], release_date=CompareTableRowInfo['release_date'] );
-                td.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
-                td.className = 'compare-routes-odd compare-routes-right no-border-left';
-                tr.appendChild(td);
+                th.innerHTML += GetObjectLinks( id, 'relation', is_GTFS=true, is_Route=false, feed=CompareTableRowInfo['feed'], release_date=CompareTableRowInfo['release_date'] );
+                th.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
+                th.className = 'compare-routes-odd compare-routes-right no-border-left';
+                tr.appendChild(th);
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
                     if ( CompareTable[row][col]['score'] >= 0 ) {
@@ -1161,6 +1167,11 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
     }
 
     return;
+}
+
+
+function ClickRoutesTable() {
+    document.getElementById('numberelement').click();
 }
 
 
