@@ -303,7 +303,7 @@ input.hackbox {
 .compare-trips-thead        { background-color: #bbbbbb; text-align: center }
 .compare-trips-tbody        { text-align: center }
 .compare-trips-tfoot        { background-color: #bbbbbb; text-align: center }
-.compare-trips-left         { background-color: #fc0fc0 }
+.compare-trips-left         { background-color: #fc0fc0; color: white }
 .compare-trips-middle       { background-color: #bbbbbb; text-align: center }
 .compare-trips-right        { background-color: #6495ed }
 .compare-trips-minor        { background-color: yellow }
