@@ -1063,10 +1063,14 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = 'Scores&nbsp;(low&nbsp;scores) <button id="hide-show" class="button-save" title="Hide selected rows/Show all rows" onclick="">Hide selected rows</button>';
+            th.innerHTML = '<button class="button-save" title="Show all rows" onclick="">Show<br/>all<br/>rows</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
-            th.setAttribute( 'colspan', 4 );
+            tr.appendChild(th);
+            th = document.createElement('th');
+            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="">Hide selected rows</button> <button class="button-save" title="Clear seletions" onclick="">Clear seletions</button>';
+            th.className = 'compare-routes-left js-sort-none';
+            th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
@@ -1075,6 +1079,11 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             tr.appendChild(th);
             thead.appendChild(tr);
             tr = document.createElement('tr');
+            th = document.createElement('th');
+            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="">Hide rows with score &gt;=&nbsp;</button><input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>%';
+            th.className = 'compare-routes-left js-sort-none';
+            th.setAttribute( 'colspan', 3 );
+            tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
                 th   = document.createElement('th');
@@ -1094,9 +1103,14 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             tr = document.createElement('tr');
             th = document.createElement('th');
+            th.innerHTML = '&nbsp;';
+            th.className = 'js-sort-dummy';
+            th.setAttribute( 'colspan', 1 );
+            tr.appendChild(th);
+            th = document.createElement('th');
             th.innerHTML = '<span id="numberelement" title="Corresponds to the \'Variant\' number on the GTFS route page">&#x21C5;Num</span>';
             th.className = 'compare-routes-right js-sort-number';
-            th.setAttribute( 'colspan', 2 );
+            th.setAttribute( 'colspan', 1 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
@@ -1118,12 +1132,13 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
                 th = document.createElement('th');
+                th.innerHTML = '<input id="row' + (row+1).toString() + '" type="checkbox"/>';
+                th.className = 'compare-routes-odd';
+                tr.appendChild(th);
+                tr.style['display'] = 'table-row';      // "hide/show rows" will set/reset this to 'none'/'table-row' if 'checkbox' in 2nd column is set/inset
+                th = document.createElement('th');
                 th.innerHTML = (row+1).toString();
                 th.className = 'compare-routes-odd compare-routes-right';
-                tr.appendChild(th);
-                th = document.createElement('th');
-                th.innerHTML = '<input id="row-' + (row+1).toString() + '" type="checkbox" />';
-                th.className = 'compare-routes-odd';
                 tr.appendChild(th);
                 th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['display_name'] ) {
@@ -1171,7 +1186,8 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
 
 function ClickRoutesTable() {
-    document.getElementById('numberelement').click();
+    var elem = document.getElementById('numberelement');
+    if ( elem ) { elem.click(); }
 }
 
 
@@ -1869,7 +1885,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         if ( scores['totals']['gtfs:stop_id'] > 0 ) { colspan++; }
         if ( scores['totals']['ref:IFOPT']    > 0 ) { colspan++; }
         th           = document.createElement('th');
-        th.innerHTML =  'Platform data of OSM route ' + GetObjectLinks( trip_id, 'relation', is_GTFS=false, is_Route=true ) + ' ' + htmlEscape(relation_id.toString());
+        th.innerHTML =  'Platform data of OSM route ' + GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) + ' ' + htmlEscape(relation_id.toString());
         th.setAttribute( 'class', "compare-trips-right" );
         th.setAttribute( 'colspan', colspan );
         tr.appendChild(th);
