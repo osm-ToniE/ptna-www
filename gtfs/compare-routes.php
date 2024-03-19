@@ -90,6 +90,11 @@
                         </li>
                     </ul>
 
+                    <h3 id="compare-table">Scores (low scores)</h3>
+                    <p>
+                        Small values indicate a good match between GTFS trip and OSM route.<br>
+                        For a more detailed comparison, click on a number.
+                    </p>
                     <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 850px">
                         <table id="routes-table" class="js-sort-table">
                             <thead id="routes-table-thead" class="compare-routes-thead">
@@ -100,8 +105,6 @@
                             </tfoot>
                         </table>
                     </div>
-                    <p>Small values indicate a good match between GTFS trip and OSM route.</p>
-                    <p>For a more detailed comparison, click on a number.</p>
                     <p>Colours are calculated as follows:</p>
                     <ul>
                     <li><span style="background-color: #6aef00;">0 <= score < 2</span></li>
