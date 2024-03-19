@@ -253,6 +253,9 @@ async function showroutecomparison() {
     const d = new Date();
     analysisstartms = d.getTime();
 
+    var aSpanAnalysis       = document.getElementById('span-analysis');
+    aSpanAnalysis.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
     var left_len     = 0;
     var right_len    = 0;
     var score_table  = [];
@@ -326,7 +329,7 @@ async function showroutecomparison() {
             }
 
         }
-        updateAnalysisProgress();
+        // updateAnalysisProgress();
     }
 
     CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable );
@@ -340,6 +343,9 @@ async function showroutecomparison() {
         }
         alert( "Some cells may not show valid data, there was missing data.\n\n'" + keys.join("'\n'") + "'" );
     }
+
+    aSpanAnalysis.innerHTML = '<progress id="analysis" value=0 max=10000></progress>';
+    aBar                    = document.getElementById('analysis');
 
     finalizeAnalysisProgress();
 
@@ -378,13 +384,16 @@ async function download_left_data() {
                     const d = new Date();
                     downloadstartms = d.getTime();
 
+                    var dSpanLeft       = document.getElementById('span-download-left');
+                    dSpanLeft.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
                     const response = await fetch(url);
 
                     if ( response.ok ) {
                         const JsonResp = await response.json();
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
-                        dBarLeft.value = usedms;
+                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=10000></progress>';
                         document.getElementById('download_left_text').innerText = usedms.toString();
                         return JSON.stringify(JsonResp);
                     } else {
@@ -417,13 +426,16 @@ async function download_right_data() {
             const d = new Date();
             downloadstartms = d.getTime();
 
+            var dSpanRight       = document.getElementById('span-download-right');
+            dSpanRight.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
             const response = await fetch(url);
 
             if ( response.ok ) {
                 const JsonResp = await response.json();
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
-                dBarRight.value = usedms;
+                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=10000></progress>';
                 document.getElementById('download_right_text').innerText = usedms.toString();
                 return JSON.stringify(JsonResp);
             } else {
@@ -456,12 +468,16 @@ async function download_right_data() {
                     const d = new Date();
                     downloadstartms = d.getTime();
 
+                    var dSpanRight       = document.getElementById('span-download-right');
+                    dSpanRight.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
                     const response = await fetch(url);
 
                     if ( response.ok ) {
                         const JsonResp = await response.json();
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
+                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=10000></progress>';
                         dBarRight.value = usedms;
                         document.getElementById('download_right_text').innerText = usedms.toString();
                         return JSON.stringify(JsonResp);
@@ -1063,12 +1079,12 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Show all rows" onclick="">Show<br/>all<br/>rows</button>';
+            th.innerHTML = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show<br/>all<br/>rows</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
             tr.appendChild(th);
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="">Hide selected rows</button> <button class="button-save" title="Clear seletions" onclick="">Clear seletions</button>';
+            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows with scores &gt;=</button>&nbsp;<input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
@@ -1080,7 +1096,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="">Hide rows with score &gt;=&nbsp;</button><input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>%';
+            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected rows</button> <button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear seletions</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
@@ -1132,7 +1148,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
                 th = document.createElement('th');
-                th.innerHTML = '<input id="row' + (row+1).toString() + '" type="checkbox"/>';
+                th.innerHTML = '<input id="row' + (row+1).toString() + '" type="checkbox" />';
                 th.className = 'compare-routes-odd';
                 tr.appendChild(th);
                 tr.style['display'] = 'table-row';      // "hide/show rows" will set/reset this to 'none'/'table-row' if 'checkbox' in 2nd column is set/inset
@@ -1161,6 +1177,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-row-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
                 th.className = 'compare-routes-odd compare-routes-right no-border-left';
                 tr.appendChild(th);
+                var min_score_of_row = Infinity;
                 for ( var col = 0; col < col_count; col++ ) {
                     td = document.createElement('td');
                     if ( CompareTable[row][col]['score'] >= 0 ) {
@@ -1174,8 +1191,10 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     }
                     td.style['background-color'] = CompareTable[row][col]['color'];
                     td.className = 'compare-routes-link no-border-right';
+                    min_score_of_row = (min_score_of_row > CompareTable[row][col]['score']) ? CompareTable[row][col]['score'] : min_score_of_row;
                     tr.appendChild(td);
                 }
+                tr.setAttribute('min-score',min_score_of_row);
                 tbody.appendChild(tr);
             }
         }
@@ -1188,6 +1207,56 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 function ClickRoutesTable() {
     var elem = document.getElementById('numberelement');
     if ( elem ) { elem.click(); }
+}
+
+
+function ClearRoutesTableRowCheckBoxes() {
+    var tbody = document.getElementById('routes-table-tbody');
+    var tr_elements = tbody.getElementsByTagName('tr');
+    var input_elements = tbody.getElementsByTagName('input');
+    for ( var i = 0; i < input_elements.length; i++ ) {
+        if ( input_elements[i].id.match(/^row/) ) {
+            input_elements[i].parentElement.parentElement.style['display'] = 'table-row';
+            input_elements[i].checked = false;
+        }
+    }
+}
+
+
+function HideSelectedRoutesTableRows() {
+    var tbody = document.getElementById('routes-table-tbody');
+    var input_elements = tbody.getElementsByTagName('input');
+    for ( var i = 0; i < input_elements.length; i++ ) {
+        if ( input_elements[i].id.match(/^row/) ) {
+            if ( input_elements[i].checked ) {
+                input_elements[i].parentElement.parentElement.style['display'] = 'none';
+            } else {
+                input_elements[i].parentElement.parentElement.style['display'] = 'table-row';
+            }
+        }
+    }
+}
+
+
+function SelectRoutesTableRowsByScoreValue() {
+    var tbody = document.getElementById('routes-table-tbody');
+    var tr_elements = tbody.getElementsByTagName('tr');
+    var input_elements = tbody.getElementsByTagName('input');
+     for ( var i = 0; i < tr_elements.length; i++ ) {
+        var min_score = tr_elements[i].getAttribute('min-score');
+        if ( min_score >= 30 ) {
+            input_elements[i].checked = true;
+        }
+    }
+}
+
+
+function ShowRoutesTableRows() {
+    var tbody = document.getElementById('routes-table-tbody');
+    var tr_elements = tbody.getElementsByTagName('tr');
+    for ( var i = 0; i < tr_elements.length; i++ ) {
+        tr_elements[i].style['display'] = 'table-row';
+    }
 }
 
 
@@ -2065,6 +2134,7 @@ function FillTripsScoresTable( scores ) {
 function updateAnalysisProgress( increment ) {
     const d = new Date();
     var usedms = d.getTime() - analysisstartms;
+    aBar       = document.getElementById('analysis');
     document.getElementById('analysis_text').innerText = usedms.toString();
     if ( increment ) {
         aBar.value += increment;
@@ -2077,6 +2147,7 @@ function updateAnalysisProgress( increment ) {
 function finalizeAnalysisProgress() {
     const d = new Date();
     var usedms = d.getTime() - analysisstartms;
+    aBar       = document.getElementById('analysis');
     aBar.value = usedms;
     document.getElementById('analysis_text').innerText = usedms.toString();
 }
