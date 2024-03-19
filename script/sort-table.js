@@ -313,9 +313,11 @@ sortTable.init = function() {
                 // Define which column the header should invoke sorting for
                 THead.rows[rowNum].cells[cellNum].setAttribute('data-js-sort-colNum', colNum);
                 Handler = sortTable.getClickHandler(Tables[i], colNum);
-                window.addEventListener
-                    ? THead.rows[rowNum].cells[cellNum].addEventListener('click', Handler)
-                    : window.attachEvent && THead.rows[rowNum].cells[cellNum].attachEvent('onclick', Handler);
+                if ( !THead.rows[rowNum].cells[cellNum].className.match(/\bjs-sort-dummy\b/) ) {
+                    window.addEventListener
+                        ? THead.rows[rowNum].cells[cellNum].addEventListener('click', Handler)
+                        : window.attachEvent && THead.rows[rowNum].cells[cellNum].attachEvent('onclick', Handler);
+                }
                 colNum += THead.rows[rowNum].cells[cellNum].colSpan;
             }
         }
