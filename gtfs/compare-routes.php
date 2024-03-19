@@ -42,15 +42,15 @@
                 ?>
                 <div class="indent">
 
-                    <span id="progress_section"><span style="display: inline-block; width: 13em">Download GTFS (rows): </span><progress id="download_left" value=0 max=10000></progress> <span id="download_left_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>
+                    <span id="progress_section"><span style="display: inline-block; width: 13em">Download GTFS (rows): </span><span id="span-download-left"><progress id="download_left" value=0 max=10000></progress></span> <span id="download_left_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>
                                                 <?php
                                                     if ( $osm_relation ) {
-                                                        echo '<span style="display: inline-block; width: 13em">Download OSM (columns): </span><progress id="download_right"  value=0 max=10000></progress> <span id="download_right_text"  style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 13em">Download OSM (columns): </span><span id="span-download-right"><progress id="download_right"  value=0 max=10000></progress></span> <span id="download_right_text"  style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     } else {
-                                                        echo '<span style="display: inline-block; width: 13em">Download GTFS (columns): </span><progress id="download_right" value=0 max=10000></progress> <span id="download_right_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
+                                                        echo '<span style="display: inline-block; width: 13em">Download GTFS (columns): </span><span id="span-download-right"><progress id="download_right" value=0 max=10000></progress></span> <span id="download_right_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms<br/>' . "\n";
                                                     }
                                                 ?>
-                                                <span style="display: inline-block; width: 13em">Analysis: </span><progress id="analysis" value=0 max=10000></progress> <span id="analysis_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms
+                                                <span style="display: inline-block; width: 13em">Analysis: </span><span id="span-analysis"><progress id="analysis" value=0 max=10000></progress></span> <span id="analysis_text" style="display: inline-block; width: 4em; text-align: right">0</span> ms
                     </span>
                     <ul style="list-style-type: none; padding-left: 0px">
                         <li><span style="display: inline-block; width: 5em">Rows:</span>
