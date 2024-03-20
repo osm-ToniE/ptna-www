@@ -1084,7 +1084,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.setAttribute( 'rowspan', 2 );
             tr.appendChild(th);
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows with scores &gt;=</button>&nbsp;<input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>';
+            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows with all scores &gt;=</button>&nbsp;<input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
@@ -1096,7 +1096,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected rows</button> <button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear seletions</button>';
+            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected rows</button> <button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'colspan', 3 );
             tr.appendChild(th);
