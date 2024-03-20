@@ -1240,12 +1240,16 @@ function HideSelectedRoutesTableRows() {
 
 function SelectRoutesTableRowsByScoreValue() {
     var tbody = document.getElementById('routes-table-tbody');
+    var value_elem = document.getElementById('hide-value');
     var tr_elements = tbody.getElementsByTagName('tr');
     var input_elements = tbody.getElementsByTagName('input');
      for ( var i = 0; i < tr_elements.length; i++ ) {
         var min_score = tr_elements[i].getAttribute('min-score');
-        if ( min_score >= 30 ) {
+        var hide_value = value_elem.value;
+        if ( min_score >= hide_value ) {
             input_elements[i].checked = true;
+        } else {
+            input_elements[i].checked = false;
         }
     }
 }
