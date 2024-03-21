@@ -92,7 +92,7 @@
 
                     <h3 id="compare-table">Scores (low scores)</h3>
                     <p>
-                        Small values indicate a good match between GTFS trip and OSM route.<br>
+                        Small values indicate a good match between GTFS trip and OSM route/GTFS trip.<br>
                         For a more detailed comparison, click on a number.
                     </p>
                     <div class="tableFixHeadCompare" id="routes-table-div" style="height: 300px; max-height: 850px">
