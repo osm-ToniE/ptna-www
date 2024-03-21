@@ -1191,7 +1191,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     }
                     td.style['background-color'] = CompareTable[row][col]['color'];
                     td.className = 'compare-routes-link no-border-right';
-                    min_score_of_row = (min_score_of_row > CompareTable[row][col]['score']) ? CompareTable[row][col]['score'] : min_score_of_row;
+                    min_score_of_row = (min_score_of_row > parseFloat(CompareTable[row][col]['score'])) ? parseFloat(CompareTable[row][col]['score']) : min_score_of_row;
                     tr.appendChild(td);
                 }
                 tr.setAttribute('min-score',min_score_of_row);
@@ -1244,8 +1244,8 @@ function SelectRoutesTableRowsByScoreValue() {
     var tr_elements = tbody.getElementsByTagName('tr');
     var input_elements = tbody.getElementsByTagName('input');
      for ( var i = 0; i < tr_elements.length; i++ ) {
-        var min_score = tr_elements[i].getAttribute('min-score');
-        var hide_value = value_elem.value;
+        var min_score = parseFloat(tr_elements[i].getAttribute('min-score'));
+        var hide_value = parseFloat(value_elem.value);
         if ( min_score >= hide_value ) {
             input_elements[i].checked = true;
         } else {
