@@ -23,8 +23,8 @@
                 <tbody>
 
                 <?php CreateNewFullEntry( "CA-MB-WT", "en", "Configuration" ); ?>
-
                 <?php CreateNewFullEntry( "CA-ON-Burlington-Transit", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "CA-QC-RTC", "fr", "Configuration" ); ?>
 
                 </tbody>
             </table>
