@@ -349,6 +349,9 @@ async function showroutecomparison() {
 
     finalizeAnalysisProgress();
 
+    var tfoot = document.getElementById('routes-table-tfoot');
+    tfoot.innerHTML = '';
+
     sortTable.init();
     ClickRoutesTable();
 }
@@ -1079,14 +1082,12 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
 
             tr = document.createElement('tr');
             th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show<br/>all<br/>rows</button>';
+            th.innerHTML  = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show all</button>';
+            th.innerHTML += '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected</button>';
+            th.innerHTML += '<button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button><br/>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
-            tr.appendChild(th);
-            th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide rows with values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows where all scores &gt;=</button>&nbsp;<input id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/>';
-            th.className = 'compare-routes-left js-sort-none';
-            th.setAttribute( 'colspan', 3 );
+            th.setAttribute( 'colspan', 4 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
@@ -1095,11 +1096,6 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             tr.appendChild(th);
             thead.appendChild(tr);
             tr = document.createElement('tr');
-            th = document.createElement('th');
-            th.innerHTML = '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected rows</button> <button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button>';
-            th.className = 'compare-routes-left js-sort-none';
-            th.setAttribute( 'colspan', 3 );
-            tr.appendChild(th);
             for ( var col = 0; col < col_count; col++ ) {
                 col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
                 th   = document.createElement('th');
@@ -1249,9 +1245,24 @@ function SelectRoutesTableRowsByScoreValue() {
         if ( min_score >= hide_value ) {
             input_elements[i].checked = true;
         } else {
-            input_elements[i].checked = false;
+            var replace = document.getElementById('replace');
+            if ( replace.checked ) {
+                input_elements[i].checked = false;
+            }
         }
     }
+}
+
+
+function SelectRoutesTableRowsSameStopNameSequences() {
+}
+
+
+function SelectRoutesTableRowsIfSuspicious() {
+}
+
+
+function SelectRoutesTableRowsIfSubrouteOf() {
 }
 
 
