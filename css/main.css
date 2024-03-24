@@ -283,6 +283,10 @@ input.hackbox {
 .tableFixHeadCompare thead  { position: sticky; top: 0; }
 .tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
+.tableFixBothCompare        { overflow-y: auto; overflow-x: auto; height: 562px; width: 1850px }
+.tableFixBothCompare thead  { position: sticky; top: 0; z-index: 2 }
+.tableFixBothCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
+
 .compare-versions-thead     { background-color: #bbbbbb; text-align: center }
 
 .compare-left-right         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; text-align: left }
