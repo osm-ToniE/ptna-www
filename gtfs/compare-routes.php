@@ -88,10 +88,10 @@
                     </p>
                     <div id="routes-table-buttons">
                         <span style="white-space: nowrap"><button class="button-save" title="Select rows with score values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows where all scores &gt;= x %</button><input style="height: 2.2em" id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/></span>
-                        <span style="white-space: nowrap"><button class="button-save" title="Select trips with same sequence of stop names" onclick="SelectRoutesTableRowsSameStopNameSequences()">Select trips with same sequence of stop names (except first) <img src="/img/Attention32.png" height="14" width="14" alt="Attention"></button></span>
+<!--                        <span style="white-space: nowrap"><button class="button-save" title="Select trips with same sequence of stop names" onclick="SelectRoutesTableRowsSameStopNameSequences()">Select trips with same sequence of stop names (except first) <img src="/img/Attention32.png" height="14" width="14" alt="Attention"></button></span>
                         <span style="white-space: nowrap"><button class="button-save" title="Select suspicious trips" onclick="SelectRoutesTableRowsIfSuspicious()">Select suspicous trips <img src="/img/Attention32.png" height="14" width="14" alt="Attention"></button></span>
                         <span style="white-space: nowrap"><button class="button-save" title="Select sub-routes" onclick="SelectRoutesTableRowsIfSubrouteOf()">Select sub-routes <img src="/img/Information32.png" height="14" width="14" alt="Information"></button></span>
-                        <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="add" checked name="selection"></input>add to selection</button></span>
+-->                        <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="add" checked name="selection"></input>add to selection</button></span>
                         <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="replace" name="selection"></input>replace selection</button></span>
                     </div>
                     <div class="tableFixBothCompare" id="routes-table-div" style="height: 300px; max-height: 860px; max-width: 1850px ">
