@@ -2610,13 +2610,13 @@
                                       );
                         $row = $db->querySingle( $sql, true );
 
-                        if ( isset($row['commment'])                           ||
-                             isset($row['subroute_of'])                        ||
-                             isset($row['suspicious_start'])                   ||
-                             isset($row['suspicious_end'])                     ||
-                             isset($row['suspicious_number_of_stops'])         ||
-                             isset($row['same_names_but_different_ids'])       ||
-                             isset($row['same_stops_but_different_shape_ids'])    ) {
+                        if ( (isset($row['commment'])                           && $row['commment']                           ) ||
+                             (isset($row['subroute_of'])                        && $row['subroute_of']                        ) ||
+                             (isset($row['suspicious_start'])                   && $row['suspicious_start']                   ) ||
+                             (isset($row['suspicious_end'])                     && $row['suspicious_end']                     ) ||
+                             (isset($row['suspicious_number_of_stops'])         && $row['suspicious_number_of_stops']         ) ||
+                             (isset($row['same_names_but_different_ids'])       && $row['same_names_but_different_ids']       ) ||
+                             (isset($row['same_stops_but_different_shape_ids']) && $row['same_stops_but_different_shape_ids'] )    ) {
                             $row['has_comments'] = 'yes';
                         }
 
