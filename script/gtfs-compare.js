@@ -305,7 +305,7 @@ async function showroutecomparison() {
 
             if ( left_len > 0 && right_len > 0 ) {
                 score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = true );
-                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'mismatch_percent' : score_table['mismatch_percent'] } );
+                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'] } );
             } else {
                 CompareTable[row].push( { 'score' : -1, 'color' : 'white' } );
                 if ( left_len === 0 && right_len === 0 ) {
@@ -1469,14 +1469,52 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 
 
 function GetScoreDetailsAsTitle( CompareTable, row, col ) {
+    var xS = CompareTable[row][col]['mismatch_percent']['stops'];
+    var P0 = CompareTable[row][col]['mismatch_percent']['distance'][0];
+    var P1 = CompareTable[row][col]['mismatch_percent']['distance'][1];
+    var P2 = CompareTable[row][col]['mismatch_percent']['distance'][2];
+    var xN = CompareTable[row][col]['mismatch_percent']['name'];
+    var xR = CompareTable[row][col]['mismatch_percent']['ref_name'];
+    var xI = CompareTable[row][col]['mismatch_percent']['stop_id2'];
+    var xG = CompareTable[row][col]['mismatch_percent']['gtfs:stop_id'];
+    var xF = CompareTable[row][col]['mismatch_percent']['ref:IFOPT'];
+    xS = xS >= 10 ? xS.toString() : '&nbsp;&nbsp;&nbsp;' + xS.toString();
+    P0 = P0 >= 10 ? P0.toString() : '&nbsp;&nbsp;&nbsp;' + P0.toString();
+    P1 = P1 >= 10 ? xS.toString() : '&nbsp;&nbsp;&nbsp;' + P1.toString();
+    P2 = P2 >= 10 ? P2.toString() : '&nbsp;&nbsp;&nbsp;' + P2.toString();
+    xN = xN >= 10 ? xN.toString() : '&nbsp;&nbsp;&nbsp;' + xN.toString();
+    xR = xR >= 10 ? xR.toString() : '&nbsp;&nbsp;&nbsp;' + xR.toString();
+    xI = xI >= 10 ? xI.toString() : '&nbsp;&nbsp;&nbsp;' + xI.toString();
+    xG = xG >= 10 ? xG.toString() : '&nbsp;&nbsp;&nbsp;' + xG.toString();
+    xF = xF >= 10 ? xF.toString() : '&nbsp;&nbsp;&nbsp;' + xF.toString();
     ret_string  = "Show detailed score information\n\n";
-    ret_string += "xS == number of stops differ by 'x%'\n";
-    ret_string += "(a,b,c)P ==  positions differ by more than 20 / 100 / 1000 meters\n";
-    ret_string += "xN == 'name' differs (GTFS-'stop_name' / OSM-'name')\n";
-    ret_string += "xR == GTFS-'stop_name' differs from OSM-'ref_name'\n";
-    ret_string += "xI == GTFS-'stop_id' differ (GTFS/GTFS comparison)\n";
-    ret_string += "xG == GTFS-'stop_id' differs from OSM-'gtfs:stop_id'\n";
-    ret_string += "xF == GTFS-'stop_id' differs from OSM-'ref:IFOPT'\n";
+    if ( CompareTable[row][col]['totals']['stops'] > 0 ) {
+        ret_string += xS + "%&nbsp;&nbsp;mismatch of number of stops\n";
+    }
+    if ( CompareTable[row][col]['totals']['distance'][0] > 0 ) {
+        ret_string += P0 + "%&nbsp;&nbsp;mismatch of positions of stops by more than 20 m\n";
+    }
+    if ( CompareTable[row][col]['totals']['distance'][1] > 0 ) {
+        ret_string += P1 + "%&nbsp;&nbsp;mismatch of positions of stops by more than 100 m\n";
+    }
+    if ( CompareTable[row][col]['totals']['distance'][2] > 0 ) {
+        ret_string += P2 + "%&nbsp;&nbsp; mismatch of positions of stops by more than 1000 m\n";
+    }
+    if ( CompareTable[row][col]['totals']['name'] > 0 ) {
+        ret_string += xN + "%&nbsp;&nbsp;mismatch of names of stops (GTFS-'stop_name' / OSM-'name')\n";
+    }
+    if ( CompareTable[row][col]['totals']['ref_name'] > 0 ) {
+        ret_string += xR + "%&nbsp;&nbsp;mismatch of 'stop_name' of GTFS with 'ref_name' of OSM\n";
+    }
+    if ( CompareTable[row][col]['totals']['stop_id2'] > 0 ) {
+        ret_string += xI + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS stops\n";
+    }
+    if ( CompareTable[row][col]['totals']['gtfs:stop_id'] > 0 ) {
+        ret_string += xG + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM\n";
+    }
+    if ( CompareTable[row][col]['totals']['ref:IFOPT'] > 0 ) {
+        ret_string += xF + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM\n";
+    }
     return ret_string;
 }
 
