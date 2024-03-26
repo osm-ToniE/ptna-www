@@ -1190,6 +1190,13 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             var vh = Math.min(document.documentElement.clientHeight || 0, window.innerHeight || 0);
             div.style["max-height"] = vh - 81 + "px";
             div.style["max-width"]  = vw - 68 + "px";
+
+            var hash = window.top.location.hash.substring(1);
+
+            if ( hash === 'routes-table' || hash === 'routes-table-buttons' ) {
+                document.getElementById('routes-table-buttons').scrollIntoView();
+            }
+
         }
     }
 
