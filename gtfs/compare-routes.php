@@ -94,7 +94,7 @@
 -->                        <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="add" checked name="selection"></input>add to selection</button></span>
                         <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="replace" name="selection"></input>replace selection</button></span>
                     </div>
-                    <div class="tableFixBothCompare" id="routes-table-div" style="height: 300px; max-height: 860px; max-width: 1850px ">
+                    <div class="tableFixBothCompare" id="routes-table-div" style="max-height: 830px; max-width: 1850px ">
                         <table id="routes-table" class="js-sort-table">
                             <thead id="routes-table-thead" class="compare-routes-thead">
                             </thead>
