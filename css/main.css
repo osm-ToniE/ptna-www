@@ -279,11 +279,11 @@ input.hackbox {
 .compare td                 { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 .compare a                  { text-decoration: none; color: #000; }
 
-.tableFixHeadCompare        { overflow-y: auto; height: 562px;}
+.tableFixHeadCompare        { overflow-y: auto; max-height: 562px;}
 .tableFixHeadCompare thead  { position: sticky; top: 0; }
 .tableFixHeadCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
-.tableFixBothCompare        { overflow-y: auto; overflow-x: auto; height: 562px; width: 1850px }
+.tableFixBothCompare        { overflow-y: auto; overflow-x: auto; max-height: 830px; max-width: 1850px }
 .tableFixBothCompare thead  { position: sticky; top: 0; z-index: 2 }
 .tableFixBothCompare th     { box-shadow: 0px 1px #000000, -1px -1px #000000; border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
