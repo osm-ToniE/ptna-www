@@ -54,6 +54,9 @@ var number_of_match     = {};
 var label_of_object     = {};
 var latlonroute         = { 'left' : {}, 'right' : {} };
 
+var CompareTable        = [];
+var CompareTableRowInfo = {};
+var CompareTableColInfo = {};
 
 async function showtripcomparison() {
 
@@ -261,11 +264,11 @@ async function showroutecomparison() {
     var score_table  = [];
     var zero_data    = false;
 
-    var CompareTable        = [];
-    var CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
-    var CompareTableColInfo = {};
+    CompareTable        = [];
+    CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
+    CompareTableColInfo = {};
     var whats_right         = '';
-     if ( relation_id !== '' ) {
+    if ( relation_id !== '' ) {
         whats_right         = 'OSM';
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
@@ -1083,6 +1086,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
+            if ( CompareTableColInfo['type'] === 'OSM' ) {
+                th.innerHTML += ' - <input type="checkbox" onclick="ShowOsmRouteName(this)">Show OSM route \'name\'</input>';
+            }
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'colspan', col_count );
             tr.appendChild(th);
@@ -1131,9 +1137,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 col_class = col % 2 ? 'compare-routes-odd' : 'compare-routes-even';
                 th = document.createElement('th');
                 if ( CompareTableColInfo['cols'][col]['display_name'] ) {
-                    th.innerHTML = '<span title="id = ' + CompareTableColInfo['cols'][col]['id'] + '">&#x21C5;&nbsp;' + CompareTableColInfo['cols'][col]['display_name'].toString() + '</span>';
+                    th.innerHTML = '<span name="col-name" title="id = ' + CompareTableColInfo['cols'][col]['id'] + '">&#x21C5;&nbsp;' + CompareTableColInfo['cols'][col]['display_name'].toString() + '</span>';
                 } else {
-                    th.innerHTML = 'n/a';
+                    th.innerHTML = '<span name="col-name">n/a</span>';
                 }
                 th.className  = col_class + ' compare-routes-left compare-routes-top js-sort-number';
                 tr.appendChild(th);
@@ -1151,6 +1157,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th.className = 'compare-routes-odd compare-routes-right';
                 tr.appendChild(th);
                 th = document.createElement('th');
+                th.setAttribute('id', CompareTableRowInfo['rows'][row]['id'].toString() );
                 if ( CompareTableRowInfo['rows'][row]['display_name'] ) {
                     th.innerHTML = '<span title="id = ' + CompareTableRowInfo['rows'][row]['id'] + '">' + CompareTableRowInfo['rows'][row]['display_name'].toString() + '</span>';
                 } else {
@@ -1601,6 +1608,21 @@ function GetRoutesColLink( CompareTableColInfo, col ) {
         }
     }
     return ret_val;
+}
+
+
+function ShowOsmRouteName( inputObj ) {
+    var   checked = inputObj.checked;
+    var   innerHTML;
+    const span_list = document.getElementsByName('col-name');
+    const span_len  = span_list.length;
+    var   which_name = checked ? 'name' : 'display_name';
+    for (var i = 0; i < span_len; i++ ) {
+        innerHTML = span_list[i].innerHTML.replace(/&nbsp;.*$/,'&nbsp;');
+        if ( innerHTML !== 'n/a' ) {
+            span_list[i].innerHTML = innerHTML + CompareTableColInfo['cols'][i][which_name];
+        }
+    }
 }
 
 
