@@ -956,7 +956,7 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, feed='', release_da
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
             } else if ( object_type == "relation" ) {
                 html  = '<a href="https://osm.org/relation/' + id + '" target="_blank" title="Browse on map"><img src="/img/Relation.svg" alt="Relation" height="18" width="18" /></a> ';
-                html += '<a href="https://osm.org/edit?editor=id&amp;relation=' + id + '" target="_blank" title="Edit in iD"><img src=/img/iD-logo32.png" alt="iD" height="18" width="18" /></a> ';
+                html += '<a href="https://osm.org/edit?editor=id&amp;relation=' + id + '" target="_blank" title="Edit in iD"><img src="/img/iD-logo32.png" alt="iD" height="18" width="18" /></a> ';
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
