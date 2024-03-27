@@ -1093,11 +1093,17 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th   = document.createElement('th');
                 id   = CompareTableColInfo['cols'][col]['id'];
                 source_type = CompareTableColInfo['type'];
-                if ( CompareTableColInfo['cols'][col]['attention'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Attention32.png" height="18" width="18" alt="Attention" title="'+CompareTableColInfo['cols'][col]['attention'].join("\n")+'"> ';
+                if ( CompareTableColInfo['cols'][col]['2stopsonly'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="Attention" title="'+CompareTableColInfo['cols'][col]['2stopsonly'].join("\n")+'"> ';
                 }
-                if ( CompareTableColInfo['cols'][col]['info'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['info'].join("\n")+'"> ';
+                if ( CompareTableColInfo['cols'][col]['suspicious'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Attention" title="'+CompareTableColInfo['cols'][col]['suspicious'].join("\n")+'"> ';
+                }
+                if ( CompareTableColInfo['cols'][col]['subroute'].length > 0  ) {
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['subroute'].join("\n")+'"> ';
+                }
+                if ( CompareTableColInfo['cols'][col]['information'].length > 0  ) {
+                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['information'].join("\n")+'"> ';
                 }
                 th.innerHTML += GetObjectLinks( id, 'relation', is_GTFS=(source_type === 'GTFS'), is_Route=!is_GTFS, feed=CompareTableColInfo['feed'], release_date=CompareTableColInfo['release_date'] );
                 th.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
@@ -1153,11 +1159,17 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th.className = 'compare-routes-odd compare-routes-left no-border-right';
                 tr.appendChild(th);
                 th = document.createElement('th');
-                if ( CompareTableRowInfo['rows'][row]['attention'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Attention32.png" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['attention'].join("\n")+'"> ';
+                if ( CompareTableRowInfo['rows'][row]['2stopsonly'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
                 }
-                if ( CompareTableRowInfo['rows'][row]['info'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['info'].join("\n")+'"> ';
+                if ( CompareTableRowInfo['rows'][row]['suspicious'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
+                }
+                if ( CompareTableRowInfo['rows'][row]['subroute'].length > 0  ) {
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['subroute'].join("\n")+'"> ';
+                }
+                if ( CompareTableRowInfo['rows'][row]['information'].length > 0  ) {
+                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['information'].join("\n")+'"> ';
                 }
                 id = CompareTableRowInfo['rows'][row]['id'];
                 source_type = CompareTableRowInfo['type'];
@@ -1258,7 +1270,7 @@ function SelectRoutesTableRowsByScoreValue() {
 }
 
 
-function SelectRoutesTableRowsSameStopNameSequences() {
+function SelectRoutesTableRows2StopsOnly() {
 }
 
 
@@ -1294,8 +1306,10 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
             name         = DATA_Relations[lor][relation_id]['tags']['name'] ? htmlEscape(DATA_Relations[lor][relation_id]['tags']['name']) : relation_id.toString();
             [display_name,sort_name] = GetDisplaySortName( lor, source_type, relation_id );
             ret_list.push( { 'id'            : relation_id,
-                             'info'          : [],                      // empty
-                             'attention'     : [],                      // empty
+                             '2stopsonly'    : [],                      // empty
+                             'suspicious'    : [],                      // empty
+                             'subroute'      : [],                      // empty
+                             'information'   : [],                      // empty
                              'name'          : name,                    // 'name' of OSM relation if set
                              'display_name'  : display_name,            // 'name' of OSM relation if set
                              'sort_name'     : sort_name,               // 'name' of OSM relation if set
@@ -1312,8 +1326,10 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                     name         = DATA_Relations[lor][member_id]['tags']['name'] ? htmlEscape(DATA_Relations[lor][member_id]['tags']['name']) : htmlEscape(member_id.toString());
                     [display_name,sort_name] = GetDisplaySortName( lor, source_type, member_id );
                     ret_list.push( { 'id'            : member_id,
-                                     'info'          : GetPtnaInformationOfTrip( lor, source_type, member_id),           // comments from ptna_trips
-                                     'attention'     : GetPtnaAttentionOfTrip( lor, source_type, member_id),           // suspicious things from ptna_trips
+                                     '2stopsonly'    : GetPtna2StopsOnlyOfTrip( lor, source_type, member_id ),          // trip has only two stops
+                                     'suspicious'    : GetPtnaSuspiciousOfTrip( lor, source_type, member_id ),          // suspicious things from ptna_trips
+                                     'subroute'      : GetPtnaSubRouteOfTrip( lor, source_type, member_id ),            // trip is subroute of ...
+                                     'information'   : GetPtnaInformationOfTrip( lor, source_type, member_id ),         // all further comments from ptna_trips
                                      'name'          : name,         // 'name' of OSM relation if set
                                      'display_name'  : display_name, // 'name' to be used on the routes compare table ('stop-1 ... x stops ... stop-n')
                                      'sort_name'     : sort_name,    // 'name' to be used for sorting GTFS trips ('stop-1 stop-n stop-2 stop-3' ... 'stop-n')
@@ -1334,14 +1350,13 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
 }
 
 
-function GetPtnaInformationOfTrip( lor, source_type, id ) {
+function GetPtnaSubRouteOfTrip( lor, source_type, id ) {
     const expanded = { 'subroute_of' : 'This trips is sub-route of:' }
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
-                if ( !key.match(/^suspicious/) &&
-                     !key.match(/^same/)          ) {
+                if ( key.match(/^subroute_of/) ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                 }
              });
@@ -1351,22 +1366,55 @@ function GetPtnaInformationOfTrip( lor, source_type, id ) {
 }
 
 
-function GetPtnaAttentionOfTrip( lor, source_type, id ) {
+function GetPtna2StopsOnlyOfTrip( lor, source_type, id ) {
+    const expanded = { 'suspicious_number_of_stops' : 'Trip with suspicious number of stops:' }
+    var ret_list = [];
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( key.match(/^suspicious_number_of_stops/) ) {
+                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                }
+             });
+        }
+    }
+    return ret_list;
+}
+
+
+function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
     const expanded = { 'same_names_but_different_ids'       : 'Trips have identical stop-names but different stop-ids',
                        'same_stops_but_different_shape_ids' : 'Trips have identical stops (names and ids) but different shape-ids:',
                        'suspicious_start'                   : 'Trip with suspicious start: 1st and 2nd stop have same',
                        'suspicious_end'                     : 'Trip with suspicious end: second last and last stop have same',
-                       'suspicious_number_of_stops'         : 'Trip with suspicious number of stops:',
                        'suspicious_trip_duration'           : 'Trip with suspicious travel time:'
                     }
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
-                if ( key.match(/^suspicious/) ||
-                     key.match(/^same/)          ) {
+                if ( key.match(/^suspicious_[set]/) ||
+                     key.match(/^same/)                ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                     }
+             });
+        }
+    }
+    return ret_list;
+}
+
+
+function GetPtnaInformationOfTrip( lor, source_type, id ) {
+    const expanded = {};
+    var ret_list = [];
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( !key.match(/^suspicious/)  &&
+                     !key.match(/^same/)        &&
+                     !key.match(/^subroute_of/)    ) {
+                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                }
              });
         }
     }
@@ -1688,7 +1736,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['stop_name'] = cmp_list['left'][i]['ptna']['stop_name'];
                         if ( cmp_list['left'][i]['tags']['stop_name'] &&
                              cmp_list['left'][i]['tags']['stop_name'].toString() !== body_row['stop_name'].toString() ){
-                             body_row['info'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['left'][i]['tags']['stop_name']) + '\'"/>';
+                             body_row['info'] = '<img src="/img/Normalized32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['left'][i]['tags']['stop_name']) + '\'"/>';
                         }
                     } else {
                         body_row['stop_name'] = cmp_list['left'][i]['tags']['stop_name'] || '';
@@ -1721,7 +1769,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             body_row['stop_name2'] = cmp_list['right'][i]['ptna']['stop_name'];
                             if ( cmp_list['right'][i]['tags']['stop_name'] &&
                                  cmp_list['right'][i]['tags']['stop_name'].toString() !== body_row['stop_name2'].toString() ){
-                                 body_row['info2'] = '<img src="/img/Information32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['right'][i]['tags']['stop_name']) + '\'"/>';
+                                 body_row['info2'] = '<img src="/img/Normalized32.png" height="18" width="18" alt="Information" title="GTFS: stop_name=\'' + htmlEscape(cmp_list['right'][i]['tags']['stop_name']) + '\'"/>';
                             }
                         } else {
                             body_row['stop_name2'] = cmp_list['right'][i]['tags']['stop_name'] || '';
