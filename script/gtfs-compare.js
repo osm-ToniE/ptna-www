@@ -1317,6 +1317,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                              'suspicious'    : [],                      // empty
                              'subroute'      : [],                      // empty
                              'information'   : [],                      // empty
+                             'rides'         : 0,                       // number of rides in the validity period
                              'name'          : name,                    // 'name' of OSM relation if set
                              'display_name'  : display_name,            // 'name' of OSM relation if set
                              'sort_name'     : sort_name,               // 'name' of OSM relation if set
@@ -1337,6 +1338,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                                      'suspicious'    : GetPtnaSuspiciousOfTrip( lor, source_type, member_id ),          // suspicious things from ptna_trips
                                      'subroute'      : GetPtnaSubRouteOfTrip( lor, source_type, member_id ),            // trip is subroute of ...
                                      'information'   : GetPtnaInformationOfTrip( lor, source_type, member_id ),         // all further comments from ptna_trips
+                                     'rides'         : GetPtnaRidesOfTrip( lor, source_type, member_id ),               // number of rides in the validity period
                                      'name'          : name,         // 'name' of OSM relation if set
                                      'display_name'  : display_name, // 'name' to be used on the routes compare table ('stop-1 ... x stops ... stop-n')
                                      'sort_name'     : sort_name,    // 'name' to be used for sorting GTFS trips ('stop-1 stop-n stop-2 stop-3' ... 'stop-n')
@@ -1419,13 +1421,29 @@ function GetPtnaInformationOfTrip( lor, source_type, id ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( !key.match(/^suspicious/)  &&
                      !key.match(/^same/)        &&
-                     !key.match(/^subroute_of/)    ) {
+                     !key.match(/^subroute_of/) &&
+                     !key.match(/^rides/)          ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                 }
              });
         }
     }
     return ret_list;
+}
+
+
+function GetPtnaRidesOfTrip( lor, source_type, id ) {
+    var ret_val = 0;
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( key.match(/^rides/) ) {
+                    ret_val = value;
+                }
+             });
+        }
+    }
+    return ret_val;
 }
 
 
@@ -1465,6 +1483,9 @@ function GetDisplaySortName( lor, source_type, relation_id ) {
                     stop_name_list.shift;
                     stop_name_list.unshift(name_last);  // last name becomes the second most important sort criteria followed, 3rd is second stop name, ...
                     stop_name_list.unshift(name_first); // first name becomes the most important sort criteria
+                    if ( DATA_Relations[lor][relation_id]['ptna'] && DATA_Relations[lor][relation_id]['ptna']['rides'] ) {
+                        stop_name_list.push(10000000-DATA_Relations[lor][relation_id]['ptna']['rides']);  // highest number of rides first
+                    }
                     sort_name = stop_name_list.join(';');
                 }
             }
