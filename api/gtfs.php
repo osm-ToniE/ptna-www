@@ -523,10 +523,11 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $ptna ) {
             $tmp_array['id']             = $trip_id;
             $tmp_array['members']        = $member_array;
             $tmp_array['tags']           = $tags_array;
-            if ( $ptna && isset($table_array['ptna_trips_comments']) ) {
-                $sql = sprintf( "SELECT   *
-                                 FROM     ptna_trips_comments
-                                 WHERE    trip_id='%s';",
+            if ( $ptna && isset($table_array['ptna_trips']) && isset($table_array['ptna_trips_comments']) ) {
+                $sql = sprintf( "SELECT    ptna_trips_comments.*, ptna_trips.rides
+                                 FROM      ptna_trips
+                                 LEFT JOIN ptna_trips_comments ON ptna_trips.trip_id = ptna_trips_comments.trip_id
+                                 WHERE     ptna_trips.trip_id='%s';",
                                  SQLite3::escapeString($rep_trip_id)
                               );
                 $trips = $db->query( $sql );
