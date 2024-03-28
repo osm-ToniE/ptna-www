@@ -120,16 +120,8 @@
                     <li><span style="background-color: #f17a00;">24 <= score < 48</span></li>
                     <li><span style="background-color: #fe4000;">48 <= score</span></li>
                     </ul>
-                    <p>Move the mouse over a cell and it will pop-up a list of individual scores (yet to be done).</p>
-                    <ul>
-                        <li>xS == number of stops differ by "x%"</li>
-                        <li>(a,b,c)P == percentage of stops where positions differ by more than 20 / 100 / 1000 meters</li>
-                        <li>xN == percentage of stops where the 'name' differs (GTFS-'stop_name' / OSM-'name')</li>
-                        <li>xR == percentage of stops where the GTFS-'stop_name' differs from OSM-'ref_name' (if tagged)</li>
-                        <li>xI == percentage of stops where the GTFS-'stop_id' differ (GTFS/GTFS comparison)</li>
-                        <li>xG == percentage of stops where the GTFS-'stop_id' differs from OSM-'gtfs:stop_id' (if tagged)</li>
-                        <li>xF == percentage of stops where the GTFS-'stop_id' differs from OSM-'ref:IFOPT' (if tagged)</li>
-                    </ul>
+                    <p>Move the mouse over a cell and it will pop-up a list of individual scores.<br/>
+                       Click on a cell and you'll see a detailed analyis of the data.</p>
                 </div>
                 <span id="hiddenmap"></span>
                 <script>
