@@ -88,10 +88,11 @@
                     </p>
                     <div id="routes-table-buttons">
                         <span style="white-space: nowrap"><button class="button-save" title="Select rows with score values" onclick="SelectRoutesTableRowsByScoreValue()">Select rows where all scores &gt;= x %</button><input style="height: 2.2em" id="hide-value" class="compare-routes-right" type="number" size="5" value="30" min="1" max="99"/></span>
-<!--                        <span style="white-space: nowrap"><button class="button-save" title="Select trips with only 2 stops" onclick="SelectRoutesTableRows2StopsOnly()">Select trips with only 2 stops <img src="/img/2StopsOnly.svg" height="14" width="14" alt="Attention"></button></span>
-                        <span style="white-space: nowrap"><button class="button-save" title="Select suspicious trips" onclick="SelectRoutesTableRowsIfSuspicious()">Select suspicious trips <img src="/img/Suspicious.svg" height="14" width="14" alt="Attention"></button></span>
-                        <span style="white-space: nowrap"><button class="button-save" title="Select sub-routes" onclick="SelectRoutesTableRowsIfSubrouteOf()">Select sub-routes <img src="/img/Subroute.svg" height="14" width="14" alt="Information"></button></span>
--->                        <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="add" checked name="selection"></input>Add to selection</button></span>
+<!--                        <span style="white-space: nowrap"><button class="button-save" title="Select trips with only 2 stops" onclick="SelectRoutesTableRows2StopsOnly()">Select trips with only 2 stops <img src="/img/2StopsOnly.svg" height="14" width="14" alt="2StopsOnly"></button></span>
+                        <span style="white-space: nowrap"><button class="button-save" title="Select nearly identical trips" onclick="SelectRoutesTableRowsIfSuspicious()">Select nearly identical trips <img src="/img/NearlySame.svg" height="14" width="14" alt="NearlySame"></button></span>
+                        <span style="white-space: nowrap"><button class="button-save" title="Select suspicious trips" onclick="SelectRoutesTableRowsIfNearlySame()">Select suspicious trips <img src="/img/Suspicious.svg" height="14" width="14" alt="Suspicious"></button></span>
+                        <span style="white-space: nowrap"><button class="button-save" title="Select sub-routes" onclick="SelectRoutesTableRowsIfSubrouteOf()">Select sub-routes <img src="/img/Subroute.svg" height="14" width="14" alt="Subroute"></button></span>
+                            -->                        <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="add" checked name="selection"></input>Add to selection</button></span>
                         <span style="white-space: nowrap"><button class="button-save"><input type="radio" id="replace" name="selection"></input>Replace selection</button></span>
                     </div>
                     <div class="tableFixBothCompare" id="routes-table-div" style="max-height: 830px; max-width: 1850px ">
