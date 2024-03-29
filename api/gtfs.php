@@ -5,6 +5,7 @@ $before = memory_get_usage();
 include('../script/globals.php');
 
 if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) {
+    $old_limit = ini_set( "memory_limit", "-1" );
     define("PTNA_VERSION","PTNA " . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
     define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
     define("PTNA_URL","https://ptna.openstreetmap.de/api/gtfs.php");
