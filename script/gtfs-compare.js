@@ -1100,13 +1100,16 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 id   = CompareTableColInfo['cols'][col]['id'];
                 source_type = CompareTableColInfo['type'];
                 if ( CompareTableColInfo['cols'][col]['2stopsonly'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="Attention" title="'+CompareTableColInfo['cols'][col]['2stopsonly'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+CompareTableColInfo['cols'][col]['2stopsonly'].join("\n")+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['suspicious'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Attention" title="'+CompareTableColInfo['cols'][col]['suspicious'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+CompareTableColInfo['cols'][col]['suspicious'].join("\n")+'"> ';
+                }
+                if ( CompareTableColInfo['cols'][col]['nearlysame'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" title="'+CompareTableColInfo['cols'][col]['nearlysame'].join("\n")+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['subroute'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['subroute'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" title="'+CompareTableColInfo['cols'][col]['subroute'].join("\n")+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['information'].length > 0  ) {
                     th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['information'].join("\n")+'"> ';
@@ -1147,8 +1150,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             thead.appendChild(tr);
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
+                tr.setAttribute('id', 'row'+row.toString());
                 th = document.createElement('th');
-                th.innerHTML = '<input id="row' + (row+1).toString() + '" type="checkbox" />';
+                th.innerHTML = '<input id="input-row' + (row+1).toString() + '" type="checkbox" />';
                 th.className = 'compare-routes-odd';
                 tr.appendChild(th);
                 tr.style['display'] = 'table-row';      // "hide/show rows" will set/reset this to 'none'/'table-row' if 'checkbox' in 2nd column is set/inset
@@ -1167,13 +1171,20 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
                 th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['2stopsonly'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2stopsonly" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['suspicious'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Attention" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="suspicious" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
+                }
+                if ( CompareTableRowInfo['rows'][row]['nearlysame'].length > 0 ) {
+                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" ' +
+                                          'title="'+CompareTableRowInfo['rows'][row]['nearlysame'].join("\n")+'" ' +
+                                          'onclick="ToggleAnimationForNearlySame(this);"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['subroute'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['subroute'].join("\n")+'"> ';
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="subroute" ' +
+                                          'title="'+CompareTableRowInfo['rows'][row]['subroute'].join("\n")+'" ' +
+                                          'onclick="ToggleAnimationForSubRoute(this);"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['information'].length > 0  ) {
                     th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['information'].join("\n")+'"> ';
@@ -1219,7 +1230,18 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
         }
     }
 
+    window.onresize = ReSizeRoutesTable;
+
     return;
+}
+
+
+function ReSizeRoutesTable() {
+    var vw  = Math.min(document.documentElement.clientWidth  || 0, window.innerWidth  || 0);
+    var vh  = Math.min(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    var div = document.getElementById('routes-table-div');
+    div.style["max-height"] = vh - 81 + "px";
+    div.style["max-width"]  = vw - 68 + "px";
 }
 
 
@@ -1234,7 +1256,7 @@ function ClearRoutesTableRowCheckBoxes() {
     var tr_elements = tbody.getElementsByTagName('tr');
     var input_elements = tbody.getElementsByTagName('input');
     for ( var i = 0; i < input_elements.length; i++ ) {
-        if ( input_elements[i].id.match(/^row/) ) {
+        if ( input_elements[i].id.match(/^input-row/) ) {
             input_elements[i].parentElement.parentElement.style['display'] = 'table-row';
             input_elements[i].checked = false;
         }
@@ -1246,7 +1268,7 @@ function HideSelectedRoutesTableRows() {
     var tbody = document.getElementById('routes-table-tbody');
     var input_elements = tbody.getElementsByTagName('input');
     for ( var i = 0; i < input_elements.length; i++ ) {
-        if ( input_elements[i].id.match(/^row/) ) {
+        if ( input_elements[i].id.match(/^input-row/) ) {
             if ( input_elements[i].checked ) {
                 input_elements[i].parentElement.parentElement.style['display'] = 'none';
             } else {
@@ -1288,6 +1310,19 @@ function SelectRoutesTableRowsIfSuspicious() {
 function SelectRoutesTableRowsIfSubrouteOf() {
 }
 
+function SelectRoutesTableRowsIfNearlySame() {
+}
+
+
+function ToggleAnimationForNearlySame(imgObj) {
+    console.log("Called ToggleAnimationForNearlySame(imgObj)");
+}
+
+
+function ToggleAnimationForSubRoute(imgObj) {
+    console.log("Called ToggleAnimationForSubRoute(imgObj)");
+}
+
 
 function ShowRoutesTableRows() {
     var tbody = document.getElementById('routes-table-tbody');
@@ -1315,6 +1350,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
             ret_list.push( { 'id'            : relation_id,
                              '2stopsonly'    : [],                      // empty
                              'suspicious'    : [],                      // empty
+                             'nearlysame'    : [],                      // empty
                              'subroute'      : [],                      // empty
                              'information'   : [],                      // empty
                              'rides'         : 0,                       // number of rides in the validity period
@@ -1336,6 +1372,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                     ret_list.push( { 'id'            : member_id,
                                      '2stopsonly'    : GetPtna2StopsOnlyOfTrip( lor, source_type, member_id ),          // trip has only two stops
                                      'suspicious'    : GetPtnaSuspiciousOfTrip( lor, source_type, member_id ),          // suspicious things from ptna_trips
+                                     'nearlysame'    : GetPtnaNearlySameOfTrip( lor, source_type, member_id ),          // trips are similar on stop_name, but not on stop_id or shape_id
                                      'subroute'      : GetPtnaSubRouteOfTrip( lor, source_type, member_id ),            // trip is subroute of ...
                                      'information'   : GetPtnaInformationOfTrip( lor, source_type, member_id ),         // all further comments from ptna_trips
                                      'rides'         : GetPtnaRidesOfTrip( lor, source_type, member_id ),               // number of rides in the validity period
@@ -1360,7 +1397,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
 
 
 function GetPtnaSubRouteOfTrip( lor, source_type, id ) {
-    const expanded = { 'subroute_of' : 'This trips is sub-route of:' }
+    const expanded = { 'subroute_of' : 'This trip is sub-route of:' }
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
@@ -1392,9 +1429,7 @@ function GetPtna2StopsOnlyOfTrip( lor, source_type, id ) {
 
 
 function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
-    const expanded = { 'same_names_but_different_ids'       : 'Trips have identical stop-names but different stop-ids',
-                       'same_stops_but_different_shape_ids' : 'Trips have identical stops (names and ids) but different shape-ids:',
-                       'suspicious_start'                   : 'Trip with suspicious start: 1st and 2nd stop have same',
+    const expanded = { 'suspicious_start'                   : 'Trip with suspicious start: 1st and 2nd stop have same',
                        'suspicious_end'                     : 'Trip with suspicious end: second last and last stop have same',
                        'suspicious_trip_duration'           : 'Trip with suspicious travel time:'
                     }
@@ -1402,8 +1437,25 @@ function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
-                if ( key.match(/^suspicious_[set]/) ||
-                     key.match(/^same/)                ) {
+                if ( key.match(/^suspicious_[set]/) ) {
+                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                    }
+             });
+        }
+    }
+    return ret_list;
+}
+
+
+function GetPtnaNearlySameOfTrip( lor, source_type, id ) {
+    const expanded = { 'same_names_but_different_ids'       : 'Trips have identical stop-names but different stop-ids',
+                       'same_stops_but_different_shape_ids' : 'Trips have identical stops (names and ids) but different shape-ids:'
+                    }
+    var ret_list = [];
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( key.match(/^same_[ns]/)                ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                     }
              });
