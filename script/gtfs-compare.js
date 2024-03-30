@@ -1151,6 +1151,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             for ( var row = 0; row < row_count; row++ ) {
                 tr = document.createElement('tr');
                 tr.setAttribute('id', 'row'+row.toString());
+                tr.setAttribute('ptna-trip_id', CompareTableRowInfo['rows'][row]['id'] );
                 th = document.createElement('th');
                 th.innerHTML = '<input id="input-row' + (row+1).toString() + '" type="checkbox" />';
                 th.className = 'compare-routes-odd';
@@ -1171,22 +1172,27 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
                 th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['2stopsonly'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2stopsonly" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
+                    tr.setAttribute('ptna-2stopsonly', 'true');
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['suspicious'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="suspicious" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
+                    tr.setAttribute('ptna-suspicious', 'true');
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['nearlysame'].length > 0 ) {
+                    tr.setAttribute('ptna-nearlysame', 'true');
                     th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" ' +
                                           'title="'+CompareTableRowInfo['rows'][row]['nearlysame'].join("\n")+'" ' +
                                           'onclick="ToggleAnimationForNearlySame(this);"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['subroute'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="subroute" ' +
+                    tr.setAttribute('ptna-subroute', 'true');
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" ' +
                                           'title="'+CompareTableRowInfo['rows'][row]['subroute'].join("\n")+'" ' +
                                           'onclick="ToggleAnimationForSubRoute(this);"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['information'].length > 0  ) {
+                    tr.setAttribute('ptna-information', 'true');
                     th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['information'].join("\n")+'"> ';
                 }
                 id = CompareTableRowInfo['rows'][row]['id'];
@@ -1212,7 +1218,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     min_score_of_row = (min_score_of_row > parseFloat(CompareTable[row][col]['score'])) ? parseFloat(CompareTable[row][col]['score']) : min_score_of_row;
                     tr.appendChild(td);
                 }
-                tr.setAttribute('min-score',min_score_of_row);
+                tr.setAttribute('ptna-min-score',min_score_of_row);
                 tbody.appendChild(tr);
             }
 
@@ -1285,7 +1291,7 @@ function SelectRoutesTableRowsByScoreValue() {
     var tr_elements = tbody.getElementsByTagName('tr');
     var input_elements = tbody.getElementsByTagName('input');
      for ( var i = 0; i < tr_elements.length; i++ ) {
-        var min_score = parseFloat(tr_elements[i].getAttribute('min-score'));
+        var min_score = parseFloat(tr_elements[i].getAttribute('ptna-min-score'));
         var hide_value = parseFloat(value_elem.value);
         if ( min_score >= hide_value ) {
             input_elements[i].checked = true;
