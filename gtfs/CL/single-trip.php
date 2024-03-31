@@ -44,7 +44,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png" alt="bandera Chile" /></a> GTFS Analysis for <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a> <a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '">Route "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Chile</span>'; } ?></h2>
+                <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png"  class="flagimg" alt="bandera Chile" /></a> GTFS Analysis for <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a> <a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '">Route "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Chile</span>'; } ?></h2>
                 <div class="indent">
                     <ul>
                         <li><a href="#showonmap">Map</a></li>

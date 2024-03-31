@@ -24,7 +24,7 @@
 
 <?php $duration = 0; ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed_and_release) . '"'; } ?></h2>
+            <h2 id="details"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> GTFS Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed_and_release) . '"'; } ?></h2>
                 <div class="indent">
 
                     <h3 id="feeds">Available GTFS sources</h3>

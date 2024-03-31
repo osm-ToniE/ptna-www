@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-        <h2 id="CZ"><img src="/img/CzechRepublic32.png" alt="Vlajka Česka" /> Výsledky pro Českou republiku</h2>
+        <h2 id="CZ"><img src="/img/CzechRepublic32.png"  class="flagimg" alt="Vlajka Česka" /> Výsledky pro Českou republiku</h2>
 
             <?php include $inc_lang.'results-head.inc' ?>
 

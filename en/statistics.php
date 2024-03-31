@@ -23,7 +23,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="statistics"><img src="/img/GreatBritain16.png" alt="Union Jack" /> Statistics</h2>
+            <h2 id="statistics"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> Statistics</h2>
             <p>
                 Server Load: <code><?php StatisticsPrintServerLoad();?></code>
             </p>

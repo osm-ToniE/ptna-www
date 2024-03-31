@@ -7,13 +7,13 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
-            <h2 id="GH"><img src="/img/Ghana32.png" alt="flag of Ghana" /> Results for Ghana</h2>
-      
+            <h2 id="GH"><img src="/img/Ghana32.png"  class="flagimg" alt="flag of Ghana" /> Results for Ghana</h2>
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksGhana">
@@ -36,4 +36,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

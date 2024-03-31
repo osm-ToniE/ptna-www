@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-        <h2 id="EE"><img src="/img/Estonia32.png" alt="Eesti lipp" /> Tulemused Eesti kohta</h2>
+        <h2 id="EE"><img src="/img/Estonia32.png"  class="flagimg" alt="Eesti lipp" /> Tulemused Eesti kohta</h2>
 
             <?php include $inc_lang.'results-head.inc' ?>
 

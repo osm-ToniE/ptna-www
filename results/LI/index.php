@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-        <h2 id="LI"><img src="/img/Liechtenstein32.png" alt="Flagge Liechtenstein" /> Auswertungen für Liechtenstein</h2>
+        <h2 id="LI"><img src="/img/Liechtenstein32.png"  class="flagimg" alt="Flagge Liechtenstein" /> Auswertungen für Liechtenstein</h2>
 
             <?php include $inc_lang.'results-head.inc' ?>
 

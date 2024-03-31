@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="MA"><img src="/img/Morocco32.png" alt="Drapeau marocain" /> Résultats pour Maroc</h2>
+            <h2 id="MA"><img src="/img/Morocco32.png"  class="flagimg" alt="Drapeau marocain" /> Résultats pour Maroc</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

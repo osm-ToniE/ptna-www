@@ -44,7 +44,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png" alt="österreichische Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a> <a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Österreich</span>'; } ?></h2>
+                <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png"  class="flagimg" alt="österreichische Flagge" /></a> GTFS Analysen für <?php if ( $feed && $route_id && $route_short_name && $trip_id ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a> <a href="trips.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($route_id) . '">Linie "<span id="route_short_name">' . htmlspecialchars($route_short_name) . '</span></a>", Trip-Id = "<span id="trip_id">' . htmlspecialchars($trip_id) . '</span>"'; } else { echo '<span id="feed">Österreich</span>'; } ?></h2>
                 <div class="indent">
                     <ul>
                         <li><a href="#showonmap">Karte</a></li>

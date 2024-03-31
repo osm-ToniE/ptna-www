@@ -28,7 +28,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="EE"><a href="index.php"><img src="/img/Estonia32.png" alt="Flag of Estonia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Estonia</span>'; } ?></h2>
+            <h2 id="EE"><a href="index.php"><img src="/img/Estonia32.png"  class="flagimg" alt="Flag of Estonia" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Estonia</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

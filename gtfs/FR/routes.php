@@ -28,7 +28,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="FR"><a href="index.php"><img src="/img/France32.png" alt="drapeau français" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">France</span>'; } ?></h2>
+            <h2 id="FR"><a href="index.php"><img src="/img/France32.png"  class="flagimg" alt="drapeau français" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">France</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

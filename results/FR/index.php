@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="FR"><img src="/img/France32.png" alt="Drapeau français" /> Résultats pour la France</h2>
+            <h2 id="FR"><img src="/img/France32.png"  class="flagimg" alt="Drapeau français" /> Résultats pour la France</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

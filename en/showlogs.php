@@ -13,7 +13,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="logging"><img src="/img/GreatBritain16.png" alt="Union Jack" /> Analysis Logs</h2>
+            <h2 id="logging"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> Analysis Logs</h2>
             <p>
             </p>
 

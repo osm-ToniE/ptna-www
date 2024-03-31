@@ -28,7 +28,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png" alt="bandera Chile" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Chile</span>'; } ?></h2>
+            <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png"  class="flagimg" alt="bandera Chile" /></a> GTFS Analysis for <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Chile</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

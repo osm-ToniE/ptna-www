@@ -28,7 +28,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png" alt="österreichische Flagge" /></a> GTFS Analysen für <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Österreich</span>'; } ?></h2>
+            <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png"  class="flagimg" alt="österreichische Flagge" /></a> GTFS Analysen für <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Österreich</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Verfügbare GTFS-Quellen</h3>

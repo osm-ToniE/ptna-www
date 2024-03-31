@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="AU"><img src="/img/Australia32.png" alt="Flag of Australia" /> Results for Australia</h2>
+            <h2 id="AU"><img src="/img/Australia32.png"  class="flagimg" alt="Flag of Australia" /> Results for Australia</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

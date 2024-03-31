@@ -13,7 +13,7 @@
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png" alt="deutsche Flagge" /></a> GTFS Analysen für Deutschland</h2>
+            <h2 id="DE"><a href="index.php"><img src="/img/Germany32.png"  class="flagimg" alt="deutsche Flagge" /></a> GTFS Analysen für Deutschland</h2>
             <div class="indent">
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsDE">

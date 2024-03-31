@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="PA"><img src="/img/Panama32.png" alt="bandera Panama" /> Resultados para Panama</h2>
+            <h2 id="PA"><img src="/img/Panama32.png"  class="flagimg" alt="bandera Panama" /> Resultados para Panama</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

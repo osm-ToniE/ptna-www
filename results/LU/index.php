@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="LU"><img src="/img/Luxembourg32.png" alt="Flagge Lëtzebuerg" /> Results for Lëtzebuerg / Luxemburg / Luxembourg</h2>
+            <h2 id="LU"><img src="/img/Luxembourg32.png"  class="flagimg" alt="Flagge Lëtzebuerg" /> Results for Lëtzebuerg / Luxemburg / Luxembourg</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="HR"><img src="/img/Croatia32.png" alt="flag of the USA" /> Rezultati za Hrvatsku</h2>
+            <h2 id="HR"><img src="/img/Croatia32.png"  class="flagimg" alt="flag of the USA" /> Rezultati za Hrvatsku</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

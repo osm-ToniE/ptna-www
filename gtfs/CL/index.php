@@ -13,7 +13,7 @@
 <?php $duration = 0; ?>
         <main id="main" class="results">
 
-            <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png" alt="bandera Chile" /></a> GTFS Analysis for Chile</h2>
+            <h2 id="CL"><a href="index.php"><img src="/img/Chile32.png"  class="flagimg" alt="bandera Chile" /></a> GTFS Analysis for Chile</h2>
             <div class="indent">
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsCL">

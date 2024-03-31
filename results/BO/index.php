@@ -7,13 +7,13 @@
 
     <body>
       <div id="wrapper">
-      
+
 <?php include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
-            <h2 id="BO"><img src="/img/Bolivia32.png" alt="bandera Bolivia" /> Resultados para Bolivia</h2>
-      
+            <h2 id="BO"><img src="/img/Bolivia32.png"  class="flagimg" alt="bandera Bolivia" /> Resultados para Bolivia</h2>
+
 <?php include $inc_lang.'results-head.inc' ?>
 
             <table id="networksBO">
@@ -36,4 +36,3 @@
       </div> <!-- wrapper -->
     </body>
 </html>
-

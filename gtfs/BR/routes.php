@@ -28,7 +28,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Brasil</span>'; } ?></h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png"  class="flagimg" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed ) { echo '<span id="feed">' . htmlspecialchars($feed_and_release) . '</span>'; } else { echo '<span id="feed">Brasil</span>'; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

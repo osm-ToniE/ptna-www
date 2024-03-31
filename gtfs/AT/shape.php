@@ -29,7 +29,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png" alt="österreichische Flagge" /></a> GTFS Analysen für
+                <h2 id="AT"><a href="index.php"><img src="/img/Austria32.png"  class="flagimg" alt="österreichische Flagge" /></a> GTFS Analysen für
                     <?php if ( $feed && $shape_id ) {
                               echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a>, Shape-Id = "<span id="shape_id">' . htmlspecialchars($shape_id) . '</span>' . "\n";
                           } else {

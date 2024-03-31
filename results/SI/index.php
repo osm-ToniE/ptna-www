@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="SI"><img src="/img/Slovenia32.png" alt="zastava slovenije" /> Rezultati za Slovenijo</h2>
+            <h2 id="SI"><img src="/img/Slovenia32.png"  class="flagimg" alt="zastava slovenije" /> Rezultati za Slovenijo</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

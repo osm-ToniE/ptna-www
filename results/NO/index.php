@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="NO"><img src="/img/Norway32.png" alt="norks flagg" /> Resultater for Norge</h2>
+            <h2 id="NO"><img src="/img/Norway32.png"  class="flagimg" alt="norks flagg" /> Resultater for Norge</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

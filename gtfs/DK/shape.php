@@ -29,7 +29,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png" alt="Flag til Danmark" /></a> GTFS-analyser for
+                <h2 id="DK"><a href="index.php"><img src="/img/Denmark32.png"  class="flagimg" alt="Flag til Danmark" /></a> GTFS-analyser for
                     <?php if ( $feed && $shape_id ) {
                               echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a>, Shape-Id = "<span id="shape_id">' . htmlspecialchars($shape_id) . '</span>' . "\n";
                           } else {

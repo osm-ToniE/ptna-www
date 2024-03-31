@@ -29,7 +29,7 @@
             <div id="gtfsmap"></div>
             <div class="gtfs-intro">
 
-                <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre
+                <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png"  class="flagimg" alt="bandeira do brasil" /></a> GTFS Análise sobre
                     <?php if ( $feed && $shape_id ) {
                               echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '"><span id="feed">' . htmlspecialchars($feed_and_release) . '</span></a>, Shape-Id = "<span id="shape_id">' . htmlspecialchars($shape_id) . '</span>' . "\n";
                           } else {

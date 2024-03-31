@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="NI"><img src="/img/Nicaragua32.png" alt="bandera Nicaragua" /> Resultados para Nicaragua</h2>
+            <h2 id="NI"><img src="/img/Nicaragua32.png"  class="flagimg" alt="bandera Nicaragua" /> Resultados para Nicaragua</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

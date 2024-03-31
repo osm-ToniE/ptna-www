@@ -34,7 +34,7 @@
                 $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
             ?>
 
-            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
+            <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png"  class="flagimg" alt="bandeira do brasil" /></a> GTFS Análise sobre <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Rota "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Brasil"; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

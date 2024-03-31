@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="MR"><img src="/img/Mauritania32.png" alt="Drapeau mauritanien" /> Résultats pour Mauritanie</h2>
+            <h2 id="MR"><img src="/img/Mauritania32.png"  class="flagimg" alt="Drapeau mauritanien" /> Résultats pour Mauritanie</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

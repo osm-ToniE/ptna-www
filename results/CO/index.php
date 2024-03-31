@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="CO"><img src="/img/Colombia32.png" alt="bandera Colombia" /> Resultados para Colombia</h2>
+            <h2 id="CO"><img src="/img/Colombia32.png"  class="flagimg" alt="bandera Colombia" /> Resultados para Colombia</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 

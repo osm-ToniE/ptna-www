@@ -19,7 +19,7 @@
       $duration = 0;
 ?>
 
-            <h2 id="details"><img src="/img/GreatBritain16.png" alt="Union Jack" /> GTFS Analysis Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
+            <h2 id="details"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> GTFS Analysis Details<?php if ( $feed ) { echo ' for "' . htmlspecialchars($feed) . '"'; } ?></h2>
                 <div class="indent">
                     <p>
                     </p>

@@ -11,7 +11,7 @@
 <?php include $inc_lang.'header.inc' ?>
 
         <nav id="navigation">
-            <h2 id="CH"><img src="/img/Switzerland32.png" alt="Schweizerfahne" /> Schweiz / Suisse / Svizzera</h2>
+            <h2 id="CH"><img src="/img/Switzerland32.png"  class="flagimg" alt="Schweizerfahne" /> Schweiz / Suisse / Svizzera</h2>
             <ul>
                 <li><a href="#CH-de">Ergebnisse für die deutsch-sprachige Schweiz</a></li>
                 <li><a href="#CH-fr">Résultats pour la Suisse romande</a></li>
@@ -23,7 +23,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="CH-de"><img src="/img/Germany16.png" alt="deutsche Flagge" /> Ergebnisse für die deutsch-sprachige Schweiz</h2>
+            <h2 id="CH-de"><img src="/img/Germany16.png"  class="flagimg" alt="deutsche Flagge" /> Ergebnisse für die deutsch-sprachige Schweiz</h2>
 
 <?php $inc_lang='../../de/'; include $inc_lang.'results-head.inc' ?>
 
@@ -60,7 +60,7 @@
 
             <hr />
 
-            <h2 id="CH-fr"><img src="/img/France16.png" alt="La France" /> Résultats pour la Suisse romande</h2>
+            <h2 id="CH-fr"><img src="/img/France16.png"  class="flagimg" alt="La France" /> Résultats pour la Suisse romande</h2>
 
 <?php $inc_lang='../../fr/'; include $inc_lang.'results-head.inc' ?>
 
@@ -87,7 +87,7 @@
 
             <hr />
 
-            <h2 id="CH-it"><img src="/img/Italy16.png" alt="Italia" /> Risultati per la Svizzera italiana</h2>
+            <h2 id="CH-it"><img src="/img/Italy16.png"  class="flagimg" alt="Italia" /> Risultati per la Svizzera italiana</h2>
 
 <?php $inc_lang='../../it/'; include $inc_lang.'results-head.inc' ?>
 

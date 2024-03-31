@@ -12,7 +12,7 @@
 
         <main id="main" class="results">
 
-            <h2 id="CA"><img src="/img/Canada32.png" alt="flag of Canada" /> Results for Canada</h2>
+            <h2 id="CA"><img src="/img/Canada32.png"  class="flagimg" alt="flag of Canada" /> Results for Canada</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
