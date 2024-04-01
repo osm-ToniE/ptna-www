@@ -312,7 +312,7 @@ async function showroutecomparison() {
 
             if ( left_len > 0 && right_len > 0 ) {
                 score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = true );
-                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'] } );
+                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'weights' : score_table['weights'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'] } );
             } else {
                 CompareTable[row].push( { 'score' : -1, 'color' : 'white' } );
                 if ( left_len === 0 && right_len === 0 ) {
@@ -1655,47 +1655,47 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 
 function GetScoreDetailsAsTitle( CompareTable, row, col ) {
     ret_string  = "Show detailed score information\n\n";
-    if ( CompareTable[row][col]['totals']['stops'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of number of stops\n";
     }
-    if ( CompareTable[row][col]['totals']['distance'][0] > 0 ) {
+    if ( CompareTable[row][col]['weights']['distance'][0] > 0 && CompareTable[row][col]['totals']['distance'][0] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][0];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 20 m\n";
     }
-    if ( CompareTable[row][col]['totals']['distance'][1] > 0 ) {
+    if ( CompareTable[row][col]['weights']['distance'][1] > 0 && CompareTable[row][col]['totals']['distance'][1] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][1];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 100 m\n";
     }
-    if ( CompareTable[row][col]['totals']['distance'][2] > 0 ) {
+    if ( CompareTable[row][col]['weights']['distance'][2] > 0 && CompareTable[row][col]['totals']['distance'][2] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][2];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp; mismatch of positions of stops by more than 1000 m\n";
     }
-    if ( CompareTable[row][col]['totals']['name'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['name'] > 0 && CompareTable[row][col]['totals']['name'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['name'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of names of stops (GTFS-'stop_name' / OSM-'name')\n";
     }
-    if ( CompareTable[row][col]['totals']['ref_name'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['ref_name'] > 0 && CompareTable[row][col]['totals']['ref_name'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['ref_name'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_name' of GTFS with 'ref_name' of OSM\n";
     }
-    if ( CompareTable[row][col]['totals']['stop_id2'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['stop_id2'] > 0 && CompareTable[row][col]['totals']['stop_id2'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stop_id2'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS stops\n";
     }
-    if ( CompareTable[row][col]['totals']['gtfs:stop_id'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['gtfs:stop_id'] > 0 && CompareTable[row][col]['totals']['gtfs:stop_id'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['gtfs:stop_id'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'gtfs:stop_id' of OSM\n";
     }
-    if ( CompareTable[row][col]['totals']['ref:IFOPT'] > 0 ) {
+    if ( CompareTable[row][col]['weights']['ref:IFOPT'] > 0 && CompareTable[row][col]['totals']['ref:IFOPT'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['ref:IFOPT'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM\n";
@@ -1821,7 +1821,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                      'weights'   : {
                                         'stops'        : 10,
                                         'distance'     : [1,4,12],
-                                        'name'         : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
+                                        'name'         : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
                                         'ref_name'     : 1,  // GTFS 'stop_name' versus OSM 'ref_name'
                                         'stop_id2'     : 2,  // GTFS 'stop_id' versus GTFS 'stop_id'
                                         'gtfs:stop_id' : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
@@ -1870,6 +1870,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
 
     if ( left_len > 0 && right_len > 0 ) {
+
+        OverwriteScoreWeightsDistancesFromDbOrUrl( scores );
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -1941,6 +1943,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
             }
 
+            // start comparing values left <-> right
+
             if ( body_row['stop_id'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['ref:IFOPT']) ) {
                 if ( body_row['stop_id2'] !== '' ) {
                     if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
@@ -1966,7 +1970,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 }
             }
-            if ( body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
+            if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
                 if ( body_row['stop_name2'] && body_row['stop_name2'] ) {
                     if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
                         row_style['stop_name'].push('background-color:orange');
@@ -2080,6 +2084,18 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
     return array();
 }
+
+
+function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
+    if ( 'osm' in JSON_data['left'] ) {
+        if ( 'wn' in JSON_data['left']['osm'] ) {
+            if ( JSON_data['left']['osm']['wn'].match(/^\d+$/) ) {
+                scores['weights']['name'] = parseInt(JSON_data['left']['osm']['wn']);
+            }
+        }
+    }
+}
+
 
 
 function CalculateScores( scores ) {
@@ -2369,9 +2385,13 @@ function FillTripsScoresTable( scores ) {
             elem_color  = document.getElementById(score_fields_to_ids[field]);
             elem_weight.innerHTML = scores['weights'][field];
             if ( scores['totals'][field] > 0 ) {
-                elem.innerHTML = scores['mismatch_percent'][field] + '%';
-                if ( scores['mismatch_color'][field] !== '' ) {
-                    elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
+                if ( scores['weights'][field] > 0 ) {
+                    elem.innerHTML = scores['mismatch_percent'][field] + '%';
+                    if ( scores['mismatch_color'][field] !== '' ) {
+                        elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
+                    }
+                } else {
+                    elem.innerHTML = 'n/r';
                 }
             } else {
                 elem.innerHTML = 'n/a';

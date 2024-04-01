@@ -174,7 +174,8 @@
                                 <tfoot id="scores-table-tfoot" class="scores-table-tfoot">
                                 </tfoot>
                             </table>
-                            <span>"n/a" : these combinations have not been detected</span>
+                            <span style="display: inline-block; width: 2.11em">"n/a"</span> : these combinations have not been detected<br/>
+                            <span style="display: inline-block; width: 2.11em">"n/r"</span> : these combinations are not relevant, their 'weights' have been set to zero
                             <p><span style="font-weight: 1000; font-size:1.2em;">Before fixing potential errors in OSM data: consider that GTFS data can be wrong as well!</span></p>
                         </div>
                     </div>
