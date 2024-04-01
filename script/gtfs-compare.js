@@ -264,18 +264,21 @@ async function showroutecomparison() {
     var score_table  = [];
     var zero_data    = false;
 
-    CompareTable        = [];
-    CompareTableRowInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
-    CompareTableColInfo = {};
+    CompareTable                  = [];
+    CompareTableRowInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
+    CompareTableRowInfo['id2num'] = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
+    CompareTableColInfo           = {};
     var whats_right         = '';
     if ( relation_id !== '' ) {
         whats_right         = 'OSM';
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
-                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo           = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
-                CompareTableColInfo = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, cols : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo           = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
             } else {
                 alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
                 return;
@@ -285,8 +288,9 @@ async function showroutecomparison() {
             return;
         }
     } else {
-        whats_right         = 'GTFS';
-        CompareTableColInfo = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
+        whats_right                   = 'GTFS';
+        CompareTableColInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
+        CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
     }
 
     var NumberOfRows = CompareTableRowInfo['rows'].length;
@@ -1100,19 +1104,24 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 id   = CompareTableColInfo['cols'][col]['id'];
                 source_type = CompareTableColInfo['type'];
                 if ( CompareTableColInfo['cols'][col]['2stopsonly'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+CompareTableColInfo['cols'][col]['2stopsonly'].join("\n")+'"> ';
+                    var title = CompareTableColInfo['cols'][col]['2stopsonly'][0];  // always a single line
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+title+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['suspicious'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+CompareTableColInfo['cols'][col]['suspicious'].join("\n")+'"> ';
+                    var title = CompareTableColInfo['cols'][col]['suspicious'].join("\n");  // can be multiple lines
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+title+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['nearlysame'].length > 0 ) {
-                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" title="'+CompareTableColInfo['cols'][col]['nearlysame'].join("\n")+'"> ';
+                    var title = CreateTitleFor(CompareTableColInfo,'cols',col,'nearlysame');
+                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" title="'+title+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['subroute'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" title="'+CompareTableColInfo['cols'][col]['subroute'].join("\n")+'"> ';
+                    var title = CreateTitleFor(CompareTableColInfo,'cols',col,'subroute');
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" title="'+title+'"> ';
                 }
                 if ( CompareTableColInfo['cols'][col]['information'].length > 0  ) {
-                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableColInfo['cols'][col]['information'].join("\n")+'"> ';
+                    var title = CompareTableColInfo['cols'][col]['information'].join("\n")  // can be multiple lines
+                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+title+'">';
                 }
                 th.innerHTML += GetObjectLinks( id, 'relation', is_GTFS=(source_type === 'GTFS'), is_Route=!is_GTFS, feed=CompareTableColInfo['feed'], release_date=CompareTableColInfo['release_date'] );
                 th.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
@@ -1172,28 +1181,31 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
                 th = document.createElement('th');
                 if ( CompareTableRowInfo['rows'][row]['2stopsonly'].length > 0 ) {
+                    var title = CompareTableRowInfo['rows'][row]['2stopsonly'][0];  // always a single line
+                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+title+'"> ';
                     tr.setAttribute('ptna-2stopsonly', 'true');
-                    th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+CompareTableRowInfo['rows'][row]['2stopsonly'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['suspicious'].length > 0 ) {
+                    var title = CompareTableRowInfo['rows'][row]['suspicious'].join("\n");  // can be multiple lines
+                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+title+'"> ';
                     tr.setAttribute('ptna-suspicious', 'true');
-                    th.innerHTML += '<img src="/img/Suspicious.svg" height="18" width="18" alt="Suspicious" title="'+CompareTableRowInfo['rows'][row]['suspicious'].join("\n")+'"> ';
                 }
                 if ( CompareTableRowInfo['rows'][row]['nearlysame'].length > 0 ) {
-                    tr.setAttribute('ptna-nearlysame', 'true');
-                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" ' +
-                                          'title="'+CompareTableRowInfo['rows'][row]['nearlysame'].join("\n")+'" ' +
+                    var title = CreateTitleFor(CompareTableRowInfo,'rows',row,'nearlysame');
+                    th.innerHTML += '<img src="/img/NearlySame.svg" height="18" width="18" alt="NearlySame" title="'+title+'" ' +
                                           'onclick="ToggleAnimationForNearlySame(this);"> ';
+                    tr.setAttribute('ptna-nearlysame', 'true');
                 }
                 if ( CompareTableRowInfo['rows'][row]['subroute'].length > 0  ) {
-                    tr.setAttribute('ptna-subroute', 'true');
-                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" ' +
-                                          'title="'+CompareTableRowInfo['rows'][row]['subroute'].join("\n")+'" ' +
+                    var title = CreateTitleFor(CompareTableRowInfo,'rows',row,'subroute');
+                    th.innerHTML += '<img src="/img/Subroute.svg" height="18" width="18" alt="Subroute" title="'+title+'" ' +
                                           'onclick="ToggleAnimationForSubRoute(this);"> ';
+                    tr.setAttribute('ptna-subroute', 'true');
                 }
                 if ( CompareTableRowInfo['rows'][row]['information'].length > 0  ) {
+                    var title = CompareTableRowInfo['rows'][row]['information'].join("\n")  // can be multiple lines
+                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+title+'">';
                     tr.setAttribute('ptna-information', 'true');
-                    th.innerHTML += '<img src="/img/Information.svg" height="18" width="18" alt="Information" title="'+CompareTableRowInfo['rows'][row]['information'].join("\n")+'"> ';
                 }
                 id = CompareTableRowInfo['rows'][row]['id'];
                 source_type = CompareTableRowInfo['type'];
@@ -1339,6 +1351,32 @@ function ShowRoutesTableRows() {
 }
 
 
+function CreateTitleFor(Info,rowsorcols,num,what) {
+    var title = Info[rowsorcols][num][what][0];  // always a single line
+    var ids   = title.replace(/^.*:\s*/,'').split(',');
+    var roworcol = rowsorcols === 'cols' ? 'col' : 'row'
+    var rownum;
+    var lines    = [];
+    if ( ids.length > 0 ) {
+        title = title.replace(/:\s*.*$/,":\n");
+        for ( const id of ids ) {
+            if ( id ) {
+                rownum = parseInt(Info['id2num'][id]) + 1;
+                if ( rownum ) {
+                    lines[rownum] = roworcol + ' = ' + rownum + ', id = ' + id;
+                }
+            }
+        }
+        Object.entries(lines).forEach(([key, value]) => {
+            if ( value ) {
+                title += value + "\n";
+            }
+        });
+    }
+    return title;
+}
+
+
 function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false ) {
 
     var ret_list       = [];
@@ -1402,6 +1440,15 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
 }
 
 
+function GetMappingOfId2Number(ArrayOfDict) {
+    var ret_dict = {};
+    Object.entries(ArrayOfDict).forEach(([key, value]) => {
+        ret_dict[value['id']] = parseFloat(key).toFixed(0);
+     });
+    return ret_dict;
+}
+
+
 function GetPtnaSubRouteOfTrip( lor, source_type, id ) {
     const expanded = { 'subroute_of' : 'This trip is sub-route of:' }
     var ret_list = [];
@@ -1454,7 +1501,7 @@ function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
 
 
 function GetPtnaNearlySameOfTrip( lor, source_type, id ) {
-    const expanded = { 'same_names_but_different_ids'       : 'Trips have identical stop-names but different stop-ids',
+    const expanded = { 'same_names_but_different_ids'       : 'Trips have identical stop-names but different stop-ids:',
                        'same_stops_but_different_shape_ids' : 'Trips have identical stops (names and ids) but different shape-ids:'
                     }
     var ret_list = [];
