@@ -1086,7 +1086,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.innerHTML += '<button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button><br/>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
-            th.setAttribute( 'colspan', 4 );
+            th.setAttribute( 'colspan', 5 );
             tr.appendChild(th);
             th = document.createElement('th');
             th.innerHTML = htmlEscape(CompareTableColInfo['members']);
@@ -1141,6 +1141,11 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.setAttribute( 'colspan', 1 );
             tr.appendChild(th);
             th = document.createElement('th');
+            th.innerHTML = '<span id="rideselement" title="The number of rides/journeys during the period of validity">&#x21C5;Rides</span>';
+            th.className = 'compare-routes-right js-sort-number';
+            th.setAttribute( 'colspan', 1 );
+            tr.appendChild(th);
+            th = document.createElement('th');
             th.innerHTML = "&#x21C5;" + htmlEscape(CompareTableRowInfo['members']);
             th.className = 'compare-routes-left js-sort-string';
             th.setAttribute( 'colspan', 2 );
@@ -1168,6 +1173,10 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.style['display'] = 'table-row';      // "hide/show rows" will set/reset this to 'none'/'table-row' if 'checkbox' in 2nd column is set/inset
                 th = document.createElement('th');
                 th.innerHTML = (row+1).toString();
+                th.className = 'compare-routes-odd compare-routes-right';
+                tr.appendChild(th);
+                th = document.createElement('th');
+                th.innerHTML = CompareTableRowInfo['rows'][row]['rides'].toString();
                 th.className = 'compare-routes-odd compare-routes-right';
                 tr.appendChild(th);
                 th = document.createElement('th');
@@ -1215,11 +1224,18 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
                 var min_score_of_row = Infinity;
                 for ( var col = 0; col < col_count; col++ ) {
+                    var we_have_GTFS_trip_id_match = false;
                     td = document.createElement('td');
+                    if ( CompareTableColInfo['type'] === "OSM" &&
+                         WeHaveGtfsTripIdMatch(CompareTableRowInfo['rows'][row]['id'],CompareTableColInfo['cols'][col]['id']) ) {
+                        td.style['font-size']   = '2em';
+                        td.style['font-weight'] = 1000;
+                        we_have_GTFS_trip_id_match = true;
+                    }
                     if ( CompareTable[row][col]['score'] >= 0 ) {
                         td.innerHTML = '<a href="' + GetRoutesScoreLink(CompareTableRowInfo,CompareTableColInfo,row,col ) + '"' +
                                        ' target="_blank"' +
-                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col) + '">' +
+                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col,we_have_GTFS_trip_id_match) + '">' +
                                        htmlEscape(CompareTable[row][col]['score'].toString()) + '%' +
                                        '</a>';
                     } else {
@@ -1351,10 +1367,40 @@ function ShowRoutesTableRows() {
 }
 
 
+function WeHaveGtfsTripIdMatch( GTFS_trip_id, OSM_route_id ) {
+    var have_match = false;
+    var OSM_refers_to_trip_id = -1;
+    if ( OSM_route_id  in DATA_Relations['right']                                    &&
+         'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
+         ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
+          'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
+        OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
+                                ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
+                                : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
+        if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+            if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
+                if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                    release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+                    OSM_refers_to_trip_id = -1;
+                }
+            } else {
+                OSM_refers_to_trip_id = -1;
+            }
+        }
+        if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+            have_match = true;
+        }
+    }
+
+    return have_match;
+}
+
+
 function CreateTitleFor(Info,rowsorcols,num,what) {
     var title = Info[rowsorcols][num][what][0];  // always a single line
     var ids   = title.replace(/^.*:\s*/,'').split(',');
-    var roworcol = rowsorcols === 'cols' ? 'col' : 'row'
+    var roworcol = rowsorcols === 'cols' ? 'col' : 'row number'
     var rownum;
     var lines    = [];
     if ( ids.length > 0 ) {
@@ -1527,7 +1573,7 @@ function GetPtnaInformationOfTrip( lor, source_type, id ) {
                 if ( !key.match(/^suspicious/)  &&
                      !key.match(/^same/)        &&
                      !key.match(/^subroute_of/) &&
-                     !key.match(/^rides/)          ) {
+                     !key.match(/rides/)           ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                 }
              });
@@ -1653,7 +1699,7 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 }
 
 
-function GetScoreDetailsAsTitle( CompareTable, row, col ) {
+function GetScoreDetailsAsTitle( CompareTable, row, col, we_have_GTFS_trip_id_match=false ) {
     ret_string  = "Show detailed score information\n\n";
     if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
@@ -1699,6 +1745,10 @@ function GetScoreDetailsAsTitle( CompareTable, row, col ) {
         var val = CompareTable[row][col]['mismatch_percent']['ref:IFOPT'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM\n";
+    }
+    if ( we_have_GTFS_trip_id_match ) {
+        ret_string += "\nMatch between OSM's 'gtfs:trip_id' / 'gtfs:trip_id:sample' and\n";
+        ret_string += "GTFS's 'trip_id' of feed = '" + feed + "' release_date = '" + JSON_data['left']['generator']['params']['release_date'] + "'";
     }
     return ret_string;
 }
