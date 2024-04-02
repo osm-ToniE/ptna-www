@@ -132,7 +132,6 @@ function FindGtfsSqliteDb( $feed, $release_date ) {
         if ( file_exists($return_path) ) {
             if ( is_link($return_path) ) {
                 $return_path = $path_to_work . $countrydir . '/' . readlink( $return_path );
-                echo "After:" . $return_path . "\n";
             }
          }
          if ( !file_exists($return_path) ) {
