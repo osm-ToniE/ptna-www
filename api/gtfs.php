@@ -47,6 +47,8 @@ if ( $feed ) {
 
     if ( $SqliteDb != '' ) {
 
+        $json_response['generator']['params']['release_date'] = preg_replace('/-ptna.*$/','',preg_replace("/^.*$feed-/",'',$SqliteDb));
+
         try {
             $db         = new SQLite3( $SqliteDb );
 
@@ -128,10 +130,9 @@ function FindGtfsSqliteDb( $feed, $release_date ) {
         $return_path = $path_to_work . $countrydir . '/' . $feed_release . '-ptna-gtfs-sqlite.db';
 
         if ( file_exists($return_path) ) {
-            if ( preg_match("/-previous$/", $feed_release) || preg_match("/-long-term$/", $feed_release) ) {
-                if ( is_link($return_path) ) {
-                    $return_path = $path_to_work . $countrydir . '/' . readlink( $return_path );
-                }
+            if ( is_link($return_path) ) {
+                $return_path = $path_to_work . $countrydir . '/' . readlink( $return_path );
+                echo "After:" . $return_path . "\n";
             }
          }
          if ( !file_exists($return_path) ) {
@@ -140,10 +141,8 @@ function FindGtfsSqliteDb( $feed, $release_date ) {
             $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . $feed_release . '-ptna-gtfs-sqlite.db';
 
             if ( file_exists($return_path) ) {
-                if (  preg_match("/-previous$/", $feed_release) || preg_match("/-long-term$/", $feed_release) ) {
-                    if ( is_link($return_path) ) {
-                        $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . readlink( $return_path );
-                    }
+                if ( is_link($return_path) ) {
+                    $return_path = $path_to_work . $countrydir . '/' . $subdir . '/' . readlink( $return_path );
                 }
             }
         }
