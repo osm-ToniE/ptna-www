@@ -57,6 +57,7 @@ var latlonroute         = { 'left' : {}, 'right' : {} };
 var CompareTable        = [];
 var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
+var RoutesTableFirstVisibleColumn = 0;
 
 async function showtripcomparison() {
 
@@ -1080,6 +1081,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             span.innerHTML = htmlEscape(CompareTableColInfo['name']);
 
             tr = document.createElement('tr');
+
             th = document.createElement('th');
             th.innerHTML  = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show all</button>';
             th.innerHTML += '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected</button>';
@@ -1089,7 +1091,9 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.setAttribute( 'colspan', 5 );
             tr.appendChild(th);
             th = document.createElement('th');
-            th.innerHTML = htmlEscape(CompareTableColInfo['members']);
+            th.innerHTML  = '<button class="button-scroll" title="Scroll Table Left" onclick="ScrollRoutesTableLeft()">&nbsp;<=&nbsp;</button>&nbsp;';
+            th.innerHTML += '<button class="button-scroll" title="Scroll Table Right" onclick="ScrollRoutesTableRight()">&nbsp;=>&nbsp;</button>';
+            th.innerHTML += '&nbsp;&nbsp;' + htmlEscape(CompareTableColInfo['members']);
             if ( CompareTableColInfo['type'] === 'OSM' ) {
                 th.innerHTML += ' - <input type="checkbox" onclick="ShowOsmRouteName(this)">Show OSM route \'name\'</input>';
             }
@@ -1126,6 +1130,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th.innerHTML += GetObjectLinks( id, 'relation', is_GTFS=(source_type === 'GTFS'), is_Route=!is_GTFS, feed=CompareTableColInfo['feed'], release_date=CompareTableColInfo['release_date'] );
                 th.innerHTML += ' <img onclick="ShowMore(this)" id="'+source_type+'-col-'+id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+id+'">';
                 th.className = col_class + ' js-sort-none';
+                th.setAttribute('id', 'thead-row1-col' + col);
                 tr.appendChild(th);
             }
             thead.appendChild(tr);
@@ -1159,6 +1164,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     th.innerHTML = '<span name="col-name">n/a</span>';
                 }
                 th.className  = col_class + ' compare-routes-left compare-routes-top js-sort-number';
+                th.setAttribute('id', 'thead-row2-col' + col);
                 tr.appendChild(th);
             }
             thead.appendChild(tr);
@@ -1243,6 +1249,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                     }
                     td.style['background-color'] = CompareTable[row][col]['color'];
                     td.className = 'compare-routes-link no-border-right';
+                    td.setAttribute('id', 'tbody-row' + row + '-col' + col);
                     min_score_of_row = (min_score_of_row > parseFloat(CompareTable[row][col]['score'])) ? parseFloat(CompareTable[row][col]['score']) : min_score_of_row;
                     tr.appendChild(td);
                 }
@@ -1363,6 +1370,31 @@ function ShowRoutesTableRows() {
     var tr_elements = tbody.getElementsByTagName('tr');
     for ( var i = 0; i < tr_elements.length; i++ ) {
         tr_elements[i].style['display'] = 'table-row';
+    }
+}
+
+
+function ScrollRoutesTableLeft() {
+    if ( RoutesTableFirstVisibleColumn < CompareTableColInfo['cols'].length-1 ) {
+        for ( var row = 1; row < 3 ; row++ ) {
+            document.getElementById('thead-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'none';
+        }
+        for ( var row = 0; row < CompareTableRowInfo['rows'].length; row++ ) {
+            document.getElementById('tbody-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'none';
+        }
+        RoutesTableFirstVisibleColumn++;
+    }
+}
+
+function ScrollRoutesTableRight() {
+    if ( RoutesTableFirstVisibleColumn > 0 ) {
+        RoutesTableFirstVisibleColumn--;
+        for ( var row = 1; row < 3 ; row++ ) {
+            document.getElementById('thead-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'table-cell';
+        }
+        for ( var row = 0; row < CompareTableRowInfo['rows'].length; row++ ) {
+            document.getElementById('tbody-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'table-cell';
+        }
     }
 }
 
@@ -2145,7 +2177,6 @@ function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
         }
     }
 }
-
 
 
 function CalculateScores( scores ) {
