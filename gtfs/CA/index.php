@@ -24,6 +24,7 @@
 <?php
     $duration += CreateGtfsEntry( "CA-MB-WT" );
     $duration += CreateGtfsEntry( "CA-QC-RTC" );
+    $duration += CreateGtfsEntry( "CA-QC-STLevis" );
 ?>
                     </tbody>
                 </table>
