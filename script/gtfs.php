@@ -1277,6 +1277,61 @@
                         $osm_to             = isset($stops2['normalized_stop_name'])
                                                   ? '<span class="normalized-name" title="GTFS: stop_name=' . htmlspecialchars($stops2["stop_name"]) . '">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
                                                   : htmlspecialchars($stops2['stop_name']);
+                        $osm_route_master_name    = $osm_vehicle . ' ' . $osm_ref;
+                        if ( isset($osm['route_master_name_suggestion']) ) {
+                            if ( $osm['route_master_name_suggestion'] ) {
+                                $name_suggestion = $osm['route_master_name_suggestion'];
+                                if ( $name_suggestion != 'PTv2' ) {
+                                    $matches = [];
+                                    if ( preg_match_all('/\{[^}]+\}/',$name_suggestion,$matches) ) {
+                                        foreach ( $matches[0] as $match ) {
+                                            echo "<!-- " . $match . " -->\n";
+                                            $key = preg_replace('/[{}]/','',$match);
+                                            if ( $key == 'osm_vehicle' ) {
+                                                $new_value = $osm_vehicle;
+                                            } elseif ( isset($routes[$key]) ) {
+                                                $new_value = $routes[$key];
+                                            } elseif ( isset($trips[$key]) ) {
+                                                $new_value = $trips[$key];
+                                            } else {
+                                                $new_value = '[' . $key . ']';
+                                            }
+                                            $name_suggestion = preg_replace('/\{[^}]+\}/',$new_value,$name_suggestion,1 );
+                                        }
+                                    }
+                                    $osm_route_master_name = htmlspecialchars($name_suggestion);
+                                }
+                            } else {
+                                $osm_route_master_name = '';
+                            }
+                        }
+                        $osm_route_name = $osm_vehicle . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to;
+                        if ( isset($osm['route_name_suggestion']) ) {
+                            if ( $osm['route_name_suggestion'] ) {
+                                $name_suggestion = $osm['route_name_suggestion'];
+                                if ( $name_suggestion != 'PTv2' ) {
+                                    $matches = [];
+                                    if ( preg_match_all('/\{[^}]+\}/',$name_suggestion,$matches) ) {
+                                        foreach ( $matches[0] as $match ) {
+                                            $key = preg_replace('/[{}]/','',$match);
+                                            if ( $key == 'osm_vehicle' ) {
+                                                $new_value = $osm_vehicle;
+                                            } elseif ( isset($routes[$key]) ) {
+                                                $new_value = $routes[$key];
+                                            } elseif ( isset($trips[$key]) ) {
+                                                $new_value = $trips[$key];
+                                            } else {
+                                                $new_value = '[' . $key . ']';
+                                            }
+                                            $name_suggestion = preg_replace('/\{[^}]+\}/',$new_value,$name_suggestion,1 );
+                                        }
+                                    }
+                                    $osm_route_name = htmlspecialchars($name_suggestion);
+                                }
+                            } else {
+                                $osm_route_name = '';
+                            }
+                        }
                         $osm_network        = htmlspecialchars($osm['network']);
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
@@ -1331,10 +1386,10 @@
                         echo '                                <td class="gtfs-name">ref</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                        if ( $osm_route ) {
+                        if ( $osm_route_master_name ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">name</td>' . "\n";
-                            echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . '</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_route_master_name . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
                         if ( $osm_network ) {
@@ -1415,10 +1470,10 @@
                         echo '                                <td class="gtfs-name">ref</td>' . "\n";
                         echo '                                <td class="gtfs-name">' . $osm_ref . '</td>' . "\n";
                         echo '                            </tr>' . "\n";
-                        if ( $osm_route ) {
+                        if ( $osm_route_name ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">name</td>' . "\n";
-                            echo '                                <td class="gtfs-text">' . $osm_vehicle . ' ' . $osm_ref . ': ' . $osm_from . ' => ' . $osm_to . '</td>' . "\n";
+                            echo '                                <td class="gtfs-text">' . $osm_route_name . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
                         if ( $osm_network ) {
