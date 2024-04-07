@@ -3060,10 +3060,12 @@
                     if ( isset($osm["wn"]) ) {
                         echo '                                    <tr class="statistics-tablerow">' . "\n";
                         echo '                                        <td class="gtfs-name">Weight for comparison of GTFS \'stop_name\' versus OSM platform \'name\'</td>' . "\n";
-                        if ( $osm["wn"] ) {
-                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
-                        } else {
+                        if ( $osm["wn"] == '' ) {
+                            echo '                                       <td class="gtfs-text">[default value]</td>' . "\n";
+                        } elseif ( $osm["wn"] == 0 ) {
                             echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
+                        } else {
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
                         }
                         echo '                                    </tr>' . "\n";
                     }
