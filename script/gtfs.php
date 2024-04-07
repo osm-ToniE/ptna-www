@@ -3027,6 +3027,47 @@
                     }
                     echo '                                    </tr>' . "\n";
 
+                    if ( isset($osm["route_master_name_suggestion"]) ) {
+                        echo '                                    <tr class="statistics-tablerow">' . "\n";
+                        echo '                                        <td class="gtfs-name">Contents of \'name\' suggestion for OSM route_master</td>' . "\n";
+                        if ( $osm["route_master_name_suggestion"] ) {
+                            if ( $osm["route_master_name_suggestion"] == 'PTv2' ) {
+                                echo '                                       <td class="gtfs-text">[according to PTV2 proposal]</td>' . "\n";
+                            } else {
+                                echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["route_master_name_suggestion"]) . ' </td>' . "\n";
+                            }
+                        } else {
+                            echo '                                       <td class="gtfs-text">[no suggestion]</td>' . "\n";
+                        }
+                        echo '                                    </tr>' . "\n";
+                    }
+
+                    if ( isset($osm["route_name_suggestion"]) ) {
+                        echo '                                    <tr class="statistics-tablerow">' . "\n";
+                        echo '                                        <td class="gtfs-name">Contents of \'name\' suggestion for OSM route</td>' . "\n";
+                        if ( $osm["route_name_suggestion"] ) {
+                            if ( $osm["route_name_suggestion"] == 'PTv2' ) {
+                                echo '                                       <td class="gtfs-text">[according to PTV2 proposal]</td>' . "\n";
+                            } else {
+                                echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["route_name_suggestion"]) . ' </td>' . "\n";
+                            }
+                        } else {
+                            echo '                                       <td class="gtfs-text">[no suggestion]</td>' . "\n";
+                        }
+                        echo '                                    </tr>' . "\n";
+                    }
+
+                    if ( isset($osm["wn"]) ) {
+                        echo '                                    <tr class="statistics-tablerow">' . "\n";
+                        echo '                                        <td class="gtfs-name">Weight for comparison of GTFS \'stop_name\' versus OSM platform \'name\'</td>' . "\n";
+                        if ( $osm["wn"] ) {
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                        } else {
+                            echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
+                        }
+                        echo '                                    </tr>' . "\n";
+                    }
+
                }
 
                 $stop_time = gettimeofday(true);
