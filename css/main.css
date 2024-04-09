@@ -294,7 +294,7 @@ input.hackbox {
 
 .compare-left-right         { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; text-align: left }
 
-.compare-routes-thead       { background-color: #bbbbbb; text-align: center }
+.compare-routes-thead       { background-color: #bbbbbb; text-align: center; vertical-align: middle  }
 .compare-routes-tbody       { text-align: center }
 .compare-routes-tfoot       { background-color: #bbbbbb; text-align: center }
 .compare-routes-right       { text-align: right }

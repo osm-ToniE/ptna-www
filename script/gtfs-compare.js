@@ -1091,8 +1091,10 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.setAttribute( 'colspan', 5 );
             tr.appendChild(th);
             th = document.createElement('th');
-            th.innerHTML  = '<button class="button-scroll" title="Scroll Table Left" onclick="ScrollRoutesTableLeft()">&nbsp;<=&nbsp;</button>&nbsp;';
-            th.innerHTML += '<button class="button-scroll" title="Scroll Table Right" onclick="ScrollRoutesTableRight()">&nbsp;=>&nbsp;</button>';
+            th.innerHTML  = '<img src="/img/RewindBack.svg" height="22" width="22" alt="Rewind Back" title="Show left-most" onclick="ScrollRoutesTableRight()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/Rewind.svg" height="22" width="22" alt="Rewind" title="Show more on the left" onclick="ScrollRoutesTableRight()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/Forward.svg" height="22" width="22" alt="Forward" title="Show more on the right" onclick="ScrollRoutesTableLeft()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/WindForward.svg" height="22" width="22" alt="Forward to End" title="Show right-most" onclick="ScrollRoutesTableLeft()"/>&nbsp;';
             th.innerHTML += '&nbsp;&nbsp;' + htmlEscape(CompareTableColInfo['members']);
             if ( CompareTableColInfo['type'] === 'OSM' ) {
                 th.innerHTML += ' - <input type="checkbox" onclick="ShowOsmRouteName(this)">Show OSM route \'name\'</input>';
