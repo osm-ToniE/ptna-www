@@ -1732,7 +1732,7 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 
 
 function GetScoreDetailsAsTitle( CompareTable, row, col, we_have_GTFS_trip_id_match=false ) {
-    ret_string  = "Show detailed score information\n\n";
+    ret_string  = "Click: Show detailed score information\n\n";
     if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
@@ -1853,12 +1853,6 @@ function ShowMore( imgObj ) {
         id  = id.replace(/^col-/,'');
     }
     alert( "More information for '" + source_type + "' - '" + lor + "' " + id );
-}
-
-
-function ShowScores( imgObj ) {
-    var id   = imgObj.id.toString();
-    alert( "More score information for '" + id + "'" );
 }
 
 
