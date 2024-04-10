@@ -1091,10 +1091,10 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th.setAttribute( 'colspan', 5 );
             tr.appendChild(th);
             th = document.createElement('th');
-            th.innerHTML  = '<img src="/img/RewindBack.svg" height="22" width="22" alt="Rewind Back" title="Show left-most" onclick="ScrollRoutesTableRight()"/>&nbsp;';
-            th.innerHTML += '<img src="/img/Rewind.svg" height="22" width="22" alt="Rewind" title="Show more on the left" onclick="ScrollRoutesTableRight()"/>&nbsp;';
-            th.innerHTML += '<img src="/img/Forward.svg" height="22" width="22" alt="Forward" title="Show more on the right" onclick="ScrollRoutesTableLeft()"/>&nbsp;';
-            th.innerHTML += '<img src="/img/WindForward.svg" height="22" width="22" alt="Forward to End" title="Show right-most" onclick="ScrollRoutesTableLeft()"/>&nbsp;';
+            th.innerHTML  = '<img src="/img/RewindBack.svg" height="22" width="22" alt="Rewind Back" title="Show left-most" onclick="ScrollRoutesTableLeftMost()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/Rewind.svg" height="22" width="22" alt="Rewind" title="Show more on the left" onclick="ScrollRoutesTableLeft()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/Forward.svg" height="22" width="22" alt="Forward" title="Show more on the right" onclick="ScrollRoutesTableRight()"/>&nbsp;';
+            th.innerHTML += '<img src="/img/WindForward.svg" height="22" width="22" alt="Forward to End" title="Show right-most" onclick="ScrollRoutesTableRightMost()"/>&nbsp;';
             th.innerHTML += '&nbsp;&nbsp;' + htmlEscape(CompareTableColInfo['members']);
             if ( CompareTableColInfo['type'] === 'OSM' ) {
                 th.innerHTML += ' - <input type="checkbox" onclick="ShowOsmRouteName(this)">Show OSM route \'name\'</input>';
@@ -1376,7 +1376,7 @@ function ShowRoutesTableRows() {
 }
 
 
-function ScrollRoutesTableLeft() {
+function ScrollRoutesTableRight() {
     if ( RoutesTableFirstVisibleColumn < CompareTableColInfo['cols'].length-1 ) {
         for ( var row = 1; row < 3 ; row++ ) {
             document.getElementById('thead-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'none';
@@ -1388,7 +1388,15 @@ function ScrollRoutesTableLeft() {
     }
 }
 
-function ScrollRoutesTableRight() {
+
+function ScrollRoutesTableRightMost() {
+    while ( RoutesTableFirstVisibleColumn < CompareTableColInfo['cols'].length-1 ) {
+        ScrollRoutesTableRight();
+    }
+}
+
+
+function ScrollRoutesTableLeft() {
     if ( RoutesTableFirstVisibleColumn > 0 ) {
         RoutesTableFirstVisibleColumn--;
         for ( var row = 1; row < 3 ; row++ ) {
@@ -1397,6 +1405,13 @@ function ScrollRoutesTableRight() {
         for ( var row = 0; row < CompareTableRowInfo['rows'].length; row++ ) {
             document.getElementById('tbody-row'+row+'-col'+RoutesTableFirstVisibleColumn).style['display'] = 'table-cell';
         }
+    }
+}
+
+
+function ScrollRoutesTableLeftMost() {
+    while ( RoutesTableFirstVisibleColumn > 0 ) {
+        ScrollRoutesTableLeft();
     }
 }
 
