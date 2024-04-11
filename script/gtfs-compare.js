@@ -1232,18 +1232,17 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.appendChild(th);
                 var min_score_of_row = Infinity;
                 for ( var col = 0; col < col_count; col++ ) {
-                    var we_have_GTFS_trip_id_match = false;
+                    var GTFS_trip_id_match_type = '';
                     td = document.createElement('td');
-                    if ( CompareTableColInfo['type'] === "OSM" &&
-                         WeHaveGtfsTripIdMatch(CompareTableRowInfo['rows'][row]['id'],CompareTableColInfo['cols'][col]['id']) ) {
+                    if ( WeHaveGtfsTripIdMatch(CompareTableRowInfo,CompareTableColInfo,row,col) ) {
                         td.style['font-size']   = '2em';
                         td.style['font-weight'] = 1000;
-                        we_have_GTFS_trip_id_match = true;
+                        GTFS_trip_id_match_type = CompareTableRowInfo['type'] + '-' + CompareTableColInfo['type'];
                     }
                     if ( CompareTable[row][col]['score'] >= 0 ) {
-                        td.innerHTML = '<a href="' + GetRoutesScoreLink(CompareTableRowInfo,CompareTableColInfo,row,col ) + '"' +
+                        td.innerHTML = '<a href="' + GetRoutesScoreLink(CompareTableRowInfo,CompareTableColInfo,row,col) + '"' +
                                        ' target="_blank"' +
-                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col,we_have_GTFS_trip_id_match) + '">' +
+                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col,GTFS_trip_id_match_type) + '">' +
                                        htmlEscape(CompareTable[row][col]['score'].toString()) + '%' +
                                        '</a>';
                     } else {
@@ -1416,28 +1415,37 @@ function ScrollRoutesTableLeftMost() {
 }
 
 
-function WeHaveGtfsTripIdMatch( GTFS_trip_id, OSM_route_id ) {
+function WeHaveGtfsTripIdMatch( CompareTableRowInfo, CompareTableColInfo, row, col ) {
     var have_match = false;
-    var OSM_refers_to_trip_id = -1;
-    if ( OSM_route_id  in DATA_Relations['right']                                    &&
-         'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
-         ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
-          'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
-        OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
-                                ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
-                                : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
-        if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
-            if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
-                if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                    release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+    var GTFS_trip_id = CompareTableRowInfo['rows'][row]['id'];
+    if ( CompareTableColInfo['type'] === 'OSM' ) {
+        var OSM_refers_to_trip_id = -1;
+        var OSM_route_id          = CompareTableColInfo['cols'][col]['id'];
+        if ( OSM_route_id  in DATA_Relations['right']                                    &&
+            'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
+            ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
+            'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
+            OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
+                                    ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
+                                    : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
+            if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+                if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                    feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
+                    if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                        release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+                        OSM_refers_to_trip_id = -1;
+                    }
+                } else {
                     OSM_refers_to_trip_id = -1;
                 }
-            } else {
-                OSM_refers_to_trip_id = -1;
+            }
+            if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+                have_match = true;
             }
         }
-        if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+    } else if ( CompareTableColInfo['type'] === 'GTFS' ) {
+        var GTFS_trip_id_2 = CompareTableColInfo['cols'][col]['id'];
+        if ( GTFS_trip_id === GTFS_trip_id_2 ) {
             have_match = true;
         }
     }
@@ -1748,7 +1756,7 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 }
 
 
-function GetScoreDetailsAsTitle( CompareTable, row, col, we_have_GTFS_trip_id_match=false ) {
+function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type='' ) {
     ret_string  = "Click: Show detailed score information\n\n";
     if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
@@ -1795,9 +1803,15 @@ function GetScoreDetailsAsTitle( CompareTable, row, col, we_have_GTFS_trip_id_ma
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM\n";
     }
-    if ( we_have_GTFS_trip_id_match ) {
-        ret_string += "\nMatch between OSM's 'gtfs:trip_id' / 'gtfs:trip_id:sample' and\n";
-        ret_string += "GTFS's 'trip_id' of feed = '" + feed + "' release_date = '" + JSON_data['left']['generator']['params']['release_date'] + "'";
+    if ( GTFS_trip_id_match_type ) {
+        if ( GTFS_trip_id_match_type === 'GTFS-OSM ') {
+            ret_string += "\nMatch between OSM's 'gtfs:trip_id' / 'gtfs:trip_id:sample' and\n";
+            ret_string += "GTFS's 'trip_id' of feed = '" + feed + "' release_date = '" + JSON_data['left']['generator']['params']['release_date'] + "'";
+        } else if ( GTFS_trip_id_match_type === 'GTFS-GTFS' ) {
+            ret_string += "\nMatch between GTFS 'trip_id':\n";
+            ret_string += "GTFS's 'trip_id' of feed = '" + feed  + "' release_date = '" + JSON_data['left']['generator']['params']['release_date']  + "'\n";
+            ret_string += "GTFS's 'trip_id' of feed = '" + feed2 + "' release_date = '" + JSON_data['right']['generator']['params']['release_date'] + "'";
+        }
     }
     return ret_string;
 }
