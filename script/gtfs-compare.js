@@ -196,9 +196,33 @@ async function showtripcomparison() {
     console.log("CMP_List");
     console.log(CMP_List);
 
+    var TableInfoLeft  = { 'name'             : 'GTFS trip',
+                           'id'               : trip_id,
+                           'feed'             : feed,
+                           'release_date'     : release_date,
+                           'route_short_name' : (DATA_Relations['left'][trip_id]['tags']['route_id'] ? DATA_Relations['left'][DATA_Relations['left'][trip_id]['tags']['route_id']]['tags']['route_short_name'] : '???'),
+                           'links'            : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
+                                                                ' <img onclick="ShowMore(this)" id="GTFS-row-'+trip_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id+'">'
+                         };
+    var TableInfoRight = {};
     var whats_right = 'GTFS';
     if ( relation_id !== '' ) {
         whats_right = 'OSM';
+        TableInfoRight = { 'name' : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
+                           'id'   : relation_id,
+                           'ref'  : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
+                           'links': GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route')) +
+                                                    ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
+                         };
+    } else {
+        TableInfoRight = { 'name'             : 'GTFS trip',
+                           'id'               : trip_id2,
+                           'feed'             : feed2,
+                           'release_date'     : release_date,
+                           'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???'),
+                           'links'            : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
+                                                                ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
+                         };
     }
     var left_len  = CMP_List['left'].length;
     var right_len = CMP_List['right'].length;
@@ -219,6 +243,8 @@ async function showtripcomparison() {
         }
     }
 
+    ShowCompareInfo( 'compare-trips-left-info',  TableInfoLeft  );
+    ShowCompareInfo( 'compare-trips-right-info', TableInfoRight );
     finalizeAnalysisProgress();
 }
 
@@ -265,25 +291,41 @@ async function showroutecomparison() {
     var score_table  = [];
     var zero_data    = false;
 
-    CompareTable                  = [];
-    CompareTableRowInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
-    CompareTableRowInfo['id2num'] = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
-    CompareTableColInfo           = {};
-    var whats_right         = '';
+    CompareTable                            = [];
+    CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
+    CompareTableRowInfo['id2num']           = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
+    if ( DATA_Relations['left'][route_id]                        &&
+         DATA_Relations['left'][route_id]['type'] === 'relation' &&
+         DATA_Relations['left'][route_id]['tags']                   ) {
+            CompareTableRowInfo['route_short_name'] = DATA_Relations['left'][route_id]['tags']['route_short_name'] ? DATA_Relations['left'][route_id]['tags']['route_short_name'] : '';
+            CompareTableRowInfo['route_type']       = DATA_Relations['left'][route_id]['tags']['route_type'] ? DATA_Relations['left'][route_id]['tags']['route_type'] : '';
+            CompareTableRowInfo['links']            = GetObjectLinks( route_id, 'relation', is_GTFS=true, is_Route=true, feed=feed, release_date=release_date ) +
+                                                                      ' <img onclick="ShowMore(this)" id="GTFS-row-'+route_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+route_id+'">';
+        }
+
+    CompareTableColInfo = {};
+    var whats_right     = '';
     if ( relation_id !== '' ) {
         whats_right         = 'OSM';
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
-                CompareTableColInfo           = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
-                CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
+                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
+                CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route_master'] ? DATA_Relations['right'][relation_id]['tags']['route_master'] : '';
+                CompareTableColInfo['links']   = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false ) +
+                                                                 ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
-                CompareTableColInfo           = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
-                CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
+                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
+                CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route'] ? DATA_Relations['right'][relation_id]['tags']['route'] : '';
+                CompareTableColInfo['links']   = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) +
+                                                                 ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else {
                 alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
                 return;
             }
+            CompareTableColInfo['ref'] = DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '';
         } else {
             alert( "OSM relation "  + relation_id + " does not exist (not downloaded) or has invalid tags") ;
             return;
@@ -292,6 +334,14 @@ async function showroutecomparison() {
         whats_right                   = 'GTFS';
         CompareTableColInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
         CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
+        if ( DATA_Relations['right'][route_id2]                        &&
+             DATA_Relations['right'][route_id2]['type'] === 'relation' &&
+             DATA_Relations['right'][route_id2]['tags']                   ) {
+            CompareTableColInfo['route_short_name'] = DATA_Relations['right'][route_id2]['tags']['route_short_name'] ? DATA_Relations['right'][route_id2]['tags']['route_short_name'] : '';
+            CompareTableColInfo['route_type']       = DATA_Relations['right'][route_id2]['tags']['route_type'] ? DATA_Relations['right'][route_id2]['tags']['route_type'] : '';
+            CompareTableColInfo['links']            = GetObjectLinks( route_id2, 'relation', is_GTFS=true, is_Route=true, feed=feed2, release_date=release_date2 ) +
+                                                                      ' <img onclick="ShowMore(this)" id="GTFS-col-'+route_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+route_id2+'">';
+        }
     }
 
     var NumberOfRows = CompareTableRowInfo['rows'].length;
@@ -340,6 +390,8 @@ async function showroutecomparison() {
         // updateAnalysisProgress();
     }
 
+    ShowCompareInfo( 'compare-routes-row-info', CompareTableRowInfo );
+    ShowCompareInfo( 'compare-routes-col-info', CompareTableColInfo );
     CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, CompareTable );
 
     if ( zero_data ) {
@@ -1067,7 +1119,6 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
     if ( row_count > 0 ) {
         var col_count = CompareTable[0].length;
         if ( col_count > 0 ) {
-            var span  = document.getElementById('compare-routes-columns-name');
             var div   = document.getElementById('routes-table-div');
             var thead = document.getElementById('routes-table-thead');
             var tbody = document.getElementById('routes-table-tbody');
@@ -1078,10 +1129,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             var source_type = 'GTFS';
             var col_class = '';
 
-            span.innerHTML = htmlEscape(CompareTableColInfo['name']);
-
             tr = document.createElement('tr');
-
             th = document.createElement('th');
             th.innerHTML  = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show all</button>';
             th.innerHTML += '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected</button>';
@@ -1776,7 +1824,7 @@ function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type
     if ( CompareTable[row][col]['weights']['distance'][2] > 0 && CompareTable[row][col]['totals']['distance'][2] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][2];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
-        ret_string += val + "%&nbsp;&nbsp; mismatch of positions of stops by more than 1000 m\n";
+        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 1000 m\n";
     }
     if ( CompareTable[row][col]['weights']['name'] > 0 && CompareTable[row][col]['totals']['name'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['name'];
@@ -1883,7 +1931,71 @@ function ShowMore( imgObj ) {
         lor = 'right';
         id  = id.replace(/^col-/,'');
     }
-    alert( "More information for '" + source_type + "' - '" + lor + "' " + id );
+    if ( source_type !== '' && lor !== '' ) {
+        var alert_contents = 'More information for ' + source_type + ' : ' + id;
+        if ( DATA_Relations[lor][id]['tags'] && DATA_Relations[lor][id]['tags']['type'] ) {
+            alert_contents = 'More information for ' + source_type + ' ' + DATA_Relations[lor][id]['tags']['type'] + ' : ' + id + "\n";
+            alert_contents += "\n" + source_type + ":";
+            Object.entries(DATA_Relations[lor][id]['tags']).forEach(([key, value]) => {
+                if ( value ) {
+                    if ( key === 'type' ) {
+                        if ( source_type !== 'GTFS' ) {
+                            alert_contents += "\n    '" + key + "' = '" + value + "'";
+                        }
+                    } else {
+                        alert_contents += "\n    '" + key + "' = '" + value + "'";
+                    }
+                }
+            });
+            if ( DATA_Relations[lor][id]['ptna'] ) {
+                alert_contents += "\nPTNA:";
+                Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                    if ( value ) {
+                        alert_contents += "\n    '" + key + "' = '" + value + "'";
+                    }
+                });
+            }
+        }
+        alert( alert_contents );
+    } else {
+        alert( "More information for '" + id );
+    }
+    return;
+}
+
+
+function ShowCompareInfo( ElementId, TableInfo ) {
+    var elem = document.getElementById( ElementId );
+    if ( elem ) {
+        elem.innerHTML += '<td>' + TableInfo['name'] + '</td>';
+        if ( TableInfo['links'] ) {
+            elem.innerHTML += '<td>' + TableInfo['links'] + '</td>';
+        } else {
+            elem.innerHTML += '<td>&nbsp;</td>';
+        }
+        elem.innerHTML += '<td>' + TableInfo['id'] + '</td>';
+        if ( TableInfo['route_short_name'] ) {
+            elem.innerHTML += '<td>' + TableInfo['route_short_name'] + '</td>';
+        } else if ( TableInfo['ref'] ) {
+            elem.innerHTML += '<td>' + TableInfo['ref'] + '</td>';
+        } else {
+            elem.innerHTML += '<td>&nbsp;</td>';
+        }
+        if ( TableInfo['feed'] ) {
+            elem.innerHTML += '<td>' + TableInfo['feed'] + '</td>';
+            if ( TableInfo['release_date'] ) {
+                elem.innerHTML += '<td>' + TableInfo['release_date'] + '</td>';
+            } else {
+                elem.innerHTML += '<td>latest</td>';
+            }
+        } else {
+            elem.innerHTML += '<td>&nbsp;</td><td>&nbsp;</td>';
+        }
+        if ( TableInfo['members'] && TableInfo['name'] !== TableInfo['members']) {
+            elem.innerHTML += '<td>' + TableInfo['members'] + ' of ' + TableInfo['name'] + '</td>';
+        }
+    }
+    return;
 }
 
 
@@ -2497,10 +2609,10 @@ function FillTripsScoresTable( scores ) {
                         elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
                     }
                 } else {
-                    elem.innerHTML = 'n/r';
+                    elem.innerHTML = '<span title="these combinations are not relevant, their \'weights\' have been set to zero">n/r</span>';
                 }
             } else {
-                elem.innerHTML = 'n/a';
+                elem.innerHTML = '<span title="these combinations have not been detected">n/d</span>';
             }
         }
     }

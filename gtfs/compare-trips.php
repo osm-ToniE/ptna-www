@@ -45,66 +45,27 @@
 
                     <div class="indent">
                         <span id="progress-section"><span style="display: inline-block; width: 11em">Download GTFS (left): </span><span id="span-download-left"><progress id="download_left" value=0 max=2000></progress></span> <span id="download_left_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>
-                                                    <?php
-                                                        if ( $osm_relation ) {
-                                                            echo '<span style="display: inline-block; width: 11em">Download OSM (right): </span><span id="span-download-right"><progress id="download_right" value=0 max=2000></progress></span> <span id="download_right_text"  style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
-                                                        } else {
-                                                            echo '<span style="display: inline-block; width: 11em">Download GTFS (right): </span><span id="span-download-right"><progress id="download_right" value=0 max=2000></progress></span> <span id="download_right_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
-                                                        }
-                                                    ?>
-                                                    <span style="display: inline-block; width: 11em">Analysis: </span><span id="span-analysis"><progress id="analysis" value=0 max=2000></progress></span> <span id="analysis_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms
+                            <?php
+                                if ( $osm_relation ) {
+                                    echo '<span style="display: inline-block; width: 11em">Download OSM (right): </span><span id="span-download-right"><progress id="download_right" value=0 max=2000></progress></span> <span id="download_right_text"  style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
+                                } else {
+                                    echo '<span style="display: inline-block; width: 11em">Download GTFS (right): </span><span id="span-download-right"><progress id="download_right" value=0 max=2000></progress></span> <span id="download_right_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms<br/>' . "\n";
+                                }
+                            ?>
+                            <span style="display: inline-block; width: 11em">Analysis: </span><span id="span-analysis"><progress id="analysis" value=0 max=2000></progress></span> <span id="analysis_text" style="display: inline-block; width: 2em; text-align: right">0</span> ms
                         </span>
                         <span id="compare-source-section">
-                            <table id="compare-left-right" class="compare-left-right">
-                                <tbody id="compare-left-right-tbody" class="compare-left-right">
-                                    <tr>
-                                        <td id="compare-left-marker"  class="compare-left-right"><img src="/img/marker-left.png" alt="left marker" height="24" width="24" style="padding-right: 10px">Left:</td>
-                                        <td id="compare-left-source"  class="compare-left-right">GTFS trip</td>
-                                        <td id="compare-left-details" class="compare-left-right">
-                                        <?php
-                                            if ( $feed && $trip_id && preg_match("/^[0-9A-Za-z_.-]+$/", $feed) ) {
-                                                $feed_parts = explode( '-', $feed );
-                                                $countrydir = array_shift( $feed_parts );
-                                                if ( $release_date ) {
-                                                    echo '<a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id) . '</a> of ' . htmlspecialchars($feed) . ', Version: ' . htmlspecialchars($release_date);
-                                                } else {
-                                                    echo '<a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id=' . urlencode($trip_id) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id) . '</a> of ' . htmlspecialchars($feed);
-                                                }
-                                            }
-                                            else {
-                                                echo 'No valid GTFS data specified for first source';
-                                            }
-                                        ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td id="compare-right-marker" class="compare-left-right"><img src="/img/marker-right.png" alt="right marker" height="24" width="24" style="padding-right: 10px">Right:</td>
-                                        <?php
-                                            if ( $osm_relation ) {
-                                                echo '<td id="compare-right-source" class="compare-left-right">OSM route</td>';
-                                                echo '<td id="compare-right-details" class="compare-left-right"><a href="/relation.php?id=' . urlencode($osm_relation) . '" title="Link to PTNA" target="_blank">' . htmlspecialchars($osm_relation) . '</a></td>';
-                                            } else if ( $feed2 && $trip_id2 && preg_match("/^[0-9A-Za-z_.-]+$/", $feed2) ) {
-                                                echo '<td id="compare-right-source" class="compare-left-right">GTFS trip</td>';
-                                                $feed_parts = explode( '-', $feed2 );
-                                                $countrydir = array_shift( $feed_parts );
-                                                if ( $release_date2 ) {
-                                                    echo '<td id="compare-right-details" class="compare-left-right"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($trip_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id2) . '</a> of ' . htmlspecialchars($feed2) . ', Version: ' . htmlspecialchars($release_date2) . '</td>';
-                                                } else {
-                                                    echo '<td id="compare-right-details" class="compare-left-right"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed2) . '&release_date=' . urlencode($release_date2) . '&trip_id=' . urlencode($trip_id2) . '" title="Link to GTFS" target="_blank">' .  htmlspecialchars($trip_id2) . '</a> of ' . htmlspecialchars($feed2) . '</td>';
-                                                }
-                                            }
-                                            else {
-                                                echo '<td id="compare-right-source" class="compare-left-right">&nbsp;</td>';
-                                                echo '<td id="compare-right-details" class="compare-left-right">No valid OSM or GTFS data specified for second source</td>';
-                                            }
-                                        ?>
-                                    </tr>
+                            <table class="compare">
+                                <thead class="compare">
+                                    <tr class="compare compare-routes-left"><th>&nbsp;</th><th>type</th><th>links</th><th>id</th><th>ref</th><th>feed</th><th>release date</th></tr>
+                                </thead>
+                                <tbody class="compare">
+                                    <tr id="compare-trips-left-info"  class="compare"><td><img  src="/img/marker-left.png"  alt="left marker"  height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; font-weight: 700">Left:</span></td></tr>
+                                    <tr id="compare-trips-right-info" class="compare"><td><img src="/img/marker-right.png" alt="right marker" height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; font-weight: 700">Right:</span></td></tr>
                                 </tbody>
                             </table>
                         </span>
                     </div>
-
-                    <hr/>
 
                     <h2 id="scores">Scores (low score)</h2>
                     <div class="indent">
@@ -174,8 +135,6 @@
                                 <tfoot id="scores-table-tfoot" class="scores-table-tfoot">
                                 </tfoot>
                             </table>
-                            <span style="display: inline-block; width: 2.11em">"n/a"</span> : these combinations have not been detected<br/>
-                            <span style="display: inline-block; width: 2.11em">"n/r"</span> : these combinations are not relevant, their 'weights' have been set to zero
                             <p><span style="font-weight: 1000; font-size:1.2em;">Before fixing potential errors in OSM data: consider that GTFS data can be wrong as well!</span></p>
                         </div>
                     </div>

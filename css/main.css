@@ -6,7 +6,7 @@ img     {   vertical-align: middle; }
 
 h1, h2, h3, h4, h5, h6  {  font-family: 'Droid Sans', sans-serif; }
 
-table            { border-width: 1px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+table            { border-width: 1px; border-style: solid; border-collapse: collapse; }
 th               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 td               { border-width: 1px; border-style: solid; border-collapse: collapse; padding: 0.3em; }
 
@@ -276,7 +276,8 @@ input.hackbox {
 #hiddenmap                  { display:none; height: 10px; width: 10px; }
 .compare-intro              { float:left; max-width:47.6% }
 
-.compare table              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
+.compare table              { border-width: 0px; border-style: solid; border-collapse: collapse; }
+.compare thead              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .compare tbody              { border-width: 0px; border-style: solid; border-collapse: collapse; vertical-align: middle; }
 .compare th                 { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
 .compare td                 { border-width: 0px; border-style: solid; border-collapse: collapse; padding: 0.2em; }
