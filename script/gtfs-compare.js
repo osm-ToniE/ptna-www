@@ -1635,13 +1635,14 @@ function GetPtna2StopsOnlyOfTrip( lor, source_type, id ) {
 function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
     const expanded = { 'suspicious_start'                   : 'Trip with suspicious start: 1st and 2nd stop have same',
                        'suspicious_end'                     : 'Trip with suspicious end: second last and last stop have same',
-                       'suspicious_trip_duration'           : 'Trip with suspicious travel time:'
+                       'suspicious_trip_duration'           : 'Trip with suspicious travel time:',
+                       'suspicious_other'                   : 'Suspicious trip:'
                     }
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
-                if ( key.match(/^suspicious_[set]/) ) {
+                if ( key.match(/^suspicious_[oset]/) ) {
                     ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
                     }
              });
@@ -1670,7 +1671,6 @@ function GetPtnaNearlySameOfTrip( lor, source_type, id ) {
 
 
 function GetPtnaInformationOfTrip( lor, source_type, id ) {
-    const expanded = {};
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {

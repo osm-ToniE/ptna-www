@@ -5,6 +5,7 @@
     $gtfs_strings['suspicious_end']                     = 'Suspicious end of trip: same';
     $gtfs_strings['suspicious_number_of_stops']         = 'Suspicious number of stops:';
     $gtfs_strings['suspicious_trip_duration']           = 'Suspicious travel time:';
+    $gtfs_strings['suspicious_other']                   = 'Suspicious trip:';
     $gtfs_strings['same_names_but_different_ids']       = 'Trips have same Stop-Names but different Stop-Ids:';
     $gtfs_strings['same_stops_but_different_shape_ids'] = 'Trips have same Stops but different Shape-Ids:';
 
@@ -17,6 +18,7 @@
             $gtfs_strings['suspicious_end']                     = 'Verdächtiges Ende der Fahrt: gleiche';
             $gtfs_strings['suspicious_number_of_stops']         = 'Verdächtige Anzahl von Haltestellen:';
             $gtfs_strings['suspicious_trip_duration']           = 'Verdächtige Fahrzeit:';
+            $gtfs_strings['suspicious_other']                   = 'Verdächtige Fahrt:';
             $gtfs_strings['same_names_but_different_ids']       = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
             $gtfs_strings['same_stops_but_different_shape_ids'] = 'Fahrten haben gleiche Haltestellen aber unterschiedliche Shape-Ids:';
         }
@@ -2670,6 +2672,7 @@
                              (isset($row['suspicious_start'])                   && $row['suspicious_start']                   ) ||
                              (isset($row['suspicious_end'])                     && $row['suspicious_end']                     ) ||
                              (isset($row['suspicious_number_of_stops'])         && $row['suspicious_number_of_stops']         ) ||
+                             (isset($row['suspicious_other'])                   && $row['suspicious_other']                   ) ||
                              (isset($row['same_names_but_different_ids'])       && $row['same_names_but_different_ids']       ) ||
                              (isset($row['same_stops_but_different_shape_ids']) && $row['same_stops_but_different_shape_ids'] )    ) {
                             $row['has_comments'] = 'yes';
@@ -3364,6 +3367,17 @@
                                 echo '                        </tr>' . "\n";
                             }
                         }
+                        if ( isset($columns['suspicious_other']) ) {
+                            $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE suspicious_other != '';" );
+                            $ptna = $db->querySingle( $sql, true );
+                            if ( $ptna["count"] ) {
+                                echo '                        <tr class="statistics-tablerow">' . "\n";
+                                echo '                            <td class="statistics-name">Suspicious trip</td>' . "\n";
+                                echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=OTHER">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
+                                echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                                echo '                        </tr>' . "\n";
+                            }
+                        }
                     }
                 }
 
@@ -3493,6 +3507,7 @@
                         $col_name['SUSPCOUNT'] = '';
                         $col_name['IDENT']     = '';
                         $col_name['TIME']      = '';
+                        $col_name['OTHER']     = '';
                         while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                             if ( $row["name"] == 'subroute_of' ) {
                                 $col_name['SUBR']  = 'subroute_of';
@@ -3509,8 +3524,11 @@
                             elseif ( $row["name"] == 'suspicious_trip_duration' ) {
                                 $col_name['TIME']  = 'suspicious_trip_duration';
                             }
+                            elseif ( $row["name"] == 'suspicious_other' ) {
+                                $col_name['OTHER'] = 'suspicious_other';
+                            }
                             elseif ( $row["name"] == 'same_names_but_different_ids' ) {
-                                $col_name['IDENT']  = 'same_names_but_different_ids';
+                                $col_name['IDENT'] = 'same_names_but_different_ids';
                             }
                             elseif ( $row["name"] == 'same_stops_but_different_shape_ids' ) {
                                 $col_name['DIFFSHAPES']  = 'same_stops_but_different_shape_ids';
@@ -3531,8 +3549,8 @@
                                               );
                             }
                         } else {
-                            $col_names = sprintf( "%s,%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
-                            $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
+                            $col_names = sprintf( "%s,%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'], $col_name['OTHER'] );
+                            $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'], $col_name['OTHER'] );
                             if ( $col_name['SUSPCOUNT'] ) {
                                 $col_names = sprintf( "%s,%s", $col_names, $col_name['SUSPCOUNT'] );
                                 $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['SUSPCOUNT'] );
@@ -3877,6 +3895,9 @@
             }
             if ( isset($param['suspicious_trip_duration']) && $param['suspicious_trip_duration'] ) {
                 $string .= "\n" . $gtfs_strings['suspicious_trip_duration'] . " '" . $param['suspicious_trip_duration'] . "'";
+            }
+            if ( isset($param['suspicious_other']) && $param['suspicious_other'] ) {
+                $string .= "\n" . $gtfs_strings['suspicious_other'] . " '" . $param['suspicious_other'] . "'";
             }
             if ( isset($param['subroute_of']) && $param['subroute_of'] ) {
                 $string .= "\n" . $gtfs_strings['subroute_of'] . " " . preg_replace( "/,\s*/",", ", $param['subroute_of'] );
