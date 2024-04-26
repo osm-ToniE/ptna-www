@@ -27,7 +27,7 @@
             <h2 id="gtfsdata">Was sind GTFS-Daten?</h2>
             <div class="indent">
                 <p>
-                    GTFS-Daten ... Zitat von Googles Web-Site zu <a href="https://developers.google.com/transit/gtfs">GTFS</a> (Übersetzt mit www.DeepL.com/Translator):
+                    GTFS-Daten ... Zitat von Googles Web-Site zu <a href="https://gtfs.org/">GTFS</a> (Übersetzt mit www.DeepL.com/Translator):
                 </p>
                 <p>"<i>Die General Transit Feed Specification (GTFS) [...] definiert ein gemeinsames Format für Fahrpläne des öffentlichen Verkehrs und die
                        damit verbundenen geografischen Informationen.

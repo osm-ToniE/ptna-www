@@ -27,7 +27,7 @@
             <h2 id="gtfsdata">Hvad er GTFS-data?</h2>
             <div class="indent">
                 <p>
-                    GTFS-data ... Citat fra Googles websted på <a href="https://developers.google.com/transit/gtfs">GTFS</a> (Oversat med Google oversætter):
+                    GTFS-data ... Citat fra Googles websted på <a href="https://gtfs.org/">GTFS</a> (Oversat med Google oversætter):
                 </p>
                 <p>"<i>General Transit Feed Specification (GTFS) [...] definerer et fælles format for tidsplaner for offentlig transport og tilknyttet geografisk information.
                        GTFS "feeds" lader offentlige transitbureauer offentliggøre deres transitdata, og udviklere skriver applikationer, der forbruger disse data på en interoperabel måde.</i>"

@@ -27,7 +27,7 @@
             <h2 id="gtfsdata">What is GTFS data?</h2>
             <div class="indent">
                 <p>
-                    GTFS data ... Quoted from von Google's Web-Site <a href="https://developers.google.com/transit/gtfs">GTFS</a>:
+                    GTFS data ... Quoted from von Google's Web-Site <a href="https://gtfs.org/">GTFS</a>:
                 </p>
                 <p>"<i>The General Transit Feed Specification (GTFS), also known as GTFS static or static transit to differentiate it from the GTFS realtime extension,
                        defines a common format for public transportation schedules and associated geographic information.
