@@ -34,7 +34,7 @@
             <tr class="option-tablerow" id="option-check-against-gtfs">
                 <td class="option-option">check-against-gtfs</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">OFF|tags|csv|csv,tags<br />Check OSM route_master/route data against GTFS feed data.<br />OFF: no checking<br />csv: check against GTFS feed data specified in CSV entry in the routes file<br />tags: check against GTFS feed data specified in &quot;gtfs:*&quot; tags in the route_master and route relations<br />csv,tags: check against &#039;csv&#039; and &#039;tags&#039;.</td>
+                <td class="option-description">OFF|tags|csv|csv,tags<br />Prüfe OSM route_master/route Daten gegen GTFS feed Daten.<br />OFF: keine Prüfung<br />csv: prüfe gegen die Daten des GTFS feed, definiert in  CSV Eintrag in der Routes Datei<br />tags: prüfe gegen die Daten des GTFS feed, definiert in  &#039;gtfs:*&#039; tags in den route_master und route Relationen<br />csv,tags: prüfe gegen &#039;csv&#039; und &#039;tags&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-bus-stop">
