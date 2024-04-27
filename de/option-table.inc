@@ -31,6 +31,12 @@
                 <td class="option-description">Es werden Wege benutzt welche explizit oder implizit (&#039;construction&#039;, &#039;access&#039;, ...) nicht genutzt werden können und wo &#039;bus&#039; = &#039;yes&#039;, &#039;bus&#039; = &#039;designated&#039;, &#039;bus&#039; = &#039;official&#039;, &#039;psv&#039; =&#039; yes&#039;, ... nicht gesetzt ist. Das gilt auch für &#039;barrier&#039;.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-check-against-gtfs">
+                <td class="option-option">check-against-gtfs</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">OFF|tags|csv|csv,tags<br />Check OSM route_master/route data against GTFS feed data.<br />OFF: no checking<br />csv: check against GTFS feed data specified in CSV entry in the routes file<br />tags: check against GTFS feed data specified in &quot;gtfs:*&quot; tags in the route_master and route relations<br />csv,tags: check against &#039;csv&#039; and &#039;tags&#039;.</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-check-bus-stop">
                 <td class="option-option">check-bus-stop</td>
                 <td class="option-default">OFF</td>

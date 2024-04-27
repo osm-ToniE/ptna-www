@@ -9,6 +9,7 @@
 
         $options_hash['allow-coach']                = 'OFF';
         $options_hash['check-access']               = 'OFF';
+        $options_hash['check-against-gtfs']         = 'OFF';
         $options_hash['check-bus-stop']             = 'OFF';
         $options_hash['check-gtfs']                 = 'OFF';
         $options_hash['check-motorway-link']        = 'OFF';
