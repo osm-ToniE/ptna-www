@@ -3549,8 +3549,8 @@
                                               );
                             }
                         } else {
-                            $col_names = sprintf( "%s,%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'], $col_name['OTHER'] );
-                            $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'], $col_name['OTHER'] );
+                            $col_names = sprintf( "%s,%s,%s", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
+                            $where_ors = sprintf( "%s != '' OR %s != '' OR %s != '' OR %s != ''", $col_name['SUBR'], $col_name['SUSPSTART'], $col_name['SUSPEND'], $col_name['IDENT'] );
                             if ( $col_name['SUSPCOUNT'] ) {
                                 $col_names = sprintf( "%s,%s", $col_names, $col_name['SUSPCOUNT'] );
                                 $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['SUSPCOUNT'] );
@@ -3558,6 +3558,10 @@
                             if ( $col_name['TIME'] ) {
                                 $col_names = sprintf( "%s,%s", $col_names, $col_name['TIME'] );
                                 $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['TIME'] );
+                            }
+                            if ( $col_name['OTHER'] ) {
+                                $col_names = sprintf( "%s,%s", $col_names, $col_name['OTHER'] );
+                                $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['OTHER'] );
                             }
                             $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
                                              FROM               ptna_trips_comments
