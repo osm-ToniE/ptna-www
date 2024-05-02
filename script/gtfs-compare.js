@@ -1080,9 +1080,9 @@ function parseHttpResponse( lor, data ) {
     if ( JSON_data[lor]["elements"].length === 0 ) {
         if ( lor === 'left' ) {
             if ( route_id ) {
-                alert( "GTFS for data for 'route_id' = '" + route_id + "' not found");
+                alert( "GTFS data for 'route_id' = '" + route_id + "' not found");
             } else if ( trip_id ) {
-                alert( "GTFS for data for 'trip_id' = '" + trip_id + "' not found");
+                alert( "GTFS data for 'trip_id' = '" + trip_id + "' not found");
             } else {
                 alert( "Neither 'route_id' nor 'trip_id' are set for GTFS data");
             }
@@ -1091,9 +1091,9 @@ function parseHttpResponse( lor, data ) {
                 alert( "OSM 'relation' = '" + relation_id + "' not found");
             } else {
                 if ( route_id2 ) {
-                    alert( "GTFS for data for 'route_id2' = '" + route_id2 + "' not found");
+                    alert( "GTFS data for 'route_id2' = '" + route_id2 + "' not found");
                 } else if ( trip_id2 ) {
-                    alert( "GTFS for data for 'trip_id2' = '" + trip_id + "' not found");
+                    alert( "GTFS data for 'trip_id2' = '" + trip_id + "' not found");
                 } else {
                     alert( "Neither 'route_id2' nor 'trip_id2' are set for GTFS data, 'relation' not set for OSM data as well");
                 }
