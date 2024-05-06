@@ -54,7 +54,7 @@
                         </table>
                     </div>
 
-                    <h3 id="compare-table">Score Table</h3>
+                    <h3 id="compare-table">Mismatch Score Table</h3>
                     <div class="indent">
                         <p>
                             Small values indicate a good match between GTFS trip and OSM route/GTFS trip.<br>
