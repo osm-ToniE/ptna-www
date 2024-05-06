@@ -67,9 +67,9 @@
                         </span>
                     </div>
 
-                    <h2 id="scores">Scores (low score)</h2>
+                    <h2 id="scores">Mismatch Scores (low score)</h2>
                     <div class="indent">
-                        <p>The values indicate how well the two routes match, smaller is better.</p>
+                        <p>The values indicate the mismatch between the two routes, smaller is better.</p>
                         <div>
                             <!-- table will be filled on the fly using JavaScript -->
                             <table id="scores-table" class="scores-table scores">
