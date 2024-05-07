@@ -2188,28 +2188,28 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             // start comparing values left <-> right
 
             if ( body_row['stop_id'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['gtfs:stop_id:'+feed] || body_row['ref:IFOPT']) ) {
-                if ( body_row['stop_id2'] !== '' ) {
+                if ( scores['weights']['stop_id2'] > 0 && body_row['stop_id2'] !== '' ) {
                     if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
                         row_style['stop_id']  = ['background-color:orange'];
                         row_style['stop_id2'] = ['background-color:orange'];
                         scores['mismatch_count']['stop_id2']++;
                     }
                 } else {
-                    if ( body_row['gtfs:stop_id'] !== '' ) {
+                    if ( scores['weights']['gtfs:stop_id'] > 0 && body_row['gtfs:stop_id'] !== '' ) {
                         if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
                             row_style['stop_id']      = ['background-color:orange'];
                             row_style['gtfs:stop_id'] = ['background-color:orange'];
                             scores['mismatch_count']['gtfs:stop_id']++;
                         }
                     }
-                    if ( body_row['gtfs:stop_id:'+feed] !== '' ) {
+                    if ( scores['weights']['gtfs:stop_id:'+feed] > 0 && body_row['gtfs:stop_id:'+feed] !== '' ) {
                         if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() ) {
                             row_style['stop_id']            = ['background-color:orange'];
                             row_style['gtfs:stop_id:'+feed] = ['background-color:orange'];
                             scores['mismatch_count']['gtfs:stop_id:'+feed]++;
                         }
                     }
-                    if ( body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
+                    if ( scores['weights']['ref:IFOPT'] > 0 && body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
                         // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 2 ':'
                         if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
                             row_style['stop_id']   = ['background-color:orange'];
