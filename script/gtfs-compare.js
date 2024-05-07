@@ -59,6 +59,9 @@ var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
 var RoutesTableFirstVisibleColumn = 0;
 
+const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2' ];
+
+
 async function showtripcomparison() {
 
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
@@ -1799,6 +1802,14 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
         } else {
             ret_val = '';
         }
+        if ( ret_val !== '' ) {
+            const URLparams = URLparse();
+            UrlParamsWhichCanBeForwarded.forEach( element => {
+                if ( element in URLparams ) {
+                    ret_val += '&' + element + '=' + encodeURIComponent(URLparse()[element]);
+                }
+            });
+        }
     }
     return ret_val;
 }
@@ -2325,18 +2336,18 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
 
 function OverwriteScoreWeightsFromDbOrUrl( scores ) {
-    const DbField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
-                                    'wn'  : 'name',               // compare 'stop_name' left with 'name'/'stop_name' right
-                                    'wrn' : 'ref_name',           // compare 'stop_name' left with 'ref_name' right
-                                    'wsi' : 'stop_id2',           // compare 'stop_id'   left with 'stop_id' right
-                                    'wri' : 'ref:IFOPT',          // compare 'stop_id'   left with 'ref:IFOPT' right
-                                    'wgs' : 'gtfs:stop_id',       // compare 'stop_id'   left with 'gtfs:stop_id' right
-                                    'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'   left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
-                                    'wd0' : 'distance',           //
-                                    'wd1' : 'distance',           //
-                                    'wd2' : 'distance'            //
-                                  }
-    Object.entries(DbField2ComparisonKey).forEach(([param, key]) => {
+    const DbUrlField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
+                                       'wn'  : 'name',               // compare 'stop_name' left with 'name'/'stop_name' right
+                                       'wrn' : 'ref_name',           // compare 'stop_name' left with 'ref_name' right
+                                       'wsi' : 'stop_id2',           // compare 'stop_id'   left with 'stop_id' right
+                                       'wri' : 'ref:IFOPT',          // compare 'stop_id'   left with 'ref:IFOPT' right
+                                       'wgs' : 'gtfs:stop_id',       // compare 'stop_id'   left with 'gtfs:stop_id' right
+                                       'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'   left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
+                                       'wd0' : 'distance',           //
+                                       'wd1' : 'distance',           //
+                                       'wd2' : 'distance'            //
+                                     };
+    Object.entries(DbUrlField2ComparisonKey).forEach(([param, key]) => {
         if ( key ) {
             var weight = undefined;
             if ( param in URLparse() ) {
@@ -2659,7 +2670,10 @@ function FillTripsScoresTable( scores ) {
                         elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
                     }
                 } else {
-                    elem.innerHTML = '<span title="these combinations are not relevant, their \'weights\' have been set to zero">n/r</span>';
+                    elem.style        = 'background-color: lightblue;';
+                    elem.innerHTML    = '<span title="these combinations are not relevant, their \'weights\' have been set to zero">n/r</span>';
+                    elem_text.style   = 'background-color: lightblue;';
+                    elem_weight.style = 'background-color: lightblue;';
                 }
             } else {
                 elem.innerHTML = '<span title="these combinations have not been detected">n/d</span>';
