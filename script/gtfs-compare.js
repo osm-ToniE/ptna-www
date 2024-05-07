@@ -2101,7 +2101,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
     if ( left_len > 0 && right_len > 0 ) {
 
-        OverwriteScoreWeightsDistancesFromDbOrUrl( scores );
+        OverwriteScoreWeightsFromDbOrUrl( scores );
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -2324,14 +2324,36 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 }
 
 
-function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
-    if ( 'osm' in JSON_data['left'] ) {
-        if ( 'wn' in JSON_data['left']['osm'] ) {
-            if ( JSON_data['left']['osm']['wn'].match(/^\d+$/) ) {
-                scores['weights']['name'] = parseInt(JSON_data['left']['osm']['wn']);
+function OverwriteScoreWeightsFromDbOrUrl( scores ) {
+    const DbField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
+                                    'wn'  : 'name',               // compare 'stop_name' left with 'name'/'stop_name' right
+                                    'wrn' : 'ref_name',           // compare 'stop_name' left with 'ref_name' right
+                                    'wsi' : 'stop_id2',           // compare 'stop_id'   left with 'stop_id' right
+                                    'wri' : 'ref:IFOPT',          // compare 'stop_id'   left with 'ref:IFOPT' right
+                                    'wgs' : 'gtfs:stop_id',       // compare 'stop_id'   left with 'gtfs:stop_id' right
+                                    'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'   left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
+                                    'wd0' : 'distance',           //
+                                    'wd1' : 'distance',           //
+                                    'wd2' : 'distance'            //
+                                  }
+    Object.entries(DbField2ComparisonKey).forEach(([param, key]) => {
+        if ( key ) {
+            var weight = undefined;
+            if ( param in URLparse() ) {
+                weight = URLparse()[param];
+            } else if ( 'osm' in JSON_data['left'] && param in JSON_data['left']['osm'] ) {
+                weight = JSON_data['left']['osm'][param];
+            }
+            if ( weight && weight.match(/^\d+$/) ) {
+                if ( param.match(/\d$/) ) {
+                    var arrayindex = param.replace(/^[^0-9]+/,'');
+                    scores['weights'][key][arrayindex] = parseInt(weight);
+                } else {
+                    scores['weights'][key] = parseInt(weight);
+                }
             }
         }
-    }
+    });
 }
 
 
