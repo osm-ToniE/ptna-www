@@ -27,11 +27,11 @@
             <h2 id="gtfsdata">What is GTFS data?</h2>
             <div class="indent">
                 <p>
-                    GTFS data ... Quoted from von Google's Web-Site <a href="https://gtfs.org/">GTFS</a>:
+                    Quoted from MobilityData's Web-Site <a href="https://gtfs.org/">GTFS</a>:
                 </p>
-                <p>"<i>The General Transit Feed Specification (GTFS), also known as GTFS static or static transit to differentiate it from the GTFS realtime extension,
-                       defines a common format for public transportation schedules and associated geographic information.
-                       GTFS "feeds" let public transit agencies publish their transit data and developers write applications that consume that data in an interoperable way.</i>"
+                <p>"<i>The General Transit Feed Specification (GTFS) is an Open Standard used to distribute relevant information about transit systems to riders.
+                    It allows public transit agencies to publish their transit data in a format that can be consumed by a wide variety of software applications.
+                    Today, the GTFS data format is used by thousands of public transport providers.</i>"
                 </p>
                 <p>
                     The GTFS data consists of a series of *.txt files packed in a *.zip archive.

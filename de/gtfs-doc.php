@@ -27,12 +27,11 @@
             <h2 id="gtfsdata">Was sind GTFS-Daten?</h2>
             <div class="indent">
                 <p>
-                    GTFS-Daten ... Zitat von Googles Web-Site zu <a href="https://gtfs.org/">GTFS</a> (Übersetzt mit www.DeepL.com/Translator):
+                    Zitat von MobilityDatas Web-Site <a href="https://gtfs.org/">GTFS</a> (Übersetzt mit www.DeepL.com/translator):
                 </p>
-                <p>"<i>Die General Transit Feed Specification (GTFS) [...] definiert ein gemeinsames Format für Fahrpläne des öffentlichen Verkehrs und die
-                       damit verbundenen geografischen Informationen.
-                       GTFS-"Feeds" ermöglichen es den Verkehrsbetrieben, ihre Verkehrsdaten zu veröffentlichen, und die Entwickler schreiben Anwendungen,
-                       die diese Daten auf interoperable Weise nutzen.</i>"
+                <p>"<i>Die General Transit Feed Specification (GTFS) ist ein offener Standard, der verwendet wird, um Fahrgästen relevante Informationen über Verkehrssysteme zur Verfügung zu stellen.
+                    Er ermöglicht es öffentlichen Verkehrsbetrieben, ihre Verkehrsdaten in einem Format zu veröffentlichen, das von einer Vielzahl von Softwareanwendungen genutzt werden kann.
+                    Heute wird das GTFS-Datenformat von Tausenden von öffentlichen Verkehrsbetrieben verwendet.</i>"
                 </p>
                 <p>
                     Die GTFS-Daten bestehen aus einer Reihe von *.txt-Dateien, die in einem *.zip-Archiv gepackt sind.

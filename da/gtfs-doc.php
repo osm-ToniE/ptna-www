@@ -27,10 +27,11 @@
             <h2 id="gtfsdata">Hvad er GTFS-data?</h2>
             <div class="indent">
                 <p>
-                    GTFS-data ... Citat fra Googles websted på <a href="https://gtfs.org/">GTFS</a> (Oversat med Google oversætter):
+                    Citat fra MobilityDatas websted på <a href="https://gtfs.org/">GTFS</a> (Oversat med DeepL.com oversætter):
                 </p>
-                <p>"<i>General Transit Feed Specification (GTFS) [...] definerer et fælles format for tidsplaner for offentlig transport og tilknyttet geografisk information.
-                       GTFS "feeds" lader offentlige transitbureauer offentliggøre deres transitdata, og udviklere skriver applikationer, der forbruger disse data på en interoperabel måde.</i>"
+                <p>"<i>General Transit Feed Specification (GTFS) er en åben standard, der bruges til at distribuere relevante oplysninger om transitsystemer til passagerer.
+                    Den giver offentlige transportvirksomheder mulighed for at offentliggøre deres transitdata i et format, der kan bruges af en lang række softwareprogrammer.
+                    I dag bruges GTFS-dataformatet af tusindvis af udbydere af offentlig transport.</i>"
                 </p>
             </div>
 
