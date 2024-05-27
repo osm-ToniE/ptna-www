@@ -28,6 +28,8 @@
 
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-GES-CTS", "fr", "Configuration" ); ?>
