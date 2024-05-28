@@ -203,6 +203,8 @@
 
                     <?php CreateNewFullEntry( "DE-ST-stendalbus", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-TH-HBN", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-TH-VGLG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-TH-VMT", "de", "Konfiguration" ); ?>
