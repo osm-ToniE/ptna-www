@@ -1989,7 +1989,7 @@
                                                      WHERE  service_id='%s' AND exception_type=2;", SQLite3::escapeString(($row["service_id"]) ) );
                                     $cal_neg = $db->querySingle( $sql, true );
                                     if ( $cal_neg['dates'] ) {
-                                        $arr = explode( ', ', $cal_pos["dates"] );
+                                        $arr = explode( ', ', $cal_neg["dates"] );
                                         sort( $arr );
                                         $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", implode( ', ', $arr ) );
                                     } else {
