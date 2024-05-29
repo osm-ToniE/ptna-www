@@ -1976,7 +1976,9 @@
                                                      WHERE  service_id='%s' AND exception_type=1;", SQLite3::escapeString(($row["service_id"]) ) );
                                     $cal_pos = $db->querySingle( $sql, true );
                                     if ( $cal_pos['dates'] ) {
-                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", $cal_pos["dates"] );
+                                        $arr = explode( ', ', $cal_pos["dates"] );
+                                        sort( $arr );
+                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", implode( ', ', $arr ) );
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
@@ -1987,7 +1989,9 @@
                                                      WHERE  service_id='%s' AND exception_type=2;", SQLite3::escapeString(($row["service_id"]) ) );
                                     $cal_neg = $db->querySingle( $sql, true );
                                     if ( $cal_neg['dates'] ) {
-                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", $cal_neg["dates"] );
+                                        $arr = explode( ', ', $cal_pos["dates"] );
+                                        sort( $arr );
+                                        $service_row .= preg_replace( "/(\d\d\d\d)(\d\d)(\d\d)/", "\\1-\\2-\\3", implode( ', ', $arr ) );
                                     } else {
                                         $service_row .= '&nbsp;';
                                     }
