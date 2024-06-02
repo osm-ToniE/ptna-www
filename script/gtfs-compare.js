@@ -2196,14 +2196,24 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 } else {
                     if ( scores['weights']['gtfs:stop_id'] > 0 && body_row['gtfs:stop_id'] !== '' ) {
-                        if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
+                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                        var right_id_expanded = ';' + body_row['gtfs:stop_id'].toString() + ';';
+                        left_id_expanded.replace( /\s*;\s*/g, ';' );
+                        right_id_expanded.replace( /\s*;\s*/g, ';' );
+                        if ( body_row['stop_id'].toString()             !== body_row['gtfs:stop_id'].toString() &&
+                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                     ) {
                             row_style['stop_id']      = ['background-color:orange'];
                             row_style['gtfs:stop_id'] = ['background-color:orange'];
                             scores['mismatch_count']['gtfs:stop_id']++;
                         }
                     }
                     if ( scores['weights']['gtfs:stop_id:'+feed] > 0 && body_row['gtfs:stop_id:'+feed] !== '' ) {
-                        if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() ) {
+                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                        var right_id_expanded = ';' + body_row['gtfs:stop_id:'+feed].toString() + ';';
+                        left_id_expanded.replace( /\s*;\s*/g, ';' );
+                        right_id_expanded.replace( /\s*;\s*/g, ';' );
+                        if ( body_row['stop_id'].toString()              !== body_row['gtfs:stop_id:'+feed].toString() &&
+                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                           ) {
                             row_style['stop_id']            = ['background-color:orange'];
                             row_style['gtfs:stop_id:'+feed] = ['background-color:orange'];
                             scores['mismatch_count']['gtfs:stop_id:'+feed]++;
@@ -2211,7 +2221,12 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                     if ( scores['weights']['ref:IFOPT'] > 0 && body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
                         // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 2 ':'
-                        if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
+                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                        var right_id_expanded = ';' + body_row['ref:IFOPT'].toString() + ';';
+                        left_id_expanded.replace( /\s*;\s*/g, ';' );
+                        right_id_expanded.replace( /\s*;\s*/g, ';' );
+                        if ( body_row['stop_id'].toString()              !== body_row['ref:IFOPT'].toString() &&
+                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                  ) {
                             row_style['stop_id']   = ['background-color:orange'];
                             row_style['ref:IFOPT'] = ['background-color:orange'];
                             scores['mismatch_count']['ref:IFOPT']++;
