@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
 <?php
-    $duration += CreateGtfsEntry( "NL-Nationaal" );
+    $duration += CreateGtfsEntry( "NL-OVApi" );
 ?>
                     </tbody>
                 </table>
