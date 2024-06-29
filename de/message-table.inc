@@ -822,6 +822,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche &#039;role&#039; = &#039;%s&#039; für die erste Platform</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche &#039;role&#039; = &#039;%s&#039; für die erste Stopposition</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche &#039;role&#039; = &#039;%s&#039; für die letzte Platform</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: falsche &#039;role&#039; = &#039;%s&#039; für die letzte Stopposition</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: falsche Reihenfolge von &#039;stop_position&#039;, &#039;platform&#039; und &#039;way&#039;: &#039;stop_position&#039;/&#039;platform&#039; müssen vor allen &#039;way&#039; kommen</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>

@@ -782,6 +782,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for first platform</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for first stop</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for last platform</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for last stop</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route does not exist in the given data set: %s</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
