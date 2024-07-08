@@ -44,7 +44,7 @@
 
                     <?php CreateNewFullEntry( "ES-CT-ATML", "es", "Configuración en progreso" ); ?> <!-- Lleida -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMT", "es", "Configuración en progreso" ); ?> <!-- Camp de Tarragona -->
+                    <?php CreateNewFullEntry( "ES-CT-ATMT", "es", "Configuración" ); ?> <!-- Camp de Tarragona -->
 
                     <?php CreateNewFullEntry( "ES-CT-TB", "es", "Configuración en progreso" ); ?> <!-- Tourism Barcelona -->
 
