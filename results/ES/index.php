@@ -32,31 +32,31 @@
 
                     <!-- see also: https://community.openstreetmap.org/t/ptna-i-arees-de-transport-network-guid/107647 -->
 
-                    <?php CreateNewFullEntry( "ES-CT-AB", "es", "Configuración en progreso" ); ?> <!-- Airport Barcelona -->
+                    <?php CreateNewFullEntry( "ES-CT-AB", "ca", "Configuració en progrés" ); ?> <!-- Airport Barcelona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-AG", "es", "Configuración en progreso" ); ?> <!-- Airport Girona -->
+                    <?php CreateNewFullEntry( "ES-CT-AG", "ca", "Configuració en progrés" ); ?> <!-- Airport Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-AR", "es", "Configuración en progreso" ); ?> <!-- Airport Reus -->
+                    <?php CreateNewFullEntry( "ES-CT-AR", "ca", "Configuració en progrés" ); ?> <!-- Airport Reus -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMB", "es", "Configuración" ); ?> <!-- Barcelona -->
+                    <?php CreateNewFullEntry( "ES-CT-ATMB", "ca", "Configuració" ); ?> <!-- Barcelona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMG", "es", "Configuración en progreso" ); ?> <!-- Girona -->
+                    <?php CreateNewFullEntry( "ES-CT-ATMG", "ca", "Configuració en progrés" ); ?> <!-- Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATML", "es", "Configuración en progreso" ); ?> <!-- Lleida -->
+                    <?php CreateNewFullEntry( "ES-CT-ATML", "ca", "Configuració en progrés" ); ?> <!-- Lleida -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMT", "es", "Configuración" ); ?> <!-- Camp de Tarragona -->
+                    <?php CreateNewFullEntry( "ES-CT-ATMT", "ca", "Configuració" ); ?> <!-- Camp de Tarragona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-TB", "es", "Configuración en progreso" ); ?> <!-- Tourism Barcelona -->
+                    <?php CreateNewFullEntry( "ES-CT-TB", "ca", "Configuració en progrés" ); ?> <!-- Tourism Barcelona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-TG", "es", "Configuración en progreso" ); ?> <!-- Tourism Girona -->
+                    <?php CreateNewFullEntry( "ES-CT-TG", "ca", "Configuració en progrés" ); ?> <!-- Tourism Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-TT", "es", "Configuración en progreso" ); ?> <!-- Tourism Tarragona -->
+                    <?php CreateNewFullEntry( "ES-CT-TT", "ca", "Configuració en progrés" ); ?> <!-- Tourism Tarragona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-VE", "es", "Configuración en progreso" ); ?> <!-- Terres de l’Ebre -->
+                    <?php CreateNewFullEntry( "ES-CT-VE", "ca", "Configuració en progrés" ); ?> <!-- Terres de l’Ebre -->
 
-                    <?php CreateNewFullEntry( "ES-CT-VG", "es", "Configuración en progreso" ); ?> <!-- Girona -->
+                    <?php CreateNewFullEntry( "ES-CT-VG", "ca", "Configuració en progrés" ); ?> <!-- Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-VP", "es", "Configuración en progreso" ); ?> <!-- Alt Pirineu i Aran -->
+                    <?php CreateNewFullEntry( "ES-CT-VP", "ca", "Configuració en progrés" ); ?> <!-- Alt Pirineu i Aran -->
 
                 </tbody>
             </table>
