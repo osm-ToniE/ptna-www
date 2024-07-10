@@ -8,17 +8,17 @@
     <body>
       <div id="wrapper">
 
-<?php include $inc_lang.'header.inc' ?>
+<?php $inc_lang='../../es/'; include $inc_lang.'header.inc' ?>
 
         <main id="main" class="results">
 
             <h2 id="ES"><img src="/img/Spain32.png"  class="flagimg" alt="bandera España" /> Resultados para España</h2>
 
-<?php include $inc_lang.'results-head.inc' ?>
+<?php $inc_lang='../../es/'; include $inc_lang.'results-head.inc' ?>
 
             <table id="networksES">
                 <thead>
-<?php include $inc_lang.'results-trth.inc' ?>
+<?php $inc_lang='../../es/'; include $inc_lang.'results-trth.inc' ?>
                 </thead>
                 <tbody>
 
@@ -30,6 +30,18 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
+                </tbody>
+            </table>
+
+            <hr />
+
+<?php $inc_lang='../../ca/'; include $inc_lang.'results-head.inc' ?>
+
+            <table id="networksES-ca">
+                <thead>
+<?php $inc_lang='../../ca/'; include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
                     <!-- see also: https://community.openstreetmap.org/t/ptna-i-arees-de-transport-network-guid/107647 -->
 
                     <?php CreateNewFullEntry( "ES-CT-AB", "ca", "Configuració en progrés" ); ?> <!-- Airport Barcelona -->
@@ -40,9 +52,9 @@
 
                     <?php CreateNewFullEntry( "ES-CT-ATMB", "ca", "Configuració" ); ?> <!-- Barcelona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATMG", "ca", "Configuració en progrés" ); ?> <!-- Girona -->
+                    <?php CreateNewFullEntry( "ES-CT-ATMG", "ca", "Configuració" ); ?> <!-- Girona -->
 
-                    <?php CreateNewFullEntry( "ES-CT-ATML", "ca", "Configuració en progrés" ); ?> <!-- Lleida -->
+                    <?php CreateNewFullEntry( "ES-CT-ATML", "ca", "Configuració" ); ?> <!-- Lleida -->
 
                     <?php CreateNewFullEntry( "ES-CT-ATMT", "ca", "Configuració" ); ?> <!-- Camp de Tarragona -->
 
@@ -65,7 +77,11 @@
 
         <hr />
 
-<?php include $inc_lang.'footer.inc' ?>
+        <?php $inc_lang='../../es/'; include $inc_lang.'footer.inc' ?>
+
+        <hr />
+
+        <?php $inc_lang='../../ca/'; include $inc_lang.'footer.inc' ?>
 
       </div> <!-- wrapper -->
     </body>
