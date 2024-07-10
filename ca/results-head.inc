@@ -1,11 +1,11 @@
             <p>
-                La primera columna contiene un enlace a los resultados del análisis.
+                La primera columna conté un enllaç als resultats de l'anàlisi.
             </p>
             <p>
-                La columna "Cambios recientes" enlaza con la página HTML que muestra las diferencias con los últimos resultados del análisis.
-                Estos son de color, puede usar los botones de navegación <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> en la parte inferior derecha o los caracteres 'j' (hacia adelante) y 'k' (hacia atrás) para saltar de una diferencia a otra.
-                Esta columna incluye la fecha del último análisis donde han surgido cambios relevantes.
-                Las fechas más antiguas significan que no hubo cambios en los resultados.
-                Sin embargo, los datos han sido analizados como se indica en la columna "Fecha de análisis".
+                La columna "Canvis recents" enllaça amb la pàgina HTML que mostra les diferències amb els últims resultats de l'anàlisi.
+                Aquests són en color, pot fer ús dels botons de navegació <img class="diff-navigate" src="/img/diff-navigate.png" alt="Navigation"> a la part inferior dreta o els caràcters 'j' (cap endavant) i 'k' (cap endarrere) per a passar d'una diferència a una altra.
+                Aquesta columna inclou la data de l'últim anàlisi on han aparegut canvis destacables.
+                Les dates més antigues significa que no hi va haver canvis als resultats.
+                Tot i així, les dades han estat analitzades tal i com s'indica a la columna "Data d'anàlisi".
             </p>
 
