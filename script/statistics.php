@@ -173,7 +173,36 @@
 
     function PrintNetworkAnalysisLogs( $network ) {
         global $path_to_work;
+        global $path_to_networks;
 
+        $prefixparts = explode( '-', $network );
+        $country     = array_shift( $prefixparts );
+        $timezone    = '';
+        if (is_dir($path_to_networks)){
+            if ($dh = opendir($path_to_networks)){
+                while ( ($timezone = readdir($dh)) !== false ) {
+                    $country_in_timezone = realpath($path_to_networks.$timezone.'/'.$country);
+                    if ( $country_in_timezone !== false AND is_dir($country_in_timezone) ) {
+                        break;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+        if ( $timezone ) {
+            $logfilename = $path_to_work . 'ptna-cronjob-' . $timezone . '.log';
+            if ( file_exists($logfilename) ) {
+                $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
+                foreach ( $lines as $line ) {
+                    $line = preg_replace( '/\/osm\/ptna\/work/',  '$WORK_LOC',  $line );
+                    $line = preg_replace( '/\/osm\/ptna\/www/',   '$WWW_LOC',   $line );
+                    $line = preg_replace( '/\/osm\/ptna/',        '$PTNA_LOC',  $line );
+                    $line = preg_replace( '/\/home\/toni\/ptna/', '$PTNA_PATH', $line );
+                    $line = preg_replace( '/toni osm/',           'user group', $line );
+                    printf( "%s\n", htmlspecialchars($line) );
+                }
+            }
+        }
         $logfilename = $path_to_work . 'log/' . $network . '.log';
         if ( file_exists($logfilename) ) {
             $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );

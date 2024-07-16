@@ -1,8 +1,9 @@
 <?php
-    $path_to_work  = '/osm/ptna/work/';
-    $path_to_www   = '/osm/ptna/www/';
-    $details_hash  = [];
-    $filename_hash = [];
+    $path_to_work     = '/osm/ptna/work/';
+    $path_to_www      = '/osm/ptna/www/';
+    $path_to_networks = '/osm/ptna/ptna-networks/';
+    $details_hash     = [];
+    $filename_hash    = [];
 
     function ReadDetails( $network ) {
         global $path_to_work;
