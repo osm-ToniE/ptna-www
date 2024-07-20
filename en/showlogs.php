@@ -21,6 +21,8 @@
 <?php
                     if ( isset($network) ) {
                         PrintNetworkAnalysisLogs( $network );
+                    } else if ( isset($_GET['timezone']) && $_GET['timezone']) {
+                        PrintTimezoneAnalysisLogs( $timezone );
                     }
 ?>
             </pre>
