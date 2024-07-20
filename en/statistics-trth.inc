@@ -1,6 +1,6 @@
 <tr class="statistics-tableheaderrow">
     <th class="statistics-name js-sort-none" colspan="1" >Network</th>
-    <th class="statistics-date js-sort-none" colspan="3">Timezone</th>
+    <th class="statistics-date js-sort-none" colspan="3">Timezone (winter/summer)</th>
     <th class="statistics-date js-sort-none" colspan="1">OSM Data</th>
     <th class="statistics-date js-sort-none" colspan="3">Download</th>
     <th class="statistics-date js-sort-none" colspan="1">Routes Data</th>
