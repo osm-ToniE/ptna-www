@@ -19,10 +19,11 @@
 
             <pre>
 <?php
-                    if ( isset($network) ) {
+                    if ( isset($network) && $network ) {
                         PrintNetworkAnalysisLogs( $network );
-                    } else if ( isset($_GET['timezone']) && $_GET['timezone']) {
-                        PrintTimezoneAnalysisLogs( $_GET['timezone'] );
+                    } elseif ( isset($_GET['timezone']) && $_GET['timezone'] ) {
+                        $timezone = preg_replace('/ /', '+', $_GET['timezone'] );
+                        PrintTimezoneAnalysisLogs( $timezone );
                     }
 ?>
             </pre>
