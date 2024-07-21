@@ -1,17 +1,21 @@
 <?php
     include('../script/config.php');
 
-    $download_total_secs = 0;
-    $analysis_total_secs = 0;
-    $size_total_files    = [];
-    $count_has_changes   = 0;
+    $download_total_secs        = 0;
+    $filter_total_secs          = 0;
+    $analysis_total_secs        = 0;
+    $size_total_download_files  = [];
+    $size_total_filter_files    = [];
+    $count_has_changes          = 0;
 
     function PrintNetworkStatistics( $network ) {
         global $details_hash;
         global $download_total_secs;
         global $analysis_total_secs;
-        global $size_total_files;
+        global $size_total_download_files;
+        global $size_total_filter_files;
         global $count_has_changes;
+        global $filter_total_secs;
 
         if ( ReadDetails($network) ) {
 
@@ -78,7 +82,7 @@
             if ( $osm_xml_file_name && $size_download ) {
                 if ( $start_download && $end_download ) {
                     printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
-                    $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
+                    $size_total_download_files[$osm_xml_file_name.$start_download] = $size_download;
                 } else {
                     if ( $size_extract ) {
                         printf( "    <td class=\"statistics-size\"></td>\n" );
@@ -96,11 +100,12 @@
             if ( $start_filter && $end_filter ) {
                 $sabs                 = strtotime( $start_filter );
                 $eabs                 = strtotime( $end_filter );
-                $duration_filter      = $eabs - $sabs;
+                $duration_filter      = $eabs - $sabs || 1;
                 $filter_total_secs   += $duration_filter;
                 printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_filter    );
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_filter/60, $duration_filter%60 );
                 printf( "    <td class=\"statistics-size\">%.3f</td>\n",        $size_download / 1024 / 1024 );
+                $size_total_filter_files[$osm_xml_file_name.$start_filter] = $size_download;
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
                 printf( "    <td class=\"statistics-duration\"></td>\n" );
@@ -159,16 +164,24 @@
 
     function PrintNetworkStatisticsTotals( $count ) {
         global $download_total_secs;
+        global $filter_total_secs;
         global $analysis_total_secs;
-        global $size_total_files;
+        global $size_total_download_files;
+        global $size_total_filter_files;
         global $count_has_changes;
 
-        $size_total = 0;
-        $file_total = 0;
+        $size_download_total = 0;
+        $file_download_total = 0;
+        $size_filter_total = 0;
+        $file_filter_total = 0;
 
-        foreach ( $size_total_files as $file => $size ) {
-            $size_total += $size;
-            $file_total++;
+        foreach ( $size_total_download_files as $file => $size ) {
+            $size_download_total += $size;
+            $file_download_total++;
+        }
+        foreach ( $size_total_filter_files as $file => $size ) {
+            $size_filter_total += $size;
+            $file_filter_total++;
         }
         printf( "<tr class=\"statistics-tableheaderrow\">\n" );
         printf( "    <th class=\"statistics-network\">%d</th>\n", $count );
@@ -176,12 +189,12 @@
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
-        printf( "    <th class=\"statistics-date\">%d</th>\n", $file_total );
+        printf( "    <th class=\"statistics-date\">%d</th>\n", $file_download_total );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
-        printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
-        printf( "    <th class=\"statistics-date\"></th>\n" );
-        printf( "    <th class=\"statistics-duration\"></th>\n" );
-        printf( "    <th class=\"statistics-size\"></th>\n" );
+        printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_download_total / 1024 / 1024 );
+        printf( "    <th class=\"statistics-date\">%d</th>\n", $file_filter_total );
+        printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $filter_total_secs/3600, ($filter_total_secs%3600)/60, $filter_total_secs%60 );
+        printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_filter_total / 1024 / 1024 );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
