@@ -45,9 +45,13 @@
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzshort );
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $tzname  );
             if ( $osm_base ) {
-                if ( $start_download ) {
+                if ( $start_download || $start_filter ) {
                     $osmbaseabs     = strtotime( $osm_base );
-                    $startabs       = strtotime( $start_download );
+                    if ( $start_filter ) {
+                        $startabs       = strtotime( $start_filter );
+                    } else {
+                        $startabs       = strtotime( $start_download );
+                    }
                     $age_osm_base   = $startabs - $osmbaseabs;
                     if ( $age_osm_base > 3600 ) {
                         printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\" title=\"OSM Data is older than 1 hour at time of download\">%s</a></td>\n", $network, $osm_base );
