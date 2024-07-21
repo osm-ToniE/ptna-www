@@ -97,7 +97,7 @@
                 $sabs                 = strtotime( $start_filter );
                 $eabs                 = strtotime( $end_filter );
                 $duration_filter      = $eabs - $sabs;
-                $filter_total_secs   += $filter_download;
+                $filter_total_secs   += $duration_filter;
                 printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_filter    );
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_filter/60, $duration_filter%60 );
                 printf( "    <td class=\"statistics-size\">%.3f</td>\n",        $size_download / 1024 / 1024 );
