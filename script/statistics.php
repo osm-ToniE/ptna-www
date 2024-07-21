@@ -54,7 +54,7 @@
                     }
                     $age_osm_base   = $startabs - $osmbaseabs;
                     if ( $age_osm_base > 3600 ) {
-                        printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\" title=\"OSM Data is older than 1 hour at time of download\">%s</a></td>\n", $network, $osm_base );
+                        printf( "    <td class=\"statistics-date-marked\"><a href=\"/en/showlogs.php?network=%s\" title=\"OSM Data is older than 1 hour at time of download/analysis\">%s</a></td>\n", $network, $osm_base );
                     } else {
                         printf( "    <td class=\"statistics-date\">%s</td>\n", $osm_base );
                     }
