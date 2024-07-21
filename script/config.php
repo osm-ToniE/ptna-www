@@ -180,6 +180,14 @@
         return( 0 );
     }
 
+    function GetOsmPbfFileSizeByte() {
+        global $details_hash;
+        if ( isset($details_hash['EXTRACT_SIZE_BYTE']) ) {
+            return( $details_hash['EXTRACT_SIZE_BYTE'] );
+        }
+        return( 0 );
+    }
+
     function GetOsmXmlFileDate() {
         global $details_hash;
         if ( isset($details_hash['OSM_XML_FILE_DATE']) ) {
@@ -200,6 +208,22 @@
         global $details_hash;
         if ( isset($details_hash['END_DOWNLOAD']) ) {
             return( $details_hash['END_DOWNLOAD'] );
+        }
+        return( '' );
+    }
+
+    function GetStartFilterDate() {
+        global $details_hash;
+        if ( isset($details_hash['START_FILTER']) ) {
+            return( $details_hash['START_FILTER'] );
+        }
+        return( '' );
+    }
+
+    function GetEndFilterDate() {
+        global $details_hash;
+        if ( isset($details_hash['END_FILTER']) ) {
+            return( $details_hash['END_FILTER'] );
         }
         return( '' );
     }

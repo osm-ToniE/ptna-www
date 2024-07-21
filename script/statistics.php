@@ -20,6 +20,10 @@
             $end_download      = GetEndDownloadDate();
             $duration_download = 0;
             $size_download     = GetOsmXmlFileSizeByte();
+            $start_filter      = GetStartFilterDate();
+            $end_filter        = GetEndFilterDate();
+            $duration_filter = 0;
+            $size_extract      = GetOsmPbfFileSizeByte();
             $routes_link       = GetRoutesLink();
             $osm_base          = GetOsmBase();
             $routes_size       = GetRoutesSize();
@@ -68,27 +72,35 @@
                 printf( "    <td class=\"statistics-duration\"></td>\n" );
             }
             if ( $osm_xml_file_name && $size_download ) {
-                #if ( isset($size_total_files[$osm_xml_file_name]) ) {
-                    if ( $start_download && $end_download ) {
-                        printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
-                        $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
+                if ( $start_download && $end_download ) {
+                    printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
+                    $size_total_files[$osm_xml_file_name.$start_download] = $size_download;
+                } else {
+                    if ( $size_extract ) {
+                        printf( "    <td class=\"statistics-size\"></td>\n" );
                     } else {
                         printf( "    <td class=\"statistics-size\">reused</td>\n" );
                     }
-                #} else {
-                #    if ( $start_download && $end_download ) {
-                #        printf( "    <td class=\"statistics-size\">%.3f</td>\n", $size_download / 1024 / 1024 );
-                #        $size_total_files[$osm_xml_file_name] = $size_download;
-                #    } else {
-                #        printf( "    <td class=\"statistics-size\">?</td>\n" );
-                #    }
-                #}
+                }
             } else {
                 if ( $osm_xml_file_name && $size_download == 0 ) {
                     printf( "    <td class=\"statistics-size-marked\">Download via Overpass-API failed</td>\n", $network );
                 } else {
                     printf( "    <td class=\"statistics-size\"></td>\n" );
                 }
+            }
+            if ( $start_filter && $end_filter ) {
+                $sabs                 = strtotime( $start_filter );
+                $eabs                 = strtotime( $end_filter );
+                $duration_filter      = $eabs - $sabs;
+                $filter_total_secs   += $filter_download;
+                printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_filter    );
+                printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_filter/60, $duration_filter%60 );
+                printf( "    <td class=\"statistics-size\">%.3f</td>\n",        $size_download / 1024 / 1024 );
+            } else {
+                printf( "    <td class=\"statistics-date\"></td>\n");
+                printf( "    <td class=\"statistics-duration\"></td>\n" );
+                printf( "    <td class=\"statistics-size\"></td>\n" );
             }
             if ( $routes_size != '-1') {
                 if ( $routes_date ) {
@@ -163,6 +175,9 @@
         printf( "    <th class=\"statistics-date\">%d</th>\n", $file_total );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $download_total_secs/3600, ($download_total_secs%3600)/60, $download_total_secs%60 );
         printf( "    <th class=\"statistics-size\">%.1f</th>\n", $size_total / 1024 / 1024 );
+        printf( "    <th class=\"statistics-date\"></th>\n" );
+        printf( "    <th class=\"statistics-duration\"></th>\n" );
+        printf( "    <th class=\"statistics-size\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-date\"></th>\n" );
         printf( "    <th class=\"statistics-duration\">%d:%02d:%02d</th>\n", $analysis_total_secs/3600, ($analysis_total_secs%3600)/60, $analysis_total_secs%60 );
