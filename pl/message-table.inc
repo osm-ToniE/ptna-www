@@ -249,7 +249,15 @@
                 <td class="message-text">Error in input data: insufficient data for nodes</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route relation has been included into the input data as a side-effect, the member ways and member nodes of this Route have not been included.</td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Error in input data: insufficient data for relations</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -257,7 +265,7 @@
                 <td class="message-text">Error in input data: insufficient data for ways</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route relation has been included into the input data as a side-effect, the member ways and member nodes of this Route have not been included.</td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

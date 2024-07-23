@@ -97,7 +97,7 @@
                 <td class="message-text">Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Cette relation d&#039;itinéraire a été incluse dans les données d&#039;entrée en tant qu&#039;effet secondaire, les voies membres et les nœuds membres de cette route n&#039;ont pas été inclus.</td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -105,7 +105,15 @@
                 <td class="message-text">Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Cette relation d&#039;itinéraire a été incluse dans les données d&#039;entrée en tant qu&#039;effet secondaire, les voies membres et les nœuds membres de cette route n&#039;ont pas été inclus.</td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Error in input data: insufficient data for relations</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
