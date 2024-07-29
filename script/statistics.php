@@ -260,6 +260,28 @@
         }
     }
 
+    function PrintPlanetAnalysisLogs( $timezone ) {
+        global $path_to_work;
+
+        if ( $timezone ) {
+            $logfilename = $path_to_work . 'ptna-handle-planet-' . $timezone . '.log';
+            if ( file_exists($logfilename) ) {
+                $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
+                foreach ( $lines as $line ) {
+                    $line = preg_replace( '/\/osm\/ptna\/work/',   '$WORK_LOC',  $line );
+                    $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
+                    $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
+                    $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                    $line = preg_replace( '/toni osm/',            'user group', $line );
+                    $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
+                    $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
+                    $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
+                    printf( "%s\n", htmlspecialchars($line) );
+                }
+            }
+        }
+    }
+
     function StatisticsPrintServerLoad() {
         $output_array = explode( "\n", shell_exec( "top -bn1" ) );
         foreach ( $output_array as $line ) {

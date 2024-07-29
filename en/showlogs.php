@@ -24,6 +24,9 @@
                     } elseif ( isset($_GET['timezone']) && $_GET['timezone'] ) {
                         $timezone = preg_replace('/ /', '+', $_GET['timezone'] );
                         PrintTimezoneAnalysisLogs( $timezone );
+                    } elseif ( isset($_GET['planet']) && $_GET['planet'] ) {
+                        $timezone = preg_replace('/ /', '+', $_GET['planet'] );
+                        PrintPlanetAnalysisLogs( $timezone );
                     }
 ?>
             </pre>
