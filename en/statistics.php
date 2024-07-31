@@ -40,9 +40,9 @@
             <a href="showlogs.php?planet=0715" title="Show logs for planet handling">07:15</a>
             <a href="showlogs.php?planet=1015" title="Show logs for planet handling">10:15</a>
             <a href="showlogs.php?planet=1315" title="Show logs for planet handling">13:15</a>
-            <a href="showlogs.php?planet=1315" title="Show logs for planet handling">16:15</a>
-            <a href="showlogs.php?planet=1315" title="Show logs for planet handling">19:15</a>
-            <a href="showlogs.php?planet=1315" title="Show logs for planet handling">22:15</a>
+            <a href="showlogs.php?planet=1615" title="Show logs for planet handling">16:15</a>
+            <a href="showlogs.php?planet=1915" title="Show logs for planet handling">19:15</a>
+            <a href="showlogs.php?planet=2215" title="Show logs for planet handling">22:15</a>
 
             <hr />
 
