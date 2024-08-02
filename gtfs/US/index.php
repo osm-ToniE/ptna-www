@@ -48,6 +48,17 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "US-NPS-BCS" );   # Bryce Canyon Shuttle
+    $duration += CreateGtfsEntry( "US-NPS-BLT" );   # Boston Harbor Island National Recreation Area, Boston Light Tour
+    $duration += CreateGtfsEntry( "US-NPS-BNMS" );  # Bandalier National Monument
+    $duration += CreateGtfsEntry( "US-NPS-DCC" );   # National Mall and Memorial Parks, DC Circulator
+    $duration += CreateGtfsEntry( "US-NPS-HST" );   # Harpers Ferry National Historical Park, HAFE Shuttle Transport
+    $duration += CreateGtfsEntry( "US-NPS-IE" );    # Acadia National Park, Island Express
+    $duration += CreateGtfsEntry( "US-NPS-MGSS" );  # Yosemite National Park, Mariposa Grove Shuttle Service
+    $duration += CreateGtfsEntry( "US-NPS-PBCF" );  # Gulf Islands National Seashore, Pensacola Bay City Ferry
+    $duration += CreateGtfsEntry( "US-NPS-SIE" );   # Gulf Islands National Seashore, 	Ship Island Excursions
+    $duration += CreateGtfsEntry( "US-NPS-SRS" );   # Grand Canyon National Park, South Rim Shuttle
+    $duration += CreateGtfsEntry( "US-NPS-TIF" );   # Boston Harbor Island National Recreation Area, Thompson Island Ferry
+    $duration += CreateGtfsEntry( "US-NPS-YVS" );   # Yosemite National Park, Yosemite Valley Shuttle
     $duration += CreateGtfsEntry( "US-NPS-ZCS" );   # Zion Canyon Shuttle
 ?>
                     </tbody>
