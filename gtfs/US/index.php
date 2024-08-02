@@ -16,6 +16,7 @@
             <h2 id="US"><a href="index.php"><img src="/img/USA32.png"  class="flagimg" alt="Flag of the United States of Amerika" /></a> GTFS Analysis for the United States of Amerika</h2>
             <div class="indent">
 <?php include $lang_dir.'gtfs-head.inc' ?>
+                <h3 id="USStates">States of the US</h3>
                 <table id="gtfsUS">
                     <thead>
 <?php include $lang_dir.'gtfs-trth.inc' ?>
@@ -35,6 +36,19 @@
     $duration += CreateGtfsEntry( "US-NY-MTA-Staten-Island-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Subway" );
     $duration += CreateGtfsEntry( "US-RI-RIPTA" );
+?>
+                    </tbody>
+                </table>
+
+                <h3 id="USNPS">National Park Service</h3>
+                <table id="gtfsUSNPS">
+                    <thead>
+<?php include $lang_dir.'gtfs-trth.inc' ?>
+                    </thead>
+                    <tbody>
+<?php
+    $duration += CreateGtfsEntry( "US-NPS-BCS" );   # Bryce Canyon Shuttle
+    $duration += CreateGtfsEntry( "US-NPS-ZCS" );   # Zion Canyon Shuttle
 ?>
                     </tbody>
                 </table>
