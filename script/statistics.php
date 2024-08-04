@@ -102,7 +102,7 @@
             if ( $start_filter && $end_filter ) {
                 $sabs                 = strtotime( $start_filter );
                 $eabs                 = strtotime( $end_filter );
-                $duration_filter      = $eabs - $sabs || 1;
+                $duration_filter      = ($eabs - $sabs) ? $eabs - $sabs: 1;
                 $filter_total_secs   += $duration_filter;
                 printf( "    <td class=\"statistics-date\">%s</td>\n",          $start_filter    );
                 printf( "    <td class=\"statistics-duration\">%d:%02d</td>\n", $duration_filter/60, $duration_filter%60 );
