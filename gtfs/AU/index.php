@@ -22,6 +22,7 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "AU-NSW-TfNSW" );
     $duration += CreateGtfsEntry( "AU-QD-South-East-Queensland" );
     $duration += CreateGtfsEntry( "AU-SA-Adelaide-Metro" );
 ?>
