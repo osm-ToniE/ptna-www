@@ -36,7 +36,8 @@
             <hr />
 
             Supported timezones (wintertime):
-            <a href="showlogs.php?timezone=UTC%2B09.30" title="Show logs for timezone UTC+09.30 (AU)">UTC+09.30</a>
+            <a href="showlogs.php?timezone=UTC%2B09.30" title="Show logs for timezone UTC+10 (AU/NSW)">UTC+10</a>
+            <a href="showlogs.php?timezone=UTC%2B09.30" title="Show logs for timezone UTC+09.30 (AU/SA)">UTC+09.30</a>
             <a href="showlogs.php?timezone=UTC%2B05.30" title="Show logs for timezone UTC+05.30 (IN)">UTC+05.30</a>
             <a href="showlogs.php?timezone=UTC%2B03.30" title="Show logs for timezone UTC+03.30 (IR)">UTC+03.30</a>
             <a href="showlogs.php?timezone=UTC%2B03"    title="Show logs for timezone UTC+03 (ET, MG)">UTC+03</a>
