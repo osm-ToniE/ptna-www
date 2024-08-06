@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "AU-SA-Adelaide-Metro", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "AU-NSW-Sydney", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "AU-SA-Adelaide-Metro", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
