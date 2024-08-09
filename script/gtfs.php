@@ -3277,11 +3277,11 @@
                         echo '                            <td class="statistics-number">';
                         $format_mins = '%2d:';
                         $format_secs = '%2d';
-                        if ( $duration > 3600 ) {
+                        if ( $duration >= 3600 ) {
                             printf( "%2d:", $duration / 3600 );
                             $format_mins = '%02d:';
                         }
-                        if ( $duration > 60 ) {
+                        if ( $duration >= 60 ) {
                             printf( $format_mins, ($duration % 3600) / 60 );
                             $format_secs = '%02d';
                         }
