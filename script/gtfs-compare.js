@@ -1764,19 +1764,19 @@ function GetStopName( lor, object_type, id, which_name ) {
     if ( object_type === 'node' ) {
         name = (DATA_Nodes[lor][id]['ptna'] && DATA_Nodes[lor][id]['ptna'][which_name])
                 ? DATA_Nodes[lor][id]['ptna'][which_name]
-                : (DATA_Nodes[lor][id]['tags'][which_name]
+                : ((DATA_Nodes[lor][id]['tags'] && DATA_Nodes[lor][id]['tags'][which_name])
                   ? DATA_Nodes[lor][id]['tags'][which_name]
                   : '' );
     } else if ( object_type === 'way' ) {
         name = (DATA_Ways[lor][id]['ptna'] && DATA_Ways[lor][id]['ptna'][which_name])
                 ? DATA_Ways[lor][id]['ptna'][which_name]
-                : (DATA_Ways[lor][id]['tags'][which_name]
+                : ((DATA_Ways[lor][id]['tags'] && DATA_Ways[lor][id]['tags'][which_name])
                   ? DATA_Ways[lor][id]['tags'][which_name]
                   : '' );
     } else if ( object_type === 'relation' ) {
         name = (DATA_Relations[lor][id]['ptna'] && DATA_Relations[lor][id]['ptna'][which_name])
                 ? DATA_Relations[lor][id]['ptna'][which_name]
-                : (DATA_Relations[lor][id]['tags'][which_name]
+                : ((DATA_Relations[lor][id]['tags'] && DATA_Relations[lor][id]['tags'][which_name])
                   ? DATA_Relations[lor][id]['tags'][which_name]
                   : '' );
     }
