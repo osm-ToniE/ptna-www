@@ -31,7 +31,7 @@
             <hr />
 
             Planet update, filter, and extracts:
-            <a href="showlogs.php?planet=UTC%2B01" title="Show logs for planet handling: Africa + Europe">Africa and Europe @ 01:15</a>
+            <a href="showlogs.php?planet=UTC%2B01" title="Show logs for planet handling: Europe">Europe @ 01:15</a>
 
             <hr />
 
