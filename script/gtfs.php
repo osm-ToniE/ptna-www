@@ -1629,13 +1629,23 @@
                     $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
+                        $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='ptna_stops';";
+
+                        $sql_master = $db->querySingle( $sql, true );
+
+                        if ( isset($sql_master['name']) ) {
+                            $join_ptna_stops = 'LEFT OUTER JOIN ptna_stops ON stop_times.stop_id = ptna_stops.stop_id';
+                        } else {
+                            $join_ptna_stops = '';
+                        }
+
                         $sql = sprintf( "SELECT          *, stop_times.stop_id
                                          FROM            stop_times
                                          JOIN            stops ON stop_times.stop_id = stops.stop_id
-                                         LEFT OUTER JOIN ptna_stops ON stop_times.stop_id = ptna_stops.stop_id
+                                         %s
                                          WHERE           stop_times.trip_id='%s'
                                          ORDER BY        CAST (stop_times.stop_sequence AS INTEGER) ASC;",
-                                         SQLite3::escapeString($trip_id)
+                                         $join_ptna_stops, SQLite3::escapeString($trip_id)
                                     );
 
                         $result = $db->query( $sql );
