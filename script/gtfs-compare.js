@@ -1539,7 +1539,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
     var display_name   = relation_id.toString();
     var sort_name      = relation_id.toString();
     if ( DATA_Relations[lor][relation_id]                           &&
-         DATA_Relations[lor][relation_id]['type']    === 'relation'    ) {}
+         DATA_Relations[lor][relation_id]['type']    === 'relation'    ) {
 
         if ( source_type === 'OSM' && DATA_Relations[lor][relation_id]['tags'] && DATA_Relations[lor][relation_id]['tags']['type'] === 'route' ) {
 
@@ -1588,6 +1588,7 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                                     return a < b ? -1 : (a > b ? 1 : 0);
                                 });
             }
+        }
     }
 
     return ret_list;
