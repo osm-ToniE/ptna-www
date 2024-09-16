@@ -58,10 +58,14 @@ if ( $feed ) {
             AddLicenseInfo( $db );
 
             if ( $route_id ) {
-                $elements = AddRoute2NodesWaysRelations( $db, $route_id, $ptna );
-                AddAgencyOfRouteId( $db, $route_id );
+                $route_id_array = array();
+                $route_id_array = explode( ';', $route_id );
+                foreach ( $route_id_array as $id ) {
+                    AddRoute2NodesWaysRelations( $db, $id, $ptna );
+                    AddAgencyOfRouteId( $db, $id );
+                }
             } elseif ( $trip_id ) {
-                $elements = AddTrip2NodesWaysRelations( $db, $trip_id, $ptna );
+                AddTrip2NodesWaysRelations( $db, $trip_id, $ptna );
                 AddAgencyOfTripId( $db, $trip_id );
             } else {
                 AddMultiTableRows( $db, 'agency' );
@@ -598,15 +602,17 @@ function AddRouteOnly2Relations( $db, $route_id, $ptna ) {
                       );
         $route = $db->query( $sql );
 
-        $tags_array = [ 'type' => 'route' ];
         while ( $route_infos=$route->fetchArray(SQLITE3_ASSOC) ) {
             foreach ( array_keys($route_infos) as $route_info ) {
                 $tags_array[$route_info] = $route_infos[$route_info];
             }
         }
-        $tmp_array['members']         = $member_array;
-        $tmp_array['tags']            = $tags_array;
-        $RELATION_elements[$route_id] = $tmp_array;
+        if ( sizeof($member_array) && sizeof($tags_array) ) {
+            $tags_array[ 'type']          = 'route';
+            $tmp_array['members']         = $member_array;
+            $tmp_array['tags']            = $tags_array;
+            $RELATION_elements[$route_id] = $tmp_array;
+        }
     }
 }
 
