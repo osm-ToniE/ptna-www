@@ -204,7 +204,7 @@ async function showtripcomparison() {
                            'feed'             : feed,
                            'release_date'     : release_date,
                            'route_short_name' : (DATA_Relations['left'][trip_id]['tags']['route_id'] ? DATA_Relations['left'][DATA_Relations['left'][trip_id]['tags']['route_id']]['tags']['route_short_name'] : '???'),
-                           'links'            : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
+                           'link'             : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-row-'+trip_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id+'">'
                          };
     var TableInfoRight = {};
@@ -214,7 +214,7 @@ async function showtripcomparison() {
         TableInfoRight = { 'name' : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
                            'id'   : relation_id,
                            'ref'  : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
-                           'links': GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route')) +
+                           'link' : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route')) +
                                                     ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
                          };
     } else {
@@ -223,7 +223,7 @@ async function showtripcomparison() {
                            'feed'             : feed2,
                            'release_date'     : release_date,
                            'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???'),
-                           'links'            : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
+                           'link'             : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, feed=feed2, release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
                          };
     }
@@ -295,16 +295,26 @@ async function showroutecomparison() {
     var zero_data    = false;
 
     CompareTable                            = [];
-    CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'id' : route_id, 'rows' : GetRelationMembersOfRelation('left','GTFS',route_id,sort=true) };
+    CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
     CompareTableRowInfo['id2num']           = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
-    if ( DATA_Relations['left'][route_id]                        &&
-         DATA_Relations['left'][route_id]['type'] === 'relation' &&
-         DATA_Relations['left'][route_id]['tags']                   ) {
-            CompareTableRowInfo['route_short_name'] = DATA_Relations['left'][route_id]['tags']['route_short_name'] ? DATA_Relations['left'][route_id]['tags']['route_short_name'] : '';
-            CompareTableRowInfo['route_type']       = DATA_Relations['left'][route_id]['tags']['route_type'] ? DATA_Relations['left'][route_id]['tags']['route_type'] : '';
-            CompareTableRowInfo['links']            = GetObjectLinks( route_id, 'relation', is_GTFS=true, is_Route=true, feed=feed, release_date=release_date ) +
-                                                                      ' <img onclick="ShowMore(this)" id="GTFS-row-'+route_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+route_id+'">';
+    var route_ids = route_id.split( ';' );
+    for ( var i = 0; i < route_ids.length; i++ ) {
+        var this_route_id = route_ids[i];
+        CompareTableRowInfo['ids'].push( this_route_id );
+        if ( DATA_Relations['left'][this_route_id]                        &&
+             DATA_Relations['left'][this_route_id]['type']                &&
+             DATA_Relations['left'][this_route_id]['type'] === 'relation' &&
+             DATA_Relations['left'][this_route_id]['tags']                   ) {
+            CompareTableRowInfo['rows'].push(...GetRelationMembersOfRelation('left','GTFS',this_route_id,sort=true) );
+            CompareTableRowInfo['route_short_names'].push( DATA_Relations['left'][this_route_id]['tags']['route_short_name'] ? DATA_Relations['left'][this_route_id]['tags']['route_short_name'] : '' );
+            CompareTableRowInfo['route_types'].push( DATA_Relations['left'][this_route_id]['tags']['route_type'] ? DATA_Relations['left'][this_route_id]['tags']['route_type'] : '' );
+            CompareTableRowInfo['links'].push( GetObjectLinks( this_route_id, 'relation', is_GTFS=true, is_Route=true, feed=feed, release_date=release_date ) +
+                                                               ' <img onclick="ShowMore(this)" id="GTFS-row-'+this_route_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+this_route_id+'">' );
+        } else {
+            CompareTableRowInfo['route_short_names'].push( '&nbsp;' );
+            CompareTableRowInfo['links'].push( 'not found' );
         }
+    }
 
     CompareTableColInfo = {};
     var whats_right     = '';
@@ -316,13 +326,13 @@ async function showroutecomparison() {
                 CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route_master'] ? DATA_Relations['right'][relation_id]['tags']['route_master'] : '';
-                CompareTableColInfo['links']   = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false ) +
+                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false ) +
                                                                  ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
                 CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route'] ? DATA_Relations['right'][relation_id]['tags']['route'] : '';
-                CompareTableColInfo['links']   = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) +
+                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) +
                                                                  ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else {
                 alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
@@ -342,7 +352,7 @@ async function showroutecomparison() {
              DATA_Relations['right'][route_id2]['tags']                   ) {
             CompareTableColInfo['route_short_name'] = DATA_Relations['right'][route_id2]['tags']['route_short_name'] ? DATA_Relations['right'][route_id2]['tags']['route_short_name'] : '';
             CompareTableColInfo['route_type']       = DATA_Relations['right'][route_id2]['tags']['route_type'] ? DATA_Relations['right'][route_id2]['tags']['route_type'] : '';
-            CompareTableColInfo['links']            = GetObjectLinks( route_id2, 'relation', is_GTFS=true, is_Route=true, feed=feed2, release_date=release_date2 ) +
+            CompareTableColInfo['link']             = GetObjectLinks( route_id2, 'relation', is_GTFS=true, is_Route=true, feed=feed2, release_date=release_date2 ) +
                                                                       ' <img onclick="ShowMore(this)" id="GTFS-col-'+route_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+route_id2+'">';
         }
     }
@@ -1984,14 +1994,25 @@ function ShowMore( imgObj ) {
 function ShowCompareInfo( ElementId, TableInfo ) {
     var elem = document.getElementById( ElementId );
     if ( elem ) {
+        elem.className += ' compare-routes-top';
         elem.innerHTML += '<td>' + TableInfo['name'] + '</td>';
         if ( TableInfo['links'] ) {
-            elem.innerHTML += '<td>' + TableInfo['links'] + '</td>';
+            elem.innerHTML += '<td>' + TableInfo['links'].join('<br>') + '</td>';
+        } else if ( TableInfo['link'] ) {
+            elem.innerHTML += '<td>' + TableInfo['link'] + '</td>';
         } else {
             elem.innerHTML += '<td>&nbsp;</td>';
         }
-        elem.innerHTML += '<td>' + TableInfo['id'] + '</td>';
-        if ( TableInfo['route_short_name'] ) {
+        if ( TableInfo['ids'] ) {
+            elem.innerHTML += '<td>' + TableInfo['ids'].join('<br>') + '</td>';
+        } else if ( TableInfo['id'] ) {
+            elem.innerHTML += '<td>' + TableInfo['id'] + '</td>';
+        } else {
+            elem.innerHTML += '<td>&nbsp;</td>';
+        }
+        if ( TableInfo['route_short_names'] ) {
+            elem.innerHTML += '<td>' + TableInfo['route_short_names'].join('<br>') + '</td>';
+        } else if ( TableInfo['route_short_name'] ) {
             elem.innerHTML += '<td>' + TableInfo['route_short_name'] + '</td>';
         } else if ( TableInfo['ref'] ) {
             elem.innerHTML += '<td>' + TableInfo['ref'] + '</td>';
