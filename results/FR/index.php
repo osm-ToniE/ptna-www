@@ -150,6 +150,10 @@
 
                     <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-NOR-Nomad_Car", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-NOR-Twisto", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-OCC-Tisseo", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Alpes-de-Haute-Provence", "fr", "Configuration" ); ?>
