@@ -165,7 +165,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 #analysis .sketchline     { background-color: #cccccc;        }
 #analysis .sketch         { text-align:left;  font-weight: 500; }
 #analysis .csvinfo        { text-align:right; font-size: 0.8em; }
-#analysis .ref            { text-align:left; }
+/* #analysis .ref            { text-align:left; } */
 #analysis .relation       { text-align:left; }
 #analysis .PTv            { text-align:center; }
 #analysis .number         { text-align:right; }
