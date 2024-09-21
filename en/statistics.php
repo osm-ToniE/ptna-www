@@ -41,13 +41,13 @@
             <a href="showlogs.php?timezone=UTC%2B05.30" title="Show logs for timezone UTC+05.30 (IN)">UTC+05.30</a>
             <a href="showlogs.php?timezone=UTC%2B03.30" title="Show logs for timezone UTC+03.30 (IR)">UTC+03.30</a>
             <a href="showlogs.php?timezone=UTC%2B03"    title="Show logs for timezone UTC+03 (ET, MG)">UTC+03</a>
-            <a href="showlogs.php?timezone=UTC%2B02"    title="Show logs for timezone UTC+02 (BG, EE)">UTC+02</a>
+            <a href="showlogs.php?timezone=UTC%2B02"    title="Show logs for timezone UTC+02 (BG, EE, IL)">UTC+02</a>
             <a href="showlogs.php?timezone=UTC%2B01"    title="Show logs for timezone UTC+01 (AT, CH, CZ, DE, DK, ES, EU, FR, HR, IT, LI, LU, MA, NL, NO, PL, RS, SI)">UTC+01</a>
             <a href="showlogs.php?timezone=UTC%2B00"    title="Show logs for timezone UTC+00 (GB, GH, MR)">UTC+00</a>
             <a href="showlogs.php?timezone=UTC-03"      title="Show logs for timezone UTC-03 (AR, BR)">UTC-03</a>
             <a href="showlogs.php?timezone=UTC-04"      title="Show logs for timezone UTC-04 (BO, CA/NB, CL">UTC-04</a>
             <a href="showlogs.php?timezone=UTC-05"      title="Show logs for timezone UTC-05 (CA/ON, CA/QC, CO, PA, US/MA, US/NY, US/RI, US/TN)">UTC-05</a>
-            <a href="showlogs.php?timezone=UTC-06"      title="Show logs for timezone UTC-06 (CA/MB, NI, US/IL, USIN, US/WI)">UTC-06</a>
+            <a href="showlogs.php?timezone=UTC-06"      title="Show logs for timezone UTC-06 (CA/MB, NI, US/IL, US/IN, US/WI)">UTC-06</a>
             <a href="showlogs.php?timezone=UTC-07"      title="Show logs for timezone UTC-07 (US/UT)">UTC-07</a>
             <a href="showlogs.php?timezone=UTC-08"      title="Show logs for timezone UTC-08 (US/CA, US-Amtrak, US-Flixbus)">UTC-08</a>
             <a href="showlogs.php?timezone=UTC-09"      title="Show logs for timezone UTC-09 (US/AK)">UTC-09</a>
