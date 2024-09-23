@@ -30,8 +30,13 @@
 
             <hr />
 
+            Cron jobs for Continents:
+            <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa and Europe">Africa and Europe @ 03:15</a>
+
+            <hr />
+
             Planet update, filter, and extracts:
-            <a href="showlogs.php?planet=UTC%2B01" title="Show logs for planet handling: Europe">Europe @ 01:15</a>
+            <a href="showlogs.php?planet=UTC%2B03" title="Show logs for planet handling: Africa and Europe">Africa and Europe: UTC+03, UTC+02, UTC+01, UTC+00</a>
 
             <hr />
 
