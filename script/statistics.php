@@ -292,7 +292,7 @@
         global $path_to_work;
 
         if ( $continent ) {
-            $logfilename = $path_to_work . 'ptna-cron-' . $continent . '.sh.log';
+            $logfilename = $path_to_work . 'ptna-cron-' . $continent . '.log';
             if ( file_exists($logfilename) ) {
                 $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
                 foreach ( $lines as $line ) {
