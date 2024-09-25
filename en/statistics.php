@@ -31,7 +31,7 @@
             <hr />
 
             Cron jobs for Continents:
-            <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa and Europe">Africa and Europe @ 03:15</a>
+            <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa and Europe">Africa and Europe @ 02:15</a>
 
             <hr />
 
