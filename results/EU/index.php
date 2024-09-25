@@ -26,6 +26,8 @@
 
                 <?php CreateNewFullEntry( "EU-Flixbus", "en", "Configuration" ); ?>
 
+                <?php CreateNewFullEntry( "EU-Eurotrains", "en", "Configuration" ); ?>
+
 </tbody>
             </table>
 
