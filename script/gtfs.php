@@ -10,9 +10,7 @@
     $gtfs_strings['same_stops_but_different_shape_ids'] = 'Trips have same Stops but different Shape-Ids:';
 
     if ( $lang ) {
-        if ( $lang == 'en' ) {
-            ;
-        } elseif ( $lang == 'de' ) {
+        if ( $lang == 'de' ) {
             $gtfs_strings['subroute_of']                        = 'Fahrt ist Teilroute von:';
             $gtfs_strings['suspicious_start']                   = 'Verdächtiger Anfang der Fahrt: gleiche';
             $gtfs_strings['suspicious_end']                     = 'Verdächtiges Ende der Fahrt: gleiche';

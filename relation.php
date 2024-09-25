@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <?php
-    $lang     = ( isset($_GET['lang']) && is_dir('./'.$_GET['lang']) ) ? $_GET['lang'] : 'en';
+    include( 'script/globals.php'     );
+    if ( isset($_GET['lang'])                              &&
+         preg_match("/^[a-zA-Z0-9_-]+$/", $_GET['lang'])   &&
+         is_dir($path_to_www.$_GET['lang'])                &&
+         is_file($path_to_www.$_GET['lang'].'/header.inc')    ) {
+        $lang = $_GET['lang'];
+    } else {
+        $lang = 'en';
+    }
     $inc_lang = './' . $lang . '/';
 ?>
 <html lang="<?php echo $lang; ?>">

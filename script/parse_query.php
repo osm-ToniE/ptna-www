@@ -4,12 +4,11 @@
 
     $lang = 'en';
 
-    if ( isset($_GET['lang']) && $_GET['lang'] ) {
+    if ( isset($_GET['lang'])                              &&
+         preg_match("/^[a-zA-Z0-9_-]+$/", $_GET['lang'])   &&
+         is_dir($path_to_www.$_GET['lang'])                &&
+         is_file($path_to_www.$_GET['lang'].'/header.inc')    ) {
         $lang = $_GET['lang'];
-        if ( !preg_match("/^[a-zA-Z0-9_-]+$/", $lang)) {
-            echo "<!-- override lang from '" . htmlspecialchars($lang) . "' to 'en' -->\n";
-            $lang = 'en';
-        }
     } else {
         $lang = 'en';
 
