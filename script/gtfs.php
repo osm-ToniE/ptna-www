@@ -1332,7 +1332,32 @@
                                 $osm_route_name = '';
                             }
                         }
-                        $osm_network        = htmlspecialchars($osm['network']);
+                        if ( preg_match('/[{}]/',$osm['network']) ) {
+                            $matches = [];
+                            $name_suggestion = $osm['network'];
+                            if ( preg_match_all('/\{[^}]+\}/',$name_suggestion,$matches) ) {
+                                foreach ( $matches[0] as $match ) {
+                                    $key = preg_replace('/[{}]/','',$match);
+                                    if ( isset($agency[$key]) ) {
+                                        if ( preg_match('/\/ \(\.\*\)\/\//',$name_suggestion) ) {
+                                            $short_agency    = preg_replace( '/ \(.*\)/','', $agency[$key] );
+                                            $name_suggestion = preg_replace( '/\{[^}]+\}\/ \(\.\*\)\/\//', $short_agency, $name_suggestion, 1 );
+                                        } else {
+                                            $name_suggestion = preg_replace( '/\{[^}]+\}/', $agency[$key], $name_suggestion, 1 );
+                                        }
+                                    } elseif ( isset($routes[$key]) ) {
+                                        $name_suggestion = preg_replace( '/\{[^}]+\}/', $routes[$key], $name_suggestion, 1 );
+                                    } elseif ( isset($trips[$key]) ) {
+                                        $name_suggestion = preg_replace( '/\{[^}]+\}/', $trips[$key], $name_suggestion, 1 );
+                                    } else {
+                                        $name_suggestion = preg_replace( '/\{[^}]+\}/','['.$key.']', $name_suggestion, 1 );
+                                    }
+                                }
+                            }
+                            $osm_network = htmlspecialchars($name_suggestion);
+                        } else {
+                            $osm_network = htmlspecialchars($osm['network']);
+                        }
                         $osm_network_short  = htmlspecialchars($osm['network_short']);
                         $osm_network_guid   = htmlspecialchars($osm['network_guid']);
                         $osm_operator       = '';
@@ -3653,6 +3678,7 @@
         $route_type_to_string["5"]   = 'Cable tram';
         $route_type_to_string["6"]   = 'Aerialway';
         $route_type_to_string["7"]   = 'Funicular';
+        $route_type_to_string["8"]   = 'undefined GTFS route_type: "8"';
         $route_type_to_string["11"]  = 'Trolleybus';
         $route_type_to_string["12"]  = 'Monorail';
 
@@ -3751,37 +3777,39 @@
 
     function RouteType2OsmRoute( $rt ) {
 
-        $rt = strtolower(RouteType2String($rt));
+        $lrt = strtolower(RouteType2String($rt));
 
-        if ( preg_match("/trolleybus/",$rt) ) {
-            $rt = 'trolleybus';
-        } elseif ( preg_match("/demand and response bus/",$rt) ) {
-            $rt = 'share_taxi';
-        } elseif ( preg_match("/tram/",$rt) ) {
-            $rt = 'tram';
-        } elseif ( preg_match("/bus/",$rt) ) {
-            $rt = 'bus';
-        } elseif ( preg_match("/monorail/",$rt) ) {
-            $rt = 'monorail';
-        } elseif ( preg_match("/ferry/",$rt) || preg_match("/water transport service/",$rt) ) {
-            $rt = 'ferry';
-        } elseif ( preg_match("/rail/",$rt)  || preg_match("/train/",$rt) ) {
-            $rt = 'train';
-        } elseif ( preg_match("/funicular/",$rt) ) {
-            $rt = 'funicular';
-        } elseif ( preg_match("/aerial/",$rt) ) {
-            $rt = 'aerialway';
-        } elseif ( preg_match("/metro/",$rt) || preg_match("/subway/",$rt) || preg_match("/underground/",$rt) ) {
-            $rt = 'subway';
+        if ( preg_match("/trolleybus/",$lrt) ) {
+            $ort = 'trolleybus';
+        } elseif ( preg_match("/demand and response bus/",$lrt) ) {
+            $ort = 'share_taxi';
+        } elseif ( preg_match("/tram/",$lrt) ) {
+            $ort = 'tram';
+        } elseif ( preg_match("/bus/",$lrt) ) {
+            $ort = 'bus';
+        } elseif ( preg_match("/monorail/",$lrt) ) {
+            $ort = 'monorail';
+        } elseif ( preg_match("/ferry/",$lrt) || preg_match("/water transport service/",$lrt) ) {
+            $ort = 'ferry';
+        } elseif ( preg_match("/rail/",$lrt)  || preg_match("/train/",$lrt) ) {
+            $ort = 'train';
+        } elseif ( preg_match("/funicular/",$lrt) ) {
+            $ort = 'funicular';
+        } elseif ( preg_match("/aerial/",$lrt) ) {
+            $ort = 'aerialway';
+        } elseif ( preg_match("/metro/",$lrt) || preg_match("/subway/",$lrt) || preg_match("/underground/",$lrt) ) {
+            $ort = 'subway';
+        } elseif ( preg_match("/undefined/",$lrt) ) {
+            $ort = RouteType2String($rt);
         } else {
-            if ( preg_match("/^[0-9]+$/",$rt) && $rt >= 1000 && $rt < 2000 ) {
-                $rt = 'ferry';
+            if ( preg_match("/^[0-9]+$/",$lrt) && $lrt >= 1000 && $lrt < 2000 ) {
+                $ort = 'ferry';
             } else {
-                $rt = 'bus';
+                $ort = 'bus';
             }
         }
 
-        return $rt;
+        return $ort;
     }
 
 
@@ -3858,8 +3886,6 @@
                 $rt = 'U-Bahn';
             } elseif ( $rt == 'aerialway' ) {
                 $rt = 'Seilbahn';
-            } else {
-                $rt = 'bus';
             }
         } else {
             if ( $rt == 'trolleybus' ) {
@@ -3882,8 +3908,6 @@
                 $rt = 'Subway';
             } elseif ( $rt == 'aerialway' ) {
                 $rt = 'Aerialway';
-            } else {
-                $rt = 'bus';
             }
         }
 
