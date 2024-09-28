@@ -92,7 +92,7 @@
 <?php include $lang_dir.'gtfs-trips-head.inc' ?>
 
                     <table id="gtfs-trips">
-                        <thead>sync-
+                        <thead>
 <?php include $lang_dir.'gtfs-trips-trth.inc' ?>
                         </thead>
                         <tbody>
