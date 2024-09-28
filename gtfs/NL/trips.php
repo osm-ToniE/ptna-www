@@ -71,7 +71,7 @@
                                  $route['route_long_name'] != $route['route_id']      ) {
                                  $osm_ref = $route['route_long_name'];
                             }
-                            if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
+                            if ( $osm_ref != '???' && $osm_vehicle != '???' && preg_match("/$osm_vehicle$/",$osm_ref) ) {
                                 $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                             }
                             $entries = CreateLinksToPtnaDataEntry( $feed, $release_date, $route_id, $route_short_name, $osm_ref, $osm_route_type, $ptna_analysis_source );
