@@ -22,9 +22,11 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "CZ-10-PID", "cs", "Konfigurace" ); ?>
+                <?php CreateNewFullEntry( "CZ-10-PID", "cs", "Konfigurace" ); ?>
 
-                </tbody>
+                <?php CreateNewFullEntry( "CZ-64-IDS_JMK", "cs", "Konfigurace" ); ?>
+
+</tbody>
             </table>
 
         </main> <!-- main -->
