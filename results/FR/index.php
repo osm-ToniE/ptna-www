@@ -16,21 +16,48 @@
 
 <?php include $inc_lang.'results-head.inc' ?>
 
+            <p>Pour les entrées incomplètes, voir la page <a href="https://wiki.openstreetmap.org/wiki/Bretagne/Transports_en_commun/KorriGo" title="Korrigo">OSM Wiki pour KorriGo</a>. Elles seront complétées au cours des prochains jours.</p>
+
             <table id="networksFR">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
                 <tbody>
-
                     <?php CreateNewFullEntry("FR-ARA-Drome", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-ARA-SMTCAC", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-ARBUS", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-AXEOBUS", "fr", "Configuration en cours de préparation" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-Bibus", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-CTRL", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-LRRNS", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-LRRON", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-PENNARBED", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration en cours de préparation" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-TIBUS", "fr", "Configuration en cours de préparation" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-TIM", "fr", "Configuration en cours de préparation" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration en cours de préparation" ); ?>
 
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
 
