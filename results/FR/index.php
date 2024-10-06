@@ -27,37 +27,37 @@
 
                     <?php CreateNewFullEntry("FR-ARA-SMTCAC", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-ARBUS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-ARBUS", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-AXEOBUS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-AXEOBUS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-Bibus", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-CTRL", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-CTRL", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-LRRNS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-LRRNS", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-LRRON", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-LRRON", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-PENNARBED", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-PENNARBED", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-TIBUS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-TIBUS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-TIM", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-TIM", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration en cours de préparation" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
 
