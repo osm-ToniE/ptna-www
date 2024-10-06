@@ -16,8 +16,6 @@
 
 <?php include $inc_lang.'results-head.inc' ?>
 
-            <p>Pour les entrées incomplètes, voir la page <a href="https://wiki.openstreetmap.org/wiki/Bretagne/Transports_en_commun/KorriGo" title="Korrigo">OSM Wiki pour KorriGo</a>. Elles seront complétées au cours des prochains jours.</p>
-
             <table id="networksFR">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
