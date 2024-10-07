@@ -296,7 +296,6 @@ async function showroutecomparison() {
 
     CompareTable                            = [];
     CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
-    CompareTableRowInfo['id2num']           = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
     var route_ids = route_id.split( ';' );
     for ( var i = 0; i < route_ids.length; i++ ) {
         var this_route_id = route_ids[i];
@@ -315,6 +314,7 @@ async function showroutecomparison() {
             CompareTableRowInfo['links'].push( 'not found' );
         }
     }
+    CompareTableRowInfo['id2num'] = GetMappingOfId2Number( CompareTableRowInfo['rows'] );
 
     CompareTableColInfo = {};
     var whats_right     = '';
@@ -1517,7 +1517,7 @@ function WeHaveGtfsTripIdMatch( CompareTableRowInfo, CompareTableColInfo, row, c
 
 function CreateTitleFor(Info,rowsorcols,num,what) {
     var title = Info[rowsorcols][num][what][0];  // always a single line
-    var ids   = title.replace(/^.*:\s*/,'').split(',');
+    var ids   = title.replace(/^[^:]*:\s*/,'').split(',');
     var roworcol = rowsorcols === 'cols' ? 'col' : 'row number'
     var rownum;
     var lines    = [];
