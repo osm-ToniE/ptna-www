@@ -32,6 +32,7 @@
             $osm_base          = GetOsmBase();
             $routes_size       = GetRoutesSize();
             $routes_date       = GetRoutesDate();
+            $routes_ret        = GetRoutesRet();
             $analysis_webpath  = GetHtmlFileWebPath();
             $analysis_filepath = GetHtmlFilePath();
             $start_analysis    = GetStartAnalysisDate();
@@ -124,7 +125,11 @@
                     printf( "    <td class=\"statistics-date\">Not configured</td>\n");
                 }
             } else {
-                printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed</td>\n", $network );
+                if ( $routes_ret == '11' && $routes_link ) {
+                    printf( "    <td class=\"statistics-date-marked\"><a href=\"%s\">OSM-Wiki page does not yet exist</a></td>\n", $routes_link );
+                } else {
+                    printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed</td>\n" );
+                }
             }
             if ( $start_analysis && $end_analysis ) {
                 $sabs                 = strtotime( $start_analysis );

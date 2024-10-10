@@ -265,6 +265,14 @@
         return( '' );
     }
 
+    function GetRoutesRet() {
+        global $details_hash;
+        if ( isset($details_hash['ROUTES_RET']) ) {
+            return( $details_hash['ROUTES_RET'] );
+        }
+        return( '' );
+    }
+
     function GetHtmlFilePath() {
         global $filename_hash;
         if ( isset($filename_hash['ANALYSISFILEPATH']) ) {
