@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                <?php CreateNewFullEntry( "PL-02-MPK-Wroclaw", "pl_PL", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "PL-14-ZTM-Warszawa", "pl_PL", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "PL-24-ZTM-Katowice", "pl_PL", "Configuration" ); ?>
 
