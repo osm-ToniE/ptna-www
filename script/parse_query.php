@@ -39,6 +39,8 @@
             $lang = 'et';
         } elseif ( preg_match('/\/NL\//', $_SERVER['REQUEST_URI']) ) {
             $lang = 'nl';
+        } elseif ( preg_match('/\/SE\//', $_SERVER['REQUEST_URI']) ) {
+            $lang = 'sv';
         } elseif ( preg_match('/\/BO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/CO\//', $_SERVER['REQUEST_URI']) ||
                    preg_match('/\/CL\//', $_SERVER['REQUEST_URI']) ||
