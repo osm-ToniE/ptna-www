@@ -8,7 +8,7 @@
                     </ul>
                 </p>
                 <p>
-                    GTFS-uppgifterna kontrolleras nästan dagligen för <a href=A/sv/gtfs-doc.php#download">aktualitet</a>.
+                    GTFS-data kontrolleras nästan dagligen för <a href="/sv/gtfs-doc.php#download">aktualitet</a>.
                     Alla tillgängliga nya versioner analyseras dock inte och görs tillgängliga här - detta skulle ta upp för mycket diskutrymme.
                     I kolumnen ”Detaljer (Licenser, ...)” kan listan över tillgängliga GTFS-data hämtas.
                 </p>
