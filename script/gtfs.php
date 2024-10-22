@@ -1738,6 +1738,8 @@
             if ( $trip_id ) {
                 $list_separator = '|';
 
+                set_time_limit( 60 );
+
                 $sql        = "SELECT * FROM ptna";
 
                 $ptna       = $db->querySingle( $sql, true );
