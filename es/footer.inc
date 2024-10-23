@@ -7,7 +7,7 @@
                 Obtenga el código fuente a través de <a href="https://github.com/osm-ToniE">GitHub</a>.
             </p>
             <p>
-                PTNA utiliza la <a href="https://wiki.openstreetmap.org/wiki/Overpass_API" title="Overpass-API">Overpass-API</a> para descargar datos de OSM. El servicio Overpass-API es proporcionado por <a href="https://kumi.systems" title="Kumi Systems">Kumi Systems (Graz, Austria)</a>, gracias por el apoyo.
+                PTNA utiliza la <a href="https://wiki.openstreetmap.org/wiki/Overpass_API" title="Overpass-API">Overpass-API</a> para descargar datos de OSM.
             </p>
             <p>
                 Esta página ha sido traducida al español con la ayuda de Google translate.
