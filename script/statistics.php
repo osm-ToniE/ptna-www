@@ -225,7 +225,7 @@
                 $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
                 $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
                 $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
-                $line = preg_replace( '/toni/',                'user',       $line );
+                $line = preg_replace( '/ toni /',              ' user ',     $line );
                 printf( "%s\n", htmlspecialchars($line) );
             }
         }
@@ -247,7 +247,7 @@
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
                     $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
                     $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
-                    $line = preg_replace( '/toni/',                'user',       $line );
+                    $line = preg_replace( '/ toni /',              ' user ',     $line );
                     printf( "%s\n", htmlspecialchars($line) );
                 }
             }
@@ -263,7 +263,7 @@
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
                     $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
                     $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
-                    $line = preg_replace( '/toni/',                'user',       $line );
+                    $line = preg_replace( '/ toni /',              ' user ',     $line );
                     printf( "%s\n", htmlspecialchars($line) );
                 }
             }
@@ -286,7 +286,7 @@
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
                     $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
                     $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
-                    $line = preg_replace( '/toni/',                'user',       $line );
+                    $line = preg_replace( '/ toni /',              ' user ',     $line );
                     printf( "%s\n", htmlspecialchars($line) );
                 }
             }
@@ -309,7 +309,7 @@
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
                     $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
                     $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
-                    $line = preg_replace( '/toni/',                'user',       $line );
+                    $line = preg_replace( '/ toni /',              ' user ',     $line );
                     printf( "%s\n", htmlspecialchars($line) );
                 }
             }
