@@ -325,4 +325,13 @@
         }
     }
 
+    function StatisticsPrintDiskLoad() {
+        $output_array = explode( "\n", shell_exec( "df" ) );
+        foreach ( $output_array as $line ) {
+            if ( preg_match("/osm/",$line) ) {
+                printf( "%s", $line );
+            }
+        }
+    }
+
 ?>

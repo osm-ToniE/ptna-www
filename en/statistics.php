@@ -25,7 +25,8 @@
 
             <h2 id="statistics"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> Statistics</h2>
             <p>
-                Server Load: <code><?php StatisticsPrintServerLoad();?></code>
+                Server Load: <code><?php StatisticsPrintServerLoad();?></code><br />
+                Disk Load:   <code><?php StatisticsPrintDiskLoad();?></code>
             </p>
 
             <hr />
