@@ -19,6 +19,15 @@
             $gtfs_strings['suspicious_other']                   = 'Verdächtige Fahrt:';
             $gtfs_strings['same_names_but_different_ids']       = 'Fahrten haben gleiche Haltestellennamen aber unterschiedliche Haltestellennummern:';
             $gtfs_strings['same_stops_but_different_shape_ids'] = 'Fahrten haben gleiche Haltestellen aber unterschiedliche Shape-Ids:';
+        } else if ( $lang == 'fr' ) {
+            $gtfs_strings['subroute_of']                        = "Le voyage fait partie de l'itinéraire:";
+            $gtfs_strings['suspicious_start']                   = 'Début de parcours suspect : même';
+            $gtfs_strings['suspicious_end']                     = 'Fin de parcours suspecte : même';
+            $gtfs_strings['suspicious_number_of_stops']         = "Nombre d'arrêts suspect:";
+            $gtfs_strings['suspicious_trip_duration']           = 'Durée de parcours suspecte:';
+            $gtfs_strings['suspicious_other']                   = 'Parcours suspect:';
+            $gtfs_strings['same_names_but_different_ids']       = "Les parcours ont les mêmes nom d'arrêt mais des numéros d'arrêt différents:";
+            $gtfs_strings['same_stops_but_different_shape_ids'] = "Les parcours ont les mêmes arrêts mais des Shape-Ids différents:";
         }
     }
 
