@@ -2174,6 +2174,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         }
                         body_row['Edit<br/>with'] = GetObjectLinks( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], is_GTFS=(right === 'GTFS'), is_Route=false );
                     } else {
+                        // xxx2 identified GTFS on the right side
                         body_row['stop_number2'] = i+1;
                         body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
                         body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
@@ -2257,13 +2258,15 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 }
             }
             if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
-                if ( body_row['stop_name2'] && body_row['stop_name2'] ) {
+                if ( body_row['stop_name2'] !== '' ) {
+                    // GTFS vs GTFS
                     if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
                         row_style['stop_name'].push('background-color:orange');
                         row_style['stop_name2'].push('background-color:orange');
                         scores['mismatch_count']['name']++;
                     }
                 } else {
+                    // GTFS vs OSM
                     if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['name'].toString()) == -1 &&
                              body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
