@@ -33,9 +33,9 @@
 
                     <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-BRE-IZILO", "fr", "Configuration" ); ?>
-
                     <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-BRE-IZILO", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-LRRNS", "fr", "Configuration" ); ?>
 
