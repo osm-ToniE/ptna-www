@@ -1281,10 +1281,10 @@
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
                         $osm_from           = (isset($stops1['normalized_stop_name']) && $stops1['normalized_stop_name'] != '')
-                                                  ? '<span class="normalized-name" title="GTFS: stop_name=' . htmlspecialchars($stops1["stop_name"]) . '">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
+                                                  ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops1["stop_name"]) . '\'">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
                                                   : htmlspecialchars($stops1['stop_name']);
                         $osm_to             = (isset($stops2['normalized_stop_name']) && $stops2['normalized_stop_name'] != '')
-                                                  ? '<span class="normalized-name" title="GTFS: stop_name=' . htmlspecialchars($stops2["stop_name"]) . '">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
+                                                  ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops2["stop_name"]) . '\'">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
                                                   : htmlspecialchars($stops2['stop_name']);
                         $osm_route_master_name    = $osm_vehicle . ' ' . $osm_ref;
                         if ( isset($osm['route_master_name_suggestion']) ) {
@@ -1690,7 +1690,7 @@
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-number">'    . $counter++ . '</td>' . "\n";
                             if ( isset($row["normalized_stop_name"]) && $row["normalized_stop_name"] != '') {
-                                echo '                                <td class="gtfs-stop-name normalized-name"><div title="GTFS: stop_name=' . htmlspecialchars($row["stop_name"]) . '">' . htmlspecialchars($row["normalized_stop_name"]) . '</div></td>' . "\n";
+                                echo '                                <td class="gtfs-stop-name normalized-name"><div title="GTFS: stop_name=\'' . htmlspecialchars($row["stop_name"]) . '\'">' . htmlspecialchars($row["normalized_stop_name"]) . '</div></td>' . "\n";
                             } else {
                                 echo '                                <td class="gtfs-stop-name">' . htmlspecialchars($row["stop_name"]) . '</td>' . "\n";
                             }
