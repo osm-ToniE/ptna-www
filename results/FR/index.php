@@ -21,6 +21,18 @@
 <?php include $inc_lang.'results-trth.inc' ?>
                 </thead>
                 <tbody>
+                    <?php CreateNewFullEntry("FR-974-Alterneo", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-974-Car_Jaune", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-974-CarSud", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-974-Citalis", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-974-Estival", "fr", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry("FR-974-KarOuest", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-ARA-Drome", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-ARA-SMTCAC", "fr", "Configuration" ); ?>

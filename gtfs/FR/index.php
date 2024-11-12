@@ -22,6 +22,11 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "FR-974-Alterneo" );
+    $duration += CreateGtfsEntry( "FR-974-Car_Jaune" );
+    $duration += CreateGtfsEntry( "FR-974-CarSud" );
+    $duration += CreateGtfsEntry( "FR-974-Estival" );
+    $duration += CreateGtfsEntry( "FR-974-KarOuest" );
     $duration += CreateGtfsEntry( "FR-ARA-Montelibus" );
     $duration += CreateGtfsEntry( "FR-ARA-SMTCAC" );
     $duration += CreateGtfsEntry( "FR-BRE-Bibus" );
