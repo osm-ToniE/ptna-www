@@ -23,7 +23,7 @@
                 <tbody>
 
                 <?php CreateNewFullEntry( "PA-2-Cocle", "es", "Configuración" ); ?>
-                <?php CreateNewFullEntry( "PA-4-Ciriqui", "es", "Configuración" ); ?>
+                <?php CreateNewFullEntry( "PA-4-Chiriqui", "es", "Configuración" ); ?>
                 <?php CreateNewFullEntry( "PA-8-Panama", "es", "Configuración" ); ?>
                 <?php CreateNewFullEntry( "PA-9-Veraguas", "es", "Configuración" ); ?>
 
