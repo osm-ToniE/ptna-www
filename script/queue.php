@@ -115,7 +115,8 @@
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
                     if ( $queue_infos['status'] == 'stopped' ) {
-                        printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                       # printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                       printf( "    <td class=\"statistics-size\">tbd.</td>\n" );
                     } else {
                         printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
                     }
