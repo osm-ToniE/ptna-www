@@ -31,6 +31,12 @@
 
             <hr />
 
+            Cron jobs for analysis queue:
+            <a href="/results/queue.php" title="Show analysis queue">Analysis Queue</a>
+            <a href="showlogs.php?queue=analysis-queue" title="Show logs for analysis queue handling">Logs of analysis queue</a>
+
+            <hr />
+
             Cron jobs for Continents:
             <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel @ 02:15</a>
 

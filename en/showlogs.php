@@ -29,6 +29,8 @@
                         PrintPlanetAnalysisLogs( $timezone );
                     } elseif ( isset($_GET['continent']) && $_GET['continent'] ) {
                         PrintContinentAnalysisLogs( $_GET['continent'] );
+                    } elseif ( isset($_GET['queue']) && $_GET['queue'] ) {
+                        PrintQueueLogs( $_GET['queue'] );
                     }
 ?>
             </pre>
