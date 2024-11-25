@@ -39,8 +39,11 @@
                         echo "            <hr />\n";
                     }
                 } else {
-                    preg_match( '/\/(statistics.php)$/', $_SERVER['HTTP_REFERER'], $matches );
-                    if ( !isset($matches[1]) ) {
+                    preg_match( '/\/(statistics.php)$/',     $_SERVER['HTTP_REFERER'], $matches1 );
+                    preg_match( '/\/(results\/queue.php)$/', $_SERVER['HTTP_REFERER'], $matches2 );
+                    if ( isset($matches1[1]) || isset($matches2[1]) ) {
+                        ;
+                    } else {
                         $show_contents = 0;
                         http_response_code( 404 );
                         echo '            <h3 id="request">Invalid analysis reqeuest: unknown ' . "'network'" . "</h3>\n";
@@ -53,6 +56,7 @@
 <?php if ( $show_contents ): ?>
             <h2 id="queue">Contents of analysis queue</h2>
             <div class="indent">
+            <a href="/results/queue.php" title="Reload"><button class="button-create" type="button"> Reload </button></a><br />
             <table id="queue-table">
                 <thead>
                     <tr class="statistics-tableheaderrow">
