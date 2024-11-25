@@ -17,9 +17,9 @@
         <main id="main" class="results">
 
 <?php       $show_contents = 1;
-            echo "<!-- \$_SERVER = \n";
-            print_r( $_SERVER );
-            echo " -->\n";
+            #echo "<!-- \$_SERVER = \n";
+            #print_r( $_SERVER );
+            #echo " -->\n";
             if ( isset($_SERVER['HTTP_REFERER']) ) {
                 preg_match( '/\/results\/.*\/([0-9A-ZÜa-zô_.-]+)-Analysis\.[dif.]*.*html$/', $_SERVER['HTTP_REFERER'], $matches );
                 if ( isset($matches[1]) ) {
