@@ -41,7 +41,7 @@
                 } else {
                     preg_match( '/\/(statistics.php)$/',     $_SERVER['HTTP_REFERER'], $matches1 );
                     preg_match( '/\/(results\/queue.php)$/', $_SERVER['HTTP_REFERER'], $matches2 );
-                    preg_match( '/(openstreetmap\.org)$/',   $_SERVER['HTTP_REFERER'], $matches3 );
+                    preg_match( '/(openstreetmap\.org)/',    $_SERVER['HTTP_REFERER'], $matches3 );
                     if ( isset($matches1[1]) || isset($matches2[1]) || isset($matches3[1]) ) {
                         ;
                     } else {
