@@ -98,8 +98,14 @@
                 $sql    = "SELECT * FROM queue ORDER BY queued DESC;";
                 $result = $db->query( $sql );
                 while ( $queue_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
+                    ReadDetails($queue_infos['network']);
                     printf( "<tr class=\"statistics-tablerow\">\n" );
-                    printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network']  );
+                    $htmlwebpath=GetHtmlFileWebPath();
+                    if ( $htmlwebpath ) {
+                        printf( "    <td class=\"statistics-name\"><a href=\"%s\" title=\"Report File\">%s</a></td>\n", $htmlwebpath, $queue_infos['network'] );
+                    } else {
+                        printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network'] );
+                    }
                     printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['status']   );
                     if ( $queue_infos['queued'] ) {
                         printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['queued']) );
@@ -117,13 +123,9 @@
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
                     if ( $queue_infos['status'] == 'stopped' ) {
-                        if ( ReadDetails($queue_infos['network']) ) {
-                            $diffwebpath=GetDiffFileWebPath();
-                            if ( $diffwebpath ) {
-                                printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"link to diff file\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
-                            } else {
-                                printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
-                            }
+                        $diffwebpath=GetDiffFileWebPath();
+                        if ( $diffwebpath ) {
+                            printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"Diff File\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
                         } else {
                             printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
                         }
