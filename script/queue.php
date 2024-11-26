@@ -116,7 +116,7 @@
                     } else {
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
-                    if ( $queue_infos['status'] == 'stopped' ) {
+                    if ( $queue_infos['status'] == 'stopped' || $queue_infos['status'] == 'outdated' ) {
                         if ( ReadDetails($queue_infos['network']) ) {
                             $diffwebpath=GetDiffFileWebPath();
                             if ( $diffwebpath ) {
