@@ -1,5 +1,7 @@
 <?php
 
+    include('../script/config.php');
+
     function FindAnalysisQueueSqliteDb() {
         global $path_to_work;
 
@@ -115,8 +117,16 @@
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
                     if ( $queue_infos['status'] == 'stopped' ) {
-                       # printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
-                       printf( "    <td class=\"statistics-size\">tbd.</td>\n" );
+                        if ( ReadDetails($queue_infos['network']) ) {
+                            $diffwebpath=GetDiffFileWebPath();
+                            if ( $diffwebpath ) {
+                                printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"link to diff file\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
+                            } else {
+                                printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                            }
+                        } else {
+                            printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                        }
                     } else {
                         printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
                     }
