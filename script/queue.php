@@ -116,7 +116,7 @@
                     } else {
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
-                    if ( $queue_infos['status'] == 'stopped' || $queue_infos['status'] == 'outdated' ) {
+                    if ( $queue_infos['status'] == 'stopped' ) {
                         if ( ReadDetails($queue_infos['network']) ) {
                             $diffwebpath=GetDiffFileWebPath();
                             if ( $diffwebpath ) {
@@ -127,6 +127,8 @@
                         } else {
                             printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
                         }
+                    } else if ( $queue_infos['status'] == 'outdated' ) {
+                        printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
                     } else {
                         printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
                     }
