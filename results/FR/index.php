@@ -61,6 +61,8 @@
 
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-SURF", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-TIBUS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
