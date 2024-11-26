@@ -36,7 +36,7 @@
 
                 <p>
                     A <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">API do Overpass</a> é usada para baixar os dados do OSM.
-                    <a href="/pt/index.php#sobrepass">A consulta utilizada</a> retorna todos os caminhos e nós das rotas (retorna os seus membros e seus detalhes) a partir de uma <a href="/pt/index.php#searcharea">área definida</a>.
+                    <a href="/en/index.php#overpass">A consulta utilizada</a> retorna todos os caminhos e nós das rotas (retorna os seus membros e seus detalhes) a partir de uma <a href="/en/index.php#searcharea">área definida</a>.
                     Os dados obtidos permitem uma análise das linhas de transporte público mapeadas. Por exemplo, é possível verificar se uma rota está totalmente mapeada.
                     Os nós, caminhos e relações (paradas e plataformas) e suas etiquetas podem ser comparados ao seu "papel" na relação.
                 </p>
