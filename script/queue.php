@@ -101,7 +101,7 @@
                     ReadDetails($queue_infos['network']);
                     printf( "<tr class=\"statistics-tablerow\">\n" );
                     $htmlwebpath=GetHtmlFileWebPath();
-                    if ( $queue_infos['stopped'] && $htmlwebpath ) {
+                    if ( $queue_infos['status'] == 'stopped' && $htmlwebpath ) {
                         printf( "    <td class=\"statistics-name\"><a href=\"%s\" title=\"Report File\">%s</a></td>\n", $htmlwebpath, $queue_infos['network'] );
                     } else {
                         printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network'] );
