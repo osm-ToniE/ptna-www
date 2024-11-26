@@ -63,7 +63,7 @@
                     <tr class="statistics-tableheaderrow">
                         <th class="statistics-name">Network</th>
                         <th class="statistics-name">State</th>
-                        <th class="statistics-date">Queue At</th>
+                        <th class="statistics-date">Queued At</th>
                         <th class="statistics-date">Started At</th>
                         <th class="statistics-date">Finished At</th>
                         <th class="statistics-size">Changes</th>
