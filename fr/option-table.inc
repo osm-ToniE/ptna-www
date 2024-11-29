@@ -34,7 +34,7 @@
             <tr class="option-tablerow" id="option-check-against-gtfs">
                 <td class="option-option">check-against-gtfs</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">OFF|tags|csv|csv,tags<br />Check OSM route_master/route data against GTFS feed data.<br />OFF: no checking<br />csv: check against GTFS feed data specified in CSV entry in the routes file<br />tags: check against GTFS feed data specified in &#039;gtfs:*&#039; tags in the route_master and route relations<br />csv,tags: check against &#039;csv&#039; and &#039;tags&#039;.</td>
+                <td class="option-description">OFF|tags|csv|csv,tags<br />Vérifiez la ligne maître/ligne avec les données GTFS.<br />OFF: Pas de vérification<br />csv: Vérifiez avec les données GTFS spécifiées dans format CSV dans le fichier d&#039;itinéraires<br />tags: Vérifiez avec les données GTFS spécifiées dans &#039;gtfs:*&#039; attributs (tags) dans les relations ligne maître et ligne<br />csv,tags: vérifiez avec &#039;csv&#039; et &#039;tags&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-bus-stop">
@@ -88,7 +88,7 @@
             <tr class="option-tablerow" id="option-check-route-ref">
                 <td class="option-option">check-route-ref</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Vérifie si l&#039;attribut &#039;route_ref&#039; sur les arrêts de l&#039;itinéraire contient la valeur &#039;ref&#039; (si &#039;route_ref&#039; existe).<br />Vérifie également si l&#039;attribut &#039;ref&#039; des arrêts de l&#039;itinéraire contient par erreur la valeur &#039;ref&#039;.<br />Vérifie également les attributs &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#039;, &#039;routes&#039; des arrêts de l&#039;itinéraire. Ceux-ci devraient être remplacés par &#039;route_ref&#039;.</td>
+                <td class="option-description">Vérifie si l&#039;attribut &#039;route_ref&#039; sur les arrêts d&#039;une ligne contient la valeur &#039;ref&#039; (si &#039;route_ref&#039; existe).<br />Vérifie également si l&#039;attribut &#039;ref&#039; des arrêts d&#039;une ligne contient par erreur la valeur &#039;ref&#039;.<br />Vérifie également les attributs &#039;bus_lines&#039;, &#039;bus_routes&#039;, &#039;lines&#039;, &#039;routes&#039; des arrêts d&#039;une ligne. Ceux-ci devraient être remplacés par &#039;route_ref&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-sequence">
@@ -112,7 +112,7 @@
             <tr class="option-tablerow" id="option-check-version">
                 <td class="option-option">check-version</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Vérification de &#039;public_transport:version&#039; = &#039;...&#039; sur groupement d&#039;itinéraires et itinéraire.</td>
+                <td class="option-description">Vérification de &#039;public_transport:version&#039; = &#039;...&#039; sur ligne maître et ligne.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-way-type">
@@ -124,7 +124,7 @@
             <tr class="option-tablerow" id="option-coloured-sketchline">
                 <td class="option-option">coloured-sketchline</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">SketchLine considère la valeur de &#039;colour&#039;=&#039;...&#039; du groupement d&#039;itinéraires ou itinéraire.</td>
+                <td class="option-description">SketchLine considère la valeur de &#039;colour&#039;=&#039;...&#039; de la ligne maître ou ligne.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-expect-network-long">
@@ -190,19 +190,19 @@
             <tr class="option-tablerow" id="option-multiple-ref-type-entries">
                 <td class="option-option">multiple-ref-type-entries</td>
                 <td class="option-default">analyze</td>
-                <td class="option-description">allow|analyze|no<br />Défini comment réagir si la combinaison &quot;ref;type&quot; (ex:  &quot;N8;bus&quot;) apparaît plusieurs fois dans les données. PTNA s&#039;attend à des itinéraires séparés avec des attributs &#039;ref&#039; et &#039;type&#039; identiques dans différents lieux et que ces derniers sont différenciables à l&#039;aide de &#039;operator&#039;, &#039;to&#039;, et &#039;from&#039;.<br />allow: autorise plus d&#039;apparitions de cette entrée, n&#039;analyse pas &#039;operator&#039;, &#039;from&#039; et &#039;to&#039;<br />analyze: vérifie la correspondance de &#039;operator&#039;, &#039;from&#039; et &#039;to&#039; entre les données CSV et les attributs de la relation<br />no: ignore les autres apparitions de cette entrée, n&#039;analyse pas &#039;operator&#039;, &#039;from&#039; et &#039;to&#039;.</td>
+                <td class="option-description">allow|analyze|no<br />Défini comment réagir si la combinaison &quot;ref;type&quot; (ex:  &quot;N8;bus&quot;) apparaît plusieurs fois dans les données. PTNA s&#039;attend à des lignes séparés avec des attributs &#039;ref&#039; et &#039;type&#039; identiques dans différents lieux et que ces derniers sont différenciables à l&#039;aide de &#039;operator&#039;, &#039;to&#039;, et &#039;from&#039;.<br />allow: autorise plus d&#039;apparitions de cette entrée, n&#039;analyse pas &#039;operator&#039;, &#039;from&#039; et &#039;to&#039;<br />analyze: vérifie la correspondance de &#039;operator&#039;, &#039;from&#039; et &#039;to&#039; entre les données CSV et les attributs de la relation<br />no: ignore les autres apparitions de cette entrée, n&#039;analyse pas &#039;operator&#039;, &#039;from&#039; et &#039;to&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-network-long-regex">
                 <td class="option-option">network-long-regex</td>
                 <td class="option-default"></td>
-                <td class="option-description">La valeur &#039;network&#039;=&#039;...&#039; du groupement d&#039;itinéraires et des itinéraires doit correspondre à cette expression régulière sous forme &#039;longue&#039; ou être vide (non définie).</td>
+                <td class="option-description">La valeur &#039;network&#039;=&#039;...&#039; de la ligne maître et des lignes doit correspondre à cette expression régulière sous forme &#039;longue&#039; ou être vide (non définie).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-network-short-regex">
                 <td class="option-option">network-short-regex</td>
                 <td class="option-default"></td>
-                <td class="option-description">La valeur &#039;network&#039;=&#039;...&#039; du groupement d&#039;itinéraires et des itinéraires doit correspondre à cette expression régulière sous forme &#039;courte&#039; ou être vide (non définie).</td>
+                <td class="option-description">La valeur &#039;network&#039;=&#039;...&#039; de la ligne maître et des lignes doit correspondre à cette expression régulière sous forme &#039;courte&#039; ou être vide (non définie).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-no-additional-navigation">
@@ -214,13 +214,13 @@
             <tr class="option-tablerow" id="option-operator-regex">
                 <td class="option-option">operator-regex</td>
                 <td class="option-default"></td>
-                <td class="option-description">La valeur &#039;operator&#039;=&#039;...&#039; du groupement d&#039;itinéraires et des itinéraires doit correspondre à cette expression régulière ou être vide (non définie).</td>
+                <td class="option-description">La valeur &#039;operator&#039;=&#039;...&#039; de la ligne maître et des lignes doit correspondre à cette expression régulière ou être vide (non définie).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-or-separator">
                 <td class="option-option">or-separator</td>
                 <td class="option-default">|</td>
-                <td class="option-description">Ceci définit le séparateur OU (&#039;OR&#039;) dans le champ &#039;ref&#039; de la liste CSV des itinéraires.<br />Exemple : &#039;250|250a|250b&#039; : définit que l&#039;itinéraire avec la référence &#039;ref&#039; = &#039;250&#039; et référence &#039;ref&#039; = &#039;250a&#039; et référence &#039;ref&#039; = &#039;250b&#039; sont pris en considération dans ce cas.</td>
+                <td class="option-description">Ceci définit le séparateur OU (&#039;OR&#039;) dans le champ &#039;ref&#039; de la liste CSV des lignes.<br />Exemple : &#039;250|250a|250b&#039; : définit que la ligne avec la référence &#039;ref&#039; = &#039;250&#039; et référence &#039;ref&#039; = &#039;250a&#039; et référence &#039;ref&#039; = &#039;250b&#039; sont prises en considération dans ce cas.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-positive-notes">
@@ -238,19 +238,19 @@
             <tr class="option-tablerow" id="option-ref-separator">
                 <td class="option-option">ref-separator</td>
                 <td class="option-default">/</td>
-                <td class="option-description">Ceci définit le champ séparateur &#039;network-ref&#039; dans le champ &#039;ref&#039; de la liste CSV des itinéraires.<br />Exemple : &#039;605/50&#039; indique que 2 références de 2 réseaux &#039;network&#039; sont valides.<br />La vérification sera faite, si &#039;ref:network1&#039; = &#039;605&#039; et &#039;ref:network2&#039; = &#039;50&#039; existent.</td>
+                <td class="option-description">Ceci définit le champ séparateur &#039;network-ref&#039; dans le champ &#039;ref&#039; de la liste CSV des lignes.<br />Exemple : &#039;605/50&#039; indique que 2 références de 2 réseaux &#039;network&#039; sont valides.<br />La vérification sera faite, si &#039;ref:network1&#039; = &#039;605&#039; et &#039;ref:network2&#039; = &#039;50&#039; existent.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-relaxed-begin-end-for">
                 <td class="option-option">relaxed-begin-end-for</td>
                 <td class="option-default"></td>
-                <td class="option-description">Vérification souple du début et de la fin des itinéraires sans tenir compte des arrêts (pour les &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
+                <td class="option-description">Vérification souple du début et de la fin des lignes sans tenir compte des arrêts (pour les &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-separator">
                 <td class="option-option">separator</td>
                 <td class="option-default">;</td>
-                <td class="option-description">Ceci définit le champ séparateur dans la liste CSV des itinéraires.</td>
+                <td class="option-description">Ceci définit le champ séparateur dans la liste CSV des lignes.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-show-gtfs">
@@ -262,19 +262,19 @@
             <tr class="option-tablerow" id="option-strict-network">
                 <td class="option-option">strict-network</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Exclut les groupement d&#039;itinéraires (&#039;route_master&#039;) et itinéraires (&#039;route&#039;) sans &#039;network&#039;.</td>
+                <td class="option-description">Exclut les relations ligne maître et ligne sans &#039;network&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-strict-operator">
                 <td class="option-option">strict-operator</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Exclut les groupement d&#039;itinéraires (&#039;route_master&#039;) et itinéraires (&#039;route&#039;) sans &#039;operator&#039;.</td>
+                <td class="option-description">Exclut les relations ligne maître et ligne sans &#039;operator&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-table-show-also">
                 <td class="option-option">table-show-also</td>
                 <td class="option-default"></td>
-                <td class="option-description">Show also the values of these tags in the table for the list of &#039;positive&#039; routes.<br />Exemple: &#045;&#045;table-show-also=from,via,to</td>
+                <td class="option-description">Indique également les valeurs de ces attributs dans la table pour la liste des lignes &#039;positives&#039;.<br />Exemple: &#045;&#045;table-show-also=from,via,to</td>
                 <td class="option-image"></td>
             </tr>
         </tbody>

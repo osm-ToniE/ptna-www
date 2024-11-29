@@ -30,7 +30,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire a une correspondance avec &#039;%s&#039; = &#039;%s&#039; d&#039;un ou plusieurs autres itinéraires</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de la ligne a une correspondance avec &#039;%s&#039; = &#039;%s&#039; d&#039;une ou plusieurs autres lignes</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -38,7 +38,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire est identique à &#039;%s&#039; d&#039;un ou plusieurs autres itinéraires</td>
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; de la ligne est identique à &#039;%s&#039; d&#039;une ou plusieurs autres lignes</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -54,15 +54,15 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Cet itinéraire fait partie de plusieurs groupements d&#039;itinéraires : %s</td>
+                <td class="message-text">Cette ligne fait partie de plusieurs lignes maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Cet itinéraire a plus d&#039;un groupement d&#039;itinéraires (%s = liste des groupements d&#039;itinéraires).</td>
+                <td class="message-description">Cette ligne a plusieurs lignes maître (%s = liste des lignes maître).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Cet itinéraire n&#039;est membre d&#039;aucun groupement d&#039;itinéraires</td>
+                <td class="message-text">Cette ligne n&#039;est membre d&#039;aucune ligne maître</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -94,10 +94,18 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Erreur dans les données d&#039;entrée : pas assez de données pour les relations</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cette relation ligne a été incluse dans les données d&#039;entrée en tant qu&#039;effet secondaire, les membres (relations, voies et nœuds) de cette ligne n&#039;ont pas été inclus.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
+                <td class="message-description">Cette relation ligne a été incluse dans les données d&#039;entrée en tant qu&#039;effet secondaire, les membres (relations, voies et nœuds) de cette ligne n&#039;ont pas été inclus.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -105,87 +113,15 @@
                 <td class="message-text">Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
+                <td class="message-description">Cette relation ligne a été incluse dans les données d&#039;entrée en tant qu&#039;effet secondaire, les membres (relations, voies et nœuds) de cette ligne n&#039;ont pas été inclus.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Error in input data: insufficient data for relations</td>
+                <td class="message-text">Il y a plusieurs lignes maître</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">This Route relation has been included into the input data as a side-effect, the members (relations, ways, nodes) of this Route have not been included.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Groupement d&#039;itinéraires avec une ou plusieurs relation(s) qui ne sont pas de type &#039;route&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Le groupement d&#039;itinéraires contient une ou plusieurs relation(s) qui ne sont pas de type &#039;route&#039;.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Groupement d&#039;itinéraires sans itinéraire(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Le groupement d&#039;itinéraires ne contient pas de relation d&#039;itinéraire (ne devrait pas arriver avec la requête Overpass API, voir &#039;La requête Overpass API n&#039;aboutit pas&#039;).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Il y a plusieurs groupements d’itinéraires</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Groupement d&#039;itinéraires : Il y a plus d&#039;une relation pour ce groupement d&#039;itinéraires = &#039;ref&#039; (attributs &#039;network&#039; différents ?)<br />Itinéraire : il y a plus d&#039;une relation groupement d&#039;itinéraires pour cet itinéraire=&#039;ref&#039; et le groupement d&#039;itinéraires de cet itinéraire.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : &#039;%s&#039; = &#039;%s&#039; de cet arrêt devrait être remplacé par &#039;route_ref&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : &#039;%s&#039; = &#039;%s&#039; doit être supprimé sur cet arrêt car &#039;route_ref&#039; = &#039;%s&#039; est déjà présent</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : Remplacer les &#039;,&#039; (virgule) par des &#039;;&#039; (point-virgule) comme séparateur dans l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt, sans espaces</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : l&#039;attribut &#039;ref&#039; = &#039;%s&#039; sur un arrêt doit correspondre au numéro de l&#039;arrêt, mais semble être le numéro &#039;ref&#039; = &#039;%s&#039; de cet itinéraire %s</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt comprend des espaces en trop autour du séparateur  &#039;;&#039; (point-virgule)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt ne comprend pas l&#039;attribut &#039;ref&#039; = &#039;%s&#039; de cet itinéraire %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-route-ref</td>
-                <td class="message-description"></td>
+                <td class="message-description">Ligne maître : Il y a plusieurs lignes maître pour la ligne = &#039;ref&#039; (attributs &#039;network&#039; différents ?)<br />Ligne : il y a plusieurs lignes maître pour cette ligne =&#039;ref&#039; et la ligne maître de cette ligne.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -214,474 +150,10 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : utilise le type de voie (%s)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-service-type</td>
-                <td class="message-description">Le véhicule utilise une voie de type &#039;service&#039; qui n&#039;est pas considérée comme appropriée pour les itinéraires de transports en commun. Les itinéraires de transports en commune ne devraient pas utiliser des voies indiquées avec &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; ou &#039;parking_aisle&#039;.</td>
-                <td class="message-fix">Vérifiez l&#039;itinéraire et envisager d&#039;effacer l&#039;attribut &#039;service&#039; de la voie.</td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 :  &#039;%s&#039; = &#039;yes&#039; manquant sur &#039;public_transport&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : &#039;%s&#039; ne fait pas partie de &#039;name&#039; (dérivé de &#039;%s&#039;=&#039;%s&#039;)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : &#039;name&#039; contient &#039;&amp;lt;=&amp;gt;&#039; obsolète</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : &#039;name&#039; contient &#039;==&amp;gt;&#039; obsolète</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : &#039;public_transport&#039; = &#039;platform&#039; fait partie de la voie</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : &#039;public_transport&#039; = &#039;stop_position&#039; ne fait pas partie de la voie</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : Il n&#039;y a pas d&#039;arrêt sur la première voie %s de cet itinéraire</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : Le dernier nœud de la voie a le &#039;role&#039; = &#039;stop_entry_only&#039;. L&#039;itinéraire est-il en sens inverse ?</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : Le dernier nœud de la voie à sens unique a le &#039;role&#039; = &#039;stop_entry_only&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : Le premier nœud de la voie a le &#039;role&#039; = &#039;stop_exit_only&#039;. L&#039;itinéraire est-il en sens inverse ?</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : Le premier nœud de la voie à sens unique a le &#039;role&#039; = &#039;stop_exit_only&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039; = &#039;%s&#039; et %s : utilisation de &#039;public_transport&#039; = &#039;platform&#039; recommandée</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">ptv1-compatibility=show</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039; = &#039;%s&#039; et %s : utilisation de &#039;public_transport&#039; = &#039;stop_position&#039; recommandée</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">ptv1-compatibility=show</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039; vide</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039;=&#039;%s&#039; et l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini mais l&#039;attribut &#039;%s&#039; est défini</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;role&#039;=&#039;%s&#039; mais l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;via&#039; défini : %d. La partie &#039;par&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à %d. Valeur via &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : attribut &#039;via&#039; défini : %d. La partie &#039;par&#039; du nom (&#039;%s&#039;) ne fait pas partie de %d. Valeur via &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a aucun arrêt &#039;public_transport&#039; = &#039;stop_position&#039; ni aucune plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a pas d&#039;arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a pas d&#039;arrêt sur la dernière voie %s de cet itinéraire</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a pas de plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a qu&#039;un seul arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il n&#039;y a qu&#039;une seule plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il y a moins de &#039;par&#039; dans le nom &#039;name&#039; (%d) que dans le &#039;via&#039; (%d)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : il y a plus de &#039;par&#039; dans le nom &#039;name&#039; (%d) que dans le &#039;via&#039; (%d)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : incohérence entre &#039;role&#039; = &#039;%s&#039; et &#039;public_transport&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : l&#039;attribut &#039;from&#039; n&#039;est pas défini</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : l&#039;attribut &#039;ref&#039; ne fait pas partie du nom &#039;name&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : l&#039;attribut &#039;to&#039; n&#039;est pas défini</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la dernière voie de l&#039;itinéraire est après le dernier arrêt %s, il est recommandé de la retirer de cet itinéraire</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la partie &#039;de&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à l&#039;attribut &#039;from&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la partie &#039;de&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;from&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : la première voie de l&#039;itinéraire précède le premier arrêt %s, il est recommandé de la retirer de cet itinéraire</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le dernier arrêt sur la dernière voie n&#039;est pas le dernier arrêt de cet itinéraire %s au lieu de %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le dernier nœud de la voie n&#039;est pas un arrêt de cet itinéraire %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le dernier nœud n&#039;est pas le dernier arrêt de cet itinéraire %s au lieu de %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le nom &#039;name&#039; devrait être sous la forme &#039;... ref ... : from =&gt; to&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le nom &#039;name&#039; devrait être sous la forme (ou ressembler à) &#039;... ref ... : from =&gt; to&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le nom &#039;name&#039; n&#039;a pas de via alors que l&#039;attribut &#039;via&#039; est défini</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le nom comporte plusieurs &#039;=&gt;&#039; mais le tag &#039;via&#039; n&#039;est pas défini</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le premier arrêt de la première voie n&#039;est pas le premier arrêt de l&#039;itinéraire : %s au lieu de %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le premier chemin de cet itinéraire est une voie en sens unique et s&#039;arrête avec un &#039;stop_position&#039; et n&#039;a pas de sortie. L&#039;itinéraire est-il en sens inverse ?</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le premier nœud de la voie n&#039;est pas le premier arrêt de l&#039;itinéraire : %s au lieu de %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le premier nœud de la voie n&#039;est pas un arrêt de cet itinéraire %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : mauvais attribut &#039;role&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"><div class="message-tooltip"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="Itinéraire PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)" /><span class="message-tooltiptext">Itinéraire PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)</span></div></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Itinéraire PTv2 : utilise des bretelles d&#039;autoroute sans autoroute</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-motorway-link</td>
-                <td class="message-description">Le véhicule utilise une entrée ou sortie d&#039;autoroute sans autoroute/voie rapide le succédant ou le précédant immédiatement. Cela peut indiquer un attribut incorrect &#039;highway&#039; = &#039;motorway_link&#039;. Mais ceci peut conduire à un mauvais itinéraire, par exemple s&#039;il a été créé avec un logiciel de routage. Il semble qu&#039;il y ait un logiciel de routage qui préfère continuer sur la voie avant de faire demi-tour après 20 m et revenir sur la voie au lieu d&#039;emprunter la voie directe (parce qu&#039;un feux influence le résultat ?). <br />Précondition : l&#039;itinéraire n&#039;a pas de trou(s).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : utilise le mauvais type de voie (%s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-way-type</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire PTv2 : le nom &#039;name&#039; de l&#039;itinéraire est identique au nom d&#039;autre(s) itinéraire(s), envisagez de définir une valeur « via » appropriée et incluez-la dans le nom &#039;name&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire avec relation(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire avec seulement 1 nœud</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire avec seulement 1 voie</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire manquant avec &#039;ref&#039; = &#039;%s&#039; et &#039;route&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Cet itinéraire est attendu comme &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) selon les données CSV, mais n&#039;existe pas dans les données fournies (voir section : &quot;API Requête Overpass&quot;).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire sans nœud(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Itinéraire sans voie(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
+                <td class="message-description">Le véhicule utilise une entrée ou sortie d&#039;autoroute sans autoroute/voie rapide le succédant ou le précédant immédiatement. Cela peut indiquer un attribut incorrect &#039;highway&#039; = &#039;motorway_link&#039;. Mais ceci peut conduire à un mauvais itinéraire, par exemple s&#039;il a été créé avec un logiciel de routage. Il semble qu&#039;il y ait un logiciel de routage qui préfère continuer sur la voie avant de faire demi-tour après 20 m et revenir sur la voie au lieu d&#039;emprunter la voie directe (parce qu&#039;un feux influence le résultat ?). <br />Précondition : la ligne n&#039;a pas de trou(s).</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -694,7 +166,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">L&#039;attribut &#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire est définie mais pas l&#039;attribut &#039;%s&#039; du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">L&#039;attribut &#039;%s&#039; = &#039;%s&#039; de la ligne est définie mais pas l&#039;attribut &#039;%s&#039; de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -702,7 +174,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">L&#039;attribut &#039;%s&#039; = &#039;%s&#039; de l&#039;itinéraire ne correspond pas à l&#039;attribut &#039;%s&#039; = &#039;%s&#039; du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">L&#039;attribut &#039;%s&#039; = &#039;%s&#039; de la ligne ne correspond pas à l&#039;attribut &#039;%s&#039; = &#039;%s&#039; de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -718,7 +190,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">L&#039;attribut &#039;%s&#039; de l&#039;itinéraire n&#039;est pas définie contrairement à l&#039;attribut &#039;%s&#039; = &#039;%s&#039; du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">L&#039;attribut &#039;%s&#039; de la ligne n&#039;est pas définie contrairement à l&#039;attribut &#039;%s&#039; = &#039;%s&#039; de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -830,7 +302,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">L&#039;attribut &#039;route&#039; = &#039;%s&#039; de l&#039;itinéraire ne correspond pas à l&#039;attribut &#039;route_master&#039; = &#039;%s&#039; du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">L&#039;attribut &#039;route&#039; = &#039;%s&#039; de la ligne ne correspond pas à l&#039;attribut &#039;route_master&#039; = &#039;%s&#039; de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -838,103 +310,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a l&#039;attribut &#039;route&#039; = &#039;%s&#039; différent de l&#039;attribut &#039;route_master&#039; du groupement d&#039;itinéraires = &#039;%s&#039; : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a l&#039;attribut &#039;route&#039; = &#039;%s&#039; qui n&#039;est pas considérée comme pertinente : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a le code de ligne &#039;ref&#039; = &#039;%s&#039; alors que le groupement d&#039;itinéraire a le code de ligne &#039;ref&#039; = &#039;%s&#039;, cela devrait être évité : %s</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description">Cela est actuellement désactivé</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a un opérateur (&#039;operator&#039;) &#039;%s&#039; différent de l&#039;opérateur du groupement d&#039;itinéraires &#039;%s&#039; : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a un opérateur (&#039;operator&#039;) = &#039;%s&#039; qui n&#039;est pas considéré comme pertinent : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a un réseau (&#039;network&#039;) &#039;%s&#039; différent du réseau du groupement d&#039;itinéraires &#039;%s&#039; : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a un réseau (&#039;network&#039;) &#039;%s&#039; qui n&#039;est pas considéré comme pertinent : %s</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire a une valeur &#039;network&#039; = &#039;%s&#039; qui fait partie de la valeur &#039;network&#039; = &#039;%s&#039; du groupement d&#039;itinéraires :  %s</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire est peut-être renseigné avec &#039;ref&#039; = &#039;%s&#039; dans une autre section ou dans une section &#039;itinéraires pas clairement assignés&#039; de cette analyse : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire existe dans la zone extraite mais son code de ligne &#039;ref&#039; n&#039;est pas défini : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">L&#039;itinéraire fait partie de ce groupement d&#039;itinéraires mais n&#039;a pas d&#039;attribut &#039;ref&#039; (%s= numéro de l&#039;itinéraire)</td>
-                <td class="message-fix">Voir section &quot;Lignes de transport public sans &#039;ref&#039;&quot; de l&#039;analyse</td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire n&#039;a pas de &#039;ref&#039; = &#039;%s&#039; correspondant : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire n&#039;est pas membre du groupement d&#039;itinéraire : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">L&#039;itinéraire n&#039;existe pas dans le jeu de données source : %s</td>
+                <td class="message-text">L&#039;opérateur &#039;operator&#039; = &#039;%s&#039; de la ligne ne correspond pas à l&#039;opérateur &#039;operator&#039; = &#039;%s&#039; de la ligne maître :  %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -958,7 +334,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; de l&#039;itinéraire est définie mais pas celle du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">La couleur &#039;colour&#039; de la ligne est définie mais pas celle de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -966,7 +342,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; de l&#039;itinéraire n&#039;est pas définie contrairement à celle du groupement d&#039;itinéraires : %s</td>
+                <td class="message-text">La couleur &#039;colour&#039; de la ligne n&#039;est pas définie contrairement à celle de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -977,7 +353,151 @@
                 <td class="message-text">La ligne a moins de parcours (%d au lieu de %d) que dans les données sources</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Ce groupement d&#039;itinéraires contient moins de relations d&#039;itinéraires que dans la liste (Itinéraire(s) non inclus dans le groupement d&#039;itinéraires ?).</td>
+                <td class="message-description">Cette ligne maître contient moins de relations lignes que dans la liste (ligne(s) non inclus dans la ligne maître ?).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne a un Opérateur (&#039;operator&#039;) &#039;%s&#039; différent de celui de la ligne maître &#039;%s&#039; : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne a un Opérateur (&#039;operator&#039;) = &#039;%s&#039; qui n&#039;est pas considéré comme pertinent : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne a un réseau (&#039;network&#039;) &#039;%s&#039; différent de la ligne maître &#039;%s&#039; : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne a un réseau (&#039;network&#039;) &#039;%s&#039; qui n&#039;est pas considéré comme pertinent : %s</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne a une valeur &#039;network&#039; = &#039;%s&#039; qui fait partie de la valeur &#039;network&#039; = &#039;%s&#039; de la ligne maître :  %s</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne est peut-être renseignée avec &#039;ref&#039; = &#039;%s&#039; dans une autre section ou dans une section &#039;itinéraires pas clairement assignés&#039; de cette analyse : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne existe dans la zone extraite mais son code de ligne &#039;ref&#039; n&#039;est pas défini : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">La ligne fait partie de cette ligne maître mais n&#039;a pas d&#039;attribut &#039;ref&#039; (%s= numéro de ligne)</td>
+                <td class="message-fix">Voir section &quot;Lignes de transport public sans &#039;ref&#039;&quot; de l&#039;analyse</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître contient des nœud(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">La ligne maître contient des arrêts.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître contient des voie(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">La ligne maître contient des rues, des voies de train, des arrêts, ...</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître est peut-être renseignée avec &#039;ref&#039; = &#039;%s&#039; dans une autre section ou dans la section &#039;lignes pas clairement assignés&#039; de cette analyse : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître est peut-être renseignée avec l&#039;attribut &#039;ref&#039; inconnu dans la section &#039;Lignes de transport en commun sans &#039;ref&#039;&#039; de cette analyse : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître existe dans la zone extraite mais l&#039;attribut &#039;ref&#039; n&#039;est pas défini : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne maître n&#039;a pas d&#039;attribut &#039;ref&#039; = &#039;%s&#039; correspondant : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne n&#039;a pas de &#039;ref&#039; = &#039;%s&#039; correspondant : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne n&#039;est pas membre de la ligne maître : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne n&#039;existe pas dans le jeu de données source : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne possède l&#039;attribut &#039;route&#039; = &#039;%s&#039; différent de celui de la ligne maître &#039;route_master&#039;= &#039;%s&#039; : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La ligne possède l&#039;attribut &#039;route&#039; = &#039;%s&#039; qui n&#039;est pas considéré comme pertinent : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -985,60 +505,20 @@
                 <td class="message-text">La ligne route_master a plus de parcours (%d au lieu de %d) que dans les données sources</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Ce groupement d&#039;itinéraires contient plus de relations d&#039;itinéraires que dans la liste (itinéraire sans ou avec d&#039;autres attributs &#039;ref&#039;/&#039;route&#039;/&#039;network&#039; ?).</td>
+                <td class="message-description">Cette ligne maître contient plus de relations lignes que dans la liste (itinéraire sans ou avec d&#039;autres attributs &#039;ref&#039;/&#039;route&#039;/&#039;network&#039; ?).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">La route a le code de ligne &#039;ref&#039; = &#039;%s&#039; alors que la ligne maître a le code de ligne &#039;ref&#039; = &#039;%s&#039;, cela devrait être évité : %s</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cela est actuellement désactivé</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Le groupement d&#039;itinéraire a %d membre avec un rôle</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires contient des nœud(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Le groupement d&#039;itinéraires contient des arrêts.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires contient des voie(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Le groupement d&#039;itinéraires contient des rues, des rails, des arrêts, ...</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires est peut-être renseigné avec &#039;ref&#039; = &#039;%s&#039; dans une autre section ou dans la section &#039;itinéraires pas clairement assignés&#039; de cette analyse : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires est peut-être renseigné avec l&#039;attribut &#039;ref&#039; inconnu dans la section &#039;Lignes de transport en commun sans &#039;ref&#039;&#039; de cette analyse : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires existe dans la zone extraite mais l&#039;attribut &#039;ref&#039; n&#039;est pas défini : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le groupement d&#039;itinéraires n&#039;a pas d&#039;attribut &#039;ref&#039; = &#039;%s&#039; correspondant : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1054,7 +534,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Le réseau &#039;network&#039; = &#039;%s&#039; de l&#039;itinéraire fait partie du réseau &#039;network&#039; = &#039;%s&#039; du groupement d&#039;itinéraires :  %s</td>
+                <td class="message-text">Le réseau &#039;network&#039; = &#039;%s&#039; de la ligne fait partie du réseau &#039;network&#039; = &#039;%s&#039; de la ligne maître :  %s</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1062,15 +542,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Le réseau &#039;network&#039; = &#039;%s&#039; de l&#039;itinéraire ne correspond pas au réseau &#039;network&#039; = &#039;%s&#039; du groupement d&#039;itinéraires :  %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Le réseau &#039;operator&#039; = &#039;%s&#039; de l&#039;itinéraire ne correspond pas au réseau &#039;operator&#039; = &#039;%s&#039; du groupement d&#039;itinéraires :  %s</td>
+                <td class="message-text">Le réseau &#039;network&#039; = &#039;%s&#039; de la ligne ne correspond pas au réseau &#039;network&#039; = &#039;%s&#039; de la ligne maître :  %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1094,42 +566,570 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne : &#039;%s&#039; = &#039;%s&#039; de cet arrêt devrait être remplacé par &#039;route_ref&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : &#039;%s&#039; = &#039;%s&#039; doit être supprimé sur cet arrêt car &#039;route_ref&#039; = &#039;%s&#039; est déjà présent</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : l&#039;attribut &#039;ref&#039; = &#039;%s&#039; sur un arrêt doit correspondre au numéro de l&#039;arrêt, mais semble être le numéro &#039;ref&#039; = &#039;%s&#039; de cet itinéraire %s</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt comprend des espaces en trop autour du séparateur  &#039;;&#039; (point-virgule)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt ne comprend pas l&#039;attribut &#039;ref&#039; = &#039;%s&#039; de cette ligne %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : remplacer les &#039;,&#039; (virgule) par des &#039;;&#039; (point-virgule) sans espace comme séparateur dans l&#039;attribut &#039;route_ref&#039; = &#039;%s&#039; de cet arrêt</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-route-ref</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : utilise le type de voie (%s)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-service-type</td>
+                <td class="message-description">Le véhicule utilise une voie de type &#039;service&#039; qui n&#039;est pas considérée comme appropriée pour les itinéraires de transports en commun. Les itinéraires de transports en commune ne devraient pas utiliser des voies indiquées avec &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; ou &#039;parking_aisle&#039;.</td>
+                <td class="message-fix">Vérifiez l&#039;itinéraire et envisager d&#039;effacer l&#039;attribut &#039;service&#039; de la voie.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 :  &#039;%s&#039; = &#039;yes&#039; manquant sur &#039;public_transport&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;%s&#039; ne fait pas partie de &#039;name&#039; (dérivé de &#039;%s&#039;=&#039;%s&#039;)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;name&#039; contient &#039;&amp;lt;=&amp;gt;&#039; obsolète</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;name&#039; contient &#039;==&amp;gt;&#039; obsolète</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;public_transport&#039; = &#039;platform&#039; fait partie de la voie</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;public_transport&#039; = &#039;stop_position&#039; ne fait pas partie de la voie</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : Il n&#039;y a pas d&#039;arrêt sur la première voie %s de cette ligne</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;role&#039; = &#039;%s&#039; et %s : utilisation de &#039;public_transport&#039; = &#039;platform&#039; recommandé</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">ptv1-compatibility=show</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;role&#039; = &#039;%s&#039; et %s : utilisation de &#039;public_transport&#039; = &#039;stop_position&#039; recommandée</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">ptv1-compatibility=show</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;role&#039; vide</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;role&#039;=&#039;%s&#039; et l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini mais l&#039;attribut &#039;%s&#039; est défini</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;role&#039;=&#039;%s&#039; mais l&#039;attribut &#039;public_transport&#039; n&#039;est pas défini</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;via&#039; défini : %d. La partie &#039;par&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à %d. Valeur via &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : attribut &#039;via&#039; défini : %d. La partie &#039;par&#039; du nom (&#039;%s&#039;) ne fait pas partie de %d. Valeur via &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a aucun arrêt &#039;public_transport&#039; = &#039;stop_position&#039; ni aucune plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a pas d&#039;arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a pas d&#039;arrêt sur la dernière voie %s de cette ligne</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a pas de plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a qu&#039;un seul arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a qu&#039;une seule plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il y a moins de &#039;par&#039; dans le nom &#039;name&#039; (%d) que dans le &#039;via&#039; (%d)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il y a plus de &#039;par&#039; dans le nom &#039;name&#039; (%d) que dans le &#039;via&#039; (%d)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : incohérence entre &#039;role&#039; = &#039;%s&#039; et &#039;public_transport&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;from&#039; n&#039;est pas défini</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;ref&#039; ne fait pas partie du nom &#039;name&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;to&#039; n&#039;est pas défini</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la dernière voie de la ligne est après le dernier arrêt %s, il est recommandé de la retirer de cette ligne</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la partie &#039;de&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à l&#039;attribut &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la partie &#039;de&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : la première voie de la ligne précède le premier arrêt %s, il est recommandé de la retirer de cette ligne</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le dernier arrêt sur la dernière voie n&#039;est pas le dernier arrêt de cette ligne %s au lieu de %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le dernier nœud de la voie a le &#039;role&#039; = &#039;stop_entry_only&#039;. L&#039;itinéraire est-il en sens inverse ?</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le dernier nœud de la voie n&#039;est pas un arrêt de cette ligne %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le dernier nœud de la voie à sens unique a le &#039;role&#039; = &#039;stop_entry_only&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le dernier nœud n&#039;est pas le dernier arrêt de cette ligne %s au lieu de %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le nom &#039;name&#039; devrait être sous la forme &#039;... ref ... : from =&gt; to&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le nom &#039;name&#039; devrait être sous la forme (ou ressembler à) &#039;... ref ... : from =&gt; to&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le nom &#039;name&#039; n&#039;a pas de via alors que l&#039;attribut &#039;via&#039; est défini</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le nom comporte plusieurs &#039;=&gt;&#039; mais le tag &#039;via&#039; n&#039;est pas défini</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier arrêt de la première voie n&#039;est pas le premier arrêt de la ligne : %s au lieu de %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier chemin de cette ligne est une voie en sens unique et s&#039;arrête avec un &#039;stop_position&#039; et n&#039;a pas de sortie. L&#039;itinéraire est-il en sens inverse ?</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier nœud de la voie a le &#039;role&#039; = &#039;stop_exit_only&#039;. L&#039;itinéraire est-il en sens inverse ?</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier nœud de la voie n&#039;est pas le premier arrêt de la ligne : %s au lieu de %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier nœud de la voie n&#039;est pas un arrêt de cette ligne %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le premier nœud de la voie à sens unique a le &#039;role&#039; = &#039;stop_exit_only&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : mauvais &#039;role&#039; = &#039;%s&#039; pour la dernière plateforme</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : mauvais &#039;role&#039; = &#039;%s&#039; pour la première plateforme</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : mauvais &#039;role&#039; = &#039;%s&#039; pour le dernier arrêt</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : mauvais &#039;role&#039; = &#039;%s&#039; pour le premier arrêt</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : mauvais attribut &#039;role&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-incorrect_order_of_stop_platform_and_way.png" alt="Ligne PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)" /><span class="message-tooltiptext">Ligne PTv2 : ordre incorrect des arrêts &#039;stop_position&#039;, plateformes &#039;platform&#039; et voies &#039;way&#039; (arrêts/plateformes après les voies)</span></div></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : utilise le mauvais type de voie (%s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-way-type</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le nom &#039;name&#039; de la ligne est identique au nom d&#039;autre(s) ligne(s), envisagez de définir une valeur « via » appropriée et incluez-la dans le nom &#039;name&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne avec relation(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne avec seulement 1 nœud</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne avec seulement 1 voie</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne manquante avec &#039;ref&#039; = &#039;%s&#039; et &#039;route&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cette ligne est attendue comme &#039;%s&#039; (&#039;bus&#039;, &#039;tram&#039;, ...) selon les données CSV, mais n&#039;existe pas dans les données fournies (voir section : &quot;API Requête Overpass&quot;).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne maître avec une ou plusieurs relation(s) qui ne sont pas de type &#039;route&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">La ligne maître contient une ou plusieurs relation(s) qui ne sont pas de type &#039;route&#039;.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne maître sans ligne(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">La ligne maître ne contient pas de ligne (ne devrait pas arriver avec la requête Overpass API, voir &#039;La requête Overpass API n&#039;aboutit pas&#039;).</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne sans nœud(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne sans voie(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Omission des analyses suivantes…</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
-                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039;. Une analyse plus approfondie de cette relation d&#039;itinéraire n&#039;a pas de sens sans les données des voies et des nœuds.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for first platform</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for first stop</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for last platform</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039; for last stop</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
+                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039;. Une analyse plus approfondie de cette relation ligne n&#039;a pas de sens sans les données des voies et des nœuds.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -1214,7 +1214,7 @@
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-using_oneway_way_in_wrong_direction.png" alt="Parcours PTv2 : utilise un sens-unique dans le mauvais sens" /><span class="message-tooltiptext">Parcours PTv2 : utilise un sens-unique dans le mauvais sens</span></div></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Plusieurs itinéraires mais cet itinéraire n&#039;est membre d&#039;aucun groupement d&#039;itinéraires</td>
+                <td class="message-text">Plusieurs lignes mais cette ligne n&#039;est membre d&#039;aucune ligne maître</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1222,7 +1222,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Plusieurs itinéraires mais l&#039;attribut &#039;public_transport:version&#039; est différent de &#039;2&#039;</td>
+                <td class="message-text">Plusieurs lignes mais l&#039;attribut &#039;public_transport:version&#039; est différent de &#039;2&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1230,7 +1230,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Plusieurs itinéraires mais pas de groupement d&#039;itinéraires</td>
+                <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
