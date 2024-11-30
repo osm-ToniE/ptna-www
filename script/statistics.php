@@ -114,7 +114,7 @@
                 printf( "    <td class=\"statistics-duration\"></td>\n" );
                 printf( "    <td class=\"statistics-size\"></td>\n" );
             }
-            if ( $routes_size != '-1') {
+            if ( $routes_size > '-1') {
                 if ( $routes_date ) {
                     if ( $routes_link ) {
                         printf( "    <td class=\"statistics-date\"><a href=\"%s\">%s</a></td>\n", $routes_link, $routes_date );
@@ -127,7 +127,9 @@
             } else {
                 if ( $routes_ret == '11' && $routes_link ) {
                     printf( "    <td class=\"statistics-date-marked\"><a href=\"%s\">OSM-Wiki page does not yet exist</a></td>\n", $routes_link );
-                } else {
+                } else if ( $routes_ret == '99' && $routes_link ) {
+                    printf( "    <td class=\"statistics-date-marked\"><a href=\"%s\">OSM-Wiki page includes a '#REDIRECT'</a></td>\n", $routes_link );
+                } else{
                     printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed</td>\n" );
                 }
             }
