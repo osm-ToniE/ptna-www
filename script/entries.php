@@ -34,7 +34,7 @@
                 $name_array = explode( ';', $name );
                 $link_array = explode( ';', $link );
                 for ( $i = 0; $i < count($name_array); $i++ ) {
-                    if ( $i > 0 ) { echo '; '; }
+                    if ( $i > 0 ) { echo ' '; }
                     if ( $name_array[$i] && $link_array[$i] ) {
                         echo '<a href="'.$link_array[$i].'">'.$name_array[$i].'</a>';
                     } else if ( $name_array[$i] ) {
