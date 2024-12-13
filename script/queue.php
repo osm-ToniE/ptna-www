@@ -101,7 +101,7 @@
                     ReadDetails($queue_infos['network']);
                     printf( "<tr class=\"statistics-tablerow\">\n" );
                     $htmlwebpath=GetHtmlFileWebPath();
-                    if ( $queue_infos['status'] == 'stopped' && $htmlwebpath ) {
+                    if ( $queue_infos['status'] == 'finished' && $htmlwebpath ) {
                         printf( "    <td class=\"statistics-name\"><a href=\"%s\" title=\"Report File\">%s</a></td>\n", $htmlwebpath, $queue_infos['network'] );
                     } else {
                         printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network'] );
@@ -117,12 +117,12 @@
                     } else {
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
-                    if ( $queue_infos['stopped'] ) {
-                        printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['stopped']) );
+                    if ( $queue_infos['finished'] ) {
+                        printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['finished']) );
                     } else {
                         printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
                     }
-                    if ( $queue_infos['status'] == 'stopped' ) {
+                    if ( $queue_infos['status'] == 'finished' ) {
                         $diffwebpath=GetDiffFileWebPath();
                         if ( $diffwebpath ) {
                             printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"Diff File\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
@@ -134,7 +134,7 @@
                     } else {
                         printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
                     }
-                    if ( $queue_infos['status'] == 'started' || $queue_infos['status'] == 'stopped' ) {
+                    if ( $queue_infos['status'] == 'started' || $queue_infos['status'] == 'finished' ) {
                         printf( "    <td class=\"statistics-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">logs</td>\n", $queue_infos['network'] );
                     } else if ( $queue_infos['status'] == 'locked' ) {
                         printf( "    <td class=\"statistics-name\">Another analysis for this 'network' was already running when this one was ready to be started</td>\n" );
