@@ -69,6 +69,8 @@
 
                     <?php CreateNewFullEntry( "DE-BW-bodo", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BW-move", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-BW-naldo", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-AVV", "de", "Konfiguration" ); ?>
