@@ -43,6 +43,7 @@
     $duration += CreateGtfsEntry( "FR-OCC-Tisseo" );
     $duration += CreateGtfsEntry( "FR-PAC-Altigo" );
     $duration += CreateGtfsEntry( "FR-PAC-Bandol-et-Sanary-sur-mer" );
+    $duration += CreateGtfsEntry( "FR-PAC-L-Agglo-en-bus" );
     $duration += CreateGtfsEntry( "FR-PAC-Lignes-d-Azur" );
     $duration += CreateGtfsEntry( "FR-PAC-Mistral" );
     $duration += CreateGtfsEntry( "FR-PAC-Mouvenbus" );
