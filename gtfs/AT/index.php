@@ -23,7 +23,7 @@
                     <tbody>
 <?php
     $duration += CreateGtfsEntry( "AT-Eisenbahn" );
-    $duration += CreateGtfsEntry( "AT-Linz-AG" );
+    $duration += CreateGtfsEntry( "AT-Linz_AG" );
     $duration += CreateGtfsEntry( "AT-OOeVV" );
     $duration += CreateGtfsEntry( "AT-SVV" );
     $duration += CreateGtfsEntry( "AT-VKG" );
