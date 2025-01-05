@@ -30,6 +30,7 @@
     $duration += CreateGtfsEntry( "FR-ARA-Montelibus" );
     $duration += CreateGtfsEntry( "FR-ARA-SMTCAC" );
     $duration += CreateGtfsEntry( "FR-BRE-Bibus" );
+    $duration += CreateGtfsEntry( "FR-BRE-CORALIE" );
     $duration += CreateGtfsEntry( "FR-BRE-KorriGo" );
     $duration += CreateGtfsEntry( "FR-BRE-IZILO" );
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
