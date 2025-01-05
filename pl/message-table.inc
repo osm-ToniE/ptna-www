@@ -734,14 +734,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Pomijanie dalszej analizy...</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description">Ten błąd jest związany z: &#039;Error in input data: insufficient data for nodes&#039; i &#039;Error in input data: insufficient data for ways&#039;. Further analysis of this Route relation does not make sense without the data for ways and nodes.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Relacja route-master bez tras(y)</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -1075,6 +1067,14 @@
                 <td class="message-option">check-service-type</td>
                 <td class="message-description">The vehicle uses a service way with a &#039;service&#039; tag which is considered as not suitable for public transport routes. Public transport routes should not use service ways tagged with &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; or &#039;parking_aisle&#039;.</td>
                 <td class="message-fix">Check the route and consider deleting the &#039;service&#039; tag from the way.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Skipping further analysis. PTNA did not download all needed OSM data.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description">Ten błąd jest związany z: &#039;Error in input data: insufficient data for nodes&#039;, &#039;Error in input data: insufficient data for ways&#039; i &#039;Error in input data: insufficient data for relations&#039;. Further analysis of this Route relation does not make sense without the data for ways, nodes or relations.</td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

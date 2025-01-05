@@ -1126,14 +1126,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Omission des analyses suivantes…</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039;. Une analyse plus approfondie de cette relation ligne n&#039;a pas de sens sans les données des voies et des nœuds.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Parcour PTv2: le rond-point apparaît deux fois, se suivant</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
@@ -1234,6 +1226,14 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Skipping further analysis. PTNA did not download all needed OSM data.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039;, &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de données pour les relations&#039;. Further analysis of this Route relation does not make sense without the data for ways, nodes or relations.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>

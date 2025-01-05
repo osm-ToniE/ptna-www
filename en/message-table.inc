@@ -1198,10 +1198,10 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Skipping further analysis ...</td>
+                <td class="message-text">Skipping further analysis. PTNA did not download all needed OSM data.</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
-                <td class="message-description">This error is related to: &#039;Error in input data: insufficient data for nodes&#039; and &#039;Error in input data: insufficient data for ways&#039;. Further analysis of this Route relation does not make sense without the data for ways and nodes.</td>
+                <td class="message-description">This error is related to: &#039;Error in input data: insufficient data for nodes&#039;, &#039;Error in input data: insufficient data for ways&#039; and &#039;Error in input data: insufficient data for relations&#039;. Further analysis of this Route relation does not make sense without the data for ways, nodes or relations.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
