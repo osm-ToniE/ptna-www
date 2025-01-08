@@ -31,6 +31,8 @@
                         PrintContinentAnalysisLogs( $_GET['continent'] );
                     } elseif ( isset($_GET['queue']) && $_GET['queue'] ) {
                         PrintQueueLogs( $_GET['queue'] );
+                    } elseif ( isset($_GET['gtfs']) && $_GET['gtfs'] ) {
+                        PrintGtfsLogs( $_GET['gtfs'] );
                     }
 ?>
             </pre>

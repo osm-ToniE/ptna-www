@@ -350,6 +350,59 @@
         }
     }
 
+    function PrintGtfsLogs( $gtfs ) {
+        global $path_to_work;
+
+        if ( $gtfs ) {
+            if ( $gtfs == 'cron' ) {
+                $logfilename = $path_to_work . 'gtfs-cron-update.log';
+                # printf( "%s\n", htmlspecialchars($logfilename) );
+            } else {
+                $logfilename = $path_to_work . preg_replace( '/\/[^\/]*$/', "/", preg_replace( '/-/', "/", $gtfs, 2 ) ) . $gtfs . '-gtfs-update.log';
+                # printf( "%s\n", htmlspecialchars($logfilename) );
+                if ( !file_exists($logfilename) ) {
+                    $logfilename = $path_to_work . preg_replace( '/\/[^\/]*$/', "/", preg_replace( '/-/', "/", $gtfs, 1 ) ) . $gtfs . '-gtfs-update.log';
+                    # printf( "%s\n", htmlspecialchars($logfilename) );
+                }
+            }
+            if ( file_exists($logfilename) ) {
+                $lines = file( $logfilename, FILE_IGNORE_NEW_LINES  );
+                foreach ( $lines as $line ) {
+                    $line = preg_replace( '/\/osm\/ptna\/work/',   '$WORK_LOC',  $line );
+                    $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
+                    $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
+                    $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                    $line = preg_replace( '/\/home\/toni\/bin/',   '~/bin',      $line );
+                    $line = preg_replace( '/toni osm/',            'user group', $line );
+                    $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
+                    $line = preg_replace( '/ user="[^"]*" /',      ' ',          $line );
+                    $line = preg_replace( '/ changeset="[^"]*" /', ' ',          $line );
+                    $line = preg_replace( '/ toni /',              ' user ',     $line );
+                    printf( "%s\n", htmlspecialchars($line) );
+                }
+            }
+        }
+    }
+
+    function GetAllGtfsFeeds() {
+        global $path_to_work;
+        $gtfs_feeds = [];
+        $files  = glob( $path_to_work."*/*-gtfs-update.log" );
+        foreach ( $files as $file ) {
+            $filename = basename( $file );
+            $filename = str_replace( "-gtfs-update.log", "", $filename );
+            array_push( $gtfs_feeds, $filename );
+        }
+        $files = glob( $path_to_work."*/*/*-gtfs-update.log" );
+        foreach ( $files as $file ) {
+            $filename = basename( $file );
+            $filename = str_replace( "-gtfs-update.log", "", $filename );
+            array_push( $gtfs_feeds, $filename );
+        }
+        sort( $gtfs_feeds );
+        return( $gtfs_feeds );
+    }
+
     function StatisticsPrintServerLoad() {
         $output_array = explode( "\n", shell_exec( "top -bn1" ) );
         foreach ( $output_array as $line ) {

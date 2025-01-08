@@ -31,13 +31,19 @@
 
             <hr />
 
+            Cron jobs for GTFS update:
+            <a href="showlogs.php?gtfs=cron" title="Show logs for GTFS update handling">Logs of GTFS update cron job</a>
+            <a href="gtfs-statistics.php" title="Show individual GTFS logs for feed update handling">Logs of of GTFS feed updates</a>
+
+            <hr />
+
             Cron jobs for analysis queue:
             <a href="/results/queue.php" title="Show analysis queue">Analysis Queue</a>
             <a href="showlogs.php?queue=analysis-queue" title="Show logs for analysis queue handling">Logs of analysis queue</a>
 
             <hr />
 
-            Cron jobs for Continents:
+            Cron jobs for continents:
             <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel @ 02:15</a>
 
             <hr />
