@@ -420,8 +420,8 @@
             $date_of_feedfile = date("Y-m-d H:i:s T",filemtime($feedfile) );
             $country          = preg_replace( '/-.*$/', '', $feed    );
             printf( "                    <tr class=\"statistics-tablerow\">\n" );
-            printf( "                        <td><a href=\"/gtfs/%s/routes.php?feed=%s\" title=\"Show GTFS feed data\">%s</td>\n", urlencode($country), urlencode($feed), htmlspecialchars($feed) );
-            printf( "                        <td>%s</td>\n", $date_of_feedfile );
+            printf( "                        <td><a href=\"gtfs-details.php?feed=%s\" title=\"Show GTFS feed details\">%s</td>\n", urlencode($feed), htmlspecialchars($feed) );
+            printf( "                        <td><a href=\"/gtfs/%s/routes.php?feed=%s\" title=\"Show latest GTFS feed data\">%s</td>\n", urlencode($country), urlencode($feed), $date_of_feedfile );
             if ( file_exists($logfile) ) {
                 printf( "                        <td><a href=\"showlogs.php?gtfs=%s\" title=\"Show log onformation of GTFS feed update\">Logs</td>\n", urlencode($feed) );
             } else {
