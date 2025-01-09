@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title="Analysis Logs"; include('html-head.inc'); ?>
+<?php if ( isset($_GET['gtfs']) && $_GET['gtfs'] ) { $title="GTFS Update Logs"; } else { $title="Analysis Logs"; } include('html-head.inc'); ?>
 
 <?php include('../script/statistics.php'); ?>
 
@@ -13,10 +13,11 @@
 
         <main id="main" class="results">
 
+<?php if ( isset($_GET['gtfs']) && $_GET['gtfs'] ) { ?>
+            <h2 id="logging"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> GTFS Update Logs</h2>
+<?php } else { ?>
             <h2 id="logging"><img src="/img/GreatBritain16.png"  class="flagimg" alt="Union Jack" /> Analysis Logs</h2>
-            <p>
-            </p>
-
+<?php } ?>
             <pre>
 <?php
                     if ( isset($network) && $network ) {
