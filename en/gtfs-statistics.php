@@ -33,8 +33,14 @@
 
             <table id="message-table" class="js-sort-table">
                 <thead>
+                    <tr class="statistics-tableheaderrow">
+                        <th class="statistics-name js-sort-string">&#x21C5;GTFS feed</th>
+                        <th class="statistics-date js-sort-string">&#x21C5;Updated</th>
+                        <th class="statistics-date js-sort-none"  >Update Log</th>
+                    </tr>
                 </thead>
                 <tbody>
+<?php PrintGtfsUpdateStatistics();  ?>
                 </tbody>
                 <tfoot>
                 </tfoot>

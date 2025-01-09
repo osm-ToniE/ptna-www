@@ -384,23 +384,50 @@
         }
     }
 
-    function GetAllGtfsFeeds() {
+    function GetAllGtfsLatestFeedFiles() {
         global $path_to_work;
-        $gtfs_feeds = [];
-        $files  = glob( $path_to_work."*/*-gtfs-update.log" );
+
+        $gtfs_latest_feed_files = [];
+        $files = glob( $path_to_work."*/*-ptna-gtfs-sqlite.db" );
         foreach ( $files as $file ) {
-            $filename = basename( $file );
-            $filename = str_replace( "-gtfs-update.log", "", $filename );
-            array_push( $gtfs_feeds, $filename );
+            if ( preg_match("/previous/",$file)  ||
+                 preg_match("/long-term/",$file) ||
+                 preg_match("/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/", $file) ) {
+                continue;
+            }
+            array_push( $gtfs_latest_feed_files, $file );
         }
-        $files = glob( $path_to_work."*/*/*-gtfs-update.log" );
+        $files = glob( $path_to_work."*/*/*-ptna-gtfs-sqlite.db" );
         foreach ( $files as $file ) {
-            $filename = basename( $file );
-            $filename = str_replace( "-gtfs-update.log", "", $filename );
-            array_push( $gtfs_feeds, $filename );
+            if ( preg_match("/previous/",$file)  ||
+                 preg_match("/long-term/",$file) ||
+                 preg_match("/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/", $file) ) {
+                continue;
+            }
+            array_push( $gtfs_latest_feed_files, $file );
         }
-        sort( $gtfs_feeds );
-        return( $gtfs_feeds );
+        sort( $gtfs_latest_feed_files );
+        return( $gtfs_latest_feed_files );
+    }
+
+    function PrintGtfsUpdateStatistics() {
+        $gtfs_latest_feed_files = GetAllGtfsLatestFeedFiles();
+
+        foreach ( $gtfs_latest_feed_files as $feedfile ) {
+            $feed             = preg_replace( '/^.*\//',                 '', $feedfile );
+            $feed             = preg_replace( '/-ptna-gtfs-sqlite.db$/', '', $feed    );
+            $logfile          = preg_replace( '/-ptna-gtfs-sqlite.db$/', '-gtfs-update.log', $feedfile );
+            $date_of_feedfile = date("Y-m-d H:i:s T",filemtime($feedfile) );
+            printf( "                    <tr class=\"statistics-tablerow\">\n" );
+            printf( "                        <td>%s</td>\n", $feed );
+            printf( "                        <td>%s</td>\n", $date_of_feedfile );
+            if ( file_exists($logfile) ) {
+                printf( "                        <td><a href=\"showlogs.php?gtfs=%s\" title=\"Show log onformation of GTFS feed update\">Logs</td>\n", $feed );
+            } else {
+                printf( "                        <td></td>\n" );
+            }
+            printf( "                    </tr>\n" );
+        }
     }
 
     function StatisticsPrintServerLoad() {
