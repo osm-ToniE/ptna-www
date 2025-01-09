@@ -418,11 +418,12 @@
             $feed             = preg_replace( '/-ptna-gtfs-sqlite.db$/', '', $feed    );
             $logfile          = preg_replace( '/-ptna-gtfs-sqlite.db$/', '-gtfs-update.log', $feedfile );
             $date_of_feedfile = date("Y-m-d H:i:s T",filemtime($feedfile) );
+            $country          = preg_replace( '/-.*$/', '', $feed    );
             printf( "                    <tr class=\"statistics-tablerow\">\n" );
-            printf( "                        <td>%s</td>\n", $feed );
+            printf( "                        <td><a href=\"/gtfs/%s/routes.php?feed=%s\" title=\"Show GTFS feed data\">%s</td>\n", urlencode($country), urlencode($feed), htmlspecialchars($feed) );
             printf( "                        <td>%s</td>\n", $date_of_feedfile );
             if ( file_exists($logfile) ) {
-                printf( "                        <td><a href=\"showlogs.php?gtfs=%s\" title=\"Show log onformation of GTFS feed update\">Logs</td>\n", $feed );
+                printf( "                        <td><a href=\"showlogs.php?gtfs=%s\" title=\"Show log onformation of GTFS feed update\">Logs</td>\n", urlencode($feed) );
             } else {
                 printf( "                        <td></td>\n" );
             }
