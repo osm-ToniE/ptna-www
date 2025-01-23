@@ -240,13 +240,24 @@ async function showtripcomparison() {
             } else {
                 taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id );
             }
-            if ( trip_id.match('%')  ) {
-                if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
-                    if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:like'] !== trip_id ) {
-                        taggs_to_add.push( 'gtfs:trip_id:like='+trip_id );
+            if ( 'trip_id_regex' in JSON_data['left']['osm'] ) {
+                var trip_id_regex = JSON_data['left']['osm']['trip_id_regex'];
+                var matches       = trip_id.match( trip_id_regex );
+                if ( matches[1] ) {
+                    var like = matches[1];
+                    if ( !(trip_id_regex.match(/^\^\(/)) ) { like =  '%' + like; }
+                    if ( !(trip_id_regex.match(/\)\$$/)) ) { like += '%'; }
+                    if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
+                        if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:like'] !== like ) {
+                            taggs_to_add.push( 'gtfs:trip_id:like='+like );
+                        }
+                    } else {
+                        taggs_to_add.push( 'gtfs:trip_id:like='+like );
                     }
                 } else {
-                    taggs_to_add.push( 'gtfs:trip_id:like='+trip_id );
+                    if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
+                        taggs_to_add.push( 'gtfs:trip_id:like=' );
+                    }
                 }
             } else {
                 if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
@@ -1190,6 +1201,18 @@ function parseHttpResponse( lor, data ) {
     // console.log( '>' + JSON_data["copyright"] + "<" );
     // console.log( '>' + JSON_data["attribution"] + "<" );
     // console.log( '>' + JSON_data["license"] + "<" );
+    // if ( lor === 'left' ) {
+    //     if ( 'osm'  in JSON_data['left'] ) {
+    //         for (var i = 0, keys = Object.keys(JSON_data['left']['osm']), ii = keys.length; i < ii; i++) {
+    //                 console.log('OSM : > ' + keys[i] + ' = ' + JSON_data['left']['osm'][keys[i]] + '<');
+    //         }
+    //     }
+    //     if ( 'ptna'  in JSON_data['left'] ) {
+    //         for (var i = 0, keys = Object.keys(JSON_data['left']['ptna']), ii = keys.length; i < ii; i++) {
+    //                 console.log('PTNA: > ' + keys[i] + ' = ' + JSON_data['left']['ptna'][keys[i]] + '<');
+    //         }
+    //     }
+    // }
 
     if ( JSON_data[lor]["elements"].length === 0 ) {
         if ( lor === 'left' ) {
