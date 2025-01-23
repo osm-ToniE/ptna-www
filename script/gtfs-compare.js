@@ -228,12 +228,30 @@ async function showtripcomparison() {
             taggs_to_add.push( 'gtfs:route_id='+route_id );
         }
         if ( 'type' in DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
+            if ( 'gtfs:trip_id' in DATA_Relations['right'][relation_id]['tags'] ) {
+                if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id'] !== trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id='+trip_id );
+                }
+            }
             if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][relation_id]['tags'] ) {
                 if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] !== trip_id ) {
                     taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id );
                 }
             } else {
                 taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id );
+            }
+            if ( trip_id.match('%')  ) {
+                if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
+                    if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:like'] !== trip_id ) {
+                        taggs_to_add.push( 'gtfs:trip_id:like='+trip_id );
+                    }
+                } else {
+                    taggs_to_add.push( 'gtfs:trip_id:like='+trip_id );
+                }
+            } else {
+                if ( 'gtfs:trip_id:like' in DATA_Relations['right'][relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:trip_id:like=' );
+                }
             }
             if ( 'ref_trips' in DATA_Relations['left'][trip_id]['tags'] ) {
                 if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][relation_id]['tags']                                                             &&
@@ -251,6 +269,10 @@ async function showtripcomparison() {
                     }
                 } else {
                     taggs_to_add.push( 'gtfs:shape_id='+shape_id );
+                }
+            } else {
+                if ( 'gtfs:shape_id' in DATA_Relations['right'][relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:shape_id=' );
                 }
             }
         }
