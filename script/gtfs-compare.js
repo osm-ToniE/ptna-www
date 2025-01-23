@@ -224,8 +224,6 @@ async function showtripcomparison() {
             if ( DATA_Relations['right'][relation_id]['tags']['gtfs:release_date'] !== release_date ) {
                 taggs_to_add.push( 'gtfs:release_date='+release_date );
             }
-        } else {
-            taggs_to_add.push( 'gtfs:release_date='+release_date );
         }
         if ( 'gtfs:route_id' in DATA_Relations['right'][relation_id]['tags'] ) {
             if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] !== route_id ) {
@@ -415,8 +413,6 @@ async function showroutecomparison() {
             if ( DATA_Relations['right'][relation_id]['tags']['gtfs:release_date'] !== release_date ) {
                 taggs_to_add.push( 'gtfs:release_date='+release_date );
             }
-        } else {
-            taggs_to_add.push( 'gtfs:release_date='+release_date );
         }
         if ( 'gtfs:route_id' in DATA_Relations['right'][relation_id]['tags'] ) {
             if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] !== route_id ) {
