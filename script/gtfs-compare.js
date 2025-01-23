@@ -211,17 +211,47 @@ async function showtripcomparison() {
     var TableInfoRight = {};
     var whats_right = 'GTFS';
     if ( relation_id !== '' ) {
-        whats_right = 'OSM';
-        taggs_to_add = ['gtfs:feed='+feed,'gtfs:route_id='+route_id];
+        whats_right  = 'OSM';
+        taggs_to_add = [];
+        if ( DATA_Relations['right'][relation_id]['tags']['gtfs:feed'] ) {
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:feed'] !== feed ) {
+                taggs_to_add.push( 'gtfs:feed='+feed );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:feed='+feed );
+        }
+        if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] ) {
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] !== route_id ) {
+                taggs_to_add.push( 'gtfs:route_id='+route_id );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:route_id='+route_id );
+        }
         if ( DATA_Relations['right'][relation_id]['tags']['type'] && DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
-            taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id )
-            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample']                                                               &&
-                 DATA_Relations['right'][relation_id]['tags']['ref_trips']                                                                         &&
-                 DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][relation_id]['tags']['ref_trips']    ) {
-                taggs_to_add.push( 'ref_trips='+trip_id );
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] ) {
+                if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] !== trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id );
+                }
+            } else {
+                taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id );
+            }
+            if ( DATA_Relations['left'][trip_id]['tags']['ref_trips'] ) {
+                if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample']                                                               &&
+                     DATA_Relations['right'][relation_id]['tags']['ref_trips']                                                                         &&
+                     DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][relation_id]['tags']['ref_trips'] &&
+                     DATA_Relations['right'][relation_id]['tags']['ref_trips']           !== trip_id                                                      ) {
+                    taggs_to_add.push( 'ref_trips='+trip_id );
+                }
             }
             if ( DATA_Relations['left'][trip_id]['tags']['shape_id'] ) {
-                taggs_to_add.push( 'gtfs:shape_id='+DATA_Relations['left'][trip_id]['tags']['shape_id'] );
+                var shape_id = DATA_Relations['left'][trip_id]['tags']['shape_id'];
+                if ( DATA_Relations['right'][relation_id]['tags']['gtfs:shape_id'] ) {
+                    if ( DATA_Relations['right'][relation_id]['tags']['gtfs:shape_id'] !== shape_id ) {
+                        taggs_to_add.push( 'gtfs:shape_id='+shape_id );
+                    }
+                } else {
+                    taggs_to_add.push( 'gtfs:shape_id='+shape_id );
+                }
             }
         }
         TableInfoRight = { 'name' : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
@@ -333,7 +363,21 @@ async function showroutecomparison() {
     var whats_right     = '';
     if ( relation_id !== '' ) {
         whats_right  = 'OSM';
-        taggs_to_add = ['gtfs:feed='+feed,'gtfs:route_id='+route_id];
+        taggs_to_add = [];
+        if ( DATA_Relations['right'][relation_id]['tags']['gtfs:feed'] ) {
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:feed'] !== feed ) {
+                taggs_to_add.push( 'gtfs:feed='+feed );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:feed='+feed );
+        }
+        if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] ) {
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:route_id'] !== route_id ) {
+                taggs_to_add.push( 'gtfs:route_id='+route_id );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:route_id='+route_id );
+        }
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
