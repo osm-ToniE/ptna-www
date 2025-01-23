@@ -199,6 +199,7 @@ async function showtripcomparison() {
     console.log("CMP_List");
     console.log(CMP_List);
 
+    var route_id = (DATA_Relations['left'][trip_id]['tags']['route_id']) ? DATA_Relations['left'][trip_id]['tags']['route_id'] : '???';
     var TableInfoLeft  = { 'name'             : 'GTFS trip',
                            'id'               : trip_id,
                            'feed'             : feed,
@@ -211,10 +212,22 @@ async function showtripcomparison() {
     var whats_right = 'GTFS';
     if ( relation_id !== '' ) {
         whats_right = 'OSM';
+        taggs_to_add = ['gtfs:feed='+feed,'gtfs:route_id='+route_id];
+        if ( DATA_Relations['right'][relation_id]['tags']['type'] && DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
+            taggs_to_add.push( 'gtfs:trip_id:sample='+trip_id )
+            if ( DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample']                                                               &&
+                 DATA_Relations['right'][relation_id]['tags']['ref_trips']                                                                         &&
+                 DATA_Relations['right'][relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][relation_id]['tags']['ref_trips']    ) {
+                taggs_to_add.push( 'ref_trips='+trip_id );
+            }
+            if ( DATA_Relations['left'][trip_id]['tags']['shape_id'] ) {
+                taggs_to_add.push( 'gtfs:shape_id='+DATA_Relations['left'][trip_id]['tags']['shape_id'] );
+            }
+        }
         TableInfoRight = { 'name' : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
                            'id'   : relation_id,
                            'ref'  : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
-                           'link' : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route')) +
+                           'link' : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route'),feed='',release_date='',addtags=taggs_to_add) +
                                                     ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
                          };
     } else {
@@ -319,20 +332,21 @@ async function showroutecomparison() {
     CompareTableColInfo = {};
     var whats_right     = '';
     if ( relation_id !== '' ) {
-        whats_right         = 'OSM';
+        whats_right  = 'OSM';
+        taggs_to_add = ['gtfs:feed='+feed,'gtfs:route_id='+route_id];
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
                 CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route_master'] ? DATA_Relations['right'][relation_id]['tags']['route_master'] : '';
-                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false ) +
+                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false, feed='', release_date='', addtags=taggs_to_add ) +
                                                                  ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
                 CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route'] ? DATA_Relations['right'][relation_id]['tags']['route'] : '';
-                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) +
+                CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true, feed='', release_date='',addtags=taggs_to_add ) +
                                                                  ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else {
                 alert( "OSM relation "  + relation_id + " is not a 'route_master' or a 'route' relation'") ;
@@ -993,7 +1007,7 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
 }
 
 
-function GetObjectLinks( id, object_type, is_GTFS, is_Route, feed='', release_date='' ) {
+function GetObjectLinks( id, object_type, is_GTFS, is_Route, feed='', release_date='', addtags=[] ) {
     var html = '';
 
     if ( is_GTFS ) {
@@ -1019,6 +1033,20 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, feed='', release_da
         }
     } else {
         if ( object_type ) {
+            addtags_uri   = '';
+            addtags_title = '';
+            addtags_count = addtags.length;
+            if ( addtags_count ) {
+                addtags_uri   = '&amp;addtags=';
+                for ( var i = 0; i < addtags_count; i++ ) {
+                    addtags_uri   += encodeURIComponent(addtags[i]);
+                    addtags_title += "\n- " + htmlEscape(addtags[i]);
+                    if ( i < addtags_count - 1 )
+                    {
+                        addtags_uri   += encodeURIComponent('|');
+                    }
+                }
+            }
             if ( object_type == "node" ) {
                 html  = '<a href="https://osm.org/node/' + id + '" target="_blank" title="Browse on map"><img src="/img/Node.svg" alt="Node" height="18" width="18" /></a> ';
                 html += '<a href="https://osm.org/edit?editor=id&amp;node=' + id + '" target="_blank" title="Edit in iD"><img src="/img/iD-logo32.png" alt="iD" height="18" width="18" /></a> ';
@@ -1032,7 +1060,14 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, feed='', release_da
                 html += '<a href="https://osm.org/edit?editor=id&amp;relation=' + id + '" target="_blank" title="Edit in iD"><img src="/img/iD-logo32.png" alt="iD" height="18" width="18" /></a> ';
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
+                    if ( addtags_uri ) {
+                        html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                    }
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
+                } else {
+                    if ( addtags_uri ) {
+                        html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route_master relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                    }
                 }
             }
         }
