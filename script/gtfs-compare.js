@@ -243,7 +243,7 @@ async function showtripcomparison() {
             if ( 'trip_id_regex' in JSON_data['left']['osm'] ) {
                 var trip_id_regex = JSON_data['left']['osm']['trip_id_regex'];
                 var matches       = trip_id.match( trip_id_regex );
-                if ( matches[1] ) {
+                if ( matches && matches.length > 1 && matches[1] ) {
                     var like = matches[1];
                     if ( !(trip_id_regex.match(/^\^\(/)) ) { like =  '%' + like; }
                     if ( !(trip_id_regex.match(/\)\$$/)) ) { like += '%'; }
