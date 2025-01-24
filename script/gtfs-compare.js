@@ -1148,12 +1148,12 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
                     if ( addtags_uri ) {
-                        html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                        html += '  <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
                 } else {
                     if ( addtags_uri ) {
-                        html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route_master relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                        html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route_master relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
                 }
             }
