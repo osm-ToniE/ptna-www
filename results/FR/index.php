@@ -61,6 +61,8 @@
 
                     <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-QUB", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-SURF", "fr", "Configuration" ); ?>
