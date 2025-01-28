@@ -1150,6 +1150,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">The tag &#039;public_transport&#039; (=&#039;%s&#039;) is not defined for &#039;route_master&#039; and &#039;route&#039; relations. Do you mean &#039;public_transport:version&#039;=&#039;2&#039;?</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">This Route is not a member of any Route-Master</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>

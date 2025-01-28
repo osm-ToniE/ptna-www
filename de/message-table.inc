@@ -294,6 +294,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Das tag &#039;public_transport&#039; (=&#039;%s&#039;) ist für &#039;route_master und &#039;route&#039; Relationen nicht definiert. Soll das &#039;public_transport:version&#039;=&#039;2&#039; sein?</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Die CSV-Daten enthalten zu viele &#039;;&#039;. Zeile %s der Routen-Daten. Inhalt der Zeile: &#039;%s&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
