@@ -223,7 +223,7 @@ async function showtripcomparison() {
         TableInfoRight = { 'name'             : 'GTFS trip',
                            'id'               : trip_id2,
                            'feed'             : feed2,
-                           'release_date'     : release_date,
+                           'release_date'     : release_date2,
                            'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???'),
                            'link'             : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
