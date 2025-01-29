@@ -223,6 +223,7 @@
                 $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
                 $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
                 $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                $line = preg_replace( '/\/home\/toni\/gtfs/',  '$GTFS_PATH', $line );
                 $line = preg_replace( '/\/home\/toni\/bin/',   '~/bin',      $line );
                 $line = preg_replace( '/toni osm/',            'user group', $line );
                 $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
@@ -247,6 +248,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',      '$WWW_LOC',                $line );
                     $line = preg_replace( '/\/osm\/ptna/',           '$PTNA_LOC',               $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',    '$PTNA_PATH',              $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',    '$GTFS_PATH',              $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',     '~/bin',                   $line );
                     $line = preg_replace( '/toni osm/',              'user group',              $line );
                     $line = preg_replace( '/ uid="[^"]*" /',         ' ',                       $line );
@@ -265,6 +267,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',      '$WWW_LOC',                $line );
                     $line = preg_replace( '/\/osm\/ptna/',           '$PTNA_LOC',               $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',    '$PTNA_PATH',              $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',    '$GTFS_PATH',              $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',     '~/bin',                   $line );
                     $line = preg_replace( '/toni osm/',              'user group',              $line );
                     $line = preg_replace( '/ uid="[^"]*" /',         ' ',                       $line );
@@ -290,6 +293,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',      '$WWW_LOC',                $line );
                     $line = preg_replace( '/\/osm\/ptna/',           '$PTNA_LOC',               $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',    '$PTNA_PATH',              $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',    '$GTFS_PATH',              $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',     '~/bin',                   $line );
                     $line = preg_replace( '/toni osm/',              'user group',              $line );
                     $line = preg_replace( '/ uid="[^"]*" /',         ' ',                       $line );
@@ -314,6 +318,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
                     $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',  '$GTFS_PATH', $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',   '~/bin',      $line );
                     $line = preg_replace( '/toni osm/',            'user group', $line );
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
@@ -338,6 +343,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
                     $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',  '$GTFS_PATH', $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',   '~/bin',      $line );
                     $line = preg_replace( '/toni osm/',            'user group', $line );
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
@@ -372,6 +378,7 @@
                     $line = preg_replace( '/\/osm\/ptna\/www/',    '$WWW_LOC',   $line );
                     $line = preg_replace( '/\/osm\/ptna/',         '$PTNA_LOC',  $line );
                     $line = preg_replace( '/\/home\/toni\/ptna/',  '$PTNA_PATH', $line );
+                    $line = preg_replace( '/\/home\/toni\/gtfs/',  '$GTFS_PATH', $line );
                     $line = preg_replace( '/\/home\/toni\/bin/',   '~/bin',      $line );
                     $line = preg_replace( '/toni osm/',            'user group', $line );
                     $line = preg_replace( '/ uid="[^"]*" /',       ' ',          $line );
