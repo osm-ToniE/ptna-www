@@ -70,6 +70,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; der Route ist gesetzt aber &#039;%s&#039; des Route-Masters ist nicht gesetzt: %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; der Route ist nicht gesetzt aber &#039;%s&#039; = &#039;%s&#039; des Route-Masters ist gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -78,7 +86,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; der Route ist gesetzt aber &#039;colour&#039; des Route-Masters ist nicht gesetzt: %s</td>
+                <td class="message-text">&#039;%s&#039; der Route ist nicht gesetzt aber &#039;%s&#039; des Route-Masters ist gesetzt: %s</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -86,7 +94,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; der Route ist nicht gesetzt aber &#039;colour&#039; des Route-Masters ist gesetzt: %s</td>
+                <td class="message-text">&#039;%s&#039; hat einen unbekannten Wert &#039;%s&#039;. Füge &#039;#&#039; als erstes Zeichen hinzu.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -94,15 +102,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;. Füge &#039;#&#039; als erstes Zeichen hinzu.</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;colour&#039; hat einen unbekannten Wert &#039;%s&#039;. Wähle einen der 140 definierten HTML/CSS Farbnamen oder den HTML Hex Farben Code &#039;#...&#039; oder &#039;#......&#039;.</td>
+                <td class="message-text">&#039;%s&#039; hat einen unbekannten Wert &#039;%s&#039;. Wähle einen der 140 definierten HTML/CSS Farbnamen oder den HTML Hex Farben Code &#039;#...&#039; oder &#039;#......&#039;.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

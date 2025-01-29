@@ -1280,6 +1280,7 @@
                             $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
+                        $osm_text_colour    = isset($routes['route_text_color'])     ? htmlspecialchars($routes['route_text_color'])     : '000000';
                         $osm_from           = (isset($stops1['normalized_stop_name']) && $stops1['normalized_stop_name'] != '')
                                                   ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops1["stop_name"]) . '\'">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
                                                   : htmlspecialchars($stops1['stop_name']);
@@ -1450,10 +1451,16 @@
                             echo '                                <td class="gtfs-text">' . $osm_operator . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
-                        if ( $osm_colour ) {
+                        if ( $osm_colour != '' ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">colour</td>' . "\n";
                             echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_text_colour != '' ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">colour:text</td>' . "\n";
+                            echo '                                <td class="gtfs-name">#' . $osm_text_colour . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
                         if ( $osm_website ) {
@@ -1538,6 +1545,12 @@
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">colour</td>' . "\n";
                             echo '                                <td class="gtfs-name">#' . $osm_colour . '</td>' . "\n";
+                            echo '                            </tr>' . "\n";
+                        }
+                        if ( $osm_text_colour != '' ) {
+                            echo '                            <tr class="gtfs-tablerow">' . "\n";
+                            echo '                                <td class="gtfs-name">colour:text</td>' . "\n";
+                            echo '                                <td class="gtfs-name">#' . $osm_text_colour . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
                         if ( $osm_website ) {

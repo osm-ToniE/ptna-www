@@ -46,6 +46,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; has unknown value &#039;%s&#039;. Add &#039;#&#039; as first character.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; has unknown value &#039;%s&#039;. Choose one of the 140 well defined HTML/CSS colour names or the HTML Hex colour codes &#039;#...&#039; or &#039;#......&#039;.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; of Route is not set but &#039;%s&#039; of Route-Master is set: %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; of Route is set but &#039;%s&#039; of Route-Master is not set: %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;gtfs:shape_id&#039; = &#039;%s&#039; est défini, mais ni &#039;gtfs:trip_id&#039; ni &#039;gtfs:trip_id:sample&#039; ne le sont: définir l&#039;un des deux permettrait d&#039;avoir des informations additionnelles sur les arrêts (noms, séquences, emplacements).</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-gtfs</td>
@@ -311,38 +343,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">L&#039;opérateur &#039;operator&#039; = &#039;%s&#039; de la ligne ne correspond pas à l&#039;opérateur &#039;operator&#039; = &#039;%s&#039; de la ligne maître :  %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; a une valeur inconnue : &#039;%s&#039;. Ajoutez &#039;#&#039; comme premier caractère.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; a une valeur inconnue : &#039;%s&#039;. Choisissez l&#039;une des 140 couleurs HTML / CSS bien définies ou les codes de couleur HTML Hex &#039;#...&#039; ou &#039;#......&#039;.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; de la ligne est définie mais pas celle de la ligne maître : %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">La couleur &#039;colour&#039; de la ligne n&#039;est pas définie contrairement à celle de la ligne maître : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
