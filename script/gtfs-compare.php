@@ -1,16 +1,16 @@
 <?php
 
-    if ( isset($_GET['feed2']) ) {
+    if ( isset($_GET['feed2']) && $_GET['feed2'] != '' ) {
         $feed2          = $_GET['feed2'];
     } else {
         $feed2          = isset($_GET['feed']) ? $_GET['feed'] : '';
     }
-    if ( isset($_GET['release_date2']) ) {
+    if ( isset($_GET['release_date2']) && $_GET['release_date2'] != '' ) {
         $release_date2  = $_GET['release_date2'];
     } else {
         $release_date2  = '';  # leading to 'latest'
     }
-    if ( isset($_GET['route_id2']) ) {
+    if ( isset($_GET['route_id2']) && $_GET['route_id2'] != ''  ) {
         $route_id2      = $_GET['route_id2'];
     } else {
         $route_id2      = isset($_GET['route_id']) ? $_GET['route_id'] : '';
