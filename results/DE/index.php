@@ -119,7 +119,7 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VLK", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-VLMÜ", "de", "Konfiguration" ); ?>
+                    <?php CreateNewFullEntry( "DE-BY-VLMUE", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VRG", "de", "Konfiguration" ); ?>
 

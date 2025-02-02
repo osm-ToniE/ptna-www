@@ -205,7 +205,7 @@
 
                     <?php CreateNewFullEntry("FR-PAC-Alpes-Maritimes", "fr", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry("FR-PAC-Bouches-du-Rhône", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-PAC-Bouches-du-Rhone", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-PAC-Hautes-Alpes", "fr", "Configuration" ); ?>
 
