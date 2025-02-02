@@ -19,7 +19,7 @@
 
         $return_array = array( 'HTTP' => 404, 'status' => "Not Found", 'queued' => '', 'started' => '', 'ip' => '' );
 
-        if ( $network && preg_match("/^[0-9A-ZÜa-zô_.-]+$/",$network) ) {
+        if ( $network && preg_match("/^[0-9A-Za-z_.-]+$/",$network) ) {
 
             $SqliteDb = FindAnalysisQueueSqliteDb();
 

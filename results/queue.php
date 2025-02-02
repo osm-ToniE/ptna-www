@@ -21,7 +21,7 @@
             #print_r( $_SERVER );
             #echo " -->\n";
             if ( isset($_SERVER['HTTP_REFERER']) ) {
-                preg_match( '/\/results\/.*\/([0-9A-ZÜa-zô_.-]+)-Analysis\.[dif.]*.*html$/', $_SERVER['HTTP_REFERER'], $matches );
+                preg_match( '/\/results\/.*\/([0-9A-Za-z_.-]+)-Analysis\.[dif.]*.*html$/', $_SERVER['HTTP_REFERER'], $matches );
                 if ( isset($matches[1]) ) {
                     $network = $matches[1];
                     $ret_val = InsertIntoAnalysisQueue( $network );
