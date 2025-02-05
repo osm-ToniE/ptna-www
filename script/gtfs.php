@@ -1281,12 +1281,20 @@
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
                         $osm_text_colour    = isset($routes['route_text_color'])     ? htmlspecialchars($routes['route_text_color'])     : '000000';
-                        $osm_from           = (isset($stops1['normalized_stop_name']) && $stops1['normalized_stop_name'] != '')
-                                                  ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops1["stop_name"]) . '\'">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
-                                                  : htmlspecialchars($stops1['stop_name']);
-                        $osm_to             = (isset($stops2['normalized_stop_name']) && $stops2['normalized_stop_name'] != '')
-                                                  ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops2["stop_name"]) . '\'">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
-                                                  : htmlspecialchars($stops2['stop_name']);
+                        if ( isset($stops1['stop_name'] ) ) {
+                            $osm_from = (isset($stops1['normalized_stop_name']) && $stops1['normalized_stop_name'] != '')
+                                           ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops1["stop_name"]) . '\'">' . htmlspecialchars($stops1['normalized_stop_name']) . '</span>'
+                                           : htmlspecialchars($stops1['stop_name']);
+                        } else {
+                            $osm_from = '';
+                        }
+                        if ( isset($stops2['stop_name'] ) ) {
+                            $osm_to   = (isset($stops2['normalized_stop_name']) && $stops2['normalized_stop_name'] != '')
+                                           ? '<span class="normalized-name" title="GTFS: stop_name=\'' . htmlspecialchars($stops2["stop_name"]) . '\'">' . htmlspecialchars($stops2['normalized_stop_name']) . '</span>'
+                                           : htmlspecialchars($stops2['stop_name']);
+                        } else {
+                            $osm_to = '';
+                        }
                         $osm_route_master_name    = $osm_vehicle . ' ' . $osm_ref;
                         if ( isset($osm['route_master_name_suggestion']) ) {
                             if ( $osm['route_master_name_suggestion'] ) {
