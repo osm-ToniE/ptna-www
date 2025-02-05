@@ -46,7 +46,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; has unknown value &#039;%s&#039;. Add &#039;#&#039; as first character.</td>
+                <td class="message-text">&#039;%s&#039; a une valeur inconnue &#039;%s&#039;. Ajouter &#039;#&#039; comme premier caractère.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -54,23 +54,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; has unknown value &#039;%s&#039;. Choose one of the 140 well defined HTML/CSS colour names or the HTML Hex colour codes &#039;#...&#039; or &#039;#......&#039;.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; of Route is not set but &#039;%s&#039; of Route-Master is set: %s</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">&#039;%s&#039; of Route is set but &#039;%s&#039; of Route-Master is not set: %s</td>
+                <td class="message-text">&#039;%s&#039; a une valeur inconnue &#039;%s&#039;. Choisissez l&#039;une des 140 couleurs HTML / CSS bien définies ou les codes de couleur HTML Hex &#039;#...&#039; ou &#039;#......&#039;.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -150,6 +134,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ignore l&#039;analyse plus poussée. PTNA n&#039;a pas chargé toutes les données OSM nécessaires.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039;, &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de données pour les relations&#039;. Une analyse plus approfondie de cette relation ligne n&#039;a pas de sens sans les données des voies, nœuds ou relations.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Il y a plusieurs lignes maître</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -218,6 +210,22 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description">Les valeurs des attributs ne doivent pas être vides.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">L&#039;attribut &#039;%s&#039; de la ligne est définie contrairement à l&#039;attribut &#039;%s&#039;  de la ligne maitre : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">L&#039;attribut &#039;%s&#039; de la ligne n&#039;est pas défini contrairement à l&#039;attribut &#039;%s&#039; de la ligne maître : %s</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -297,6 +305,14 @@
                 <td class="message-text">L&#039;attribut &#039;network:long&#039; est une forme longue</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">positive-notes</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">L&#039;attribut &#039;public_transport&#039; (=&#039;%s&#039;) n&#039;est pas défini pour les relations maitre &#039;route_master&#039; et &#039;route&#039;. Est-ce que vous voulez dire &#039;public_transport:version&#039;=&#039;2&#039; ?</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1223,22 +1239,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Skipping further analysis. PTNA did not download all needed OSM data.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description">Cette erreur est liée à : &#039;Erreur dans les données d&#039;entrée : pas assez de nœuds &#039;nodes&#039;&#039;, &#039;Erreur dans les données d&#039;entrée : pas assez de voies &#039;ways&#039;&#039; et &#039;Erreur dans les données d&#039;entrée : pas assez de données pour les relations&#039;. Further analysis of this Route relation does not make sense without the data for ways, nodes or relations.</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">The tag &#039;public_transport&#039; (=&#039;%s&#039;) is not defined for &#039;route_master&#039; and &#039;route&#039; relations. Do you mean &#039;public_transport:version&#039;=&#039;2&#039;?</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
