@@ -34,6 +34,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-Distribus" );
     $duration += CreateGtfsEntry( "FR-BRE-IZILO" );
     $duration += CreateGtfsEntry( "FR-BRE-KorriGo" );
+    $duration += CreateGtfsEntry( "FR-BRE-MAT" );
     $duration += CreateGtfsEntry( "FR-BRE-QUB" );
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
     $duration += CreateGtfsEntry( "FR-BRE-SURF" );
