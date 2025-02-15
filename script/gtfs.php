@@ -1381,7 +1381,7 @@
                         $osm_operator       = '';
                         $osm_website        = '';
                         if ( isset($osm['gtfs_agency_is_operator']) && $osm['gtfs_agency_is_operator'] ) {
-                            if ( $agency['agency_name'] != 'Sonstige' ) {
+                            if ( isset($agency['agency_name']) && $agency['agency_name'] != 'Sonstige' ) {
                                 $osm_operator   = isset($agency['agency_name']) ? htmlspecialchars($agency['agency_name']) : '';
                                 $osm_website    = isset($routes['route_url'])   ? htmlspecialchars($routes['route_url'])   : htmlspecialchars($agency['agency_url']);
                             }
