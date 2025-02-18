@@ -86,7 +86,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Données CSV : champs &#039;release_date&#039; (= &#039;%s&#039;) erroné. Ce devrait être une date (YYYY-MM-DD), &#039;latest&#039;, &#039;previous&#039; ou &#039;long-term&#039;. Ligne des données d&#039;itinéraires %s. Contenu de la ligne : &#039;%s&#039;</td>
+                <td class="message-text">Données CSV : champs &#039;release_date&#039; (= &#039;%s&#039;) erroné. Ce devrait être une date (YYYY-MM-DD), &#039;latest&#039;, &#039;previous&#039; ou &#039;long-term&#039;. Ligne des données d&#039;itinéraires %s. Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -94,15 +94,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Données CSV : le champ &#039;gtfs_feed&#039; (= &#039;%s&#039;) est incorrect. Ligne %s de Routes-Data. Contenu de la ligne: &#039;%s&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Données CSV contiennent trop de &#039;;&#039;. Ligne des données d&#039;itinéraires %s. Contenu de la ligne : &#039;%s&#039;</td>
+                <td class="message-text">Données CSV : le champ &#039;gtfs_feed&#039; (= &#039;%s&#039;) est incorrect. Ligne %s de Routes-Data. Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -534,6 +526,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Le &#039;ref&#039; n&#039;est pas indiqué. Ligne %s des données d&#039;itinéraires. Contenu : &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Le groupement d&#039;itinéraire a %d membre avec un rôle</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -542,7 +542,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Le premier caractère de la ligne (&#039;%s&#039;) est réservé. Veuillez mettre le premier champs CSV dans des guillemets (&quot;...&quot;). Ligne des données d&#039;itinéraires %s . Contenu de la ligne : &#039;%s&#039;</td>
+                <td class="message-text">Le premier caractère de la ligne (&#039;%s&#039;) est réservé. Veuillez mettre le premier champs CSV dans des guillemets (&quot;...&quot;). Ligne des données d&#039;itinéraires %s . Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -566,7 +566,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Le type &#039;Route&#039; n&#039;est pas indiqué. Ligne %s des données d&#039;itinéraires. Contenus de la ligne : &#039;%s&#039;</td>
+                <td class="message-text">Le type &#039;Route&#039; n&#039;est pas indiqué. Ligne %s des données d&#039;itinéraires. Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -574,7 +574,15 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Le type &#039;Route&#039; n&#039;est pas pris en charge : &#039;%s&#039;. Ligne %s des données d&#039;itinéraires. Contenus de la ligne : &#039;%s&#039;</td>
+                <td class="message-text">Le type &#039;Route&#039; n&#039;est pas pris en charge : &#039;%s&#039;. Ligne %s des données d&#039;itinéraires. Contenu : &#039;%s&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Les données CSV contiennent des erreurs. Ligne %s des données de parcours. Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

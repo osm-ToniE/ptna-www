@@ -246,7 +246,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">CSV data includes too many &#039;;&#039;. Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">CSV data includes errors. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -254,7 +254,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">CSV data: field &#039;gtfs_feed&#039; (= &#039;%s&#039;) is wrong. Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">CSV data: field &#039;gtfs_feed&#039; (= &#039;%s&#039;) is wrong. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -262,7 +262,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">CSV data: field &#039;release_date&#039; (= &#039;%s&#039;) is wrong. Should be a date (YYYY-MM-DD), &#039;latest&#039;, &#039;previous&#039; or &#039;long-term&#039;. Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">CSV data: field &#039;release_date&#039; (= &#039;%s&#039;) is wrong. Should be a date (YYYY-MM-DD), &#039;latest&#039;, &#039;previous&#039; or &#039;long-term&#039;. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -294,7 +294,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">First character of line (&#039;%s&#039;) is reserved. Please put the first CSV field into double quotes (&quot;...&quot;). Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">First character of line (&#039;%s&#039;) is reserved. Please put the first CSV field into double quotes (&quot;...&quot;). Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -950,7 +950,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Type is not set. Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">Route-Ref is not set. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -958,7 +958,15 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route-Type is not supported: &#039;%s&#039;. Line %s of Routes-Data. Contents of line: &#039;%s&#039;</td>
+                <td class="message-text">Route-Type is not set. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route-Type is not supported: &#039;%s&#039;. Line %s of Routes-Data. Contents: &#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
