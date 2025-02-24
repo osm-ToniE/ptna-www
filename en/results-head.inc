@@ -8,3 +8,10 @@
                 Older dates mean that there were no changes in the results.
                 Nevertheless, the data has been analyzed as denoted in the column "Date of Analysis".
             </p>
+            <p>
+                An icon <img src="/img/Test.svg" width=19 height=19 alt="yes" title="Test GTFS to CSV injection" /> in the column "Lines" (last column) indicates that
+                GTFS data is available which can be injected into the CSV data (in OSM Wiki).
+                The CSV data describes the routes which are expected to be mapped in OSM.
+                A click on the icon starts a test injection. You can verify the result versus your expectations.
+                For more details see <a href="https://wiki.openstreetmap.org/wiki/Public_Transport_Network_Analysis/Syntax_of_CSV_data#CSV_data_import_definition:_@" -title="Syntax of the CSV data">Syntax of the CSV data: <strong>CSV data import definition: @</strong></a>.
+            </p>
