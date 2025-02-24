@@ -1,6 +1,7 @@
 <?php
     $path_to_work     = '/osm/ptna/work/';
     $path_to_www      = '/osm/ptna/www/';
+    $path_to_tmp      = '/osm/ptna/work/tmp/';
     $path_to_networks = '/osm/ptna/ptna-networks/';
     $details_hash     = [];
     $filename_hash    = [];
