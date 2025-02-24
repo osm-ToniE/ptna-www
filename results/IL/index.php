@@ -16,6 +16,21 @@
 
 <?php include $inc_lang.'results-head.inc' ?>
 
+            <h2 id="trains">Trains in Israel</h2>
+                <table id="networksTrain">
+                <thead>
+<?php include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
+
+                    <?php CreateNewFullEntry( "IL-Train", "en", "Configuration" ); ?>
+
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="subdistricts">Sub-Districts in Israel</h2>
             <table id="networksIL">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
