@@ -26,9 +26,9 @@
                     <?php CreateNewFullEntry( "IL-HA-Haifa",      "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-HA-Hadera",     "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-JM-Jerusalem",  "en", "Configuration" ); ?>
-                    <?php CreateNewFullEntry( "IL-M-haSharon",    "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "IL-M-HaSharon",    "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-M-Petah_Tikva", "en", "Configuration" ); ?>
-                    <?php CreateNewFullEntry( "IL-M-Ramala",      "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "IL-M-Ramla",       "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-M-Rehovot",     "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-TA-Tel-Aviv",   "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "IL-Z-Acre",        "en", "Configuration" ); ?>
