@@ -22,7 +22,7 @@
                 <li><a href="#logging">Logging</a>
                     <ul>
                         <li><a href="#logging-read">Logging "read Wiki page"</a></li>
-                        <li><a href="#logging-injection">Logging "inject into Wiki page"</a></li>
+                        <li><a href="#logging-inject">Logging "inject into Wiki page"</a></li>
                     </ul>
                 </li>
              </ul>
