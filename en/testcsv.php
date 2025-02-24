@@ -3,7 +3,8 @@
 
 <?php $title="Test GTFS to CSV injection"; include('html-head.inc'); ?>
 
-<?php include('../script/config.php'); ?>
+<?php     include('../script/gtfs-inject.php');
+?>
 
     <body>
 
@@ -20,8 +21,8 @@
                 <li><a href="#details">Details</a></li>
                 <li><a href="#logging">Logging</a>
                     <ul>
-                        <li><a href="#logging-stdout">Logging by injection code</a></li>
-                        <li><a href="#logging-stderr">Logging by Python</a></li>
+                        <li><a href="#logging-read">Logging "read Wiki page"</a></li>
+                        <li><a href="#logging-injection">Logging "inject into Wiki page"</a></li>
                     </ul>
                 </li>
              </ul>
@@ -31,16 +32,13 @@
 
         <main id="main" class="results">
 
+            <?php PerformInjection( $network ); ?>
+
             <h2 id="result">Result</h2>
             <div class="indent">
-
-                <p>Lore ipsum
+                <p>This is currently the original file from the OSM wiki. Injection does not take place at the moment.
                 </p>
-
-                <?php if ( $found ) {
-                          echo "<p>Lore ipsum</p>\n";
-                      }
-                ?>
+                <?php PrintInjectionLogs( 'injected' ); ?>
             </div>
 
             <hr />
@@ -55,21 +53,21 @@
 
             <h2 id="logging">Logging</h2>
             <div class="indent">
-                <p>Lore ipsum
-                </p>
-
-                <h3 id="logging-stdout">Logging by injection code</h3>
+                <h3 id="logging-read">Logging "read Wiki page"</h3>
                 <div class="indent">
-                    <p>Lore ipsum
-                    </p>
+                    <?php PrintInjectionLogs( 'read' ); ?>
                 </div>
 
-                <h3 id="logging-stderr">Logging by Python</h3>
+                <hr />
+
+                <h3 id="logging-inject">Logging "inject into Wiki page"</h3>
                 <div class="indent">
-                    <p>Lore ipsum
-                    </p>
+                    <?php PrintInjectionLogs( 'injection' ); ?>
                 </div>
+
             </div>
+
+            <?php DeleteTempFiles(); ?>
 
         </main> <!-- main -->
 
