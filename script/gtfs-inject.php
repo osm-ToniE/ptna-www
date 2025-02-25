@@ -42,7 +42,7 @@
                 $shell_response = shell_exec( $shell_command );
 
                 if ( $temp_routes_csv_txt && file_exists($temp_routes_csv_txt) ) {
-                    $shell_command  = "$path_to_bin/ptnaFillCsvData.py --routes $catalog_file --template $temp_routes_csv_txt --outfile $temp_routes_csv_injected > $temp_routes_inject 2>&1";
+                    $shell_command  = "$path_to_bin/ptnaFillCsvData.py --show-hidden-variables --routes $catalog_file --template $temp_routes_csv_txt --outfile $temp_routes_csv_injected > $temp_routes_inject 2>&1";
                     $shell_response = shell_exec( $shell_command );
                 } else {
                     $error_string = "Error: excecuting 'read from Wiki' command";
