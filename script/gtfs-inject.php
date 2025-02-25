@@ -13,6 +13,7 @@
     $temp_routes_inject         = '';
     $wiki_routes_page           = '';
     $catalog_file               = '';
+    $error_string               = '';
 
     function PerformInjection( $network ) {
         global $path_to_bin;
@@ -24,7 +25,9 @@
         global $temp_routes_read;
         global $temp_routes_inject;
         global $wiki_routes_page;
-        echo "<!-- $network -->\n";
+        global $error_string;
+        $ret = true;
+
         if ( ReadDetails($network) ) {
             $wiki_routes_page          = preg_replace( '/^.*\/wiki\//', '', GetRoutesLink() );
             $temp_routes_csv_txt       = $path_to_tmp . $network . '-Routes-temp.txt';
@@ -33,11 +36,41 @@
             $temp_routes_inject        = $path_to_tmp . $network . '-Routes-inject.log';
             $catalog_file              = $filename_hash['CATALOG'];
 
-            #if ( file_exists($catalog_file) )
+            if ( file_exists($catalog_file) )
             {
                 $shell_command  = "$path_to_bin/ptna-wiki-page.pl --pull --page=$wiki_routes_page --file=$temp_routes_csv_txt > $temp_routes_read 2>&1";
                 $shell_response = shell_exec( $shell_command );
+
+                if ( $temp_routes_csv_txt && file_exists($temp_routes_csv_txt) ) {
+                    $shell_command  = "$path_to_bin/ptnaFillCsvData.py --routes $catalog_file --template $temp_routes_csv_txt --outfile $temp_routes_csv_injected > $temp_routes_inject 2>&1";
+                    $shell_response = shell_exec( $shell_command );
+                } else {
+                    $error_string = "Error: excecuting 'read from Wiki' command";
+                    $ret = false;
+                }
+            } else {
+                $error_string = "Nothing to inject, catalog file '$network-catalog.json' does not extis";
+                $ret = false;
             }
+        }
+
+        return $ret;
+    }
+
+    function PrintInjectionResult() {
+        global $temp_routes_csv_injected;
+
+        if ( $temp_routes_csv_injected && file_exists($temp_routes_csv_injected) ) {
+            $lines = file( $temp_routes_csv_injected, FILE_IGNORE_NEW_LINES  );
+            printf( "<pre>\n" );
+            foreach ( $lines as $line ) {
+                if ( preg_match('/^\s*@/',$line) ) {
+                    printf( "<strong class=\"attention\">%s</strong>\n", htmlspecialchars($line) );
+                } else {
+                    printf( "%s\n", htmlspecialchars($line) );
+                }
+            }
+            printf( "</pre>\n" );
         }
     }
 
@@ -46,14 +79,15 @@
         global $temp_routes_csv_injected;
         global $temp_routes_read;
         global $temp_routes_inject;
-       $filename = '';
+        global $error_string;
+        $filename = '';
 
         if ( $type ) {
-            if ( $type == 'injected' ) {
-                $filename = $temp_routes_csv_txt;
+            if ( $type == 'errors' ) {
+                printf( "%s\n", htmlspecialchars($error_string) );
             } elseif ( $type == 'read' ) {
                 $filename = $temp_routes_read;
-            } elseif ( $type == 'injection' ) {
+            } elseif ( $type == 'inject' ) {
                 $filename = $temp_routes_inject;
             }
             if ( $filename && file_exists($filename) ) {

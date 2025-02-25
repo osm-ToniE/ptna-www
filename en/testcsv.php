@@ -36,9 +36,20 @@
 
             <h2 id="result">Result</h2>
             <div class="indent">
-                <p>This is currently the original file from the OSM wiki. Injection does not take place at the moment.
-                </p>
-                <?php PrintInjectionLogs( 'injected' ); ?>
+                <?php   if ( $found && PerformInjection($network) ) {
+                            PrintInjectionResult();
+                        } else {
+                            if ( $found ) {
+                                PrintInjectionLogs( 'errors' );
+                            } else {
+                                if ( isset($network) && $network ) {
+                                    echo "<strong>Network '" . $network . "' not found</strong>\n";
+                                } else {
+                                    echo "<strong>Parameter 'network' not set</strong>\n";
+                                }
+                            }
+                        }
+                ?>
             </div>
 
             <hr />
@@ -62,7 +73,7 @@
 
                 <h3 id="logging-inject">Logging "inject into Wiki page"</h3>
                 <div class="indent">
-                    <?php PrintInjectionLogs( 'injection' ); ?>
+                    <?php PrintInjectionLogs( 'inject' ); ?>
                 </div>
 
             </div>
