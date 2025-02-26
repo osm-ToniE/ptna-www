@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "BG-22-Sofia", "bg", "Конфигурация" ); ?>
+                <?php CreateNewFullEntry( "BG-03-Varna", "bg", "Конфигурация" ); ?>
+                <?php CreateNewFullEntry( "BG-22-Sofia", "bg", "Конфигурация" ); ?>
 
                 </tbody>
             </table>
