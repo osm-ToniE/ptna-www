@@ -55,15 +55,15 @@
 
     # parse query parameters for GTFS-Analysis and perform some conversion: 'network' for backward compatibility
 
-    $feed = isset($_GET['feed']) ? $_GET['feed'] : '';
+    $feed = (isset($_GET['feed']) && preg_match('/^[0-9A-Za-z_.-]+$/',$_GET['feed'])) ? $_GET['feed'] : '';
     if ( $feed ) {
         $network      = $feed;
-        $release_date = isset($_GET['release_date']) ? $_GET['release_date'] : '';
+        $release_date = (isset($_GET['release_date']) && preg_match('/^[0-9-]+$/',$_GET['release_date'])) ? $_GET['release_date'] : '';
         if ( $release_date ) {
             $network = $feed .'-' . $release_date;
         }
     } else {
-        $network = isset($_GET['network']) ? $_GET['network'] : '';
+        $network = (isset($_GET['network']) && preg_match('/^[0-9A-Za-z_.-]+$/',$_GET['network'])) ? $_GET['network'] : '';
         if ( $network ) {
             $feed     = preg_replace( '/-previous.*$/',  '',          $network );
             $feed     = preg_replace( '/-long-term.*$/', '',          $feed );
