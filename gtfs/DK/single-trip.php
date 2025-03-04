@@ -126,7 +126,7 @@
                     <table id="gtfs-single-trip">
                         <thead>
                             <tr class="gtfs-tableheaderrow">
-                                <th class="gtfs-name" colspan="7">Stops</th>
+                                <th class="gtfs-name" colspan="8">Stops</th>
                                 <th class="gtfs-name" colspan="1">PTNA info om stop</th>
                             </tr>
                             <tr class="gtfs-tableheaderrow">
@@ -137,6 +137,7 @@
                                 <th class="gtfs-number">Latitude</th>
                                 <th class="gtfs-number">Longitude</th>
                                 <th class="gtfs-text">Stop-ID</th>
+                                <th class="gtfs-text">Platform-Code</th>
                                 <th class="gtfs-comment">Kommentar</th>
                             </tr>
                         </thead>
