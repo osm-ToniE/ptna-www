@@ -16,7 +16,7 @@
             <h2 id="BR"><a href="index.php"><img src="/img/Brasil32.png"  class="flagimg" alt="bandeira do brasil" /></a> GTFS Análise sobre Brasil</h2>
             <div class="indent">
                 <p>
-                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates. The data is behind a Captcha-Wall. An automated download is no longer possible.</span>
+                    <span style="background-color: orange; font-weight: 1000; font-size:2.0em;">There are no updates for BR-MG-BHTrans-*. The data is behind a Captcha-Wall. An automated download is no longer possible.</span>
                 </p>
 <?php include $lang_dir.'gtfs-head.inc' ?>
                 <table id="gtfsBR">
@@ -25,6 +25,8 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "BR-CE-Metrofor" );
+
     $duration += CreateGtfsEntry( "BR-MG-BHTrans-Convencional" );
 
     $duration += CreateGtfsEntry( "BR-MG-BHTrans-Suplementar" );
