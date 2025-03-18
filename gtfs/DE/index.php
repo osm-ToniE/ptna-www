@@ -46,6 +46,7 @@
     $duration += CreateGtfsEntry( "DE-HE-REB" );
     $duration += CreateGtfsEntry( "DE-HH-HVV" );
     $duration += CreateGtfsEntry( "DE-NW-AVV" );
+    $duration += CreateGtfsEntry( "DE-NW-SWM" );
     $duration += CreateGtfsEntry( "DE-NW-VRR" );
     $duration += CreateGtfsEntry( "DE-NW-VRS" );
     $duration += CreateGtfsEntry( "DE-SH-Landesweit" );
