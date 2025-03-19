@@ -24,7 +24,7 @@
             <?php
                 $route            = GetRouteDetails( $feed, $release_date, $route_id );
                 $comment          =  isset($route["comment"])                                         ? $route["comment"]                        : '';
-                $route_short_name = (isset($route["route_short_name"]) && $route["route_short_name"]) ? $route["route_short_name"]               : '???';
+                $route_short_name = (isset($route["route_short_name"]) && $route["route_short_name"] != '') ? $route["route_short_name"]               : '???';
                 if ( $release_date ) {
                     $feed_and_release = $feed . ' - ' . $release_date;
                 } else {
@@ -34,7 +34,7 @@
                 $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
            ?>
 
-            <h2 id="NL"><a href="index.php"><img src="/img/Netherlands32.png"  class="flagimg" alt="Vlag van Nederland" /></a> GTFS analyse voor <?php if ( $feed && $route_id && $route_short_name ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Route "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Nederland"; } ?></h2>
+            <h2 id="NL"><a href="index.php"><img src="/img/Netherlands32.png"  class="flagimg" alt="Vlag van Nederland" /></a> GTFS analyse voor <?php if ( $feed && $route_id != '' && $route_short_name != '' ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Route "' . htmlspecialchars($route_short_name) . '"'; } else { echo "Nederland"; } ?></h2>
             <div class="indent">
 
                 <h3 id="feeds">Available GTFS sources</h3>

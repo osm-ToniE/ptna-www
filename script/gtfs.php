@@ -808,7 +808,7 @@
                         }
 
                         $route_short_name = '???';
-                        if ( $outerrow["route_short_name"] ) {
+                        if ( isset($outerrow["route_short_name"]) && $outerrow["route_short_name"] != '' ) {
                             $route_short_name = $outerrow["route_short_name"];
                         }
 
@@ -1065,13 +1065,13 @@
         $matches      = 0;
         $good_matches = 0;
 
-        if ( $feed                  && preg_match("/^[0-9A-Za-z_.-]+$/",          $feed)                     &&
-             ($release_date == ''   || preg_match("/^[0-9-]+$/",                  $release_date) )           &&
-             $route_id              && preg_match("/^[a-zA-Z0-9_. :\|\+-]+$/",    $route_id)                 &&
-             $route_short_name      && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $route_short_name)         &&
-             $osm_ref               && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $osm_ref)                  &&
-             $osm_route_type        && preg_match("/^[0-9A-Za-z_.-]+$/",          $osm_route_type)           &&
-             $ptna_analysis_source  && preg_match("/^[0-9A-Za-z_.-]+$/",          $ptna_analysis_source)        ) {
+        if ( $feed                   && preg_match("/^[0-9A-Za-z_.-]+$/",          $feed)                     &&
+             ($release_date == ''    || preg_match("/^[0-9-]+$/",                  $release_date) )           &&
+             $route_id != ''         && preg_match("/^[a-zA-Z0-9_. :\|\+-]+$/",    $route_id)                 &&
+             $route_short_name != '' && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $route_short_name)         &&
+             $osm_ref                && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $osm_ref)                  &&
+             $osm_route_type         && preg_match("/^[0-9A-Za-z_.-]+$/",          $osm_route_type)           &&
+             $ptna_analysis_source   && preg_match("/^[0-9A-Za-z_.-]+$/",          $ptna_analysis_source)        ) {
 
             $prefixparts = explode( '-', $ptna_analysis_source );
             $countrydir  = array_shift( $prefixparts );
@@ -1293,7 +1293,7 @@
 
                         $osm_route          = htmlspecialchars(RouteType2OsmRoute($routes['route_type']));
                         $osm_vehicle        = OsmRoute2Vehicle($osm_route,$ptna['language']);
-                        $osm_ref            = $routes['route_short_name']       ? htmlspecialchars($routes['route_short_name'])     : '???';
+                        $osm_ref            = $routes['route_short_name'] != '' ? htmlspecialchars($routes['route_short_name']) : '????';
                         if ( isset($osm['gtfs_short_name_hack1'])               &&
                              $osm['gtfs_short_name_hack1']                      &&
                              $routes['route_long_name']                         &&
@@ -2398,7 +2398,7 @@
                             if ( isset($row["route_short_name"]) ) {
                                 echo htmlspecialchars($row["route_short_name"]);
                             } else {
-                                echo '???';
+                                echo '????';
                             }
                             echo ' - '  . htmlspecialchars($row["trip_id"]) . '</a>';
                             if ( isset($row["trip_short_name"]) ) {
