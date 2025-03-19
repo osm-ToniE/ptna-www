@@ -199,12 +199,12 @@ async function showtripcomparison() {
     console.log("CMP_List");
     console.log(CMP_List);
 
-    var route_id = ('route_id' in DATA_Relations['left'][trip_id]['tags'] && DATA_Relations['left'][trip_id]['tags']['route_id'] ) ? DATA_Relations['left'][trip_id]['tags']['route_id'] : '???';
+    var route_id = ('route_id' in DATA_Relations['left'][trip_id]['tags'] && DATA_Relations['left'][trip_id]['tags']['route_id'] != '' ) ? DATA_Relations['left'][trip_id]['tags']['route_id'] : '???';
     var TableInfoLeft  = { 'name'             : 'GTFS trip',
                            'id'               : trip_id,
                            'feed'             : feed,
                            'release_date'     : release_date,
-                           'route_short_name' : (DATA_Relations['left'][trip_id]['tags']['route_id'] ? DATA_Relations['left'][DATA_Relations['left'][trip_id]['tags']['route_id']]['tags']['route_short_name'] : '???'),
+                           'route_short_name' : (DATA_Relations['left'][trip_id]['tags']['route_id'] != '' ? DATA_Relations['left'][DATA_Relations['left'][trip_id]['tags']['route_id']]['tags']['route_short_name'] : '???'),
                            'link'             : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-row-'+trip_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id+'">'
                          };
@@ -224,7 +224,7 @@ async function showtripcomparison() {
                            'id'               : trip_id2,
                            'feed'             : feed2,
                            'release_date'     : release_date2,
-                           'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???'),
+                           'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] != '' ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???'),
                            'link'             : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
                          };
@@ -267,8 +267,8 @@ async function showroutecomparison() {
     feed2         = URLparse()["feed2"]          || feed;
     release_date  = URLparse()["release_date"]   || '';
     release_date2 = URLparse()["release_date2"]  || '';
-    route_id      = URLparse()["route_id"]       || '';
-    route_id2     = URLparse()["route_id2"]      || '';
+    route_id      = URLparse()["route_id"];
+    route_id2     = URLparse()["route_id2"];
     relation_id   = URLparse()["relation"]       || '';
 
     dBarLeft   = document.getElementById('download_left');
@@ -447,7 +447,7 @@ async function download_left_data() {
                  release_date === 'long-term'                  ) {
                 if ( route_id !== '' || trip_id !== '' ) {
                     var url = '';
-                    if ( route_id ) {
+                    if ( route_id !== '' ) {
                         url     = PTNA_API_URL     +
                                   '?feed='         + encodeURIComponent(feed)         +
                                   '&release_date=' + encodeURIComponent(release_date) +
@@ -531,7 +531,7 @@ async function download_right_data() {
                  release_date2 === 'long-term'                  ) {
                 if ( route_id2 !== '' || trip_id2 !== '' ) {
                     var url = '';
-                    if ( route_id ) {
+                    if ( route_id2 !== '' ) {
                         url = PTNA_API_URL     +
                               '?feed='         + encodeURIComponent(feed2)         +
                               '&release_date=' + encodeURIComponent(release_date2) +
@@ -1128,7 +1128,7 @@ function parseHttpResponse( lor, data ) {
 
     if ( JSON_data[lor]["elements"].length === 0 ) {
         if ( lor === 'left' ) {
-            if ( route_id ) {
+            if ( route_id !== '' ) {
                 alert( "GTFS data for 'route_id' = '" + route_id + "' not found");
             } else if ( trip_id ) {
                 alert( "GTFS data for 'trip_id' = '" + trip_id + "' not found");
@@ -1139,7 +1139,7 @@ function parseHttpResponse( lor, data ) {
             if ( relation_id !== '' ) {
                 alert( "OSM 'relation' = '" + relation_id + "' not found");
             } else {
-                if ( route_id2 ) {
+                if ( route_id2 !== '' ) {
                     alert( "GTFS data for 'route_id2' = '" + route_id2 + "' not found");
                 } else if ( trip_id2 ) {
                     alert( "GTFS data for 'trip_id2' = '" + trip_id + "' not found");
@@ -1519,17 +1519,17 @@ function WeHaveGtfsTripIdMatch( CompareTableRowInfo, CompareTableColInfo, row, c
         var OSM_refers_to_trip_id = -1;
         var OSM_route_id          = CompareTableColInfo['cols'][col]['id'];
         if ( OSM_route_id  in DATA_Relations['right']                                    &&
-            'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
-            ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
-            'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
+             'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
+             ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
+             'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
             OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
                                     ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
                                     : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
             if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
                 if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                    feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
+                     feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
                     if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                        release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+                         release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
                         OSM_refers_to_trip_id = -1;
                     }
                 } else {

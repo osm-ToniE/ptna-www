@@ -57,7 +57,7 @@ if ( $feed ) {
             AddSingleTableRow( $db, 'feed_info' );
             AddLicenseInfo( $db );
 
-            if ( $route_id ) {
+            if ( $route_id != '' ) {
                 $route_id_array = array();
                 $route_id_array = explode( ';', $route_id );
                 foreach ( $route_id_array as $id ) {
@@ -552,7 +552,7 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $ptna ) {
             $RELATION_elements[$trip_id] = $tmp_array;
         }
 
-        if ( $route_id ) {
+        if ( $route_id != '' ) {
             AddRouteOnly2Relations( $db, $route_id, $ptna );
         }
     }

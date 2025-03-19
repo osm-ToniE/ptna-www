@@ -902,7 +902,7 @@
 
         if ( $SqliteDb != '' ) {
 
-           if (  $route_id ) {
+           if (  $route_id != '' ) {
 
                 try {
                     $list_separator = '|';
@@ -1297,7 +1297,7 @@
                         if ( isset($osm['gtfs_short_name_hack1'])               &&
                              $osm['gtfs_short_name_hack1']                      &&
                              $routes['route_long_name']                         &&
-                             $routes['route_id']                                &&
+                             $routes['route_id'] != ''                          &&
                              $routes['route_long_name'] != $routes['route_id']      ) {
                              $osm_ref = htmlspecialchars( $routes['route_long_name'] );
                         }
@@ -1510,7 +1510,7 @@
                         #echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
                         #echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                         #echo '                            </tr>' . "\n";
-                        if ( $osm_gtfs_route_id ) {
+                        if ( $osm_gtfs_route_id != '') {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
                             echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
@@ -1600,7 +1600,7 @@
                         #echo '                                <td class="gtfs-name">gtfs:release_date</td>' . "\n";
                         #echo '                                <td class="gtfs-name">' . $osm_gtfs_release_date . '</td>' . "\n";
                         #echo '                            </tr>' . "\n";
-                        if ( $osm_gtfs_route_id ) {
+                        if ( $osm_gtfs_route_id != '' ) {
                             echo '                            <tr class="gtfs-tablerow">' . "\n";
                             echo '                                <td class="gtfs-name">gtfs:route_id</td>' . "\n";
                             echo '                                <td class="gtfs-name">' . $osm_gtfs_route_id . '</td>' . "\n";
@@ -2434,7 +2434,7 @@
 
         if ( $SqliteDb != '' ) {
 
-            if ( $route_id ) {
+            if ( $route_id != '' ) {
 
                 try {
 
@@ -2794,7 +2794,7 @@
 
         if ( $SqliteDb != '' ) {
 
-            if ( $route_id ) {
+            if ( $route_id != '' ) {
 
                 try {
 
