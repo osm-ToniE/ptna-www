@@ -1214,6 +1214,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">The date does not exist</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">The tag &#039;%s&#039; has an empty value.</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
@@ -1248,6 +1256,14 @@
             <tr class="message-tablerow">
                 <td class="message-text">The tag &#039;public_transport&#039; (=&#039;%s&#039;) is not defined for &#039;route_master&#039; and &#039;route&#039; relations. Do you mean &#039;public_transport:version&#039;=&#039;2&#039;?</td>
                 <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">The value of &#039;%s&#039; (= &#039;%s&#039;) should be specified in ISO 8601 format: YYYY-MM-DD</td>
+                <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>

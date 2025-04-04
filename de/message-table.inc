@@ -262,6 +262,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Das Datum existiert nicht</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Das Tag &#039;%s&#039; enthält das Leerzeichen &#039;%s&#039; (=%#2x) im Schlüssel. Wert des Tags: &#039;%s&#039;.</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
@@ -304,6 +312,14 @@
             <tr class="message-tablerow">
                 <td class="message-text">Das tag &#039;public_transport&#039; (=&#039;%s&#039;) ist für &#039;route_master und &#039;route&#039; Relationen nicht definiert. Soll das &#039;public_transport:version&#039;=&#039;2&#039; sein?</td>
                 <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Der Wert von &#039;%s&#039; (= &#039;%s&#039;) sollte im ISO 8601 Format angegeben werden: JJJJ-MM-TT</td>
+                <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
