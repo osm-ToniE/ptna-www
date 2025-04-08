@@ -31,6 +31,10 @@
         }
     }
 
+    $route_type_to_string    = array();
+    $route_type_to_sort_key  = array();
+    $route_type_to_osm_route = array();
+    $osm_route_to_string     = array();
     #
     # https://developers.google.com/transit/gtfs/reference/extended-route-types
     #
@@ -131,6 +135,10 @@
 
     function FindGtfsSqliteDb( $feed, $release_date ) {
         global $path_to_work;
+        global $route_type_to_string;
+        global $route_type_to_sort_key;
+        global $route_type_to_osm_route;
+        global $osm_route_to_string;
 
         $return_path = '';
 
@@ -168,6 +176,50 @@
         }
 
         if ( file_exists($return_path) && filesize($return_path) ) {
+
+            if ( count($route_type_to_osm_route) == 0 ) {
+                try {
+
+                    $db         = new SQLite3( $return_path );
+
+                    $sql        = "SELECT name FROM sqlite_master WHERE type='table' AND name='gtfs_route_types';";
+
+                    $sql_master = $db->querySingle( $sql, true );
+
+                    if ( isset($sql_master['name']) ) {
+                        $route_type_to_string    = array();
+                        $route_type_to_sort_key  = array();
+                        $route_type_to_osm_route = array();
+                        $osm_route_to_string     = array();
+
+                        $sql = sprintf( "SELECT * FROM gtfs_route_types;" );
+
+                        $gtfs_route_types = $db->query( $sql );
+
+                        while ( $row=$gtfs_route_types->fetchArray(SQLITE3_ASSOC) ) {
+                            $route_type_to_string[$row["route_type"]]    = $row["string"];
+                            $route_type_to_sort_key[$row["route_type"]]  = $row["sort_key"];
+                            $route_type_to_osm_route[$row["route_type"]] = $row["osm_route"];
+                            #echo "<!-- route_type_to_string[" . $row["route_type"] . "]    = " . $row["string"] . "    -->\n";
+                            #echo "<!-- route_type_to_sort_key[" . $row["route_type"] . "]  = " . $row["sort_key"] . "  -->\n";
+                            #echo "<!-- route_type_to_osm_route[" . $row["route_type"] . "] = " . $row["osm_route"] . " -->\n";
+                        }
+
+                        $sql = sprintf( "SELECT * FROM osm_routes;" );
+
+                        $osm_routes = $db->query( $sql );
+
+                        while ( $row=$osm_routes->fetchArray(SQLITE3_ASSOC) ) {
+                            $osm_route_to_string["en"][$row["osm_route"]] = $row["string"];
+                            $osm_route_to_string["de"][$row["osm_route"]] = $row["string_de"];
+                            #echo "<!-- osm_route_to_string[en][" . $row["osm_route"] . "] = " . $row["string"] . "    -->\n";
+                            #echo "<!-- osm_route_to_string[de][" . $row["osm_route"] . "] = " . $row["string_de"] . " -->\n";
+                        }
+                    }
+                } catch ( Exception $ex ) {
+                    echo "<!-- FindGtfsSqliteDb( " . $feed . ", " . $release_date . " ) error opening data base -->\n";
+                }
+            }
             return $return_path;
         } else {
             return '';
@@ -531,32 +583,6 @@
         foreach ( $month_div_data as $div_data ) {
             echo "    " . $div_data . "\n";
         }
-
-#        printf("<!-- \n");
-#        $osm_route_to_string = array();
-#        $osm_route_to_string_de = array();
-#        $osm_route_to_string['light_rail'] = 'Light Rail';
-#        $osm_route_to_string_de['light_rail'] = 'Stadtbahn';
-#        printf("route_type,sort_key,string,osm_route\n");
-#        for ( $i = 0; $i < 2001; $i++ ) {
-#            $rts = RouteType2String($i);
-#            $or  = RouteType2OsmRoute($i);
-#            if ( $i != $rts ) {
-#                printf("%d,%d,\"%s\",%s\n",$i,RouteType2OsmRouteImportance($i),RouteType2String($i),RouteType2OsmRoute($i));
-#                $osm_route_to_string[$or] = OsmRoute2Vehicle($or,"en");
-#                $osm_route_to_string_de[$or] = OsmRoute2Vehicle($or,"de");
-#            }
-#        }
-#        printf(" -->\n");
-#        printf("<!-- \n");
-#        printf("osm_route,string,string_de\n");
-#        ksort($osm_route_to_string);
-#        foreach ( array_keys($osm_route_to_string) as $or ) {
-#            printf("%s,\"%s\",\"%s\"\n",$or,$osm_route_to_string[$or],$osm_route_to_string_de[$or]);
-#        }
-#        printf(" -->\n");
-
-
     }
 
 
@@ -3835,38 +3861,47 @@
 
 
     function RouteType2OsmRoute( $rt ) {
+        global $route_type_to_osm_route;
 
-        $lrt = strtolower(RouteType2String($rt));
-
-        if ( preg_match("/trolleybus/",$lrt) ) {
-            $ort = 'trolleybus';
-        } elseif ( preg_match("/demand and response bus/",$lrt) ) {
-            $ort = 'share_taxi';
-        } elseif ( preg_match("/tram/",$lrt) ) {
-            $ort = 'tram';
-        } elseif ( preg_match("/bus/",$lrt) ) {
-            $ort = 'bus';
-        } elseif ( preg_match("/monorail/",$lrt) ) {
-            $ort = 'monorail';
-        } elseif ( preg_match("/light rail/",$lrt) ) {
-            $ort = 'light_rail';
-        } elseif ( preg_match("/ferry/",$lrt) || preg_match("/water transport service/",$lrt) ) {
-            $ort = 'ferry';
-        } elseif ( preg_match("/rail/",$lrt)  || preg_match("/train/",$lrt) ) {
-            $ort = 'train';
-        } elseif ( preg_match("/funicular/",$lrt) ) {
-            $ort = 'funicular';
-        } elseif ( preg_match("/aerial/",$lrt) ) {
-            $ort = 'aerialway';
-        } elseif ( preg_match("/metro/",$lrt) || preg_match("/subway/",$lrt) || preg_match("/underground/",$lrt) ) {
-            $ort = 'subway';
-        } elseif ( preg_match("/undefined/",$lrt) ) {
-            $ort = RouteType2String($rt);
-        } else {
-            if ( preg_match("/^[0-9]+$/",$lrt) && $lrt >= 1000 && $lrt < 2000 ) {
-                $ort = 'ferry';
+        if ( count($route_type_to_osm_route) > 0 ) {
+            if ( isset($route_type_to_osm_route[$rt]) ) {
+                $ort = $route_type_to_osm_route[$rt];
             } else {
                 $ort = 'bus';
+            }
+        } else {
+            $lrt = strtolower(RouteType2String($rt));
+
+            if ( preg_match("/trolleybus/",$lrt) ) {
+                $ort = 'trolleybus';
+            } elseif ( preg_match("/demand and response bus/",$lrt) ) {
+                $ort = 'share_taxi';
+            } elseif ( preg_match("/tram/",$lrt) ) {
+                $ort = 'tram';
+            } elseif ( preg_match("/bus/",$lrt) ) {
+                $ort = 'bus';
+            } elseif ( preg_match("/monorail/",$lrt) ) {
+                $ort = 'monorail';
+            } elseif ( preg_match("/light rail/",$lrt) ) {
+                $ort = 'light_rail';
+            } elseif ( preg_match("/ferry/",$lrt) || preg_match("/water transport service/",$lrt) ) {
+                $ort = 'ferry';
+            } elseif ( preg_match("/rail/",$lrt)  || preg_match("/train/",$lrt) ) {
+                $ort = 'train';
+            } elseif ( preg_match("/funicular/",$lrt) ) {
+                $ort = 'funicular';
+            } elseif ( preg_match("/aerial/",$lrt) ) {
+                $ort = 'aerialway';
+            } elseif ( preg_match("/metro/",$lrt) || preg_match("/subway/",$lrt) || preg_match("/underground/",$lrt) ) {
+                $ort = 'subway';
+            } elseif ( preg_match("/undefined/",$lrt) ) {
+                $ort = RouteType2String($rt);
+            } else {
+                if ( preg_match("/^[0-9]+$/",$lrt) && $lrt >= 1000 && $lrt < 2000 ) {
+                    $ort = 'ferry';
+                } else {
+                    $ort = 'bus';
+                }
             }
         }
 
@@ -3875,52 +3910,61 @@
 
 
     function RouteType2OsmRouteImportance( $rt ) {
+        global $route_type_to_sort_key;
 
-        $rts = strtolower(RouteType2String($rt));
-
-        if ( preg_match("/metro/",$rts) || preg_match("/subway/",$rts) || preg_match("/underground/",$rts) ) {
-            $rti = '2000';
-        } elseif ( preg_match("/tram/",$rts) || preg_match("/streetcar/",$rts) ) {
-            $rti= '3000';
-        } elseif ( preg_match("/coach/",$rts) ) {
-            $rti= '40' . sprintf("%02d",$rt % 200);
-        } elseif ( $rt == 3 || ($rt >= 700 && $rt < 800) ) {
-            if ( $rt == 701 ) {     # Regional Bus service shall have lower prio than Express Bus service
-                $rt = 702;
-            } elseif ( $rt == 702) {
-                $rt = 701;
-            } elseif ( $rt == 3 ) {
-                $rt = 701;
-            }
-            $rti= '50' . sprintf("%02d",$rt % 700);
-        } elseif ( preg_match("/taxi/",$rts) ) {
-            $rti= '6900';
-        } elseif ( preg_match("/monorail/",$rts) ) {
-            $rti= '7000';
-        } elseif ( preg_match("/funicular/",$rts) ) {
-            $rti= '8000';
-        } elseif ( $rt == 4 || ($rt >= 1000 && $rt < 1100) ) {
-            $rti= '99' . sprintf("%02d",$rt % 1000);
-        } elseif ( $rt == 6 || ($rt >= 1300 && $rt < 1400) ) {
-            $rti= '9000';
-        } elseif ( preg_match("/rail/",$rts)  || preg_match("/train/",$rts)) {
-            if ( preg_match("/high speed/",$rts) ) {
-                $rti= '1000';
-            } elseif ( preg_match("/long distance/",$rts) ) {
-                $rti= '1100';
-            } elseif ( preg_match("/inter regional/",$rts) ) {
-                $rti= '1200';
-            } elseif ( preg_match("/regional/",$rts) ) {
-                $rti= '1400';
-            } elseif ( preg_match("/suburban/",$rts) ) {
-                $rti= '1600';
-            } elseif ( preg_match("/light rail/",$rts) ) {
-                $rti= '1599';
+        if ( count($route_type_to_sort_key) > 0 ) {
+            if ( isset($route_type_to_sort_key[$rt]) ) {
+                $rti = $route_type_to_sort_key[$rt];
             } else {
-                $rti= '1900';
+                $rti = 6300;
             }
         } else {
-            $rti= '6300';
+            $rts = strtolower(RouteType2String($rt));
+
+            if ( preg_match("/metro/",$rts) || preg_match("/subway/",$rts) || preg_match("/underground/",$rts) ) {
+                $rti = '2000';
+            } elseif ( preg_match("/tram/",$rts) || preg_match("/streetcar/",$rts) ) {
+                $rti= '3000';
+            } elseif ( preg_match("/coach/",$rts) ) {
+                $rti= '40' . sprintf("%02d",$rt % 200);
+            } elseif ( $rt == 3 || ($rt >= 700 && $rt < 800) ) {
+                if ( $rt == 701 ) {     # Regional Bus service shall have lower prio than Express Bus service
+                    $rt = 702;
+                } elseif ( $rt == 702) {
+                    $rt = 701;
+                } elseif ( $rt == 3 ) {
+                    $rt = 701;
+                }
+                $rti= '50' . sprintf("%02d",$rt % 700);
+            } elseif ( preg_match("/taxi/",$rts) ) {
+                $rti= '6900';
+            } elseif ( preg_match("/monorail/",$rts) ) {
+                $rti= '7000';
+            } elseif ( preg_match("/funicular/",$rts) ) {
+                $rti= '8000';
+            } elseif ( $rt == 4 || ($rt >= 1000 && $rt < 1100) ) {
+                $rti= '99' . sprintf("%02d",$rt % 1000);
+            } elseif ( $rt == 6 || ($rt >= 1300 && $rt < 1400) ) {
+                $rti= '9000';
+            } elseif ( preg_match("/rail/",$rts)  || preg_match("/train/",$rts)) {
+                if ( preg_match("/high speed/",$rts) ) {
+                    $rti= '1000';
+                } elseif ( preg_match("/long distance/",$rts) ) {
+                    $rti= '1100';
+                } elseif ( preg_match("/inter regional/",$rts) ) {
+                    $rti= '1200';
+                } elseif ( preg_match("/regional/",$rts) ) {
+                    $rti= '1400';
+                } elseif ( preg_match("/suburban/",$rts) ) {
+                    $rti= '1600';
+                } elseif ( preg_match("/light rail/",$rts) ) {
+                    $rti= '1599';
+                } else {
+                    $rti= '1900';
+                }
+            } else {
+                $rti= '6300';
+            }
         }
 
         return $rti;
@@ -3928,57 +3972,72 @@
 
 
     function OsmRoute2Vehicle( $rt, $language ) {
-        if ( !$language || $language == 'de' ) {
-            if ( $rt == 'trolleybus' ) {
-                $rt = 'Oberleitungsbus';
-            } elseif ( $rt == 'share_taxi' ) {
-                $rt = 'Sammeltaxi';
-            } elseif ( $rt == 'tram' ) {
-                $rt = 'Tram';
-            } elseif ( $rt == 'bus' ) {
-                $rt = 'Bus';
-            } elseif ( $rt == 'monorail' ) {
-                $rt = 'Einschienenbahn';
-            } elseif ( $rt == 'ferry' ) {
-                $rt = 'Fähre';
-            } elseif ( $rt == 'train' ) {
-                $rt = 'Zug';
-            } elseif ( $rt == 'light_rail' ) {
-                $rt = 'Light Rail';
-            } elseif ( $rt == 'funicular' ) {
-                $rt = 'Drahtseilbahn';
-            } elseif ( $rt == 'subway' ) {
-                $rt = 'U-Bahn';
-            } elseif ( $rt == 'aerialway' ) {
-                $rt = 'Seilbahn';
+        global $osm_route_to_string;
+
+        if ( !$language ) {
+            $language = 'en';
+        }
+        if ( count($osm_route_to_string) > 0 ) {
+            if ( !isset($osm_route_to_string[$language]) ) {
+                $language = 'en';
+            }
+            if ( isset($osm_route_to_string[$language][$rt]) ) {
+                $orv = $osm_route_to_string[$language][$rt];
+                #echo "<!-- OsmRoute2Vehicle( " . $rt . ", " . $language . " ) = " . $orv . " -->\n";
             }
         } else {
-            if ( $rt == 'trolleybus' ) {
-                $rt = 'Trolleybus';
-            } elseif ( $rt == 'share_taxi' ) {
-                $rt = 'Share Taxi';
-            } elseif ( $rt == 'tram' ) {
-                $rt = 'Tram';
-            } elseif ( $rt == 'bus' ) {
-                $rt = 'Bus';
-            } elseif ( $rt == 'monorail' ) {
-                $rt = 'Monorail';
-            } elseif ( $rt == 'ferry' ) {
-                $rt = 'Ferry';
-            } elseif ( $rt == 'train' ) {
-                $rt = 'Train';
-            } elseif ( $rt == 'light_rail' ) {
-                $rt = 'Light Rail';
-            } elseif ( $rt == 'funicular' ) {
-                $rt = 'Funicular';
-            } elseif ( $rt == 'subway' ) {
-                $rt = 'Subway';
-            } elseif ( $rt == 'aerialway' ) {
-                $rt = 'Aerialway';
+            if ( $language == 'de' ) {
+                if ( $rt == 'trolleybus' ) {
+                    $orv = 'Oberleitungsbus';
+                } elseif ( $rt == 'share_taxi' ) {
+                    $orv = 'Sammeltaxi';
+                } elseif ( $rt == 'tram' ) {
+                    $orv = 'Tram';
+                } elseif ( $rt == 'bus' ) {
+                    $orv = 'Bus';
+                } elseif ( $rt == 'monorail' ) {
+                    $orv = 'Einschienenbahn';
+                } elseif ( $rt == 'ferry' ) {
+                    $orv = 'Fähre';
+                } elseif ( $rt == 'train' ) {
+                    $orv = 'Zug';
+                } elseif ( $rt == 'light_rail' ) {
+                    $orv = 'Light Rail';
+                } elseif ( $rt == 'funicular' ) {
+                    $orv = 'Drahtseilbahn';
+                } elseif ( $rt == 'subway' ) {
+                    $orv = 'U-Bahn';
+                } elseif ( $rt == 'aerialway' ) {
+                    $orv = 'Seilbahn';
+                }
+            } else {
+                if ( $rt == 'trolleybus' ) {
+                    $orv = 'Trolleybus';
+                } elseif ( $rt == 'share_taxi' ) {
+                    $orv = 'Share Taxi';
+                } elseif ( $rt == 'tram' ) {
+                    $orv = 'Tram';
+                } elseif ( $rt == 'bus' ) {
+                    $orv = 'Bus';
+                } elseif ( $rt == 'monorail' ) {
+                    $orv = 'Monorail';
+                } elseif ( $rt == 'ferry' ) {
+                    $orv = 'Ferry';
+                } elseif ( $rt == 'train' ) {
+                    $orv = 'Train';
+                } elseif ( $rt == 'light_rail' ) {
+                    $orv = 'Light Rail';
+                } elseif ( $rt == 'funicular' ) {
+                    $orv = 'Funicular';
+                } elseif ( $rt == 'subway' ) {
+                    $orv = 'Subway';
+                } elseif ( $rt == 'aerialway' ) {
+                    $orv = 'Aerialway';
+                }
             }
         }
 
-        return $rt;
+        return $orv;
     }
 
 
