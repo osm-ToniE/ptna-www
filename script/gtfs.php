@@ -31,6 +31,104 @@
         }
     }
 
+    #
+    # https://developers.google.com/transit/gtfs/reference/extended-route-types
+    #
+    #                      Code 	Description 	                  Support 	   Examples
+    $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
+    $route_type_to_string["1"]   = 'Subway, Metro';
+    $route_type_to_string["2"]   = 'Rail';
+    $route_type_to_string["3"]   = 'Bus';
+    $route_type_to_string["4"]   = 'Ferry';
+    $route_type_to_string["5"]   = 'Cable tram';
+    $route_type_to_string["6"]   = 'Aerialway';
+    $route_type_to_string["7"]   = 'Funicular';
+    $route_type_to_string["11"]  = 'Trolleybus';
+    $route_type_to_string["12"]  = 'Monorail';
+    $route_type_to_string["100"] = 'Railway Service';                 # Yes
+    $route_type_to_string["101"] = 'High Speed Rail Service';               # Yes 	TGV (FR), ICE (DE), Eurostar (GB)
+    $route_type_to_string["102"] = 'Long Distance Trains';            	      # Yes 	InterCity/EuroCity
+    $route_type_to_string["103"] = 'Inter Regional Rail Service';               # Yes 	InterRegio (DE), Cross County Rail (GB)
+    $route_type_to_string["104"] = 'Car Transport Rail Service';
+    $route_type_to_string["105"] = 'Sleeper Rail Service';            	     # Yes 	GNER Sleeper (GB)
+    $route_type_to_string["106"] = 'Regional Rail Service';                 # Yes 	TER (FR), Regionalzug (DE)
+    $route_type_to_string["107"] = 'Tourist Railway Service';            	      # Yes 	Romney, Hythe & Dymchurch (GB)
+    $route_type_to_string["108"] = 'Rail Shuttle (Within Complex)';                 # Yes 	Gatwick Shuttle (GB), Sky Line (DE)
+    $route_type_to_string["109"] = 'Suburban Railway';            	     # Yes 	S-Bahn (DE), RER (FR), S-tog (Kopenhagen)
+    $route_type_to_string["110"] = 'Replacement Rail Service';
+    $route_type_to_string["111"] = 'Special Rail Service';
+    $route_type_to_string["112"] = 'Lorry Transport Rail Service';
+    $route_type_to_string["113"] = 'All Rail Services';
+    $route_type_to_string["114"] = 'Cross-Country Rail Service';
+    $route_type_to_string["115"] = 'Vehicle Transport Rail Service';
+    $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
+    $route_type_to_string["117"] = 'Additional Rail Service';
+    $route_type_to_string["200"] = 'Coach Service';
+    $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
+    $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
+    $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
+    $route_type_to_string["204"] = 'Regional Coach Service';            	     # Yes
+    $route_type_to_string["205"] = 'Special Coach Service';
+    $route_type_to_string["206"] = 'Sightseeing Coach Service';
+    $route_type_to_string["207"] = 'Tourist Coach Service';
+    $route_type_to_string["208"] = 'Commuter Coach Service';
+    $route_type_to_string["209"] = 'All Coach Services';
+    $route_type_to_string["400"] = 'Urban Railway Service';            	      # 	Yes
+    $route_type_to_string["401"] = 'Metro Service';                # Yes 	Métro de Paris
+    $route_type_to_string["402"] = 'Underground Service';                # Yes 	London Underground, U-Bahn
+    $route_type_to_string["403"] = 'Urban Railway Service';                # Yes
+    $route_type_to_string["404"] = 'All Urban Railway Services';
+    $route_type_to_string["405"] = 'Monorail';                # Yes
+    $route_type_to_string["700"] = 'Bus Service';                # Yes
+    $route_type_to_string["701"] = 'Regional Bus Service';                # Yes 	Eastbourne-Maidstone (GB)
+    $route_type_to_string["702"] = 'Express Bus Service';                # Yes 	X19 Wokingham-Heathrow (GB)
+    $route_type_to_string["703"] = 'Stopping Bus Service'; 	  	     # 38 London: Clapton Pond-Victoria (GB)
+    $route_type_to_string["704"] = 'Local Bus Service';                # Yes
+    $route_type_to_string["705"] = 'Night Bus Service'; 	      # N prefixed buses in London (GB)
+    $route_type_to_string["706"] = 'Post Bus Service'; 	       # Maidstone P4 (GB)
+    $route_type_to_string["707"] = 'Special Needs Bus';
+    $route_type_to_string["708"] = 'Mobility Bus Service';
+    $route_type_to_string["709"] = 'Mobility Bus for Registered Disabled';
+    $route_type_to_string["710"] = 'Sightseeing Bus';
+    $route_type_to_string["711"] = 'Shuttle Bus'; 	  	     # 747 Heathrow-Gatwick Airport Service (GB)
+    $route_type_to_string["712"] = 'School Bus';
+    $route_type_to_string["713"] = 'School and Public Service Bus';
+    $route_type_to_string["714"] = 'Rail Replacement Bus Service';
+    $route_type_to_string["715"] = 'Demand and Response Bus Service';                # Yes
+    $route_type_to_string["716"] = 'All Bus Services';
+    $route_type_to_string["800"] = 'Trolleybus Service';                # Yes
+    $route_type_to_string["900"] = 'Tram Service';                # Yes
+    $route_type_to_string["901"] = 'City Tram Service';
+    $route_type_to_string["902"] = 'Local Tram Service'; 	      # Munich (DE), Brussels (BE), Croydon (GB)
+    $route_type_to_string["903"] = 'Regional Tram Service';
+    $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
+    $route_type_to_string["905"] = 'Shuttle Tram Service';
+    $route_type_to_string["906"] = 'All Tram Services';
+    $route_type_to_string["907"] = 'Aerial Lift Service';               # Switzerland: 'Kabinenbahn'
+    $route_type_to_string["1000"] = 'Water Transport Service';                # Yes
+    $route_type_to_string["1002"] = 'National Car Ferry Service';             # ENTUR Norway
+    $route_type_to_string["1004"] = 'Local Car Ferry Service';                # ENTUR Norway
+    $route_type_to_string["1008"] = 'Local Passenger Ferry Service';          # ENTUR Norway
+    $route_type_to_string["1013"] = 'Car High-Speed Ferry Service';           # ENTUR Norway
+    $route_type_to_string["1014"] = 'Passenger High-Speed Ferry Service';     # ENTUR Norway
+    $route_type_to_string["1015"] = 'Sightseeing Boat Service';               # ENTUR Norway
+    $route_type_to_string["1100"] = 'Air Service';
+    $route_type_to_string["1200"] = 'Ferry Service';                    # Yes
+    $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
+    $route_type_to_string["1400"] = 'Funicular Service';                # Yes 	Rigiblick (Zürich, CH)
+    $route_type_to_string["1500"] = 'Taxi Service';
+    $route_type_to_string["1501"] = 'Communal Taxi Service';            # Yes 	Marshrutka (RU), dolmuş (TR)
+    $route_type_to_string["1502"] = 'Water Taxi Service';
+    $route_type_to_string["1503"] = 'Rail Taxi Service';
+    $route_type_to_string["1504"] = 'Bike Taxi Service';
+    $route_type_to_string["1505"] = 'Licensed Taxi Service';
+    $route_type_to_string["1506"] = 'Private Hire Service Vehicle';
+    $route_type_to_string["1507"] = 'All Taxi Services';
+    $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes
+    $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes
+    $route_type_to_string["9999"] = 'Light Rail (OSM)';
+
+
     function FindGtfsSqliteDb( $feed, $release_date ) {
         global $path_to_work;
 
@@ -682,12 +780,11 @@
 
         ob_implicit_flush(true);
 
-
         $SqliteDb = FindGtfsSqliteDb( $feed, $release_date );
 
         if ( $SqliteDb != '' ) {
 
-            if (  $feed ) {
+            if ( $feed ) {
 
                 try {
 
@@ -3727,102 +3824,7 @@
 
 
     function RouteType2String( $rt ) {
-
-        $route_type_to_string["0"]   = 'Tram, Streetcar, Light rail';
-        $route_type_to_string["1"]   = 'Subway, Metro';
-        $route_type_to_string["2"]   = 'Rail';
-        $route_type_to_string["3"]   = 'Bus';
-        $route_type_to_string["4"]   = 'Ferry';
-        $route_type_to_string["5"]   = 'Cable tram';
-        $route_type_to_string["6"]   = 'Aerialway';
-        $route_type_to_string["7"]   = 'Funicular';
-        $route_type_to_string["11"]  = 'Trolleybus';
-        $route_type_to_string["12"]  = 'Monorail';
-
-        # https://developers.google.com/transit/gtfs/reference/extended-route-types
-
-        #                      Code 	Description 	                  Support 	   Examples
-        $route_type_to_string["100"] = 'Railway Service';                 # Yes
-        $route_type_to_string["101"] = 'High Speed Rail Service';               # Yes 	TGV (FR), ICE (DE), Eurostar (GB)
-        $route_type_to_string["102"] = 'Long Distance Trains';            	      # Yes 	InterCity/EuroCity
-        $route_type_to_string["103"] = 'Inter Regional Rail Service';               # Yes 	InterRegio (DE), Cross County Rail (GB)
-        $route_type_to_string["104"] = 'Car Transport Rail Service';
-        $route_type_to_string["105"] = 'Sleeper Rail Service';            	     # Yes 	GNER Sleeper (GB)
-        $route_type_to_string["106"] = 'Regional Rail Service';                 # Yes 	TER (FR), Regionalzug (DE)
-        $route_type_to_string["107"] = 'Tourist Railway Service';            	      # Yes 	Romney, Hythe & Dymchurch (GB)
-        $route_type_to_string["108"] = 'Rail Shuttle (Within Complex)';                 # Yes 	Gatwick Shuttle (GB), Sky Line (DE)
-        $route_type_to_string["109"] = 'Suburban Railway';            	     # Yes 	S-Bahn (DE), RER (FR), S-tog (Kopenhagen)
-        $route_type_to_string["110"] = 'Replacement Rail Service';
-        $route_type_to_string["111"] = 'Special Rail Service';
-        $route_type_to_string["112"] = 'Lorry Transport Rail Service';
-        $route_type_to_string["113"] = 'All Rail Services';
-        $route_type_to_string["114"] = 'Cross-Country Rail Service';
-        $route_type_to_string["115"] = 'Vehicle Transport Rail Service';
-        $route_type_to_string["116"] = 'Rack and Pinion Railway';            	      # Rochers de Naye (CH), Dolderbahn (CH)
-        $route_type_to_string["117"] = 'Additional Rail Service';
-        $route_type_to_string["200"] = 'Coach Service';
-        $route_type_to_string["201"] = 'International Coach Service';            	     # Yes 	EuroLine, Touring
-        $route_type_to_string["202"] = 'National Coach Service';            	      # Yes 	National Express (GB)
-        $route_type_to_string["203"] = 'Shuttle Coach Service';            	 	      # Roissy Bus (FR), Reading-Heathrow (GB)
-        $route_type_to_string["204"] = 'Regional Coach Service';            	     # Yes
-        $route_type_to_string["205"] = 'Special Coach Service';
-        $route_type_to_string["206"] = 'Sightseeing Coach Service';
-        $route_type_to_string["207"] = 'Tourist Coach Service';
-        $route_type_to_string["208"] = 'Commuter Coach Service';
-        $route_type_to_string["209"] = 'All Coach Services';
-        $route_type_to_string["400"] = 'Urban Railway Service';            	      # 	Yes
-        $route_type_to_string["401"] = 'Metro Service';                # Yes 	Métro de Paris
-        $route_type_to_string["402"] = 'Underground Service';                # Yes 	London Underground, U-Bahn
-        $route_type_to_string["403"] = 'Urban Railway Service';                # Yes
-        $route_type_to_string["404"] = 'All Urban Railway Services';
-        $route_type_to_string["405"] = 'Monorail';                # Yes
-        $route_type_to_string["700"] = 'Bus Service';                # Yes
-        $route_type_to_string["701"] = 'Regional Bus Service';                # Yes 	Eastbourne-Maidstone (GB)
-        $route_type_to_string["702"] = 'Express Bus Service';                # Yes 	X19 Wokingham-Heathrow (GB)
-        $route_type_to_string["703"] = 'Stopping Bus Service'; 	  	     # 38 London: Clapton Pond-Victoria (GB)
-        $route_type_to_string["704"] = 'Local Bus Service';                # Yes
-        $route_type_to_string["705"] = 'Night Bus Service'; 	      # N prefixed buses in London (GB)
-        $route_type_to_string["706"] = 'Post Bus Service'; 	       # Maidstone P4 (GB)
-        $route_type_to_string["707"] = 'Special Needs Bus';
-        $route_type_to_string["708"] = 'Mobility Bus Service';
-        $route_type_to_string["709"] = 'Mobility Bus for Registered Disabled';
-        $route_type_to_string["710"] = 'Sightseeing Bus';
-        $route_type_to_string["711"] = 'Shuttle Bus'; 	  	     # 747 Heathrow-Gatwick Airport Service (GB)
-        $route_type_to_string["712"] = 'School Bus';
-        $route_type_to_string["713"] = 'School and Public Service Bus';
-        $route_type_to_string["714"] = 'Rail Replacement Bus Service';
-        $route_type_to_string["715"] = 'Demand and Response Bus Service';                # Yes
-        $route_type_to_string["716"] = 'All Bus Services';
-        $route_type_to_string["800"] = 'Trolleybus Service';                # Yes
-        $route_type_to_string["900"] = 'Tram Service';                # Yes
-        $route_type_to_string["901"] = 'City Tram Service';
-        $route_type_to_string["902"] = 'Local Tram Service'; 	      # Munich (DE), Brussels (BE), Croydon (GB)
-        $route_type_to_string["903"] = 'Regional Tram Service';
-        $route_type_to_string["904"] = 'Sightseeing Tram Service'; 	      # Blackpool Seafront (GB)
-        $route_type_to_string["905"] = 'Shuttle Tram Service';
-        $route_type_to_string["906"] = 'All Tram Services';
-        $route_type_to_string["907"] = 'Aerial Lift Service';               # Switzerland: 'Kabinenbahn'
-        $route_type_to_string["1000"] = 'Water Transport Service';                # Yes
-        $route_type_to_string["1002"] = 'National Car Ferry Service';             # ENTUR Norway
-        $route_type_to_string["1004"] = 'Local Car Ferry Service';                # ENTUR Norway
-        $route_type_to_string["1008"] = 'Local Passenger Ferry Service';          # ENTUR Norway
-        $route_type_to_string["1013"] = 'Car High-Speed Ferry Service';           # ENTUR Norway
-        $route_type_to_string["1014"] = 'Passenger High-Speed Ferry Service';     # ENTUR Norway
-        $route_type_to_string["1015"] = 'Sightseeing Boat Service';               # ENTUR Norway
-        $route_type_to_string["1100"] = 'Air Service';
-        $route_type_to_string["1200"] = 'Ferry Service';                    # Yes
-        $route_type_to_string["1300"] = 'Aerial Lift Service';              # Yes 	Telefèric de Montjuïc (ES), Saleve (CH), Roosevelt Island Tramway (US)
-        $route_type_to_string["1400"] = 'Funicular Service';                # Yes 	Rigiblick (Zürich, CH)
-        $route_type_to_string["1500"] = 'Taxi Service';
-        $route_type_to_string["1501"] = 'Communal Taxi Service';            # Yes 	Marshrutka (RU), dolmuş (TR)
-        $route_type_to_string["1502"] = 'Water Taxi Service';
-        $route_type_to_string["1503"] = 'Rail Taxi Service';
-        $route_type_to_string["1504"] = 'Bike Taxi Service';
-        $route_type_to_string["1505"] = 'Licensed Taxi Service';
-        $route_type_to_string["1506"] = 'Private Hire Service Vehicle';
-        $route_type_to_string["1507"] = 'All Taxi Services';
-        $route_type_to_string["1700"] = 'Miscellaneous Service';            # Yes
-        $route_type_to_string["1702"] = 'Horse-drawn Carriage';             # Yes
+        global  $route_type_to_string;
 
         if ( isset($route_type_to_string[$rt]) ) {
             return $route_type_to_string[$rt];
@@ -3846,6 +3848,8 @@
             $ort = 'bus';
         } elseif ( preg_match("/monorail/",$lrt) ) {
             $ort = 'monorail';
+        } elseif ( preg_match("/light rail/",$lrt) ) {
+            $ort = 'light_rail';
         } elseif ( preg_match("/ferry/",$lrt) || preg_match("/water transport service/",$lrt) ) {
             $ort = 'ferry';
         } elseif ( preg_match("/rail/",$lrt)  || preg_match("/train/",$lrt) ) {
@@ -3876,7 +3880,7 @@
 
         if ( preg_match("/metro/",$rts) || preg_match("/subway/",$rts) || preg_match("/underground/",$rts) ) {
             $rti = '2000';
-        } elseif ( preg_match("/tram/",$rts) || preg_match("/streetcar/",$rts) || preg_match("/light rail/",$rts) ) {
+        } elseif ( preg_match("/tram/",$rts) || preg_match("/streetcar/",$rts) ) {
             $rti= '3000';
         } elseif ( preg_match("/coach/",$rts) ) {
             $rti= '40' . sprintf("%02d",$rt % 200);
@@ -3910,6 +3914,8 @@
                 $rti= '1400';
             } elseif ( preg_match("/suburban/",$rts) ) {
                 $rti= '1600';
+            } elseif ( preg_match("/light rail/",$rts) ) {
+                $rti= '1599';
             } else {
                 $rti= '1900';
             }
@@ -3937,6 +3943,8 @@
                 $rt = 'Fähre';
             } elseif ( $rt == 'train' ) {
                 $rt = 'Zug';
+            } elseif ( $rt == 'light_rail' ) {
+                $rt = 'Light Rail';
             } elseif ( $rt == 'funicular' ) {
                 $rt = 'Drahtseilbahn';
             } elseif ( $rt == 'subway' ) {
@@ -3959,6 +3967,8 @@
                 $rt = 'Ferry';
             } elseif ( $rt == 'train' ) {
                 $rt = 'Train';
+            } elseif ( $rt == 'light_rail' ) {
+                $rt = 'Light Rail';
             } elseif ( $rt == 'funicular' ) {
                 $rt = 'Funicular';
             } elseif ( $rt == 'subway' ) {
