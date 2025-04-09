@@ -3863,7 +3863,7 @@
     function RouteType2OsmRoute( $rt ) {
         global $route_type_to_osm_route;
 
-        $ort = '???';
+        $ort = 'unkonwn';
 
         if ( count($route_type_to_osm_route) > 0 ) {
             if ( isset($route_type_to_osm_route[$rt]) ) {
@@ -3974,7 +3974,7 @@
     function OsmRoute2Vehicle( $rt, $language ) {
         global $osm_route_to_string;
 
-        $orv = '???';
+        $orv = 'unkonwn';
 
         if ( !$language ) {
             $language = 'en';
