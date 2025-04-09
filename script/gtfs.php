@@ -3863,11 +3863,11 @@
     function RouteType2OsmRoute( $rt ) {
         global $route_type_to_osm_route;
 
+        $ort = '???';
+
         if ( count($route_type_to_osm_route) > 0 ) {
             if ( isset($route_type_to_osm_route[$rt]) ) {
                 $ort = $route_type_to_osm_route[$rt];
-            } else {
-                $ort = 'bus';
             }
         } else {
             $lrt = strtolower(RouteType2String($rt));
@@ -3912,11 +3912,11 @@
     function RouteType2OsmRouteImportance( $rt ) {
         global $route_type_to_sort_key;
 
+        $rti = 6300;
+
         if ( count($route_type_to_sort_key) > 0 ) {
             if ( isset($route_type_to_sort_key[$rt]) ) {
                 $rti = $route_type_to_sort_key[$rt];
-            } else {
-                $rti = 6300;
             }
         } else {
             $rts = strtolower(RouteType2String($rt));
@@ -3973,6 +3973,8 @@
 
     function OsmRoute2Vehicle( $rt, $language ) {
         global $osm_route_to_string;
+
+        $orv = '???';
 
         if ( !$language ) {
             $language = 'en';
