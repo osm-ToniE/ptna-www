@@ -187,8 +187,8 @@ function copy_to_clipboard( id, success_msg, error_msg ) {
             value = sub_td[1].innerText;
 
             if ( key === 'colour' &&
-                 (value.toLowerCase === '#ffffff'.toLowerCase ||
-                  value.toLowerCase === '#fff'.toLowerCase      ) )
+                 (value.toLowerCase() === '#ffffff'.toLowerCase() ||
+                  value.toLowerCase() === '#fff'.toLowerCase()      ) )
             {
                 continue;
             }
