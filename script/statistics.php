@@ -129,7 +129,9 @@
                     printf( "    <td class=\"statistics-date-marked\"><a href=\"%s\">OSM-Wiki page does not yet exist</a></td>\n", $routes_link );
                 } else if ( $routes_ret == '99' && $routes_link ) {
                     printf( "    <td class=\"statistics-date-marked\"><a href=\"%s\">OSM-Wiki page includes a '#REDIRECT'</a></td>\n", $routes_link );
-                } else{
+                } else if ( $routes_ret == '98' && $routes_link ) {
+                    printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed, using stored/previous one</td>\n", $routes_link );
+                } else {
                     printf( "    <td class=\"statistics-date-marked\">Download from OSM-Wiki failed</td>\n" );
                 }
             }
