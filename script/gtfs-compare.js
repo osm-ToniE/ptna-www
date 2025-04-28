@@ -2170,14 +2170,14 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     // up &#x2BC5;
     // down &#x2BC6;
     if ( right === 'OSM' ) {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','name','ref_name','lat','lon','gtfs:stop_id','gtfs:stop_id:'+feed,'ref:IFOPT','platform_number','Edit<br/>with'];
+        fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','name','ref_name','lat','lon','local_ref','gtfs:stop_id','gtfs:stop_id:'+feed,'ref:IFOPT','platform_number','Edit<br/>with'];
     } else {
-        fields            = ['stop_number','stop_id','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','stop_id2','stop_number2'];
+        fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','platform_code2','stop_id2','stop_number2'];
     }
-    body_row_template = { 'stop_number' : '',         'stop_id'    : '', 'stop_lat'    : '',         'stop_lon'  : '', 'stop_name'    : '', 'info' : '',
-                          'arrow_left'  : '&#x2BC7;', 'distance'   : '', 'arrow_right' : '&#x2BC8;',
-                          'name': '',                 'ref_name'   : '', 'lat'         : '',         'lon'       : '', 'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
-                          'info2'       : '',         'stop_name2' : '', 'stop_id2'    : '',         'stop_lat2' : '', 'stop_lon2'    : '', 'stop_number2'    : '', 'Edit<br/>with' : ''
+    body_row_template = { 'stop_number' : '',         'stop_id'    : '', 'platform_code'     : '',         'stop_lat'    : '', 'stop_lon'  : '', 'stop_name'    : '', 'info' : '',
+                          'arrow_left'  : '&#x2BC7;', 'distance'   : '', 'arrow_right'       : '&#x2BC8;',
+                          'name': '',                 'ref_name'   : '', 'lat'               : '',         'lon'         : '', 'local_ref' : '', 'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
+                          'info2'       : '',         'stop_name2' : '', 'platform_code2'    : '',         'stop_id2'    : '', 'stop_lat2' : '', 'stop_lon2'    : '', 'stop_number2'    : '', 'Edit<br/>with' : ''
                         };
     body_row_template['gtfs:stop_id:'+feed] = '';
     body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
@@ -2205,6 +2205,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
                                         'ref_name'        : 1,  // GTFS 'stop_name' versus OSM 'ref_name'
                                         'stop_id2'        : 2,  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'platform_code'   : 1,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'platform_code2'  : 1,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'local_ref'       : 1,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 2   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
@@ -2214,6 +2217,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : 0,  // right side: OSM 'name'
                                         'ref_name'        : 0,  // right side: OSM 'ref_name'
                                         'stop_id2'        : 0,  // right side: GTFS 'stop_id'
+                                        'platform_code'   : 0,  // left side: GTFS 'platform_code', just to count the number of occurances
+                                        'platform_code2'  : 0,  // right side: GTFS 'platform_code'
+                                        'local_ref'       : 0,  // right side: OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // right side: OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 0   // right side: OSM 'ref:IFOPT'
                                      },
@@ -2223,6 +2229,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : 0,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
                                         'ref_name'        : 0,  // GTFS 'stop_name' versus OSM 'ref_name'
                                         'stop_id2'        : 0,  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'platform_code'   : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'platform_code2'  : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'local_ref'       : 0,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 0   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
@@ -2232,6 +2241,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : 0,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
                                         'ref_name'        : 0,  // GTFS 'stop_name' versus OSM 'ref_name'
                                         'stop_id2'        : 0,  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'platform_code'   : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'platform_code2'  : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'local_ref'       : 0,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 0   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
@@ -2241,6 +2253,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : '',
                                         'ref_name'        : '',
                                         'stop_id2'        : '',
+                                        'platform_code'   : '',
+                                        'platform_code2'  : '',
+                                        'local_ref'       : '',
                                         'gtfs:stop_id'    : '',
                                         'ref:IFOPT'       : ''
                                      },
@@ -2264,10 +2279,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             row_style = JSON.parse(JSON.stringify(body_row_style));
             if ( i < left_len ) {
                 if ( cmp_list['left'][i]['tags'] ) {
-                    body_row['stop_number'] = i+1;
-                    body_row['stop_id']     = cmp_list['left'][i]['tags']['stop_id'] || '';
-                    body_row['stop_lat']    = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
-                    body_row['stop_lon']    = parseFloat(cmp_list['left'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
+                    body_row['stop_number']   = i+1;
+                    body_row['stop_id']       = cmp_list['left'][i]['tags']['stop_id']       || '';
+                    body_row['platform_code'] = cmp_list['left'][i]['tags']['platform_code'] || '';
+                    body_row['stop_lat']      = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
+                    body_row['stop_lon']      = parseFloat(cmp_list['left'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
                     if ( cmp_list['left'][i]['ptna'] && cmp_list['left'][i]['ptna']['stop_name'] ) {
                         body_row['stop_name'] = cmp_list['left'][i]['ptna']['stop_name'];
                         if ( cmp_list['left'][i]['tags']['stop_name'] &&
@@ -2287,6 +2303,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['ref_name']           = cmp_list['right'][i]['tags']['ref_name']     || '';
                         body_row['lat']                = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
                         body_row['lon']                = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
+                        body_row['local_ref']          = cmp_list['right'][i]['tags']['local_ref']    || '';
                         body_row['gtfs:stop_id']       = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
                         body_row['gtfs:stop_id:'+feed] = cmp_list['right'][i]['tags']['gtfs:stop_id:'+feed] || '';
                         body_row['ref:IFOPT']          = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
@@ -2298,11 +2315,12 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['Edit<br/>with'] = GetObjectLinks( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], is_GTFS=(right === 'GTFS'), is_Route=false );
                     } else {
                         // xxx2 identified GTFS on the right side
-                        body_row['stop_number2'] = i+1;
-                        body_row['stop_id2']     = cmp_list['right'][i]['tags']['stop_id'] || '';
-                        body_row['stop_lat2']    = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
-                        body_row['stop_lon2']    = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
-                        body_row['stop_name2']   = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
+                        body_row['stop_number2']   = i+1;
+                        body_row['stop_id2']       = cmp_list['right'][i]['tags']['stop_id'] || '';
+                        body_row['platform_code2'] = cmp_list['right'][i]['tags']['platform_code'] || '';
+                        body_row['stop_lat2']      = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
+                        body_row['stop_lon2']      = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)  || '';
+                        body_row['stop_name2']     = (cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name']) || cmp_list['right'][i]['tags']['stop_name'] || '';
                         if ( cmp_list['right'][i]['ptna'] && cmp_list['right'][i]['ptna']['stop_name'] ) {
                             body_row['stop_name2'] = cmp_list['right'][i]['ptna']['stop_name'];
                             if ( cmp_list['right'][i]['tags']['stop_name'] &&
@@ -2500,12 +2518,14 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
 function OverwriteScoreWeightsFromDbOrUrl( scores ) {
     const DbUrlField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
-                                       'wn'  : 'name',               // compare 'stop_name' left with 'name'/'stop_name' right
-                                       'wrn' : 'ref_name',           // compare 'stop_name' left with 'ref_name' right
-                                       'wsi' : 'stop_id2',           // compare 'stop_id'   left with 'stop_id' right
-                                       'wri' : 'ref:IFOPT',          // compare 'stop_id'   left with 'ref:IFOPT' right
-                                       'wgs' : 'gtfs:stop_id',       // compare 'stop_id'   left with 'gtfs:stop_id' right
-                                       'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'   left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
+                                       'wn'  : 'name',               // compare 'stop_name'     left with 'name'/'stop_name' right
+                                       'wrn' : 'ref_name',           // compare 'stop_name'     left with 'ref_name' right
+                                       'wsi' : 'stop_id2',           // compare 'stop_id'       left with 'stop_id' right
+                                       'wri' : 'ref:IFOPT',          // compare 'stop_id'       left with 'ref:IFOPT' right
+                                       'wlr' : 'local_ref',          // compare 'platform_code' left with 'local_ref' right
+                                       'wpc' : 'platform_code',      // compare 'platform_code' left with 'platform_code' right
+                                       'wgs' : 'gtfs:stop_id',       // compare 'stop_id'       left with 'gtfs:stop_id' right
+                                       'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'       left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
                                        'wd0' : 'distance',           //
                                        'wd1' : 'distance',           //
                                        'wd2' : 'distance'            //
@@ -2532,8 +2552,10 @@ function OverwriteScoreWeightsFromDbOrUrl( scores ) {
 
 
 function CalculateScores( scores ) {
-    var weighted_scores     = 0;
-    var accumulated_weights = 0;
+    var weighted_scores      = 0;
+    var accumulated_weights  = 0;
+    scores['over_all_score'] = 0;
+    scores['over_all_color'] = '';
     for ( var field in scores['totals'] ) {
         if ( Array.isArray(scores['totals'][field]) ) {
             for ( var i = 0; i < scores['totals'][field].length; i++ ) {
@@ -2641,7 +2663,11 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th           = document.createElement('th');
     th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed, p_release_date=release_date ) + ' ' + htmlEscape(trip_id.toString());
     th.setAttribute( 'class', "compare-trips-left" );
-    th.setAttribute( 'colspan', 5 );
+    if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 || scores['totals']['platform_code2'] > 0) {
+        th.setAttribute( 'colspan', 6 );
+    } else {
+        th.setAttribute( 'colspan', 5 );
+    }
     tr.appendChild(th);
     th           = document.createElement('th');
     th.innerHTML = 'Distance<br/>[m]';
@@ -2653,6 +2679,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         var colspan = 2;
         if ( scores['totals']['name']               > 0 ) { colspan++; }
         if ( scores['totals']['ref_name']           > 0 ) { colspan++; }
+        if ( scores['totals']['local_ref']          > 0 || scores['totals']['platform_code'] > 0 ) { colspan++; }
         if ( scores['totals']['gtfs:stop_id']       > 0 ) { colspan++; }
         if ( scores['totals']['gtfs:stop_id:'+feed] > 0 ) { colspan++; }
         if ( scores['totals']['ref:IFOPT']          > 0 ) { colspan++; }
@@ -2675,7 +2702,11 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th           = document.createElement('th');
         th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) + ' ' + htmlEscape(trip_id2.toString());
         th.setAttribute( 'class', "compare-trips-right" );
-        th.setAttribute( 'colspan', 5 );
+        if ( scores['totals']['platform_code2'] > 0 || scores['totals']['platform_code'] > 0 ) {
+            th.setAttribute( 'colspan', 6 );
+        } else {
+            th.setAttribute( 'colspan', 5 );
+        }
         tr.appendChild(th);
         th            = document.createElement('th');
         th.innerHTML  = 'Stop<br/>Number';
@@ -2690,6 +2721,12 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th.innerHTML = 'stop_id';
     th.setAttribute( 'class', "compare-trips-left" );
     tr.appendChild(th);
+    if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 || scores['totals']['platform_code2'] > 0) {
+        th           = document.createElement('th');
+        th.innerHTML = 'platform_code';
+        th.setAttribute( 'class', "compare-trips-left" );
+        tr.appendChild(th);
+    }
     th           = document.createElement('th');
     th.innerHTML = 'stop_lat';
     th.setAttribute( 'class', "compare-trips-left" );
@@ -2725,6 +2762,12 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th.innerHTML = 'lon';
         th.setAttribute( 'class', "compare-trips-right" );
         tr.appendChild(th);
+        if ( scores['totals']['local_ref'] > 0 || scores['totals']['platform_code'] > 0 ) {
+            th            = document.createElement('th');
+            th.innerHTML  = 'local_ref';
+            th.setAttribute( 'class', "compare-trips-right" );
+            tr.appendChild(th);
+        }
         if ( scores['totals']['gtfs:stop_id']     > 0 ) {
             th            = document.createElement('th');
             th.innerHTML  = 'gtfs:stop_id';
@@ -2757,6 +2800,12 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th.innerHTML = 'stop_lon';
         th.setAttribute( 'class', "compare-trips-right" );
         tr.appendChild(th);
+        if ( scores['totals']['platform_code2'] > 0 || scores['totals']['platform_code'] > 0 ) {
+            th           = document.createElement('th');
+            th.innerHTML = 'platform_code';
+            th.setAttribute( 'class', "compare-trips-right" );
+            tr.appendChild(th);
+        }
         th           = document.createElement('th');
         th.innerHTML = 'stop_id';
         th.setAttribute( 'class', "compare-trips-right" );
@@ -2769,7 +2818,11 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     for ( var i = 0; i < body_rows.length; i++ ) {
         tr = document.createElement('tr');
         for ( var field of fields ) {
-            if ( !(field in scores['totals']) || scores['totals'][field] ) {
+            if ( !(field in scores['totals']) ||
+                 scores['totals'][field]      ||
+                 ( (field === 'platform_code2' || field === 'local_ref') && scores['totals']['platform_code']) ||
+                 (  field === 'platform_code'  && (scores['totals']['local_ref'] || scores['totals']['platform_code2']))
+               ) {
                 td = document.createElement('td');
                 if ( field === 'info'          || field === 'info2'       ||
                      field === 'arrow_left'    || field === 'arrow_right' ||
