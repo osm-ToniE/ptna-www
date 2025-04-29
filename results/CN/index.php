@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                <?php CreateNewFullEntry( "CN-SH-Shanghai", "zh_CN", "組態 / Configuration" ); ?>
+                <?php CreateNewFullEntry( "CN-SH-Shanghai", "en", "組態 / Configuration" ); ?>
 
                 </tbody>
             </table>
