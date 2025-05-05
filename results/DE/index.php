@@ -95,8 +95,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-RBO", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-RoVG", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-RVO", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-RVV", "de", "Konfiguration" ); ?>
@@ -108,6 +106,8 @@
                     <?php CreateNewFullEntry( "DE-BY-VBP", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VDW", "de", "Konfiguration" ); ?>
+
+                    <?php CreateNewFullEntry( "DE-BY-VGAOE", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VGI", "de", "Konfiguration" ); ?>
 
