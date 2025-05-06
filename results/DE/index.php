@@ -125,8 +125,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VSL", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-VVM-Mainfranken", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-VVM-Mittelschwaben", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-HB-VBN", "de", "Konfiguration" ); ?>
