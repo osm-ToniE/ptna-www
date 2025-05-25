@@ -129,6 +129,7 @@ code             { font-weight: 500; font-size: 1.1em; }
 .button-create            { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgreen; }
 .button-cancel            { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightsalmon; }
 .button-scroll            { border-width: 1px; font-weight: 500; font-size: 0.8em; padding: 0.1em; background-color: lightgreen; }
+.button-disabled          { border-width: 2px; font-weight: 500; font-size: 0.8em; padding: 0.5em; background-color: lightgray; text-decoration:line-through; }
 
 #message-table img        { width: 100px; z-index: 1; }
 #message-table img:hover  { transform: translate(-295%,325%) scale(7.0); z-index: 2; }

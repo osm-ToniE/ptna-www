@@ -1182,7 +1182,8 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
             th = document.createElement('th');
             th.innerHTML  = '<button class="button-save" title="Show all rows" onclick="ShowRoutesTableRows()">Show all</button>';
             th.innerHTML += '<button class="button-save" title="Hide selected rows" onclick="HideSelectedRoutesTableRows()">Hide selected</button>';
-            th.innerHTML += '<button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button><br/>';
+            th.innerHTML += '<button class="button-save" title="Clear selections" onclick="ClearRoutesTableRowCheckBoxes()">Clear selections</button>';
+            th.innerHTML += '<button id="compare-two-selected-trips" class="button-disabled" title="Compare two selected trips" onclick="CompareTwoSelectedTripsDisabled()">Compare two selected trips</button>';
             th.className = 'compare-routes-left js-sort-none';
             th.setAttribute( 'rowspan', 2 );
             th.setAttribute( 'colspan', 5 );
@@ -1272,7 +1273,7 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 tr.setAttribute('id', 'row'+row.toString());
                 tr.setAttribute('ptna-trip_id', CompareTableRowInfo['rows'][row]['id'] );
                 th = document.createElement('th');
-                th.innerHTML = '<input id="input-row' + (row+1).toString() + '" type="checkbox" />';
+                th.innerHTML = '<input id="input-row' + (row+1).toString() + '" type="checkbox" onclick="CheckBoxInputRowClicked()" />';
                 th.className = 'compare-routes-odd';
                 tr.appendChild(th);
                 tr.style['display'] = 'table-row';      // "hide/show rows" will set/reset this to 'none'/'table-row' if 'checkbox' in 2nd column is set/inset
@@ -1400,6 +1401,7 @@ function ClearRoutesTableRowCheckBoxes() {
             input_elements[i].checked = false;
         }
     }
+    CheckBoxInputRowClicked();
 }
 
 
@@ -1423,7 +1425,7 @@ function SelectRoutesTableRowsByScoreValue() {
     var value_elem = document.getElementById('hide-value');
     var tr_elements = tbody.getElementsByTagName('tr');
     var input_elements = tbody.getElementsByTagName('input');
-     for ( var i = 0; i < tr_elements.length; i++ ) {
+    for ( var i = 0; i < tr_elements.length; i++ ) {
         var min_score = parseFloat(tr_elements[i].getAttribute('ptna-min-score'));
         var hide_value = parseFloat(value_elem.value);
         if ( min_score >= hide_value ) {
@@ -1435,6 +1437,67 @@ function SelectRoutesTableRowsByScoreValue() {
             }
         }
     }
+    CheckBoxInputRowClicked();
+}
+
+
+function CheckBoxInputRowClicked() {
+    var tbody = document.getElementById('routes-table-tbody');
+    var input_elements = tbody.getElementsByTagName('input');
+    var button_elem    = document.getElementById('compare-two-selected-trips');
+    var number_of_checked_boxes = 0;
+    for ( var i = 0; i < input_elements.length; i++ ) {
+        if ( input_elements[i].id.match(/^input-row/) ) {
+            if ( input_elements[i].checked ) {
+                number_of_checked_boxes++;
+            }
+        }
+    }
+    if ( number_of_checked_boxes === 2 ) {
+        button_elem.className = 'button-save';
+        button_elem.onclick   = CompareTwoSelectedTrips;
+    } else {
+        button_elem.className = 'button-disabled';
+        button_elem.onclick   = CompareTwoSelectedTripsDisabled;
+    }
+}
+
+
+function CompareTwoSelectedTrips() {
+    var url           = '/gtfs/compare-trips.php';
+    var feeds         = [ '', '' ];
+    var release_dates = [ '', '' ];
+    var trip_ids      = [ '', '' ];
+    var handle_index  = 0;
+    var tbody = document.getElementById('routes-table-tbody');
+    var input_elements = tbody.getElementsByTagName('input');
+
+    for ( var i = 0; i < input_elements.length; i++ ) {
+        if ( input_elements[i].id.match(/^input-row/) ) {
+            if ( input_elements[i].checked ) {
+                feeds[handle_index]         = CompareTableRowInfo['feed'];
+                release_dates[handle_index] = CompareTableRowInfo['release_date'];
+                trip_ids[handle_index]      = CompareTableRowInfo['rows'][i]['id'];
+                handle_index++;
+            }
+        }
+    }
+
+    if ( feeds[0] !== '' ) {
+        url += '?feed=' + encodeURIComponent(feeds[0]);
+        if ( release_dates[0] !== ''                                          ) { url += '&release_date='  + encodeURIComponent(release_dates[0]); }
+        if ( trip_ids[0]      !== ''                                          ) { url += '&trip_id='       + encodeURIComponent(trip_ids[0]);      }
+        if ( feeds[1]         !== '' && feeds[1] !== feeds[0]                 ) { url += '&feed2='         + encodeURIComponent(feeds[1]);         }
+        if ( release_dates[1] !== '' && release_dates[1] !== release_dates[0] ) { url += '&release_date2=' + encodeURIComponent(release_dates[1]); }
+        if ( trip_ids[1]      !== ''                                          ) { url += '&trip_id2='      + encodeURIComponent(trip_ids[1]);      }
+    }
+
+    window.open( url );
+}
+
+
+function CompareTwoSelectedTripsDisabled() {
+    alert('Please select exactly two trips in the first column!');
 }
 
 
