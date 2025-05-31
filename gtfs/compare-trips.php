@@ -86,7 +86,7 @@
                                 </thead>
                                 <tbody id="scores-table-tbody" class="scores-table-tbody">
                                     <tr>
-                                        <td id="score-total" rowspan="10" class="scores-no-padding"></td>
+                                        <td id="score-total" rowspan="11" class="scores-no-padding"></td>
                                         <td id="score-stops"        class="scores-center"></td>
                                         <td id="score-stops-text">mismatch of number of stops</td>
                                         <td id="score-stops-weight" class="scores-center"></td>
@@ -135,6 +135,11 @@
                                         <td id="score-ref-ifopt" class="scores-center"></td>
                                         <td id="score-ref-ifopt-text">mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM</td>
                                         <td id="score-ref-ifopt-weight" class="scores-center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="score-platform-code" class="scores-center"></td>
+                                        <td id="score-platform-code-text">mismatch of 'platform_code' of GTFS with 'local_ref' of OSM</td>
+                                        <td id="score-platform-code-weight" class="scores-center"></td>
                                     </tr>
                                  </tbody>
                                 <tfoot id="scores-table-tfoot" class="scores-table-tfoot">

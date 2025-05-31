@@ -1977,6 +1977,11 @@ function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
         ret_string += val + "%&nbsp;&nbsp;mismatch of 'stop_id' of GTFS with 'ref:IFOPT' of OSM\n";
     }
+    if ( CompareTable[row][col]['weights']['platform_code'] > 0 && ( CompareTable[row][col]['totals']['platform_code'] > 0 || CompareTable[row][col]['totals']['platform_code2'] > 0 || CompareTable[row][col]['totals']['local_ref'] > 0) ) {
+        var val = CompareTable[row][col]['mismatch_percent']['platform_code'];
+        val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
+        ret_string += val + "%&nbsp;&nbsp;mismatch of 'platform_code' of GTFS with 'local_ref' of OSM\n";
+    }
     if ( GTFS_trip_id_match_type ) {
         if ( GTFS_trip_id_match_type === 'GTFS-OSM ') {
             ret_string += "\nMatch between OSM's 'gtfs:trip_id' / 'gtfs:trip_id:sample' and\n";
@@ -2268,9 +2273,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'name'            : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
                                         'ref_name'        : 1,  // GTFS 'stop_name' versus OSM 'ref_name'
                                         'stop_id2'        : 2,  // GTFS 'stop_id' versus GTFS 'stop_id'
-                                        'platform_code'   : 1,  // GTFS 'platform_code' versus GTFS 'platform_code'
-                                        'platform_code2'  : 1,  // GTFS 'platform_code' versus GTFS 'platform_code'
-                                        'local_ref'       : 1,  // GTFS 'platform_code' versus OSM 'local_ref'
+                                        'platform_code'   : 0.5,  // GTFS 'platform_code' versus GTFS 'platform_code' or OSM 'local_ref'
+                                        'platform_code2'  : 0.5,  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'local_ref'       : 0.5,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 2   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
@@ -2526,6 +2531,25 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 }
             }
+            if ( scores['weights']['platform_code'] > 0 && (body_row['platform_code'] !== '' || body_row['platform_code2'] !== '' || body_row['local_ref'] !== '') ) {
+                if ( body_row['platform_code'] !== '' && body_row['platform_code2'] !== '' ) {
+                    if ( body_row['platform_code'].toString() !== body_row['platform_code2'].toString() ) {
+                        row_style['platform_code']  = ['background-color:orange'];
+                        row_style['platform_code2'] = ['background-color:orange'];
+                        scores['mismatch_count']['platform_code']++;
+                        scores['mismatch_count']['platform_code2']++;
+                    }
+                } else {
+                    if ( body_row['platform_code'] !== '' && body_row['local_ref'] !== '' ) {
+                        if ( body_row['platform_code'].toString() !== body_row['local_ref'].toString() ) {
+                            row_style['platform_code']  = ['background-color:orange'];
+                            row_style['local_ref']      = ['background-color:orange'];
+                            scores['mismatch_count']['platform_code']++;
+                            scores['mismatch_count']['local_ref']++;
+                        }
+                    }
+                }
+            }
             if ( Number(body_row['distance']) > scores['distances'][0] ) {
                 var style_it = 'background-color:yellow';
                 var index    = 0;
@@ -2585,8 +2609,7 @@ function OverwriteScoreWeightsFromDbOrUrl( scores ) {
                                        'wrn' : 'ref_name',           // compare 'stop_name'     left with 'ref_name' right
                                        'wsi' : 'stop_id2',           // compare 'stop_id'       left with 'stop_id' right
                                        'wri' : 'ref:IFOPT',          // compare 'stop_id'       left with 'ref:IFOPT' right
-                                       'wlr' : 'local_ref',          // compare 'platform_code' left with 'local_ref' right
-                                       'wpc' : 'platform_code',      // compare 'platform_code' left with 'platform_code' right
+                                       'wpc' : 'platform_code',      // compare 'platform_code' left with 'platform_code'/'local_ref' right
                                        'wgs' : 'gtfs:stop_id',       // compare 'stop_id'       left with 'gtfs:stop_id' right
                                        'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'       left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
                                        'wd0' : 'distance',           //
@@ -2630,11 +2653,37 @@ function CalculateScores( scores ) {
                 }
             }
         } else {
-            if ( scores['totals'][field] > 0 ) {
-                scores['mismatch_percent'][field] = (scores['mismatch_count'][field] / scores['totals'][field] * 100).toFixed(0);
-                scores['mismatch_color'][field]   = GetScoreColor( scores, scores['mismatch_percent'][field] );
-                weighted_scores     += (scores['mismatch_percent'][field] * scores['weights'][field]);
-                accumulated_weights += scores['weights'][field];
+            if ( field === 'platform_code' || field === 'platform_code2' || field === 'local_ref' ) {
+                if ( field === 'platform_code2' ) {
+                    if ( scores['totals']['platform_code'] > 0 && scores['totals']['platform_code2'] > 0 ) {
+                        var min_total = Math.min(scores['totals']['platform_code'],scores['totals']['platform_code2']);
+                        scores['mismatch_percent']['platform_code']  = (scores['mismatch_count']['platform_code2'] / min_total * 100).toFixed(0);
+                        scores['mismatch_color']['platform_code']    = GetScoreColor( scores, scores['mismatch_percent']['platform_code'] );
+                        scores['mismatch_percent']['platform_code2'] = scores['mismatch_percent']['platform_code'];
+                        scores['mismatch_color']['platform_code2']   = scores['mismatch_color']['platform_code'];
+                        weighted_scores     += (scores['mismatch_percent']['platform_code'] * scores['weights']['platform_code']);
+                        accumulated_weights += scores['weights']['platform_code'];
+                    }
+                } else {
+                    if ( field === 'local_ref' ) {
+                        if ( scores['totals']['platform_code'] > 0 && scores['totals']['local_ref'] > 0 ) {
+                            var min_total = Math.min(scores['totals']['platform_code'],scores['totals']['local_ref']);
+                            scores['mismatch_percent']['platform_code'] = (scores['mismatch_count']['local_ref'] / min_total * 100).toFixed(0);
+                            scores['mismatch_color']['platform_code']   = GetScoreColor( scores, scores['mismatch_percent']['platform_code'] );
+                            scores['mismatch_percent']['local_ref']     = scores['mismatch_percent']['platform_code'];
+                            scores['mismatch_color']['local_ref']       = scores['mismatch_color']['platform_code'];
+                            weighted_scores     += (scores['mismatch_percent']['platform_code'] * scores['weights']['platform_code']);
+                            accumulated_weights += scores['weights']['platform_code'];
+                        }
+                    }
+                }
+            } else {
+                if ( scores['totals'][field] > 0 ) {
+                    scores['mismatch_percent'][field] = (scores['mismatch_count'][field] / scores['totals'][field] * 100).toFixed(0);
+                    scores['mismatch_color'][field]   = GetScoreColor( scores, scores['mismatch_percent'][field] );
+                    weighted_scores     += (scores['mismatch_percent'][field] * scores['weights'][field]);
+                    accumulated_weights += scores['weights'][field];
+                }
             }
         }
     }
@@ -2905,13 +2954,14 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
 }
 
 function FillTripsScoresTable( scores ) {
-    var score_fields_to_ids = { 'stops'        : 'score-stops',
-                                'distance'     : ['score-distance0','score-distance1','score-distance2'],
-                                'name'         : 'score-name',
-                                'ref_name'     : 'score-ref-name',
-                                'stop_id2'     : 'score-stop-id',
-                                'gtfs:stop_id' : 'score-gtfs-stop-id',
-                                'ref:IFOPT'    : 'score-ref-ifopt'
+    var score_fields_to_ids = { 'stops'          : 'score-stops',
+                                'distance'       : ['score-distance0','score-distance1','score-distance2'],
+                                'name'           : 'score-name',
+                                'ref_name'       : 'score-ref-name',
+                                'stop_id2'       : 'score-stop-id',
+                                'gtfs:stop_id'   : 'score-gtfs-stop-id',
+                                'ref:IFOPT'      : 'score-ref-ifopt',
+                                'platform_code'  : 'score-platform-code'
                               };
     score_fields_to_ids['gtfs:stop_id:'+feed] = 'score-gtfs-stop-id-feed';
 
@@ -2919,6 +2969,7 @@ function FillTripsScoresTable( scores ) {
     var elem_weight;
     var elem_text;
     var elem_color;
+    var total_of_field = 0;
 
     for ( var field in score_fields_to_ids ) {
         if ( Array.isArray(score_fields_to_ids[field]) ) {
@@ -2942,7 +2993,12 @@ function FillTripsScoresTable( scores ) {
             elem_text   = document.getElementById(score_fields_to_ids[field]+'-text');
             elem_color  = document.getElementById(score_fields_to_ids[field]);
             elem_weight.innerHTML = scores['weights'][field];
-            if ( scores['totals'][field] > 0 ) {
+            if ( field === 'platform_code' ) {
+                total_of_field = scores['totals'][field] + scores['totals']['platform_code2'] + scores['totals']['local_ref'];
+            } else {
+                total_of_field = scores['totals'][field];
+            }
+            if ( total_of_field > 0 ) {
                 if ( scores['weights'][field] > 0 ) {
                     elem.innerHTML = scores['mismatch_percent'][field] + '%';
                     if ( scores['mismatch_color'][field] !== '' ) {
