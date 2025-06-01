@@ -1068,6 +1068,25 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
 }
 
 
+function GetStopInjectLink( id, object_type, p_tag, p_value ) {
+    var html = '';
+
+    if ( id && object_type && p_tag && p_value ) {
+        var addtags_uri   = '&amp;addtags=' + encodeURIComponent(p_tag+'='+p_value);;
+        var addtags_title = "\n- " + htmlEscape(p_tag+'='+p_value);
+        if ( object_type == "node" ) {
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform node using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+        } else if ( object_type == "way" ) {
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform way using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+        } else if ( object_type == "relation" ) {
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+        }
+    }
+
+    return html;
+}
+
+
 function htmlEscape( str ) {
     return str
         .replace(/&/g, '&amp;')
@@ -1511,6 +1530,7 @@ function SelectRoutesTableRowsIfSuspicious() {
 
 function SelectRoutesTableRowsIfSubrouteOf() {
 }
+
 
 function SelectRoutesTableRowsIfNearlySame() {
 }
@@ -2230,26 +2250,17 @@ function ShowCompareInfo( ElementId, TableInfo ) {
 
 function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) {
 
-    var body_row_template = {};
-    var fields            = [];
-
     // left &#x2BC7;
     // right &#x2BC8;
     // up &#x2BC5;
     // down &#x2BC6;
-    if ( right === 'OSM' ) {
-        fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','name','ref_name','lat','lon','local_ref','gtfs:stop_id','gtfs:stop_id:'+feed,'ref:IFOPT','platform_number','Edit<br/>with'];
-    } else {
-        fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','platform_code2','stop_id2','stop_number2'];
-    }
-    body_row_template = { 'stop_number' : '',         'stop_id'    : '', 'platform_code'     : '',         'stop_lat'    : '', 'stop_lon'  : '', 'stop_name'    : '', 'info' : '',
-                          'arrow_left'  : '&#x2BC7;', 'distance'   : '', 'arrow_right'       : '&#x2BC8;',
-                          'name': '',                 'ref_name'   : '', 'lat'               : '',         'lon'         : '', 'local_ref' : '', 'gtfs:stop_id' : '', 'ref:IFOPT'     : '', 'platform_number' : '',
-                          'info2'       : '',         'stop_name2' : '', 'platform_code2'    : '',         'stop_id2'    : '', 'stop_lat2' : '', 'stop_lon2'    : '', 'stop_number2'    : '', 'Edit<br/>with' : ''
-                        };
+    var body_row_template = { 'stop_number' : '',         'stop_id'     : '', 'platform_code'     : '',         'stop_lat'        : '', 'stop_lon'  : '', 'stop_name' : '', 'info' : '',
+                              'arrow_left'  : '&#x2BC7;', 'distance'    : '', 'arrow_right'       : '&#x2BC8;',
+                              'name'        : '',         'inject_name' : '', 'ref_name'          : '',         'inject_ref_name' : '', 'lat'       : '', 'lon'       : '', 'local_ref'    : '', 'inject_local_ref' : '', 'gtfs:stop_id' : '', 'inject_stop_id' : '', 'inject_stop_id_feed' : '', 'ref:IFOPT' : '', 'inject_ref_IFOPT' : '', 'platform_number' : '',
+                              'info2'       : '',         'stop_name2'  : '', 'platform_code2'    : '',         'stop_id2'        : '', 'stop_lat2' : '', 'stop_lon2' : '', 'stop_number2' : '', 'Edit<br/>with'    : ''
+                            };
     body_row_template['gtfs:stop_id:'+feed] = '';
-    body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
-
+    var body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
     var body_rows   = [];
     var row_styles  = [];
     var body_row    = {};
@@ -2335,8 +2346,6 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     scores['mismatch_count']['gtfs:stop_id:'+feed]   = 0;  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
     scores['mismatch_percent']['gtfs:stop_id:'+feed] = 0;  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
     scores['mismatch_color']['gtfs:stop_id:'+feed]   = '';
-
-
 
     if ( left_len > 0 && right_len > 0 ) {
 
@@ -2427,42 +2436,63 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         scores['mismatch_count']['stop_id2']++;
                     }
                 } else {
-                    if ( scores['weights']['gtfs:stop_id'] > 0 && body_row['gtfs:stop_id'] !== '' ) {
-                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
-                        var right_id_expanded = ';' + body_row['gtfs:stop_id'].toString() + ';';
-                        left_id_expanded.replace( /\s*;\s*/g, ';' );
-                        right_id_expanded.replace( /\s*;\s*/g, ';' );
-                        if ( body_row['stop_id'].toString()             !== body_row['gtfs:stop_id'].toString() &&
-                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                     ) {
-                            row_style['stop_id']      = ['background-color:orange'];
-                            row_style['gtfs:stop_id'] = ['background-color:orange'];
-                            scores['mismatch_count']['gtfs:stop_id']++;
+                    if ( scores['weights']['gtfs:stop_id'] > 0 ) {
+                        if ( body_row['gtfs:stop_id'] !== '' ) {
+                            var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                            var right_id_expanded = ';' + body_row['gtfs:stop_id'].toString() + ';';
+                            left_id_expanded.replace( /\s*;\s*/g, ';' );
+                            right_id_expanded.replace( /\s*;\s*/g, ';' );
+                            if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() &&
+                                right_id_expanded.indexOf(left_id_expanded) ==  -1                        ) {
+                                row_style['stop_id']        = ['background-color:orange'];
+                                row_style['gtfs:stop_id']   = ['background-color:orange'];
+                                row_style['inject_stop_id'] = ['background-color:orange'];
+                                scores['mismatch_count']['gtfs:stop_id']++;
+                            }
+                        }
+                        if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
+                            body_row['inject_stop_id']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id', body_row['stop_id'].toString() );
                         }
                     }
-                    if ( scores['weights']['gtfs:stop_id:'+feed] > 0 && body_row['gtfs:stop_id:'+feed] !== '' ) {
-                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
-                        var right_id_expanded = ';' + body_row['gtfs:stop_id:'+feed].toString() + ';';
-                        left_id_expanded.replace( /\s*;\s*/g, ';' );
-                        right_id_expanded.replace( /\s*;\s*/g, ';' );
-                        if ( body_row['stop_id'].toString()              !== body_row['gtfs:stop_id:'+feed].toString() &&
-                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                           ) {
-                            row_style['stop_id']            = ['background-color:orange'];
-                            row_style['gtfs:stop_id:'+feed] = ['background-color:orange'];
-                            scores['mismatch_count']['gtfs:stop_id:'+feed]++;
+                    if ( scores['weights']['gtfs:stop_id:'+feed] > 0 ) {
+                        if ( body_row['gtfs:stop_id:'+feed] !== '' ) {
+                            var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                            var right_id_expanded = ';' + body_row['gtfs:stop_id:'+feed].toString() + ';';
+                            left_id_expanded.replace( /\s*;\s*/g, ';' );
+                            right_id_expanded.replace( /\s*;\s*/g, ';' );
+                            if ( body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() &&
+                                right_id_expanded.indexOf(left_id_expanded) ==  -1                              ) {
+                                row_style['stop_id']             = ['background-color:orange'];
+                                row_style['gtfs:stop_id:'+feed]  = ['background-color:orange'];
+                                row_style['inject_stop_id_feed'] = ['background-color:orange'];
+                                scores['mismatch_count']['gtfs:stop_id:'+feed]++;
+                            }
+                        }
+                        if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() ) {
+                            body_row['inject_stop_id_feed']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id:'+feed, body_row['stop_id'].toString() );
                         }
                     }
-                    if ( scores['weights']['ref:IFOPT'] > 0 && body_row['ref:IFOPT'] !== '' && body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
+                    if ( scores['weights']['ref:IFOPT'] > 0 ) {
                         // ref:IFOPT ~ 'a:b:c:d:e', so stop_id should have at least 2 ':'
-                        var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
-                        var right_id_expanded = ';' + body_row['ref:IFOPT'].toString() + ';';
-                        left_id_expanded.replace( /\s*;\s*/g, ';' );
-                        right_id_expanded.replace( /\s*;\s*/g, ';' );
-                        if ( body_row['stop_id'].toString()              !== body_row['ref:IFOPT'].toString() &&
-                             right_id_expanded.indexOf(left_id_expanded) ==  -1                                  ) {
-                            row_style['stop_id']   = ['background-color:orange'];
-                            row_style['ref:IFOPT'] = ['background-color:orange'];
-                            scores['mismatch_count']['ref:IFOPT']++;
-                        }
+                        if ( body_row['stop_id'].toString().match(/:/g) && body_row['stop_id'].toString().match(/:/g).length >= 2 ) {
+                            if ( body_row['ref:IFOPT'] !== '' ) {
+                                var left_id_expanded  = ';' + body_row['stop_id'].toString() + ';'
+                                var right_id_expanded = ';' + body_row['ref:IFOPT'].toString() + ';';
+                                left_id_expanded.replace( /\s*;\s*/g, ';' );
+                                right_id_expanded.replace( /\s*;\s*/g, ';' );
+                                if ( body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() &&
+                                    right_id_expanded.indexOf(left_id_expanded) ==  -1                                  ) {
+                                    row_style['stop_id']          = ['background-color:orange'];
+                                    row_style['ref:IFOPT']        = ['background-color:orange'];
+                                    row_style['inject_ref_IFOPT'] = ['background-color:orange'];
+                                    body_row['inject_ref_IFOPT']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT', body_row['stop_id'].toString() );
+                                    scores['mismatch_count']['ref:IFOPT']++;
+                                }
+                            }
+                            if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
+                                body_row['inject_ref_IFOPT']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT'+feed, body_row['stop_id'].toString() );
+                            }
+                       }
                     }
                 }
             }
@@ -2490,19 +2520,25 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                          left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
                                             row_style['stop_name'].push('background-color:orange');
                                             row_style['name'].push('background-color:orange');
+                                            row_style['inject_name'] = row_style['name'];
                                             scores['mismatch_count']['name']++;
-                                        }
+                                    }
                                 } else {
                                     row_style['stop_name'].push('background-color:orange');
                                     row_style['name'].push('background-color:orange');
+                                    row_style['inject_name'] = row_style['name'];
                                     scores['mismatch_count']['name']++;
                                 }
                             } else {
                                 row_style['stop_name'].push('background-color:orange');
                                 row_style['name'].push('background-color:orange');
+                                row_style['inject_name'] = row_style['name'];
                                 scores['mismatch_count']['name']++;
                             }
                         }
+                    }
+                    if ( i < left_len && i < right_len && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
+                        body_row['inject_name'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
                     }
                     if ( body_row['ref_name'] !== '' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 &&
@@ -2517,17 +2553,23 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                     if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
                                          left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
                                         row_style['ref_name'].push('background-color:orange');
+                                        row_style['inject_ref_name'] = row_style['ref_name'];
                                         scores['mismatch_count']['ref_name']++;
                                     }
                                 } else {
                                     row_style['ref_name'].push('background-color:orange');
+                                    row_style['inject_ref_name'] = row_style['ref_name'];
                                     scores['mismatch_count']['ref_name']++;
                                 }
                             } else {
                                 row_style['ref_name'].push('background-color:orange');
+                                row_style['inject_ref_name'] = row_style['ref_name'];
                                 scores['mismatch_count']['ref_name']++;
                             }
                         }
+                    }
+                    if ( i < left_len && i < right_len && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
+                        body_row['inject_ref_name'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
                     }
                 }
             }
@@ -2542,13 +2584,17 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 } else {
                     if ( body_row['platform_code'] !== '' && body_row['local_ref'] !== '' ) {
                         if ( body_row['platform_code'].toString() !== body_row['local_ref'].toString() ) {
-                            row_style['platform_code']  = ['background-color:orange'];
-                            row_style['local_ref']      = ['background-color:orange'];
+                            row_style['platform_code']    = ['background-color:orange'];
+                            row_style['local_ref']        = ['background-color:orange'];
+                            row_style['inject_local_ref'] = ['background-color:orange'];
                             scores['mismatch_count']['platform_code']++;
                             scores['mismatch_count']['local_ref']++;
                         }
                     }
-                }
+                    if ( i < left_len && i < right_len && body_row['platform_code'].toString() !== body_row['local_ref'].toString() ) {
+                        body_row['inject_local_ref'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'local_ref', body_row['platform_code'].toString() );
+                    }
+                 }
             }
             if ( Number(body_row['distance']) > scores['distances'][0] ) {
                 var style_it = 'background-color:yellow';
@@ -2592,7 +2638,43 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
         console.log( scores );
 
         if ( !scores_only ) {
-            FillTripsTable( fields, body_rows, row_styles, scores );
+            var fields            = [];
+            var fields_as_is      = {}
+
+            if ( right === 'OSM' ) {
+                // define the fields and their sequence to be shown, some depend on the scores['totals'][field]
+                fields.push('stop_number');
+                fields.push('stop_id');
+                if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 ) { fields.push('platform_code') };
+                fields.push('stop_lat');
+                fields.push('stop_lon');
+                fields.push('stop_name');
+                fields.push('info');
+                fields.push('arrow_left');
+                fields.push('distance');
+                fields.push('arrow_right');
+                fields.push('name');
+                fields.push('inject_name');
+                if ( scores['totals']['ref_name']           > 0 )                                      { fields.push('ref_name');           fields.push('inject_ref_name');     }
+                fields.push('lat');
+                fields.push('lon');
+                if ( scores['totals']['platform_code']      > 0 || scores['totals']['local_ref'] > 0 ) { fields.push('local_ref');          fields.push('inject_local_ref');    }
+                if ( scores['totals']['gtfs:stop_id']       > 0 )                                      { fields.push('gtfs:stop_id');       fields.push('inject_stop_id');      }
+                if ( scores['totals']['gtfs:stop_id:'+feed] > 0 )                                      { fields.push('gtfs:stop_id:'+feed); fields.push('inject_stop_id_feed'); }
+                if ( scores['totals']['ref:IFOPT']          > 0 )                                      { fields.push('ref:IFOPT');          fields.push('inject_ref_IFOPT');    }
+                fields.push('platform_number');
+                fields.push('Edit<br/>with');
+                console.log("fields");
+                console.log( fields );
+            } else {
+                // define the fields and their sequence to be shown, always show all
+                fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','platform_code2','stop_id2','stop_number2'];
+            }
+            // define which fields values can be shown as is (they intentionally contain HTML tags), i.e. without htmsescape()
+            fields_as_is      = { 'stop_number' : 1, 'info' : 1, 'arrow_left' : 1, 'distance' : 1, 'arrow_right' : 1,
+                                'inject_name' : 1, 'inject_ref_name' : 1, 'inject_local_ref' : 1, 'inject_stop_id' : 1, 'inject_stop_id_feed' : 1, 'inject_ref_IFOPT' : 1, 'platform_number' : 1, 'Edit<br/>with' : 1 };
+
+            FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores );
             FillTripsScoresTable( scores );
         }
 
@@ -2655,8 +2737,15 @@ function CalculateScores( scores ) {
         } else {
             if ( field === 'platform_code' || field === 'platform_code2' || field === 'local_ref' ) {
                 if ( field === 'platform_code2' ) {
-                    if ( scores['totals']['platform_code'] > 0 && scores['totals']['platform_code2'] > 0 ) {
+                    if ( scores['totals']['platform_code'] > 0 || scores['totals']['platform_code2'] > 0 ) {
                         var min_total = Math.min(scores['totals']['platform_code'],scores['totals']['platform_code2']);
+                        if ( min_total === 0 ) {
+                            if ( scores['totals']['platform_code'] === 0 ) {
+                                min_total = scores['totals']['platform_code2'];
+                            } else {
+                                min_total = scores['totals']['platform_code'];
+                            }
+                        }
                         scores['mismatch_percent']['platform_code']  = (scores['mismatch_count']['platform_code2'] / min_total * 100).toFixed(0);
                         scores['mismatch_color']['platform_code']    = GetScoreColor( scores, scores['mismatch_percent']['platform_code'] );
                         scores['mismatch_percent']['platform_code2'] = scores['mismatch_percent']['platform_code'];
@@ -2666,8 +2755,15 @@ function CalculateScores( scores ) {
                     }
                 } else {
                     if ( field === 'local_ref' ) {
-                        if ( scores['totals']['platform_code'] > 0 && scores['totals']['local_ref'] > 0 ) {
+                        if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 ) {
                             var min_total = Math.min(scores['totals']['platform_code'],scores['totals']['local_ref']);
+                            if ( min_total === 0 ) {
+                                if ( scores['totals']['platform_code'] === 0 ) {
+                                    min_total = scores['totals']['local_ref'];
+                                } else {
+                                    min_total = scores['totals']['platform_code'];
+                                }
+                            }
                             scores['mismatch_percent']['platform_code'] = (scores['mismatch_count']['local_ref'] / min_total * 100).toFixed(0);
                             scores['mismatch_color']['platform_code']   = GetScoreColor( scores, scores['mismatch_percent']['platform_code'] );
                             scores['mismatch_percent']['local_ref']     = scores['mismatch_percent']['platform_code'];
@@ -2755,7 +2851,7 @@ function compareNumbersReverse(a, b) {
 }
 
 
-function FillTripsTable( fields, body_rows, row_styles, scores ) {
+function FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores ) {
     var div   = document.getElementById('trips-table-div');
     var thead = document.getElementById('trips-table-thead');
     var tbody = document.getElementById('trips-table-tbody');
@@ -2775,7 +2871,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th           = document.createElement('th');
     th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed, p_release_date=release_date ) + ' ' + htmlEscape(trip_id.toString());
     th.setAttribute( 'class', "compare-trips-left" );
-    if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 || scores['totals']['platform_code2'] > 0) {
+    if ( fields.includes('platform_code') ) {
         th.setAttribute( 'colspan', 6 );
     } else {
         th.setAttribute( 'colspan', 5 );
@@ -2789,12 +2885,12 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
 
     if ( relation_id !== '' ) {
         var colspan = 2;
-        if ( scores['totals']['name']               > 0 ) { colspan++; }
-        if ( scores['totals']['ref_name']           > 0 ) { colspan++; }
-        if ( scores['totals']['local_ref']          > 0 || scores['totals']['platform_code'] > 0 ) { colspan++; }
-        if ( scores['totals']['gtfs:stop_id']       > 0 ) { colspan++; }
-        if ( scores['totals']['gtfs:stop_id:'+feed] > 0 ) { colspan++; }
-        if ( scores['totals']['ref:IFOPT']          > 0 ) { colspan++; }
+        if ( fields.includes('name')                ) { colspan++; colspan++; }
+        if ( fields.includes('ref_name')            ) { colspan++; colspan++; }
+        if ( fields.includes('local_ref')           ) { colspan++; colspan++; }
+        if ( fields.includes('gtfs:stop_id')        ) { colspan++; colspan++; }
+        if ( fields.includes('gtfs:stop_id:'+feed)  ) { colspan++; colspan++; }
+        if ( fields.includes('ref:IFOPT')           ) { colspan++; colspan++; }
         th           = document.createElement('th');
         th.innerHTML =  'Platform data of OSM route ' + GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true ) + ' ' + htmlEscape(relation_id.toString());
         th.setAttribute( 'class', "compare-trips-right" );
@@ -2814,7 +2910,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th           = document.createElement('th');
         th.innerHTML = 'Stop data of GTFS trip ' + GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) + ' ' + htmlEscape(trip_id2.toString());
         th.setAttribute( 'class', "compare-trips-right" );
-        if ( scores['totals']['platform_code2'] > 0 || scores['totals']['platform_code'] > 0 ) {
+        if ( fields.includes('platform_code2') ) {
             th.setAttribute( 'colspan', 6 );
         } else {
             th.setAttribute( 'colspan', 5 );
@@ -2833,7 +2929,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     th.innerHTML = 'stop_id';
     th.setAttribute( 'class', "compare-trips-left" );
     tr.appendChild(th);
-    if ( scores['totals']['platform_code'] > 0 || scores['totals']['local_ref'] > 0 || scores['totals']['platform_code2'] > 0) {
+    if ( fields.includes('platform_code') ) {
         th           = document.createElement('th');
         th.innerHTML = 'platform_code';
         th.setAttribute( 'class', "compare-trips-left" );
@@ -2854,16 +2950,18 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     tr.appendChild(th);
 
     if ( relation_id !== '' ) {
-        if ( scores['totals']['name'] > 0 ) {
+        if ( fields.includes('name') )  {
             th           = document.createElement('th');
             th.innerHTML = 'name';
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
-        if ( scores['totals']['ref_name'] > 0 ) {
+        if ( fields.includes('ref_name') ) {
             th            = document.createElement('th');
             th.innerHTML  = 'ref_name';
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
         th           = document.createElement('th');
@@ -2874,28 +2972,32 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th.innerHTML = 'lon';
         th.setAttribute( 'class', "compare-trips-right" );
         tr.appendChild(th);
-        if ( scores['totals']['local_ref'] > 0 || scores['totals']['platform_code'] > 0 ) {
+        if ( fields.includes('local_ref' ) )  {
             th            = document.createElement('th');
             th.innerHTML  = 'local_ref';
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
-        if ( scores['totals']['gtfs:stop_id']     > 0 ) {
+        if ( fields.includes('gtfs:stop_id' ) ) {
             th            = document.createElement('th');
             th.innerHTML  = 'gtfs:stop_id';
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
-        if ( scores['totals']['gtfs:stop_id:'+feed]     > 0 ) {
+        if ( fields.includes('gtfs:stop_id:'+feed ) ) {
             th            = document.createElement('th');
             th.innerHTML  = 'gtfs:stop_id:'+feed;
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
-        if ( scores['totals']['ref:IFOPT']     > 0 ) {
+        if ( fields.includes('ref:IFOPT' ) ) {
             th            = document.createElement('th');
             th.innerHTML  = 'ref:IFOPT';
             th.setAttribute( 'class', "compare-trips-right" );
+            th.setAttribute( 'colspan', 2 );
             tr.appendChild(th);
         }
     } else {
@@ -2912,7 +3014,7 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
         th.innerHTML = 'stop_lon';
         th.setAttribute( 'class', "compare-trips-right" );
         tr.appendChild(th);
-        if ( scores['totals']['platform_code2'] > 0 || scores['totals']['platform_code'] > 0 ) {
+        if ( fields.includes('platform_code2' ) ) {
             th           = document.createElement('th');
             th.innerHTML = 'platform_code';
             th.setAttribute( 'class', "compare-trips-right" );
@@ -2930,15 +3032,9 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
     for ( var i = 0; i < body_rows.length; i++ ) {
         tr = document.createElement('tr');
         for ( var field of fields ) {
-            if ( !(field in scores['totals']) ||
-                 scores['totals'][field]      ||
-                 ( (field === 'platform_code2' || field === 'local_ref') && scores['totals']['platform_code']) ||
-                 (  field === 'platform_code'  && (scores['totals']['local_ref'] || scores['totals']['platform_code2']))
-               ) {
-                td = document.createElement('td');
-                if ( field === 'info'          || field === 'info2'       ||
-                     field === 'arrow_left'    || field === 'arrow_right' ||
-                     field === 'Edit<br/>with'                               ) {
+            td = document.createElement('td');
+            if ( field in body_rows[i]) {
+                if ( field in fields_as_is ) {
                     td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
                 } else {
                     td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : htmlEscape(body_rows[i][field].toString());
@@ -2946,8 +3042,10 @@ function FillTripsTable( fields, body_rows, row_styles, scores ) {
                 if ( row_styles[i][field] && row_styles[i][field].length > 0 ) {
                     td.style.cssText += row_styles[i][field].join(';');
                 }
-                tr.appendChild(td);
+            } else {
+                td.innerHTML = '&nbsp;'
             }
+            tr.appendChild(td);
         }
         tbody.appendChild(tr);
     }
