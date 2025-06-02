@@ -1052,12 +1052,12 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
                     if ( addtags_uri ) {
-                        html += '  <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                        html += '  <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route relation ' + id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
                 } else {
                     if ( addtags_uri ) {
-                        html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route_master relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+                        html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into route_master relation ' + id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
                 }
             }
@@ -1068,18 +1068,18 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
 }
 
 
-function GetStopInjectLink( id, object_type, p_tag, p_value ) {
+function GetStopInjectLink( relation_id, platform_id, object_type, p_tag, p_value ) {
     var html = '';
 
-    if ( id && object_type && p_tag && p_value ) {
+    if ( relation_id && platform_id && object_type && p_tag ) {
         var addtags_uri   = '&amp;addtags=' + encodeURIComponent(p_tag+'='+p_value);;
         var addtags_title = "\n- " + htmlEscape(p_tag+'='+p_value);
         if ( object_type == "node" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform node using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform node ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         } else if ( object_type == "way" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform way using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform way ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         } else if ( object_type == "relation" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform relation using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=r' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform relation ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         }
     }
 
@@ -2450,8 +2450,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                 scores['mismatch_count']['gtfs:stop_id']++;
                             }
                         }
-                        if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
-                            body_row['inject_stop_id']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id', body_row['stop_id'].toString() );
+                        if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_id'].toString() !== body_row['gtfs:stop_id'].toString() ) {
+                            body_row['inject_stop_id']  = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id', body_row['stop_id'].toString() );
                         }
                     }
                     if ( scores['weights']['gtfs:stop_id:'+feed] > 0 ) {
@@ -2468,8 +2468,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                 scores['mismatch_count']['gtfs:stop_id:'+feed]++;
                             }
                         }
-                        if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() ) {
-                            body_row['inject_stop_id_feed']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id:'+feed, body_row['stop_id'].toString() );
+                        if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_id'].toString() !== body_row['gtfs:stop_id:'+feed].toString() ) {
+                            body_row['inject_stop_id_feed']  = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'gtfs:stop_id:'+feed, body_row['stop_id'].toString() );
                         }
                     }
                     if ( scores['weights']['ref:IFOPT'] > 0 ) {
@@ -2485,12 +2485,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                     row_style['stop_id']          = ['background-color:orange'];
                                     row_style['ref:IFOPT']        = ['background-color:orange'];
                                     row_style['inject_ref_IFOPT'] = ['background-color:orange'];
-                                    body_row['inject_ref_IFOPT']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT', body_row['stop_id'].toString() );
                                     scores['mismatch_count']['ref:IFOPT']++;
                                 }
                             }
-                            if ( i < left_len && i < right_len && body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
-                                body_row['inject_ref_IFOPT']  = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT'+feed, body_row['stop_id'].toString() );
+                            if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
+                                body_row['inject_ref_IFOPT']  = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT'+feed, body_row['stop_id'].toString() );
                             }
                        }
                     }
@@ -2537,8 +2536,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             }
                         }
                     }
-                    if ( i < left_len && i < right_len && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
-                        body_row['inject_name'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
+                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
+                        body_row['inject_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
                     }
                     if ( body_row['ref_name'] !== '' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 &&
@@ -2568,8 +2567,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             }
                         }
                     }
-                    if ( i < left_len && i < right_len && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
-                        body_row['inject_ref_name'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
+                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
+                        body_row['inject_ref_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
                     }
                 }
             }
@@ -2591,8 +2590,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             scores['mismatch_count']['local_ref']++;
                         }
                     }
-                    if ( i < left_len && i < right_len && body_row['platform_code'].toString() !== body_row['local_ref'].toString() ) {
-                        body_row['inject_local_ref'] = GetStopInjectLink( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'local_ref', body_row['platform_code'].toString() );
+                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['platform_code'].toString() !== body_row['local_ref'].toString() ) {
+                        body_row['inject_local_ref'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'local_ref', body_row['platform_code'].toString() );
                     }
                  }
             }
