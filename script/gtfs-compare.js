@@ -2508,16 +2508,18 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 }
             }
-            if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
-                if ( body_row['stop_name2'] !== '' ) {
-                    // GTFS vs GTFS
+            if ( body_row['stop_name2'] !== '' ) {
+                // GTFS vs GTFS
+                if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
                         row_style['stop_name'].push('background-color:orange');
                         row_style['stop_name2'].push('background-color:orange');
                         scores['mismatch_count']['name']++;
                     }
-                } else {
-                    // GTFS vs OSM
+                }
+            } else {
+                // GTFS vs OSM
+                if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['name'].toString()) == -1 &&
                              body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
@@ -2552,6 +2554,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
                         body_row['inject_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
                     }
+                }
+                if ( scores['weights']['ref_name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['ref_name'] !== '' ) {
                         if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 &&
                              body_row['ref_name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
@@ -2564,16 +2568,19 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                      right_name_parts.length == 2    ) {
                                     if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
                                          left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
+                                        row_style['stop_name'].push('background-color:orange');
                                         row_style['ref_name'].push('background-color:orange');
                                         row_style['inject_ref_name'] = row_style['ref_name'];
                                         scores['mismatch_count']['ref_name']++;
                                     }
                                 } else {
+                                    row_style['stop_name'].push('background-color:orange');
                                     row_style['ref_name'].push('background-color:orange');
                                     row_style['inject_ref_name'] = row_style['ref_name'];
                                     scores['mismatch_count']['ref_name']++;
                                 }
                             } else {
+                                row_style['stop_name'].push('background-color:orange');
                                 row_style['ref_name'].push('background-color:orange');
                                 row_style['inject_ref_name'] = row_style['ref_name'];
                                 scores['mismatch_count']['ref_name']++;
