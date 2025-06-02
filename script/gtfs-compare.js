@@ -2290,6 +2290,18 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'gtfs:stop_id'    : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 2   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
                                      },
+                                     'weights_name'   : {
+                                        'stops'           : 'ws',
+                                        'distance'        : ['wd0','wd1','wd2'],
+                                        'name'            : 'wn',  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
+                                        'ref_name'        : 'wrn',  // GTFS 'stop_name' versus OSM 'ref_name'
+                                        'stop_id2'        : 'wsi',  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'platform_code'   : 'wpc',  // GTFS 'platform_code' versus GTFS 'platform_code' or OSM 'local_ref'
+                                        'platform_code2'  : 'wpc',  // GTFS 'platform_code' versus GTFS 'platform_code'
+                                        'local_ref'       : 'wpc',  // GTFS 'platform_code' versus OSM 'local_ref'
+                                        'gtfs:stop_id'    : 'wgs',  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
+                                        'ref:IFOPT'       : 'wri'   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                     },
                                      'totals'    : {
                                         'stops'           : max_len,
                                         'distance'        : [max_len,max_len,max_len],
@@ -2341,10 +2353,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                      'over_all_color'  : '',
                                      'over_all_score'  : ''
                                    };
-    scores['weights']['gtfs:stop_id:'+feed]          = 2;  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
-    scores['totals']['gtfs:stop_id:'+feed]           = 0;  // right side: OSM 'gtfs:stop_id:<feed suffix>'
-    scores['mismatch_count']['gtfs:stop_id:'+feed]   = 0;  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
-    scores['mismatch_percent']['gtfs:stop_id:'+feed] = 0;  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
+    scores['weights']['gtfs:stop_id:'+feed]          = 2;      // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
+    scores['weights_name']['gtfs:stop_id:'+feed]     = 'wgf';  // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
+    scores['totals']['gtfs:stop_id:'+feed]           = 0;      // right side: OSM 'gtfs:stop_id:<feed suffix>'
+    scores['mismatch_count']['gtfs:stop_id:'+feed]   = 0;      // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
+    scores['mismatch_percent']['gtfs:stop_id:'+feed] = 0;      // GTFS 'stop_id' versus OSM 'gtfs:stop_id:<feed suffix>'
     scores['mismatch_color']['gtfs:stop_id:'+feed]   = '';
 
     if ( left_len > 0 && right_len > 0 ) {
@@ -2428,7 +2441,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
             // start comparing values left <-> right
 
-            if ( body_row['stop_id'] !== '' && (body_row['stop_id2'] || body_row['gtfs:stop_id'] || body_row['gtfs:stop_id:'+feed] || body_row['ref:IFOPT']) ) {
+            if ( body_row['stop_id'] !== '' ) {
                 if ( scores['weights']['stop_id2'] > 0 && body_row['stop_id2'] !== '' ) {
                     if ( body_row['stop_id'].toString() !== body_row['stop_id2'].toString() ) {
                         row_style['stop_id']  = ['background-color:orange'];
@@ -2495,7 +2508,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 }
             }
-            if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' && (body_row['stop_name2'] || body_row['name'] || body_row['ref_name']) ) {
+            if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
                 if ( body_row['stop_name2'] !== '' ) {
                     // GTFS vs GTFS
                     if ( body_row['stop_name'].toString() !== body_row['stop_name2'].toString() ) {
@@ -2572,7 +2585,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                 }
             }
-            if ( scores['weights']['platform_code'] > 0 && (body_row['platform_code'] !== '' || body_row['platform_code2'] !== '' || body_row['local_ref'] !== '') ) {
+            if ( scores['weights']['platform_code'] > 0 ) {
                 if ( body_row['platform_code'] !== '' && body_row['platform_code2'] !== '' ) {
                     if ( body_row['platform_code'].toString() !== body_row['platform_code2'].toString() ) {
                         row_style['platform_code']  = ['background-color:orange'];
@@ -2705,12 +2718,12 @@ function OverwriteScoreWeightsFromDbOrUrl( scores ) {
             } else if ( 'osm' in JSON_data['left'] && param in JSON_data['left']['osm'] ) {
                 weight = JSON_data['left']['osm'][param];
             }
-            if ( weight && weight.match(/^\d+$/) ) {
+            if ( weight && weight.match(/^(\d+)|(\d+\.\d+)/) ) {
                 if ( param.match(/\d$/) ) {
-                    var arrayindex = param.replace(/^[^0-9]+/,'');
-                    scores['weights'][key][arrayindex] = parseInt(weight);
+                    var arrayindex = param.replace(/^[^0-9\.]+/,'');
+                    scores['weights'][key][arrayindex] = parseFloat(weight);
                 } else {
-                    scores['weights'][key] = parseInt(weight);
+                    scores['weights'][key] = parseFloat(weight);
                 }
             }
         }
@@ -3075,13 +3088,20 @@ function FillTripsScoresTable( scores ) {
                 elem_weight = document.getElementById(score_fields_to_ids[field][i]+'-weight');
                 elem_text   = document.getElementById(score_fields_to_ids[field][i]+'-text');
                 elem_color  = document.getElementById(score_fields_to_ids[field][i]);
-                elem_weight.innerHTML = scores['weights'][field][i];
+                elem_weight.innerHTML = '<span title="Override with URL parameter \'' + scores['weights_name'][field][i] + '\'">' +scores['weights'][field][i] + "</span>";
                 elem.innerHTML = scores['mismatch_percent'][field][i] + '%';
-                if ( field === 'distance' ) {
-                    elem_text.innerHTML = elem_text.innerHTML.replace('xx',scores['distances'][i]);
-                }
-                if ( scores['mismatch_color'][field][i] !== '' ) {
-                    elem_color.style = 'background-color: ' + scores['mismatch_color'][field][i];
+                if ( scores['weights'][field][i] > 0 ) {
+                    if ( field === 'distance' ) {
+                        elem_text.innerHTML = elem_text.innerHTML.replace('xx',scores['distances'][i]);
+                    }
+                    if ( scores['mismatch_color'][field][i] !== '' ) {
+                        elem_color.style = 'background-color: ' + scores['mismatch_color'][field][i];
+                    }
+                } else {
+                    elem.style        = 'background-color: lightblue;';
+                    elem.innerHTML    = '<span title="these combinations are not relevant, their \'weights\' have been set to zero">n/r</span>';
+                    elem_text.style   = 'background-color: lightblue;';
+                    elem_weight.style = 'background-color: lightblue;';
                 }
             }
         } else {
@@ -3089,7 +3109,7 @@ function FillTripsScoresTable( scores ) {
             elem_weight = document.getElementById(score_fields_to_ids[field]+'-weight');
             elem_text   = document.getElementById(score_fields_to_ids[field]+'-text');
             elem_color  = document.getElementById(score_fields_to_ids[field]);
-            elem_weight.innerHTML = scores['weights'][field];
+            elem_weight.innerHTML = '<span title="Override with URL parameter \'' + scores['weights_name'][field] + '\'">' +scores['weights'][field] + "</span>";
             if ( field === 'platform_code' ) {
                 total_of_field = scores['totals'][field] + scores['totals']['platform_code2'] + scores['totals']['local_ref'];
             } else {
