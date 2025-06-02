@@ -93,17 +93,17 @@
                                     </tr>
                                     <tr>
                                         <td id="score-distance0"        class="scores-center"></td>
-                                        <td id="score-distance0-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance0-text"><span title="Override value with URL parameter 'd0'">mismatch of positions of stops by more than xx m</span></td>
                                         <td id="score-distance0-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-distance1"        class="scores-center"></td>
-                                        <td id="score-distance1-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance1-text"><span title="Override value with URL parameter 'd1'">mismatch of positions of stops by more than xx m</span></td>
                                         <td id="score-distance1-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
                                         <td id="score-distance2"        class="scores-center"></td>
-                                        <td id="score-distance2-text">mismatch of positions of stops by more than xx m</td>
+                                        <td id="score-distance2-text"><span title="Override value with URL parameter 'd2'">mismatch of positions of stops by more than xx m</span></td>
                                         <td id="score-distance2-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>

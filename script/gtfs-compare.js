@@ -2362,7 +2362,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
     if ( left_len > 0 && right_len > 0 ) {
 
-        OverwriteScoreWeightsFromDbOrUrl( scores );
+        OverwriteScoreWeightsDistancesFromDbOrUrl( scores );
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -2704,7 +2704,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 }
 
 
-function OverwriteScoreWeightsFromDbOrUrl( scores ) {
+function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
     const DbUrlField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
                                        'wn'  : 'name',               // compare 'stop_name'     left with 'name'/'stop_name' right
                                        'wrn' : 'ref_name',           // compare 'stop_name'     left with 'ref_name' right
@@ -2715,22 +2715,34 @@ function OverwriteScoreWeightsFromDbOrUrl( scores ) {
                                        'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'       left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
                                        'wd0' : 'distance',           //
                                        'wd1' : 'distance',           //
-                                       'wd2' : 'distance'            //
+                                       'wd2' : 'distance',           //
+                                       'd0'  : 'distances',
+                                       'd1'  : 'distances',
+                                       'd2'  : 'distances',
                                      };
     Object.entries(DbUrlField2ComparisonKey).forEach(([param, key]) => {
         if ( key ) {
-            var weight = undefined;
+            var value = undefined;
             if ( param in URLparse() ) {
-                weight = URLparse()[param];
+                value = URLparse()[param];
             } else if ( 'osm' in JSON_data['left'] && param in JSON_data['left']['osm'] ) {
-                weight = JSON_data['left']['osm'][param];
+                value = JSON_data['left']['osm'][param];
             }
-            if ( weight && weight.match(/^(\d+)|(\d+\.\d+)/) ) {
-                if ( param.match(/\d$/) ) {
-                    var arrayindex = param.replace(/^[^0-9\.]+/,'');
-                    scores['weights'][key][arrayindex] = parseFloat(weight);
+            if ( value && value.match(/^(\d+)|(\d+\.\d+)/) ) {
+                if ( param.match('/^w') ) {
+                    if ( param.match(/\d$/) ) {
+                        var arrayindex = param.replace(/^[^0-9\.]+/,'');
+                        scores['weights'][key][arrayindex] = parseFloat(value);
+                    } else {
+                        scores['weights'][key] = parseFloat(value);
+                    }
                 } else {
-                    scores['weights'][key] = parseFloat(weight);
+                    if ( param.match(/\d$/) ) {
+                        var arrayindex = param.replace(/^[^0-9\.]+/,'');
+                        scores[key][arrayindex] = parseFloat(value);
+                    } else {
+                        scores[key] = parseFloat(value);
+                    }
                 }
             }
         }
