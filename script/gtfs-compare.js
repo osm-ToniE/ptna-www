@@ -2690,8 +2690,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','platform_code2','stop_id2','stop_number2'];
             }
             // define which fields values can be shown as is (they intentionally contain HTML tags), i.e. without htmsescape()
-            fields_as_is      = { 'stop_number' : 1, 'info' : 1, 'arrow_left' : 1, 'distance' : 1, 'arrow_right' : 1,
-                                'inject_name' : 1, 'inject_ref_name' : 1, 'inject_local_ref' : 1, 'inject_stop_id' : 1, 'inject_stop_id_feed' : 1, 'inject_ref_IFOPT' : 1, 'platform_number' : 1, 'Edit<br/>with' : 1 };
+            fields_as_is      = { 'stop_number' : 1, 'info' : 1, 'arrow_left' : 1, 'distance' : 1, 'arrow_right' : 1, 'info2' : 1,
+                                'inject_name' : 1, 'inject_ref_name' : 1, 'inject_local_ref' : 1, 'inject_stop_id' : 1, 'inject_stop_id_feed' : 1, 'inject_ref_IFOPT' : 1, 'platform_number' : 1, 'stop_number2' : 1, 'Edit<br/>with' : 1 };
 
             FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores );
             FillTripsScoresTable( scores );
@@ -2729,7 +2729,7 @@ function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
                 value = JSON_data['left']['osm'][param];
             }
             if ( value && value.match(/^(\d+)|(\d+\.\d+)/) ) {
-                if ( param.match('/^w') ) {
+                if ( param.match(/^w/) ) {
                     if ( param.match(/\d$/) ) {
                         var arrayindex = param.replace(/^[^0-9\.]+/,'');
                         scores['weights'][key][arrayindex] = parseFloat(value);
