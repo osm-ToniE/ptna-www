@@ -25,6 +25,7 @@
     $duration += CreateGtfsEntry( "AU-NSW-TfNSW" );
     $duration += CreateGtfsEntry( "AU-QLD-South-East-Queensland" );
     $duration += CreateGtfsEntry( "AU-SA-Adelaide-Metro" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP" );
 ?>
                     </tbody>
                 </table>
