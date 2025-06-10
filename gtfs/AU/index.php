@@ -25,7 +25,14 @@
     $duration += CreateGtfsEntry( "AU-NSW-TfNSW" );
     $duration += CreateGtfsEntry( "AU-QLD-South-East-Queensland" );
     $duration += CreateGtfsEntry( "AU-SA-Adelaide-Metro" );
-    $duration += CreateGtfsEntry( "AU-VIC-DTP" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-1" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-2" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-3" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-4" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-5" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-6" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-10" );
+    $duration += CreateGtfsEntry( "AU-VIC-DTP-11" );
 ?>
                     </tbody>
                 </table>
