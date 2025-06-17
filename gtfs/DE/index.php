@@ -24,6 +24,7 @@
 <?php
     $duration += CreateGtfsEntry( "DE-S-und-U-Bahnen" );
     $duration += CreateGtfsEntry( "DE-BE-VBB" );
+    $duration += CreateGtfsEntry( "DE-BW-BWGesamt" );
     $duration += CreateGtfsEntry( "DE-BW-DING" );
     $duration += CreateGtfsEntry( "DE-BW-HNV" );
     $duration += CreateGtfsEntry( "DE-BW-KV.SHA" );
