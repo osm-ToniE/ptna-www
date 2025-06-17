@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                <?php CreateNewFullEntry( "AU-NSW-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "AU-NSW-Sydney", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "AU-QLD-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "AU-SA-Adelaide-Metro", "en", "Configuration" ); ?>
