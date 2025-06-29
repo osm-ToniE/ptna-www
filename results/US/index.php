@@ -30,11 +30,22 @@
                 <?php CreateNewFullEntry( "US-IL-Metra", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IL-Pace", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-IN-ECT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-BAT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-BRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-CATA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-CCRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-FRTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-GATRA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-LRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-MART", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-MBTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-MeVa", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-MWRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-NRTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-MA-PVTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-SRTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-VTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-MA-WRTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NV-RTC", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NY-MTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-RI-RIPTA", "en", "Configuration" ); ?>
