@@ -43,6 +43,12 @@
                 <td class="option-description">&#039;highway&#039; = &#039;bus_stop&#039; ist nur auf Nodes erlaubt, nicht auf Ways oder Areas.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-check-dates">
+                <td class="option-option">check-dates</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">Prüfung, ob Datumsangaben dem ISO-Format entsprechen: JJJJ-MM-TT</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
                 <td class="option-option">check-gtfs</td>
                 <td class="option-default">OFF</td>

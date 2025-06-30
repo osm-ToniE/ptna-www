@@ -43,6 +43,12 @@
                 <td class="option-description">&#039;highway&#039;=&#039;bus_stop&#039; s&#039;applique aux nœuds uniquement et pas aux voies ou surfaces.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-check-dates">
+                <td class="option-option">check-dates</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">Check dates to follow ISO format: YYYY-MM-DD</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
                 <td class="option-option">check-gtfs</td>
                 <td class="option-default">OFF</td>
