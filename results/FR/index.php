@@ -77,6 +77,8 @@
 
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-GES-Colibri", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-GES-CTS", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-GES-STAN", "fr", "Configuration" ); ?>
