@@ -97,51 +97,53 @@
 
                 $sql    = "SELECT * FROM queue ORDER BY queued DESC;";
                 $result = $db->query( $sql );
-                while ( $queue_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
-                    ReadDetails($queue_infos['network']);
-                    printf( "<tr class=\"statistics-tablerow\">\n" );
-                    $htmlwebpath=GetHtmlFileWebPath();
-                    if ( $queue_infos['status'] == 'finished' && $htmlwebpath ) {
-                        printf( "    <td class=\"statistics-name\"><a href=\"%s\" title=\"Report File\">%s</a></td>\n", $htmlwebpath, $queue_infos['network'] );
-                    } else {
-                        printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network'] );
-                    }
-                    printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['status']   );
-                    if ( $queue_infos['queued'] ) {
-                        printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['queued']) );
-                    } else {
-                        printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
-                    }
-                    if ( $queue_infos['started'] ) {
-                        printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['started']) );
-                    } else {
-                        printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
-                    }
-                    if ( $queue_infos['finished'] ) {
-                        printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['finished']) );
-                    } else {
-                        printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
-                    }
-                    if ( $queue_infos['status'] == 'finished' ) {
-                        $diffwebpath=GetDiffFileWebPath();
-                        if ( $diffwebpath ) {
-                            printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"Diff File\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
+                if ( $result ) {
+                    while ( $queue_infos=$result->fetchArray(SQLITE3_ASSOC) ) {
+                        ReadDetails($queue_infos['network']);
+                        printf( "<tr class=\"statistics-tablerow\">\n" );
+                        $htmlwebpath=GetHtmlFileWebPath();
+                        if ( $queue_infos['status'] == 'finished' && $htmlwebpath ) {
+                            printf( "    <td class=\"statistics-name\"><a href=\"%s\" title=\"Report File\">%s</a></td>\n", $htmlwebpath, $queue_infos['network'] );
                         } else {
-                            printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                            printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['network'] );
                         }
-                    } else if ( $queue_infos['status'] == 'outdated' ) {
-                        printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
-                    } else {
-                        printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
+                        printf( "    <td class=\"statistics-name\">%s</td>\n", $queue_infos['status']   );
+                        if ( $queue_infos['queued'] ) {
+                            printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['queued']) );
+                        } else {
+                            printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
+                        }
+                        if ( $queue_infos['started'] ) {
+                            printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['started']) );
+                        } else {
+                            printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
+                        }
+                        if ( $queue_infos['finished'] ) {
+                            printf( "    <td class=\"statistics-date\">%s UTC</td>\n", date("Y-m-d H:i:s",$queue_infos['finished']) );
+                        } else {
+                            printf( "    <td class=\"statistics-date\">&nbsp;</td>\n" );
+                        }
+                        if ( $queue_infos['status'] == 'finished' ) {
+                            $diffwebpath=GetDiffFileWebPath();
+                            if ( $diffwebpath ) {
+                                printf( "    <td class=\"statistics-size\"><a href=\"%s\" title=\"Diff File\">%d</a></td>\n", $diffwebpath, $queue_infos['changes'] );
+                            } else {
+                                printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                            }
+                        } else if ( $queue_infos['status'] == 'outdated' ) {
+                            printf( "    <td class=\"statistics-size\">%d</td>\n", $queue_infos['changes'] );
+                        } else {
+                            printf( "    <td class=\"statistics-size\">&nbsp;</td>\n" );
+                        }
+                        if ( $queue_infos['status'] == 'started' || $queue_infos['status'] == 'finished' ) {
+                            printf( "    <td class=\"statistics-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">logs</td>\n", $queue_infos['network'] );
+                        } else if ( $queue_infos['status'] == 'locked' ) {
+                            printf( "    <td class=\"statistics-name\">Another analysis for this 'network' was already running when this one was ready to be started</td>\n" );
+                        } else {
+                            printf( "    <td class=\"statistics-name\">&nbsp;</td>\n" );
+                        }
+                        printf( "</tr>\n" );
                     }
-                    if ( $queue_infos['status'] == 'started' || $queue_infos['status'] == 'finished' ) {
-                        printf( "    <td class=\"statistics-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">logs</td>\n", $queue_infos['network'] );
-                    } else if ( $queue_infos['status'] == 'locked' ) {
-                        printf( "    <td class=\"statistics-name\">Another analysis for this 'network' was already running when this one was ready to be started</td>\n" );
-                    } else {
-                        printf( "    <td class=\"statistics-name\">&nbsp;</td>\n" );
-                    }
-                    printf( "</tr>\n" );
                 }
                 $sql    = "COMMIT TRANSACTION";
                 $result = $db->exec( $sql );
