@@ -638,6 +638,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: das Ende der Route auf dem letzten Weg (%s) ist nicht in der Nähe der letzten Haltestellenplattform (%s).</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description">The final point of the last way (&#039;role&#039; = &#039;&#039;) of the relation is far from the last &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real last platform is missing or that the platforms are not well sorted.</td>
+                <td class="message-fix">Check that the last way in the route relation is actually the last way of the trip before using &#039;Relatify&#039;.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name-relaxed</td>
@@ -670,6 +678,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: der Startpunkt der Route auf dem ersten Weg (%s) ist nicht in der Nähe der ersten Haltestellenplattform (%s).</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description">The starting point on the first way (&#039;role&#039; = &#039;&#039;) of the relation is far from the first &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real first platform is missing or that the platforms are not well sorted.</td>
+                <td class="message-fix">Check that the first way in the route relation is actually the first way of the trip before using &#039;Relatify&#039;.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: der erste Punkt des Fahrweges hat die &#039;role&#039; = &#039;stop_exit_only&#039;. Sind die Wege der Route falsch herum sortiert?</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-sequence</td>
@@ -699,14 +715,6 @@
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der erste Weg (%s) ist nicht in der Nähe der ersten Haltestellenplatform (%s). Distanz = %d Meter.</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description">The first way (&#039;role&#039; = &#039;&#039;) of the relation is far from the first &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real first platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the first way in the route relation is actually the first way of the trip before using &#039;Relatify&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -747,14 +755,6 @@
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der letzte Weg (%s) ist nicht in der Nähe der letzten Haltestellenplatform (%s). Distanz = %d Meter.</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description">The last way (&#039;role&#039; = &#039;&#039;) of the relation is far from the last &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real last platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the last way in the route relation is actually the last way of the trip before using &#039;Relatify&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
