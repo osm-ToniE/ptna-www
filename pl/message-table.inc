@@ -438,6 +438,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are not the same.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are the same.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; is not set and the first and the last platform stops are the same.</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: &#039;to&#039; is not set</td>
                 <td class="message-type">Uwagi</td>
                 <td class="message-option">check-name</td>

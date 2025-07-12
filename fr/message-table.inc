@@ -1150,6 +1150,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are not the same.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are the same.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; is not set and the first and the last platform stops are the same.</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: the beginning of the route on the first way (%s) is not near the first platform stop (%s).</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>

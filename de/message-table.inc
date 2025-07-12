@@ -582,6 +582,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;rountrip&#039; = &#039;%s&#039; und die erste und letzte Haltestellenplattformen sind identisch.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;rountrip&#039; = &#039;%s&#039; und die erste und letzte Haltestellenplattformen sind nicht identisch.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;rountrip&#039; ist nicht gesetzt und die erste und letzte Haltestellenplattformen sind identisch.</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: &#039;to&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
