@@ -758,49 +758,9 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : il n&#039;y a aucun arrêt &#039;public_transport&#039; = &#039;stop_position&#039; ni aucune plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : il n&#039;y a pas d&#039;arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : il n&#039;y a pas d&#039;arrêt sur la dernière voie %s de cette ligne</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : il n&#039;y a pas de plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : il n&#039;y a qu&#039;un seul arrêt &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : il n&#039;y a qu&#039;une seule plateforme &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1094,14 +1054,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne avec seulement 1 nœud</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Ligne avec seulement 1 voie</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -1130,14 +1082,6 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description">La ligne maître ne contient pas de ligne (ne devrait pas arriver avec la requête Overpass API, voir &#039;La requête Overpass API n&#039;aboutit pas&#039;).</td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne sans nœud(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -1187,6 +1131,46 @@
                 <td class="message-option">check-sequence</td>
                 <td class="message-description">The final point of the last way (&#039;role&#039; = &#039;&#039;) of the relation is far from the last &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real last platform is missing or that the platforms are not well sorted.</td>
                 <td class="message-fix">Check that the last way in the route relation is actually the last way of the trip before using &#039;Relatify&#039;.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node) and no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -1287,6 +1271,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route with only 1 Stop(Node)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route without Stops(Nodes)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

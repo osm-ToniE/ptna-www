@@ -670,24 +670,24 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there are no &#039;public_transport&#039; = &#039;stop_position&#039; and no &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node) and no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
                 <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Uwagi</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Uwagi</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -710,7 +710,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -718,7 +718,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -935,6 +935,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route might be listed with &#039;ref&#039; = &#039;%s&#039; in a different section or in section &#039;Not clearly assigned routes&#039; of this analysis: %s</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route with only 1 Stop(Node)</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route without Stops(Nodes)</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1302,14 +1318,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Trasa bez węzła(ów)</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Trasa z relacją(ami)</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -1319,14 +1327,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Trasa z tylko 1 linią</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Trasa z tylko 1 węzłem</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

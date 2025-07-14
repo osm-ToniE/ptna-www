@@ -726,24 +726,24 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there are no &#039;public_transport&#039; = &#039;stop_position&#039; and no &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node) and no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
                 <td class="message-type">Errors</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039;</td>
-                <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
@@ -766,7 +766,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -774,7 +774,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -974,7 +974,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route with only 1 Node</td>
+                <td class="message-text">Route with only 1 Stop(Node)</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -990,7 +990,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route without Node(s)</td>
+                <td class="message-text">Route without Stops(Nodes)</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

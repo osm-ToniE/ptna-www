@@ -822,7 +822,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area oder Relation)</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -830,7 +830,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -838,7 +838,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; und keine &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; (Node) und keine &#039;public_transport&#039; = &#039;platform&#039; (Node, Wy, Area oder Relation)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -870,7 +870,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;platform&#039;</td>
+                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area oder Relation)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -878,7 +878,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;stop_position&#039;</td>
+                <td class="message-text">PTv2 Route: es gibt nur eine &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1078,7 +1078,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route mit nur einem Node</td>
+                <td class="message-text">Route mit nur einem Stop (Node)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1094,7 +1094,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route ohne Node(s)</td>
+                <td class="message-text">Route ohne Stops (Nodes)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
