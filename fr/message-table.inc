@@ -358,6 +358,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">La date n&#039;existe pas</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">La ligne a moins de parcours (%d au lieu de %d) que dans les données sources</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -526,6 +534,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">La valeur de &#039;%s&#039; (= &#039;%s&#039;) devrait être définie avec le format ISO 8601 : AAAA-MM-JJ</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Le &#039;ref&#039; n&#039;est pas indiqué. Ligne %s des données d&#039;itinéraires. Contenu : &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -646,6 +662,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2  : la fin de la ligne / la dernière voie (%s) n&#039;est pas à coté de la dernière plateforme (%s).</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description">Le dernier nœud de la dernière voie (&#039;role&#039; = &#039;&#039;) de la relation est éloigné du dernier &#039;role&#039; = &#039;platform&#039;, plus que 20 mètres. Ceci pourrait être une indication que les voies de la ligne ne sont pas triées de la bonne façon ou qu&#039;il y a un trou. Ceci pourrait être une indication que la vraie dernière plateforme est manquante ou que les plateformes ne sont pas triées de la bonne façon.</td>
+                <td class="message-fix">Vérifiez que la dernière voie de la ligne est en fait la dernière voie du parcours avant d&#039;utiliser &#039;Relatify&#039;.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 :  &#039;%s&#039; = &#039;yes&#039; manquant sur &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -758,6 +782,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a aucun &#039;public_transport&#039; = &#039;platform&#039; (nœud, chemin, surface ou relation)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a aucun &#039;public_transport&#039; = &#039;stop_position&#039; (nœud)</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il n&#039;y a aucun &#039;public_transport&#039; = &#039;stop_position&#039; (nœud) et aucun &#039;public_transport&#039; = &#039;platform&#039; (nœud, chemin, surface ou relation)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : il n&#039;y a pas d&#039;arrêt sur la dernière voie %s de cette ligne</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
@@ -782,6 +830,22 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il y a seulement un &#039;public_transport&#039; = &#039;stop_position&#039; (nœud)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : il y a un seul &#039;public_transport&#039; = &#039;platform&#039; (nœud, chemin, surface ou relation)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : incohérence entre &#039;role&#039; = &#039;%s&#039; et &#039;public_transport&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -801,6 +865,30 @@
                 <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;ref&#039; ne fait pas partie du nom &#039;name&#039;</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme ne sont identiques.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme sont identiques.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; n&#039;est pas indiqué alors que la première et dernière plateformes sont identiques.</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -899,6 +987,14 @@
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : le début de la ligne / la première voie (%s) n&#039;est pas à coté de la première plateforme (%s).</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description">Le premier nœud de la première voie (&#039;role&#039; = &#039;&#039;) de la relation est éloigné du premier &#039;role&#039; = &#039;platform&#039;, plus que 20 mètres. Ceci pourrait être une indication que les voies de la ligne ne sont pas triées de la bonne façon ou qu&#039;il y a un trou. Ceci pourrait être une indication que la vraie première plateforme est manquante ou que les plateformes ne sont pas triées de la bonne façon.</td>
+                <td class="message-fix">Vérifiez que la première voie de la ligne est en fait la première voie du parcours avant d&#039;utiliser &#039;Relatify&#039;.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -1046,6 +1142,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne avec 1 seul arrêt (nœud)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne avec relation(s)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -1086,87 +1190,15 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne sans aucun arrêt (nœud)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne sans voie(s)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are not the same.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; and the first and the last platform stops are the same.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;roundtrip&#039; is not set and the first and the last platform stops are the same.</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: the beginning of the route on the first way (%s) is not near the first platform stop (%s).</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description">The starting point on the first way (&#039;role&#039; = &#039;&#039;) of the relation is far from the first &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real first platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the first way in the route relation is actually the first way of the trip before using &#039;Relatify&#039;.</td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: the end of the route on the last way (%s) is not near the last platform stop (%s).</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description">The final point of the last way (&#039;role&#039; = &#039;&#039;) of the relation is far from the last &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real last platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the last way in the route relation is actually the last way of the trip before using &#039;Relatify&#039;.</td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is no &#039;public_transport&#039; = &#039;stop_position&#039; (Node) and no &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area or Relation)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: there is only one &#039;public_transport&#039; = &#039;stop_position&#039; (Node)</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1272,38 +1304,6 @@
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
                 <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route with only 1 Stop(Node)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route without Stops(Nodes)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">The date does not exist</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">The value of &#039;%s&#039; (= &#039;%s&#039;) should be specified in ISO 8601 format: YYYY-MM-DD</td>
-                <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>

@@ -46,7 +46,7 @@
             <tr class="option-tablerow" id="option-check-dates">
                 <td class="option-option">check-dates</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Check dates to follow ISO format: YYYY-MM-DD</td>
+                <td class="option-description">Vérifiez que les dates sont au format ISO : AAAA-MM-JJ</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
