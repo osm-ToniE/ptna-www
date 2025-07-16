@@ -39,6 +39,7 @@
     $duration += CreateGtfsEntry( "US-MA-SRTA" );
     $duration += CreateGtfsEntry( "US-MA-VTA" );
     $duration += CreateGtfsEntry( "US-MA-WRTA" );
+    $duration += CreateGtfsEntry( "US-MI-SMART" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Bronx-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Brooklyn-Bus" );
     $duration += CreateGtfsEntry( "US-NY-MTA-Bus-Company" );
