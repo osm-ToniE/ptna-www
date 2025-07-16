@@ -1031,7 +1031,7 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                 addtags_uri   = '&amp;addtags=';
                 for ( var i = 0; i < addtags_count; i++ ) {
                     addtags_uri   += encodeURIComponent(addtags[i]);
-                    addtags_title += "\n- " + htmlEscape(addtags[i]);
+                    addtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";
                     if ( i < addtags_count - 1 )
                     {
                         addtags_uri   += encodeURIComponent('|');
@@ -1072,14 +1072,16 @@ function GetStopInjectLink( relation_id, platform_id, object_type, p_tag, p_valu
     var html = '';
 
     if ( relation_id && platform_id && object_type && p_tag ) {
-        var addtags_uri   = '&amp;addtags=' + encodeURIComponent(p_tag+'='+p_value);;
-        var addtags_title = "\n- " + htmlEscape(p_tag+'='+p_value);
+        var addtags_uri   = '&amp;addtags=' + encodeURIComponent(p_tag+'='+p_value);
+        var addtags_title = p_value
+                            ? "Inject\n- " + htmlEscape("'"+p_tag+"'"+' = '+"'"+p_value+"'") + "\ninto"
+                            : "Delete\n- " + htmlEscape("'"+p_tag+"'")                       + "\nfrom";
         if ( object_type == "node" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform node ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=n' + platform_id + addtags_uri + '" target="hiddenIframe" title="' + addtags_title + ' platform node ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         } else if ( object_type == "way" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform way ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=w' + platform_id + addtags_uri + '" target="hiddenIframe" title="' + addtags_title + ' platform way ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         } else if ( object_type == "relation" ) {
-            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=r' + platform_id + addtags_uri + '" target="hiddenIframe" title="Inject' + addtags_title + "\n" + 'into platform relation ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
+            html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;objects=r' + platform_id + addtags_uri + '" target="hiddenIframe" title="' + addtags_title + ' platform relation ' + platform_id + ' using JOSM"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
         }
     }
 
