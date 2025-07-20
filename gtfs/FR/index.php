@@ -67,6 +67,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Express" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Proximite" );
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Scolaire" );
+    $duration += CreateGtfsEntry( "FR-SNCF" );
 ?>
                     </tbody>
                 </table>
