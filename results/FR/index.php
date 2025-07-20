@@ -16,6 +16,21 @@
 
 <?php include $inc_lang.'results-head.inc' ?>
 
+            <h2 id="trains">Transports ferroviaires en France</h2>
+            <table id="networksFRtrain">
+                <thead>
+<?php include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
+
+                    <?php CreateNewFullEntry( "FR-SNCF", "fr", "Configuration" ); ?>
+
+                </tbody>
+            </table>
+
+            <hr />
+
+            <h2 id="others">Transports publics par région</h2>
             <table id="networksFR">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
