@@ -60,6 +60,8 @@
 
                     <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration" ); ?>
 
+                    <?php CreateNewFullEntry("FR-BRE-Dinamo", "fr", "Configuration" ); ?>
+
                     <?php CreateNewFullEntry("FR-BRE-Distribus", "fr", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration" ); ?>
