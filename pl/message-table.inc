@@ -1094,6 +1094,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: incorrect access restriction (%s) to way. Consider tagging as &#039;busway&#039;=&#039;%s&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: restricted access (%s) to way without &#039;psv&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;designated&#039;, or ...</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option">check-access</td>
@@ -1102,7 +1110,23 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (&#039;bus&#039;=&#039;school&#039;) to way for a route relation not tagged with &#039;bus&#039;=&#039;school&#039;</td>
+                <td class="message-text">Route: restricted access (%s) to way. Consider tagging as &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=designated, or ... along with &#039;motor_vehicle=&#039;no&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: restricted access (%s) to way. The key &#039;%s&#039; also includes public transport buses</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: restricted access (&#039;%s&#039;=&#039;school&#039;) to way for a route relation not tagged with &#039;bus&#039;=&#039;school&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1134,7 +1158,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: suspicious access restriction (%s) to way. Check whether this should be &#039;%s:lanes&#039;=&#039;%s&#039;</td>
+                <td class="message-text">Route: suspicious access restriction (%s) to way. Check whether this should be &#039;%s:lanes%s&#039;=&#039;%s&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

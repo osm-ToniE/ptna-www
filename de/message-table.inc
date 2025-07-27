@@ -1278,7 +1278,23 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: eingeschränkte Befahrbarkeit (&#039;bus&#039;=&#039;school&#039;) auf Weg für eine Routen-Relation, die nicht mit &#039;bus&#039;=&#039;school&#039; getagged ist</td>
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Wegen. Der Schlüssel &#039;%s&#039; beinhaltet auch ÖPNV-Busse</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Wegen. Gegebenenfalls mappen als &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;designated&#039;, oder ... zusammen mit &#039;motor_vehicle&#039;=&#039;no&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (&#039;%s&#039;=&#039;school&#039;) auf Weg für eine Routen-Relation, die nicht mit &#039;bus&#039;=&#039;school&#039; getagged ist</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1299,6 +1315,14 @@
                 <td class="message-option">check-access</td>
                 <td class="message-description">Die Beschränkung stimmt nicht mit den Map Features überein.</td>
                 <td class="message-fix">Bitte konsultiere das OSM Wiki: https://wiki.openstreetmap.org/wiki/DE:Map_Features#Beschränkungen</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: fehlerhafte Beschränkung (%s) auf Weg. Gegebenenfalls mappen als &#039;busway&#039;=&#039;%s&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -1326,7 +1350,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: verdächtige Beschränkung (%s) auf Weg. Prüfe, ob das nicht &#039;%s:lanes&#039;=&#039;%s&#039; sein sollte</td>
+                <td class="message-text">Route: verdächtige Beschränkung (%s) auf Weg. Prüfe, ob das nicht &#039;%s:lanes%s&#039;=&#039;%s&#039; sein sollte</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

@@ -150,7 +150,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : restriction (%s) d&#039;accès douteuse sur une voie. Vérifier si celle-ci devrait être &#039;%s;lanes&#039;=&#039;%s&#039;</td>
+                <td class="message-text">Itinéraire : restriction (%s) d&#039;accès douteuse sur une voie. Vérifier si celle-ci devrait être &#039;%s;lanes%s&#039;=&#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -158,7 +158,15 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : restriction d&#039;accès (&#039;bus&#039;=&#039;school&#039;) sur une voie d&#039;un itinéraire sans attribut bus scolaire &#039;bus&#039;=&#039;school&#039;</td>
+                <td class="message-text">Itinéraire : restriction d&#039;accès (&#039;%s&#039;=&#039;school&#039;) sur une voie d&#039;un itinéraire sans attribut bus scolaire &#039;bus&#039;=&#039;school&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Itinéraire : restriction d&#039;accès au chemin incorrecte (%s). Il est recommandé d&#039;utiliser &#039;busway&#039;=&#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -870,7 +878,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme ne sont identiques.</td>
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme ne sont pas identiques.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -886,7 +894,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; n&#039;est pas indiqué alors que la première et dernière plateformes sont identiques.</td>
+                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; n&#039;est pas indiqué alors que la première et la dernière plateforme sont identiques.</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1303,6 +1311,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: restricted access (%s) to way. Consider tagging as &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=designated, or ... along with &#039;motor_vehicle=&#039;no&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Route: restricted access (%s) to way. The key &#039;%s&#039; also includes public transport buses</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
