@@ -1350,14 +1350,6 @@
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="Trasa PTv2: ma przerwę, składa się z %d segmentów. Przerwa pojawia się przy linii" /><span class="message-tooltiptext">Trasa PTv2: ma przerwę, składa się z %d segmentów. Przerwa pojawia się przy linii</span></div></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Trasa PTv2: pusta rola członka relacji</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Trasa PTv2: używa drogi jednokierunkowej pod prąd</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option">check-sequence</td>
