@@ -510,7 +510,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039; for a relation object which has &#039;public_transport&#039;=&#039;stop_position&#039; set.</td>
+                <td class="message-text">PTv2 route: empty &#039;role&#039; for a relation object which has &#039;public_transport&#039;=&#039;stop_position&#039; set. For PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; is allow on nodes only</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -518,7 +518,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039; for a way object which has &#039;public_transport&#039;=&#039;stop_position&#039; set.</td>
+                <td class="message-text">PTv2 route: empty &#039;role&#039; for a way object which has &#039;public_transport&#039;=&#039;stop_position&#039; set. For PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; is allow on nodes only</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
