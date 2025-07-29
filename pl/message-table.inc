@@ -502,6 +502,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039; and &#039;public_transport&#039; is not set on object</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039;. Consider setting &#039;role&#039;=&#039;platform&#039; or &#039;role&#039;=&#039;platform_entry_ony&#039; or &#039;role&#039;=&#039;platform_exit_only&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039;. Consider setting &#039;role&#039;=&#039;stop&#039; or &#039;role&#039;=&#039;stop_entry_only&#039; or &#039;role&#039;=&#039;stop_exit_only&#039;</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039;. Unknown value for &#039;public_transport&#039; on object (=&#039;%s&#039;)</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: first node of oneway way has &#039;role&#039; = &#039;stop_exit_only&#039;</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option">check-sequence</td>

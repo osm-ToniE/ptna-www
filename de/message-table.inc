@@ -665,8 +665,8 @@
                 <td class="message-text">PTv2 Route: das Ende der Route auf dem letzten Weg (%s) ist nicht in der Nähe der letzten Haltestellenplattform (%s).</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-sequence</td>
-                <td class="message-description">The final point of the last way (&#039;role&#039; = &#039;&#039;) of the relation is far from the last &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real last platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the last way in the route relation is actually the last way of the trip before using &#039;Relatify&#039;.</td>
+                <td class="message-description">Der Endpunkt auf dem letzten Weg (leere &#039;role&#039;) der Relation ist weit entfernt vom letzten &#039;role&#039; = &#039;platform&#039;, mehr als 20 Meter. Dies könnte ein Hinweis darauf sein, dass die Wege der Route nicht gut sortiert sind, dass die Route eine Lücke aufweist. Dies könnte ein Hinweis darauf sein, dass die eigentliche letzte Plattform fehlt oder dass die Plattformen nicht gut sortiert sind.</td>
+                <td class="message-fix">Überprüfe, ob der letzte Weg in der Relation tatsächlich der letzte Weg der Fahrt ist, bevor „Relatify“ verwendet wird.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -705,8 +705,8 @@
                 <td class="message-text">PTv2 Route: der Startpunkt der Route auf dem ersten Weg (%s) ist nicht in der Nähe der ersten Haltestellenplattform (%s).</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-sequence</td>
-                <td class="message-description">The starting point on the first way (&#039;role&#039; = &#039;&#039;) of the relation is far from the first &#039;role&#039; = &#039;platform&#039;, more than 20 meters. This could be an indication that the ways of the route are not well sorted, that the route has a gap. This could be an indication that the real first platform is missing or that the platforms are not well sorted.</td>
-                <td class="message-fix">Check that the first way in the route relation is actually the first way of the trip before using &#039;Relatify&#039;.</td>
+                <td class="message-description">Der Startpunkt auf dem ersten Weg (leere &#039;role&#039;) der Relation ist weit entfernt vom ersten &#039;role&#039; = &#039;platform&#039;, mehr als 20 Meter. Dies könnte ein Hinweis darauf sein, dass die Wege der Route nicht gut sortiert sind, dass die Route eine Lücke aufweist. Dies könnte ein Hinweis darauf sein, dass die eigentliche erste Plattform fehlt oder dass die Plattformen nicht gut sortiert sind.</td>
+                <td class="message-fix">Überprüfe, ob der erste Weg in der Relation tatsächlich der erste Weg der Fahrt ist, bevor „Relatify“ verwendet wird.</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -967,6 +967,38 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: leere &#039;role&#039;</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: leere &#039;role&#039; und &#039;public_transport&#039; ist am Objekt nicht gesetzt</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: leere &#039;role&#039;. Gegebenenfalls &#039;role&#039;=&#039;platform&#039; oder &#039;role&#039;=&#039;platform_entry_only&#039; oder &#039;role&#039;=&#039;platform_exit_only&#039; setzen</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: leere &#039;role&#039;. Gegebenenfalls &#039;role&#039;=&#039;stop&#039; oder &#039;role&#039;=&#039;stop_entry_only&#039; oder &#039;role&#039;=&#039;stop_exit_only&#039; setzen</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: leere &#039;role&#039;. Unbekannter Wert für &#039;public_transport&#039; ist am Objekt getagged (=&#039;%s&#039;)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
