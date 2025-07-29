@@ -1334,6 +1334,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: see</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">l&#039;attribut &#039;route&#039; n&#039;est pas défini : %s</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>

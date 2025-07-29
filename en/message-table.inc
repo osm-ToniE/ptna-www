@@ -1230,6 +1230,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: see</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: suspicious %s along with &#039;highway&#039; unequal to &#039;construction&#039; on way</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-access</td>
