@@ -1214,6 +1214,22 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039; for a relation object which has &#039;public_transport&#039;=&#039;stop_position&#039; set.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: empty &#039;role&#039; for a way object which has &#039;public_transport&#039;=&#039;stop_position&#039; set.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: empty &#039;role&#039;. Consider setting &#039;role&#039;=&#039;platform&#039; or &#039;role&#039;=&#039;platform_entry_ony&#039; or &#039;role&#039;=&#039;platform_exit_only&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
