@@ -1326,7 +1326,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Route: see</td>
+                <td class="message-text">Route: siehe</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
