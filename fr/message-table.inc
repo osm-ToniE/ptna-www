@@ -630,6 +630,22 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Ligne : accès restreint sur la voie (%s), la clé &#039;%s&#039; inclus également des lignes de transport en commun</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : accès restreint sur la voie (%s). Il est recommandé d&#039;avoir &#039;%s&#039;=&#039;yes&#039; ou &#039;%s&#039;=designated&#039; en plus de &#039;motor_vehicle=&#039;no&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Ligne : l&#039;attribut &#039;ref&#039; = &#039;%s&#039; sur un arrêt doit correspondre au numéro de l&#039;arrêt, mais semble être le numéro &#039;ref&#039; = &#039;%s&#039; de cet itinéraire %s</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-route-ref</td>
@@ -667,6 +683,30 @@
                 <td class="message-option">check-service-type</td>
                 <td class="message-description">Le véhicule utilise une voie de type &#039;service&#039; qui n&#039;est pas considérée comme appropriée pour les itinéraires de transports en commun. Les itinéraires de transports en commune ne devraient pas utiliser des voies indiquées avec &#039;service&#039; = &#039;alley&#039;, &#039;driveway&#039;, &#039;emergence&#039;, &#039;drive-through&#039; ou &#039;parking_aisle&#039;.</td>
                 <td class="message-fix">Vérifiez l&#039;itinéraire et envisager d&#039;effacer l&#039;attribut &#039;service&#039; de la voie.</td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne : voir</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2  : &#039;role&#039; vide et &#039;public_transport&#039; n&#039;est pas défini sur l&#039;objet</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2  : &#039;role&#039; vide. Valeur inconnue pour &#039;public_transport&#039; sur l&#039;objet (=&#039;%s&#039;)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
@@ -719,6 +759,38 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : &#039;public_transport&#039; = &#039;stop_position&#039; ne fait pas partie de la voie</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide pour une relation qui possède l&#039;attribut &#039;public_transport&#039;=&#039;stop_position&#039;. Avec le schéma PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; n&#039;est possible que sur des nœuds</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide pour une voie qui possède l&#039;attribut &#039;public_transport&#039;=&#039;stop_position&#039;. Avec le schéma PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; n&#039;est possible que sur des nœuds</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide. Il est recommandé de mettre &#039;role&#039;=&#039;platform&#039; ou &#039;role&#039;=&#039;platform_entry_ony&#039; ou &#039;role&#039;=&#039;platform_exit_only&#039;</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide. Il est recommandé de mettre &#039;role&#039;=&#039;stop&#039; ou &#039;role&#039;=&#039;stop_entry_only&#039; ou &#039;role&#039;=&#039;stop_exit_only&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1206,54 +1278,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039; and &#039;public_transport&#039; is not set on object</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039; for a relation object which has &#039;public_transport&#039;=&#039;stop_position&#039; set. For PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; is allow on nodes only</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039; for a way object which has &#039;public_transport&#039;=&#039;stop_position&#039; set. For PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; is allow on nodes only</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039;. Consider setting &#039;role&#039;=&#039;platform&#039; or &#039;role&#039;=&#039;platform_entry_ony&#039; or &#039;role&#039;=&#039;platform_exit_only&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039;. Consider setting &#039;role&#039;=&#039;stop&#039; or &#039;role&#039;=&#039;stop_entry_only&#039; or &#039;role&#039;=&#039;stop_exit_only&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: empty &#039;role&#039;. Unknown value for &#039;public_transport&#039; on object (=&#039;%s&#039;)</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Parcour PTv2: le rond-point apparaît deux fois, se suivant</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
@@ -1352,30 +1376,6 @@
             <tr class="message-tablerow">
                 <td class="message-text">Plusieurs lignes mais pas de ligne maître</td>
                 <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (%s) to way. Consider tagging as &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=designated, or ... along with &#039;motor_vehicle=&#039;no&#039;</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (%s) to way. The key &#039;%s&#039; also includes public transport buses</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: see</td>
-                <td class="message-type">Notes</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
