@@ -35,13 +35,13 @@
                     <?php CreateNewFullEntry( "FR-OCC-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-PAC-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-PDL-TER", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry( "FR-20R-TER", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "FR-20R-CFC", "fr", "Configuration" ); ?>
                 </tbody>
             </table>
 
             <hr />
 
-            <h2 id="others">Transports publics par région</h2>
+            <h2 id="others">Autres transports publics par région</h2>
             <table id="networksFR">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
