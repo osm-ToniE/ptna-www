@@ -253,6 +253,12 @@
                 <td class="option-description">Vérification souple du début et de la fin des lignes sans tenir compte des arrêts (pour les &#039;train&#039;, &#039;tram&#039;, &#039;light_rail&#039;).</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-roundtrip-distance">
+                <td class="option-option">roundtrip-distance</td>
+                <td class="option-default">0</td>
+                <td class="option-description">Consider a route tagged with &#039;roundtrip&#039;=&#039;yes&#039; as OK if the distance between first and last platform stops does not exceed the defined value.</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-separator">
                 <td class="option-option">separator</td>
                 <td class="option-default">;</td>

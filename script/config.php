@@ -46,7 +46,7 @@
         $options_hash['ptv1-compatibility']         = 'no';
         $options_hash['ref-separator']              = '/';
         $options_hash['relaxed-begin-end-for']      = '';
-        $options_hash['roundtrip-distance']         = 0;
+        $options_hash['roundtrip-distance']         = 50;
         $options_hash['separator']                  = ';';
         $options_hash['show-gtfs']                  = 'OFF';
         $options_hash['strict-network']             = 'OFF';

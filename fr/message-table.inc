@@ -942,14 +942,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme ne sont pas identiques.</td>
-                <td class="message-type">Erreurs</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : l&#039;attribut &#039;roundtrip&#039; = &#039;%s&#039; alors que la première et dernière plateforme sont identiques.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -1271,6 +1263,30 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Ligne sans voie(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;%s&#039; but the first and the last platform stops are not the same.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;yes&#039; and the first and the last platform stops are less than %d metres / %d feet apart (actual distance = %d metres / %d feet).</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;roundtrip&#039; = &#039;yes&#039; but the first and the last platform stops are more than %d metres / %d feet apart (actual distance = %d metres / %d feet).</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

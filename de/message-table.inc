@@ -582,6 +582,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;roundtrip&#039; = &#039;%s&#039; aber die erste und letzte Haltestellenplattformen sind nicht identisch.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: &#039;roundtrip&#039; = &#039;%s&#039; und die erste und letzte Haltestellenplattformen sind identisch.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -590,8 +598,16 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: &#039;roundtrip&#039; = &#039;%s&#039; und die erste und letzte Haltestellenplattformen sind nicht identisch.</td>
+                <td class="message-text">PTv2 Route: &#039;roundtrip&#039; = &#039;yes&#039; aber die erste und letzte Haltestellenplattformen sind mehr als %d Meter / %d Fuß von einander entfernt (tatsächliche Distanz = %d Meter / %d Fuß).</td>
                 <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;roundtrip&#039; = &#039;yes&#039; und die erste und letzte Haltestellenplattformen sind weniger als %d Meter / %d Fuß von einander entfernt (tatsächliche Distanz = %d Meter / %d Fuß).</td>
+                <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
