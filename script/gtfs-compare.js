@@ -2504,7 +2504,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                 }
                             }
                             if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_id'].toString() !== body_row['ref:IFOPT'].toString() ) {
-                                body_row['inject_ref_IFOPT']  = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT'+feed, body_row['stop_id'].toString() );
+                                body_row['inject_ref_IFOPT']  = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref:IFOPT', body_row['stop_id'].toString() );
                             }
                        }
                     }
