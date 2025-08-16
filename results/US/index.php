@@ -52,6 +52,7 @@
                 <?php CreateNewFullEntry( "US-MD-Baltimore", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NV-RTC", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-NY-MTA", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-PA-SEPTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-RI-RIPTA", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-UT-All", "en", "Configuration" ); ?>
