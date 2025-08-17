@@ -1350,12 +1350,12 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Parcours PTv2 : a un trou, consistent en %d segments. Le trou apparaît sur le chemin</td>
+                <td class="message-text">Parcours PTv2 : consistent en %d segments, a un trou. Le trou apparaît sur le chemin</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-sequence</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
-                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="Parcours PTv2 : a un trou, consistent en %d segments. Le trou apparaît sur le chemin" /><span class="message-tooltiptext">Parcours PTv2 : a un trou, consistent en %d segments. Le trou apparaît sur le chemin</span></div></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="Parcours PTv2 : consistent en %d segments, a un trou. Le trou apparaît sur le chemin" /><span class="message-tooltiptext">Parcours PTv2 : consistent en %d segments, a un trou. Le trou apparaît sur le chemin</span></div></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Parcours PTv2 : utilise %d rond-point complet mais n&#039;utilise que des segments</td>

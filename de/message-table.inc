@@ -678,6 +678,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: besteht aus %d Segmenten, hat eine Lücke. Die Lücke ist bei dem Weg</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="PTv2 Route: besteht aus %d Segmenten, hat eine Lücke. Die Lücke ist bei dem Weg" /><span class="message-tooltiptext">PTv2 Route: besteht aus %d Segmenten, hat eine Lücke. Die Lücke ist bei dem Weg</span></div></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: das Ende der Route auf dem letzten Weg (%s) ist nicht in der Nähe der letzten Haltestellenplattform (%s).</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-sequence</td>
@@ -972,14 +980,6 @@
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg" /><span class="message-tooltiptext">PTv2 Route: hat eine Lücke, besteht aus %d Segmenten. Die Lücke ist bei dem Weg</span></div></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: leere &#039;role&#039; und &#039;public_transport&#039; ist am Objekt nicht gesetzt</td>

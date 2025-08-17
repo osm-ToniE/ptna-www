@@ -518,6 +518,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: consists of %d segments, has a gap. Gap appears at way</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option">check-sequence</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="PTv2 route: consists of %d segments, has a gap. Gap appears at way" /><span class="message-tooltiptext">PTv2 route: consists of %d segments, has a gap. Gap appears at way</span></div></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: empty &#039;role&#039; and &#039;public_transport&#039; is not set on object</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -1372,14 +1380,6 @@
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Trasa PTv2: ma przerwę, składa się z %d segmentów. Przerwa pojawia się przy linii</td>
-                <td class="message-type">Błędy</td>
-                <td class="message-option">check-sequence</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"><div class="message-tooltip"><img src="/img/message-has_gaps.png" alt="Trasa PTv2: ma przerwę, składa się z %d segmentów. Przerwa pojawia się przy linii" /><span class="message-tooltiptext">Trasa PTv2: ma przerwę, składa się z %d segmentów. Przerwa pojawia się przy linii</span></div></td>
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Trasa PTv2: używa drogi jednokierunkowej pod prąd</td>
