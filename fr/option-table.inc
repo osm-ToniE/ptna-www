@@ -255,8 +255,8 @@
             </tr>
             <tr class="option-tablerow" id="option-roundtrip-distance">
                 <td class="option-option">roundtrip-distance</td>
-                <td class="option-default">0</td>
-                <td class="option-description">Consider a route tagged with &#039;roundtrip&#039;=&#039;yes&#039; as OK if the distance between first and last platform stops does not exceed the defined value.</td>
+                <td class="option-default">50</td>
+                <td class="option-description">Une ligne taguée avec &#039;roundtrip&#039;=&#039;yes&#039; est considérée comme correct si la distance entre la première et la dernière plateforme n&#039;excède pas une certaine valeur.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-separator">
