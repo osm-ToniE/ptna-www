@@ -47,6 +47,7 @@
     $duration += CreateGtfsEntry( "FR-GES-STAN" );
     $duration += CreateGtfsEntry( "FR-NAQ-TBM" );
     $duration += CreateGtfsEntry( "FR-NOR-Atoumod" );
+    $duration += CreateGtfsEntry( "FR-NOR-Hobus" );
     $duration += CreateGtfsEntry( "FR-OCC-liO" );
     $duration += CreateGtfsEntry( "FR-OCC-Tisseo" );
     $duration += CreateGtfsEntry( "FR-PAC-Altigo" );
