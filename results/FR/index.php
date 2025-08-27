@@ -152,6 +152,7 @@
                     <?php CreateNewFullEntry("FR-PAC-Var", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-PAC-Vaucluse", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-PAC-Zou", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-PDL-Aleop_44", "fr", "Configuration" ); ?>
                 </tbody>
             </table>
 
