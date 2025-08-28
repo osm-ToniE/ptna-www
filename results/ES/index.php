@@ -30,6 +30,8 @@
 
                     <?php CreateNewFullEntry( "ES-AR-Z-Tranvia", "es", "Configuración" ); ?>
 
+                    <?php CreateNewFullEntry( "ES-CN-TILP", "es", "Configuración" ); ?>
+
                 </tbody>
             </table>
 
