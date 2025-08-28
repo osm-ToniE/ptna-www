@@ -4,3 +4,4 @@
 # ignore test pages
 test.php
 test-*.php
+test-*.js
