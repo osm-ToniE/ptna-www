@@ -99,8 +99,8 @@ function showtriponmap() {
     var polyline_platform_array = [];
     var polyline_shapes_array   = [];
 
-    var gpx_lat_array  = [];
-    var gpx_lon_array  = [];
+    var gtfs_lat_array = [];
+    var gtfs_lon_array = [];
     var label_string   = '';
 
     var stop_table = document.getElementById( "gtfs-single-trip" );
@@ -116,9 +116,10 @@ function showtriponmap() {
             var stop_node  = stop_list[i];
             var sub_td     = stop_node.getElementsByTagName( "td" );
 
-            var gpx_name = "-unknown-";
-            var gpx_lat  = "-1";
-            var gpx_lon  = "-1";
+            var gtfs_name    = "-unknown-";
+            var gtfs_stop_id = "-unkonwn-";
+            var gtfs_lat     = "-1";
+            var gtfs_lon     = "-1";
 
             //    evaluate all columns of gtfs-single-trip rows
             for ( var j = 0; j < sub_td.length; j++ )
@@ -137,37 +138,41 @@ function showtriponmap() {
 
                 if ( key == "gtfs-stop-name" )
                 {
-                    gpx_name = value;
+                    gtfs_name = value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");;
                 }
                 else if ( key == "gtfs-stop-name normalized-name" ) {
                     value = keyvalue.firstChild.firstChild.data;
-                    gpx_name = value;
+                    gtfs_name = value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");;
                 }
                 else if ( key == "gtfs-lat" )
                 {
-                    gpx_lat  = value;
+                    gtfs_lat  = value;
                 }
                 else if ( key == "gtfs-lon")
                 {
-                    gpx_lon = value;
+                    gtfs_lon = value;
+                }
+                else if ( key == "gtfs-stop-id")
+                {
+                    gtfs_stop_id = value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
                 }
             }
 
-            gpx_lat_array[i] = gpx_lat;
-            gpx_lon_array[i] = gpx_lon;
+            gtfs_lat_array[i] = gtfs_lat;
+            gtfs_lon_array[i] = gtfs_lon;
             label_string     = '';
 
             for ( var k = 0; k < i; k++ ) {
-                if ( gpx_lat_array[k] == gpx_lat && gpx_lon_array[k] == gpx_lon ) {
+                if ( gtfs_lat_array[k] == gtfs_lat && gtfs_lon_array[k] == gtfs_lon ) {
                     label_string += (k+1) + '+';
                 }
             }
 
             label_string += (i+1);
-            L.circle([gpx_lat,gpx_lon],{color:colours['platform'],radius:0.75,fill:true}).addTo(layerplatforms);
-            L.marker([gpx_lat,gpx_lon],{color:colours['platform'],icon:icons['platform']}).bindTooltip(label_string.toString(),{permanent:true,direction:'center'}).bindPopup("Platform " + label_string.toString() + ': ' + gpx_name).addTo(layerplatforms);
+            L.circle([gtfs_lat,gtfs_lon],{color:colours['platform'],radius:0.75,fill:true}).addTo(layerplatforms);
+            L.marker([gtfs_lat,gtfs_lon],{color:colours['platform'],icon:icons['platform']}).bindTooltip(label_string.toString(),{permanent:true,direction:'center'}).bindPopup("Platform " + label_string.toString() + "<br />stop_name: " + gtfs_name + "<br />stop_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: " + gtfs_stop_id).addTo(layerplatforms);
 
-            polyline_platform_array.push( [gpx_lat, gpx_lon] );
+            polyline_platform_array.push( [gtfs_lat, gtfs_lon] );
 
         }
     }
@@ -186,8 +191,8 @@ function showtriponmap() {
             var sh_node    = sh_list[i];
             var sub_td     = sh_node.getElementsByTagName( "td" );
 
-            var gpx_lat  = "-1";
-            var gpx_lon  = "-1";
+            var gtfs_lat   = "-1";
+            var gtfs_lon   = "-1";
 
             //    evaluate all columns of gtfs-single-trip rows
             for ( var j = 0; j < sub_td.length; j++ )
@@ -206,15 +211,15 @@ function showtriponmap() {
 
                 if ( key == "gtfs-lat" )
                 {
-                    gpx_lat  = value;
+                    gtfs_lat = value;
                 }
                 else if ( key == "gtfs-lon")
                 {
-                    gpx_lon = value;
+                    gtfs_lon = value;
                 }
             }
 
-            polyline_shapes_array.push( [gpx_lat, gpx_lon] );
+            polyline_shapes_array.push( [gtfs_lat, gtfs_lon] );
 
         }
 
@@ -227,6 +232,17 @@ function showtriponmap() {
     var platform_route = L.polyline(polyline_platform_array,{color:colours['platform'],weight:3,fill:false}).bindPopup("Platform Route").addTo( layerplatformsroute );
 
     var shape_route    = L.polyline(polyline_shapes_array,{color:colours['shape'],weight:3,fill:false}).bindPopup("Shape Route").addTo( layershaperoute );
+
+    L.polylineDecorator(shape_route, {
+        patterns: [{
+            offset: '.1%',
+            repeat: '.2%',
+            symbol: L.Symbol.arrowHead({
+                pixelSize: 8,
+                pathOptions: { color: colours['shape'], weight: 3, opacity: 0.9 }
+            })
+        }]
+    }).addTo( layershaperoute );
 
     map.fitBounds(platform_route.getBounds());
 
@@ -308,10 +324,6 @@ function showshapeonmap() {
 
     var polyline_shapes_array   = [];
 
-    var gpx_lat_array  = [];
-    var gpx_lon_array  = [];
-    var label_string   = '';
-
     var sh_table = document.getElementById( "gtfs-shape" );
 
     if ( sh_table ) {
@@ -325,8 +337,8 @@ function showshapeonmap() {
             var sh_node    = sh_list[i];
             var sub_td     = sh_node.getElementsByTagName( "td" );
 
-            var gpx_lat  = "-1";
-            var gpx_lon  = "-1";
+            var gtfs_lat   = "-1";
+            var gtfs_lon   = "-1";
 
             //    evaluate all columns of gtfs-single-trip rows
             for ( var j = 0; j < sub_td.length; j++ )
@@ -345,15 +357,15 @@ function showshapeonmap() {
 
                 if ( key == "gtfs-lat" )
                 {
-                    gpx_lat  = value;
+                    gtfs_lat = value;
                 }
                 else if ( key == "gtfs-lon")
                 {
-                    gpx_lon = value;
+                    gtfs_lon = value;
                 }
             }
 
-            polyline_shapes_array.push( [gpx_lat, gpx_lon] );
+            polyline_shapes_array.push( [gtfs_lat, gtfs_lon] );
 
         }
 
@@ -362,6 +374,17 @@ function showshapeonmap() {
     }
 
     var shape_route    = L.polyline(polyline_shapes_array,{color:colours['shape'],weight:3,fill:false}).bindPopup("Shape Route").addTo( layershaperoute );
+
+    L.polylineDecorator(shape_route, {
+        patterns: [{
+            offset: '.1%',
+            repeat: '.1%',
+            symbol: L.Symbol.arrowHead({
+                pixelSize: 8,
+                pathOptions: { color: colours['shape'], weight: 3, opacity: 0.9 }
+            })
+        }]
+    }).addTo( layershaperoute );
 
     map.fitBounds(shape_route.getBounds());
 

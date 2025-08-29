@@ -898,7 +898,20 @@ function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon, d
         }
     } else if ( match == "route" || match == "shape" ) {
         if ( draw_also ) {
-            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
+            var shape_route = L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
+
+            if ( match == "shape" ) {
+                L.polylineDecorator(shape_route, {
+                    patterns: [{
+                        offset: '.1%',
+                        repeat: '.1%',
+                        symbol: L.Symbol.arrowHead({
+                            pixelSize: 8,
+                            pathOptions: { color: colours[lor], weight: 3, opacity: 0.9 }
+                        })
+                    }]
+                }).addTo( layershape[lor] );
+            }
         }
     }
 
