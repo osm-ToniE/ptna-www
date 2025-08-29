@@ -1868,12 +1868,12 @@
                             $bbox = GetBbox( $row["stop_lat"], $row["stop_lon"], 15 );
                             printf( ', %sleft=%s&right=%s&top=%s&bottom=%s%s', '<a href="http://127.0.0.1:8111/load_and_zoom?', $bbox['left'],$bbox['right'],$bbox['top'],$bbox['bottom'], '&new_layer=false" target="hiddenIframe" title="Download area (30 m * 30 m) in JOSM">JOSM</a>' );
                             echo '</td>' . "\n";
-                            echo '                                <td class="gtfs-date">'     . htmlspecialchars($row["departure_time"])                                     . '</td>' . "\n";
-                            echo '                                <td class="gtfs-lat">'      . htmlspecialchars($row["stop_lat"])                                           . '</td>' . "\n";
-                            echo '                                <td class="gtfs-lon">'      . htmlspecialchars($row["stop_lon"])                                           . '</td>' . "\n";
-                            echo '                                <td class="gtfs-id">'       . htmlspecialchars($row["stop_id"])                                            . '</td>' . "\n";
-                            echo '                                <td class="gtfs-id">'       . htmlspecialchars(isset($row["platform_code"]) ? $row["platform_code"] : '') . '</td>' . "\n";
-                            echo '                                <td class="gtfs-comment">'  . HandlePtnaComment($row)                                                      . '</td>' . "\n";
+                            echo '                                <td class="gtfs-date">'         . htmlspecialchars($row["departure_time"])                                     . '</td>' . "\n";
+                            echo '                                <td class="gtfs-lat">'          . htmlspecialchars($row["stop_lat"])                                           . '</td>' . "\n";
+                            echo '                                <td class="gtfs-lon">'          . htmlspecialchars($row["stop_lon"])                                           . '</td>' . "\n";
+                            echo '                                <td class="gtfs-stop-id">'      . htmlspecialchars($row["stop_id"])                                            . '</td>' . "\n";
+                            echo '                                <td class="gtfs-platform-id">'  . htmlspecialchars(isset($row["platform_code"]) ? $row["platform_code"] : '') . '</td>' . "\n";
+                            echo '                                <td class="gtfs-comment">'      . HandlePtnaComment($row)                                                      . '</td>' . "\n";
                             echo '                            </tr>' . "\n";
                         }
 
@@ -2524,10 +2524,10 @@
                                 echo '????';
                             }
                             echo ' - '  . htmlspecialchars($row["trip_id"]) . '</a>';
-                            if ( isset($row["trip_short_name"]) ) {
+                            if ( isset($row["trip_short_name"]) && $row["trip_short_name"] ) {
                                 echo ' - ' . htmlspecialchars($row["trip_short_name"]);
                             }
-                            if ( isset($row["trip_headsign"]) ) {
+                            if ( isset($row["trip_headsign"]) && $row["trip_headsign"] ) {
                                 echo ' => ' . htmlspecialchars($row["trip_headsign"]);
                             }
                             echo '</li>' . "\n";

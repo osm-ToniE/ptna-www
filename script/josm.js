@@ -274,7 +274,7 @@ function route_osm() {
                                         .replace(/"/g, "&quot;")
                                         .replace(/'/g, "&#039;");;
                 }
-                else if ( key == "gtfs-id") {
+                else if ( key == "gtfs-stop-id") {
                     stop_id =  value.replace(/&/g, "&amp;")
                                     .replace(/</g, "&lt;")
                                     .replace(/>/g, "&gt;")
