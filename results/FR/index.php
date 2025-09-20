@@ -58,7 +58,7 @@
                     <?php CreateNewFullEntry("FR-BRE-ARBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-AXEOBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Bibus", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-CORALIE", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-Coralie", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Dinamo", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Distribus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Glazgo", "fr", "Configuration" ); ?>
