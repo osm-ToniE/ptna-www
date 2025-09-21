@@ -2099,19 +2099,23 @@
                             $list_departure_times = explode( $list_separator, $result['list_departure_times'] );
                             $list_service_ids     = explode( $list_separator, $result['list_service_ids'] );
                             for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
-                                if ( !isset($service_departure[$list_service_ids[$i]]) ) {
-                                    $service_departure[$list_service_ids[$i]] = $list_departure_times[$i] . ',';
-                                } else {
-                                    $service_departure[$list_service_ids[$i]] .= $list_departure_times[$i] . ',';
+                                if ( isset($list_service_ids[$i]) && isset($list_departure_times[$i]) ) {
+                                    if ( !isset($service_departure[$list_service_ids[$i]]) ) {
+                                        $service_departure[$list_service_ids[$i]] = $list_departure_times[$i] . ',';
+                                    } else {
+                                        $service_departure[$list_service_ids[$i]] .= $list_departure_times[$i] . ',';
+                                    }
                                 }
                             }
                             if ( isset($result['list_durations']) ) {
                                 $list_durations = explode( $list_separator, $result['list_durations'] );
                                 for ( $i = 0; $i < count($list_trip_ids); $i++ ) {
-                                    if ( !isset($service_durations[$list_service_ids[$i]]) ) {
-                                        $service_durations[$list_service_ids[$i]] = $list_durations[$i] . ',';
-                                    } else {
-                                        $service_durations[$list_service_ids[$i]] .= $list_durations[$i] . ',';
+                                    if ( isset($list_service_ids[$i]) && isset($list_durations[$i]) ) {
+                                        if ( !isset($service_durations[$list_service_ids[$i]]) ) {
+                                            $service_durations[$list_service_ids[$i]] = $list_durations[$i] . ',';
+                                        } else {
+                                            $service_durations[$list_service_ids[$i]] .= $list_durations[$i] . ',';
+                                        }
                                     }
                                 }
                             }
