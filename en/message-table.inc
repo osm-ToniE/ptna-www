@@ -878,6 +878,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: way leads into/through roundabout/closed way %s</td>
+                <td class="message-type">Errors</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: wrong &#039;role&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Errors</td>
                 <td class="message-option"></td>

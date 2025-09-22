@@ -670,6 +670,14 @@
                 <td class="message-image"><div class="message-tooltip"><img src="/img/message-roundabout_appears_twice.png" alt="PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst" /><span class="message-tooltiptext">PTv2 Route: Kreisverkehr tritt doppelt auf, direkt nach sich selbst</span></div></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: Weg führt durch/in einen Kreisverkehr/eine Fläche %s</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: befährt %d kompletten Kreisverkehr von dem aber nur Teile benutzt werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-sequence<br />check-roundabout</td>
