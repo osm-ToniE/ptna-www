@@ -150,7 +150,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Itinéraire : restriction (%s) d&#039;accès douteuse sur une voie. Vérifier si celle-ci devrait être &#039;%s;lanes%s&#039;=&#039;%s&#039;</td>
+                <td class="message-text">Itinéraire : restriction (%s) d&#039;accès douteuse sur une voie. Vérifier si celle-ci devrait être &#039;%s:lanes%s&#039;=&#039;%s&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
