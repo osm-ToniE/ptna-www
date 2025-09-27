@@ -3,7 +3,7 @@
     <th class="statistics-date js-sort-none" colspan="3">Timezone (winter/summer)</th>
     <th class="statistics-date js-sort-none" colspan="1">OSM Data</th>
     <th class="statistics-date js-sort-none" colspan="3">Overpass-API Download</th>
-    <th class="statistics-date js-sort-none" colspan="3">Filter Planet Extract</th>
+    <th class="statistics-date js-sort-none" colspan="3">Handle Individual Planet Extract</th>
     <th class="statistics-date js-sort-none" colspan="1">Routes Data</th>
     <th class="statistics-date js-sort-none" colspan="3">Analysis</th>
     <th class="statistics-date js-sort-none" colspan="1">Log</th>
