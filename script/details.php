@@ -51,6 +51,7 @@
             $details_hash['ROUTES_NAME']  = '';
             $details_hash['ROUTES_SIZE']  = 0;
             $details_hash['ROUTES_RET']   = 0;
+            $details_hash['ERROR_MISSING_DATA']   = 0;
             if ( file_exists($details_filename) ) {
                 $lines = file( $details_filename, FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES  );
                 foreach ( $lines as $line ) {

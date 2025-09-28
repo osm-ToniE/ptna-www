@@ -299,6 +299,14 @@
         return( '' );
     }
 
+    function GetErrorMissingData() {
+        global $details_hash;
+        if ( isset($details_hash['ERROR_MISSING_DATA']) ) {
+            return( $details_hash['ERROR_MISSING_DATA'] );
+        }
+        return( 0 );
+    }
+
     function GetEndAnalysisDate() {
         global $details_hash;
         if ( isset($details_hash['END_ANALYSIS']) ) {
