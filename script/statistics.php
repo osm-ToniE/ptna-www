@@ -19,32 +19,33 @@
 
         if ( ReadDetails($network) ) {
 
-            $osm_xml_file_name  = GetOsmXmlFileName();
-            $start_download     = GetStartDownloadDate();
-            $end_download       = GetEndDownloadDate();
-            $duration_download  = 0;
-            $size_download      = GetOsmXmlFileSizeByte();
-            $start_filter       = GetStartFilterDate();
-            $end_filter         = GetEndFilterDate();
-            $duration_filter    = 0;
-            $size_extract       = GetOsmPbfFileSizeByte();
-            $routes_link        = GetRoutesLink();
-            $osm_base           = GetOsmBase();
-            $routes_size        = GetRoutesSize();
-            $routes_date        = GetRoutesDate();
-            $routes_ret         = GetRoutesRet();
-            $analysis_webpath   = GetHtmlFileWebPath();
-            $analysis_filepath  = GetHtmlFilePath();
-            $start_analysis     = GetStartAnalysisDate();
-            $end_analysis       = GetEndAnalysisDate();
-            $duration_analysis  = 0;
-            $has_changes        = HasChanges();
-            $html_diff          = GetHtmlDiff();
-            $diff_webpath       = GetDiffFileWebPath();
-            $tzname             = GetDetailsTZNAME();
-            $tzshort            = GetDetailsTZSHORT();
-            $utc                = GetDetailsUTC();
-            $error_missing_data = GetErrorMissingData();
+            $osm_xml_file_name      = GetOsmXmlFileName();
+            $start_download         = GetStartDownloadDate();
+            $end_download           = GetEndDownloadDate();
+            $duration_download      = 0;
+            $size_download          = GetOsmXmlFileSizeByte();
+            $start_filter           = GetStartFilterDate();
+            $end_filter             = GetEndFilterDate();
+            $duration_filter        = 0;
+            $size_extract           = GetOsmPbfFileSizeByte();
+            $routes_link            = GetRoutesLink();
+            $osm_base               = GetOsmBase();
+            $routes_size            = GetRoutesSize();
+            $routes_date            = GetRoutesDate();
+            $routes_ret             = GetRoutesRet();
+            $analysis_webpath       = GetHtmlFileWebPath();
+            $analysis_filepath      = GetHtmlFilePath();
+            $start_analysis         = GetStartAnalysisDate();
+            $end_analysis           = GetEndAnalysisDate();
+            $duration_analysis      = 0;
+            $has_changes            = HasChanges();
+            $html_diff              = GetHtmlDiff();
+            $diff_webpath           = GetDiffFileWebPath();
+            $tzname                 = GetDetailsTZNAME();
+            $tzshort                = GetDetailsTZSHORT();
+            $utc                    = GetDetailsUTC();
+            $error_missing_data     = GetErrorMissingData();
+            $error_getid_notfound   = GetErrorGetidNotFound();
             printf( "<tr class=\"statistics-tablerow\">\n" );
             printf( "    <td class=\"statistics-network\">%s</td>\n", $network );
             printf( "    <td class=\"statistics-name\">%s</td>\n",    $utc     );
@@ -169,8 +170,8 @@
             } else {
                 printf( "    <td class=\"statistics-date\"></td>\n");
             }
-            if ( $error_missing_data ) {
-                printf( "    <td class=\"statistics-size-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">Log (%d)</a></td>\n", $network, $error_missing_data );
+            if ( $error_missing_data || $error_getid_notfound ) {
+                printf( "    <td class=\"statistics-size-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">Log (%d/%d)</a></td>\n", $network, $error_missing_data, $error_getid_notfound );
             } else {
                 printf( "    <td class=\"statistics-size-name\"><a href=\"/en/showlogs.php?network=%s\" title=\"Log file\">Log</a></td>\n", $network );
             }

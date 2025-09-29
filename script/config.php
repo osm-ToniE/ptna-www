@@ -307,6 +307,14 @@
         return( 0 );
     }
 
+    function GetErrorGetidNotFound() {
+        global $details_hash;
+        if ( isset($details_hash['ERROR_GETID_NOTFOUND']) ) {
+            return( $details_hash['ERROR_GETID_NOTFOUND'] );
+        }
+        return( 0 );
+    }
+
     function GetEndAnalysisDate() {
         global $details_hash;
         if ( isset($details_hash['END_ANALYSIS']) ) {
