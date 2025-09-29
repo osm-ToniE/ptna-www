@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                    <?php CreateNewFullEntry( "GB-GLG-SPT", "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "GB-IOW-SV", "en", "Configuration" ); ?>
 
                 </tbody>
