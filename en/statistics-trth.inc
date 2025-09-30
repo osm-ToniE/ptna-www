@@ -24,5 +24,5 @@
     <th class="statistics-date js-sort-string">&#x21C5;Started</th>
     <th class="statistics-duration js-sort-number">&#x21C5;Duration [h:m:s]</th>
     <th class="statistics-date js-sort-number">&#x21C5;Changes</th>
-    <th class="statistics-date js-sort-none">Data</th>
+    <th class="statistics-date js-sort-string">&#x21C5;Data</th>
 </tr>
