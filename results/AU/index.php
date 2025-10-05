@@ -25,6 +25,7 @@
                 <?php CreateNewFullEntry( "AU-NSW-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "AU-QLD-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "AU-SA-Adelaide-Metro", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "AU-TAS-All", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
