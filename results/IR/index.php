@@ -23,6 +23,7 @@
                 <tbody>
 
                 <?php CreateNewFullEntry( "IR-07-Shiraz", "fa", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "IR-23-Tehran", "fa", "Configuration" ); ?>
 
                 </tbody>
             </table>
