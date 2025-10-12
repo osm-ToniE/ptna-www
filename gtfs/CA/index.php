@@ -22,6 +22,7 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "CA-AB-ETS" );
     $duration += CreateGtfsEntry( "CA-MB-WT" );
     $duration += CreateGtfsEntry( "CA-NB-CT" );
     $duration += CreateGtfsEntry( "CA-QC-RTC" );
