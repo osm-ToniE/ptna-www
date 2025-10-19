@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                <?php CreateNewFullEntry( "CA-AB-CT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-AB-ETS", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-MB-WT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-NB-CT", "en", "Configuration" ); ?>
