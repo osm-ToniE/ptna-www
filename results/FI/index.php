@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "FI-11-Nysee", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "FI-11-Nysse", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
