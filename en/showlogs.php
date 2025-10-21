@@ -28,6 +28,8 @@
                     } elseif ( isset($_GET['planet']) && $_GET['planet'] ) {
                         $timezone = preg_replace('/ /', '+', $_GET['planet'] );
                         PrintPlanetAnalysisLogs( $timezone );
+                    } elseif ( isset($_GET['job']) && $_GET['job'] ) {
+                        PrintCronJobAnalysisLogs( $_GET['job'] );
                     } elseif ( isset($_GET['continent']) && $_GET['continent'] ) {
                         PrintContinentAnalysisLogs( $_GET['continent'] );
                     } elseif ( isset($_GET['queue']) && $_GET['queue'] ) {

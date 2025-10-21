@@ -44,13 +44,20 @@
             <hr />
 
             Cron jobs for continents:
-            <a href="showlogs.php?continent=africa-europe" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel @ 02:15</a>
+            <a href="showlogs.php?job=africa-europe-israel" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel (UTC+03, UTC+02, UTC+01, UTC+00) @ 02:15 Munich, DE time</a>
 
             <hr />
 
-            Planet update, filter, and extracts:
-            <a href="showlogs.php?planet=UTC%2B03" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel: UTC+03, UTC+02, UTC+01, UTC+00</a>
+            Update and filter jobs for continents:
+            <a href="showlogs.php?continent=africa" title="Show logs for continent handling: Africa">Africa</a>
+            <a href="showlogs.php?continent=asia"   title="Show logs for continent handling: Asia">Asia</a>
+            <a href="showlogs.php?continent=europe" title="Show logs for continent handling: Europe">Europe</a>
 
+            <!-- <hr />
+
+            Individual extracts and analysis:
+            <a href="showlogs.php?planet=UTC%2B03" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel: UTC+03, UTC+02, UTC+01, UTC+00</a>
+            -->
             <hr />
 
             Supported timezones (wintertime):
