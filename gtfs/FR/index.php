@@ -42,6 +42,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
     $duration += CreateGtfsEntry( "FR-BRE-SURF" );
     $duration += CreateGtfsEntry( "FR-BRE-TILT" );
+    $duration += CreateGtfsEntry( "FR-BRE-TUB" );
     $duration += CreateGtfsEntry( "FR-BRE-TUDBUS" );
     $duration += CreateGtfsEntry( "FR-CVL-TAO" );
     $duration += CreateGtfsEntry( "FR-GES-CTS" );
