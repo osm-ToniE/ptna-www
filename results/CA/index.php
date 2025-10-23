@@ -27,6 +27,7 @@
                 <?php CreateNewFullEntry( "CA-MB-WT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-NB-CT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-Burlington-Transit", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "CA-ON-TTC", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-QC-RTC", "fr", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-QC-STLevis", "fr", "Configuration" ); ?>
 

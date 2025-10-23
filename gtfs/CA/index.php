@@ -26,6 +26,7 @@
     $duration += CreateGtfsEntry( "CA-AB-ETS" );
     $duration += CreateGtfsEntry( "CA-MB-WT" );
     $duration += CreateGtfsEntry( "CA-NB-CT" );
+    $duration += CreateGtfsEntry( "CA-ON-TTC" );
     $duration += CreateGtfsEntry( "CA-QC-RTC" );
     $duration += CreateGtfsEntry( "CA-QC-STLevis" );
 ?>
