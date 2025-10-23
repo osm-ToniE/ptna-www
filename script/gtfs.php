@@ -1363,7 +1363,7 @@
                     $rep_trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $rep_trip_id ) {
-                        $sql = sprintf( "SELECT *
+                        $sql = sprintf( "SELECT *, routes.route_short_name
                                          FROM   routes
                                          JOIN   trips ON trips.route_id = routes.route_id
                                          WHERE  trip_id='%s';",
@@ -1426,6 +1426,9 @@
                         }
                         if ( preg_match("/$osm_vehicle$/",$osm_ref) ) {
                             $osm_ref = preg_replace( "/\s+$osm_vehicle$/", "", $osm_ref );
+                        }
+                        if ( preg_match("/^.*?$osm_vehicle /",$osm_ref) ) {
+                            $osm_ref = preg_replace( "/^.*?$osm_vehicle /", "", $osm_ref );
                         }
                         $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
                         $osm_text_colour    = isset($routes['route_text_color'])     ? htmlspecialchars($routes['route_text_color'])     : '000000';
@@ -2682,7 +2685,7 @@
                     $trip_id    = isset($trip['trip_id']) ? $trip['trip_id'] : '';
 
                     if ( $trip_id ) {
-                        $sql = sprintf( "SELECT route_short_name
+                        $sql = sprintf( "SELECT routes.route_short_name
                                          FROM   routes
                                          JOIN   trips ON trips.route_id = routes.route_id
                                          WHERE  trip_id='%s';",
