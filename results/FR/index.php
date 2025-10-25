@@ -138,6 +138,7 @@
                     <?php CreateNewFullEntry("FR-IDF-vybus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-NOR-Altobus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Hobus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Nomad_Car", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Twisto", "fr", "Configuration" ); ?>
