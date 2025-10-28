@@ -13,6 +13,7 @@
         $options_hash['check-bus-stop']             = 'OFF';
         $options_hash['check-dates']                = 'OFF';
         $options_hash['check-gtfs']                 = 'OFF';
+        $options_hash['check-from-via-to']          = 'OFF';
         $options_hash['check-motorway-link']        = 'OFF';
         $options_hash['check-name-relaxed']         = 'OFF';
         $options_hash['check-name']                 = 'OFF';

@@ -1354,7 +1354,7 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description">La restriction d&#039;accès ne correspond pas aux fonctions de la carte.</td>
-                <td class="message-fix">Veuillez consulter le Wiki OSM : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
+                <td class="message-fix">Please consult the OSM Wiki : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

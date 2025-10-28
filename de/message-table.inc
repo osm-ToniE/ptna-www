@@ -1378,7 +1378,7 @@
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description">Die Beschränkung stimmt nicht mit den Map Features überein.</td>
-                <td class="message-fix">Bitte konsultiere das OSM Wiki: https://wiki.openstreetmap.org/wiki/DE:Map_Features#Beschränkungen</td>
+                <td class="message-fix">Please consult the OSM Wiki : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

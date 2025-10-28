@@ -1170,7 +1170,7 @@
                 <td class="message-type">Błędy</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description">Ograniczenia dostępu nie zgadzają z elementami mapy.</td>
-                <td class="message-fix">Proszę sprawdź na OSM Wiki: https://wiki.openstreetmap.org/wiki/Template:Pl:Map_Features:restrictions</td>
+                <td class="message-fix">Please consult the OSM Wiki : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

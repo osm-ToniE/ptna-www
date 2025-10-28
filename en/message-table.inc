@@ -1242,7 +1242,7 @@
                 <td class="message-type">Errors</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description">The access restriction does not comply with the map features.</td>
-                <td class="message-fix">Please consult the OSM Wiki: https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
+                <td class="message-fix">Please consult the OSM Wiki : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">

@@ -49,6 +49,12 @@
                 <td class="option-description">Vérifiez que les dates sont au format ISO : AAAA-MM-JJ</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-check-from-via-to">
+                <td class="option-option">check-from-via-to</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">Check that &#039;from&#039;, &#039;via&#039; and &#039;to&#039; match with corresponding platform &#039;name&#039; values.</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
                 <td class="option-option">check-gtfs</td>
                 <td class="option-default">OFF</td>
