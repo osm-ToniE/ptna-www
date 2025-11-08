@@ -2743,7 +2743,7 @@ function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
             } else if ( 'osm' in JSON_data['left'] && param in JSON_data['left']['osm'] ) {
                 value = JSON_data['left']['osm'][param];
             }
-            if ( value && value.match(/^(\d+)|(\d+\.\d+)/) ) {
+            if ( typeof value !== 'undefined' && value.match(/^(\d+)|(\d+\.\d+)/) ) {
                 if ( param.match(/^w/) ) {
                     if ( param.match(/\d$/) ) {
                         var arrayindex = param.replace(/^[^0-9\.]+/,'');
