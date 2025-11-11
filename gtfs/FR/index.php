@@ -25,6 +25,7 @@
     $duration += CreateGtfsEntry( "FR-974-Alterneo" );
     $duration += CreateGtfsEntry( "FR-974-Car_Jaune" );
     $duration += CreateGtfsEntry( "FR-974-CarSud" );
+    $duration += CreateGtfsEntry( "FR-974-Citalis" );
     $duration += CreateGtfsEntry( "FR-974-Estival" );
     $duration += CreateGtfsEntry( "FR-974-KarOuest" );
     $duration += CreateGtfsEntry( "FR-ARA-Montelibus" );
