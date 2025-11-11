@@ -52,7 +52,7 @@
             <tr class="option-tablerow" id="option-check-from-via-to">
                 <td class="option-option">check-from-via-to</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Check that &#039;from&#039;, &#039;via&#039; and &#039;to&#039; match with corresponding platform &#039;name&#039; values.</td>
+                <td class="option-description">Prüfe, ob &#039;from&#039;, &#039;via&#039; und &#039;to&#039; mit den entsprechenden Platformnamen übereinstimmen.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
@@ -262,7 +262,7 @@
             <tr class="option-tablerow" id="option-roundtrip-distance">
                 <td class="option-option">roundtrip-distance</td>
                 <td class="option-default">50</td>
-                <td class="option-description">Consider a route tagged with &#039;roundtrip&#039;=&#039;yes&#039; as OK if the distance between first and last platform stops does not exceed the defined value.</td>
+                <td class="option-description">Erachte eine Route, die mit &#039;roundtrip=&#039;yes&#039; getagged ist als OK wenn der Abstand zwischen erster und letzter Platform den definierten Wert nicht überschreitet.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-separator">

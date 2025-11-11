@@ -462,6 +462,38 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; ist nicht gleich &#039;name&#039; der ersten Platform: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; ist nicht gleich &#039;name&#039; der letzten Platform: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; passt nicht zu &#039;name&#039; der ersten Platform: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; passt nicht zu &#039;name&#039; der letzten Platform: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: &#039;from&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
@@ -625,6 +657,38 @@
                 <td class="message-text">PTv2 Route: &#039;to&#039; ist nicht gesetzt</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt (%d Teile), es gibt aber weniger als %d Platformen (=%d).</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt, es gibt aber weniger als 3 Platformen (=%d).</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) passt zu keinem Platformnamen.</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) passt zu mehr als einem Platformnamen (Platformnummern: %s)</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1022,70 +1086,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;from&#039; = &#039;%s&#039; does not match &#039;name&#039; of first platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;from&#039; = &#039;%s&#039; is not equal to &#039;name&#039; of first platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;to&#039; = &#039;%s&#039; does not match &#039;name&#039; of last platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;to&#039; = &#039;%s&#039; is not equal to &#039;name&#039; of last platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set (%d parts), but there are less than %d platforms (=%d).</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set, but there are less than 3 platforms (=%d).</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set. %d. via-part (&#039;%s&#039;) does not match any platform name.</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set. %d. via-part (&#039;%s&#039;) matches name of more than one platform (platform numbers: %s)</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">PTv2 route: empty &#039;role&#039; for a relation object which has &#039;public_transport&#039;=&#039;stop_position&#039; set. For PTv2, &#039;public_transport&#039;=&#039;stop_position&#039; is allow on nodes only</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -1442,7 +1442,7 @@
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
                 <td class="message-description">Die Beschränkung stimmt nicht mit den Map Features überein.</td>
-                <td class="message-fix">Please consult the OSM Wiki : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
+                <td class="message-fix">Schaue bitte im OSM Wiki nach. : https://wiki.openstreetmap.org/wiki/Map_Features#Restrictions</td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
