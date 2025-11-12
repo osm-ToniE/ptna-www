@@ -478,7 +478,7 @@ async function download_left_data() {
                         document.getElementById('download_left_text').innerText = usedms.toString();
                         return JSON.stringify(JsonResp);
                     } else {
-                        alert( "HTTP-Error: " + response.status );
+                        alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
                     }
                 } else {
                     alert( "Neither parameter 'route_id' nor 'trip_id' is set" );
@@ -520,7 +520,7 @@ async function download_right_data() {
                 document.getElementById('download_right_text').innerText = usedms.toString();
                 return JSON.stringify(JsonResp);
             } else {
-                alert( "HTTP-Error: " + response.status );
+                alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
             }
         } else {
             alert( "Relation ID is not a number (" + relation_id + ")" );
@@ -563,7 +563,7 @@ async function download_right_data() {
                         document.getElementById('download_right_text').innerText = usedms.toString();
                         return JSON.stringify(JsonResp);
                     } else {
-                        alert( "HTTP-Error: " + response.status );
+                        alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
                     }
                 } else {
                     alert( "Neither parameter 'route_id2' nor 'trip_id2' is set" );
@@ -1128,7 +1128,7 @@ function downloadRelationSync( relation_id, lor ) {
             } else if ( request.status === 410 ) {
                 alert( "Relation does not exist (" + relation_id + ")" );
             } else {
-                alert( "Response Code: " + request.status );
+                alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
             }
         }
     };
