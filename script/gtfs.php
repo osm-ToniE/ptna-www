@@ -3764,12 +3764,12 @@
 
                         if ( $topic ) {
                             if ( $col_name[$topic] ) {
-                                $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
+                                $sql = sprintf( "SELECT             routes.route_id,routes.route_short_name,ptna_trips_comments.trip_id,%s
                                                  FROM               ptna_trips_comments
                                                  JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
                                                  JOIN               routes             ON   trips.route_id              = routes.route_id
                                                  WHERE              %s != ''
-                                                 ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*'  THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                                 ORDER BY CASE WHEN routes.route_short_name GLOB '[^0-9]*'  THEN routes.route_short_name ELSE CAST(routes.route_short_name AS INTEGER) END;",
                                                  $col_name[$topic], $col_name[$topic]
                                               );
                             }
@@ -3788,12 +3788,12 @@
                                 $col_names = sprintf( "%s,%s", $col_names, $col_name['OTHER'] );
                                 $where_ors = sprintf( "%s OR %s != ''", $where_ors, $col_name['OTHER'] );
                             }
-                            $sql = sprintf( "SELECT             routes.route_id,route_short_name,ptna_trips_comments.trip_id,%s
+                            $sql = sprintf( "SELECT             routes.route_id,routes.route_short_name,ptna_trips_comments.trip_id,%s
                                              FROM               ptna_trips_comments
                                              JOIN               trips              ON   ptna_trips_comments.trip_id = trips.trip_id
                                              JOIN               routes             ON   trips.route_id              = routes.route_id
                                              WHERE              %s
-                                             ORDER BY CASE WHEN route_short_name GLOB '[^0-9]*' THEN route_short_name ELSE CAST(route_short_name AS INTEGER) END;",
+                                             ORDER BY CASE WHEN routes.route_short_name GLOB '[^0-9]*' THEN routes.route_short_name ELSE CAST(routes.route_short_name AS INTEGER) END;",
                                              $col_names, $where_ors
                                         );
                         }
@@ -3801,7 +3801,7 @@
                         if ( $sql ) {
                             $result = $db->query( $sql );
 
-                            while ( $row=$result->fetchArray(SQLITE3_ASSOC) ) {
+                            while ( $result && $row=$result->fetchArray(SQLITE3_ASSOC) ) {
                                 echo '                            <tr class="gtfs-tablerow">'    . "\n";
                                 echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/trips.php?feed='       . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&route_id=' . urlencode($row["route_id"]) . '">' . htmlspecialchars($row["route_short_name"]) . '</a></td>' . "\n";
                                 echo '                                <td class="gtfs-name"><a href="/gtfs/' . $countrydir . '/single-trip.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&trip_id='  . urlencode($row["trip_id"]) . '">' . htmlspecialchars($row["trip_id"]) . '</td>' . "\n";
