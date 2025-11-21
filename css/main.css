@@ -328,3 +328,12 @@ input.hackbox {
 .scores-center              { text-align: center }
 .scores-no-padding          { text-align: center; padding: 0em; vertical-align: middle; }
 .scores-link                { text-decoration: none; color: #000; }
+
+
+/**************************************/
+/* settings for the search-area.php file */
+
+#searchareamap              { height: 730px; width: 50%; float: left; margin-top: 16px; margin-bottom: 16px; margin-right: 0.8%; }
+
+.searchareas                { float:left; max-width:47.6%; }
+.searchtable                { min-width: 431px; max-width: 100%; width: 100%}
