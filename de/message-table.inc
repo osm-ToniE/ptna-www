@@ -470,23 +470,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; ist nicht gleich &#039;name&#039; der letzten Platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; passt nicht zu &#039;name&#039; der ersten Platform: %s</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: &#039;from&#039; = &#039;%s&#039; passt nicht zu &#039;name&#039; der letzten Platform: %s</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -647,6 +631,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: &#039;roundtrip&#039; ist nicht gesetzt und die erste und letzte Haltestellenplattformen sind identisch.</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;to&#039; = &#039;%s&#039; ist nicht gleich &#039;name&#039; der letzten Platform: %s</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: &#039;to&#039; = &#039;%s&#039; passt nicht zu &#039;name&#039; der letzten Platform: %s</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
