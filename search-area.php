@@ -40,7 +40,7 @@
 <?php
         echo "        <script> const overpass_api_query  = '[boundary=administrative][admin_level=8][wikidata=%27Q262669%27]'; </script>\n";
         echo "        <script> const osmium_extract_data = 'polygon 1   12.74        48.145   12.77        48.16   12.775       48.175   12.795       48.185   12.79        48.195   12.805       48.215   12.84        48.225   12.875       48.2   12.875       48.175   12.865       48.155   12.84        48.135   12.815       48.13   12.8         48.105   12.745       48.11   12.74        48.125   12.74        48.145 END END'; </script>\n";
-        echo '        <script> const osmium_getid_data   = "polygon%5Cn1%5Cn  12.74        48.145%5CnEND%5CnEND%5Cn"; </script>' . "\n";
+        echo "        <script> const osmium_getid_data   = 'polygon%0A1%0A  12.74        48.145%0AEND%0AEND%0A'; </script>\n";
 ?>
 
         <div id="wrapper">
