@@ -122,6 +122,80 @@
         return( '' );
     }
 
+    function GetOverpassSearchArea() {
+        global $details_hash;
+        if ( isset($details_hash['OVERPASS_SEARCH_AREA']) ) {
+            return( $details_hash['OVERPASS_SEARCH_AREA'] );
+        }
+        return( '' );
+    }
+
+    function GetExtractSearchAreaFileName() {
+        global $details_hash;
+        if ( isset($details_hash['EXTRACT_SEARCH_AREA']) ) {
+            return( $details_hash['EXTRACT_SEARCH_AREA'] );
+        }
+        return( '' );
+    }
+
+    function GetExtractSearchData() {
+        global $details_hash;
+
+        $filename = GetExtractSearchAreaFileName();
+        if ( $filename ) {
+            if ( file_exists($filename) ) {
+               return( file_get_contents( $filename ) );
+            }
+        }
+        return( '' );
+    }
+
+    function GetExtractSearchName() {
+        global $details_hash;
+
+        $filename = GetExtractSearchAreaFileName();
+        if ( $filename ) {
+            if ( file_exists($filename) ) {
+                $the_basename = basename( $filename, '.poly' );
+                return( basename( $the_basename, '.geojson') );
+            }
+        }
+        return( '' );
+    }
+
+    function GetExtractGetidFileName() {
+        global $details_hash;
+        if ( isset($details_hash['EXTRACT_GETID_AREA']) ) {
+            return( $details_hash['EXTRACT_GETID_AREA'] );
+        }
+        return( '' );
+    }
+
+    function GetExtractGetidData() {
+        global $details_hash;
+
+        $filename = GetExtractGetidFileName();
+        if ( $filename ) {
+            if ( file_exists($filename) ) {
+                return( file_get_contents( $filename ) );
+            }
+        }
+        return( '' );
+    }
+
+    function GetExtractGetidName() {
+        global $details_hash;
+
+        $filename = GetExtractGetidFileName();
+        if ( $filename ) {
+            if ( file_exists($filename) ) {
+                $the_basename = basename( $filename, '.poly' );
+                return( basename( $the_basename, '.geojson') );
+            }
+        }
+        return( '' );
+    }
+
     function GetRegionLink() {
         global $details_hash;
         if ( isset($details_hash['REGION_LINK']) ) {
@@ -139,6 +213,23 @@
         global $details_hash;
         if ( isset($details_hash['REGION_NAME']) ) {
             return( $details_hash['REGION_NAME'] );
+        }
+        return( '' );
+    }
+
+    function GetNetworkName() {
+        global $details_hash;
+        if ( isset($details_hash['NETWORK_NAME']) ) {
+            return( $details_hash['NETWORK_NAME'] );
+        }
+        return( '' );
+    }
+
+
+    function GetNetworkLink() {
+        global $details_hash;
+        if ( isset($details_hash['NETWORK_LINK']) ) {
+            return( $details_hash['NETWORK_LINK'] );
         }
         return( '' );
     }
