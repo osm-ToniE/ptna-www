@@ -33,10 +33,6 @@ var dBar;
 
 function create_map( overpass, extract, getid ) {
 
-    // if ( extract !== '' ) {
-    //    bool_fitBounds_Overpass = false;
-    // }
-
     if ( !document.getElementById || !document.createElement || !document.appendChild ) return false;
 
     //  empty tiles
@@ -95,23 +91,24 @@ function create_map( overpass, extract, getid ) {
 
 function show_osmium_getid_area( data, name ) {
 
-    if ( 0 ) { // data && name ) {
+    if ( data && name ) {
         var decoded_data = decodeURIComponent(data.replace(/\+/g,' '))
         var decoded_name = decodeURIComponent(name.replace(/\+/g,' '))
 
-        var fake = 'poly%3A%2748.52+9.7+48.52+10.3+48.2+10.3+48.2+9.7%27';
-        var coordinates_string = decodeURIComponent(fake.replace(/\+/g,' ')).replace(/^poly:'/,'').replace(/'$/,'');
-        var latlngs = [];
+        if ( decoded_data.match('^[A-Za-z0-9]') ) {
+            // osmium polygon data
+            var latlngs = parse_osmium_poly_data( decoded_data );
+            // console.log( latlngs );
 
-        var vals = coordinates_string.split(/\s+/);
-        for ( var i = 0, len = vals.length; i < len-1; i = i+2 ) {
-            latlngs.push( [ vals[i], vals[i+1] ] );
+            var polygon = L.polygon( latlngs, {color: colours['getid']} ).bindPopup("osmium getid : '"+decoded_name+"'");
+                polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
+                polygon.addTo(map);
+        } else {
+            // geoJSON
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup("osmium getid : '"+decoded_name+"'");
+                polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
+                polygon.addTo(map);
         }
-        // console.log( latlngs );
-
-        var polygon = L.polygon( latlngs, {color: colours['getid']} ).bindPopup("osmium getid : '"+decoded_name+"'");
-            polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
-            polygon.addTo(map);
     }
     return;
 }
@@ -119,25 +116,30 @@ function show_osmium_getid_area( data, name ) {
 
 function show_osmium_extract_area( data, name ) {
 
-    if ( 0 ) { // data && name ) {
+    if ( data && name ) {
         var decoded_data = decodeURIComponent(data.replace(/\+/g,' '))
         var decoded_name = decodeURIComponent(name.replace(/\+/g,' '))
 
-        var fake = 'poly%3A%2748.5+9.99+48.43+9.8+48.3+9.8+48.25+9.9+48.3+10.2+48.4+10.2%27';
-        var coordinates_string = decodeURIComponent(fake.replace(/\+/g,' ')).replace(/^poly:'/,'').replace(/'$/,'');
-        var latlngs = [];
+        if ( decoded_data.match('^[A-Za-z0-9]') ) {
+            // osmium polygon data
+            var latlngs = parse_osmium_poly_data( decoded_data );
+            // console.log( latlngs );
 
-        var vals = coordinates_string.split(/\s+/);
-        for ( var i = 0, len = vals.length; i < len-1; i = i+2 ) {
-            latlngs.push( [ vals[i], vals[i+1] ] );
+            var polygon = L.polygon( latlngs ).bindPopup("osmium extract : '"+decoded_name+"'");
+                polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2} );
+                polygon.addTo(map);
+
+            //map.fitBounds(polygon.getBounds());
+            //bool_fitBounds_Overpass = false;
+        } else {
+            // geoJSON
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup("osmium extract : '"+decoded_name+"'");
+                polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2 } );
+                polygon.addTo(map);
+
+            map.fitBounds(polygon.getBounds());
+            bool_fitBounds_Overpass = false;
         }
-        // console.log( latlngs );
-
-        var polygon = L.polygon( latlngs ).bindPopup("osmium extract : '"+decoded_name+"'");
-            polygon.setStyle( { color: colours['extract'], fillOpacity: 0.1 } );
-            polygon.addTo(map);
-
-        map.fitBounds(polygon.getBounds());
     }
     return;
 }
@@ -203,7 +205,7 @@ function show_overpass_api_area( query, name ) {
             // console.log( latlngs );
 
             var polygon = L.polygon( latlngs ).bindPopup("Overpass-API : '"+decoded_name+"'");
-                polygon.setStyle( { color: colours['overpass'], fillOpacity: 0.1 } );
+                polygon.setStyle( { color: colours['overpass'], fillOpacity: 0.3 } );
                 polygon.addTo(map);
 
             if ( bool_fitBounds_Overpass ) {
@@ -224,6 +226,11 @@ function readHttpResponse( responseText ) {
 
     // IterateOverMembers();
 
+}
+
+
+function parse_osmium_poly_data( data ) {
+    return [];
 }
 
 
