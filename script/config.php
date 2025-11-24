@@ -196,9 +196,14 @@
         return( '' );
     }
 
-    function GetRegionLink() {
+    function GetRegionLink( ) {
         global $network;
-        return( '/results/search-area.php?network='.$network );
+        global $details_hash;
+        if ( isset($details_hash['lang']) && $details_hash['lang'] != 'en' ) {
+            return( '/results/search-area.php?network='.$network.'&lang='.urlencode($details_hash['lang']) );
+        } else {
+            return( '/results/search-area.php?network='.$network );
+        }
         global $details_hash;
         if ( isset($details_hash['REGION_LINK']) ) {
             $link = explode( '=', $details_hash['REGION_LINK'], 2 );

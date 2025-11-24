@@ -12,10 +12,13 @@
             }
         }
     }
-    function PrintRegion( $network, $link, $name ) {
+    function PrintRegion( $network, $link, $name, $lang ) {
         if ( $link && $name ) {
-            echo '<td data-ref="'.$network.'-region" class="results-region"><a href="/results/search-area.php?network='.$network.'" title="show on map">'.$name.'</a></td>';
-            #$link_array = explode( '=', $link, 2 );
+            if ( isset($lang) && $lang && $lang != 'en' ) {
+                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="/results/search-area.php?network='.$network.'&lang='.$lang.'" title="show on map">'.$name.'</a></td>';
+            } else {
+                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="/results/search-area.php?network='.$network.'" title="show on map">'.$name.'</a></td>';
+            }#$link_array = explode( '=', $link, 2 );
             #if ( count($link_array) > 1 ) {
             #    echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link_array[0].'='.urlencode(urldecode($link_array[1])).'" title="show on map">'.$name.'</a></td>';
             #} else {
@@ -108,7 +111,7 @@
         echo "\n                        ";
         PrintAnalysis( $network, $filename_hash['ANALYSIS'], $filename_hash['ANALYSISFILEPATH'] );
         echo "\n                        ";
-        PrintRegion( $network, $details_hash['REGION_LINK'], $details_hash['REGION_NAME'] );
+        PrintRegion( $network, $details_hash['REGION_LINK'], $details_hash['REGION_NAME'], $details_hash['lang'] );
         echo "\n                        ";
         PrintNetwork( $network, $details_hash['NETWORK_LINK'], $details_hash['NETWORK_NAME'] );
         echo "\n                        ";
