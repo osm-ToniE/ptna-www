@@ -14,12 +14,13 @@
     }
     function PrintRegion( $network, $link, $name ) {
         if ( $link && $name ) {
-            $link_array = explode( '=', $link, 2 );
-            if ( count($link_array) > 1 ) {
-                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link_array[0].'='.urlencode(urldecode($link_array[1])).'" title="show on map">'.$name.'</a></td>';
-            } else {
-                echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link.'" title="show on map">'.$name.'</a></td>';
-            }
+            echo '<td data-ref="'.$network.'-region" class="results-region"><a href="/results/search-area.php?network='.$network.'" title="show on map">'.$name.'</a></td>';
+            #$link_array = explode( '=', $link, 2 );
+            #if ( count($link_array) > 1 ) {
+            #    echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link_array[0].'='.urlencode(urldecode($link_array[1])).'" title="show on map">'.$name.'</a></td>';
+            #} else {
+            #    echo '<td data-ref="'.$network.'-region" class="results-region"><a href="'.$link.'" title="show on map">'.$name.'</a></td>';
+            #}
 
         } else if ( $name ) {
             echo '<td data-ref="'.$network.'-region" class="results-region">'.$name.'</td>';

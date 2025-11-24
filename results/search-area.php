@@ -61,21 +61,24 @@
                         <div class="indent">
                             <span id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</span>
                         </div>
-
+<?php if ( GetExtractSearchName() ) { ?>
                     <h4 id="osmium-extract"><?php echo $lang_osmium_extract; ?></h4>
                         <div class="indent">
                         </div>
+<?php } ?>
 
+<?php if ( GetExtractGetidName() ) { ?>
                     <h4 id="osmium-getid"><?php echo $lang_osmium_getid; ?></h4>
                         <div class="indent">
                         </div>
+<?php } ?>
                 </div>
             </div>
             <script>
                 create_map( network_region, osmium_extract_name, osmium_getid_name );
-                show_osmium_getid_area(   osmium_getid_data   );
-                show_osmium_extract_area( osmium_extract_data );
-                show_overpass_api_area(   overpass_api_area  );
+                show_osmium_getid_area(   osmium_getid_data,   osmium_getid_name   );
+                show_osmium_extract_area( osmium_extract_data, osmium_extract_name );
+                show_overpass_api_area(   overpass_api_area,   network_region      );
             </script>
 
         </main> <!-- main -->

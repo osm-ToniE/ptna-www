@@ -197,6 +197,8 @@
     }
 
     function GetRegionLink() {
+        global $network;
+        return( '/results/search-area.php?network='.$network );
         global $details_hash;
         if ( isset($details_hash['REGION_LINK']) ) {
             $link = explode( '=', $details_hash['REGION_LINK'], 2 );
