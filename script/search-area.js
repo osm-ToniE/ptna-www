@@ -5,7 +5,7 @@
 //const OSM_API_URL_SUFFIX = '/full.json';
 
 const OSM_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation';
-const OSM_API_URL_SUFFIX = ';(._;>>;);out;';
+const OSM_API_URL_SUFFIX = ';(._;>;);out;';
 
 const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
@@ -18,7 +18,7 @@ var map;
 var layeroverpass;
 var layerextract;
 var layergetid;
-var colours = { overpass: 'green',    extract: 'blue',    getid: 'black' };
+var colours = { overpass: 'blue',    extract: 'black',    getid: 'green' };
 
 
 var OSM_Nodes       = [];
@@ -71,9 +71,9 @@ function create_map( overpass, extract, getid ) {
                     "none"                      : nomap
                    };
 
-    var overlayMaps = { "<span style='color: green'>Overpass-API</span>"      : layeroverpass,
-                        "<span style='color: blue'>osmium extract</span>"     : layerextract,
-                        "<span style='color: black'>osmium getid</span>"      : layergetid
+    var overlayMaps = { "<span style='color: blue'>Overpass-API</span>"      : layeroverpass,
+                        "<span style='color: black'>osmium extract</span>"   : layerextract,
+                        "<span style='color: green'>osmium getid</span>"     : layergetid
                       };
 
     var layers      = L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -97,17 +97,18 @@ function show_osmium_getid_area( data, name ) {
 
         if ( decoded_data.match('^[A-Za-z0-9]') ) {
             // osmium polygon data
-            var latlngs = parse_osmium_poly_data( decoded_data );
-            // console.log( latlngs );
+            var latlngs = create_latlngs_from_osmium_poly_data( decoded_data );
 
-            var polygon = L.polygon( latlngs, {color: colours['getid']} ).bindPopup("osmium getid : '"+decoded_name+"'");
-                polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
-                polygon.addTo(map);
+            if ( latlngs.length ) {
+                var polygon = L.polygon( latlngs, {color: colours['getid']} ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                    polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
+                    polygon.addTo(layergetid);
+            }
         } else {
             // geoJSON
-            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup("osmium getid : '"+decoded_name+"'");
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                 polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
-                polygon.addTo(map);
+                polygon.addTo(layergetid);
         }
     }
     return;
@@ -122,20 +123,21 @@ function show_osmium_extract_area( data, name ) {
 
         if ( decoded_data.match('^[A-Za-z0-9]') ) {
             // osmium polygon data
-            var latlngs = parse_osmium_poly_data( decoded_data );
-            // console.log( latlngs );
+            var latlngs = create_latlngs_from_osmium_poly_data( decoded_data );
 
-            var polygon = L.polygon( latlngs ).bindPopup("osmium extract : '"+decoded_name+"'");
-                polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2} );
-                polygon.addTo(map);
+            if ( latlngs.length ) {
+                var polygon = L.polygon( latlngs ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                    polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2} );
+                    polygon.addTo(layerextract);
 
-            //map.fitBounds(polygon.getBounds());
-            //bool_fitBounds_Overpass = false;
+                map.fitBounds(polygon.getBounds());
+                bool_fitBounds_Overpass = false;
+            }
         } else {
             // geoJSON
-            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup("osmium extract : '"+decoded_name+"'");
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                 polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2 } );
-                polygon.addTo(map);
+                polygon.addTo(layerextract);
 
             map.fitBounds(polygon.getBounds());
             bool_fitBounds_Overpass = false;
@@ -170,7 +172,7 @@ function show_overpass_api_area( query, name ) {
                     if ( request.status === 200 ) {
                         var type = request.getResponseHeader( "Content-Type" );
                         if ( type.match(/application\/json/) ) {
-                            readHttpResponse( request.responseText );
+                            readHttpResponse( request.responseText,decoded_name );
                         } else {
                             alert( url + " did not return JSON data but " + type );
                         }
@@ -193,7 +195,7 @@ function show_overpass_api_area( query, name ) {
             const d = new Date();
             downloadstartms = d.getTime();
 
-            //request.send();
+            request.send();
         } else if ( query.match(/^poly/) ) {
             var coordinates_string = decodeURIComponent(query.replace(/\+/g,' ')).replace(/^poly:'/,'').replace(/'$/,'');
             var latlngs = [];
@@ -202,14 +204,15 @@ function show_overpass_api_area( query, name ) {
             for ( var i = 0, len = vals.length; i < len-1; i = i+2 ) {
                 latlngs.push( [ vals[i], vals[i+1] ] );
             }
-            // console.log( latlngs );
 
-            var polygon = L.polygon( latlngs ).bindPopup("Overpass-API : '"+decoded_name+"'");
-                polygon.setStyle( { color: colours['overpass'], fillOpacity: 0.3 } );
-                polygon.addTo(map);
+            if ( latlngs.length ) {
+                var polygon = L.polygon( latlngs ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                    polygon.setStyle( { color: colours['overpass'], fillOpacity: 0.3 } );
+                    polygon.addTo(layeroverpass);
 
-            if ( bool_fitBounds_Overpass ) {
-                map.fitBounds(polygon.getBounds());
+                if ( bool_fitBounds_Overpass ) {
+                    map.fitBounds(polygon.getBounds());
+                }
             }
         }
 
@@ -218,25 +221,63 @@ function show_overpass_api_area( query, name ) {
 }
 
 
-function readHttpResponse( responseText ) {
+function readHttpResponse( responseText, decoded_name ) {
 
     parseHttpResponse( responseText );
 
-    // writeRelationTable();
+    var latlngs = create_latlngs_from_osm_json_data();
 
-    // IterateOverMembers();
+    if ( latlngs.length ) {
+        var polyline = L.polyline( latlngs ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+            polyline.setStyle( { color: colours['overpass'], fillOpacity: 0.3 } );
+            polyline.addTo(layeroverpass);
 
+        if ( bool_fitBounds_Overpass ) {
+            map.fitBounds(polyline.getBounds());
+        }
+    }
+    return;
 }
 
 
-function parse_osmium_poly_data( data ) {
-    return [];
+function create_latlngs_from_osmium_poly_data( data ) {
+
+    var latlngs = [];
+    var latlngs_section = [];
+    var lat = '';
+    var lon = '';
+    var ignore_section = false;
+
+    var lines = data.split(/\n/);
+    var lines_count = lines.length;
+
+    for ( var index = 0; index < lines_count; index++ ) {
+        if ( lines[index].match(/[!A-Za-z]/) ||
+             lines[index].match(/^\d+$/)       )  {
+            if ( latlngs_section.length ) {
+                if ( !ignore_section ) {
+                    latlngs_section.pop();
+                    latlngs.push( latlngs_section );
+                }
+                latlngs_section = [];
+            }
+            if (lines[index].match(/^\s*!/) ) {
+                ignore_section = true;
+            } else {
+                ignore_section = false;
+            }
+        } else if ( lines[index] ) {
+            [lon,lat] = lines[index].replace(/^\s*/,'').replace(/\s*$/,'').split(/\s+/);
+            latlngs_section.push( [ lat, lon ] );
+        }
+    }
+    return latlngs;
 }
 
 
 function parseHttpResponse( data ) {
 
-    console.log( '>' + data.toString() + "<\n" );
+    // console.log( '>' + data.toString() + "<\n" );
 
     overpass_data = JSON.parse( data.toString() )
 
@@ -265,5 +306,38 @@ function parseHttpResponse( data ) {
             OSM_Relations[OSM_ID] = overpass_data["elements"][i];
         }
     }
+    return;
+}
 
+
+function create_latlngs_from_osm_json_data() {
+
+    var latlngs = [];
+    var latlngs_way = [];
+
+    for ( var relation in OSM_Relations ) {
+        // console.log( relation + ' => ' + OSM_Relations[relation]['tags']['name'] );
+
+        var members_array = OSM_Relations[relation]['members'];
+        var members_array_length = members_array.length;
+        for ( var member_index = 0; member_index < members_array_length; member_index++ ) {
+            // console.log( '    type = ' + members_array[member_index]['type'] + '    role = ' + members_array[member_index]['role'] + '    id = ' + members_array[member_index]['ref'] );
+            if ( members_array[member_index]['type'] === 'way' ) {
+                // console.log( '        id = ' + members_array[member_index]['ref'] );
+                var way_id = members_array[member_index]['ref'];
+                var nodes_array = OSM_Ways[way_id]['nodes'];
+                var nodes_array_length = nodes_array.length;
+                latlngs_way = [];
+                for ( var node_index in nodes_array ) {
+                    var node_id = nodes_array[node_index];
+                    // console.log( '            id = ' + node_id + ' push lat = ' + OSM_Nodes[node_id]['lat'] + ' lon = ' + OSM_Nodes[node_id]['lon']);
+                    latlngs_way.push( [ OSM_Nodes[node_id]['lat'], OSM_Nodes[node_id]['lon'] ] );
+                }
+                // console.log( latlngs_way );
+                latlngs.push( latlngs_way );
+            }
+        }
+    }
+    // console.log( latlngs );
+    return latlngs;
 }

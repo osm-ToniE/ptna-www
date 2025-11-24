@@ -57,20 +57,20 @@
                         </tbody>
                     </table>
 
-                    <h4 id="overpass-api"><?php echo $lang_overpass_api; ?></h4>
+                    <h4 id="overpass-api"><span style="display: inline-block; width:21px; background-color: blue;">&nbsp;</span> <?php echo $lang_overpass_api; ?></h4>
                         <div class="indent">
 <?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
                             <span id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</span>
 <?php } ?>
                         </div>
 <?php if ( GetExtractSearchName() ) { ?>
-                    <h4 id="osmium-extract"><?php echo $lang_osmium_extract; ?></h4>
+                    <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp</span> <?php echo $lang_osmium_extract; ?></h4>
                         <div class="indent">
                         </div>
 <?php } ?>
 
 <?php if ( GetExtractGetidName() ) { ?>
-                    <h4 id="osmium-getid"><?php echo $lang_osmium_getid; ?></h4>
+                    <h4 id="osmium-getid"><span style="display: inline-block; width:21px; background-color: green;">&nbsp;</span> <?php echo $lang_osmium_getid; ?></h4>
                         <div class="indent">
                         </div>
 <?php } ?>
