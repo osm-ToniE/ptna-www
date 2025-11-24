@@ -288,7 +288,6 @@ function parseHttpResponse( data ) {
 
     if ( overpass_data["elements"].length === 0 ) {
         alert( "Data not found");
-        client.abort();
     }
 
     var OSM_ID   = 0;
