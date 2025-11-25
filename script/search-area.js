@@ -154,7 +154,7 @@ function show_overpass_api_area( query, name ) {
 
     if ( query && name ) {
         if ( query.match(/^area/) ) {
-            var url     = `${OSM_API_URL_PREFIX}${query.replace(/^area/,'')}${OSM_API_URL_SUFFIX}`;
+            var url     = `${OSM_API_URL_PREFIX}${decodeURIComponent(query.replace(/^area/,''))}${OSM_API_URL_SUFFIX}`;
             var request = new XMLHttpRequest();
             request.open( "GET", url );
             request.onprogress = function() {
