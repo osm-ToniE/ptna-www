@@ -3,6 +3,9 @@
         include( '../script/parse_query.php' );
         include( '../script/config.php' );
         $lang_dir="../$ptna_lang/";
+        if ( !is_dir($lang_dir) ) {
+            $lang_dir="../en/";
+        }
 ?>
 <html lang="<?php echo $html_lang ?>">
 
@@ -14,6 +17,12 @@
         $lang_overpass_api="Search area for Overpass-API query";
         $lang_osmium_extract="Search area for 'osmium extract'";
         $lang_osmium_getid="Search area for 'osmium getid'";
+
+        if ( is_file($lang_dir.'search-area-vars.inc') ) {
+            include($lang_dir.'search-area-vars.inc');
+        } elseif ( is_file('../en/search-area-vars.inc') ) {
+            include('../en/search-area-vars.inc');
+        }
 
         $title=$lang_title;
         include $lang_dir.'html-head.inc';
@@ -60,18 +69,45 @@
                     <h4 id="overpass-api"><span style="display: inline-block; width:21px; background-color: blue;">&nbsp;</span> <?php echo $lang_overpass_api; ?></h4>
                         <div class="indent">
 <?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
-                            <span id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</span>
+                            <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</p>
 <?php } ?>
+<?php
+                            if ( is_file($lang_dir.'search-area-overpass-api.inc') ) {
+                                include($lang_dir.'search-area-overpass-api.inc');
+                            } elseif ( is_file('../en/search-area-overpass-api.inc') ) {
+                                include('../en/search-area-overpass-api.inc');
+                            } else {
+                                echo "Lore ipsum ...\n";
+                            }
+?>
                         </div>
 <?php if ( GetExtractSearchName() ) { ?>
-                    <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp</span> <?php echo $lang_osmium_extract; ?></h4>
+                    <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp;</span> <?php echo $lang_osmium_extract; ?></h4>
                         <div class="indent">
+<?php
+                            if ( is_file($lang_dir.'search-area-osmium-extract.inc') ) {
+                                include($lang_dir.'search-area-osmium-extract.inc');
+                            } elseif ( is_file('../en/search-area-overpass-extract.inc') ) {
+                                include('../en/search-area-overpass-extract.inc');
+                            } else {
+                                echo "Lore ipsum ...\n";
+                            }
+?>
                         </div>
 <?php } ?>
 
 <?php if ( GetExtractGetidName() ) { ?>
                     <h4 id="osmium-getid"><span style="display: inline-block; width:21px; background-color: green;">&nbsp;</span> <?php echo $lang_osmium_getid; ?></h4>
                         <div class="indent">
+<?php
+                            if ( is_file($lang_dir.'search-area-osmium-getid.inc') ) {
+                                include( $lang_dir.'search-area-osmium-getid.inc');
+                            } elseif ( is_file('../en/search-area-overpass-getid.inc') ) {
+                                include('../en/search-area-overpass-getid.inc');
+                            } else {
+                                echo "Lore ipsum ...\n";
+                            }
+?>
                         </div>
 <?php } ?>
                 </div>

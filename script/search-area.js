@@ -100,13 +100,13 @@ function show_osmium_getid_area( data, name ) {
             var latlngs = create_latlngs_from_osmium_poly_data( decoded_data );
 
             if ( latlngs.length ) {
-                var polygon = L.polygon( latlngs, {color: colours['getid']} ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                var polygon = L.polygon( latlngs, {color: colours['getid']} ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                     polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
                     polygon.addTo(layergetid);
             }
         } else {
             // geoJSON
-            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                 polygon.setStyle( { color: colours['getid'], fillOpacity: 0.1 } );
                 polygon.addTo(layergetid);
         }
@@ -126,7 +126,7 @@ function show_osmium_extract_area( data, name ) {
             var latlngs = create_latlngs_from_osmium_poly_data( decoded_data );
 
             if ( latlngs.length ) {
-                var polygon = L.polygon( latlngs ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                var polygon = L.polygon( latlngs ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                     polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2} );
                     polygon.addTo(layerextract);
 
@@ -135,7 +135,7 @@ function show_osmium_extract_area( data, name ) {
             }
         } else {
             // geoJSON
-            var polygon = L.geoJSON( JSON.parse(decoded_data) ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+            var polygon = L.geoJSON( JSON.parse(decoded_data) ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                 polygon.setStyle( { color: colours['extract'], fillOpacity: 0.2 } );
                 polygon.addTo(layerextract);
 
@@ -206,7 +206,7 @@ function show_overpass_api_area( query, name ) {
             }
 
             if ( latlngs.length ) {
-                var polygon = L.polygon( latlngs ).bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
+                var polygon = L.polygon( latlngs ); // .bindPopup(decoded_name.replace(/^(xx|yy|zz)-/,''));
                     polygon.setStyle( { color: colours['overpass'], fillOpacity: 0.3 } );
                     polygon.addTo(layeroverpass);
 
