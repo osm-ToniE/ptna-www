@@ -68,10 +68,6 @@
 
                     <h4 id="overpass-api"><span style="display: inline-block; width:21px; background-color: blue;">&nbsp;</span> <?php echo $lang_overpass_api; ?></h4>
                         <div class="indent">
-<?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
-                            <code><?php echo htmlentities(preg_replace('/^[a-z]*/','relation',urldecode(GetOverpassSearchArea()))); ?></code>
-                            <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</p>
-<?php } ?>
 <?php
                             if ( is_file($lang_dir.'search-area-overpass-api.inc') ) {
                                 include($lang_dir.'search-area-overpass-api.inc');
@@ -81,6 +77,10 @@
                                 echo "Lore ipsum ...\n";
                             }
 ?>
+<?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
+                            <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</p>
+                            <p><code><?php echo htmlentities(preg_replace('/^[a-z]*/','relation',urldecode(GetOverpassSearchArea()))); ?></code></p>
+<?php } ?>
                         </div>
 <?php if ( GetExtractSearchName() ) { ?>
                     <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp;</span> <?php echo $lang_osmium_extract; ?></h4>
@@ -91,9 +91,10 @@
                             } elseif ( is_file('../en/search-area-overpass-extract.inc') ) {
                                 include('../en/search-area-overpass-extract.inc');
                             } else {
-                                echo "Lore ipsum ...\n";
+                                echo "Lore ipsum\n";
                             }
 ?>
+                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.02000-0.00500-0.00500</code></p>
                         </div>
 <?php } ?>
 
@@ -106,9 +107,11 @@
                             } elseif ( is_file('../en/search-area-overpass-getid.inc') ) {
                                 include('../en/search-area-overpass-getid.inc');
                             } else {
-                                echo "Lore ipsum ...\n";
+                                echo "Lore ipsum";
                             }
+
 ?>
+                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.20000-0.00050-0.00050</code></p>
                         </div>
 <?php } ?>
                 </div>
