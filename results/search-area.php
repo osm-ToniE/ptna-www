@@ -60,9 +60,9 @@
                 <div class="indent">
                     <table>
                         <tbody>
-                            <tr><th><?php echo $lang_name; ?></th><td><span id="ptna-network"><?php echo $network; ?></span></td></tr>
-                            <tr><th><?php echo $lang_region; ?></th><td><span id="network-region"><?php echo htmlentities(GetRegionName()); ?></span></td></tr>
-                            <tr><th><?php echo $lang_network; ?></th><td><span id="network-name"><?php echo htmlentities(GetNetworkName()); ?></span></td></tr>
+                            <tr><th class="results-network"><?php echo $lang_name; ?></th><td><span id="ptna-network"><?php echo $network; ?></span></td></tr>
+                            <tr><th class="results-region"><?php echo $lang_region; ?></th><td><span id="network-region"><?php echo htmlentities(GetRegionName()); ?></span></td></tr>
+                            <tr><th class="results-text"><?php echo $lang_network; ?></th><td><span id="network-name"><?php echo htmlentities(GetNetworkName()); ?></span></td></tr>
                         </tbody>
                     </table>
 
