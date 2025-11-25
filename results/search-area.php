@@ -69,6 +69,7 @@
                     <h4 id="overpass-api"><span style="display: inline-block; width:21px; background-color: blue;">&nbsp;</span> <?php echo $lang_overpass_api; ?></h4>
                         <div class="indent">
 <?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
+                            <code><?php echo htmlentities(preg_replace('/^[a-z]*/','relation',urldecode(GetOverpassSearchArea()))); ?></code>
                             <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</p>
 <?php } ?>
 <?php
