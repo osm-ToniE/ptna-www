@@ -15,8 +15,11 @@
         $lang_network="Network";
         $lang_download="Download area details from Overpass-API";
         $lang_overpass_api="Search area for Overpass-API query";
+        $lang_overpass_api_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
         $lang_osmium_extract="Search area for 'osmium extract'";
+        $lang_osmium_extract_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
         $lang_osmium_getid="Search area for 'osmium getid'";
+        $lang_osmium_getid_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
 
         if ( is_file($lang_dir.'search-area-vars.inc') ) {
             include($lang_dir.'search-area-vars.inc');
@@ -68,15 +71,7 @@
 
                     <h4 id="overpass-api"><span style="display: inline-block; width:21px; background-color: blue;">&nbsp;</span> <?php echo $lang_overpass_api; ?></h4>
                         <div class="indent">
-<?php
-                            if ( is_file($lang_dir.'search-area-overpass-api.inc') ) {
-                                include($lang_dir.'search-area-overpass-api.inc');
-                            } elseif ( is_file('../en/search-area-overpass-api.inc') ) {
-                                include('../en/search-area-overpass-api.inc');
-                            } else {
-                                echo "Lore ipsum ...\n";
-                            }
-?>
+                            <?php echo $lang_overpass_api_description; ?>
 <?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
                             <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=5000></progress> <span id="download_text">0</span> ms</p>
                             <p><code><?php echo htmlentities(preg_replace('/^[a-z]*/','relation',urldecode(GetOverpassSearchArea()))); ?></code></p>
@@ -85,15 +80,7 @@
 <?php if ( GetExtractSearchName() ) { ?>
                     <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp;</span> <?php echo $lang_osmium_extract; ?></h4>
                         <div class="indent">
-<?php
-                            if ( is_file($lang_dir.'search-area-osmium-extract.inc') ) {
-                                include($lang_dir.'search-area-osmium-extract.inc');
-                            } elseif ( is_file('../en/search-area-overpass-extract.inc') ) {
-                                include('../en/search-area-overpass-extract.inc');
-                            } else {
-                                echo "Lore ipsum\n";
-                            }
-?>
+                            <?php echo $lang_osmium_extract_description; ?>
                             <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.02000-0.00500-0.00500</code></p>
                         </div>
 <?php } ?>
@@ -101,16 +88,7 @@
 <?php if ( GetExtractGetidName() ) { ?>
                     <h4 id="osmium-getid"><span style="display: inline-block; width:21px; background-color: green;">&nbsp;</span> <?php echo $lang_osmium_getid; ?></h4>
                         <div class="indent">
-<?php
-                            if ( is_file($lang_dir.'search-area-osmium-getid.inc') ) {
-                                include( $lang_dir.'search-area-osmium-getid.inc');
-                            } elseif ( is_file('../en/search-area-overpass-getid.inc') ) {
-                                include('../en/search-area-overpass-getid.inc');
-                            } else {
-                                echo "Lore ipsum";
-                            }
-
-?>
+                            <?php echo $lang_osmium_getid_description; ?>
                             <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.20000-0.00050-0.00050</code></p>
                         </div>
 <?php } ?>
