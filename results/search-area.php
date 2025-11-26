@@ -15,16 +15,26 @@
         $lang_network="Network";
         $lang_download="Download area details from Overpass-API";
         $lang_overpass_api="Search area for Overpass-API query";
-        $lang_overpass_api_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
+        $lang_overpass_api_description="This defines the search area used for the Overpass-API.\n" .
+                                       "In most cases, the definition is based on the 'wikidata' tag of (admin) boundary areas.\n";
         $lang_osmium_extract="Search area for 'osmium extract'";
-        $lang_osmium_extract_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
+        $lang_osmium_extract_description="This slightly larger area is used for PTNA's nightly analysis only.\n" .
+                                         "It defines the area handed over to 'osmium extract'.\n" .
+                                         "'osmium' extracts data in this area from the OSM Planet dump.\n" .
+                                         "Afterwards 'osmium filter' is used to reduce the size of the extract by deleting irrelevant data (buildings, landuse, bicycle routes, ...).\n" .
+                                         "The number of nodes in the polygon defining the extract area is reduced.\n" .
+                                         "A buffer around the Overpass-API area exists also.\n" .
+                                         "This is achieved by using the tool mentioned below, applied to the ID of relevant (admin) boundary relation(s).\n";
         $lang_osmium_getid="Search area for 'osmium getid'";
-        $lang_osmium_getid_description="Lorem ipsum dolor sit amet, consectetur adipisici elit, … ";
+        $lang_osmium_getid_description="This even larger area is used when PTNA reported missing data, data not found in the 'osmium extract' area.\n" .
+                                       "This data usually defines relation IDs which are members of route_master or route relations (e.g. MP platforms in train stations outside the extract area).\n" .
+                                       "This is achieved by using the tool mentioned below, applied to the ID of relevant (admin) boundary relation(s).\n" .
+                                       "You might have to zoom out to see the size of this area on the map.";
 
-        if ( is_file($lang_dir.'search-area-vars.inc') ) {
-            include($lang_dir.'search-area-vars.inc');
-        } elseif ( is_file('../en/search-area-vars.inc') ) {
-            include('../en/search-area-vars.inc');
+        if ( is_file($lang_dir.'search-area.inc') ) {
+            include($lang_dir.'search-area.inc');
+        } elseif ( is_file('../en/search-area.inc') ) {
+            include('../en/search-area.inc');
         }
 
         $title=$lang_title;
@@ -81,7 +91,7 @@
                     <h4 id="osmium-extract"><span style="display: inline-block; width:21px; background-color: black;">&nbsp;</span> <?php echo $lang_osmium_extract; ?></h4>
                         <div class="indent">
                             <?php echo $lang_osmium_extract_description; ?>
-                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.02000-0.00500-0.00500</code></p>
+                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=</code>relation-ID<code>&amp;params=0.02000-0.00500-0.00500</code></p>
                         </div>
 <?php } ?>
 
@@ -89,7 +99,7 @@
                     <h4 id="osmium-getid"><span style="display: inline-block; width:21px; background-color: green;">&nbsp;</span> <?php echo $lang_osmium_getid; ?></h4>
                         <div class="indent">
                             <?php echo $lang_osmium_getid_description; ?>
-                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=relation-ID&amp;params=0.20000-0.00050-0.00050</code></p>
+                            <p><code>https://polygons.openstreetmap.fr/get_poly.py?id=</code>relation-ID<code>&amp;params=0.20000-0.00050-0.00050</code></p>
                         </div>
 <?php } ?>
                 </div>
