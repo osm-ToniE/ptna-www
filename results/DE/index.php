@@ -199,6 +199,8 @@
 
                     <?php CreateNewFullEntry( "DE-SN-ZVON", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-SN-ZVVO", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-ST-PVGS", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-ST-VTO", "de", "Konfiguration" ); ?>
