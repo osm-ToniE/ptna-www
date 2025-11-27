@@ -26,7 +26,7 @@
                                             "Subsequently, 'osmium filter' is used to reduce the size of the extract by deleting irrelevant data (buildings, landuse, bicycle routes, ...).\n";
         $lang_osmium_getid=                 "Search area for 'osmium getid'";
         $lang_osmium_getid_description=     "This even larger area is used when PTNA has reported missing object data that was not found in the “osmium extract” area.\n".
-                                            "This data concerns relation IDs that are members of route_master or route relations (e.g., MP platforms in stations outside the extract area).\n" .
+                                            "This data concerns relations  outside the extract area that are members of route_master or route relations inside the area (e.g., MP platforms in stations).\n" .
                                             "The area is usually created using the tool and settings listed below, which are applied to the ID of the corresponding (administrative) boundary relation(s).\n" .
                                             "Zoom out to see the size of this area.";
 
