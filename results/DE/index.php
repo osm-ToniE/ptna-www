@@ -127,6 +127,8 @@
 
                     <?php CreateNewFullEntry( "DE-BY-VVM", "de", "Konfiguration" ); ?>
 
+                    <?php CreateNewFullEntry( "DE-BY-mona", "de", "Konfiguration" ); ?>
+
                     <?php CreateNewFullEntry( "DE-HB-VBN", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-HE-NVV", "de", "Konfiguration" ); ?>
