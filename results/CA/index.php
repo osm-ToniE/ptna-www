@@ -28,6 +28,7 @@
                 <?php CreateNewFullEntry( "CA-NB-CT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-BT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-GOT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "CA-ON-GRT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-HSR", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-MiWay", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-TTC", "en", "Configuration" ); ?>
