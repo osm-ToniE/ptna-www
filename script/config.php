@@ -13,7 +13,7 @@
         $options_hash['check-bus-stop']             = 'OFF';
         $options_hash['check-dates']                = 'OFF';
         $options_hash['check-gtfs']                 = 'OFF';
-        $options_hash['check-from-via-to']          = 'OFF';
+        $options_hash['check-from-to']              = 'OFF';
         $options_hash['check-motorway-link']        = 'OFF';
         $options_hash['check-name-relaxed']         = 'OFF';
         $options_hash['check-name']                 = 'OFF';
@@ -25,6 +25,7 @@
         $options_hash['check-service-type']         = 'OFF';
         $options_hash['check-stop-position']        = 'OFF';
         $options_hash['check-version']              = 'OFF';
+        $options_hash['check-via']                  = 'OFF';
         $options_hash['check-way-type']             = 'OFF';
         $options_hash['coloured-sketchline']        = 'OFF';
         $options_hash['expect-network-long-as']     = '';

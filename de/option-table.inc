@@ -49,10 +49,10 @@
                 <td class="option-description">Prüfung, ob Datumsangaben dem ISO-Format entsprechen: JJJJ-MM-TT</td>
                 <td class="option-image"></td>
             </tr>
-            <tr class="option-tablerow" id="option-check-from-via-to">
-                <td class="option-option">check-from-via-to</td>
+            <tr class="option-tablerow" id="option-check-from-to">
+                <td class="option-option">check-from-to</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Prüfe, ob &#039;from&#039;, &#039;via&#039; und &#039;to&#039; mit den entsprechenden Platformnamen übereinstimmen.</td>
+                <td class="option-description">Check that &#039;from&#039; and &#039;to&#039; match with corresponding platform &#039;name&#039; values.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-gtfs">
@@ -125,6 +125,12 @@
                 <td class="option-option">check-version</td>
                 <td class="option-default">OFF</td>
                 <td class="option-description">Prüfung von &#039;public_transport:version&#039; = &#039;...&#039; bei Route-Master und Route.</td>
+                <td class="option-image"></td>
+            </tr>
+            <tr class="option-tablerow" id="option-check-via">
+                <td class="option-option">check-via</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">Check that &#039;via&#039; matches with corresponding platform &#039;name&#039; values.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-check-way-type">
