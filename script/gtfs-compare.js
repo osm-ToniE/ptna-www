@@ -652,8 +652,11 @@ function handleMembers( lor, relation_id, draw_also ) {
     var object = DATA_Relations[lor][relation_id];
     var is_GTFS = object['tags']['type'] === 'trip';
     var is_PTv2 = object['tags']['public_transport:version'] && object['tags']['public_transport:version'] === 2;
+    var listlength = 0;
 
-    var listlength      = object['members'].length;
+    if ( object['members'] ) {
+        listlength      = object['members'].length;
+    }
 
     for ( var index = 0; index < listlength; index++ ) {
 
@@ -933,63 +936,65 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
 
     var members = DATA_Relations[lor][id]["members"];
 
-    var len = members.length;
-    for ( var j = 0; j < len; j++ ) {
-        member_type = members[j]['type'];
-        member_role = members[j]['role'];
-        member_id   = members[j]['ref'];
+    if ( members ) {
+        var len = members.length;
+        for ( var j = 0; j < len; j++ ) {
+            member_type = members[j]['type'];
+            member_role = members[j]['role'];
+            member_id   = members[j]['ref'];
 
-        if ( member_type == "node" ) {
-            if ( !DATA_Nodes[lor][member_id] ) {
-                downloadRelationSync( id, lor );
-            }
-            if ( DATA_Nodes[lor][member_id] ) {
-                if ( have_set_marker ) {
-                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false, draw_also ));
-                } else {
-                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true, draw_also ));
-                    have_set_marker = 1;
-                }
-            } else {
-                console.log( "Failed to download Relation " + id + " for Node: " + member_id );
-            }
-        } else if ( member_type == "way" ) {
-            if ( !DATA_Ways[lor][member_id] ) {
-                downloadRelationSync( id, lor );
-            }
-            if ( DATA_Ways[lor][member_id] ) {
-                if ( have_set_marker ) {
-                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon, draw_also ));
-                } else {
-                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon, draw_also ));
-                    have_set_marker = 1;
-                }
-            } else {
-                console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
-            }
-        } else if ( member_type == "relation" ) {
-            //
-            // deep dive into member relations only for type=route relations
-            //
-            if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] && DATA_Relations[lor][id]["tags"]["type"] == "route" ) {
-                if ( !DATA_Relations[lor][member_id] ) {
+            if ( member_type == "node" ) {
+                if ( !DATA_Nodes[lor][member_id] ) {
                     downloadRelationSync( id, lor );
                 }
-                if ( DATA_Relations[lor][member_id] ) {
-                    console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
-                    document.getElementById("beta").style.display = "block";
+                if ( DATA_Nodes[lor][member_id] ) {
+                    if ( have_set_marker ) {
+                        list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false, draw_also ));
+                    } else {
+                        list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true, draw_also ));
+                        have_set_marker = 1;
+                    }
                 } else {
-                    console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
+                    console.log( "Failed to download Relation " + id + " for Node: " + member_id );
                 }
-            } else {
-                if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] ) {
-                    console.log( "No deep dive into relations of type = " + DATA_Relations[lor][id]["tags"]["type"]  );
+            } else if ( member_type == "way" ) {
+                if ( !DATA_Ways[lor][member_id] ) {
+                    downloadRelationSync( id, lor );
+                }
+                if ( DATA_Ways[lor][member_id] ) {
+                    if ( have_set_marker ) {
+                        list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon, draw_also ));
+                    } else {
+                        list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon, draw_also ));
+                        have_set_marker = 1;
+                    }
                 } else {
-                    console.log( "No deep dive into relations other than type = route" );
+                    console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
+                }
+            } else if ( member_type == "relation" ) {
+                //
+                // deep dive into member relations only for type=route relations
+                //
+                if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] && DATA_Relations[lor][id]["tags"]["type"] == "route" ) {
+                    if ( !DATA_Relations[lor][member_id] ) {
+                        downloadRelationSync( id, lor );
+                    }
+                    if ( DATA_Relations[lor][member_id] ) {
+                        console.log( "No further recursive download of Relation " + id + " for  Relation: " + member_id );
+                        document.getElementById("beta").style.display = "block";
+                    } else {
+                        console.log( "Failed to download Relation " + id + " for  Relation: " + member_id );
+                    }
+                } else {
+                    if ( DATA_Relations[lor][id]["tags"] && DATA_Relations[lor][id]["tags"]["type"] ) {
+                        console.log( "No deep dive into relations of type = " + DATA_Relations[lor][id]["tags"]["type"]  );
+                    } else {
+                        console.log( "No deep dive into relations other than type = route" );
+                    }
                 }
             }
-        }
 
+        }
     }
 
     var result = [];
