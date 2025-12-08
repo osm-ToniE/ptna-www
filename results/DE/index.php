@@ -79,8 +79,6 @@
 
                     <?php CreateNewFullEntry( "DE-BY-DGF", "de", "Konfiguration" ); ?>
 
-                    <?php CreateNewFullEntry( "DE-BY-Kim", "de", "Konfiguration" ); ?>
-
                     <?php CreateNewFullEntry( "DE-BY-LAVV", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-LVG", "de", "Konfiguration" ); ?>
@@ -120,8 +118,6 @@
                     <?php CreateNewFullEntry( "DE-BY-VLK", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VLMUE", "de", "Konfiguration" ); ?>
-
-                    <?php CreateNewFullEntry( "DE-BY-VRG", "de", "Konfiguration" ); ?>
 
                     <?php CreateNewFullEntry( "DE-BY-VSL", "de", "Konfiguration" ); ?>
 
