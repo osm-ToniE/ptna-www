@@ -163,7 +163,7 @@
                     <?php CreateNewFullEntry( "NL-ZH-WRD", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZH-WRS  	    Personenvervoer over water in Rotterdam en Schiedam 	MRDH, Gemeente Rotterdam, Havenbedrijf Rotterdam  -->
-                    <?php CreateNewFullEntry( "NL-ZH-WRS ", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <?php CreateNewFullEntry( "NL-ZH-WRS", "nl", "Configuratie wordt voorbereid" ); ?>
 
                     <!-- NL-ZH-ZHN  	    Zuid-Holland Noord 	                                    Provincie Zuid-Holland -->
                     <?php CreateNewFullEntry( "NL-ZH-ZHN", "nl", "Configuratie" ); ?>
