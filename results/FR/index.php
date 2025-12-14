@@ -58,23 +58,23 @@
                     <?php CreateNewFullEntry("FR-BRE-ARBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-AXEOBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Bibus", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_22", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_29", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_35", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_56", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_NS", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-BREIZHGO_CAR_RLP", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Coralie", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Dinamo", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Distribus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Glazgo", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-ILLENOO2", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-IZILO", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-LRRNS", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-LRRON", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-PENNARBED", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-QUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-SURF", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-TIBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry("FR-BRE-TIM", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
