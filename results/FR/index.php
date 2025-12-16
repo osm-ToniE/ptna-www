@@ -69,6 +69,7 @@
                     <?php CreateNewFullEntry("FR-BRE-Distribus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Glazgo", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-IZILO", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-KICEO", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-QUB", "fr", "Configuration" ); ?>
