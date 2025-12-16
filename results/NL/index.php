@@ -114,11 +114,11 @@
                     <!-- NL-OV-ZKZE 	    Zwolle - Kampen en Zwolle - Enschede 	                Provincie Overijssel -->
                     <?php CreateNewFullEntry( "NL-OV-ZKZE", "nl", "Configuratie wordt voorbereid" ); ?>
 
-                    <!-- NL-UT-PU 	        Provincie Utrecht 	                                    Provincie Utrecht -->
-                    <?php CreateNewFullEntry( "NL-UT-PU", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <!-- NL-UT-BI 	        Provincie Utrecht 	                                    Provincie Utrecht -->
+                    <?php CreateNewFullEntry( "NL-UT-BI", "nl", "Configuratie" ); ?>
 
-                    <!-- NL-UT-RU 	        Regio Utrecht 	                                        Provincie Utrecht -->
-                    <?php CreateNewFullEntry( "NL-UT-RU", "nl", "Configuratie wordt voorbereid" ); ?>
+                    <!-- NL-UT-BU 	        Regio Utrecht 	                                        Provincie Utrecht -->
+                    <?php CreateNewFullEntry( "NL-UT-BU", "nl", "Configuratie" ); ?>
 
                     <!-- NL-ZE-FFVB 	    Fast Ferry Vlissingen-Breskens 	                        Provincie Zeeland -->
                     <?php CreateNewFullEntry( "NL-ZE-FFVB", "nl", "Configuratie wordt voorbereid" ); ?>
