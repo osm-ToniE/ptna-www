@@ -68,13 +68,13 @@ function showrelation() {
 	var nomap  = L.tileLayer('');
 
     //  OpenStreetMap's Standard tile layer
-	var osmorg = L.tileLayer(  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	var osmorg = L.tileLayer(  'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		                        maxZoom: 19,
 		                        attribution: attribution
 	                        } );
 
     //  OpenStreetMap's DE Style
-    var osmde = L.tileLayer(    'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+    var osmde = L.tileLayer(    'https://tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
                                 maxZoom: 19,
                                 attribution: osmlicence + 'Imagery &copy; <a href="https://www.openstreetmap.de/germanstyle.html" target="_blank">openstreetmap.de</a>'
                             } );
