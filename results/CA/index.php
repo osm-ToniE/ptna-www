@@ -30,7 +30,7 @@
                 <?php CreateNewFullEntry( "CA-ON-GOT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-GRT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-HSR", "en", "Configuration" ); ?>
-                <?php CreateNewFullEntry( "CA-ON-LT", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "CA-ON-LTC", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-MiWay", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-TTC", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "CA-ON-YRT", "en", "Configuration" ); ?>
