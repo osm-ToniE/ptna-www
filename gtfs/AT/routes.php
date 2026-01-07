@@ -67,7 +67,7 @@
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsRoutesEntry( $feed, $release_date ); ?>
+<?php $duration = CreateGtfsRoutesEntry( $feed, $release_date ); ?>
                         </tbody>
                     </table>
 
