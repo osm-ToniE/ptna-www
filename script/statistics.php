@@ -432,6 +432,7 @@
         foreach ( $files as $file ) {
             if ( preg_match("/previous/",$file)  ||
                  preg_match("/long-term/",$file) ||
+                 preg_match("/error/",$file)     ||
                  preg_match("/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/", $file) ) {
                 continue;
             }
@@ -441,6 +442,7 @@
         foreach ( $files as $file ) {
             if ( preg_match("/previous/",$file)  ||
                  preg_match("/long-term/",$file) ||
+                 preg_match("/error/",$file)     ||
                  preg_match("/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]/", $file) ) {
                 continue;
             }
