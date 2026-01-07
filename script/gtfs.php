@@ -361,7 +361,7 @@
                 }
             }
 
-            if ( $linkname && ( $linkname == "previous" || $linkname == "long-term" ) ) {
+            if ( $linkname && ( $linkname == "previous" || $linkname == "long-term" || $linkname == "error" ) ) {
                 $filename = $search_path . '/' . $feed . '-' . $linkname . '-ptna-gtfs-sqlite.db';
             } else {
                 $filename = $search_path . '/' . $feed . '-ptna-gtfs-sqlite.db';
@@ -409,6 +409,7 @@
         $current_target   = GtfsReadLink( $feed, ''          );
         $previous_target  = GtfsReadLink( $feed, 'previous'  );
         $long_term_target = GtfsReadLink( $feed, 'long-term' );
+        $error_target     = GtfsReadLink( $feed, 'error'     );
 
         $target_script = preg_replace( '/trips.php/', 'routes.php', $_SERVER['SCRIPT_NAME'] );
 
@@ -428,6 +429,8 @@
             $viewing = $previous_target;
         } elseif ( $release_date == 'long-term' ) {
             $viewing = $long_term_target;
+        } elseif ( $release_date == 'error' ) {
+            $viewing = $error_target;
         } else {
             $viewing = $feed . '-'. $release_date . '-ptna-gtfs-sqlite.db';
         }
@@ -456,6 +459,9 @@
                     $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 } elseif ( $previous_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
                     $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/previous.svg" width="19px" height="19px" title="previous" /></a> ';
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
+                } elseif ( $error_target == $feed.'-'.$rd.'-ptna-gtfs-sqlite.db' ) {
+                    $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '"><img src="/img/error.svg" width="19px" height="19px" title="error" /></a> ';
                     $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";
                 } else {
                     $contents .= '<a href="' . $target_script . '?feed=' . urlencode($feed) . '&release_date=' . urlencode($rd) . '">' . htmlspecialchars($rd) . "</a>";

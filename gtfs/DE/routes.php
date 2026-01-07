@@ -36,7 +36,7 @@
 
 <?php   $months_short = array( "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez" );
 
-        $duration = CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
+        CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
 
         include $lang_dir.'gtfs-feed-legend.inc';
 ?>

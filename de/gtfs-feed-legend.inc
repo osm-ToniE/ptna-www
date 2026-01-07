@@ -6,6 +6,8 @@
                                 Vorgängerversion (previous)             </nobr>&nbsp;/&nbsp;<nobr>
                                                                         </nobr><img src="/img/CheckMark.png" width="19px" height="19px" title="previous" />&nbsp;
                                 PTNAs aktuellste Version                </nobr>&nbsp;/&nbsp;<nobr>
+                                                                        </nobr><img src="/img/error.svg" width="19px" height="19px" title="previous" />&nbsp;
+                                Version mit Fehlern                     </nobr>&nbsp;/&nbsp;<nobr>
                                 yyyy-mm-dd                              &nbsp;
                                 Datum der Version                       </nobr>&nbsp;/&nbsp;
                                                                         <nobr><span style="background-color: limegreen;">
