@@ -756,11 +756,12 @@ function parseHttpResponse( data ) {
 
     osm_data[osm_data_index] = JSON.parse( data.toString() )
 
-    // console.log( '>' + osm_data[osm_data_index]["version"] + "<" );
-    // console.log( '>' + osm_data[osm_data_index]["generator"] + "<" );
-    // console.log( '>' + osm_data[osm_data_index]["copyright"] + "<" );
-    // console.log( '>' + osm_data[osm_data_index]["attribution"] + "<" );
-    // console.log( '>' + osm_data[osm_data_index]["license"] + "<" );
+    console.log( '>version  = '             + osm_data[osm_data_index]["version"] + "<" );
+    console.log( '>generator = '            + osm_data[osm_data_index]["generator"] + "<" );
+    if ( 'osm3s' in osm_data[osm_data_index] ) {
+        console.log( '>timestamp_osm_base = '   + osm_data[osm_data_index]["osm3s"]["timestamp_osm_base"] + "<" );
+        console.log( '>copyright ='             + osm_data[osm_data_index]["osm3s"]["copyright"] + "<" );
+    }
 
     if ( osm_data[osm_data_index]["elements"].length === 0 ) {
         alert( "Data not found");

@@ -281,10 +281,12 @@ function parseHttpResponse( data ) {
 
     overpass_data = JSON.parse( data.toString() )
 
-    console.log( '>version = ' + overpass_data["version"] + "<" );
-    console.log( '>generator = ' + overpass_data["generator"] + "<" );
-    console.log( '>timestamp_osm_base = ' + overpass_data["osm3s"]["timestamp_osm_base"] + "<" );
-    console.log( '>copyright = ' + overpass_data["osm3s"]["copyright"] + "<" );
+    console.log( '>version  = '             + overpass_data["version"] + "<" );
+    console.log( '>generator = '            + overpass_data["generator"] + "<" );
+    if ( 'osm3s' in overpass_data ) {
+        console.log( '>timestamp_osm_base = '   + overpass_data["osm3s"]["timestamp_osm_base"] + "<" );
+        console.log( '>copyright ='             + overpass_data["osm3s"]["copyright"] + "<" );
+    }
 
     if ( overpass_data["elements"].length === 0 ) {
         alert( "Data not found");

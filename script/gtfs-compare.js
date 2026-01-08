@@ -1149,11 +1149,17 @@ function parseHttpResponse( lor, data ) {
 
     JSON_data[lor] = JSON.parse( data.toString() )
 
-    // console.log( 'Version: >' + JSON_data[lor]["version"] + "<" );
-    // console.log( 'Generator: >' + JSON_data[lor]["generator"] + "<" );
-    // console.log( 'Copyright: >' + JSON_data[lor]["copyright"] + "<" );
-    // console.log( 'Attribution: >' + JSON_data[lor]["attribution"] + "<" );
-    // console.log( 'License: >' + JSON_data[lor]["license"] + "<" );
+    if ( 'osm3s' in JSON_data[lor] ) {
+        console.log( '>version  = '           + JSON_data[lor]["version"] + "<" );
+        console.log( '>generator = '          + JSON_data[lor]["generator"] + "<" );
+        console.log( '>timestamp_osm_base = ' + JSON_data[lor]["osm3s"]["timestamp_osm_base"] + "<" );
+        console.log( '>copyright = '          + JSON_data[lor]["osm3s"]["copyright"] + "<" );
+    } else if ( 'generator' in JSON_data[lor] ) {
+        console.log( '>version   = ' + JSON_data[lor]["generator"]["version"] + "<" );
+        console.log( '>generator = ' + JSON_data[lor]["generator"]["date"] + "<" );
+        console.log( '>timestamp = ' + JSON_data[lor]["timestamp"] + "<" );
+    }
+    // console.log( JSON_data[lor] );
     // if ( 'osm'  in JSON_data[lor] ) {
     //      for (var i = 0, keys = Object.keys(JSON_data[lor]['osm']), ii = keys.length; i < ii; i++) {
     //          console.log('OSM : > ' + keys[i] + ' = ' + JSON_data[lor]['osm'][keys[i]] + '<');
