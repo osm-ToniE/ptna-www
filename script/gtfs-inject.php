@@ -124,9 +124,9 @@
         if ( $temp_routes_csv_injected && file_exists($temp_routes_csv_injected) ) {
             unlink( $temp_routes_csv_injected );
         }
-        #if ( $temp_routes_read && file_exists($temp_routes_read) ) {
-        #    unlink( $temp_routes_read );
-        #}
+        if ( $temp_routes_read && file_exists($temp_routes_read) ) {
+            unlink( $temp_routes_read );
+        }
         if ( $temp_routes_inject && file_exists($temp_routes_inject) ) {
             unlink( $temp_routes_inject );
         }
