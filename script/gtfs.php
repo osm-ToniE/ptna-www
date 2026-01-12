@@ -1282,7 +1282,7 @@
                     echo '                                <td class="gtfs-number"' . $good_id_match    . '>' . $good_id_indicator    . '<a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($data_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>' . htmlspecialchars($osm_route) . '</td>' . "\n";
                     echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
-                    echo '                                <td class="gtfs-name">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-text">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                 } elseif ( $match ) {
                     echo "<!-- ". htmlspecialchars($match) . " -->\n";
