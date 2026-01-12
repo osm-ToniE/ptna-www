@@ -205,6 +205,7 @@ async function showtripcomparison() {
                            'id'               : trip_id,
                            'feed'             : feed,
                            'release_date'     : release_date,
+                           'date'             : JSON_data['left']["ptna"]["release_date"],
                            'route_short_name' : (DATA_Relations['left'][trip_id]['tags']['route_id'] || DATA_Relations['left'][trip_id]['tags']['route_id'] == '0') ? DATA_Relations['left'][DATA_Relations['left'][trip_id]['tags']['route_id']]['tags']['route_short_name'] : '???',
                            'link'             : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-row-'+trip_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id+'">'
@@ -214,17 +215,20 @@ async function showtripcomparison() {
     if ( relation_id !== '' ) {
         whats_right  = 'OSM';
         var taggs_to_add = GetTaggsToAddToOsmRelation( relation_id, feed, release_date, route_id, trip_id  );
-        TableInfoRight = { 'name' : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
-                           'id'   : relation_id,
-                           'ref'  : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
-                           'link' : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route'),p_feed='',p_release_date='',addtags=taggs_to_add) +
+        TableInfoRight = { 'name'         : 'OSM ' + (DATA_Relations['right'][relation_id]['tags']['type'] ? DATA_Relations['right'][relation_id]['tags']['type'] : '???'),
+                           'date'         : JSON_data['right']["osm3s"]["timestamp_osm_base"],
+                           'id'           : relation_id,
+                           'ref'          : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
+                           'link'         : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route'),p_feed='',p_release_date='',addtags=taggs_to_add) +
                                                     ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
                          };
+
     } else {
         TableInfoRight = { 'name'             : 'GTFS trip',
                            'id'               : trip_id2,
                            'feed'             : feed2,
                            'release_date'     : release_date2,
+                           'date'             : JSON_data['right']["ptna"]["release_date"],
                            'route_short_name' : (DATA_Relations['right'][trip_id2]['tags']['route_id'] || DATA_Relations['right'][trip_id2]['tags']['route_id'] == '0') ? DATA_Relations['right'][DATA_Relations['right'][trip_id2]['tags']['route_id']]['tags']['route_short_name'] : '???',
                            'link'             : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
@@ -299,7 +303,7 @@ async function showroutecomparison() {
     var zero_data    = false;
 
     CompareTable                            = [];
-    CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
+    CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'date' : JSON_data['left']["ptna"]["release_date"], 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
     var route_ids = route_id.split( ';' );
     for ( var i = 0; i < route_ids.length; i++ ) {
         var this_route_id = route_ids[i];
@@ -328,13 +332,13 @@ async function showroutecomparison() {
         if ( DATA_Relations['right'][relation_id]         && DATA_Relations['right'][relation_id]['type']         === 'relation' &&
              DATA_Relations['right'][relation_id]['tags'] && DATA_Relations['right'][relation_id]['tags']['type']                   ) {
             if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route_master' ) {
-                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route_master', 'members' : 'OSM routes', 'date' : JSON_data['right']["osm3s"]["timestamp_osm_base"], 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route_master'] ? DATA_Relations['right'][relation_id]['tags']['route_master'] : '';
                 CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=false, p_feed='', p_release_date='', addtags=taggs_to_add ) +
                                                                  ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">';
             } else if ( DATA_Relations['right'][relation_id]['tags']['type'] === 'route' ) {
-                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
+                CompareTableColInfo            = { 'type' : 'OSM', 'name' : 'OSM route', 'members' : 'OSM route', 'date' : JSON_data['right']["osm3s"]["timestamp_osm_base"], 'id' : relation_id, 'cols' : GetRelationMembersOfRelation('right','OSM',relation_id,sort=false) };
                 CompareTableColInfo['id2num']  = GetMappingOfId2Number( CompareTableColInfo['cols'] );
                 CompareTableColInfo['vehicle'] = DATA_Relations['right'][relation_id]['tags']['route'] ? DATA_Relations['right'][relation_id]['tags']['route'] : '';
                 CompareTableColInfo['link']    = GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=true, p_feed='', p_release_date='', addtags=taggs_to_add ) +
@@ -350,7 +354,7 @@ async function showroutecomparison() {
         }
     } else {
         whats_right                   = 'GTFS';
-        CompareTableColInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
+        CompareTableColInfo           = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed2, 'release_date' : release_date2, 'date' : JSON_data['right']["ptna"]["release_date"], 'id' : route_id2, 'cols' : GetRelationMembersOfRelation('right','GTFS',route_id2,sort=true) };
         CompareTableColInfo['id2num'] = GetMappingOfId2Number( CompareTableColInfo['cols'] );
         if ( DATA_Relations['right'][route_id2]                        &&
              DATA_Relations['right'][route_id2]['type'] === 'relation' &&
@@ -1155,11 +1159,13 @@ function parseHttpResponse( lor, data ) {
         console.log( '>timestamp_osm_base = ' + JSON_data[lor]["osm3s"]["timestamp_osm_base"] + "<" );
         console.log( '>copyright = '          + JSON_data[lor]["osm3s"]["copyright"] + "<" );
     } else if ( 'generator' in JSON_data[lor] ) {
-        console.log( '>version   = ' + JSON_data[lor]["generator"]["version"] + "<" );
-        console.log( '>generator = ' + JSON_data[lor]["generator"]["date"] + "<" );
-        console.log( '>timestamp = ' + JSON_data[lor]["timestamp"] + "<" );
+        console.log( '>version   =    ' + JSON_data[lor]["generator"]["version"] + "<" );
+        console.log( '>generator =    ' + JSON_data[lor]["generator"]["date"] + "<" );
+        console.log( '>timestamp =    ' + JSON_data[lor]["timestamp"] + "<" );
+        if ( 'ptna' in JSON_data[lor] ) {
+            console.log( '>release_date = ' + JSON_data[lor]["ptna"]["release_date"] + "<" );
+        }
     }
-    // console.log( JSON_data[lor] );
     // if ( 'osm'  in JSON_data[lor] ) {
     //      for (var i = 0, keys = Object.keys(JSON_data[lor]['osm']), ii = keys.length; i < ii; i++) {
     //          console.log('OSM : > ' + keys[i] + ' = ' + JSON_data[lor]['osm'][keys[i]] + '<');
@@ -2258,13 +2264,20 @@ function ShowCompareInfo( ElementId, TableInfo ) {
         }
         if ( TableInfo['feed'] ) {
             elem.innerHTML += '<td>' + TableInfo['feed'] + '</td>';
-            if ( TableInfo['release_date'] ) {
-                elem.innerHTML += '<td>' + TableInfo['release_date'] + '</td>';
+            if ( TableInfo['release_date'] === '' ) {
+                elem.innerHTML += '<td>latest = ' + TableInfo['date'] + '</td>';
+            } else if ( TableInfo['release_date'].match('^[a-z]') ) {
+                elem.innerHTML += '<td>' +  TableInfo['release_date'] + ' = ' + TableInfo['date'] + '</td>';
             } else {
-                elem.innerHTML += '<td>latest</td>';
+                elem.innerHTML += '<td>' +  TableInfo['release_date'] + '</td>';
             }
         } else {
-            elem.innerHTML += '<td>&nbsp;</td><td>&nbsp;</td>';
+            elem.innerHTML += '<td>&nbsp;</td>';
+            if ( TableInfo['date'] ) {
+                elem.innerHTML += '<td>' + TableInfo['date'] + '</td>';
+            } else {
+                elem.innerHTML += '<td>&nbsp;</td>';
+            }
         }
         if ( TableInfo['members'] && TableInfo['name'] !== TableInfo['members']) {
             elem.innerHTML += '<td>' + TableInfo['members'] + ' of ' + TableInfo['name'] + '</td>';
