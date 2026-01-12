@@ -45,7 +45,7 @@
                     $shell_command  = "$path_to_bin/ptnaFillCsvData.py --show-hidden-variables --routes $catalog_file --template $temp_routes_csv_txt --outfile $temp_routes_csv_injected > $temp_routes_inject 2>&1";
                     $shell_response = shell_exec( $shell_command );
                 } else {
-                    $error_string = "Error: excecuting 'read from Wiki' command: " . $shell_response;
+                    $error_string = "Error: excecuting 'read from Wiki' command fpr page '" . $wiki_routes_page . "' : " . $shell_response;
                     $ret = false;
                 }
             } else {
