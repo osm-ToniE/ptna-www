@@ -45,7 +45,7 @@
                     $shell_command  = "$path_to_bin/ptnaFillCsvData.py --show-hidden-variables --routes $catalog_file --template $temp_routes_csv_txt --outfile $temp_routes_csv_injected > $temp_routes_inject 2>&1";
                     $shell_response = shell_exec( $shell_command );
                 } else {
-                    $error_string = "Error: excecuting 'read from Wiki' command fpr page '" . $wiki_routes_page . "' : " . $shell_response;
+                    $error_string = "Error: excecuting 'read from Wiki' command for page '" . $wiki_routes_page . "' : " . $shell_response;
                     $ret = false;
                 }
             } else {
@@ -124,9 +124,9 @@
         if ( $temp_routes_csv_injected && file_exists($temp_routes_csv_injected) ) {
             unlink( $temp_routes_csv_injected );
         }
-        if ( $temp_routes_read && file_exists($temp_routes_read) ) {
-            unlink( $temp_routes_read );
-        }
+        #if ( $temp_routes_read && file_exists($temp_routes_read) ) {
+        #    unlink( $temp_routes_read );
+        #}
         if ( $temp_routes_inject && file_exists($temp_routes_inject) ) {
             unlink( $temp_routes_inject );
         }
