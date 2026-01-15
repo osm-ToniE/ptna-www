@@ -101,7 +101,7 @@
                         <li><span style="background-color: #fe4000;">48 <= score</span></li>
                         </ul>
                         <p>Move the mouse over a cell and it will pop-up a list of individual scores.<br/>
-                        Click on a cell and you'll see a detailed analyis of the data.</p>
+                        Click on a cell and you'll see a detailed analysis of the data.</p>
                     </div>
 
                 <span id="hiddenmap"></span>
