@@ -59,7 +59,7 @@ var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
 var RoutesTableFirstVisibleColumn = 0;
 
-const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2' ];
+const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2', 'wdiff', 'ddiff' ];
 
 
 async function showtripcomparison() {
@@ -234,6 +234,26 @@ async function showtripcomparison() {
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
                          };
     }
+
+    if ( 'ddiff' in parsed_URL && Number(parsed_URL['ddiff']) > 0 )
+    // if ( 'osm'   in JSON_data['left']                  &&
+    //      'wdiff' in JSON_data['left']['osm']           &&
+    //      'ddiff' in JSON_data['left']['osm']           &&
+    //      Number(JSON_data['left']['osm']['wdiff']) > 0 &&
+    //      Number(JSON_data['left']['osm']['ddiff']) > 0    )
+    {
+
+        let [ new_left, new_right ] = DiffBasedSortOfCMP_List( left         = CMP_List['left'],
+                                                                           right        = CMP_List['right'],
+                                                                           source_right = whats_right,
+                                                                           ddiff        = Number(parsed_URL['ddiff'])
+                                                                         );
+        CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
+        CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
+        console.log("CMP_List diff sorted");
+        console.log(CMP_List);
+    }
+
     var left_len  = CMP_List['left'].length;
     var right_len = CMP_List['right'].length;
 
@@ -657,6 +677,7 @@ function handleMembers( lor, relation_id, draw_also ) {
     var is_GTFS = object['tags']['type'] === 'trip';
     var is_PTv2 = object['tags']['public_transport:version'] && object['tags']['public_transport:version'] === 2;
     var listlength = 0;
+    var lor_index  = 0;
 
     if ( object['members'] ) {
         listlength      = object['members'].length;
@@ -772,7 +793,8 @@ function handleMembers( lor, relation_id, draw_also ) {
             latlonroute[lor][match].push( [lat,lon] );
 
             if ( match === 'platform' || match === 'stop' ) {
-                CMP_List[lor].push( { 'id':id, 'type':object_type, 'lat':lat, 'lon':lon, 'tags':member['tags'], 'ptna':member['ptna'] } );
+                lor_index = CMP_List[lor].length;
+                CMP_List[lor].push( { 'index':lor_index+1, 'id':id, 'type':object_type, 'lat':lat, 'lon':lon, 'tags':member['tags'], 'ptna':member['ptna'] } );
             }
 
             if ( draw_also && (match === "shape" || match === 'route') && number_of_match[match] == 1 ) {
@@ -2407,8 +2429,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             body_row = {...body_row_template};
             row_style = JSON.parse(JSON.stringify(body_row_style));
             if ( i < left_len ) {
-                if ( cmp_list['left'][i]['tags'] ) {
-                    body_row['stop_number']   = i+1;
+                if ( 'index' in cmp_list['left'][i] ) {
+                    body_row['stop_number']   = cmp_list['left'][i]['index'];
                     body_row['stop_id']       = cmp_list['left'][i]['tags']['stop_id']       || '';
                     body_row['platform_code'] = cmp_list['left'][i]['tags']['platform_code'] || '';
                     body_row['stop_lat']      = parseFloat(cmp_list['left'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
@@ -2425,9 +2447,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 }
             }
             if ( i < right_len ) {
-                if ( cmp_list['right'][i]['tags'] ) {
+                if ( 'index' in cmp_list['right'][i] ) {
                     if ( right === 'OSM' ) {
-                        body_row['platform_number']    = i+1;
+                        body_row['platform_number']    = cmp_list['right'][i]['index'];
                         body_row['name']               = cmp_list['right'][i]['tags']['name']         || '';
                         body_row['ref_name']           = cmp_list['right'][i]['tags']['ref_name']     || '';
                         body_row['lat']                = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
@@ -2444,7 +2466,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['Edit<br/>with'] = GetObjectLinks( cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], is_GTFS=(right === 'GTFS'), is_Route=false );
                     } else {
                         // xxx2 identified GTFS on the right side
-                        body_row['stop_number2']   = i+1;
+                        body_row['stop_number2']   = cmp_list['right'][i]['index'];
                         body_row['stop_id2']       = cmp_list['right'][i]['tags']['stop_id'] || '';
                         body_row['platform_code2'] = cmp_list['right'][i]['tags']['platform_code'] || '';
                         body_row['stop_lat2']      = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)  || '';
@@ -2471,11 +2493,23 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 }
             }
             if ( i < left_len && i < right_len ) {
+                if ( 'index' in cmp_list['left'][i]  &&
+                     'index' in cmp_list['right'][i]    ) {
                 body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+                } else {
+                    body_row['arrow_left']  = '';
+                    body_row['arrow_right'] = '';
+                }
             } else if ( i < left_len ) {
+                if ( 'index' in cmp_list['left'][i]            &&
+                     'index' in cmp_list['right'][right_len-1]    ) {
                 body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
+                }
             } else if ( i < right_len) {
+                if ( 'index' in cmp_list['left'][left_len-1] &&
+                     'index' in cmp_list['right'][i]            ) {
                 body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+                }
             }
 
             // start comparing values left <-> right
@@ -2744,20 +2778,22 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
 
 
 function OverwriteScoreWeightsDistancesFromDbOrUrl( scores ) {
-    const DbUrlField2ComparisonKey = { 'ws'  : 'stops',              // compare numbers of stops
-                                       'wn'  : 'name',               // compare 'stop_name'     left with 'name'/'stop_name' right
-                                       'wrn' : 'ref_name',           // compare 'stop_name'     left with 'ref_name' right
-                                       'wsi' : 'stop_id2',           // compare 'stop_id'       left with 'stop_id' right
-                                       'wri' : 'ref:IFOPT',          // compare 'stop_id'       left with 'ref:IFOPT' right
-                                       'wpc' : 'platform_code',      // compare 'platform_code' left with 'platform_code'/'local_ref' right
-                                       'wgs' : 'gtfs:stop_id',       // compare 'stop_id'       left with 'gtfs:stop_id' right
-                                       'wgf' : 'gtfs:stop_id:'+feed, // compare 'stop_id'       left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
-                                       'wd0' : 'distance',           //
-                                       'wd1' : 'distance',           //
-                                       'wd2' : 'distance',           //
-                                       'd0'  : 'distances',
-                                       'd1'  : 'distances',
-                                       'd2'  : 'distances',
+    const DbUrlField2ComparisonKey = { 'ws'     : 'stops',              // compare numbers of stops
+                                       'wn'     : 'name',               // compare 'stop_name'     left with 'name'/'stop_name' right
+                                       'wrn'    : 'ref_name',           // compare 'stop_name'     left with 'ref_name' right
+                                       'wsi'    : 'stop_id2',           // compare 'stop_id'       left with 'stop_id' right
+                                       'wri'    : 'ref:IFOPT',          // compare 'stop_id'       left with 'ref:IFOPT' right
+                                       'wpc'    : 'platform_code',      // compare 'platform_code' left with 'platform_code'/'local_ref' right
+                                       'wgs'    : 'gtfs:stop_id',       // compare 'stop_id'       left with 'gtfs:stop_id' right
+                                       'wgf'    : 'gtfs:stop_id:'+feed, // compare 'stop_id'       left with 'gtfs:stop_id:<feed suffix>' right (e.g. 'gtfs:stop_id:DE-BY-MVV')
+                                       'wd0'    : 'distance',           //
+                                       'wd1'    : 'distance',           //
+                                       'wd2'    : 'distance',           //
+                                       'd0'     : 'distances',
+                                       'd1'     : 'distances',
+                                       'd2'     : 'distances',
+                                       'wdiff'  : 'diff',               // weight of result if 'diff' sorting of CMP_list
+                                       'ddiff'  : 'diff'                // distance between GTFS stop and OSM platform allowed to consider they are close enough
                                      };
     Object.entries(DbUrlField2ComparisonKey).forEach(([param, key]) => {
         if ( key ) {
@@ -3196,6 +3232,13 @@ function FillTripsScoresTable( scores ) {
     elem           = document.getElementById('score-total');
     elem.style     = 'background-color: ' + scores['over_all_color'];
     elem.innerHTML = scores['over_all_score'] + '%';
+}
+
+
+function DiffBasedSortOfCMP_List( left, right, source_right = 'OSM', ddiff = 200 ) {
+    let new_left  = JSON.parse(JSON.stringify(left));
+    let new_right = JSON.parse(JSON.stringify(right));
+    return [ new_left, new_right ];
 }
 
 
