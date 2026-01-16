@@ -34,6 +34,8 @@ var route_id2       = '';
 var trip_id2        = '';
 var relation_id     = '';
 
+var diff_based_compare = false;
+
 var downloadstartms = 0;
 var analysisstartms = 0;
 var JSON_data       = { 'left' : {}, 'right' : {} };
@@ -59,7 +61,7 @@ var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
 var RoutesTableFirstVisibleColumn = 0;
 
-const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2', 'wdiff', 'ddiff' ];
+const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2', 'wdiff', 'ddiff', 'diff' ];
 
 
 async function showtripcomparison() {
@@ -149,14 +151,15 @@ async function showtripcomparison() {
 
     var layers;
 
-    var parsed_URL = URLparse();
-    feed           = parsed_URL["feed"]          || '';
-    feed2          = parsed_URL["feed2"]         || feed;
-    release_date   = parsed_URL["release_date"]  || '';
-    release_date2  = parsed_URL["release_date2"] || '';
-    trip_id        = parsed_URL["trip_id"]       || '';
-    trip_id2       = parsed_URL["trip_id2"]      || '';
-    relation_id    = parsed_URL["relation"]      || '';
+    var parsed_URL      = URLparse();
+    feed                = parsed_URL["feed"]          || '';
+    feed2               = parsed_URL["feed2"]         || feed;
+    release_date        = parsed_URL["release_date"]  || '';
+    release_date2       = parsed_URL["release_date2"] || '';
+    trip_id             = parsed_URL["trip_id"]       || '';
+    trip_id2            = parsed_URL["trip_id2"]      || '';
+    relation_id         = parsed_URL["relation"]      || '';
+    diff_based_compare  = parsed_URL["diff"]          || false;
 
     if ( relation_id !== '' ) {
         layers    = L.control.layers(baseMaps, overlayMapsGtfsOsm).addTo(map);
@@ -235,18 +238,17 @@ async function showtripcomparison() {
                          };
     }
 
-    if ( 'ddiff' in parsed_URL && Number(parsed_URL['ddiff']) > 0 )
-    // if ( 'osm'   in JSON_data['left']                  &&
-    //      'wdiff' in JSON_data['left']['osm']           &&
-    //      'ddiff' in JSON_data['left']['osm']           &&
-    //      Number(JSON_data['left']['osm']['wdiff']) > 0 &&
-    //      Number(JSON_data['left']['osm']['ddiff']) > 0    )
-    {
+    if ( diff_based_compare ) {
 
+        let override_ddiff = ('ddiff' in parsed_URL && parsed_URL['ddiff'].match(/^[0-9][0-9]*$/))
+                             ? Number(parsed_URL['ddiff'])
+                             : ('ddiff' in JSON_data['left']["osm"] && JSON_data['left']["osm"]['ddiff'].match(/^[0-9][0-9]*$/))
+                               ? Number(JSON_data['left']["osm"]['ddiff'])
+                               : 100;
         let [ new_left, new_right ] = DiffBasedSortOfCMP_List( left         = CMP_List['left'],
                                                                            right        = CMP_List['right'],
                                                                            source_right = whats_right,
-                                                                           ddiff        = Number(parsed_URL['ddiff'])
+                                                               ddiff        = override_ddiff
                                                                          );
         CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
         CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
@@ -288,14 +290,15 @@ async function showroutecomparison() {
 
     map  = L.map( 'hiddenmap',  { center : [defaultlat, defaultlon], zoom: defaultzoom, layers: [nomap] } );
 
-    var parsed_URL = URLparse();
-    feed          = parsed_URL["feed"]           || '';
-    feed2         = parsed_URL["feed2"]          || feed;
-    release_date  = parsed_URL["release_date"]   || '';
-    release_date2 = parsed_URL["release_date2"]  || '';
-    route_id      = (parsed_URL["route_id"]  || parsed_URL["route_id"]  == '0') ? parsed_URL["route_id"]  : '';
-    route_id2     = (parsed_URL["route_id2"] || parsed_URL["route_id2"] == '0') ? parsed_URL["route_id2"] : '';
-    relation_id   = parsed_URL["relation"]       || '';
+    var parsed_URL      = URLparse();
+    feed                = parsed_URL["feed"]           || '';
+    feed2               = parsed_URL["feed2"]          || feed;
+    release_date        = parsed_URL["release_date"]   || '';
+    release_date2       = parsed_URL["release_date2"]  || '';
+    route_id            = (parsed_URL["route_id"]      || parsed_URL["route_id"]  == '0') ? parsed_URL["route_id"]  : '';
+    route_id2           = (parsed_URL["route_id2"]     || parsed_URL["route_id2"] == '0') ? parsed_URL["route_id2"] : '';
+    relation_id         = parsed_URL["relation"]       || '';
+    diff_based_compare  = parsed_URL["diff"]           || false;
 
     dBarLeft   = document.getElementById('download_left');
     dBarRight  = document.getElementById('download_right');
@@ -399,6 +402,24 @@ async function showroutecomparison() {
 
             console.log( "CMP_List[row=" + (row+1) + "][col=" + (col+1) + "]" );
             console.log(CMP_List);
+
+            if ( 0 ) { //diff_based_compare ){
+
+                let override_ddiff = ('ddiff' in parsed_URL && parsed_URL['ddiff'].match(/^[0-9][0-9]*$/))
+                                    ? Number(parsed_URL['ddiff'])
+                                    : ('ddiff' in JSON_data['left']["osm"] && JSON_data['left']["osm"]['ddiff'].match(/^[0-9][0-9]*$/))
+                                    ? Number(JSON_data['left']["osm"]['ddiff'])
+                                    : 100;
+                let [ new_left, new_right ] = DiffBasedSortOfCMP_List( left         = CMP_List['left'],
+                                                                    right        = CMP_List['right'],
+                                                                    source_right = whats_right,
+                                                                    ddiff        = override_ddiff
+                                                                    );
+                CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
+                CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
+                console.log("CMP_List diff sorted");
+                console.log(CMP_List);
+            }
 
             left_len  = CMP_List['left'].length;
             right_len = CMP_List['right'].length;
@@ -617,10 +638,14 @@ function URLparse() {
 
     for ( var i = 0; i < pairs.length; i++ ) {
         pos = pairs[i].indexOf('=');
-        if ( pos == -1 ) continue;
+        if ( pos == -1 ) {
+            name  = pairs[i];
+            value = true;
+        } else {
         name  = pairs[i].substring(0,pos);
         value = pairs[i].substring(pos+1);
         value = decodeURIComponent(value);
+        }
         params[name] = value;
     }
     return params;
@@ -2331,7 +2356,13 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     var left_name_parts          = '';
     var right_name_parts         = '';
     var max_len                  = Math.max(left_len,right_len);
+    var left_num_stops           = 0;
+    var right_num_stops          = 0;
+    cmp_list['left'].forEach(  elem => { if ( 'index' in elem ) { left_num_stops++; } } );
+    cmp_list['right'].forEach( elem => { if ( 'index' in elem ) { right_num_stops++; } } );
+    var max_num_stops            = Math.max(left_num_stops,right_num_stops);
     var scores                   = { 'distances' : [ 20, 100, 1000 ],
+                                     'ddiff'     : 100,
                                      'mismatch_percent_to_color' : { // colour if actual value is greater or equal number
                                         48 : '#fe4000',
                                         24 : '#f17a00',
@@ -2342,14 +2373,15 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                      'weights'   : {
                                         'stops'           : 10,
                                         'distance'        : [1,4,12],
-                                        'name'            : 2,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
-                                        'ref_name'        : 1,  // GTFS 'stop_name' versus OSM 'ref_name'
-                                        'stop_id2'        : 2,  // GTFS 'stop_id' versus GTFS 'stop_id'
+                                        'name'            : 2,    // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name' == 'wn' in DB.osm table / in URL
+                                        'ref_name'        : 1,    // GTFS 'stop_name' versus OSM 'ref_name'
+                                        'stop_id2'        : 2,    // GTFS 'stop_id' versus GTFS 'stop_id'
                                         'platform_code'   : 0.5,  // GTFS 'platform_code' versus GTFS 'platform_code' or OSM 'local_ref'
                                         'platform_code2'  : 0.5,  // GTFS 'platform_code' versus GTFS 'platform_code'
                                         'local_ref'       : 0.5,  // GTFS 'platform_code' versus OSM 'local_ref'
-                                        'gtfs:stop_id'    : 2,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'       : 2   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'gtfs:stop_id'    : 2,    // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
+                                        'ref:IFOPT'       : 2,    // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'diff'            : 5,    // 'diff' counter's weight
                                      },
                                      'weights_name'   : {
                                         'stops'           : 'ws',
@@ -2361,11 +2393,12 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'platform_code2'  : 'wpc',  // GTFS 'platform_code' versus GTFS 'platform_code'
                                         'local_ref'       : 'wpc',  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 'wgs',  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'       : 'wri'   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'ref:IFOPT'       : 'wri',  // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'diff'            : 'wdiff'
                                      },
                                      'totals'    : {
-                                        'stops'           : max_len,
-                                        'distance'        : [max_len,max_len,max_len],
+                                        'stops'           : max_num_stops,
+                                        'distance'        : [max_num_stops,max_num_stops,max_num_stops],
                                         'name'            : 0,  // right side: OSM 'name'
                                         'ref_name'        : 0,  // right side: OSM 'ref_name'
                                         'stop_id2'        : 0,  // right side: GTFS 'stop_id'
@@ -2373,10 +2406,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'platform_code2'  : 0,  // right side: GTFS 'platform_code'
                                         'local_ref'       : 0,  // right side: OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // right side: OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'       : 0   // right side: OSM 'ref:IFOPT'
+                                        'ref:IFOPT'       : 0,  // right side: OSM 'ref:IFOPT'
+                                        'diff'            : 0
                                      },
-                                     'mismatch_count': {
-                                        'stops'           : Math.abs(left_len-right_len),
+                                     'mismatch_count' : {
+                                        'stops'           : Math.abs(left_num_stops-right_num_stops),
                                         'distance'        : [0,0,0],
                                         'name'            : 0,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
                                         'ref_name'        : 0,  // GTFS 'stop_name' versus OSM 'ref_name'
@@ -2385,9 +2419,10 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'platform_code2'  : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
                                         'local_ref'       : 0,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'       : 0   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'ref:IFOPT'       : 0,  // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'diff'            : 0
                                      },
-                                     'mismatch_percent': {
+                                     'mismatch_percent' : {
                                         'stops'           : 0,
                                         'distance'        : [0,0,0],
                                         'name'            : 0,  // GTFS 'stop_name' versus GTFS 'stop_name' or OSM 'name'
@@ -2397,9 +2432,10 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'platform_code2'  : 0,  // GTFS 'platform_code' versus GTFS 'platform_code'
                                         'local_ref'       : 0,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 0,  // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
-                                        'ref:IFOPT'       : 0   // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'ref:IFOPT'       : 0,  // GTFS 'stop_id' versus OSM 'ref:IFOPT'
+                                        'diff'            : 0
                                      },
-                                     'mismatch_color': {
+                                     'mismatch_color' : {
                                         'stops'           : '',
                                         'distance'        : ['','',''],
                                         'name'            : '',
@@ -2409,7 +2445,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'platform_code2'  : '',
                                         'local_ref'       : '',
                                         'gtfs:stop_id'    : '',
-                                        'ref:IFOPT'       : ''
+                                        'ref:IFOPT'       : '',
+                                        'diff'            : ''
                                      },
                                      'over_all_color'  : '',
                                      'over_all_score'  : ''
@@ -2424,6 +2461,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     if ( left_len > 0 && right_len > 0 ) {
 
         OverwriteScoreWeightsDistancesFromDbOrUrl( scores );
+
+        scores['totals']['diff'] = max_len;
 
         for ( var i = 0; i < max_len; i++ ) {
             body_row = {...body_row_template};
@@ -2444,7 +2483,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     } else {
                         body_row['stop_name'] = cmp_list['left'][i]['tags']['stop_name'] || '';
                     }
+                } else {
+                    scores['mismatch_count']['diff'] += 1;
                 }
+            } else {
+                scores['mismatch_count']['diff'] += 1;
             }
             if ( i < right_len ) {
                 if ( 'index' in cmp_list['right'][i] ) {
@@ -2490,7 +2533,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             scores['totals']['name']++;
                         }
                     }
+                } else {
+                    scores['mismatch_count']['diff'] += 1;
                 }
+            } else {
+                scores['mismatch_count']['diff'] += 1;
             }
             if ( i < left_len && i < right_len ) {
                 if ( 'index' in cmp_list['left'][i]  &&
@@ -2885,6 +2932,11 @@ function CalculateScores( scores ) {
                     scores['mismatch_color'][field]   = GetScoreColor( scores, scores['mismatch_percent'][field] );
                     weighted_scores     += (scores['mismatch_percent'][field] * scores['weights'][field]);
                     accumulated_weights += scores['weights'][field];
+                } else if ( field === 'diff' && scores['totals'][field] == 0 ) {
+                    scores['mismatch_percent'][field] = 0;
+                    scores['mismatch_color'][field]   = GetScoreColor( scores, 0 );
+                    weighted_scores     += (0 * scores['weights'][field]);
+                    accumulated_weights += scores['weights'][field];
                 }
             }
         }
@@ -2966,7 +3018,7 @@ function FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores ) {
 
     // magic calculation of visible height of table, before scrolling is enabled
     div.style["height"] = ((body_rows.length * 2) + 3) + "em";
-    div.style["min-height"] = 24 + "em";
+    div.style["min-height"] = 26 + "em";
 
     tr           = document.createElement('tr');
     th           = document.createElement('th');
@@ -3165,7 +3217,8 @@ function FillTripsScoresTable( scores ) {
                                 'stop_id2'       : 'score-stop-id',
                                 'gtfs:stop_id'   : 'score-gtfs-stop-id',
                                 'ref:IFOPT'      : 'score-ref-ifopt',
-                                'platform_code'  : 'score-platform-code'
+                                'platform_code'  : 'score-platform-code',
+                                'diff'           : 'score-diff'
                               };
     score_fields_to_ids['gtfs:stop_id:'+feed] = 'score-gtfs-stop-id-feed';
 
@@ -3209,11 +3262,14 @@ function FillTripsScoresTable( scores ) {
             } else {
                 total_of_field = scores['totals'][field];
             }
-            if ( total_of_field > 0 ) {
+            if ( total_of_field > 0 || field === 'diff' ) {
                 if ( scores['weights'][field] > 0 ) {
                     elem.innerHTML = scores['mismatch_percent'][field] + '%';
                     if ( scores['mismatch_color'][field] !== '' ) {
                         elem_color.style = 'background-color: ' + scores['mismatch_color'][field];
+                    }
+                    if ( field === 'diff' ) {
+                        elem_text.innerHTML = elem_text.innerHTML.replace('xx',scores['mismatch_count']['diff']);
                     }
                 } else {
                     elem.style        = 'background-color: lightblue;';
@@ -3235,10 +3291,54 @@ function FillTripsScoresTable( scores ) {
 }
 
 
-function DiffBasedSortOfCMP_List( left, right, source_right = 'OSM', ddiff = 200 ) {
-    let new_left  = JSON.parse(JSON.stringify(left));
-    let new_right = JSON.parse(JSON.stringify(right));
+function DiffBasedSortOfCMP_List( left, right, source_right = 'OSM', ddiff = 100 ) {
+    let old_left  = JSON.parse(JSON.stringify(left));
+    let old_right = JSON.parse(JSON.stringify(right));
+    let new_left  = [];
+    let new_right = [];
+
+    const diff = Diff.diffArrays( old_left, old_right, { comparator: (leftelem, rightelem) => cmpLeftRight( leftelem, rightelem, source_right, ddiff ) } );
+
+    diff.forEach((part) => {
+        if ( part.removed ) {
+            for ( let i = 0; i < part.count; i++ ) {
+                new_left.push( old_left.shift() );
+                new_right.push( {} );
+            }
+        } else if ( part.added ) {
+            for ( let i = 0; i < part.count; i++ ) {
+                new_left.push( {} );
+                new_right.push( old_right.shift() );
+            }
+        } else {
+            for ( let i = 0; i < part.count; i++ ) {
+                new_left.push( old_left.shift() );
+                new_right.push( old_right.shift() );
+            }
+        }
+    });
     return [ new_left, new_right ];
+}
+
+
+function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
+    if ( 'tags' in leftelem && 'stop_name' in leftelem['tags'] ) {
+        if ( source_right === 'OSM' ) {
+            if ( 'tags' in rightelem ) {
+                if ( 'name' in rightelem['tags'] ) {
+                    if ( rightelem['tags']['name'] === leftelem['tags']['stop_name'] ) { return true; }
+                }
+                if ( 'ref_name' in rightelem['tags'] ) {
+                    if ( rightelem['tags']['ref_name'] === leftelem['tags']['stop_name'] ) { return true; }
+                }
+            }
+        } else {
+            if ( 'tags' in rightelem && 'stop_name' in rightelem['tags'] ) {
+                if ( rightelem['tags']['stop_name'] === leftelem['tags']['stop_name'] ) { return true; }
+            }
+        }
+    }
+    return ( map.distance([rightelem.lat, rightelem.lon],[leftelem.lat,leftelem.lon]) <= ddiff );
 }
 
 
