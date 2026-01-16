@@ -70,7 +70,7 @@
 
                     <h2 id="scores">Mismatch Scores (low score)</h2>
                     <div class="indent">
-                        <p>The values indicate the mismatch between the two routes, smaller is better.</p>
+                        <!-- <p>The values indicate the mismatch between the two routes, smaller is better.</p> -->
                         <div>
                             <!-- table will be filled on the fly using JavaScript -->
                             <table id="scores-table" class="scores-table scores">
@@ -89,7 +89,7 @@
                                     <tr>
                                         <td id="score-total" rowspan="12" class="scores-no-padding"></td>
                                         <td id="score-diff"        class="scores-center"></td>
-                                        <td id="score-diff-text">xx diffference(s) in visited stops areas</td>
+                                        <td id="score-diff-text">xx diffference(s) in visited stop areas</td>
                                         <td id="score-diff-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
