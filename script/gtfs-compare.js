@@ -2390,7 +2390,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'local_ref'       : 0.5,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 2,    // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 2,    // GTFS 'stop_id' versus OSM 'ref:IFOPT'
-                                        'diff'            : 5,    // 'diff' counter's weight
+                                        'diff'            : diff_based_compare ? 5 : 0,    // 'diff' counter's weight
                                      },
                                      'weights_name'   : {
                                         'stops'           : 'ws',
