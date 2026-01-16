@@ -61,7 +61,7 @@
                                     <tr class="compare compare-routes-left"><th>&nbsp;</th><th>type</th><th>links</th><th>id</th><th>ref</th><th>feed</th><th>release date</th></tr>
                                 </thead>
                                 <tbody class="compare">
-                                    <tr id="compare-trips-left-info"  class="compare"><td><img  src="/img/marker-left.png"  alt="left marker"  height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; font-weight: 700">Left:</span></td></tr>
+                                    <tr id="compare-trips-left-info"  class="compare"><td><img src="/img/marker-left.png"  alt="left marker"  height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; font-weight: 700">Left:</span></td></tr>
                                     <tr id="compare-trips-right-info" class="compare"><td><img src="/img/marker-right.png" alt="right marker" height="24" width="24" style="padding-right: 10px"><span style="display: inline-block; font-weight: 700">Right:</span></td></tr>
                                 </tbody>
                             </table>
