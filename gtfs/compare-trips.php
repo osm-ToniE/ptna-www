@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://cdn.jsdelivr.net/npm/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.min.js"></script>
+        <script src="/script/diff.js"></script>
         <script src="/script/gtfs-compare.js"></script>
 
         <div id="wrapper">
@@ -86,7 +87,12 @@
                                 </thead>
                                 <tbody id="scores-table-tbody" class="scores-table-tbody">
                                     <tr>
-                                        <td id="score-total" rowspan="11" class="scores-no-padding"></td>
+                                        <td id="score-total" rowspan="12" class="scores-no-padding"></td>
+                                        <td id="score-diff"        class="scores-center"></td>
+                                        <td id="score-diff-text">xx diffference(s) in visited stops (in same stop area)</td>
+                                        <td id="score-diff-weight" class="scores-center"></td>
+                                    </tr>
+                                    <tr>
                                         <td id="score-stops"        class="scores-center"></td>
                                         <td id="score-stops-text">mismatch of number of stops</td>
                                         <td id="score-stops-weight" class="scores-center"></td>
