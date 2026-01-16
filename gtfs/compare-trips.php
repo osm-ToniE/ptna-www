@@ -89,7 +89,7 @@
                                     <tr>
                                         <td id="score-total" rowspan="12" class="scores-no-padding"></td>
                                         <td id="score-diff"        class="scores-center"></td>
-                                        <td id="score-diff-text">xx diffference(s) in visited stops (in same stop area)</td>
+                                        <td id="score-diff-text">xx diffference(s) in visited stops areas</td>
                                         <td id="score-diff-weight" class="scores-center"></td>
                                     </tr>
                                     <tr>
