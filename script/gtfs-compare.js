@@ -3270,6 +3270,11 @@ function FillTripsScoresTable( scores ) {
                     }
                     if ( field === 'diff' ) {
                         elem_text.innerHTML = elem_text.innerHTML.replace('xx',scores['mismatch_count']['diff']);
+                        if ( scores['mismatch_count']['diff'] == 1 ) {
+                            elem_text.innerHTML = elem_text.innerHTML.replace(/\(.\)/,'');
+                        } else {
+                            elem_text.innerHTML = elem_text.innerHTML.replace(/\(/,'').replace(/\)/,'');
+                        }
                     }
                 } else {
                     elem.style        = 'background-color: lightblue;';
@@ -3322,9 +3327,9 @@ function DiffBasedSortOfCMP_List( left, right, source_right = 'OSM', ddiff = 100
 
 
 function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
-    if ( 'tags' in leftelem && 'stop_name' in leftelem['tags'] ) {
+    if ( 'tags' in leftelem && 'tags' in rightelem ) {
         if ( source_right === 'OSM' ) {
-            if ( 'tags' in rightelem ) {
+            if ( 'stop_name' in leftelem['tags'] ) {
                 if ( 'name' in rightelem['tags'] ) {
                     if ( rightelem['tags']['name'] === leftelem['tags']['stop_name'] ) { return true; }
                 }
@@ -3332,13 +3337,33 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
                     if ( rightelem['tags']['ref_name'] === leftelem['tags']['stop_name'] ) { return true; }
                 }
             }
+            if ( 'stop_id' in leftelem['tags'] ) {
+                if ( 'gtfs:stop_id:'+feed in rightelem['tags'] ) {
+                    if ( rightelem['tags']['gtfs:stop_id'+feed] === leftelem['tags']['stop_id'] ) { return true; }
+                }
+                if ( 'gtfs:stop_id' in rightelem['tags'] ) {
+                    if ( rightelem['tags']['gtfs:stop_id'] === leftelem['tags']['stop_id'] ) { return true; }
+                }
+                if ( leftelem['tags'] && 'ref:IFOPT' in rightelem['tags'] ) {
+                    // take the first 3 elements of am IFOPT structured string <country>:<conty>:<stop_area>
+                    let stop_id   = leftelem['tags']['stop_id'].replace(/^(.*?):(.*?):(.*?):.*$/,'$1:$2:$3');
+                    let ref_IFOPT = rightelem['tags']['ref:IFOPT'].replace(/^(.*?):(.*?):(.*?):.*$/,'$1:$2:$3');
+                    if ( ref_IFOPT === stop_id ) { return true; }
+                }
+            }
         } else {
-            if ( 'tags' in rightelem && 'stop_name' in rightelem['tags'] ) {
+            if ( 'stop_name' in leftelem['tags'] && 'stop_name' in rightelem['tags'] ) {
                 if ( rightelem['tags']['stop_name'] === leftelem['tags']['stop_name'] ) { return true; }
+            }
+            if ( 'stop_id' in leftelem['tags'] && 'stop_id' in rightelem['tags'] ) {
+                if ( rightelem['tags']['stop_id'] === leftelem['tags']['stop_id'] ) { return true; }
             }
         }
     }
-    return ( map.distance([rightelem.lat, rightelem.lon],[leftelem.lat,leftelem.lon]) <= ddiff );
+    if ( 'lat' in leftelem && 'lon' in leftelem && 'lat' in rightelem && 'lon' in rightelem ) {
+        return ( map.distance([rightelem['lat'], rightelem['lon']],[leftelem['lat'],leftelem['lon']]) <= ddiff );
+    }
+    return  false;
 }
 
 
