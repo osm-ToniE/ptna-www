@@ -2321,7 +2321,16 @@ function ShowCompareInfo( ElementId, TableInfo ) {
         } else {
             elem.innerHTML += '<td>&nbsp;</td>';
             if ( TableInfo['date'] ) {
+                const now = new Date();
+                const osm = new Date( TableInfo['date'] );
+                // console.log( "now = " + now.getTime().toString() + " OSM = " + osm.getTime().toString() + " Diff = " + Math.abs(now.getTime()-osm.getTime()) ) ;
+                if ( Math.abs(now.getTime()-osm.getTime())/1000 > 6000 ) {
+                    elem.innerHTML += '<td style="background-color: orange;">' + TableInfo['date'] + '</td>';
+                } else if ( Math.abs(now.getTime()-osm.getTime())/1000 > 600 ) {
+                    elem.innerHTML += '<td style="background-color: yellow;">' + TableInfo['date'] + '</td>';
+                } else {
                 elem.innerHTML += '<td>' + TableInfo['date'] + '</td>';
+                }
             } else {
                 elem.innerHTML += '<td>&nbsp;</td>';
             }
