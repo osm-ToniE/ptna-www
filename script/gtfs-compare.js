@@ -256,19 +256,21 @@ async function showtripcomparison() {
         console.log(CMP_List);
     }
 
-    var left_len  = CMP_List['left'].length;
-    var right_len = CMP_List['right'].length;
+    var left_num_stops           = 0;
+    var right_num_stops          = 0;
+    CMP_List['left'].forEach(  elem => { if ( 'index' in elem ) { left_num_stops++; } } );
+    CMP_List['right'].forEach( elem => { if ( 'index' in elem ) { right_num_stops++; } } );
 
-    if ( left_len > 0 && right_len > 0 ) {
+    if ( left_num_stops > 0 && right_num_stops > 0 ) {
         var score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = false );
     } else {
-        if ( left_len === 0 && right_len === 0 ) {
+        if ( left_num_stops === 0 && right_num_stops === 0 ) {
             if ( right === 'OSM' ) {
                 alert( "There are no GTFS-stops and no OSM-platforms" );
             } else {
                 alert( "There are no GTFS-stops at all" );
             }
-        } else if ( left_len === 0 ) {
+        } else if ( left_num_stops === 0 ) {
             alert( "There are no GTFS-stops" );
         } else {
             alert( "There are no OSM-platforms" );
@@ -320,10 +322,14 @@ async function showroutecomparison() {
     var aSpanAnalysis       = document.getElementById('span-analysis');
     aSpanAnalysis.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
 
-    var left_len     = 0;
-    var right_len    = 0;
     var score_table  = [];
     var zero_data    = false;
+
+    let override_ddiff = ('ddiff' in parsed_URL && parsed_URL['ddiff'].match(/^[0-9][0-9]*$/))
+                        ? Number(parsed_URL['ddiff'])
+                        : ('ddiff' in JSON_data['left']["osm"] && JSON_data['left']["osm"]['ddiff'].match(/^[0-9][0-9]*$/))
+                        ? Number(JSON_data['left']["osm"]['ddiff'])
+                        : 100;
 
     CompareTable                            = [];
     CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'date' : JSON_data['left']["ptna"]["release_date"], 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
@@ -403,13 +409,8 @@ async function showroutecomparison() {
             console.log( "CMP_List[row=" + (row+1) + "][col=" + (col+1) + "]" );
             console.log(CMP_List);
 
-            if ( 0 ) { //diff_based_compare ){
+            if ( diff_based_compare ){
 
-                let override_ddiff = ('ddiff' in parsed_URL && parsed_URL['ddiff'].match(/^[0-9][0-9]*$/))
-                                    ? Number(parsed_URL['ddiff'])
-                                    : ('ddiff' in JSON_data['left']["osm"] && JSON_data['left']["osm"]['ddiff'].match(/^[0-9][0-9]*$/))
-                                    ? Number(JSON_data['left']["osm"]['ddiff'])
-                                    : 100;
                 let [ new_left, new_right ] = DiffBasedSortOfCMP_List( left         = CMP_List['left'],
                                                                     right        = CMP_List['right'],
                                                                     source_right = whats_right,
@@ -421,15 +422,17 @@ async function showroutecomparison() {
                 console.log(CMP_List);
             }
 
-            left_len  = CMP_List['left'].length;
-            right_len = CMP_List['right'].length;
+            var left_num_stops           = 0;
+            var right_num_stops          = 0;
+            CMP_List['left'].forEach(  elem => { if ( 'index' in elem ) { left_num_stops++; } } );
+            CMP_List['right'].forEach( elem => { if ( 'index' in elem ) { right_num_stops++; } } );
 
-            if ( left_len > 0 && right_len > 0 ) {
+            if ( left_num_stops > 0 && right_num_stops > 0 ) {
                 score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = true );
                 CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'weights' : score_table['weights'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'] } );
             } else {
                 CompareTable[row].push( { 'score' : -1, 'color' : 'white' } );
-                if ( left_len === 0 && right_len === 0 ) {
+                if ( left_num_stops === 0 && right_len === 0 ) {
                     if ( whats_right === 'OSM' ) {
                         console.log( "There are no GTFS-stops and no OSM-platforms" );
                         alerts['There are no GTFS-stops and no OSM-platforms'] = 1;
@@ -437,7 +440,7 @@ async function showroutecomparison() {
                         console.log( "There are no GTFS-stops at all" );
                         alerts['There are no GTFS-stops at all'] = 1;
                     }
-                } else if ( left_len === 0 ) {
+                } else if ( left_num_stops === 0 ) {
                     console.log( "There are no GTFS-stops" );
                     alerts['There are no GTFS-stops'] = 1;
                 } else {
@@ -645,6 +648,7 @@ function URLparse() {
         name  = pairs[i].substring(0,pos);
         value = pairs[i].substring(pos+1);
         value = decodeURIComponent(value);
+            value = value === 'true' ? true : (value === 'false') ? false : value=value;
         }
         params[name] = value;
     }
@@ -2026,6 +2030,11 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
 
 function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type='' ) {
     ret_string  = "Click: Show detailed score information\n\n";
+    if ( CompareTable[row][col]['weights']['diff'] ) {
+        var val = CompareTable[row][col]['mismatch_percent']['diff'];
+        val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
+        ret_string += val + "%&nbsp;&nbsp;diffference in visited stop areas\n";
+    }
     if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
@@ -2390,7 +2399,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                                         'local_ref'       : 0.5,  // GTFS 'platform_code' versus OSM 'local_ref'
                                         'gtfs:stop_id'    : 2,    // GTFS 'stop_id' versus OSM 'gtfs:stop_id'
                                         'ref:IFOPT'       : 2,    // GTFS 'stop_id' versus OSM 'ref:IFOPT'
-                                        'diff'            : diff_based_compare ? 5 : 0,    // 'diff' counter's weight
+                                        'diff'            : diff_based_compare ? 10 : 0,    // 'diff' counter's weight
                                      },
                                      'weights_name'   : {
                                         'stops'           : 'ws',
