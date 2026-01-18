@@ -2,7 +2,8 @@
 //
 //
 
-const OVERPASS_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation(';
+//const OVERPASS_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation(';
+const OVERPASS_API_URL_PREFIX = 'https://overpass.private.coffee/api/interpreter?data=[out:json];relation(';
 const OVERPASS_API_URL_SUFFIX = ');(._;>>;);out;';
 
 const PTNA_API_URL = '/api/gtfs.php';
@@ -223,7 +224,7 @@ async function showtripcomparison() {
                            'id'           : relation_id,
                            'ref'          : DATA_Relations['right'][relation_id]['tags']['ref'] ? DATA_Relations['right'][relation_id]['tags']['ref'] : '???',
                            'link'         : GetObjectLinks( relation_id, 'relation', is_GTFS=false, is_Route=(DATA_Relations['right'][relation_id]['tags']['type']==='route'),p_feed='',p_release_date='',addtags=taggs_to_add) +
-                                                    ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
+                                                            ' <img onclick="ShowMore(this)" id="OSM-col-'+relation_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+relation_id+'">'
                          };
 
     } else {
@@ -246,10 +247,10 @@ async function showtripcomparison() {
                                ? Number(JSON_data['left']["osm"]['ddiff'])
                                : 100;
         let [ new_left, new_right ] = DiffBasedSortOfCMP_List( left         = CMP_List['left'],
-                                                                           right        = CMP_List['right'],
-                                                                           source_right = whats_right,
+                                                               right        = CMP_List['right'],
+                                                               source_right = whats_right,
                                                                ddiff        = override_ddiff
-                                                                         );
+                                                             );
         CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
         CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
         console.log("CMP_List diff sorted");
@@ -331,7 +332,7 @@ async function showroutecomparison() {
                         ? Number(JSON_data['left']["osm"]['ddiff'])
                         : 100;
 
-    CompareTable                            = [];
+                                    CompareTable                            = [];
     CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'date' : JSON_data['left']["ptna"]["release_date"], 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
     var route_ids = route_id.split( ';' );
     for ( var i = 0; i < route_ids.length; i++ ) {
@@ -645,9 +646,9 @@ function URLparse() {
             name  = pairs[i];
             value = true;
         } else {
-        name  = pairs[i].substring(0,pos);
-        value = pairs[i].substring(pos+1);
-        value = decodeURIComponent(value);
+            name  = pairs[i].substring(0,pos);
+            value = pairs[i].substring(pos+1);
+            value = decodeURIComponent(value);
             value = value === 'true' ? true : (value === 'false') ? false : value=value;
         }
         params[name] = value;
@@ -2338,7 +2339,7 @@ function ShowCompareInfo( ElementId, TableInfo ) {
                 } else if ( Math.abs(now.getTime()-osm.getTime())/1000 > 600 ) {
                     elem.innerHTML += '<td style="background-color: yellow;">' + TableInfo['date'] + '</td>';
                 } else {
-                elem.innerHTML += '<td>' + TableInfo['date'] + '</td>';
+                    elem.innerHTML += '<td>' + TableInfo['date'] + '</td>';
                 }
             } else {
                 elem.innerHTML += '<td>&nbsp;</td>';
@@ -2358,13 +2359,23 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     // right &#x2BC8;
     // up &#x2BC5;
     // down &#x2BC6;
-    var body_row_template = { 'stop_number' : '',         'stop_id'     : '', 'platform_code'     : '',         'stop_lat'        : '', 'stop_lon'  : '', 'stop_name' : '', 'info' : '',
+    var body_row_template = { 'stop_number' : '',         'stop_id'     : '', 'platform_code'     : '',         'stop_lat'        : '', 'stop_lon'  : '', 'stop_name'       : '', 'info'         : '',
                               'arrow_left'  : '&#x2BC7;', 'distance'    : '', 'arrow_right'       : '&#x2BC8;',
-                              'name'        : '',         'inject_name' : '', 'ref_name'          : '',         'inject_ref_name' : '', 'lat'       : '', 'lon'       : '', 'local_ref'    : '', 'inject_local_ref' : '', 'gtfs:stop_id' : '', 'inject_stop_id' : '', 'inject_stop_id_feed' : '', 'ref:IFOPT' : '', 'inject_ref_IFOPT' : '', 'platform_number' : '',
-                              'info2'       : '',         'stop_name2'  : '', 'platform_code2'    : '',         'stop_id2'        : '', 'stop_lat2' : '', 'stop_lon2' : '', 'stop_number2' : '', 'Edit<br/>with'    : ''
+                              'info_name'   : '',         'name'        : '', 'inject_name'       : '',         'info_ref_name'   : '', 'ref_name'  : '', 'inject_ref_name' : '', 'lat'          : '', 'lon'              : '', 'local_ref'    : '', 'inject_local_ref' : '', 'gtfs:stop_id' : '', 'inject_stop_id' : '', 'inject_stop_id_feed' : '', 'ref:IFOPT' : '', 'inject_ref_IFOPT' : '', 'platform_number' : '',
+                              'info2'       : '',         'stop_name2'  : '', 'platform_code2'    : '',         'stop_id2'        : '', 'stop_lat2' : '', 'stop_lon2'       : '', 'stop_number2' : '', 'Edit<br/>with'    : ''
                             };
     body_row_template['gtfs:stop_id:'+feed] = '';
-    var body_row_style    = { 'stop_name' : ['text-align:right'], 'name' : ['text-align:left'], 'ref_name' : ['text-align:left'], 'stop_name2' : ['text-align:left'], 'Edit<br/>with' : ['text-align:left'] };
+    var body_row_left_tags  = [ 'stop_number', 'stop_id', 'platform_code', 'stop_lat', 'stop_lon', 'stop_name' ];
+    var body_row_right_tags = [ 'stop_number2', 'stop_id2', 'platform_code2', 'stop_lat2', 'stop_lon2', 'stop_name2',
+                                'name', 'inject_name', 'ref_name', 'inject_ref_name', 'lat', 'lon', 'local_ref', 'inject_local_ref', 'gtfs:stop_id', 'inject_gtfs_stop_id', 'inject_gtfs_stop_id_feed', 'ref:IFOPT', 'inject_ref_IFOPT', 'platform_number' ]
+    body_row_right_tags.push('gtfs:stop_id:'+feed);
+    var body_row_style = {};
+    Object.keys(body_row_template).forEach( key => { body_row_style[key] = Array(); } );
+    body_row_style['stop_name']     = ['text-align:right'];
+    body_row_style['name']          = ['text-align:left'];
+    body_row_style['ref_name']      = ['text-align:left'];
+    body_row_style['stop_name2']    = ['text-align:left'];
+    body_row_style['Edit<br/>with'] = ['text-align:left'];;
     var body_rows   = [];
     var row_styles  = [];
     var body_row    = {};
@@ -2501,6 +2512,14 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     } else {
                         body_row['stop_name'] = cmp_list['left'][i]['tags']['stop_name'] || '';
                     }
+                    if ( i < right_len && !('index' in cmp_list['right'][i]) ) {
+                        body_row_left_tags.forEach( tag => {   if ( tag in row_style ) {
+                                                                    row_style[tag].push('background-color:yellow');
+                                                                } else {
+                                                                    row_style[tag] = ['background-color:yellow'];
+                                                                }
+                                                            });
+                    }
                 } else {
                     scores['mismatch_count']['diff'] += 1;
                 }
@@ -2551,6 +2570,14 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             scores['totals']['name']++;
                         }
                     }
+                    if ( i < left_len && !('index' in cmp_list['left'][i]) ) {
+                        body_row_right_tags.forEach( tag => {   if ( tag in row_style ) {
+                                                                    row_style[tag].push('background-color:yellow');
+                                                                } else {
+                                                                    row_style[tag] = ['background-color:yellow'];
+                                                                }
+                                                            });
+                    }
                 } else {
                     scores['mismatch_count']['diff'] += 1;
                 }
@@ -2560,7 +2587,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             if ( i < left_len && i < right_len ) {
                 if ( 'index' in cmp_list['left'][i]  &&
                      'index' in cmp_list['right'][i]    ) {
-                body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+                    body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
                 } else {
                     body_row['arrow_left']  = '';
                     body_row['arrow_right'] = '';
@@ -2568,12 +2595,12 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             } else if ( i < left_len ) {
                 if ( 'index' in cmp_list['left'][i]            &&
                      'index' in cmp_list['right'][right_len-1]    ) {
-                body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
+                    body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
                 }
             } else if ( i < right_len) {
                 if ( 'index' in cmp_list['left'][left_len-1] &&
                      'index' in cmp_list['right'][i]            ) {
-                body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
+                    body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
                 }
             }
 
@@ -2658,35 +2685,18 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             } else {
                 // GTFS vs OSM
                 if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
-                    if ( body_row['name'] !== '' &&  body_row['name'] !== '&nbsp;' ) {
-                        if ( body_row['stop_name'].toString().indexOf(body_row['name'].toString()) == -1 &&
-                             body_row['name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
-                             body_row['stop_name'].toString() !== body_row['name'].toString()               ) {
-                            if ( body_row['stop_name'].toString().match(',') &&
-                                 body_row['name'].toString().match(',')         ) {
-                                left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
-                                right_name_parts = body_row['name'].replace(/,\s+/g,',').split(',');
-                                if ( left_name_parts.length  == 2 && left_name_parts[0]  && left_name_parts[1]  &&
-                                     right_name_parts.length == 2 && right_name_parts[0] && right_name_parts[1]    ) {
-                                    if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
-                                         left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
-                                            row_style['stop_name'].push('background-color:orange');
-                                            row_style['name'].push('background-color:orange');
-                                            row_style['inject_name'] = row_style['name'];
-                                            scores['mismatch_count']['name']++;
-                                    }
-                                } else {
-                                    row_style['stop_name'].push('background-color:orange');
-                                    row_style['name'].push('background-color:orange');
-                                    row_style['inject_name'] = row_style['name'];
-                                    scores['mismatch_count']['name']++;
-                                }
-                            } else {
-                                row_style['stop_name'].push('background-color:orange');
-                                row_style['name'].push('background-color:orange');
-                                row_style['inject_name'] = row_style['name'];
-                                scores['mismatch_count']['name']++;
-                            }
+                    if ( body_row['name'] !== '' ) {
+                        body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], fuzzy=false );
+                        if ( body_row['info_name'] === '' ) {
+                            row_style['stop_name'].push('background-color:orange');
+                            row_style['name'].push('background-color:orange');
+                            row_style['inject_name'].push('background-color:orange');
+                            scores['mismatch_count']['name']++;
+                            body_row['name'] = htmlEscape(body_row['name']);
+                        } else if ( body_row['info_name'] !== 'equal' ) {
+                            body_row['name'] = '<span title="' + body_row['info_name'] + '">' + htmlEscape(body_row['name']) + '</span>';
+                        } else {
+                            body_row['name'] = htmlEscape(body_row['name']);
                         }
                     }
                     if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
@@ -2695,34 +2705,17 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 }
                 if ( scores['weights']['ref_name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['ref_name'] !== '' ) {
-                        if ( body_row['stop_name'].toString().indexOf(body_row['ref_name'].toString()) == -1 &&
-                             body_row['ref_name'].toString().indexOf(body_row['stop_name'].toString()) == -1 &&
-                             body_row['stop_name'].toString() !== body_row['ref_name'].toString()               ) {
-                            if ( body_row['stop_name'].toString().match(',') &&
-                                 body_row['ref_name'].toString().match(',')     ) {
-                                left_name_parts  = body_row['stop_name'].replace(/,\s+/g,',').split(',');
-                                right_name_parts = body_row['ref_name'].replace(/,\s+/g,',').split(',');
-                                if ( left_name_parts.length  == 2 &&
-                                     right_name_parts.length == 2    ) {
-                                    if ( left_name_parts[0].indexOf(right_name_parts[1]) == -1 ||
-                                         left_name_parts[1].indexOf(right_name_parts[0]) == -1    ) {
-                                        row_style['stop_name'].push('background-color:orange');
-                                        row_style['ref_name'].push('background-color:orange');
-                                        row_style['inject_ref_name'] = row_style['ref_name'];
-                                        scores['mismatch_count']['ref_name']++;
-                                    }
-                                } else {
-                                    row_style['stop_name'].push('background-color:orange');
-                                    row_style['ref_name'].push('background-color:orange');
-                                    row_style['inject_ref_name'] = row_style['ref_name'];
-                                    scores['mismatch_count']['ref_name']++;
-                                }
-                            } else {
-                                row_style['stop_name'].push('background-color:orange');
-                                row_style['ref_name'].push('background-color:orange');
-                                row_style['inject_ref_name'] = row_style['ref_name'];
-                                scores['mismatch_count']['ref_name']++;
-                            }
+                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], fuzzy=false );
+                        if ( body_row['info_ref_name'] === '' ) {
+                            row_style['stop_name'].push('background-color:orange');
+                            row_style['ref_name'].push('background-color:orange');
+                            row_style['inject_ref_name'].push('background-color:orange');
+                            scores['mismatch_count']['ref_name']++;
+                            body_row['ref_name'] = htmlEscape(body_row['ref_name']);
+                        } else if ( body_row['info_ref_name'] !== 'equal' ) {
+                            body_row['ref_name'] = '<span title="' + body_row['info_ref_name'] + '">' + htmlEscape(body_row['ref_name']) + '</span>';
+                        } else {
+                            body_row['ref_name'] = htmlEscape(body_row['ref_name']);
                         }
                     }
                     if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
@@ -2828,8 +2821,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 fields            = ['stop_number','stop_id','platform_code','stop_lat','stop_lon','stop_name','info','arrow_left','distance','arrow_right','info2','stop_name2','stop_lat2','stop_lon2','platform_code2','stop_id2','stop_number2'];
             }
             // define which fields values can be shown as is (they intentionally contain HTML tags), i.e. without htmsescape()
-            fields_as_is      = { 'stop_number' : 1, 'info' : 1, 'arrow_left' : 1, 'distance' : 1, 'arrow_right' : 1, 'info2' : 1,
-                                'inject_name' : 1, 'inject_ref_name' : 1, 'inject_local_ref' : 1, 'inject_stop_id' : 1, 'inject_stop_id_feed' : 1, 'inject_ref_IFOPT' : 1, 'platform_number' : 1, 'stop_number2' : 1, 'Edit<br/>with' : 1 };
+            fields_as_is      = { 'stop_number' : 1, 'info' : 1, 'arrow_left'  : 1, 'distance'      : 1, 'arrow_right' : 1, 'info2'           : 1,
+                                  'info_name'   : 1, 'name' : 1, 'inject_name' : 1, 'info_ref_name' : 1, 'ref_name'    : 1, 'inject_ref_name' : 1, 'inject_local_ref' : 1, 'inject_stop_id' : 1, 'inject_stop_id_feed' : 1, 'inject_ref_IFOPT' : 1, 'platform_number' : 1, 'stop_number2' : 1, 'Edit<br/>with' : 1 };
 
             FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores );
             FillTripsScoresTable( scores );
@@ -3211,7 +3204,7 @@ function FillTripsTable( fields, fields_as_is, body_rows, row_styles, scores ) {
             td = document.createElement('td');
             if ( field in body_rows[i]) {
                 if ( field in fields_as_is ) {
-                    td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field];
+                    td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : body_rows[i][field].toString();
                 } else {
                     td.innerHTML = (body_rows[i][field] === '') ? '&nbsp;' : htmlEscape(body_rows[i][field].toString());
                 }
@@ -3349,10 +3342,10 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
         if ( source_right === 'OSM' ) {
             if ( 'stop_name' in leftelem['tags'] ) {
                 if ( 'name' in rightelem['tags'] ) {
-                    if ( rightelem['tags']['name'] === leftelem['tags']['stop_name'] ) { return true; }
+                    if ( NamesAreSimilar(rightelem['tags']['name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
                 }
                 if ( 'ref_name' in rightelem['tags'] ) {
-                    if ( rightelem['tags']['ref_name'] === leftelem['tags']['stop_name'] ) { return true; }
+                    if ( NamesAreSimilar(rightelem['tags']['ref_name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
                 }
             }
             if ( 'stop_id' in leftelem['tags'] ) {
@@ -3371,7 +3364,7 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
             }
         } else {
             if ( 'stop_name' in leftelem['tags'] && 'stop_name' in rightelem['tags'] ) {
-                if ( rightelem['tags']['stop_name'] === leftelem['tags']['stop_name'] ) { return true; }
+                if ( NamesAreSimilar(rightelem['tags']['stop_name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
             }
             if ( 'stop_id' in leftelem['tags'] && 'stop_id' in rightelem['tags'] ) {
                 if ( rightelem['tags']['stop_id'] === leftelem['tags']['stop_id'] ) { return true; }
@@ -3382,6 +3375,76 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
         return ( map.distance([rightelem['lat'], rightelem['lon']],[leftelem['lat'],leftelem['lon']]) <= ddiff );
     }
     return  false;
+}
+
+
+function NamesAreSimilar( left_name, right_name, fuzzy = false ) {
+    let ln = left_name.toString();
+    let rn = right_name.toString();
+    if ( ln === rn ) {
+        return 'equal';
+    }
+    if ( fuzzy ) {
+        ln = ln.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        rn = rn.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        if ( ln === rn ) {
+            return "equal by lower case after normalize('NFD') plus deleting u0300 ... u036f";
+        }
+    }
+    ln = ln.replace(/\s*([\/])\s*/g,'$1').replace(/\s\s*/g,' ');
+    rn = rn.replace(/\s*([\/])\s*/g,'$1').replace(/\s\s*/g,' ');
+    if ( ln === rn ) {
+        return 'equal after removing some blanks';
+    }
+    if ( ln.match(/,/) && rn.match(/,/) ) {
+        ln_array = ln.split(/\s*,\s*/,2);
+        rn_array = rn.split(/\s*,\s*/,2);
+        if ( (ln_array[0] === rn_array[0] && ln_array[1] === rn_array[1]) ||
+             (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
+            return 'equal after swapping';
+        }
+    } else if ( ln.match(/,/) ) {
+        ln_array = ln.split(/\s*,\s*/,2);
+        if ( ln_array[0] === rn || ln_array[1] === rn ) {
+            return 'equal as qualified substring';
+        }
+    } else if ( rn.match(/,/) ) {
+        rn_array = rn.split(/\s*,\s*/,2);
+        if ( rn_array[0] === ln || rn_array[1] === ln ) {
+            return 'equal as qualified substring';
+        }
+    }
+    ln = ln.replace(/\s*\(..*?\)\s*/g,'');
+    rn = rn.replace(/\s*\(..*?\)\s*/g,'');
+    if ( ln === rn ) {
+        return "equal after removing all '(...)'";
+    }
+    if ( ln.match(/,/) && rn.match(/,/) ) {
+        let ln_array = ln.split(/\s*,\s*/,2);
+        let rn_array = rn.split(/\s*,\s*/,2);
+        if ( (ln_array[0] === rn_array[0] && ln_array[1] === rn_array[1]) ||
+             (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
+            return "equal after removing all '(...)' and swapping";
+        }
+    } else if ( ln.match(/,/) ) {
+        ln_array = ln.split(/\s*,\s*/,2);
+        if ( ln_array[0] === rn || ln_array[1] === rn ) {
+            return "equal after removing all '(...)' as qualified substring";
+        }
+    } else if ( rn.match(/,/) ) {
+        rn_array = rn.split(/\s*,\s*/,2);
+        if ( rn_array[0] === ln || rn_array[1] === ln ) {
+            return "equal after removing all '(...)' as qualified substring";
+        }
+    }
+    if ( fuzzy ) {
+        ln = ln.replace(/[ \/,+\(\)-]/g,'');
+        rn = rn.replace(/[ \/,+\(\)-]/g,'');
+        if ( ln === rn ) {
+            return 'equal after removing all special characters';
+        }
+    }
+    return '';
 }
 
 
