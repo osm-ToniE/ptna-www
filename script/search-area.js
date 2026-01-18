@@ -5,6 +5,7 @@
 //const OSM_API_URL_SUFFIX = '/full.json';
 
 const OSM_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation';
+//const OSM_API_URL_PREFIX = 'https://overpass.private.coffee/api/interpreter?data=[out:json];relation';
 const OSM_API_URL_SUFFIX = ';(._;>;);out;';
 
 const defaultlat    = 48.0649;
