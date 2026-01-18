@@ -2686,7 +2686,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 // GTFS vs OSM
                 if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['name'] !== '' ) {
-                        body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], fuzzy=false );
+                        body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], diff_compare=false );
                         if ( body_row['info_name'] === '' ) {
                             row_style['stop_name'].push('background-color:orange');
                             row_style['name'].push('background-color:orange');
@@ -2705,7 +2705,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 }
                 if ( scores['weights']['ref_name'] > 0 && body_row['stop_name'] !== '' ) {
                     if ( body_row['ref_name'] !== '' ) {
-                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], fuzzy=false );
+                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], diff_compare=false );
                         if ( body_row['info_ref_name'] === '' ) {
                             row_style['stop_name'].push('background-color:orange');
                             row_style['ref_name'].push('background-color:orange');
@@ -2943,7 +2943,7 @@ function CalculateScores( scores ) {
                     scores['mismatch_color'][field]   = GetScoreColor( scores, scores['mismatch_percent'][field] );
                     weighted_scores     += (scores['mismatch_percent'][field] * scores['weights'][field]);
                     accumulated_weights += scores['weights'][field];
-                } else if ( field === 'diff' && scores['totals'][field] == 0 ) {
+                } else if ( diff_based_compare && field === 'diff' && scores['totals'][field] == 0 ) {
                     scores['mismatch_percent'][field] = 0;
                     scores['mismatch_color'][field]   = GetScoreColor( scores, 0 );
                     weighted_scores     += (0 * scores['weights'][field]);
@@ -3342,10 +3342,10 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
         if ( source_right === 'OSM' ) {
             if ( 'stop_name' in leftelem['tags'] ) {
                 if ( 'name' in rightelem['tags'] ) {
-                    if ( NamesAreSimilar(rightelem['tags']['name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
+                    if ( NamesAreSimilar(rightelem['tags']['name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
                 }
                 if ( 'ref_name' in rightelem['tags'] ) {
-                    if ( NamesAreSimilar(rightelem['tags']['ref_name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
+                    if ( NamesAreSimilar(rightelem['tags']['ref_name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
                 }
             }
             if ( 'stop_id' in leftelem['tags'] ) {
@@ -3364,7 +3364,7 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
             }
         } else {
             if ( 'stop_name' in leftelem['tags'] && 'stop_name' in rightelem['tags'] ) {
-                if ( NamesAreSimilar(rightelem['tags']['stop_name'],leftelem['tags']['stop_name'],fuzzy=true) ) { return true; }
+                if ( NamesAreSimilar(rightelem['tags']['stop_name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
             }
             if ( 'stop_id' in leftelem['tags'] && 'stop_id' in rightelem['tags'] ) {
                 if ( rightelem['tags']['stop_id'] === leftelem['tags']['stop_id'] ) { return true; }
@@ -3378,13 +3378,13 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
 }
 
 
-function NamesAreSimilar( left_name, right_name, fuzzy = false ) {
+function NamesAreSimilar( left_name, right_name, diff_compare = false ) {
     let ln = left_name.toString();
     let rn = right_name.toString();
     if ( ln === rn ) {
         return 'equal';
     }
-    if ( fuzzy ) {
+    if ( diff_compare ) {
         ln = ln.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         rn = rn.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
         if ( ln === rn ) {
@@ -3403,12 +3403,12 @@ function NamesAreSimilar( left_name, right_name, fuzzy = false ) {
              (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return 'equal after swapping';
         }
-    } else if ( ln.match(/,/) ) {
+    } else if ( !diff_compare && ln.match(/,/) ) {
         ln_array = ln.split(/\s*,\s*/,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return 'equal as qualified substring';
         }
-    } else if ( rn.match(/,/) ) {
+    } else if ( !diff_compare && rn.match(/,/) ) {
         rn_array = rn.split(/\s*,\s*/,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return 'equal as qualified substring';
@@ -3426,18 +3426,18 @@ function NamesAreSimilar( left_name, right_name, fuzzy = false ) {
              (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return "equal after removing all '(...)' and swapping";
         }
-    } else if ( ln.match(/,/) ) {
+    } else if ( !diff_compare && ln.match(/,/) ) {
         ln_array = ln.split(/\s*,\s*/,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return "equal after removing all '(...)' as qualified substring";
         }
-    } else if ( rn.match(/,/) ) {
+    } else if ( !diff_compare && rn.match(/,/) ) {
         rn_array = rn.split(/\s*,\s*/,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return "equal after removing all '(...)' as qualified substring";
         }
     }
-    if ( fuzzy ) {
+    if ( diff_compare ) {
         ln = ln.replace(/[ \/,+\(\)-]/g,'');
         rn = rn.replace(/[ \/,+\(\)-]/g,'');
         if ( ln === rn ) {
