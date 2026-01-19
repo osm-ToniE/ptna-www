@@ -62,7 +62,7 @@ var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
 var RoutesTableFirstVisibleColumn = 0;
 
-const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'wd1', 'wd2', 'wdiff', 'ddiff', 'diff' ];
+const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'diff' ];
 
 
 async function showtripcomparison() {
