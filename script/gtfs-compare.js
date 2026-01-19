@@ -2685,6 +2685,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             } else {
                 // GTFS vs OSM
                 if ( scores['weights']['name'] > 0 && body_row['stop_name'] !== '' ) {
+                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
+                        body_row['inject_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
+                    }
                     if ( body_row['name'] !== '' ) {
                         body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], diff_compare=false );
                         if ( body_row['info_name'] === '' ) {
@@ -2699,11 +2702,11 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                             body_row['name'] = htmlEscape(body_row['name']);
                         }
                     }
-                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['name'].toString() ) {
-                        body_row['inject_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
-                    }
                 }
                 if ( scores['weights']['ref_name'] > 0 && body_row['stop_name'] !== '' ) {
+                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
+                        body_row['inject_ref_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
+                    }
                     if ( body_row['ref_name'] !== '' ) {
                         body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], diff_compare=false );
                         if ( body_row['info_ref_name'] === '' ) {
@@ -2717,9 +2720,6 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         } else {
                             body_row['ref_name'] = htmlEscape(body_row['ref_name']);
                         }
-                    }
-                    if ( i < left_len && i < right_len && body_row['distance'] < 100 && body_row['stop_name'].toString() !== body_row['ref_name'].toString() ) {
-                        body_row['inject_ref_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
                     }
                 }
             }
