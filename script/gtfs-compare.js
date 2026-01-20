@@ -2587,6 +2587,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             if ( i < left_len && i < right_len ) {
                 if ( 'index' in cmp_list['left'][i]  &&
                      'index' in cmp_list['right'][i]    ) {
+                    // 'left' is always a 'node' (GTFS), 'right' can be 'node' (GTFS, OSM), 'way' (OSM) or 'relation (OSM)
                     body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
                 } else {
                     body_row['arrow_left']  = '';
@@ -2595,11 +2596,13 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
             } else if ( i < left_len ) {
                 if ( 'index' in cmp_list['left'][i]            &&
                      'index' in cmp_list['right'][right_len-1]    ) {
+                    // 'left' is always a 'node' (GTFS), 'right' can be 'node' (GTFS, OSM), 'way' (OSM) or 'relation (OSM)
                     body_row['distance'] = map.distance( [cmp_list['left'][i]['lat'],cmp_list['left'][i]['lon']], [cmp_list['right'][right_len-1]['lat'],cmp_list['right'][right_len-1]['lon']]).toFixed(0);
                 }
             } else if ( i < right_len) {
                 if ( 'index' in cmp_list['left'][left_len-1] &&
                      'index' in cmp_list['right'][i]            ) {
+                    // 'left' is always a 'node' (GTFS), 'right' can be 'node' (GTFS, OSM), 'way' (OSM) or 'relation (OSM)
                     body_row['distance'] = map.distance( [cmp_list['left'][left_len-1]['lat'],cmp_list['left'][left_len-1]['lon']], [cmp_list['right'][i]['lat'],cmp_list['right'][i]['lon']]).toFixed(0);
                 }
             }
