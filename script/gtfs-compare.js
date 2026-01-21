@@ -2711,7 +2711,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['inject_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'name', body_row['stop_name'].toString() );
                     }
                     if ( body_row['name'] !== '' ) {
-                        body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], diff_compare=false );
+                        var platform_code_value = ('platform_code' in body_row && body_row['platform_code']) ? body_row['platform_code'] : '';
+                        body_row['info_name'] = NamesAreSimilar( body_row['stop_name'], body_row['name'], 'platform_code', platform_code_value, diff_compare=false );
                         if ( body_row['info_name'] === '' ) {
                             row_style['stop_name'].push('background-color:orange');
                             row_style['name'].push('background-color:orange');
@@ -2730,7 +2731,8 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                         body_row['inject_ref_name'] = GetStopInjectLink( relation_id, cmp_list['right'][i]['id'], cmp_list['right'][i]['type'], 'ref_name', body_row['stop_name'].toString() );
                     }
                     if ( body_row['ref_name'] !== '' ) {
-                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], diff_compare=false );
+                        var platform_code_value = ('platform_code' in body_row && body_row['platform_code']) ? body_row['platform_code'] : '';
+                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], 'platform_code', platform_code_value, body_row['ref_name'], diff_compare=false );
                         if ( body_row['info_ref_name'] === '' ) {
                             row_style['stop_name'].push('background-color:orange');
                             row_style['ref_name'].push('background-color:orange');
@@ -3362,12 +3364,13 @@ function DiffBasedSortOfCMP_List( left, right, source_right = 'OSM', ddiff = 100
 function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
     if ( 'tags' in leftelem && 'tags' in rightelem ) {
         if ( source_right === 'OSM' ) {
+            var left_suffix_to_remove = 'platform_code' in leftelem['tags'] ? leftelem['tags']['platform_code'] : '';
             if ( 'stop_name' in leftelem['tags'] ) {
                 if ( 'name' in rightelem['tags'] ) {
-                    if ( NamesAreSimilar(rightelem['tags']['name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
+                    if ( NamesAreSimilar(leftelem['tags']['stop_name'],rightelem['tags']['name'],left_suffix='platform_code',left_suffix_to_remove,diff_compare=true) ) { return true; }
                 }
                 if ( 'ref_name' in rightelem['tags'] ) {
-                    if ( NamesAreSimilar(rightelem['tags']['ref_name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
+                    if ( NamesAreSimilar(leftelem['tags']['stop_name'],rightelem['tags']['ref_name'],left_suffix='platform_code',left_suffix_to_remove,diff_compare=true) ) { return true; }
                 }
             }
             if ( 'stop_id' in leftelem['tags'] ) {
@@ -3386,7 +3389,7 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
             }
         } else {
             if ( 'stop_name' in leftelem['tags'] && 'stop_name' in rightelem['tags'] ) {
-                if ( NamesAreSimilar(rightelem['tags']['stop_name'],leftelem['tags']['stop_name'],diff_compare=true) ) { return true; }
+                if ( NamesAreSimilar(leftelem['tags']['stop_name'],rightelem['tags']['stop_name'],left_suffix='platform_code',left_suffix_to_remove,diff_compare=true) ) { return true; }
             }
             if ( 'stop_id' in leftelem['tags'] && 'stop_id' in rightelem['tags'] ) {
                 if ( rightelem['tags']['stop_id'] === leftelem['tags']['stop_id'] ) { return true; }
@@ -3400,15 +3403,21 @@ function cmpLeftRight( leftelem, rightelem, source_right, ddiff ) {
 }
 
 
-function NamesAreSimilar( left_name, right_name, diff_compare = false ) {
+function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_remove='', diff_compare = false ) {
     let ln = left_name.toString();
     let rn = right_name.toString();
     if ( ln === rn ) {
         return 'equal';
     }
+    if ( left_suffix && left_suffix_to_remove ) {
+        var regex = new RegExp( left_suffix_to_remove + "$" );
+        if ( ln.replace(regex,'').replace(/\s*$/g,'') === rn ) {
+            return "equal after removing value of '" + left_suffix + "' from left name";
+        }
+    }
     if ( diff_compare ) {
         ln = ln.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        rn = rn.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+        rn = rn.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         if ( ln === rn ) {
             return "equal by lower case after normalize('NFD') plus deleting u0300 ... u036f";
         }
@@ -3466,6 +3475,7 @@ function NamesAreSimilar( left_name, right_name, diff_compare = false ) {
             return 'equal after removing all special characters';
         }
     }
+
     return '';
 }
 
