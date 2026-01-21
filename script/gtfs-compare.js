@@ -3318,7 +3318,7 @@ function FillTripsScoresTable( scores ) {
                     elem_weight.style = 'background-color: lightblue;';
                 }
             } else {
-                elem.innerHTML = '<span title="these combinations have not been detected">n/d</span>';
+                elem.innerHTML = '<span title="these combinations were not found">n/d</span>';
             }
             if ( field === 'gtfs:stop_id:'+feed ) {
                 elem_text.innerHTML = elem_text.innerHTML.replace('[feed suffix]',feed);
@@ -3419,7 +3419,7 @@ function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_
         ln = ln.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         rn = rn.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         if ( ln === rn ) {
-            return "equal by lower case after normalize('NFD') plus deleting u0300 ... u036f";
+            return "equal in lower case after normalize('NFD') plus deleting u0300 ... u036f";
         }
     }
     ln = ln.replace(/\s*([\/])\s*/g,'$1').replace(/\s\s*/g,' ');
