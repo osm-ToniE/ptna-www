@@ -196,7 +196,11 @@ async function showtripcomparison() {
 
     IterateOverMembers( 'left', trip_id.toString(), draw_also=true );
     if ( relation_id !== '' ) {
-        IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
+        if ( diff_based_compare ) {
+            IterateOverMembers( 'right', relation_id.toString(), draw_also=true ); // later on this should be 'false'
+        } else {
+            IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
+        }
     } else {
         IterateOverMembers( 'right', trip_id2.toString(), draw_also=true );
     }
@@ -910,6 +914,28 @@ function handleNode( lor, id, match, label, name, set_marker, set_circle, draw_a
 }
 
 
+function handleIdByLatLon( lor, id, match, label, name, set_marker, set_circle, draw_also, object_type, lat, lon  ) {
+    match = match || 'other';
+    label = label || 0;
+    name  = name  || '';
+
+    if ( draw_also ) {
+        if ( match == "platform" ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatform[lor]);
+        } else if ( match == "stop"     ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatform[lor]);
+        } else if ( match == "route" || match == "shape" ) {
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershape[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layershape[lor]);
+        }
+    }
+
+    return [lat,lon];
+}
+
+
 function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon, draw_also ) {
     match = match || 'other';
     label = label || 0;
@@ -1004,12 +1030,7 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
                     downloadRelationSync( id, lor );
                 }
                 if ( DATA_Nodes[lor][member_id] ) {
-                    if ( have_set_marker ) {
-                        list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false, draw_also ));
-                    } else {
-                        list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, true, true, draw_also ));
-                        have_set_marker = 1;
-                    }
+                    list_of_lat_lon.push(handleNode( lor, member_id, match, label, name, false, false, draw_also ));
                 } else {
                     console.log( "Failed to download Relation " + id + " for Node: " + member_id );
                 }
@@ -1018,12 +1039,7 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
                     downloadRelationSync( id, lor );
                 }
                 if ( DATA_Ways[lor][member_id] ) {
-                    if ( have_set_marker ) {
-                        list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon, draw_also ));
-                    } else {
-                        list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, true, ref_lat, ref_lon, draw_also ));
-                        have_set_marker = 1;
-                    }
+                    list_of_lat_lon.push(handleWay( lor, member_id, match, label, name, false, ref_lat, ref_lon, draw_also ));
                 } else {
                     console.log( "Failed to download Relation " + id + " for  Way: " + member_id );
                 }
@@ -1068,6 +1084,9 @@ function handleRelation( lor, id, match, label, name, set_marker, ref_lat, ref_l
             result  = [lat,lon];
         }
     }
+
+    handleIdByLatLon( lor, id, match, label, name, true, true, draw_also, "relation", result[0], result[1] );
+
     return result;
 }
 
