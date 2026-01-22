@@ -2732,7 +2732,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                     }
                     if ( body_row['ref_name'] !== '' ) {
                         var platform_code_value = ('platform_code' in body_row && body_row['platform_code']) ? body_row['platform_code'] : '';
-                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], 'platform_code', platform_code_value, body_row['ref_name'], diff_compare=false );
+                        body_row['info_ref_name'] = NamesAreSimilar( body_row['stop_name'], body_row['ref_name'], 'platform_code', platform_code_value, diff_compare=false );
                         if ( body_row['info_ref_name'] === '' ) {
                             row_style['stop_name'].push('background-color:orange');
                             row_style['ref_name'].push('background-color:orange');
