@@ -2409,7 +2409,7 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     cmp_list['left'].forEach(  elem => { if ( 'index' in elem ) { left_num_stops++; } } );
     cmp_list['right'].forEach( elem => { if ( 'index' in elem ) { right_num_stops++; } } );
     var max_num_stops            = Math.max(left_num_stops,right_num_stops);
-    var scores                   = { 'distances' : [ 20, 100, 1000 ],
+    var scores                   = { 'distances' : [ 10, 20, 100 ],
                                      'ddiff'     : 100,
                                      'mismatch_percent_to_color' : { // colour if actual value is greater or equal number
                                         48 : '#fe4000',
