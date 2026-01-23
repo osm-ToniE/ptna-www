@@ -35,7 +35,7 @@ var route_id2       = '';
 var trip_id2        = '';
 var relation_id     = '';
 
-var diff_based_compare = false;
+var diff_based_compare = true;
 
 var downloadstartms = 0;
 var analysisstartms = 0;
@@ -62,7 +62,7 @@ var CompareTableRowInfo = {};
 var CompareTableColInfo = {};
 var RoutesTableFirstVisibleColumn = 0;
 
-const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'diff' ];
+const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'nodiff' ];
 
 
 async function showtripcomparison() {
@@ -160,7 +160,7 @@ async function showtripcomparison() {
     trip_id             = parsed_URL["trip_id"]       || '';
     trip_id2            = parsed_URL["trip_id2"]      || '';
     relation_id         = parsed_URL["relation"]      || '';
-    diff_based_compare  = parsed_URL["diff"]          || false;
+    diff_based_compare  = parsed_URL["nodiff"]        ? ((parsed_URL["nodiff"] === 'true' || parsed_URL["nodiff"] === '') ? true : false) : true;
 
     if ( relation_id !== '' ) {
         layers    = L.control.layers(baseMaps, overlayMapsGtfsOsm).addTo(map);
@@ -305,7 +305,7 @@ async function showroutecomparison() {
     route_id            = (parsed_URL["route_id"]      || parsed_URL["route_id"]  == '0') ? parsed_URL["route_id"]  : '';
     route_id2           = (parsed_URL["route_id2"]     || parsed_URL["route_id2"] == '0') ? parsed_URL["route_id2"] : '';
     relation_id         = parsed_URL["relation"]       || '';
-    diff_based_compare  = parsed_URL["diff"]           || false;
+    diff_based_compare  = parsed_URL["nodiff"]         ? ((parsed_URL["nodiff"] === 'true' || parsed_URL["nodiff"] === '') ? true : false) : true;
 
     dBarLeft   = document.getElementById('download_left');
     dBarRight  = document.getElementById('download_right');
