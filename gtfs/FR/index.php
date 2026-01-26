@@ -46,6 +46,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-IZILO" );
     $duration += CreateGtfsEntry( "FR-BRE-KICEO" );
     $duration += CreateGtfsEntry( "FR-BRE-KorriGo" );
+    $duration += CreateGtfsEntry( "FR-BRE-Lineotim" );
     $duration += CreateGtfsEntry( "FR-BRE-MAT" );
     $duration += CreateGtfsEntry( "FR-BRE-QUB" );
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
