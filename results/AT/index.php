@@ -10,34 +10,48 @@
 
 <?php include $inc_lang.'header.inc' ?>
 
-<main id="main" class="results">
+        <main id="main" class="results">
 
-<h2 id="AT"><img src="/img/Austria32.png"  class="flagimg" alt="Flagge Österreich" /> Auswertungen für Österreich</h2>
+        <h2 id="AT"><img src="/img/Austria32.png"  class="flagimg" alt="Flagge Österreich" /> Auswertungen für Österreich</h2>
 
 <?php include $inc_lang.'results-head.inc' ?>
 
-<table id="networksAT">
-    <thead>
+            <h2 id="bahnverkehr">Bahnverkehr in Österreich</h2>
+            <table id="networksATBahn">
+                <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
-    </thead>
-    <tbody>
+                </thead>
+                <tbody>
 
-    <?php CreateNewFullEntry( "AT-OOeVV", "de", "Konfiguration" ); ?>
+                    <?php CreateNewFullEntry( "AT-Eisenbahn", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-SVV", "de", "Konfiguration" ); ?>
+                </tbody>
+            </table>
 
-    <?php CreateNewFullEntry( "AT-VKG", "de", "Konfiguration" ); ?>
+            <hr />
+            <h2 id="verkehrsverbuende">Verkehrsverbünde in Österreich</h2>
+            <table id="networksATVerbund">
+                <thead>
+<?php include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
 
-    <?php CreateNewFullEntry( "AT-VOR", "de", "Konfiguration" ); ?>
+                <?php CreateNewFullEntry( "AT-OOeVV", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-VVSt", "de", "Konfiguration" ); ?>
+                <?php CreateNewFullEntry( "AT-SVV", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-VVT", "de", "Konfiguration" ); ?>
+                <?php CreateNewFullEntry( "AT-VKG", "de", "Konfiguration" ); ?>
 
-    <?php CreateNewFullEntry( "AT-VVV", "de", "Konfiguration" ); ?>
+                <?php CreateNewFullEntry( "AT-VOR", "de", "Konfiguration" ); ?>
 
-</tbody>
-</table>
+                <?php CreateNewFullEntry( "AT-VVSt", "de", "Konfiguration" ); ?>
+
+                <?php CreateNewFullEntry( "AT-VVT", "de", "Konfiguration" ); ?>
+
+                <?php CreateNewFullEntry( "AT-VVV", "de", "Konfiguration" ); ?>
+
+            </tbody>
+        </table>
 
 </main> <!-- main -->
 
