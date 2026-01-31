@@ -3291,18 +3291,44 @@
                         echo '                                    </tr>' . "\n";
                     }
 
-                    if ( isset($osm["wn"]) ) {
-                        echo '                                    <tr class="statistics-tablerow">' . "\n";
-                        echo '                                        <td class="gtfs-name">Weight for comparison of GTFS \'stop_name\' versus OSM platform \'name\'</td>' . "\n";
-                        if ( $osm["wn"] == '' ) {
-                            echo '                                       <td class="gtfs-text">[default value]</td>' . "\n";
-                        } elseif ( $osm["wn"] == 0 ) {
+                    # from gtfs-compare.js line ~65 : const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'nodiff' ];
+
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"ddiff" : distance [metres] for ...</td>' . "\n";
+                    if ( isset($osm["ddiff"]) && $osm["ddiff"] != '' ) {
+                        if ( $osm["ddiff"] == 0 ) {
                             echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
                         } else {
                             echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
                         }
-                        echo '                                    </tr>' . "\n";
+                    } else {
+                        echo '                                       <td class="gtfs-text">100 [default value]</td>' . "\n";
                     }
+                    echo '                                    </tr>' . "\n";
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"wdiff" : weight for comparison of ...</td>' . "\n";
+                    if ( isset($osm["wdiff"]) && $osm["wdiff"] != '' ) {
+                        if ( $osm["wdiff"] == 0 ) {
+                            echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
+                        } else {
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                        }
+                    } else {
+                        echo '                                       <td class="gtfs-text">15 [default value]</td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">"wn" : weight for comparison of GTFS \'stop_name\' versus OSM platform \'name\'</td>' . "\n";
+                    if ( isset($osm["wn"]) && $osm["wn"] != '' ) {
+                        if ( $osm["wn"] == 0 ) {
+                            echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
+                        } else {
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                        }
+                    } else {
+                        echo '                                       <td class="gtfs-text">2 [default value]</td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
 
                }
 
