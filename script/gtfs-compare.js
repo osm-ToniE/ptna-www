@@ -336,7 +336,7 @@ async function showroutecomparison() {
                         ? Number(JSON_data['left']["osm"]['ddiff'])
                         : 100;
 
-                                    CompareTable                            = [];
+    CompareTable                            = [];
     CompareTableRowInfo                     = { 'type' : 'GTFS', 'name' : 'GTFS route', 'members' : 'GTFS trips', 'feed' : feed, 'release_date' : release_date, 'date' : JSON_data['left']["ptna"]["release_date"], 'ids' : [], 'route_short_names' : [], 'route_types' : [], 'links' : [], 'rows' : [] };
     var route_ids = route_id.split( ';' );
     for ( var i = 0; i < route_ids.length; i++ ) {
@@ -434,7 +434,7 @@ async function showroutecomparison() {
 
             if ( left_num_stops > 0 && right_num_stops > 0 ) {
                 score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = true );
-                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'weights' : score_table['weights'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'] } );
+                CompareTable[row].push( { 'score' : score_table['over_all_score'], 'color' : score_table['over_all_color'], 'weights' : score_table['weights'], 'totals' : score_table['totals'], 'mismatch_percent' : score_table['mismatch_percent'], 'distances' : score_table['distances'] } );
             } else {
                 CompareTable[row].push( { 'score' : -1, 'color' : 'white' } );
                 if ( left_num_stops === 0 && right_len === 0 ) {
@@ -2063,17 +2063,17 @@ function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type
     if ( CompareTable[row][col]['weights']['distance'][0] > 0 && CompareTable[row][col]['totals']['distance'][0] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][0];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
-        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 20 m\n";
+        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than " + CompareTable[row][col]['distances'][0] + " m\n";
     }
     if ( CompareTable[row][col]['weights']['distance'][1] > 0 && CompareTable[row][col]['totals']['distance'][1] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][1];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
-        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 100 m\n";
+        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than " + CompareTable[row][col]['distances'][1] + " m\n";
     }
     if ( CompareTable[row][col]['weights']['distance'][2] > 0 && CompareTable[row][col]['totals']['distance'][2] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['distance'][2];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
-        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than 1000 m\n";
+        ret_string += val + "%&nbsp;&nbsp;mismatch of positions of stops by more than " + CompareTable[row][col]['distances'][2] + " m\n";
     }
     if ( CompareTable[row][col]['weights']['name'] > 0 && CompareTable[row][col]['totals']['name'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['name'];
