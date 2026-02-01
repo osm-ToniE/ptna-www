@@ -3555,6 +3555,15 @@
                                 $columns[$row["name"]] = 1;
                             }
                         }
+                        $sql  = sprintf( "SELECT * FROM ptna;" );
+                        $ptna = $db->querySingle( $sql, true );
+                        if ( isset($ptna['IFOPT_cmp_len']) ) {
+                            echo '                        <tr class="statistics-tablerow">' . "\n";
+                            echo '                            <td class="statistics-name">IFOPT compare length</td>' . "\n";
+                            echo '                            <td class="statistics-number">' . htmlspecialchars($ptna["IFOPT_cmp_len"]) . '</a></td>' . "\n";
+                            echo '                            <td class="statistics-number">[1]</td>' . "\n";
+                            echo '                        </tr>' . "\n";
+                        }
                         $sql  = sprintf( "SELECT COUNT(*) as count FROM ptna_trips_comments WHERE subroute_of != '';" );
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
