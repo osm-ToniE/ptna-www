@@ -96,8 +96,8 @@
                         <ul>
                         <li><span style="background-color: #6aef00;">0 <= score < 2</span></li>
                         <li><span style="background-color: #aecd00;">2 <= score < 10</span></li>
-                        <li><span style="background-color: #d7a700;">12 <= score < 20</span></li>
-                        <li><span style="background-color: #f17a00;">24 <= score < 30</span></li>
+                        <li><span style="background-color: #d7a700;">10 <= score < 20</span></li>
+                        <li><span style="background-color: #f17a00;">20 <= score < 30</span></li>
                         <li><span style="background-color: #fe4000;">30 <= score</span></li>
                         </ul>
                         <p>Move the mouse over a cell and it will pop-up a list of individual scores.<br/>
