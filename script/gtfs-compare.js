@@ -2412,9 +2412,9 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
     var scores                   = { 'distances' : [ 10, 20, 100 ],
                                      'ddiff'     : 100,
                                      'mismatch_percent_to_color' : { // colour if actual value is greater or equal number
-                                        48 : '#fe4000',
-                                        24 : '#f17a00',
-                                        12 : '#d7a700',
+                                        30 : '#fe4000',
+                                        20 : '#f17a00',
+                                        10 : '#d7a700',
                                         2  : '#aecd00',
                                         0  : '#6aef00'
                                      },

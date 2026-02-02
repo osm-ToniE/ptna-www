@@ -95,10 +95,10 @@
                         <p>Colours are calculated as follows:</p>
                         <ul>
                         <li><span style="background-color: #6aef00;">0 <= score < 2</span></li>
-                        <li><span style="background-color: #aecd00;">2 <= score < 12</span></li>
-                        <li><span style="background-color: #d7a700;">12 <= score < 24</span></li>
-                        <li><span style="background-color: #f17a00;">24 <= score < 48</span></li>
-                        <li><span style="background-color: #fe4000;">48 <= score</span></li>
+                        <li><span style="background-color: #aecd00;">2 <= score < 10</span></li>
+                        <li><span style="background-color: #d7a700;">12 <= score < 20</span></li>
+                        <li><span style="background-color: #f17a00;">24 <= score < 30</span></li>
+                        <li><span style="background-color: #fe4000;">30 <= score</span></li>
                         </ul>
                         <p>Move the mouse over a cell and it will pop-up a list of individual scores.<br/>
                         Click on a cell and you'll see a detailed analysis of the data.</p>
