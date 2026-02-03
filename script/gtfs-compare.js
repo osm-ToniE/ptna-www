@@ -909,7 +909,7 @@ function ReCalculateOsmPlatformPositions( cmp_list, draw_also = false ) {
     }
 
     if ( draw_also ) {
-        if ( latlonroute.length > 1 ) {
+        if ( latlonroute['right']['platform'].length > 1 ) {
             L.polyline(latlonroute['right']['platform'],{color:colours['right'],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformsroute['right'] );
         }
 
