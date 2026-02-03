@@ -180,9 +180,9 @@ async function showtripcomparison() {
     left_icon   = L.icon( { iconUrl: '/img/marker-left.png',   iconSize: [24,24], iconAnchor: [24,24], popupAnchor: [0,0], tooltipAnchor: [-24,-32] } );
     icons       = { 'left': left_icon, 'right': right_icon };
     colours     = { 'left': '#fc0fc0', 'right': '#6495ed'  };
-    layerplatform       = { 'left': layerleftstops,      'right': layerrightstops      };
-    layerplatformroute  = { 'left': layerleftstopsroute, 'right': layerrightstopsroute };
-    layershape          = { 'left': layerleftshape,      'right': layerrightshape      };
+    layerplatforms       = { 'left': layerleftstops,      'right': layerrightstops      };
+    layerplatformsroute  = { 'left': layerleftstopsroute, 'right': layerrightstopsroute };
+    layershapes          = { 'left': layerleftshape,      'right': layerrightshape      };
 
     await download_left_data().then( (data)  => parseHttpResponse( 'left', data ) );
     await download_right_data().then( (data) => parseHttpResponse( 'right', data ) );
@@ -197,7 +197,7 @@ async function showtripcomparison() {
     IterateOverMembers( 'left', trip_id.toString(), draw_also=true );
     if ( relation_id !== '' ) {
         if ( diff_based_compare ) {
-            IterateOverMembers( 'right', relation_id.toString(), draw_also=true ); // later on this should be 'false'
+            IterateOverMembers( 'right', relation_id.toString(), draw_also=false ); // later on this should be 'false'
         } else {
             IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
         }
@@ -257,6 +257,11 @@ async function showtripcomparison() {
                                                              );
         CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
         CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
+
+        if ( whats_right === 'OSM' ) {
+            ReCalculateOsmPlatformPositions( CMP_List, draw_also=true );
+        }
+
         console.log("CMP_List diff sorted");
         console.log(CMP_List);
     }
@@ -270,7 +275,7 @@ async function showtripcomparison() {
         var score_table = CreateTripsCompareTableAndScores( CMP_List, left = 'GTFS', right = whats_right, scores_only = false );
     } else {
         if ( left_num_stops === 0 && right_num_stops === 0 ) {
-            if ( right === 'OSM' ) {
+            if ( whats_right === 'OSM' ) {
                 alert( "There are no GTFS-stops and no OSM-platforms" );
             } else {
                 alert( "There are no GTFS-stops at all" );
@@ -423,6 +428,11 @@ async function showroutecomparison() {
                                                                     );
                 CMP_List['left']  = JSON.parse(JSON.stringify(new_left));
                 CMP_List['right'] = JSON.parse(JSON.stringify(new_right));
+
+                if ( whats_right === 'OSM' ) {
+                    ReCalculateOsmPlatformPositions( CMP_List, draw_also=false );
+                }
+
                 console.log("CMP_List diff sorted");
                 console.log(CMP_List);
             }
@@ -843,17 +853,69 @@ function handleMembers( lor, relation_id, draw_also ) {
     if ( draw_also ) {
         if ( is_GTFS ) {    // GTFS has so called 'stops'
             if ( latlonroute[lor]['stop'].length > 1 ) {
-                L.polyline(latlonroute[lor]['stop'],{color:colours[lor],weight:3,fill:false}).bindPopup("GTFS Stop Route").addTo( layerplatformroute[lor] );
+                L.polyline(latlonroute[lor]['stop'],{color:colours[lor],weight:3,fill:false}).bindPopup("GTFS Stop Route").addTo( layerplatformsroute[lor] );
             }
         } else {            // with OSM, we consider only 'platforms'
             if ( latlonroute[lor]['platform'].length > 1 ) {
-                L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformroute[lor] );
+                L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformsroute[lor] );
             }
         }
 
         map.fitBounds( getRelationBounds() );
     }
 
+}
+
+
+function ReCalculateOsmPlatformPositions( cmp_list, draw_also = false ) {
+
+    latlonroute['right']['platform'] = [];
+
+    var ref_lat         = 0;
+    var ref_lon         = 0;
+    var id              = 0;
+    var object_type     = '';
+    var label_of_object = {};
+    var name            = '';
+
+    let cmp_list_length = Math.max(cmp_list['left'].length,cmp_list['right'].length);
+
+    for ( var cmp_list_index = 0; cmp_list_index < cmp_list_length; cmp_list_index++ ) {
+        if ( 'index' in cmp_list['right'][cmp_list_index] ) {
+            id          = cmp_list['right'][cmp_list_index]['id'];
+            object_type = cmp_list['right'][cmp_list_index]['type'];
+            name        = ('tags' in cmp_list['right'][cmp_list_index] && 'name' in cmp_list['right'][cmp_list_index]['tags']) ? cmp_list['right'][cmp_list_index]['tags']['name'] : '';
+
+            if ( label_of_object[id] ) {
+                label_of_object[id] = label_of_object[id] + "+" + cmp_list['right'][cmp_list_index]['index'];
+            } else {
+                label_of_object[id] = cmp_list['right'][cmp_list_index]['index'];
+            }
+
+            if ( 'index' in cmp_list['left'][cmp_list_index] ) {
+                ref_lat = cmp_list['left'][cmp_list_index]['lat'];
+                ref_lon = cmp_list['left'][cmp_list_index]['lon'];
+            } else {
+                ref_lat = cmp_list['right'][cmp_list_index]['lat'];
+                ref_lon = cmp_list['right'][cmp_list_index]['lon'];
+            }
+            [cmp_list['right'][cmp_list_index]['lat'],cmp_list['right'][cmp_list_index]['lon']] = handleObject( 'right', id, object_type, 'platform', label_of_object[id], htmlEscape(name), ref_lat, ref_lon, draw_also );
+            if ( draw_also ) {
+                latlonroute['right']['platform'].push( [cmp_list['right'][cmp_list_index]['lat'],cmp_list['right'][cmp_list_index]['lon']] );
+            }
+
+        }
+
+    }
+
+    if ( draw_also ) {
+        if ( latlonroute.length > 1 ) {
+            L.polyline(latlonroute['right']['platform'],{color:colours['right'],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformsroute['right'] );
+        }
+
+        map.fitBounds( getRelationBounds() );
+    }
+    return;
 }
 
 
@@ -895,14 +957,14 @@ function handleNode( lor, id, match, label, name, set_marker, set_circle, draw_a
     var lon = DATA_Nodes[lor][id]['lon'];
     if ( draw_also ) {
         if ( match == "platform" ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatforms[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatforms[lor]);
         } else if ( match == "stop"     ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatform[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatforms[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layerplatforms[lor]);
         } else if ( match == "route" || match == "shape" ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershape[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layershape[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershapes[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "node", match, label, name)).addTo(layershapes[lor]);
         }
     }
     if ( lat < minlat ) minlat = lat;
@@ -921,14 +983,14 @@ function handleIdByLatLon( lor, id, match, label, name, set_marker, set_circle, 
 
     if ( draw_also ) {
         if ( match == "platform" ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatform[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatforms[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatforms[lor]);
         } else if ( match == "stop"     ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatform[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatform[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layerplatforms[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layerplatforms[lor]);
         } else if ( match == "route" || match == "shape" ) {
-            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershape[lor]);
-            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layershape[lor]);
+            if ( set_circle ) L.circle([lat,lon],{color:colours[lor],radius:0.75,fill:true}).addTo(layershapes[lor]);
+            if ( set_marker ) L.marker([lat,lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, object_type, match, label, name)).addTo(layershapes[lor]);
         }
     }
 
@@ -971,19 +1033,19 @@ function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon, d
         //console.log( polyline_array, [ref_lat, ref_lon] );
 
         if ( draw_also ) {
-            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms[lor]);
 
-            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms[lor]);
         }
     } else if ( match == 'stop' ) {
         if ( draw_also ) {
-            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            if ( set_marker ) L.marker([closest_lat,closest_lon],{color:colours[lor],icon:icons[lor]}).bindTooltip(label.toString(),{permanent:true,direction:'center'}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms[lor]);
 
-            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatform[lor]);
+            L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layerplatforms[lor]);
         }
     } else if ( match == "route" || match == "shape" ) {
         if ( draw_also ) {
-            var shape_route = L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershape[lor]);
+            var shape_route = L.polyline(polyline_array,{color:colours[lor],weight:4,fill:false}).bindPopup(PopupContent(id, "way", match, label, name)).addTo(layershapes[lor]);
 
             if ( match == "shape" ) {
                 L.polylineDecorator(shape_route, {
