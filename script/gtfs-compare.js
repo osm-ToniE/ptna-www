@@ -1057,7 +1057,7 @@ function handleWay( lor, id, match, label, name, set_marker, ref_lat, ref_lon, d
                             pathOptions: { color: colours[lor], weight: 3, opacity: 0.9 }
                         })
                     }]
-                }).addTo( layershape[lor] );
+                }).addTo( layershapes[lor] );
             }
         }
     }
