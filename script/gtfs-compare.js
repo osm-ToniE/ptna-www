@@ -64,6 +64,8 @@ var RoutesTableFirstVisibleColumn = 0;
 
 const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'nodiff' ];
 
+const todate_as_int = new Date().toISOString().split('T')[0].replace(/-/g,'')
+
 
 async function showtripcomparison() {
 
@@ -218,6 +220,18 @@ async function showtripcomparison() {
                            'link'             : GetObjectLinks( trip_id, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-row-'+trip_id+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id+'">'
                          };
+    if ( 'ptna' in DATA_Relations['left'][trip_id] ) {
+        if ( 'min_start_date' in DATA_Relations['left'][trip_id]['ptna']                 &&
+             DATA_Relations['left'][trip_id]['ptna']['min_start_date']   > todate_as_int    ) {
+            var title = "Trip is not yet valid, valid from " + DATA_Relations['left'][trip_id]['ptna']['min_start_date'] + " to " + DATA_Relations['left'][trip_id]['ptna']['max_end_date'];
+            TableInfoLeft['link'] += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9203;</span>';
+        }
+        if ( 'max_end_date' in DATA_Relations['left'][trip_id]['ptna']                 &&
+             DATA_Relations['left'][trip_id]['ptna']['max_end_date']   < todate_as_int    ) {
+            var title = "Trip is no longer valid, valid from " + DATA_Relations['left'][trip_id]['ptna']['min_start_date'] + " to " + DATA_Relations['left'][trip_id]['ptna']['max_end_date'];
+            TableInfoLeft['link'] += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9200;</span>';
+        }
+    }
     var TableInfoRight = {};
     var whats_right = 'GTFS';
     if ( relation_id !== '' ) {
@@ -241,6 +255,18 @@ async function showtripcomparison() {
                            'link'             : GetObjectLinks( trip_id2, 'relation', is_GTFS=true, is_Route=false, p_feed=feed2, p_release_date=release_date2 ) +
                                                                 ' <img onclick="ShowMore(this)" id="GTFS-col-'+trip_id2+'" src="/img/Magnifier32.png" height="18" width="18" alt="Show more ..." title="Show more information for id '+trip_id2+'">'
                          };
+        if ( 'ptna' in DATA_Relations['right'][trip_id2] ) {
+            if ( 'min_start_date' in DATA_Relations['right'][trip_id2]['ptna']                &&
+                 DATA_Relations['right'][trip_id2]['ptna']['min_start_date']   > todate_as_int    ) {
+                var title = "Trip is not yet valid, valid from " + DATA_Relations['right'][trip_id2]['ptna']['min_start_date'] + " to " + DATA_Relations['right'][trip_id2]['ptna']['max_end_date'];
+                TableInfoRight['link'] += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9203;</span>';
+            }
+            if ( 'max_end_date' in DATA_Relations['right'][trip_id2]['ptna']                 &&
+                 DATA_Relations['right'][trip_id2]['ptna']['max_end_date']   < todate_as_int     ) {
+                var title = "Trip is no longer valid, valid from " + DATA_Relations['right'][trip_id2]['ptna']['min_start_date'] + " to " + DATA_Relations['right'][trip_id2]['ptna']['max_end_date'];
+                TableInfoRight['link'] += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9200;</span>';
+            }
+        }
     }
 
     if ( diff_based_compare ) {
@@ -1391,6 +1417,14 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th   = document.createElement('th');
                 id   = CompareTableColInfo['cols'][col]['id'];
                 source_type = CompareTableColInfo['type'];
+                if ( CompareTableColInfo['cols'][col]['max_end_date'] < todate_as_int ) {
+                    var title = "Trip is no longer valid, valid from " + CompareTableColInfo['cols'][col]['min_start_date'] + " to " + CompareTableColInfo['cols'][col]['max_end_date'];
+                    th.innerHTML += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9200;</span>';
+                }
+                if ( CompareTableColInfo['cols'][col]['min_start_date'] > todate_as_int ) {
+                    var title = "Trip is not yet valid, valid from " + CompareTableColInfo['cols'][col]['min_start_date'] + " to " + CompareTableColInfo['cols'][col]['max_end_date'];
+                    th.innerHTML += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9203;</span>';
+                }
                 if ( CompareTableColInfo['cols'][col]['2stopsonly'].length > 0 ) {
                     var title = CompareTableColInfo['cols'][col]['2stopsonly'][0];  // always a single line
                     th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+title+'"> ';
@@ -1479,6 +1513,14 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                 th.className = 'compare-routes-odd compare-routes-left no-border-right';
                 tr.appendChild(th);
                 th = document.createElement('th');
+                if ( CompareTableRowInfo['rows'][row]['max_end_date'] < todate_as_int ) {
+                    var title = "Trip is no longer valid, valid  from " + CompareTableRowInfo['rows'][row]['min_start_date'] + " to " + CompareTableRowInfo['rows'][row]['max_end_date'];
+                    th.innerHTML += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9200;</span>';
+                }
+                if ( CompareTableRowInfo['rows'][row]['min_start_date'] > todate_as_int ) {
+                    var title = "Trip is not yet valid, valid from " + CompareTableRowInfo['rows'][row]['min_start_date'] + " to " + CompareTableRowInfo['rows'][row]['max_end_date'];
+                    th.innerHTML += '<span title="'+title.replace(/([0-9][0-9][0-9][0-9])([0-9][0-9])([0-9][0-9])/g,'$1-$2-$3')+'">&#9203;</span>';
+                }
                 if ( CompareTableRowInfo['rows'][row]['2stopsonly'].length > 0 ) {
                     var title = CompareTableRowInfo['rows'][row]['2stopsonly'][0];  // always a single line
                     th.innerHTML += '<img src="/img/2StopsOnly.svg" height="18" width="18" alt="2StopsOnly" title="'+title+'"> ';
@@ -1846,6 +1888,8 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                              'subroute'      : [],                      // empty
                              'information'   : [],                      // empty
                              'rides'         : 0,                       // number of rides in the validity period
+                             'min_start_date': 19700101,                // start of the validity period
+                             'max_end_date'  : 29991231,                // end of the validity period
                              'name'          : name,                    // 'name' of OSM relation if set
                              'display_name'  : display_name,            // 'name' of OSM relation if set
                              'sort_name'     : sort_name,               // 'name' of OSM relation if set
@@ -1868,6 +1912,8 @@ function GetRelationMembersOfRelation( lor, source_type, relation_id, sort=false
                                      'subroute'      : GetPtnaSubRouteOfTrip( lor, source_type, member_id ),            // trip is subroute of ...
                                      'information'   : GetPtnaInformationOfTrip( lor, source_type, member_id ),         // all further comments from ptna_trips
                                      'rides'         : GetPtnaRidesOfTrip( lor, source_type, member_id ),               // number of rides in the validity period
+                                     'min_start_date': GetPtnaStartDateOfTrip( lor, source_type, member_id ),           // start of the validity perion
+                                     'max_end_date'  : GetPtnaEndDateOfTrip( lor, source_type, member_id ),             // end of the validity period
                                      'name'          : name,         // 'name' of OSM relation if set
                                      'display_name'  : display_name, // 'name' to be used on the routes compare table ('stop-1 ... x stops ... stop-n')
                                      'sort_name'     : sort_name,    // 'name' to be used for sorting GTFS trips ('stop-1 stop-n stop-2 stop-3' ... 'stop-n')
@@ -1905,7 +1951,7 @@ function GetPtnaSubRouteOfTrip( lor, source_type, id ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( key.match(/^subroute_of/) ) {
-                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                    ret_list.push( ((key in expanded && expanded[key]) ? expanded[key] : key) + ' ' + value );
                 }
              });
         }
@@ -1921,7 +1967,7 @@ function GetPtna2StopsOnlyOfTrip( lor, source_type, id ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( key.match(/^suspicious_number_of_stops/) ) {
-                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                    ret_list.push( ((key in expanded && expanded[key]) ? expanded[key] : key) + ' ' + value );
                 }
              });
         }
@@ -1941,7 +1987,7 @@ function GetPtnaSuspiciousOfTrip( lor, source_type, id ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( key.match(/^suspicious_[oset]/) ) {
-                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                    ret_list.push( ((key in expanded && expanded[key]) ? expanded[key] : key) + ' ' + value );
                     }
              });
         }
@@ -1959,7 +2005,7 @@ function GetPtnaNearlySameOfTrip( lor, source_type, id ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( key.match(/^same_[ns]/)                ) {
-                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                    ret_list.push( ((key in expanded && expanded[key]) ? expanded[key] : key) + ' ' + value );
                     }
              });
         }
@@ -1969,15 +2015,18 @@ function GetPtnaNearlySameOfTrip( lor, source_type, id ) {
 
 
 function GetPtnaInformationOfTrip( lor, source_type, id ) {
+    const expanded = {}
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
-                if ( !key.match(/^suspicious/)  &&
-                     !key.match(/^same/)        &&
-                     !key.match(/^subroute_of/) &&
-                     !key.match(/rides/)           ) {
-                    ret_list.push( (expanded[key] ? expanded[key] : key) + ' ' + value );
+                if ( !key.match(/^suspicious/)    &&
+                     !key.match(/^same/)          &&
+                     !key.match(/^subroute_of/)   &&
+                     !key.match(/rides/)          &&
+                     !key.match(/min_start_date/) &&
+                     !key.match(/max_end_date/)      ) {
+                    ret_list.push( ((key in expanded && expanded[key]) ? expanded[key] : key) + ' ' + value );
                 }
              });
         }
@@ -1992,6 +2041,36 @@ function GetPtnaRidesOfTrip( lor, source_type, id ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
             Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
                 if ( key.match(/^rides/) ) {
+                    ret_val = value;
+                }
+             });
+        }
+    }
+    return ret_val;
+}
+
+
+function GetPtnaStartDateOfTrip( lor, source_type, id ) {
+    var ret_val = 19700101;
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( key.match(/^min_start_date/) ) {
+                    ret_val = value;
+                }
+             });
+        }
+    }
+    return ret_val;
+}
+
+
+function GetPtnaEndDateOfTrip( lor, source_type, id ) {
+    var ret_val = 29991231;
+    if ( source_type === 'GTFS' ) {
+        if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
+            Object.entries(DATA_Relations[lor][id]['ptna']).forEach(([key, value]) => {
+                if ( key.match(/^max_end_date/) ) {
                     ret_val = value;
                 }
              });
