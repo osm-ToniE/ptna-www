@@ -529,7 +529,7 @@ function AddTrip2NodesWaysRelations( $db, $trip_id, $ptna ) {
             $tmp_array['members']        = $member_array;
             $tmp_array['tags']           = $tags_array;
             if ( $ptna && isset($table_array['ptna_trips']) && isset($table_array['ptna_trips_comments']) ) {
-                $sql = sprintf( "SELECT    ptna_trips_comments.*, ptna_trips.rides
+                $sql = sprintf( "SELECT    ptna_trips_comments.*, ptna_trips.rides, ptna_trips.min_start_date, ptna_trips.max_end_date
                                  FROM      ptna_trips
                                  LEFT JOIN ptna_trips_comments ON ptna_trips.trip_id = ptna_trips_comments.trip_id
                                  WHERE     ptna_trips.trip_id='%s';",
