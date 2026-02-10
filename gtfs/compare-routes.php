@@ -265,15 +265,15 @@
                                         <td></td><td></td><td>Relation</td>
                                     </tr>
                                     <tr><th class="compare-routes-tbody"><img src="/img/iD-logo32.png" height="18" width="18" alt="iD" title="iD" /></th>
-                                        <td>The OSM object can be editied using the editor iD</td>
+                                        <td>The OSM object can be edited using the editor iD</td>
                                         <td></td><td></td><td>iD</td>
                                     </tr>
                                     <tr><th class="compare-routes-tbody"><img src="/img/JOSM-logo32.png" height="18" width="18" alt="JOSM" title="JOSM" /></th>
-                                        <td>The OSM object can be editied using the editor JOSM</td>
+                                        <td>The OSM object can be edited using the editor JOSM</td>
                                         <td></td><td></td><td>JOSM</td>
                                     </tr>
                                     <tr><th class="compare-routes-tbody"><img src="/img/Relatify-favicon32.png" height="18" width="18" alt="Relatify" title="Relatify" /></th>
-                                        <td>The OSM object can be editied using the editor Relatify</td>
+                                        <td>The OSM object can be edited using the editor Relatify</td>
                                         <td></td><td></td><td>Relatify</td>
                                     </tr>
                                     <tr><th class="compare-routes-tbody"><img src="/img/Inject32.png" height="18" width="18" alt="Injection needle" title="Inject data using JOSM" /></th>
