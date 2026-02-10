@@ -22,7 +22,7 @@
                     </thead>
                     <tbody>
 <?php
-    $duration += CreateGtfsEntry( "FI-11-Tampere" );
+    $duration += CreateGtfsEntry( "FI-18-HSL" );
 ?>
                     </tbody>
                 </table>

@@ -23,6 +23,7 @@
                 <tbody>
 
                     <?php CreateNewFullEntry( "FI-11-Nysse", "en", "Konfiguraatio" ); ?>
+                    <?php CreateNewFullEntry( "FI-18-HSL", "en", "Konfiguraatio" ); ?>
 
                 </tbody>
             </table>
