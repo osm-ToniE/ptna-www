@@ -3568,7 +3568,7 @@
                         $ptna = $db->querySingle( $sql, true );
                         if ( $ptna["count"] ) {
                             echo '                        <tr class="statistics-tablerow">' . "\n";
-                            echo '                            <td class="statistics-name">Sub-Routes</td>' . "\n";
+                            echo '                            <td class="statistics-name">Subroutes</td>' . "\n";
                             echo '                            <td class="statistics-number"><a href="gtfs-analysis-details.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&topic=SUBR">'  . htmlspecialchars($ptna["count"]) . '</a></td>' . "\n";
                             echo '                            <td class="statistics-number">[1]</td>' . "\n";
                             echo '                        </tr>' . "\n";

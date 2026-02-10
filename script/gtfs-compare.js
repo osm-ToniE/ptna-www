@@ -1945,7 +1945,7 @@ function GetMappingOfId2Number(ArrayOfDict) {
 
 
 function GetPtnaSubRouteOfTrip( lor, source_type, id ) {
-    const expanded = { 'subroute_of' : 'This trip is sub-route of:' }
+    const expanded = { 'subroute_of' : 'This trip is subroute of:' }
     var ret_list = [];
     if ( source_type === 'GTFS' ) {
         if ( DATA_Relations[lor][id] && DATA_Relations[lor][id]['ptna'] ) {
