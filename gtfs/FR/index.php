@@ -60,6 +60,7 @@
     $duration += CreateGtfsEntry( "FR-GES-CTS" );
     $duration += CreateGtfsEntry( "FR-GES-STAN" );
     $duration += CreateGtfsEntry( "FR-NAQ-TBM" );
+    $duration += CreateGtfsEntry( "FR-NAQ-Yelo" );
     $duration += CreateGtfsEntry( "FR-NOR-Atoumod" );
     $duration += CreateGtfsEntry( "FR-NOR-Cosibus" );
     $duration += CreateGtfsEntry( "FR-NOR-Hobus" );
