@@ -140,6 +140,8 @@
                     <?php CreateNewFullEntry("FR-IDF-val-de-seine", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-IDF-vybus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-IDF-yerres", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-NAQ-CarsRegionaux_17", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-NAQ-RespiRe", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NAQ-Yelo", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Altobus", "fr", "Configuration" ); ?>

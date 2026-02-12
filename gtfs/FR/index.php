@@ -59,6 +59,8 @@
     $duration += CreateGtfsEntry( "FR-CVL-TAO" );
     $duration += CreateGtfsEntry( "FR-GES-CTS" );
     $duration += CreateGtfsEntry( "FR-GES-STAN" );
+    $duration += CreateGtfsEntry( "FR-NAQ-CarsRegionaux_17" );
+    $duration += CreateGtfsEntry( "FR-NAQ-RespiRe" );
     $duration += CreateGtfsEntry( "FR-NAQ-TBM" );
     $duration += CreateGtfsEntry( "FR-NAQ-Yelo" );
     $duration += CreateGtfsEntry( "FR-NOR-Atoumod" );
