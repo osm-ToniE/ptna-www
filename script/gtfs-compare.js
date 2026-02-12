@@ -198,11 +198,7 @@ async function showtripcomparison() {
 
     IterateOverMembers( 'left', trip_id.toString(), draw_also=true );
     if ( relation_id !== '' ) {
-        if ( diff_based_compare ) {
-            IterateOverMembers( 'right', relation_id.toString(), draw_also=false ); // later on this should be 'false'
-        } else {
-            IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
-        }
+        IterateOverMembers( 'right', relation_id.toString(), draw_also=true );
     } else {
         IterateOverMembers( 'right', trip_id2.toString(), draw_also=true );
     }
@@ -823,7 +819,7 @@ function handleMembers( lor, relation_id, draw_also ) {
                     if ( is_GTFS ) {
                         match = "shape";
                     } else if ( is_PTv2 ) {
-                        if ( role == "" || role== "hail_and_ride" ) {
+                        if ( role == "" || role == "hail_and_ride" ) {
                             match = "route";
                         } else {
                             role = role.replace(/ /, '<blank>');
@@ -857,7 +853,12 @@ function handleMembers( lor, relation_id, draw_also ) {
                     ref_lat = CMP_List['left'][CMP_List['left'].length-1]['lat'];
                     ref_lon = CMP_List['left'][CMP_List['left'].length-1]['lon'];
                 }
-                [lat,lon] = handleObject( lor, id, object_type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon, draw_also );
+                if ( diff_based_compare && match === 'platform' ) {
+                    // if diff based comparision of GTFS vs OSM is ON, platforms and platform-route will bedrawn after the re-sort
+                    [lat,lon] = handleObject( lor, id, object_type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon, false );
+                } else {
+                    [lat,lon] = handleObject( lor, id, object_type, match, label_of_object[id], htmlEscape(name), ref_lat, ref_lon, draw_also );
+                }
             }
 
             latlonroute[lor][match].push( [lat,lon] );
@@ -882,8 +883,11 @@ function handleMembers( lor, relation_id, draw_also ) {
                 L.polyline(latlonroute[lor]['stop'],{color:colours[lor],weight:3,fill:false}).bindPopup("GTFS Stop Route").addTo( layerplatformsroute[lor] );
             }
         } else {            // with OSM, we consider only 'platforms'
-            if ( latlonroute[lor]['platform'].length > 1 ) {
-                L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformsroute[lor] );
+            if ( !diff_based_compare ) {
+                // if diff based comparision of GTFS vs OSM is ON, platforms and platform-route will bedrawn after the re-sort
+                if ( latlonroute[lor]['platform'].length > 1 ) {
+                    L.polyline(latlonroute[lor]['platform'],{color:colours[lor],weight:3,fill:false}).bindPopup("OSM Platform Route").addTo( layerplatformsroute[lor] );
+                }
             }
         }
 
