@@ -2361,9 +2361,8 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
                 taggs_to_add.push( 'gtfs:trip_id:like=' );
             }
         }
-        if ( 'ref_trips' in DATA_Relations['left'][p_trip_id]['tags'] ) {
+        if ( 'ref_trips' in DATA_Relations['right'][p_trip_id]['tags'] ) {
             if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
-                 'ref_trips'           in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
                  DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
                  DATA_Relations['right'][p_relation_id]['tags']['ref_trips']           !== p_trip_id                                                      ) {
                 taggs_to_add.push( 'ref_trips='+p_trip_id );
