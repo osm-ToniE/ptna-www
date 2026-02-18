@@ -72,7 +72,7 @@
                         <div class="indent">
                             <?php echo $lang_overpass_api_description; ?>
 <?php if ( !preg_match('/^poly/',GetOverpassSearchArea()) ) { ?>
-                            <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=2000></progress> <span id="download_text">0</span> ms</p>
+                            <p id="progress_section"><?php echo $lang_download; ?>: <progress id="download" value=0 max=2000></progress> <span id="download_text"></span></p>
                             <p><code><?php echo htmlentities(preg_replace('/^[a-z]*/','relation',urldecode(GetOverpassSearchArea()))); ?></code></p>
 <?php } ?>
                         </div>
