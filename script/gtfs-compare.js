@@ -2,8 +2,8 @@
 //
 //
 
-const OVERPASS_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation(';
-//const OVERPASS_API_URL_PREFIX = 'https://overpass.private.coffee/api/interpreter?data=[out:json];relation(';
+const OVERPASS_SERVER         = 'overpass-api.de'
+const OVERPASS_API_URL_PREFIX = 'https://' + OVERPASS_SERVER + '/api/interpreter?data=[out:json];relation(';
 const OVERPASS_API_URL_SUFFIX = ');(._;>>;);out;';
 
 const PTNA_API_URL = '/api/gtfs.php';
@@ -507,7 +507,7 @@ async function showroutecomparison() {
         alert( "Some cells may not show valid data, there was missing data.\n\n'" + keys.join("'\n'") + "'" );
     }
 
-    aSpanAnalysis.innerHTML = '<progress id="analysis" value=0 max=10000></progress>';
+    aSpanAnalysis.innerHTML = '<progress id="analysis" value=0 max=2000></progress>';
     aBar                    = document.getElementById('analysis');
 
     finalizeAnalysisProgress();
@@ -559,11 +559,18 @@ async function download_left_data() {
                         const JsonResp = await response.json();
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
-                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=10000></progress>';
-                        document.getElementById('download_left_text').innerText = usedms.toString();
+                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+                        dBarLeft.value = usedms;
+                        document.getElementById('download_left_text').innerText = usedms.toString() + ' ms';
                         return JSON.stringify(JsonResp);
                     } else {
-                        alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
+                        const d = new Date();
+                        var usedms = d.getTime() - downloadstartms;
+                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+                        dBarLeft.value = usedms;
+                        document.getElementById('download_left_text').innerText = 'failed';
+                        document.getElementById('analysis_text').innerText = 'aborted';
+                        alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
                     }
                 } else {
                     alert( "Neither parameter 'route_id' nor 'trip_id' is set" );
@@ -601,11 +608,18 @@ async function download_right_data() {
                 const JsonResp = await response.json();
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
-                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=10000></progress>';
-                document.getElementById('download_right_text').innerText = usedms.toString();
+                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                dBarRight.value = usedms;
+                document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
                 return JSON.stringify(JsonResp);
             } else {
-                alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
+                const d = new Date();
+                var usedms = d.getTime() - downloadstartms;
+                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                dBarRight.value = usedms;
+                document.getElementById('download_right_text').innerText = 'failed';
+                document.getElementById('analysis_text').innerText = 'aborted';
+                alert( OVERPASS_SERVER + " response:\n\n" + response.status + " " + response.statusText );
             }
         } else {
             alert( "Relation ID is not a number (" + relation_id + ")" );
@@ -643,12 +657,18 @@ async function download_right_data() {
                         const JsonResp = await response.json();
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
-                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=10000></progress>';
+                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
                         dBarRight.value = usedms;
-                        document.getElementById('download_right_text').innerText = usedms.toString();
+                        document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
                         return JSON.stringify(JsonResp);
                     } else {
-                        alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
+                        const d = new Date();
+                        var usedms = d.getTime() - downloadstartms;
+                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                        dBarRight.value = usedms;
+                        document.getElementById('download_right_text').innerText = 'failed';
+                        document.getElementById('analysis_text').innerText = 'aborted';
+                        alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
                     }
                 } else {
                     alert( "Neither parameter 'route_id2' nor 'trip_id2' is set" );
@@ -1300,7 +1320,7 @@ function downloadRelationSync( relation_id, lor ) {
             } else if ( request.status === 410 ) {
                 alert( "Relation does not exist (" + relation_id + ")" );
             } else {
-                alert( "Response Code:\n" + response.status + " " + response.statusText + "\n\nRequest:\n" + response.url );
+                alert( OVERPASS_SERVER + " (sync) response:\n\n" + request.status + " " + request.statusText );
             }
         }
     };
@@ -2121,7 +2141,7 @@ function GetDisplaySortName( lor, source_type, relation_id ) {
                     stop_name_list.unshift(name_last);  // last name becomes the second most important sort criteria followed, 3rd is second stop name, ...
                     stop_name_list.unshift(name_first); // first name becomes the most important sort criteria
                     if ( DATA_Relations[lor][relation_id]['ptna'] && DATA_Relations[lor][relation_id]['ptna']['rides'] ) {
-                        stop_name_list.push(10000000-DATA_Relations[lor][relation_id]['ptna']['rides']);  // highest number of rides first
+                        stop_name_list.push(2000000-DATA_Relations[lor][relation_id]['ptna']['rides']);  // highest number of rides first
                     }
                     sort_name = stop_name_list.join(';');
                 }
@@ -3628,7 +3648,7 @@ function updateAnalysisProgress( increment ) {
     const d = new Date();
     var usedms = d.getTime() - analysisstartms;
     aBar       = document.getElementById('analysis');
-    document.getElementById('analysis_text').innerText = usedms.toString();
+    document.getElementById('analysis_text').innerText = usedms.toString() + ' ms';
     if ( increment ) {
         aBar.value += increment;
     } else {
@@ -3642,5 +3662,5 @@ function finalizeAnalysisProgress() {
     var usedms = d.getTime() - analysisstartms;
     aBar       = document.getElementById('analysis');
     aBar.value = usedms;
-    document.getElementById('analysis_text').innerText = usedms.toString();
+    document.getElementById('analysis_text').innerText = usedms.toString() + ' ms';
 }

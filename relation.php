@@ -32,8 +32,8 @@
                 <h3 id ="osm-relation">OSM Relation</h3>
 
 <?php if ( $lang == 'de' ) { ?>
-                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text">0</span> ms /
-                                            Analyse:  <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text">0</span> ms
+                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text" style="display: inline-block; min-width: 5em; text-align: right"></span> /
+                                            Analyse:  <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text" style="display: inline-block; min-width: 5em; text-align: right"></span>
                 </span>
 
                 <span id="beta" class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Möglicherweise sind nicht alle Mitglieder der Relation auf der Karte angezeigt.</span>
@@ -43,8 +43,8 @@
                     Möglicherweise werden auch für andere Arten von Relationen brauchbare Details aufgezeigt, es gibt aber keine Garantie.
                 </p>
 <?php } elseif ( $lang == 'fr' ) { ?>
-                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text">0</span> ms /
-                                            Analysis: <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text">0</span> ms
+                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text"></span> /
+                                            Analysis: <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text"></span>
                 </span>
 
                 <span id="beta" class="attention" style="font-weight: 1000;font-size:1.2em;">BETA : il est possible que certains membres de la relation ne soient pas affichés sur la carte.</span>
@@ -54,8 +54,8 @@
 					Il est possible que celle-ci fonctionne avec d'autres types de relation mais sans garantie.
                 </p>
 <?php } else { ?>
-                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text">0</span> ms /
-                                            Analysis: <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text">0</span> ms
+                <span id="progress_section">Download: <progress id="download" value=0 max=2000></progress> <span id="download_text"></span> /
+                                            Analysis: <progress id="analysis" value=0 max=2000></progress> <span id="analysis_text"></span>
                 </span>
 
                 <span id="beta" class="attention" style="font-weight: 1000;font-size:1.2em;">BETA: Possibly not all members of the relation are shown on the map.</span>

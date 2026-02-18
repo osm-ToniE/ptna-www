@@ -1,12 +1,10 @@
 //
 //
 //
-//const OSM_API_URL_PREFIX = 'https://api.openstreetmap.org/api/0.6/relation/';
-//const OSM_API_URL_SUFFIX = '/full.json';
 
-const OSM_API_URL_PREFIX = 'https://overpass-api.de/api/interpreter?data=[out:json];relation';
-//const OSM_API_URL_PREFIX = 'https://overpass.private.coffee/api/interpreter?data=[out:json];relation';
-const OSM_API_URL_SUFFIX = ';(._;>;);out;';
+const OVERPASS_SERVER         = 'overpass-api.de'
+const OVERPASS_API_URL_PREFIX = 'https://' + OVERPASS_SERVER + '/api/interpreter?data=[out:json];relation';
+const OVERPASS_API_URL_SUFFIX = ';(._;>;);out;';
 
 const defaultlat    = 48.0649;
 const defaultlon    = 11.6612;
@@ -155,40 +153,45 @@ function show_overpass_api_area( query, name ) {
 
     if ( query && name ) {
         if ( query.match(/^area/) ) {
-            var url     = `${OSM_API_URL_PREFIX}${decodeURIComponent(query.replace(/^area/,''))}${OSM_API_URL_SUFFIX}`;
+            var url     = `${OVERPASS_API_URL_PREFIX}${decodeURIComponent(query.replace(/^area/,''))}${OVERPASS_API_URL_SUFFIX}`;
             var request = new XMLHttpRequest();
             request.open( "GET", url );
             request.onprogress = function() {
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
                 dBar.value = usedms;
-                document.getElementById('download_text').innerText = usedms.toString();
+                document.getElementById('download_text').innerText = usedms.toString() + ' ms';
             }
             request.onreadystatechange = function() {
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
                 dBar.value = usedms;
-                document.getElementById('download_text').innerText = usedms.toString();
+                document.getElementById('download_text').innerText = usedms.toString() + ' ms';
                 if ( request.readyState === 4 ) {
                     if ( request.status === 200 ) {
                         var type = request.getResponseHeader( "Content-Type" );
                         if ( type.match(/application\/json/) ) {
                             readHttpResponse( request.responseText,decoded_name );
                         } else {
+                            document.getElementById('download_text').innerText = 'failed';
                             alert( url + " did not return JSON data but " + type );
                         }
                     } else if ( request.status === 410 ) {
+                        document.getElementById('download_text').innerText = 'failed';
                         alert( "Relation does not exist (" + relation_id + ")" );
                     } else if ( request.status === 0 ) {
-                        alert( "Response Code: " + request.status + "\n\n" + url + "\n\n" + request.getAllResponseHeaders() );
+                        document.getElementById('download_text').innerText = 'failed';
+                        alert( OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
                         var type = request.getResponseHeader( "Content-Type" );
                         if ( type.match(/application\/json/) ) {
                             readHttpResponse( request.responseText );
                         } else {
+                            document.getElementById('download_text').innerText = 'failed';
                             alert( url + " did not return JSON data but " + type );
                         }
                     } else {
-                        alert( "Response Code:\n" + request.statusText + "\n\nRequest:\n" + request.responseURL  + "\n\nResponseheaders:\n" + request.getAllResponseHeaders() + "\n\nResponse:\n" + request.responseText );
+                        document.getElementById('download_text').innerText = 'failed';
+                        alert( OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
                     }
                 }
             };
