@@ -2713,14 +2713,14 @@ function CreateTripsCompareTableAndScores( cmp_list, left, right, scores_only ) 
                 if ( 'index' in cmp_list['right'][i] ) {
                     if ( right === 'OSM' ) {
                         body_row['platform_number']    = cmp_list['right'][i]['index'];
-                        body_row['name']               = cmp_list['right'][i]['tags']['name']         || '';
-                        body_row['ref_name']           = cmp_list['right'][i]['tags']['ref_name']     || '';
                         body_row['lat']                = parseFloat(cmp_list['right'][i]['lat'].toString().replace(',','.')).toFixed(5)       || '';
                         body_row['lon']                = parseFloat(cmp_list['right'][i]['lon'].toString().replace(',','.')).toFixed(5)       || '';
-                        body_row['local_ref']          = cmp_list['right'][i]['tags']['local_ref']    || '';
-                        body_row['gtfs:stop_id']       = cmp_list['right'][i]['tags']['gtfs:stop_id'] || '';
-                        body_row['gtfs:stop_id:'+feed] = cmp_list['right'][i]['tags']['gtfs:stop_id:'+feed] || '';
-                        body_row['ref:IFOPT']          = cmp_list['right'][i]['tags']['ref:IFOPT']    || '';
+                        body_row['name']               = ('tags' in cmp_list['right'][i] && 'name'                in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['name'])         || '';
+                        body_row['ref_name']           = ('tags' in cmp_list['right'][i] && 'ref_name'            in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['ref_name'])     || '';
+                        body_row['local_ref']          = ('tags' in cmp_list['right'][i] && 'local_ref'           in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['local_ref'])    || '';
+                        body_row['gtfs:stop_id']       = ('tags' in cmp_list['right'][i] && 'gtfs:stop_id'        in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['gtfs:stop_id']) || '';
+                        body_row['gtfs:stop_id:'+feed] = ('tags' in cmp_list['right'][i] && 'gtfs:stop_id:'+feed  in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['gtfs:stop_id:'+feed]) || '';
+                        body_row['ref:IFOPT']          = ('tags' in cmp_list['right'][i] && 'ref:IFOPT'           in cmp_list['right'][i]['tags'] && cmp_list['right'][i]['tags']['ref:IFOPT'])    || '';
                         for ( var field in scores['totals'] ) {
                             if ( field in body_row && body_row[field] !== '' ) {
                                 scores['totals'][field]++;
