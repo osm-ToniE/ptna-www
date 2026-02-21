@@ -16,6 +16,22 @@
 
 <?php include $inc_lang.'results-head.inc' ?>
 
+            <h2 id="rail-based-networks">Rail transport in the United Kongdom</h2>
+            <table id="networksGBrail">
+                <thead>
+<?php include $inc_lang.'results-trth.inc' ?>
+                </thead>
+                <tbody>
+
+                    <?php CreateNewFullEntry( "GB-SCT-CB-National-Rail", "en", "Configuration" ); ?>
+
+                </tbody>
+            </table>
+
+            <hr />
+
+
+            <h2 id="other-networks">Transport Associations in the United Kongdom</h2>
             <table id="networksGB">
                 <thead>
 <?php include $inc_lang.'results-trth.inc' ?>
