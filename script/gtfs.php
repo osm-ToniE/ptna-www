@@ -1436,7 +1436,7 @@
                         if ( preg_match("/^.*?$osm_vehicle /",$osm_ref) ) {
                             $osm_ref = preg_replace( "/^.*?$osm_vehicle /", "", $osm_ref );
                         }
-                        $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'ffffff';
+                        $osm_colour         = isset($routes['route_color'])          ? htmlspecialchars($routes['route_color'])          : 'FFFFFF';
                         $osm_text_colour    = isset($routes['route_text_color'])     ? htmlspecialchars($routes['route_text_color'])     : '000000';
                         if ( isset($stops1['stop_name'] ) ) {
                             $osm_from = (isset($stops1['normalized_stop_name']) && $stops1['normalized_stop_name'] != '')
