@@ -2328,21 +2328,21 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
     if ( p_route_id                                       &&
          p_route_id in DATA_Relations['left']             &&
          'tags'     in DATA_Relations['left'][p_route_id]    ) {
-        let route_color = 'route_color' in DATA_Relations['left'][p_route_id]['tags'] ? DATA_Relations['left'][p_route_id]['tags']['route_color'].toUpperCase() : 'FFFFFF';
+        let route_color = 'route_color' in DATA_Relations['left'][p_route_id]['tags'] ? '#' + DATA_Relations['left'][p_route_id]['tags']['route_color'].toUpperCase() : '#FFFFFF';
         if ( 'colour' in DATA_Relations['right'][p_relation_id]['tags'] ) {
             if ( route_color !== DATA_Relations['right'][p_relation_id]['tags']['colour'].toUpperCase() ) {
-                taggs_to_add.push( 'colour=#'+route_color );
+                taggs_to_add.push( 'colour='+route_color );
             }
         } else {
-            taggs_to_add.push( 'colour=#'+route_color );
+            taggs_to_add.push( 'colour='+route_color );
         }
-        let route_text_color = 'route_text_color' in DATA_Relations['left'][p_route_id]['tags'] ? DATA_Relations['left'][p_route_id]['tags']['route_text_color'].toUpperCase() : '000000';
+        let route_text_color = 'route_text_color' in DATA_Relations['left'][p_route_id]['tags'] ? '#' + DATA_Relations['left'][p_route_id]['tags']['route_text_color'].toUpperCase() : '#000000';
         if ( 'colour:text' in DATA_Relations['right'][p_relation_id]['tags'] ) {
             if ( route_text_color !== DATA_Relations['right'][p_relation_id]['tags']['colour:text'].toUpperCase() ) {
-                taggs_to_add.push( 'colour:text=#'+route_text_color );
+                taggs_to_add.push( 'colour:text='+route_text_color );
             }
         } else {
-            taggs_to_add.push( 'colour:text=#'+route_text_color );
+            taggs_to_add.push( 'colour:text='+route_text_color );
         }
     }
     if ( 'gtfs:feed' in DATA_Relations['right'][p_relation_id]['tags'] ) {
