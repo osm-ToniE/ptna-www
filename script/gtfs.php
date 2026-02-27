@@ -3266,7 +3266,7 @@
                         echo '                                        <td class="gtfs-name">Contents of \'name\' suggestion for OSM route_master</td>' . "\n";
                         if ( $osm["route_master_name_suggestion"] ) {
                             if ( $osm["route_master_name_suggestion"] == 'PTv2' ) {
-                                echo '                                       <td class="gtfs-text">[according to PTV2 proposal]</td>' . "\n";
+                                echo '                                       <td class="gtfs-text">[according to PTv2 proposal]</td>' . "\n";
                             } else {
                                 echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["route_master_name_suggestion"]) . ' </td>' . "\n";
                             }
@@ -3281,7 +3281,7 @@
                         echo '                                        <td class="gtfs-name">Contents of \'name\' suggestion for OSM route</td>' . "\n";
                         if ( $osm["route_name_suggestion"] ) {
                             if ( $osm["route_name_suggestion"] == 'PTv2' ) {
-                                echo '                                       <td class="gtfs-text">[according to PTV2 proposal]</td>' . "\n";
+                                echo '                                       <td class="gtfs-text">[according to PTv2 proposal]</td>' . "\n";
                             } else {
                                 echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["route_name_suggestion"]) . ' </td>' . "\n";
                             }
@@ -3291,6 +3291,19 @@
                         echo '                                    </tr>' . "\n";
                     }
 
+                    echo '                                    <tr class="statistics-tablerow">' . "\n";
+                    echo '                                        <td class="gtfs-name">Stop name delimiter: ...</td>' . "\n";
+                    if ( isset($osm["stop_name_delimiter"]) ) {
+                        if ( $osm["stop_name_delimiter"] == '' ) {
+                            echo '                                       <td class="gtfs-text">lt;none&gt; [disabled]</td>' . "\n";
+                        } else {
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["stop_name_delimiter"]) . '</td>' . "\n";
+                        }
+                    } else {
+                        echo '                                       <td class="gtfs-text">, [default value]</td>' . "\n";
+                    }
+                    echo '                                    </tr>' . "\n";
+
                     # from gtfs-compare.js line ~65 : const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'nodiff' ];
 
                     echo '                                    <tr class="statistics-tablerow">' . "\n";
@@ -3299,7 +3312,7 @@
                         if ( $osm["ddiff"] == 0 ) {
                             echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
                         } else {
-                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["ddiff"]) . '</td>' . "\n";
                         }
                     } else {
                         echo '                                       <td class="gtfs-text">100 [default value]</td>' . "\n";
@@ -3311,7 +3324,7 @@
                         if ( $osm["wdiff"] == 0 ) {
                             echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
                         } else {
-                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wdiff"]) . '</td>' . "\n";
                         }
                     } else {
                         echo '                                       <td class="gtfs-text">15 [default value]</td>' . "\n";
@@ -3323,7 +3336,7 @@
                         if ( $osm["wn"] == 0 ) {
                             echo '                                       <td class="gtfs-text">0 [disabled]</td>' . "\n";
                         } else {
-                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . ' </td>' . "\n";
+                            echo '                                       <td class="gtfs-text">' . htmlspecialchars($osm["wn"]) . '</td>' . "\n";
                         }
                     } else {
                         echo '                                       <td class="gtfs-text">2 [default value]</td>' . "\n";
