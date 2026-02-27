@@ -3611,20 +3611,22 @@ function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_
     if ( ln === rn ) {
         return 'equal after removing some blanks';
     }
-    if ( ln.match(/,/) && rn.match(/,/) ) {
-        ln_array = ln.split(/\s*,\s*/,2);
-        rn_array = rn.split(/\s*,\s*/,2);
+    var stop_name_delimiter = ('osm' in JSON_data['left'] && 'stop_name_delimiter' in JSON_data['left']['osm']) ? JSON_data['left']['osm']['stop_name_delimiter'] : ',';
+    var stop_name_regex     = stop_name_delimiter ? RegExp('\\s*[' + stop_name_delimiter + ']\\s*') : '';
+    if ( stop_name_regex && ln.match(stop_name_regex) && rn.match(stop_name_regex) ) {
+        ln_array = ln.split(stop_name_regex,2);
+        rn_array = rn.split(stop_name_regex,2);
         if ( (ln_array[0] === rn_array[0] && ln_array[1] === rn_array[1]) ||
-             (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
+            (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return 'equal after swapping';
         }
-    } else if ( !diff_compare && ln.match(/,/) ) {
-        ln_array = ln.split(/\s*,\s*/,2);
+    } else if ( !diff_compare && stop_name_regex && ln.match(stop_name_regex) ) {
+        ln_array = ln.split(stop_name_regex,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return 'equal as qualified substring';
         }
-    } else if ( !diff_compare && rn.match(/,/) ) {
-        rn_array = rn.split(/\s*,\s*/,2);
+    } else if ( !diff_compare && stop_name_regex && rn.match(stop_name_regex) ) {
+        rn_array = rn.split(stop_name_regex,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return 'equal as qualified substring';
         }
@@ -3634,20 +3636,20 @@ function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_
     if ( ln === rn ) {
         return "equal after removing all '(...)'";
     }
-    if ( ln.match(/,/) && rn.match(/,/) ) {
-        let ln_array = ln.split(/\s*,\s*/,2);
-        let rn_array = rn.split(/\s*,\s*/,2);
+    if ( stop_name_regex && ln.match(stop_name_regex) && rn.match(stop_name_regex) ) {
+        let ln_array = ln.split(stop_name_regex,2);
+        let rn_array = rn.split(stop_name_regex,2);
         if ( (ln_array[0] === rn_array[0] && ln_array[1] === rn_array[1]) ||
              (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return "equal after removing all '(...)' and swapping";
         }
-    } else if ( !diff_compare && ln.match(/,/) ) {
-        ln_array = ln.split(/\s*,\s*/,2);
+    } else if ( !diff_compare && stop_name_regex && ln.match(stop_name_regex) ) {
+        ln_array = ln.split(stop_name_regex,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return "equal after removing all '(...)' as qualified substring";
         }
-    } else if ( !diff_compare && rn.match(/,/) ) {
-        rn_array = rn.split(/\s*,\s*/,2);
+    } else if ( !diff_compare && stop_name_regex && rn.match(stop_name_regex) ) {
+        rn_array = rn.split(stop_name_regex,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return "equal after removing all '(...)' as qualified substring";
         }
