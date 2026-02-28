@@ -582,17 +582,17 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set: %d. via-part (&#039;%s&#039;) of &#039;name&#039; is not equal to %d. via-value = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: &#039;via&#039; is set: %d. via-part (&#039;%s&#039;) of &#039;name&#039; does not match %d. via-value = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: &#039;via&#039; is set: %d. via-part (&#039;%s&#039;) of &#039;name&#039; is not part of %d. via-value = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: &#039;via&#039; is set: %d. via-part (&#039;%s&#039;) of &#039;name&#039; is not equal to %d. via-value = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -718,17 +718,17 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: from-part (&#039;%s&#039;) of &#039;name&#039; is not equal to &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: from-part (&#039;%s&#039;) of &#039;name&#039; does not match &#039;from&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: from-part (&#039;%s&#039;) of &#039;name&#039; is not part of &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: from-part (&#039;%s&#039;) of &#039;name&#039; is not equal to &#039;from&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -902,17 +902,17 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: to-part (&#039;%s&#039;) of &#039;name&#039; is not equal to &#039;to&#039; = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: to-part (&#039;%s&#039;) of &#039;name&#039; does not match &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 route: to-part (&#039;%s&#039;) of &#039;name&#039; is not part of &#039;to&#039; = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 route: to-part (&#039;%s&#039;) of &#039;name&#039; is not equal to &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>

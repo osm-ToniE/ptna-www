@@ -862,14 +862,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : attribut &#039;via&#039; défini : %d. La partie &#039;par&#039; du nom (&#039;%s&#039;) ne fait pas partie de %d. Valeur via &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : il n&#039;y a aucun &#039;public_transport&#039; = &#039;platform&#039; (nœud, chemin, surface ou relation)</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
@@ -1006,25 +998,9 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : la partie &#039;de&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;from&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">Ligne PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) n&#039;est pas identique à l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option">check-name</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : la partie &#039;à&#039; du nom (&#039;%s&#039;) ne fait pas partie de l&#039;attribut &#039;to&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Notes</td>
-                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -1353,6 +1329,30 @@
                 <td class="message-text">PTv2 route: &#039;via&#039; is set. %d. via-part (&#039;%s&#039;) matches name of more than one platform (platform numbers: %s)</td>
                 <td class="message-type">Notes</td>
                 <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: &#039;via&#039; is set: %d. via-part (&#039;%s&#039;) of &#039;name&#039; does not match %d. via-value = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: from-part (&#039;%s&#039;) of &#039;name&#039; does not match &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 route: to-part (&#039;%s&#039;) of &#039;name&#039; does not match &#039;to&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>

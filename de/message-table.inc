@@ -694,17 +694,17 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von %d. via-Teil = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht gleich dem %d. via-Teil = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">check-name-relaxed</td>
+                <td class="message-option">check-name</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht gleich dem %d. via-Teil = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 Route: &#039;via&#039; ist gesetzt: der %d. &#039;Über&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; passt nicht zum %d. via-Teil = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
-                <td class="message-option">check-name</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
@@ -766,14 +766,6 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von &#039;to&#039; = &#039;%s&#039;</td>
-                <td class="message-type">Anmerkungen</td>
-                <td class="message-option">check-name-relaxed</td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
                 <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht identisch zu &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
@@ -782,7 +774,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: der &#039;Von&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht Teil von &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-text">PTv2 Route: der &#039;Nach&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; passt nicht zu &#039;to&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
@@ -793,6 +785,14 @@
                 <td class="message-text">PTv2 Route: der &#039;Von&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; ist nicht identisch zu &#039;from&#039; = &#039;%s&#039;</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-name</td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">PTv2 Route: der &#039;Von&#039;-Anteil (&#039;%s&#039;) von &#039;name&#039; passt nicht zu &#039;from&#039; = &#039;%s&#039;</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option">check-name-relaxed</td>
                 <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
