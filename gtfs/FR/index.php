@@ -67,6 +67,7 @@
     $duration += CreateGtfsEntry( "FR-NOR-Atoumod" );
     $duration += CreateGtfsEntry( "FR-NOR-Cosibus" );
     $duration += CreateGtfsEntry( "FR-NOR-Hobus" );
+    $duration += CreateGtfsEntry( "FR-NOR-LiA" );
     $duration += CreateGtfsEntry( "FR-NOR-NavetteMSM" );
     $duration += CreateGtfsEntry( "FR-NOR-Neva" );
     $duration += CreateGtfsEntry( "FR-OCC-liO" );
