@@ -147,6 +147,7 @@
                     <?php CreateNewFullEntry("FR-NOR-Altobus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Cosibus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Hobus", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-NOR-LiA", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-NavetteMSM", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Neva", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Nomad_Car", "fr", "Configuration" ); ?>
