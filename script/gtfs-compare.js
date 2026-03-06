@@ -3620,12 +3620,12 @@ function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_
             (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return 'equal after swapping';
         }
-    } else if ( !diff_compare && stop_name_regex && ln.match(stop_name_regex) ) {
+    } else if ( stop_name_regex && ln.match(stop_name_regex) ) {
         ln_array = ln.split(stop_name_regex,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return 'equal as qualified substring';
         }
-    } else if ( !diff_compare && stop_name_regex && rn.match(stop_name_regex) ) {
+    } else if ( stop_name_regex && rn.match(stop_name_regex) ) {
         rn_array = rn.split(stop_name_regex,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return 'equal as qualified substring';
@@ -3643,12 +3643,12 @@ function NamesAreSimilar( left_name, right_name, left_suffix='', left_suffix_to_
              (ln_array[0] === rn_array[1] && ln_array[1] === rn_array[0])    ) {
             return "equal after removing all '(...)' and swapping";
         }
-    } else if ( !diff_compare && stop_name_regex && ln.match(stop_name_regex) ) {
+    } else if ( stop_name_regex && ln.match(stop_name_regex) ) {
         ln_array = ln.split(stop_name_regex,2);
         if ( ln_array[0] === rn || ln_array[1] === rn ) {
             return "equal after removing all '(...)' as qualified substring";
         }
-    } else if ( !diff_compare && stop_name_regex && rn.match(stop_name_regex) ) {
+    } else if ( stop_name_regex && rn.match(stop_name_regex) ) {
         rn_array = rn.split(stop_name_regex,2);
         if ( rn_array[0] === ln || rn_array[1] === ln ) {
             return "equal after removing all '(...)' as qualified substring";
