@@ -64,7 +64,8 @@ var RoutesTableFirstVisibleColumn = 0;
 
 const UrlParamsWhichCanBeForwarded = [ 'lang', 'ws', 'wn', 'wrn', 'wsi', 'wri', 'wgs', 'wgf', 'wd0', 'd0', 'wd1', 'd0', 'wd2', 'd2', 'wdiff', 'ddiff', 'nodiff' ];
 
-const todate_as_int = new Date().toISOString().split('T')[0].replace(/-/g,'')
+const DateObject    = new Date();
+const todate_as_int = (DateObject.getFullYear()*10000)+(DateObject.getMonth()*100)+DateObject.getDate();
 
 
 async function showtripcomparison() {
