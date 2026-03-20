@@ -17,7 +17,10 @@
  * sheet.insertRule('table.js-sort-table.js-sort-desc thead tr > .js-sort-active:not(.js-sort-none):after {content: "\\21CA";position: absolute; transform: translate(-100%, 0);}', 0);*
  * helper function for sorting GTFS-route_short_name class="js-sort-routename"
  * change "tablerowalt" (alternative colour) to "tablerow" (normal colour, same for all rows) class
- */
+ *
+ * 2026-03-20: changes for https://ptna.openstreetmap.de on some lines including now the following code
+ * helper function for sorting GTFS-triprides class="js-sort-triprides"
+*/
 
 /**
  * Sort the rows in a HTML Table
@@ -234,6 +237,19 @@ sortTable.input = function(Cell) {
         routename = routename + ' '.repeat(20);
     }
     return ';' + routename + ' ;';
+};
+
+/**
+ * Helper function that converts a table cell (TD) to a comparable value
+ * Converts innerHTML to a Number with special settings
+ * Converts trip rides to a single number
+ * - "-{0,1}\d+" -> leave as is
+ * - "-{0,1}\d+ (-{0,1}\d+)" -> keep the first number, ignore the number in brackets
+ * @param Cell A TD DOM object
+ * @returns {Number}
+ */
+ sortTable.triprides = function(Cell) {
+    return Number(sortTable.stripTags(Cell.innerHTML).replace(/ .*$/,''));
 };
 
 /**

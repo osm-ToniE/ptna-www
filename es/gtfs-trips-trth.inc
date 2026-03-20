@@ -1,16 +1,17 @@
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-name"    rowspan="2">Variant</th>
-                            <th class="gtfs-name"    rowspan="2">Trip-ID</th>
-                            <th class="gtfs-comment" rowspan="2">Número de paseos</th>
-                            <th class="gtfs-name"    colspan="2">Valid</th>
-                            <th class="gtfs-name"    colspan="3">Stops</th>
-                            <th class="gtfs-comment" colspan="1">PTNA info</th>
+                            <th class="gtfs-name js-sort-none"    colspan="3">&nbsp;</th>
+                            <th class="gtfs-name js-sort-none"    colspan="2">Valid</th>
+                            <th class="gtfs-name js-sort-none"    colspan="3">Stops</th>
+                            <th class="gtfs-comment js-sort-none" colspan="1">PTNA info</th>
                         </tr>
                         <tr class="gtfs-tableheaderrow">
-                            <th class="gtfs-date">From</th>
-                            <th class="gtfs-date">Until</th>
-                            <th class="gtfs-text">Start</th>
-                            <th class="gtfs-text">Via</th>
-                            <th class="gtfs-text">End</th>
-                            <th class="gtfs-comment">Comment</th>
+                            <th class="gtfs-name js-sort-number">&#x21C5;Variant</th>
+                            <th class="gtfs-name js-sort-string">&#x21C5;Trip-ID</th>
+                            <th class="gtfs-comment js-sort-triprides">&#x21C5;Número de paseos</th>
+                            <th class="gtfs-date js-sort-string">&#x21C5;From</th>
+                            <th class="gtfs-date js-sort-string">&#x21C5;Until</th>
+                            <th class="gtfs-text js-sort-string">&#x21C5;Start</th>
+                            <th class="gtfs-text js-sort-string">&#x21C5;Via</th>
+                            <th class="gtfs-text js-sort-string">&#x21C5;End</th>
+                            <th class="gtfs-comment js-sort-string">&#x21C5;Comment</th>
                         </tr>

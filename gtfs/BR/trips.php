@@ -91,7 +91,7 @@
 
 <?php include $lang_dir.'gtfs-trips-head.inc' ?>
 
-                    <table id="gtfs-trips">
+                    <table id="gtfs-trips" class="js-sort-table">
                         <thead>
 <?php include $lang_dir.'gtfs-trips-trth.inc' ?>
                         </thead>

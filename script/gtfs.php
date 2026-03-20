@@ -1220,7 +1220,7 @@
             $match_osm_ref = preg_replace('/\s*/','',$osm_ref);
             $match_osm_ref = preg_replace('/(.)/','${1}\\s*',$match_osm_ref);
 
-            $shell_command = "egrep 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $match_osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
+            $shell_command = "grep -E 'id=" . '"' . "[^0-9].*data-ref=" . '"' . $match_osm_ref . '"' . "' " . $analysis_filepath . " 2>&1";
             #echo "<!-- ". htmlspecialchars($shell_command) . " -->\n";
             $matching_ptna_lines = shell_exec( $shell_command );
             #echo "<!-- ". htmlspecialchars($matching_ptna_lines) . " -->\n";
@@ -1281,7 +1281,7 @@
                     echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
                     echo '                                <td class="gtfs-number"' . $good_id_match    . '>' . $good_id_indicator    . '<a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($data_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>' . htmlspecialchars($osm_route) . '</td>' . "\n";
-                    echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</td>' . "\n";
+                    echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-text">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                 } elseif ( $match ) {
