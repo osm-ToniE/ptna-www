@@ -26,7 +26,7 @@
             $gtfs_strings['suspicious_number_of_stops']         = "Nombre d'arrêts suspect:";
             $gtfs_strings['suspicious_trip_duration']           = 'Durée de parcours suspecte:';
             $gtfs_strings['suspicious_other']                   = 'Parcours suspect:';
-            $gtfs_strings['same_names_but_different_ids']       = "Les parcours ont les mêmes nom d'arrêt mais des numéros d'arrêt différents:";
+            $gtfs_strings['same_names_but_different_ids']       = "Les parcours ont les mêmes noms d'arrêt mais des numéros d'arrêt différents:";
             $gtfs_strings['same_stops_but_different_shape_ids'] = "Les parcours ont les mêmes arrêts mais des Shape-Ids différents:";
         }
     }
