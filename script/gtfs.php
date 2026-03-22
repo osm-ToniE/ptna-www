@@ -1130,6 +1130,11 @@
                         } else {
                             echo '                            <td class="gtfs-number">' . htmlspecialchars($start_end_rides_array["rides"]) . '</td>' . "\n";
                         }
+                        if ( isset($ptnarow['direction_id']) ) {
+                            echo '                            <td class="gtfs-number">'     . htmlspecialchars($ptnarow['direction_id'])            . '</td>' . "\n";
+                        } else {
+                            echo '                            <td class="gtfs-number">&nbsp;</td>' . "\n";
+                        }
                         if ( preg_match( "/^(\d{4})(\d{2})(\d{2})$/", $start_end_rides_array["start_date"], $parts ) ) {
                             $class = "gtfs-date";
                             $today = new DateTime();
