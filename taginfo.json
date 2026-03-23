@@ -293,6 +293,11 @@
       "description": "Check value: one out of 144 HTML well know names or #xxx or #xxxxxx (3 or 6 bytes long hex code)."
     },
     {
+      "key": "colour:text",
+      "object_types": [ "relation" ],
+      "description": "Check value: one out of 144 HTML well know names or #xxx or #xxxxxx (3 or 6 bytes long hex code)."
+    },
+    {
       "key": "gtfs:feed",
       "object_types": [ "relation" ],
       "description": "Take this value as GTFS feed for option 'link-gtfs'."
