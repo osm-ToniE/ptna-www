@@ -331,6 +331,26 @@
       "key": "gtfs:shape_id:sample",
       "object_types": [ "relation" ],
       "description": "Provide links to GTFS-Analysis for 'gtfs:route_id' or 'gtfs:shape_id:sample' tags."
+    },
+    {
+      "key": "gtfs:stop_id",
+      "object_types": [ "relation", "way", "node" ],
+      "description": "Will be checked against GTFS' 'stop_id' on the on-demand GTFS vs OSM comparison web pages."
+    },
+    {
+      "key": "gtfs:stop_id:<feed name>",
+      "object_types": [ "relation", "way", "node" ],
+      "description": "Will be checked against GTFS' 'stop_id' on the on-demand GTFS vs OSM comparison web pages."
+    },
+    {
+      "key": "local_ref",
+      "object_types": [ "relation", "way", "node" ],
+      "description": "Will be checked against GTFS' 'platform_code' on the on-demand GTFS vs OSM comparison web pages."
+    },
+    {
+      "key": "ref_name",
+      "object_types": [ "relation", "way", "node" ],
+      "description": "Will be checked against GTFS' 'stop_name' on the on-demand GTFS vs OSM comparison web pages."
     }
   ]
 }
