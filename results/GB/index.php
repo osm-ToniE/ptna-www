@@ -40,6 +40,7 @@
 
                     <?php CreateNewFullEntry( "GB-GLG-SPT", "en", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "GB-IOW-SV", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "GB-NIR-Translink", "en", "Configuration" ); ?>
 
                 </tbody>
             </table>
