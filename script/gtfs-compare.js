@@ -972,15 +972,22 @@ function ReCalculateOsmPlatformPositions( cmp_list, draw_also = false ) {
 
 
 function PopupContent (id, object_type, match, label, name) {
-
+    var a;
     var is_GTFS = false;
-    if ( match == "platform" )   { txt="OSM Platform"                 }
-    else if ( match == "stop" )  { txt="GTFS Stop";   is_GTFS = true; }
-    else if ( match == "route" ) { txt="OSM Way"                      }
-    else if ( match == "shape" ) { txt="GTFS Shape";  is_GTFS = true; }
-    else { txt="Other" }
+    if ( match == "platform" ) {
+        a = "<b>OSM Platform " + label.toString() + ': ' + name + "</b></br>";
+    } else if ( match == "stop" ) {
+        is_GTFS = true;
+        a = "<b>GTFS Stop "    + label.toString() + ': ' + name + "</b></br><b>stop_id : " + id + "</b></br>";
+    } else if ( match == "route" ) {
+        a = "<b>OSM Way "      + label.toString() + ': ' + name + "</b></br>";
+    } else if ( match == "shape" ) {
+        a = "<b>GTFS Shape "   + label.toString() + ': ' + name + "</b></br>";
+        is_GTFS = true;
+    } else {
+        a = "<b>Other "        + label.toString() + ': ' + name + "</b></br>";
+    }
 
-    a = "<b>" + txt + " " + label.toString() + ': ' + name + "</b></br>";
     a += GetObjectLinks( id, object_type, is_GTFS, is_Route=false );
 
    return a;
@@ -1211,9 +1218,17 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
     if ( is_GTFS ) {
         var country = p_feed.replace(/-.*/,'');
         if ( object_type == "node" ) {
-            html  = '<img src="/img/Node.svg" alt="Node" title="GTFS stop" height="18" width="18" /></a>';
+            html  = '<img src="/img/Node.svg" alt="Node" title="GTFS stop" height="18" width="18" />';
+            // providing iD and JOSM links makes only sense if the 'right' data reflects an OSM relation
+            if ( relation_id ) {
+                let stop_lat = DATA_Nodes['left'][id]['lat'];
+                let stop_lon = DATA_Nodes['left'][id]['lon'];
+                let bbox = GetBbox( parseFloat(stop_lat), parseFloat(stop_lon), 15 );
+                html += ' <a href="https://www.openstreetmap.org/edit?editor=id#map=21/' + stop_lat + '/' + stop_lon + '" target="_blank" title="Show location in iD"><img src="/img/iD-logo32.png" alt="iD" height="18" width="18" /></a>';
+                html += ' <a href="http://127.0.0.1:8111/load_and_zoom?left='+bbox['left']+'&right='+bbox['right']+'&top='+bbox['top']+'&bottom='+bbox['bottom']+'&new_layer=false" target="hiddenIframe" title="Show localtion in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
+            }
         } else if ( object_type == "way" ) {
-            html  = '<img src="/img/Way.svg" alt="Way" title="GTFS shape" height="18" width="18" /></a>';
+            html  = '<img src="/img/Way.svg" alt="Way" title="GTFS shape" height="18" width="18" />';
         } else if ( object_type == "relation" ) {
             if ( is_Route ) {
                 var url = '/gtfs/' + country + '/trips.php' +
@@ -1272,6 +1287,28 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
     }
 
     return html;
+}
+
+
+function GetBbox( lat, lon, offset ) {
+    var bbox = [];
+    let R  =   6378137;
+
+    //offsets in meters
+    let dn = offset;
+    let de = offset;
+
+    //Coordinate offsets in radians
+    var dLat = dn/R;
+    var dLon = de/(R*Math.cos(Math.PI*lat/180));
+
+    //OffsetPosition, decimal degrees
+    bbox['top']    = lat + dLat * 180/Math.PI;
+    bbox['right']  = lon + dLon * 180/Math.PI;
+    bbox['bottom'] = lat - dLat * 180/Math.PI;
+    bbox['left']   = lon - dLon * 180/Math.PI;
+
+    return bbox;
 }
 
 
