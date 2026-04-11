@@ -68,6 +68,24 @@ code             { font-weight: 500; font-size: 1.1em; }
 
 .attention                { background-color: yellow; }
 .normalized-name          { background-color: lightgreen; }
+.blinking                 { animation-name: animation_blink_5s;
+                            animation-timing-function: ease-in;
+                            animation-duration: 2s;
+                            animation-iteration-count: 2.5;
+                            animation-fill-mode: both;
+                          }
+
+@keyframes animation_blink_5s {
+    0% {
+        background-color: white;
+    }
+    50% {
+        background-color: yellow;
+    }
+    100% {
+        background-color: white;
+    }
+}
 
 .results-tableheaderrow   { background-color: #bbbbbb; }
 .results-tablerow         { background-color: white;   }
