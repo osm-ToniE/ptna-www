@@ -2,8 +2,8 @@
 //
 //
 
-const OVERPASS_SERVER         = 'overpass-api.de'
-const OVERPASS_API_URL_PREFIX = 'https://' + OVERPASS_SERVER + '/api/interpreter?data=[out:json];relation(';
+const DEFAULT_OVERPASS_SERVER = 'https://overpass-api.de/api/interpreter';
+const OVERPASS_API_URL_PREFIX = '?data=[out:json];relation(';
 const OVERPASS_API_URL_SUFFIX = ');(._;>>;);out;';
 
 const defaultlat    = 48.0649;
@@ -154,7 +154,7 @@ function showrelation() {
 
     if ( relation_id.match(/^\d+$/) ) {
 
-        var url     = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
+        var url     = `${DEFAULT_OVERPASS_SERVER}${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
         var request = new XMLHttpRequest();
         request.open( "GET", url );
         request.onprogress = function() {
@@ -185,7 +185,7 @@ function showrelation() {
                 } else if ( request.status === 0 ) {
                     document.getElementById('download_text').innerText = 'failed';
                     document.getElementById('analysis_text').innerText = 'aborted';
-                    alert( OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
+                    alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
                     var type = request.getResponseHeader( "Content-Type" );
                     if ( type.match(/application\/json/) ) {
                         readHttpResponse( request.responseText );
@@ -197,7 +197,7 @@ function showrelation() {
                 } else {
                     document.getElementById('download_text').innerText = 'failed';
                     document.getElementById('analysis_text').innerText = 'aborted';
-                    alert( OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
+                    alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
                 }
             }
         };
@@ -736,7 +736,7 @@ function htmlEscape( str ) {
 
 function downloadRelationSync( relation_id  ) {
 
-    var url     = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
+    var url     = `${DEFAULT_OVERPASS_SERVER}${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
     var request = new XMLHttpRequest();
     request.open( "GET", url, false );
     request.onreadystatechange = function() {
@@ -749,7 +749,7 @@ function downloadRelationSync( relation_id  ) {
             } else if ( request.status === 410 ) {
                 alert( "Relation does not exist (" + relation_id + ")" );
             } else {
-                alert( OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
+                alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
             }
         }
     };

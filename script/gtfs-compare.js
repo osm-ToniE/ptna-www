@@ -2,8 +2,8 @@
 //
 //
 
-const OVERPASS_SERVER         = 'overpass-api.de'
-const OVERPASS_API_URL_PREFIX = 'https://' + OVERPASS_SERVER + '/api/interpreter?data=[out:json];relation(';
+const DEFAULT_OVERPASS_SERVER = 'https://overpass-api.de/api/interpreter';
+const OVERPASS_API_URL_PREFIX = '?data=[out:json];relation(';
 const OVERPASS_API_URL_SUFFIX = ');(._;>>;);out;';
 
 const PTNA_API_URL = '/api/gtfs.php';
@@ -597,7 +597,7 @@ async function download_right_data() {
 
     if ( relation_id !== '' ) {
         if ( relation_id.match(/^\d+$/) ) {
-            var url  = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
+            var url  = `${DEFAULT_OVERPASS_SERVER}${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
             const d = new Date();
             downloadstartms = d.getTime();
 
@@ -621,7 +621,7 @@ async function download_right_data() {
                 dBarRight.value = usedms;
                 document.getElementById('download_right_text').innerText = 'failed';
                 document.getElementById('analysis_text').innerText = 'aborted';
-                alert( OVERPASS_SERVER + " response:\n\n" + response.status + " " + response.statusText );
+                alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + response.status + " " + response.statusText );
             }
         } else {
             alert( "Relation ID is not a number (" + relation_id + ")" );
@@ -1345,7 +1345,7 @@ function htmlEscape( str ) {
 
 function downloadRelationSync( relation_id, lor ) {
 
-    var url     = `${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
+    var url     = `${DEFAULT_OVERPASS_SERVER}${OVERPASS_API_URL_PREFIX}${relation_id}${OVERPASS_API_URL_SUFFIX}`;
     var request = new XMLHttpRequest();
     console.log( "downloadRelationSync(" + id + "," + lor + ") -> " + url );
     request.open( "GET", url, false );
@@ -1359,7 +1359,7 @@ function downloadRelationSync( relation_id, lor ) {
             } else if ( request.status === 410 ) {
                 alert( "Relation does not exist (" + relation_id + ")" );
             } else {
-                alert( OVERPASS_SERVER + " (sync) response:\n\n" + request.status + " " + request.statusText );
+                alert( DEFAULT_OVERPASS_SERVER + " (sync) response:\n\n" + request.status + " " + request.statusText );
             }
         }
     };
