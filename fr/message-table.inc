@@ -782,7 +782,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide. Il est recommandé de mettre &#039;role&#039;=&#039;platform&#039; ou &#039;role&#039;=&#039;platform_entry_ony&#039; ou &#039;role&#039;=&#039;platform_exit_only&#039;</td>
+                <td class="message-text">Ligne PTv2 : &#039;role&#039; vide. Il est recommandé de mettre &#039;role&#039;=&#039;platform&#039; ou &#039;role&#039;=&#039;platform_entry_only&#039; ou &#039;role&#039;=&#039;platform_exit_only&#039;</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
