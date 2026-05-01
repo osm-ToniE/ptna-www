@@ -31,7 +31,7 @@
 
     $duration += CreateGtfsEntry( "BR-MG-BHTrans-Suplementar" );
 
-    $duration += CreateGtfsEntry( "BR-RJ-SMRT" );
+    $duration += CreateGtfsEntry( "BR-RJ-SMTR" );
 ?>
                     </tbody>
                 </table>
