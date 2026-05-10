@@ -196,7 +196,7 @@
             <tr class="option-tablerow" id="option-link-gtfs">
                 <td class="option-option">link-gtfs</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Provide links to GTFS-Analysis for &#039;gtfs:route_id&#039; or &#039;gtfs:trip_id&#039; tags.</td>
+                <td class="option-description">Provide links to GTFS analysis for &#039;gtfs:route_id&#039; or &#039;gtfs:trip_id&#039; tags.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-max-error">
@@ -214,13 +214,13 @@
             <tr class="option-tablerow" id="option-network-long-regex">
                 <td class="option-option">network-long-regex</td>
                 <td class="option-default"></td>
-                <td class="option-description">The value of &#039;network&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression as &#039;long&#039; form or can be empty (unset).</td>
+                <td class="option-description">The value of &#039;network&#039; = &#039;...&#039; of the Route Master and Route relations must match this regular expression as &#039;long&#039; form or can be empty (unset).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-network-short-regex">
                 <td class="option-option">network-short-regex</td>
                 <td class="option-default"></td>
-                <td class="option-description">The value of &#039;network&#039; = &#039;...&#039; of the Route-Master and Route relations must match this regular expression as &#039;short&#039; form or can be empty (unset).</td>
+                <td class="option-description">The value of &#039;network&#039; = &#039;...&#039; of the Route Master and Route relations must match this regular expression as &#039;short&#039; form or can be empty (unset).</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-no-additional-navigation">
@@ -286,13 +286,13 @@
             <tr class="option-tablerow" id="option-strict-network">
                 <td class="option-option">strict-network</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Do not consider Route-Master and Route relations with empty &#039;network&#039;.</td>
+                <td class="option-description">Do not consider Route Master and Route relations with empty &#039;network&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-strict-operator">
                 <td class="option-option">strict-operator</td>
                 <td class="option-default">OFF</td>
-                <td class="option-description">Do not consider Route-Master and Route relations with empty &#039;operator&#039;.</td>
+                <td class="option-description">Do not consider Route Master and Route relations with empty &#039;operator&#039;.</td>
                 <td class="option-image"></td>
             </tr>
             <tr class="option-tablerow" id="option-table-show-also">
