@@ -13,7 +13,7 @@
             <ul>
                 <li><a href="#motivation">Motivation</a></li>
                 <li><a href="#overview">Overview</a></li>
-                <li><a href="#web">The Web-site</a>
+                <li><a href="#web">The Website</a>
                     <ul>
                         <li><a href="#analysislist">Results</a></li>
                         <li><a href="#statistics">Statistics</a></li>
@@ -32,8 +32,8 @@
                                 <li><a href="#analysisnotassigned">Unassigned lines</a></li>
                                 <li><a href="#analysisother">Other PT lines</a></li>
                                 <li><a href="#analysisnoref">PT lines w/o 'ref'</a></li>
-                                <li><a href="#analysisrelations">More Relationen</a></li>
-                                <li><a href="#analysisnetwork">Details for 'network'-Values</a>
+                                <li><a href="#analysisrelations">More Relations</a></li>
+                                <li><a href="#analysisnetwork">Details for 'network' values</a>
                                     <ul>
                                        <li><a href="#analysisnetworkconsidered">Considered 'network' values</a></li>
                                        <li><a href="#analysisnetworknotconsidered">Not considered 'network' values</a></li>
@@ -182,7 +182,7 @@
 
             <hr />
 
-            <h2 id="web">The Web-site</h2>
+            <h2 id="web">The Website</h2>
             <div class="indent">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
@@ -218,7 +218,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                 </p>
                 <p>
-                    <strong>Important: Consider the Copyright &copy; and origin of the data!</strong><br />
+                    <strong>Important: Consider the copyright &copy; and origin of the data!</strong><br />
                 </p>
                 <p>
                     <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong>
@@ -239,7 +239,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisici elit, …
                     </p>
                     <p>
-                        <strong>Important: Consider the Copyright &copy; and origin of the data!</strong><br />
+                        <strong>Important: Consider the copyright &copy; and origin of the data!</strong><br />
                     </p>
                     <p>
                         <strong>Note: The list will be published under the <a href="https://www.gnu.org/licenses/gpl.html">GPL 3</a> license.</strong>
