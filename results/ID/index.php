@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 
-<?php $title="Results"; $inc_lang='../../en/'; include $inc_lang.'html-head.inc'; ?>
+<?php $title="Results"; $inc_lang='../../id/'; include $inc_lang.'html-head.inc'; ?>
 
 <?php include('../../script/entries.php'); ?>
 
@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "ID-JK-Transjakarta", "en", "Configuration" ); ?>
+                    <?php CreateNewFullEntry( "ID-JK-Transjakarta", "id", "Configuration" ); ?>
 
                 </tbody>
             </table>
