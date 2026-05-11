@@ -6,7 +6,7 @@
     # strings for compare.php
     #
 
-    $STR_sql_queries_took   = '<p>SQL-Queries took %f seconds to complete</p>';
+    $STR_sql_queries_took   = '<p>SQL queries took %f seconds to complete</p>';
 
     $STR_gtfs_comparison    = 'GTFS Comparison';
     $STR_compare_gtfs_feeds = 'Compare selected GTFS Feeds';
@@ -33,7 +33,7 @@
                         <li>On the next page, select a route for each of the two GTFS feed versions</li>
                         <li>Finally, select a trip for each of the two routes</li>
                     </ol>';
-    $STR_compare_versions    = 'Compare selected Versions';
+    $STR_compare_versions    = 'Compare selected versions';
     $STR_release_date        = 'Release Date';
     $STR_release_date_legend = 'Release Date: YYYY-MM-DD or "latest" or "previous" or "long-term"';
     $STR_empty_fields_in     = 'Empty fields in the second line will get their value from the corresponding field in the first line.';
@@ -48,7 +48,7 @@
                         <li>Enter here GTFS feeds, release dates and route IDs which shall be compared</li>
                         <li>Finally, select a trip or shape for each of the two routes</li>
                     </ol>';
-    $STR_compare_routes = 'Compare selected Routes';
+    $STR_compare_routes = 'Compare selected routes';
 
 
 
@@ -60,7 +60,7 @@
                     <ol>
                         <li>Enter here GTFS feeds, release dates and trip IDs which shall be compared</li>
                     </ol>';
-    $STR_compare_trips = 'Compare selected Trips';
+    $STR_compare_trips = 'Compare selected trips';
 
 
 
@@ -74,7 +74,7 @@
                     <p>
                         Please note that not all GTFS feeds provide shapes.
                     </p>';
-    $STR_compare_shapes = 'Compare selected Shapes';
+    $STR_compare_shapes = 'Compare selected shapes';
 
     #
     # strings for compare-routes.php

@@ -25,7 +25,7 @@
             <h2 id="gtfsdata">What is GTFS data?</h2>
             <div class="indent">
                 <p>
-                    Quoted from MobilityData's Web-Site <a href="https://gtfs.org/">GTFS</a>:
+                    Quoted from MobilityData's website <a href="https://gtfs.org/">GTFS</a>:
                 </p>
                 <p>"<i>The General Transit Feed Specification (GTFS) is an Open Standard used to distribute relevant information about transit systems to riders.
                     It allows public transit agencies to publish their transit data in a format that can be consumed by a wide variety of software applications.

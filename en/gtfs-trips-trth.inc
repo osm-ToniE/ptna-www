@@ -7,7 +7,7 @@
                         </tr>
                         <tr class="gtfs-tableheaderrow">
                             <th class="gtfs-name js-sort-number">&#x21C5;Variant</th>
-                            <th class="gtfs-name js-sort-string">&#x21C5;Trip-ID</th>
+                            <th class="gtfs-name js-sort-string">&#x21C5;Trip ID</th>
                             <th class="gtfs-comment js-sort-triprides">&#x21C5;Number of rides</th>
                             <th class="gtfs-text js-sort-number">&#x21C5;Outbound (=0) / Inbound (=1)</th>
                             <th class="gtfs-text js-sort-string">&#x21C5;From</th>
