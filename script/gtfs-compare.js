@@ -1246,26 +1246,23 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
         }
     } else {
         if ( object_type ) {
-            var addtags_uri   = '';
-            var addtags_title = '';
-            var addtags_count = addtags.length;
-            var added_tags        = 0;
-            var skippedtags_title = '';
-            var skipped_tags      = 0;
+            var addtags_uri      = '';
+            var addtags_title    = '';
+            var addtags_count    = addtags.length;
+            var added_tags       = 0;
+            var found_pipe       = 0;
             if ( addtags_count ) {
                 addtags_uri   = '&amp;addtags=';
                 for ( var i = 0; i < addtags_count; i++ ) {
                     if ( addtags[i].match(/\|/) ) {
-                        skippedtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";;
-                        skipped_tags += 1;
-                    } else {
-                        if ( added_tags > 0 ) {
-                            addtags_uri   += encodeURIComponent('|');
-                        }
-                        addtags_uri   += encodeURIComponent(addtags[i]);
-                        addtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";
-                        added_tags    += 1;
+                        found_pipe += 1;
                     }
+                    if ( added_tags > 0 ) {
+                        addtags_uri   += encodeURIComponent('|');
+                    }
+                    addtags_uri   += encodeURIComponent(addtags[i].replace(/\|/g,"\\|"));
+                    addtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";
+                    added_tags    += 1;
                 }
             }
             if ( object_type == "node" ) {
@@ -1282,32 +1279,20 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
                     var this_title = '';
-                    if ( added_tags || skipped_tags ) {
-                        if ( added_tags ) {
-                            this_title = 'Inject' + addtags_title + "\n" + 'into route relation ' + id + ' using JOSM';
-                        }
-                        if ( skipped_tags ) {
-                            if ( added_tags ) {
-                                this_title += "\n\n";
-                            }
-                            this_title += 'No injection of' + skippedtags_title + "\n" + 'into route relation ' + id + ' using JOSM,';
-                            this_title += "\nbecause the character '|' is included in the key or value";
+                    if ( added_tags ) {
+                        this_title = 'Inject' + addtags_title + "\n" + 'into route relation ' + id + ' using JOSM';
+                        if ( found_pipe ) {
+                            this_title += "\n\nMake sure you have at least JOSM Version 19573 installed.";
                         }
                         html += '  <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="' + this_title + '"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
                 } else {
                     var this_title = '';
-                    if ( added_tags || skipped_tags ) {
-                        if ( added_tags ) {
-                            this_title = 'Inject' + addtags_title + "\n" + 'into route_master relation ' + id + ' using JOSM';
-                        }
-                        if ( skipped_tags ) {
-                            if ( added_tags ) {
-                                this_title += "\n\n";
-                            }
-                            this_title += 'No injection of' + skippedtags_title + "\n" + 'into route_master relation ' + id + ' using JOSM,';
-                            this_title += "\nbecause the character '|' is included in the key or value";
+                    if ( added_tags ) {
+                        this_title = 'Inject' + addtags_title + "\n" + 'into route_master relation ' + id + ' using JOSM';
+                        if ( found_pipe ) {
+                            this_title += "\n\nMake sure you have at least JOSM Version 19573 installed.";
                         }
                         html += ' <a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + addtags_uri + '" target="hiddenIframe" title="' + this_title + '"><img src="/img/Inject32.png" alt="Inject data using JOSM" height="18" width="18" /></a>';
                     }
@@ -2583,10 +2568,10 @@ function ShowCompareInfo( ElementId, TableInfo ) {
         }
         if ( TableInfo['ids'] ) {
             let table_info_ids = TableInfo['ids'].join('<br>');
-            var td_class = table_info_ids.match(/\|/) ? ' class="blinking" title="String includes \'|\'"' : '';
+            var td_class = table_info_ids.match(/\|/) ? ' class="blinking" title="String includes \'|\'. \n\nMake sure you have at least JOSM Version 19573 installed."' : '';
             elem.innerHTML += '<td' + td_class + '>' + table_info_ids + '</td>';
         } else if ( TableInfo['id'] ) {
-            var td_class = TableInfo['id'].match(/\|/) ? ' class="blinking" title="String includes \'|\'"' : '';
+            var td_class = TableInfo['id'].match(/\|/) ? ' class="blinking" title="String includes \'|\'. \n\nMake sure you have at least JOSM Version 19573 installed."' : '';
             elem.innerHTML += '<td' + td_class + '>' + TableInfo['id'] + '</td>';
         } else {
             elem.innerHTML += '<td>&nbsp;</td>';
