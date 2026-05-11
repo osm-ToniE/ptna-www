@@ -43,6 +43,8 @@
             $lang = 'ro';
         } elseif ( preg_match('/\/RU\//', $_SERVER['REQUEST_URI']) ) {
             $lang = 'ru';
+        } elseif ( preg_match('/\/ID\//', $_SERVER['REQUEST_URI']) ) {
+            $lang = 'id';
         } elseif ( preg_match('/\/SE\//', $_SERVER['REQUEST_URI']) ) {
             $lang = 'sv';
         } elseif ( preg_match('/\/BO\//', $_SERVER['REQUEST_URI']) ||
