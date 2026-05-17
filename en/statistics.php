@@ -45,9 +45,10 @@
 
             Cron jobs for continents:
             <a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">Australia, East and Southeast Asia (UTC+10, UTC+09.30, UTC+08, UTC+07) @ 20:15 Munich, DE time</a> /
-            <a href="showlogs.php?job=africa-europe-israel" title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel (UTC+03, UTC+02, UTC+01, UTC+00) @ 02:15 Munich, DE time</a> /
-            <a href="showlogs.php?job=eastern-america"      title="Show logs for planet handling: Eastern America">Eastern America (UTC-03, UTC-04, UTC-05, UTC-06) @ 07:15 Munich, DE time</a> /
-            <a href="showlogs.php?job=western-america"      title="Show logs for planet handling: Western America">Western America (UTC-07, UTC-08, UTC-09) @ 11:15 Munich, DE time</a>
+            <a href="showlogs.php?job=india-iran-la-reunion" title="Show logs for planet handling: India, Iran, La Reunion">India, Iran and La Reunion (UTC+05.03, UTC+04, UTC+03.30) @ 23:15 Munich, DE time</a> /
+            <a href="showlogs.php?job=africa-europe-israel"  title="Show logs for planet handling: Africa, Europe, Israel">Africa, Europe, Israel (UTC+03, UTC+02, UTC+01, UTC+00) @ 02:15 Munich, DE time</a> /
+            <a href="showlogs.php?job=eastern-america"       title="Show logs for planet handling: Eastern America">Eastern America (UTC-03, UTC-04, UTC-05, UTC-06) @ 07:15 Munich, DE time</a> /
+            <a href="showlogs.php?job=western-america"       title="Show logs for planet handling: Western America">Western America (UTC-07, UTC-08, UTC-09) @ 11:15 Munich, DE time</a>
 
             <hr />
 
