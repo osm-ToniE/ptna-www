@@ -40,9 +40,9 @@
 
                     <?php CreateNewFullEntry( "IN-RJ-Jaipur", "en", "Configuration" ); ?>
 
-                    <?php CreateNewFullEntry( "IN-TG-Hyderabad", "en", "Configuration" ); ?>
-
                     <?php CreateNewFullEntry( "IN-TN-Chennai", "en", "Configuration" ); ?>
+
+                    <?php CreateNewFullEntry( "IN-TS-Hyderabad", "en", "Configuration" ); ?>
 
                     <?php CreateNewFullEntry( "IN-UP-Kanpur", "en", "Configuration" ); ?>
 
