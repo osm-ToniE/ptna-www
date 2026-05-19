@@ -43,6 +43,26 @@
 
             <hr />
 
+            <h3 id="individual-analysis">Individual Analysis</h3>
+                <table id="message-table" class="js-sort-table">
+                    <thead>
+<?php include 'statistics-trth.inc' ?>
+                    </thead>
+                    <tbody>
+<?php $network_array = GetAllNetworks();
+
+        foreach ( $network_array as $network ) {
+            PrintNetworkStatistics( $network );
+        }
+?>
+                    </tbody>
+                    <tfoot>
+<?php PrintNetworkStatisticsTotals( count($network_array) ); ?>
+                    </tfoot>
+                </table>
+
+            <hr />
+
             <h3 id="priodic-analysis">Cron jobs for periodic analysis:</h3>
                 <table id="analysis-table" class="js-sort-table">
                     <thead>
@@ -238,25 +258,6 @@
             <a href="showlogs.php?timezone=UTC-08"      title="Show logs for timezone UTC-08 (US-CA, US-NV, US-WA, US-Amtrak, US-Flixbus)">UTC-08</a> /
             <a href="showlogs.php?timezone=UTC-09"      title="Show logs for timezone UTC-09 (US-AK)">UTC-09</a>
 -->
-            <hr />
-
-            <h3 id="individual-analysis">Individual Analysis</h3>
-                <table id="message-table" class="js-sort-table">
-                    <thead>
-<?php include 'statistics-trth.inc' ?>
-                    </thead>
-                    <tbody>
-<?php $network_array = GetAllNetworks();
-
-        foreach ( $network_array as $network ) {
-            PrintNetworkStatistics( $network );
-        }
-?>
-                    </tbody>
-                    <tfoot>
-<?php PrintNetworkStatisticsTotals( count($network_array) ); ?>
-                    </tfoot>
-                </table>
 
         </main> <!-- main -->
 
