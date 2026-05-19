@@ -54,9 +54,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 20:15 -->
+                        <!-- 21:15 -->
                         <tr class="statistics-tablerow">
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">20:15</a></td>
+                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">21:15</a></td>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B10"    title="Show logs for timezone UTC+10 (AU)">UTC+10</a></td>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?continent=oceania"    title="Show logs for continent handling: Oceania">Oceania</a></td>
                             <td class="statistics-name">Australia</td>
