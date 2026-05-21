@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
 
-                    <?php CreateNewFullEntry( "AR-AMBA", "es", "Configuración" ); ?>
+                    <?php CreateNewFullEntry( "AR-AMBA-Todas", "es", "Configuración" ); ?>
 
 
                 </tbody>
