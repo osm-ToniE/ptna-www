@@ -51,6 +51,7 @@
         $options_hash['roundtrip-distance']         = 50;
         $options_hash['separator']                  = ';';
         $options_hash['show-gtfs']                  = 'OFF';
+        $options_hash['show-operators']             = 'OFF';
         $options_hash['strict-network']             = 'OFF';
         $options_hash['strict-operator']            = 'OFF';
         $options_hash['table-show-also']            = '';
