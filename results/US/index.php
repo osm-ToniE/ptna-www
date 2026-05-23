@@ -57,6 +57,7 @@
                 <?php CreateNewFullEntry( "US-TN-KAT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-UT-All", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-WA-KCM", "en", "Configuration" ); ?>
+                <?php CreateNewFullEntry( "US-VA-BT", "en", "Configuration" ); ?>
                 <?php CreateNewFullEntry( "US-WI-MCTS", "en", "Configuration" ); ?>
 
                 </tbody>
