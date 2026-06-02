@@ -125,7 +125,7 @@
 
                         <!-- 00:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
+<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log') ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=india-iran-la-reunion" title="Show logs for planet handling: Show logs for planet handling: India, Iran, La Reunion">00:05</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-asia.log') ) { ?>
@@ -157,7 +157,7 @@
 
                         <!-- 02:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
+<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC+03.log') ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?job=africa-europe-israel" title="Show logs for planet handling: Africa, Europe, Israel">02:05</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-africa.log') ) { ?>
@@ -230,7 +230,7 @@
 
                         <!-- 08:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
+<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-03.log') ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?job=eastern-america" title="Show logs for planet handling: America">08:05</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
@@ -303,7 +303,7 @@
 
                         <!-- 12:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
+<?php if ( !file_exists($path_to_work.'ptna-handle-planet-UTC-07.log') ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=western-america" title="Show logs for planet handling: America">12:05</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
