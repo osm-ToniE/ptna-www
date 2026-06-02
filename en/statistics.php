@@ -96,7 +96,6 @@
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                             title="Show logs for Planet handling">Planet</a></td>
 <?php     } ?>
 <?php } ?>
-
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-oceania.log') ) { ?>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?continent=oceania"    title="Show logs for continent handling: Oceania">Oceania</a></td>
 <?php } else { ?>
@@ -125,8 +124,11 @@
 
                         <!-- 00:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log') ) { ?>
+<?php if ( file_exists($path_to_work.'ptna-cron-india-iran-la-reunion.log') ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=india-iran-la-reunion" title="Show logs for planet handling: Show logs for planet handling: India, Iran, La Reunion">00:05</a></td>
+<?php } ?>
+<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log')     ) { ?>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC%2B05.30"        title="Show logs for Planet handling">Planet</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-asia.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=asia"       title="Show logs for continent handling: Asia">Asia</a></td>
@@ -157,8 +159,11 @@
 
                         <!-- 02:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+03.log') ) { ?>
+<?php if ( file_exists($path_to_work.'ptna-cron-africa-europe-israel.log') ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?job=africa-europe-israel" title="Show logs for planet handling: Africa, Europe, Israel">02:05</a></td>
+<?php } ?>
+<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+03.log')     ) { ?>
+                            <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC%2B03"        title="Show logs for Planet handling">Planet</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-africa.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=africa"    title="Show logs for continent handling: Africa">Africa</a></td>
@@ -230,8 +235,11 @@
 
                         <!-- 08:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-03.log') ) { ?>
+<?php if ( file_exists($path_to_work.'ptna-cron-eastern-america.log') ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?job=eastern-america" title="Show logs for planet handling: America">08:05</a></td>
+<?php } ?>
+<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-03.log')     ) { ?>
+                            <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC-03"        title="Show logs for Planet handling">Planet</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
@@ -303,8 +311,11 @@
 
                         <!-- 12:05 -->
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-07.log') ) { ?>
+<?php if ( !file_exists($path_to_work.'ptna-cron-western-america.log') ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=western-america" title="Show logs for planet handling: America">12:05</a></td>
+<?php } ?>
+<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-07.log')     ) { ?>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC-07"        title="Show logs for Planet handling">Planet</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
