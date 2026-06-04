@@ -84,7 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 21:05 -->
+                        <!-- 20:05 -->
                         <tr class="statistics-tablerow">
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ||
            file_exists($path_to_work.'ptna-handle-planet-UTC+10.log')     ) { ?>
@@ -92,7 +92,7 @@
                             <td class="statistics-name" rowspan="26"><a href="showlogs.php?job=all-in-one" title="Show logs for all time zones and continets">Manually</a></td>
                             <td class="statistics-name" rowspan="26"><a href="showlogs.php?planet=UTC-all" title="Show logs for Planet handling">Planet</a></td>
 <?php     } else { ?>
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">21:05</a></td>
+                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                             title="Show logs for Planet handling">Planet</a></td>
 <?php     } ?>
 <?php } ?>
@@ -122,10 +122,10 @@
                             <td class="statistics-name">Indonesia</td>
                         </tr>
 
-                        <!-- 00:05 -->
+                        <!-- 23:05 -->
                         <tr class="statistics-tablerow">
 <?php if ( file_exists($path_to_work.'ptna-cron-india-iran-la-reunion.log') ) { ?>
-                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=india-iran-la-reunion" title="Show logs for planet handling: Show logs for planet handling: India, Iran, La Reunion">00:05</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=india-iran-la-reunion" title="Show logs for planet handling: Show logs for planet handling: India, Iran, La Reunion">23:05</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log')     ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC%2B05.30"        title="Show logs for Planet handling">Planet</a></td>
