@@ -264,6 +264,18 @@ sortTable.utc = function(Cell) {
 };
 
 /**
+ * Helper function that converts a table cell (TD) to a comparable value
+ * Converts innerHTML to a JS Number object
+ *
+ * "Log" -> '', "Log(2/3)" -> '2.3'
+ * @param Cell A TD DOM object
+ * @returns {Number}
+ */
+sortTable.log = function(Cell) {
+    return Number(sortTable.stripTags(Cell.innerHTML).replace(/\//,'.').replace(/[^-\d.]/g, ''));
+};
+
+/**
  * Helper function that prevents sorting by always returning null
  *
  * @param Cell A TD DOM object
