@@ -267,12 +267,22 @@ sortTable.utc = function(Cell) {
  * Helper function that converts a table cell (TD) to a comparable value
  * Converts innerHTML to a JS Number object
  *
- * "Log" -> '', "Log(2/3)" -> '2.3'
+ * "Log" -> 0, "log(1)" -> 1, "Log(2/3)" -> 2.00000000000000000003
  * @param Cell A TD DOM object
  * @returns {Number}
  */
 sortTable.log = function(Cell) {
-    return Number(sortTable.stripTags(Cell.innerHTML).replace(/\//,'.').replace(/[^-\d.]/g, ''));
+    var lognum = sortTable.stripTags(Cell.innerHTML).replace(/\//,'.').replace(/[^\d.]/g, '');
+    if ( lognum !== '' ) {
+        if ( lognum.match(/\./)) {
+            var lognum1 = lognum.replace(/\..*$/,'');
+            var lognum2 = lognum.replace(/^.*\./,'');
+            return Number(lognum1+'.'+lognum2.padStart(20,'0'));
+        } else {
+            return Number(lognum);
+        }
+    }
+    return Number(0);
 };
 
 /**
