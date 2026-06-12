@@ -361,7 +361,7 @@
                 <td class="message-text">Die weitere Analyse wird übersprungen. PTNA hat nicht alle benötigten OSM -Daten runter geladen.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
-                <td class="message-description">Der Fehler bezieht sich auf: &#039;Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;&#039;, &#039;Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;&#039; und &#039;Fehler in den Inputdaten: nicht genügend Daten für &#039;relations&#039;&#039;. Ohne Daten für Ways, Nodes und Relationen macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
+                <td class="message-description">Der Fehler bezieht sich auf: &#039;Fehler in den Inputdaten: nicht genügend Daten für Nodes&#039;, &#039;Fehler in den Inputdaten: nicht genügend Daten für Ways&#039; und &#039;Fehler in den Inputdaten: nicht genügend Daten für Relationen&#039;. Ohne Daten für Ways, Nodes und Relationen macht eine weitere Analyse dieser Routen-Relation keinen Sinn.</td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -406,7 +406,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;nodes&#039;</td>
+                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für Nodes</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Elemente (Relations, Ways und Nodes) sind nicht in den Input-Daten enthalten.</td>
@@ -414,7 +414,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;relations&#039;</td>
+                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für Relationen</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Elemente (Relations, Ways und Nodes) sind nicht in den Input-Daten enthalten.</td>
@@ -422,7 +422,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für &#039;ways&#039;</td>
+                <td class="message-text">Fehler in den Inputdaten: nicht genügend Daten für Ways</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description">Diese Routen-Relation wurde durch einen Seiteneffekt in die Input-Daten einbezogen, die zugehörigen Elemente (Relations, Ways und Nodes) sind nicht in den Input-Daten enthalten.</td>
