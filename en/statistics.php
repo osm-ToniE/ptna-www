@@ -318,28 +318,18 @@
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC-07"        title="Show logs for Planet handling">Planet</a></td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
 <?php } else { ?>
-                            <td class="statistics-name">North America</td>
+                            <td class="statistics-name" rowspan="3">North America</td>
 <?php } ?>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC-07"                 title="Show logs for timezone UTC-07 (CA, US)">UTC-07</a></td>
                             <td class="statistics-name">Canada, USA</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
-<?php } else { ?>
-                            <td class="statistics-name">North America</td>
-<?php } ?>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC-08"                 title="Show logs for timezone UTC-08 (US)">UTC-08</a></td>
                             <td class="statistics-name">USA</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
-<?php } else { ?>
-                            <td class="statistics-name">North America</td>
-<?php } ?>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC-09"                 title="Show logs for timezone UTC-09 (US)">UTC-09</a></td>
                             <td class="statistics-name">USA</td>
                         </tr>
