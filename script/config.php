@@ -28,6 +28,7 @@
         $options_hash['check-via']                  = 'OFF';
         $options_hash['check-way-type']             = 'OFF';
         $options_hash['coloured-sketchline']        = 'OFF';
+        $options_hash['exclude-if-key-value']       = '';
         $options_hash['expect-network-long-as']     = '';
         $options_hash['expect-network-long-for']    = '';
         $options_hash['expect-network-long']        = 'OFF';
@@ -77,10 +78,17 @@
                 $option_parts = explode( '=', $complete_option, 2 );
                 $option = rtrim(ltrim(array_shift($option_parts)));
                 if ( $option ) {
-                    if ( count($option_parts) > 0 ) {
-                        $options_hash[$option] = rtrim(ltrim($option_parts[0]));
+                    if ( $option == 'exclude-if-key-value' ) {
+                        if ( !is_array($options_hash[$option]) ) {  # initial value is an empty string
+                            $options_hash[$option] = array();
+                        }
+                        array_push( $options_hash[$option], preg_replace('/(^[\'"])|([\'"]$)/','',rtrim(ltrim($option_parts[0]))) );
                     } else {
-                        $options_hash[$option] = 'ON';
+                        if ( count($option_parts) > 0 ) {
+                            $options_hash[$option] = rtrim(ltrim($option_parts[0]));
+                        } else {
+                            $options_hash[$option] = 'ON';
+                        }
                     }
                 }
             }
@@ -497,10 +505,19 @@
             if ( !isset($lang) ) { $lang = 'en'; }
 
             foreach ( $options_hash as $option => $value ) {
-                printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
-                $value = htmlentities($value);
-                printf( "<a href=\"/%s/index.php#option-%s\">%s</a></td>", $lang, $option, $option );
-                printf( "<td class=\"message-option\">%s</td></tr>\n", $value );
+                if ( is_array($value) ) {
+                    foreach ( $value as $value_part ) {
+                        printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
+                        $value_part = htmlentities($value_part);
+                        printf( "<a href=\"/%s/index.php#option-%s\">%s</a></td>", $lang, $option, $option );
+                        printf( "<td class=\"message-option\">%s</td></tr>\n", $value_part );
+                    }
+                } else {
+                    printf( "<tr class=\"message-tablerow\"><td class=\"message-text\">" );
+                    $value = htmlentities($value);
+                    printf( "<a href=\"/%s/index.php#option-%s\">%s</a></td>", $lang, $option, $option );
+                    printf( "<td class=\"message-option\">%s</td></tr>\n", $value );
+                }
             }
         }
     }
