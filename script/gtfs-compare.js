@@ -2272,7 +2272,7 @@ function GetScoreDetailsAsTitle( CompareTable, row, col, GTFS_trip_id_match_type
     if ( CompareTable[row][col]['weights']['diff'] ) {
         var val = CompareTable[row][col]['mismatch_percent']['diff'];
         val = val >= 100 ? val.toString() : (val >= 10 ? '&nbsp;&nbsp;&nbsp;' + val.toString() : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + val.toString());
-        ret_string += val + "%&nbsp;&nbsp;diffference in visited stop areas\n";
+        ret_string += val + "%&nbsp;&nbsp;difference in visited stop areas\n";
     }
     if ( CompareTable[row][col]['weights']['stops'] > 0 && CompareTable[row][col]['totals']['stops'] > 0 ) {
         var val = CompareTable[row][col]['mismatch_percent']['stops'];
