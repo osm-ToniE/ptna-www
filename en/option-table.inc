@@ -145,6 +145,12 @@
                 <td class="option-description">SketchLine considers the value of &#039;colour&#039; = &#039;...&#039; of Route-Master or Route.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-exclude-if-key-value">
+                <td class="option-option">exclude-if-key-value</td>
+                <td class="option-default"></td>
+                <td class="option-description">Exclude route_master and route relations from analysis if they have &#039;key&#039; = &#039;value&#039; set.<br />Example: &#045;&#045;exclude-if-key-value=&#039;network=TransLink&#039;</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-expect-network-long">
                 <td class="option-option">expect-network-long</td>
                 <td class="option-default">OFF</td>
