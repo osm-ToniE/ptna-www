@@ -934,7 +934,7 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
-                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; (Node) und keine &#039;public_transport&#039; = &#039;platform&#039; (Node, Wy, Area oder Relation)</td>
+                <td class="message-text">PTv2 Route: es gibt keine &#039;public_transport&#039; = &#039;stop_position&#039; (Node) und keine &#039;public_transport&#039; = &#039;platform&#039; (Node, Way, Area oder Relation)</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -1398,6 +1398,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) an Haltestelle ohne Angabe von &#039;psv&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;designated&#039; oder ...</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) auf Weg ohne Angabe von &#039;psv&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;yes&#039;, &#039;%s&#039; = &#039;designated&#039;, oder ...</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
@@ -1422,6 +1430,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: eingeschränkte Befahrbarkeit (%s) für Schulbus an Haltestelle</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: eingeschränkte Befahrbarkeit (&#039;%s&#039;=&#039;school&#039;) auf Weg für eine Routen-Relation, die nicht mit &#039;bus&#039;=&#039;school&#039; getagged ist</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -1438,6 +1454,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Route: eingeschränkte Begehbarkeit (%s) für Fußgängerinnen und Fußgänger an Haltestelle</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Route: fehlerhafte Beschränkung (%s) auf Weg. Gegebenenfalls mappen als &#039;%s&#039;=&#039;no&#039; und &#039;%s&#039;=&#039;yes&#039;</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option">check-access</td>
@@ -1447,30 +1471,6 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Route: fehlerhafte Beschränkung (%s) auf Weg. Gegebenenfalls mappen als &#039;busway&#039;=&#039;%s&#039;</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (%s) at platform without &#039;psv&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;yes&#039;, &#039;%s&#039;=&#039;designated&#039;, or ...</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (%s) for a school bus at platform</td>
-                <td class="message-type">Fehler</td>
-                <td class="message-option"></td>
-                <td class="message-description"></td>
-                <td class="message-fix"></td>
-                <td class="message-image"></td>
-            </tr>
-            <tr class="message-tablerow">
-                <td class="message-text">Route: restricted access (%s) for pedestrians at platform</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
