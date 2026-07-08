@@ -36,6 +36,7 @@
         $options_hash['expect-network-short-for']   = '';
         $options_hash['expect-network-short']       = 'OFF';
         $options_hash['gtfs-feed']                  = '';
+        $options_hash['inherit-tags']               = 'OFF';
         $options_hash['language']                   = 'en';
         $options_hash['link-gtfs']                  = 'OFF';
         $options_hash['max-error']                  = '';
