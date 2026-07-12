@@ -30,6 +30,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; is set but neither &#039;%s&#039; nor &#039;%s&#039; is set: consider setting one of them as they provide additional information about stops (their names, sequence and locations).</td>
+                <td class="message-type">Uwagi</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039; of Route does not fit to &#039;%s&#039; = &#039;%s&#039; of Route-Master: %s</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -270,6 +278,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Deprecated GTFS key &#039;%s&#039;. For valid key names, see the</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Error in input data: insufficient data for nodes</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
@@ -302,10 +318,42 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS feed code (&#039;%s&#039;) in GTFS key &#039;%s&#039;. For valid feed codes, see the</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. For valid key names, see the</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. This key must not have any feed code as suffix.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Jest więcej niż jedna relacja route-master</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description">Route-Master: There is more than one Route-Master for this line = &#039;ref&#039; (different &#039;network&#039;-tags?).<br />Route: There is more than one Route Master for this line = &#039;ref&#039; plus the parent Route Master of this route.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Mixed use of GTFS keys with and without feed code as suffix. E.g.: &#039;%s&#039; and &#039;%s&#039;.</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -327,6 +375,14 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Multiple Routes but this Route is not a member of any Route-Master</td>
+                <td class="message-type">Błędy</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Orphaned GTFS key &#039;%s&#039; = &#039;%s&#039; with no other GTFS-specific information.</td>
                 <td class="message-type">Błędy</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

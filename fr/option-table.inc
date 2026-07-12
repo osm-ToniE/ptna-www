@@ -193,6 +193,12 @@
                 <td class="option-description">Prenez cette valeur comme flux GTFS pour l&#039;option &#039;link-gtfs&#039; si la relation ne fournie pas d&#039;attribut &#039;gtfs:feed&#039;, &#039;operator:guid&#039; ou &#039;network:guid&#039;.</td>
                 <td class="option-image"></td>
             </tr>
+            <tr class="option-tablerow" id="option-inherit-tags">
+                <td class="option-option">inherit-tags</td>
+                <td class="option-default">OFF</td>
+                <td class="option-description">Route relations inherit tags from their route_master relation.</td>
+                <td class="option-image"></td>
+            </tr>
             <tr class="option-tablerow" id="option-language">
                 <td class="option-option">language</td>
                 <td class="option-default">en</td>

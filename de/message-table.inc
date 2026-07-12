@@ -62,6 +62,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; is set but neither &#039;%s&#039; nor &#039;%s&#039; is set: consider setting one of them as they provide additional information about stops (their names, sequence and locations).</td>
+                <td class="message-type">Anmerkungen</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; = &#039;%s&#039;: &#039;,&#039; (Komma) als Trennzeichen sollte durch &#039;;&#039; (Semikolon, ohne Leerzeichen) ersetzt werden</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option">check-osm-separator</td>
@@ -318,6 +326,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Deprecated GTFS key &#039;%s&#039;. For valid key names, see the</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Der Wert von &#039;%s&#039; (= &#039;%s&#039;) sollte im ISO 8601 Format angegeben werden: JJJJ-MM-TT</td>
                 <td class="message-type">Anmerkungen</td>
                 <td class="message-option"></td>
@@ -430,6 +446,30 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS feed code (&#039;%s&#039;) in GTFS key &#039;%s&#039;. For valid feed codes, see the</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. For valid key names, see the</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. This key must not have any feed code as suffix.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">Mehrere Routen aber &#039;public_transport:version&#039; ist nicht auf &#039;2&#039; gesetzt</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
@@ -447,6 +487,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Mehrere Routen aber kein Route-Master</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Mixed use of GTFS keys with and without feed code as suffix. E.g.: &#039;%s&#039; and &#039;%s&#039;.</td>
+                <td class="message-type">Fehler</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Orphaned GTFS key &#039;%s&#039; = &#039;%s&#039; with no other GTFS-specific information.</td>
                 <td class="message-type">Fehler</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>

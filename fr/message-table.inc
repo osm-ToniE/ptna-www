@@ -46,6 +46,14 @@
                 <td class="message-image"></td>
             </tr>
             <tr class="message-tablerow">
+                <td class="message-text">&#039;%s&#039; = &#039;%s&#039; is set but neither &#039;%s&#039; nor &#039;%s&#039; is set: consider setting one of them as they provide additional information about stops (their names, sequence and locations).</td>
+                <td class="message-type">Notes</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
                 <td class="message-text">&#039;%s&#039; a une valeur inconnue &#039;%s&#039;. Ajouter &#039;#&#039; comme premier caractère.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
@@ -79,6 +87,14 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Cette ligne n&#039;est membre d&#039;aucune ligne maître</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Deprecated GTFS key &#039;%s&#039;. For valid key names, see the</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
@@ -138,6 +154,30 @@
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description">Ligne maître : Il y a plusieurs lignes maître pour la ligne = &#039;ref&#039; (attributs &#039;network&#039; différents ?)<br />Ligne : il y a plusieurs lignes maître pour cette ligne =&#039;ref&#039; et la ligne maître de cette ligne.</td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS feed code (&#039;%s&#039;) in GTFS key &#039;%s&#039;. For valid feed codes, see the</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. For valid key names, see the</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Invalid GTFS key &#039;%s&#039;. This key must not have any feed code as suffix.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
                 <td class="message-fix"></td>
                 <td class="message-image"></td>
             </tr>
@@ -1263,6 +1303,22 @@
             </tr>
             <tr class="message-tablerow">
                 <td class="message-text">Ligne sans voie(s)</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Mixed use of GTFS keys with and without feed code as suffix. E.g.: &#039;%s&#039; and &#039;%s&#039;.</td>
+                <td class="message-type">Erreurs</td>
+                <td class="message-option"></td>
+                <td class="message-description"></td>
+                <td class="message-fix"></td>
+                <td class="message-image"></td>
+            </tr>
+            <tr class="message-tablerow">
+                <td class="message-text">Orphaned GTFS key &#039;%s&#039; = &#039;%s&#039; with no other GTFS-specific information.</td>
                 <td class="message-type">Erreurs</td>
                 <td class="message-option"></td>
                 <td class="message-description"></td>
