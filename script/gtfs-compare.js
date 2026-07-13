@@ -1248,8 +1248,10 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
         if ( object_type ) {
             var addtags_uri      = '';
             var addtags_title    = '';
+            var deltags_title    = '';
             var addtags_count    = addtags.length;
             var added_tags       = 0;
+            var deleted_tags     = 0;
             var found_pipe       = 0;
             if ( addtags_count ) {
                 addtags_uri   = '&amp;addtags=';
@@ -1257,12 +1259,17 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                     if ( addtags[i].match(/\|/) ) {
                         found_pipe += 1;
                     }
-                    if ( added_tags > 0 ) {
+                    if ( added_tags || deleted_tags ) {
                         addtags_uri   += encodeURIComponent('|');
                     }
                     addtags_uri   += encodeURIComponent(addtags[i].replace(/\|/g,"\\|"));
-                    addtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";
-                    added_tags    += 1;
+                    if ( addtags[i].match(/=$/) ) {
+                        deltags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "")) + "'";
+                        deleted_tags  += 1;
+                    } else {
+                        addtags_title += "\n- '" + htmlEscape(addtags[i].replace(/=/, "' = '")) + "'";
+                        added_tags    += 1;
+                    }
                 }
             }
             if ( object_type == "node" ) {
@@ -1279,8 +1286,18 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                 html += '<a href="http://127.0.0.1:8111/load_object?new_layer=false&amp;relation_members=true&amp;objects=r' + id + '" target="hiddenIframe" title="Edit in JOSM"><img src="/img/JOSM-logo32.png" alt="JOSM" height="18" width="18" /></a>';
                 if ( is_Route ) {
                     var this_title = '';
-                    if ( added_tags ) {
-                        this_title = 'Inject' + addtags_title + "\n" + 'into route relation ' + id + ' using JOSM';
+                    if ( added_tags || deleted_tags ) {
+                        if ( added_tags ) {
+                            this_title = 'Inject into route relation ' + id + "\n" + addtags_title + "\n";
+                            if ( deleted_tags ) {
+                                this_title += "\n";
+                            } else {
+                                this_title += "\nusing JOSM";
+                            }
+                        }
+                        if ( deleted_tags ) {
+                            this_title += 'Delete from route relation ' + id + "\n" + deltags_title + "\n" + "\nusing JOSM";
+                        }
                         if ( found_pipe ) {
                             this_title += "\n\nMake sure you have at least JOSM Version 19573 installed.";
                         }
@@ -1289,8 +1306,18 @@ function GetObjectLinks( id, object_type, is_GTFS, is_Route, p_feed='', p_releas
                     html += ' <a href="https://relatify.monicz.dev/?relation=' + id + '&load=1" target="_blank" title="Edit in Relatify"><img src="/img/Relatify-favicon32.png" alt="Relatify" height="18" width="18" /></a>';
                 } else {
                     var this_title = '';
-                    if ( added_tags ) {
-                        this_title = 'Inject' + addtags_title + "\n" + 'into route_master relation ' + id + ' using JOSM';
+                    if ( added_tags || deleted_tags ) {
+                        if ( added_tags ) {
+                            this_title = 'Inject into route_master relation ' + id + "\n" + addtags_title + "\n";
+                            if ( deleted_tags ) {
+                                this_title += "\n";
+                            } else {
+                                this_title += "\nusing JOSM";
+                            }
+                        }
+                        if ( deleted_tags ) {
+                            this_title += 'Delete from route_master relation ' + id + "\n" + deltags_title + "\n" + "\nusing JOSM";
+                        }
                         if ( found_pipe ) {
                             this_title += "\n\nMake sure you have at least JOSM Version 19573 installed.";
                         }
@@ -1882,26 +1909,39 @@ function ScrollRoutesTableLeftMost() {
 
 function WeHaveGtfsTripIdMatch( CompareTableRowInfo, CompareTableColInfo, row, col ) {
     var have_match = false;
-    var GTFS_trip_id = CompareTableRowInfo['rows'][row]['id'];
+    let GTFS_trip_id = CompareTableRowInfo['rows'][row]['id'];
+    let GTFS_feed    = CompareTableRowInfo['feed'];
     if ( CompareTableColInfo['type'] === 'OSM' ) {
         var OSM_refers_to_trip_id = -1;
         var OSM_route_id          = CompareTableColInfo['cols'][col]['id'];
-        if ( OSM_route_id  in DATA_Relations['right']                                    &&
-             'tags'        in DATA_Relations['right'][OSM_route_id]                      &&
-             ('gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags']  ||
-             'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags'])        ) {
-            OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
-                                    ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
-                                    : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
-            if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
-                if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                     feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
-                    if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
-                         release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+        if ( OSM_route_id  in DATA_Relations['right']               &&
+             'tags'        in DATA_Relations['right'][OSM_route_id]    ) {
+            if ( 'gtfs:trip_id:'+GTFS_feed        in DATA_Relations['right'][OSM_route_id]['tags'] ||
+                 'gtfs:trip_id:sample:'+GTFS_feed in DATA_Relations['right'][OSM_route_id]['tags']    ) {
+                OSM_refers_to_trip_id = 'gtfs:trip_id:'+GTFS_feed in DATA_Relations['right'][OSM_route_id]['tags']
+                                        ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:'+GTFS_feed]
+                                        : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample:'+GTFS_feed];
+                if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+                    if ( 'gtfs:release_date:'+GTFS_feed in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                         release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date:'+GTFS_feed] ) {
                         OSM_refers_to_trip_id = -1;
                     }
-                } else {
-                    OSM_refers_to_trip_id = -1;
+                }
+            } else if ( 'gtfs:trip_id'        in DATA_Relations['right'][OSM_route_id]['tags'] ||
+                        'gtfs:trip_id:sample' in DATA_Relations['right'][OSM_route_id]['tags']     ) {
+                OSM_refers_to_trip_id = 'gtfs:trip_id' in DATA_Relations['right'][OSM_route_id]['tags']
+                                        ? DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id']
+                                        : DATA_Relations['right'][OSM_route_id]['tags']['gtfs:trip_id:sample'];
+                if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
+                    if ( 'gtfs:feed' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                        feed === DATA_Relations['right'][OSM_route_id]['tags']['gtfs:feed'] ) {
+                        if ( 'gtfs:release_date' in DATA_Relations['right'][OSM_route_id]['tags'] &&
+                             release_date !== DATA_Relations['right'][OSM_route_id]['tags']['gtfs:release_date'] ) {
+                            OSM_refers_to_trip_id = -1;
+                        }
+                    } else {
+                        OSM_refers_to_trip_id = -1;
+                    }
                 }
             }
             if ( GTFS_trip_id === OSM_refers_to_trip_id ) {
@@ -2378,6 +2418,8 @@ function GetRoutesColLink( CompareTableColInfo, col ) {
 
 function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date='', p_route_id='', p_trip_id='' ) {
     var taggs_to_add = [];
+    let explicit_feed_name = ('gtfs_explicit_feed_name' in JSON_data['left']['osm'] && JSON_data['left']['osm']['gtfs_explicit_feed_name'] != '0' ) ? true : false;
+    var gtfs_tags;
 
     if ( p_route_id                                       &&
          p_route_id in DATA_Relations['left']             &&
@@ -2405,83 +2447,206 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
             }
         }
     }
-    if ( 'gtfs:feed' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-        if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:feed'] !== p_feed ) {
-            taggs_to_add.push( 'gtfs:feed='+p_feed );
-        }
-    } else {
-        taggs_to_add.push( 'gtfs:feed='+p_feed );
-    }
-    if ( 'gtfs:release_date' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-        if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:release_date'] !== p_release_date ) {
-            taggs_to_add.push( 'gtfs:release_date='+p_release_date );
-        }
-    }
-    if ( 'gtfs:route_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-        if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:route_id'] !== p_route_id ) {
-            taggs_to_add.push( 'gtfs:route_id='+p_route_id );
-        }
-    } else {
-        taggs_to_add.push( 'gtfs:route_id='+p_route_id );
-    }
-    if ( p_trip_id ) {
-        if ( 'gtfs:trip_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id'] !== p_trip_id ) {
-                taggs_to_add.push( 'gtfs:trip_id='+p_trip_id );
-            }
-        }
-        if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] !== p_trip_id ) {
-                taggs_to_add.push( 'gtfs:trip_id:sample='+p_trip_id );
+    if ( explicit_feed_name ) {
+        if ( 'gtfs:feed' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:feed'] !== p_feed ) {
+                taggs_to_add.push( 'gtfs:feed='+p_feed );
             }
         } else {
-            taggs_to_add.push( 'gtfs:trip_id:sample='+p_trip_id );
+            taggs_to_add.push( 'gtfs:feed='+p_feed );
         }
-        if ( 'trip_id_regex' in JSON_data['left']['osm'] ) {
-            var trip_id_regex = JSON_data['left']['osm']['trip_id_regex'];
-            var matches       = trip_id.match( trip_id_regex );
-            if ( matches && matches.length > 1 && matches[1] ) {
-                var like = matches[1];
-                if ( !(trip_id_regex.match(/^\^\(/)) ) { like =  '%' + like; }
-                if ( !(trip_id_regex.match(/\)\$$/)) ) { like += '%'; }
-                if ( 'gtfs:trip_id:like' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-                    if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:like'] !== like ) {
+        if ( 'gtfs:release_date' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:release_date'] !== p_release_date ) {
+                taggs_to_add.push( 'gtfs:release_date='+p_release_date );
+            }
+        } else {
+            if ( 'gtfs:release_date:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                taggs_to_add.push( 'gtfs:release_date='+p_release_date );
+            }
+        }
+        if ( 'gtfs:route_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:route_id'] !== p_route_id ) {
+                taggs_to_add.push( 'gtfs:route_id='+p_route_id );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:route_id='+p_route_id );
+        }
+        if ( p_trip_id ) {
+            if ( 'gtfs:trip_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id'] !== p_trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id='+p_trip_id );
+                }
+            } else {
+                if ( 'gtfs:trip_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:trip_id='+p_trip_id );
+                }
+            }
+            if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] !== p_trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id:sample='+p_trip_id );
+                }
+            } else {
+                taggs_to_add.push( 'gtfs:trip_id:sample='+p_trip_id );
+            }
+            if ( 'trip_id_regex' in JSON_data['left']['osm'] ) {
+                var trip_id_regex = JSON_data['left']['osm']['trip_id_regex'];
+                var matches       = trip_id.match( trip_id_regex );
+                if ( matches && matches.length > 1 && matches[1] ) {
+                    var like = matches[1];
+                    if ( !(trip_id_regex.match(/^\^\(/)) ) { like =  '%' + like; }
+                    if ( !(trip_id_regex.match(/\)\$$/)) ) { like += '%'; }
+                    if ( 'gtfs:trip_id:like' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                        if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:like'] !== like ) {
+                            taggs_to_add.push( 'gtfs:trip_id:like='+like );
+                        }
+                    } else {
                         taggs_to_add.push( 'gtfs:trip_id:like='+like );
                     }
                 } else {
-                    taggs_to_add.push( 'gtfs:trip_id:like='+like );
+                    if ( 'gtfs:trip_id:like' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                        taggs_to_add.push( 'gtfs:trip_id:like=' );
+                    }
                 }
             } else {
                 if ( 'gtfs:trip_id:like' in DATA_Relations['right'][p_relation_id]['tags'] ) {
                     taggs_to_add.push( 'gtfs:trip_id:like=' );
                 }
             }
-        } else {
-            if ( 'gtfs:trip_id:like' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-                taggs_to_add.push( 'gtfs:trip_id:like=' );
+            if ( 'ref_trips' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
+                     DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
+                     DATA_Relations['right'][p_relation_id]['tags']['ref_trips']           !== p_trip_id                                                      ) {
+                    taggs_to_add.push( 'ref_trips='+p_trip_id );
+                }
             }
-        }
-        if ( 'ref_trips' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-            if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
-                 DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
-                 DATA_Relations['right'][p_relation_id]['tags']['ref_trips']           !== p_trip_id                                                      ) {
-                taggs_to_add.push( 'ref_trips='+p_trip_id );
-            }
-        }
-        if ( 'shape_id' in DATA_Relations['left'][p_trip_id]['tags'] ) {
-            var shape_id = DATA_Relations['left'][p_trip_id]['tags']['shape_id'];
-            if ( 'gtfs:shape_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-                if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:shape_id'] !== shape_id ) {
+            if ( 'shape_id' in DATA_Relations['left'][p_trip_id]['tags'] ) {
+                var shape_id = DATA_Relations['left'][p_trip_id]['tags']['shape_id'];
+                if ( 'gtfs:shape_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:shape_id'] !== shape_id ) {
+                        taggs_to_add.push( 'gtfs:shape_id='+shape_id );
+                    }
+                } else {
                     taggs_to_add.push( 'gtfs:shape_id='+shape_id );
                 }
             } else {
-                taggs_to_add.push( 'gtfs:shape_id='+shape_id );
-            }
-        } else {
-            if ( 'gtfs:shape_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
-                taggs_to_add.push( 'gtfs:shape_id=' );
+                if ( 'gtfs:shape_id' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:shape_id=' );
+                }
             }
         }
+
+        // convert all other gtfs:.*:<feedname> tags to normal tags
+        // delete all gtfs:.*:<feedname> tags
+        Object.entries(DATA_Relations['right'][p_relation_id]['tags']).forEach(([key,value]) => {
+            var regexmatch    = '^gtfs:.*:'+p_feed+'$';
+            var regexnotmatch = '(release_date|route_id|trip_id|shape_id)';
+            var regexreplace  = ':'+p_feed+'$';
+            if ( key.match(regexmatch) ) {
+                if ( !key.match(regexnotmatch) ) {
+                    taggs_to_add.push( key.replace(regexreplace,'')+'='+value );
+                }
+                taggs_to_add.push( key+'=' );
+            }
+        });
+
+    } else {
+        if ( 'gtfs:release_date:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:release_date:'+p_feed] !== p_release_date ) {
+                taggs_to_add.push( 'gtfs:release_date:'+p_feed+'='+p_release_date );
+            }
+        }
+        if ( 'gtfs:route_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+            if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:route_id:'+p_feed] !== p_route_id ) {
+                taggs_to_add.push( 'gtfs:route_id:'+p_feed+'='+p_route_id );
+            }
+        } else {
+            taggs_to_add.push( 'gtfs:route_id:'+p_feed+'='+p_route_id );
+        }
+        if ( p_trip_id ) {
+            if ( 'gtfs:trip_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:'+p_feed] !== p_trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id:'+p_feed+'='+p_trip_id );
+                }
+            } else {
+                if ( 'gtfs:trip_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:trip_id:'+p_feed+'='+p_trip_id );
+                }
+            }
+            if ( 'gtfs:trip_id:sample:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample:'+p_feed] !== p_trip_id ) {
+                    taggs_to_add.push( 'gtfs:trip_id:sample:'+p_feed+'='+p_trip_id );
+                }
+            } else {
+                taggs_to_add.push( 'gtfs:trip_id:sample:'+p_feed+'='+p_trip_id );
+            }
+            if ( 'trip_id_regex' in JSON_data['left']['osm'] ) {
+                var trip_id_regex = JSON_data['left']['osm']['trip_id_regex'];
+                var matches       = trip_id.match( trip_id_regex );
+                if ( matches && matches.length > 1 && matches[1] ) {
+                    var like = matches[1];
+                    if ( !(trip_id_regex.match(/^\^\(/)) ) { like =  '%' + like; }
+                    if ( !(trip_id_regex.match(/\)\$$/)) ) { like += '%'; }
+                    if ( 'gtfs:trip_id:like:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                        if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:like:'+p_feed] !== like ) {
+                            taggs_to_add.push( 'gtfs:trip_id:like:'+p_feed+'='+like );
+                        }
+                    } else {
+                        taggs_to_add.push( 'gtfs:trip_id:like:'+p_feed+'='+like );
+                    }
+                } else {
+                    if ( 'gtfs:trip_id:like:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                        taggs_to_add.push( 'gtfs:trip_id:like:'+p_feed+'=' );
+                    }
+                }
+            } else {
+                if ( 'gtfs:trip_id:like:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:trip_id:like:'+p_feed+'=' );
+                }
+            }
+            if ( 'ref_trips' in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                if ( 'gtfs:trip_id:sample:'+p_feed in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
+                     DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample:'+p_feed] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
+                     DATA_Relations['right'][p_relation_id]['tags']['ref_trips']                   !== p_trip_id                                                      ) {
+                    taggs_to_add.push( 'ref_trips='+p_trip_id );
+                }
+            }
+            if ( 'shape_id' in DATA_Relations['left'][p_trip_id]['tags'] ) {
+                var shape_id = DATA_Relations['left'][p_trip_id]['tags']['shape_id'];
+                if ( 'gtfs:shape_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    if ( DATA_Relations['right'][p_relation_id]['tags']['gtfs:shape_id:'+p_feed] !== shape_id ) {
+                        taggs_to_add.push( 'gtfs:shape_id:'+p_feed+'='+shape_id );
+                    }
+                } else {
+                    taggs_to_add.push( 'gtfs:shape_id:'+p_feed+'='+shape_id );
+                }
+            } else {
+                if ( 'gtfs:shape_id:'+p_feed in DATA_Relations['right'][p_relation_id]['tags'] ) {
+                    taggs_to_add.push( 'gtfs:shape_id:'+p_feed+'=' );
+                }
+            }
+        }
+
+        var gtfs_feed_matches_feedname = true;
+        if ( 'gtfs:feed' in DATA_Relations['right'][p_relation_id]['tags']          &&
+             DATA_Relations['right'][p_relation_id]['tags']['gtfs:feed'] !== p_feed    ) {
+            gtfs_feed_matches_feedname = false;  // do not convert and delete tags
+        }
+        if ( gtfs_feed_matches_feedname ) {
+            // convert all other gtfs:.* tags which have no <feedname> suffix to same tags with <feedname> suffix
+            var regexmatch    = '^gtfs:[a-z][^:]+$';
+            var regexnotmatch = '(feed|release_date|route_id|trip_id|shape_id)';
+            Object.entries(DATA_Relations['right'][p_relation_id]['tags']).forEach(([key,value]) => {
+                if ( key.match(regexmatch)       ||
+                    key == 'gtfs:trip_id:like'   ||
+                    key == 'gtfs:trip_id:sample'    ) {
+                    if ( !key.match(regexnotmatch) ) {
+                        taggs_to_add.push( key+':'+p_feed+'='+value );
+                    }
+                    taggs_to_add.push( key+'=' );
+                }
+            });
+        }
+
     }
 
     return taggs_to_add;
