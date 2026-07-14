@@ -54,6 +54,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-QUB" );
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
     $duration += CreateGtfsEntry( "FR-BRE-SURF" );
+    $duration += CreateGtfsEntry( "FR-BRE-TBK" );
     $duration += CreateGtfsEntry( "FR-BRE-TILT" );
     $duration += CreateGtfsEntry( "FR-BRE-TUB" );
     $duration += CreateGtfsEntry( "FR-BRE-TUDBUS" );

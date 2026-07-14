@@ -77,6 +77,7 @@
                     <?php CreateNewFullEntry("FR-BRE-QUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-SURF", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-TBK", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration" ); ?>
