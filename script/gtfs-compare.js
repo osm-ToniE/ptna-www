@@ -2517,6 +2517,13 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
                      DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
                      DATA_Relations['right'][p_relation_id]['tags']['ref_trips']           !== p_trip_id                                                      ) {
                     taggs_to_add.push( 'ref_trips='+p_trip_id );
+                } else {
+                    // check if we are converting from implicit to explicit 'feedname' and still have implicit
+                    if ( 'gtfs:trip_id:sample:'+p_feed in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
+                         DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample:'+p_feed] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
+                         DATA_Relations['right'][p_relation_id]['tags']['ref_trips']                   !== p_trip_id                                                      ) {
+                        taggs_to_add.push( 'ref_trips='+p_trip_id );
+                    }
                 }
             }
             if ( 'shape_id' in DATA_Relations['left'][p_trip_id]['tags'] ) {
@@ -2543,6 +2550,7 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
             var regexreplace  = ':'+p_feed+'$';
             if ( key.match(regexmatch) ) {
                 if ( !key.match(regexnotmatch) ) {
+                    // do not convert the tags wew have handled above
                     taggs_to_add.push( key.replace(regexreplace,'')+'='+value );
                 }
                 taggs_to_add.push( key+'=' );
@@ -2608,6 +2616,13 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
                      DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample:'+p_feed] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
                      DATA_Relations['right'][p_relation_id]['tags']['ref_trips']                   !== p_trip_id                                                      ) {
                     taggs_to_add.push( 'ref_trips='+p_trip_id );
+                } else {
+                    // check if we are converting from explicit to implicit 'feedname' and still have explicit
+                    if ( 'gtfs:trip_id:sample' in DATA_Relations['right'][p_relation_id]['tags']                                                               &&
+                         DATA_Relations['right'][p_relation_id]['tags']['gtfs:trip_id:sample'] === DATA_Relations['right'][p_relation_id]['tags']['ref_trips'] &&
+                         DATA_Relations['right'][p_relation_id]['tags']['ref_trips']           !== p_trip_id                                                      ) {
+                        taggs_to_add.push( 'ref_trips='+p_trip_id );
+                    }
                 }
             }
             if ( 'shape_id' in DATA_Relations['left'][p_trip_id]['tags'] ) {
@@ -2640,6 +2655,7 @@ function GetTaggsToAddToOsmRelation( p_relation_id, p_feed='', p_release_date=''
                     key == 'gtfs:trip_id:like'   ||
                     key == 'gtfs:trip_id:sample'    ) {
                     if ( !key.match(regexnotmatch) ) {
+                        // do not convert the keys we have handled above
                         taggs_to_add.push( key+':'+p_feed+'='+value );
                     }
                     taggs_to_add.push( key+'=' );
