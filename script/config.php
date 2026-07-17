@@ -41,6 +41,7 @@
         $options_hash['link-gtfs']                  = 'OFF';
         $options_hash['max-error']                  = '';
         $options_hash['multiple-ref-type-entries']  = 'analyze';
+        $options_hash['network-guid']               = '';
         $options_hash['network-long-regex']         = '';
         $options_hash['network-short-regex']        = '';
         $options_hash['no-additional-navigation']   = 'OFF';
