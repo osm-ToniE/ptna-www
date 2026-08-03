@@ -22,6 +22,7 @@
                 </thead>
                 <tbody>
 
+                <?php CreateNewFullEntry( "BR-CE-ETUFOR", "pt_BR", "Configuração" ); ?>
                 <?php CreateNewFullEntry( "BR-CE-Metrofor", "pt_BR", "Configuração" ); ?>
                 <?php CreateNewFullEntry( "BR-MG-BHTrans", "pt_BR", "Configuração" ); ?>
                 <?php CreateNewFullEntry( "BR-RJ-SMTR", "pt_BR", "Configuração" ); ?>
