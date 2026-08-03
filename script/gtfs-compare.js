@@ -1848,6 +1848,14 @@ function SelectRoutesTableRowsIfNearlySame() {
 }
 
 
+function SelectRoutesTableRowsIfOutdated() {
+}
+
+
+function SelectRoutesTableRowsIfInFuture() {
+}
+
+
 function ToggleAnimationForNearlySame(imgObj) {
     console.log("Called ToggleAnimationForNearlySame(imgObj)");
 }
