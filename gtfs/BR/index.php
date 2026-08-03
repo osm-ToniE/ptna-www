@@ -25,6 +25,8 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "BR-CE-ETUFOR" );
+
     $duration += CreateGtfsEntry( "BR-CE-Metrofor" );
 
     $duration += CreateGtfsEntry( "BR-MG-BHTrans-Convencional" );
