@@ -81,6 +81,8 @@
                     <?php CreateNewFullEntry("FR-BRE-TILT", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-TUDBUS", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-CVL-FB", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-CVL-Remi", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-CVL-TAO", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-GES-Colibri", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-GES-CTS", "fr", "Configuration" ); ?>
