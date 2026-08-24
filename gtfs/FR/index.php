@@ -100,6 +100,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-Zou-Scolaire" );
     $duration += CreateGtfsEntry( "FR-PDL-Aleop" );
     $duration += CreateGtfsEntry( "FR-PDL-Aleop_44" );
+    $duration += CreateGtfsEntry( "FR-PDL-Irigo" );
     $duration += CreateGtfsEntry( "FR-SNCF" );
 ?>
                     </tbody>
