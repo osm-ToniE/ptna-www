@@ -29,7 +29,6 @@
                     <?php CreateNewFullEntry( "FR-CVL-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-GES-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-HDF-TER", "fr", "Configuration" ); ?>
-                    <?php CreateNewFullEntry( "FR-IDF-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-NAQ-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-NOR-TER", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry( "FR-OCC-TER", "fr", "Configuration" ); ?>
