@@ -1205,7 +1205,7 @@
              $route_short_name != '' && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $route_short_name)         &&
              $osm_ref                && preg_match("/^[a-zA-Z0-9_. \(\)\/-]+$/",   $osm_ref)                  &&
              $osm_route_type         && preg_match("/^[0-9A-Za-z_.-]+$/",          $osm_route_type)           &&
-             $ptna_analysis_source   && preg_match("/^[0-9A-Za-z_.-]+$/",          $ptna_analysis_source)        ) {
+             $ptna_analysis_source   && preg_match("/^[0-9A-Za-z_.\*-]+$/",        $ptna_analysis_source)        ) {
 
             $prefixparts = explode( '-', $ptna_analysis_source );
             $countrydir  = array_shift( $prefixparts );
@@ -1232,6 +1232,7 @@
             $matching_ptna_array = explode( "\n", $matching_ptna_lines );
             foreach ( $matching_ptna_array as $match ) {
                 if ( preg_match("/data-ref/",$match) ) {
+                    #echo "<!-- ". htmlspecialchars($match) . " -->\n";
                     $matches += 1;
                     $id        = preg_replace('/".*$/','',
                                     preg_replace('/^.*id="/','',$match)
@@ -1283,10 +1284,18 @@
                     } else {
                         $good_route_match     = '';
                     }
+                    if ( preg_match("/^\//",$match) ) {
+                        $analysis_file_web_path = preg_replace('/:.*$/', '',
+                                                      preg_replace('/^.*?\/results\//', '/results/', $match));
+                        $analysis_file_web_name = preg_replace('/^.*\//','', $analysis_file_web_path );
+                    } else {
+                        $analysis_file_web_path = $analysis_webpath;
+                        $analysis_file_web_name = $ptna_analysis_source;
+                    }
                     echo '                            <tr id="' . $id . '" class="gtfs-tablerow">' . "\n";
-                    echo '                                <td class="gtfs-number"' . $good_id_match    . '>' . $good_id_indicator    . '<a href="' . $analysis_webpath . '#' . $id . '">' . htmlspecialchars($data_ref) . '</a></td>' . "\n";
+                    echo '                                <td class="gtfs-number"' . $good_id_match    . '>' . $good_id_indicator    . '<a href="' . $analysis_file_web_path . '#' . $id . '">' . htmlspecialchars($data_ref) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-name"'   . $good_route_match . '>' . htmlspecialchars($osm_route) . '</td>' . "\n";
-                    echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_webpath             . '">' . htmlspecialchars($ptna_analysis_source) . '</a></td>' . "\n";
+                    echo '                                <td class="gtfs-name">'                      .  '<a href="' . $analysis_file_web_path             . '">' . htmlspecialchars($analysis_file_web_name) . '</a></td>' . "\n";
                     echo '                                <td class="gtfs-text">'                                     . htmlspecialchars($data_info) . '</td>' . "\n";
                     echo '                            </tr>' . "\n";
                 } elseif ( $match ) {
