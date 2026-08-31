@@ -88,6 +88,7 @@
     $duration += CreateGtfsEntry( "FR-PAC-NavettesQueyras" );
     $duration += CreateGtfsEntry( "FR-PAC-Orizo" );
     $duration += CreateGtfsEntry( "FR-PAC-Palmbus" );
+    $duration += CreateGtfsEntry( "FR-PAC-Pays-des-Ecrins" );
     $duration += CreateGtfsEntry( "FR-PAC-RTM" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Scolaire" );
     $duration += CreateGtfsEntry( "FR-PAC-Sillages-Urbain" );
