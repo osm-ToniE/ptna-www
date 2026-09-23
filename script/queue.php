@@ -142,6 +142,11 @@
                         } else {
                             printf( "    <td class=\"statistics-name\">&nbsp;</td>\n" );
                         }
+                        if ( $queue_infos['remarks'] ) {
+                            printf( "    <td class=\"statistics-name\">%s</td>\n", htmlentities($queue_infos['remarks']) );
+                        } else {
+                            printf( "    <td class=\"statistics-name\">&nbsp;</td>\n" );
+                        }
                         printf( "</tr>\n" );
                     }
                 }

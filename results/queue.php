@@ -68,6 +68,7 @@
                         <th class="statistics-date">Finished At</th>
                         <th class="statistics-size">Changes</th>
                         <th class="statistics-date">Logs</th>
+                        <th class="statistics-date">Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
