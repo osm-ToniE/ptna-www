@@ -1,5 +1,12 @@
 <?php
 
+    # check whether reqeust is OK
+    if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
+        $request_ok = 1;
+    } else {
+        echo '<script>window.location.replace("/404.html");</script>';
+    }
+
     # parse query parameters for language related things
 
     $lang = 'en';
