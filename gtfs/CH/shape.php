@@ -19,6 +19,11 @@
 <?php include $lang_dir.'header.inc' ?>
 
 <?php
+    $duration = 0;
+    $request_ok = 0;
+    if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
+        $request_ok = 1;
+    }
     if ( $release_date ) {
         $feed_and_release = $feed . ' - ' . $release_date;
     } else {
@@ -61,7 +66,7 @@
                 <h2 id="trips">Trips die dieser Route folgen</h2>
                 <div class="indent">
                     <ul>
-<?php $duration = CreateGtfsShapeTripList( $feed, $release_date, $shape_id ); ?>
+<?php if ( $request_ok ) { $duration = CreateGtfsShapeTripList( $feed, $release_date, $shape_id ); } ?>
                     </ul>
                 </div>
 
@@ -70,7 +75,7 @@
             <div class="clearing">
                 <button class="button-create" type="button" onclick="gpxdownloadforshape()">GPX-Download</button>
 
-<?php $duration += CreateGtfsShapeEntry( $feed, $release_date, $shape_id ); ?>
+                <?php if ( $request_ok ) { $duration += CreateGtfsShapeEntry( $feed, $release_date, $shape_id ); } ?>
 
                 <?php printf( "<p>SQL-Abfragen benötigten %f Sekunden</p>\n", $duration ); ?>
 

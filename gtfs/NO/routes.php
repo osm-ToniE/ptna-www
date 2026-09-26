@@ -7,6 +7,12 @@
         } else {
             $feed_and_release = $feed;
         }
+        $duration = 0;
+        $request_ok = 0;
+        $include_agency = 0;
+        if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
+            $request_ok = 1;
+        }
 ?>
 <html lang="<?php echo $html_lang ?>">
 
@@ -36,9 +42,11 @@
 
 <?php   $months_short = array( "Jan", "Feb", "Mar", "Apr", "Kan", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Des" );
 
-        CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
+        if ( $request_ok ) {
+            CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
 
-        include $lang_dir.'gtfs-feed-legend.inc';
+            include $lang_dir.'gtfs-feed-legend.inc';
+        }
 ?>
 
                 </div>
@@ -47,15 +55,17 @@
                 <div class="indent">
 
 <?php
-    $ptna = GetPtnaDetails( $feed, $release_date );
-    if ( isset($ptna['comment']) && $ptna['comment'] ) {
-        printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
-    }
-    $osm = GetOsmDetails( $feed, $release_date );
-    if ( isset($osm['gtfs_agency_is_operator']) && $osm['gtfs_agency_is_operator'] ) {
-        $include_agency = 1;
-    } else {
-        $include_agency = 0;
+    if ( $request_ok ) {
+        $ptna = GetPtnaDetails( $feed, $release_date );
+        if ( isset($ptna['comment']) && $ptna['comment'] ) {
+            printf( "<p><strong>%s</strong></p>\n", htmlspecialchars($ptna['comment']) );
+        }
+        $osm = GetOsmDetails( $feed, $release_date );
+        if ( isset($osm['gtfs_agency_is_operator']) && $osm['gtfs_agency_is_operator'] ) {
+            $include_agency = 1;
+        } else {
+            $include_agency = 0;
+        }
     }
 ?>
 
@@ -68,7 +78,7 @@
 <?php include $lang_dir.'gtfs-routes-trth.inc' ?>
                         </thead>
                         <tbody>
-<?php $duration = CreateGtfsRoutesEntry( $feed, $release_date ); ?>
+<?php if ( $request_ok ) { $duration = CreateGtfsRoutesEntry( $feed, $release_date ); } ?>
                         </tbody>
                     </table>
 

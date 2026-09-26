@@ -25,14 +25,27 @@
     if ( !$trip_id && $shape_id ) {
         echo '<script>window.location.replace("shape.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&shape_id=' . urlencode($shape_id) . '");</script>';
     }
-    $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
-    $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
-    if ( !$route_short_name ) {
-        $route_short_name = 'not set';
+    $duration = 0;
+    $request_ok = 0;
+    if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
+        $request_ok = 1;
     }
-    $trips            = GetTripDetails( $feed, $release_date, $trip_id );
-    $has_comments     = isset($trips["has_comments"]) ? $trips["has_comments"] : '';
-    $shape_id         = isset($trips["shape_id"])     ? $trips["shape_id"]     : '';
+    if ( $request_ok ) {
+        $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
+        $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
+        if ( !$route_short_name ) {
+            $route_short_name = 'not set';
+        }
+        $trips            = GetTripDetails( $feed, $release_date, $trip_id );
+        $has_comments     = isset($trips["has_comments"]) ? $trips["has_comments"] : '';
+        $shape_id         = isset($trips["shape_id"])     ? $trips["shape_id"]     : '';
+    } else {
+        $route_id         = 'not-set';
+        $route_short_name = 'not set';
+        $trips            = array();
+        $has_comments     = '';
+        $shape_id         = '';
+    }
     if ( $release_date ) {
         $feed_and_release = $feed . ' - ' . $release_date;
     } else {
@@ -104,7 +117,7 @@
 
                 <h2 id="proposal">Suggestion for OSM Tagging</h2>
                 <div class="indent">
-<?php $duration = CreateOsmTaggingSuggestion( $feed, $release_date, $trip_id ); ?>
+<?php if ( $request_ok ) { $duration = CreateOsmTaggingSuggestion( $feed, $release_date, $trip_id ); } ?>
                 </div>
 
                 <hr />
@@ -144,7 +157,7 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripEntry( $feed, $release_date, $trip_id ); ?>
+<?php if ( $request_ok ) { $duration += CreateGtfsSingleTripEntry( $feed, $release_date, $trip_id ); } ?>
                         </tbody>
                     </table>
                     <p><strong>(1) Example for departure time</strong></p>
@@ -179,12 +192,12 @@
                             </tr>
                         </thead>
                         <tbody>
-<?php $duration += CreateGtfsSingleTripServiceTimesEntry( $feed, $release_date, $trip_id ); ?>
+<?php if ( $request_ok ) { $duration += CreateGtfsSingleTripServiceTimesEntry( $feed, $release_date, $trip_id ); } ?>
                         </tbody>
                     </table>
                 </div>
 
-<?php $duration += CreateGtfsSingleTripShapeEntry( $feed, $release_date, $trip_id ); ?>
+<?php if ( $request_ok ) { $duration += CreateGtfsSingleTripShapeEntry( $feed, $release_date, $trip_id ); } ?>
 
                 <?php printf( "<p>Les requêtes SQL ont pris %f secondes pour se terminer</p>\n", $duration ); ?>
 

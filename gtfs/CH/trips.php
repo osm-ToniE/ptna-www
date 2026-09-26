@@ -22,16 +22,29 @@
 
         <main id="main" class="results">
             <?php
-                $route            = GetRouteDetails( $feed, $release_date, $route_id );
-                $comment          =  isset($route["comment"])                                         ? $route["comment"]                        : '';
-                $route_short_name = (isset($route["route_short_name"]) && $route["route_short_name"] != '') ? $route["route_short_name"]               : '???';
+                $duration = 0;
+                $request_ok = 0;
+                if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
+                    $request_ok = 1;
+                }
+                if ( $request_ok ) {
+                    $route                = GetRouteDetails( $feed, $release_date, $route_id );
+                    $comment              =  isset($route["comment"])                                               ? $route["comment"]          : '';
+                    $route_short_name     = (isset($route["route_short_name"]) && $route["route_short_name"] != '') ? $route["route_short_name"] : '???';
+                    $osm                  = GetOsmDetails( $feed, $release_date );
+                    $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
+                } else {
+                    $route                = array();
+                    $comment              = '';
+                    $route_short_name     = '???';
+                    $osm                  = array();
+                    $ptna_analysis_source = '';
+                }
                 if ( $release_date ) {
                     $feed_and_release = $feed . ' - ' . $release_date;
                 } else {
                     $feed_and_release = $feed;
                 }
-                $osm = GetOsmDetails( $feed, $release_date );
-                $ptna_analysis_source = isset($osm['ptna_analysis']) ? $osm['ptna_analysis'] : '';
             ?>
 
             <h2 id="CH"><a href="index.php"><img src="/img/Switzerland32.png"  class="flagimg" alt="Schweizerfahne" /></a> GTFS Analysen für <?php if ( $feed && $route_id != '' && $route_short_name != '' ) { echo '<a href="routes.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '">' . htmlspecialchars($feed_and_release) . '</a> Linie "' . htmlspecialchars($route_short_name) . '"'; } else { echo "die Schweiz"; } ?></h2>
@@ -42,9 +55,11 @@
 
 <?php   $months_short = array( "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez" );
 
-        CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
+        if ( $request_ok ) {
+            CreateGtfsTimeLine( $feed, $release_date, $months_short ) ;
 
-        include $lang_dir.'gtfs-feed-legend.inc';
+            include $lang_dir.'gtfs-feed-legend.inc';
+        }
 ?>
 
                 </div>
@@ -96,7 +111,7 @@
 <?php include $lang_dir.'gtfs-trips-trth.inc' ?>
                         </thead>
                         <tbody>
-<?php $duration = CreateGtfsTripsEntry( $feed, $release_date, $route_id, $route_short_name ); ?>
+<?php if ( $request_ok ) { $duration = CreateGtfsTripsEntry( $feed, $release_date, $route_id, $route_short_name ); } ?>
                         </tbody>
                     </table>
 
