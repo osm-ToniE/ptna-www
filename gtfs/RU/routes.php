@@ -1,3 +1,4 @@
+<?php include( '../../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
         include( '../../script/parse_query.php' );
@@ -8,11 +9,7 @@
             $feed_and_release = $feed;
         }
         $duration = 0;
-        $request_ok = 0;
         $include_agency = 0;
-        if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
-            $request_ok = 1;
-        }
 ?>
 <html lang="<?php echo $html_lang ?>">
 

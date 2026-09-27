@@ -1,4 +1,5 @@
 <?php
+include( '../script/check-request.php' );
 date_default_timezone_set('UTC');
 $before = memory_get_usage();
 

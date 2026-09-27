@@ -1,3 +1,4 @@
+<?php include( '../../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <html lang="sr">
 

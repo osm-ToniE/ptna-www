@@ -1,3 +1,4 @@
+<?php include( '../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
         include( '../script/parse_query.php' );

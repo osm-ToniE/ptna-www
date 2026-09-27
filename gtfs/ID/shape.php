@@ -1,3 +1,4 @@
+<?php include( '../../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
         include( '../../script/parse_query.php' );
@@ -20,10 +21,6 @@
 
 <?php
     $duration = 0;
-    $request_ok = 0;
-    if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
-        $request_ok = 1;
-    }
     if ( $release_date ) {
         $feed_and_release = $feed . ' - ' . $release_date;
     } else {

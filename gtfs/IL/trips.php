@@ -1,3 +1,4 @@
+<?php include( '../../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
         include( '../../script/parse_query.php' );
@@ -23,10 +24,6 @@
         <main id="main" class="results">
             <?php
                 $duration = 0;
-                $request_ok = 0;
-                if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
-                    $request_ok = 1;
-                }
                 if ( $request_ok ) {
                     $route                = GetRouteDetails( $feed, $release_date, $route_id );
                     $comment              =  isset($route["comment"])                                               ? $route["comment"]          : '';

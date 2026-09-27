@@ -1,3 +1,4 @@
+<?php include( '../../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../../script/globals.php'     );
         include( '../../script/parse_query.php' );
@@ -26,10 +27,6 @@
         echo '<script>window.location.replace("shape.php?feed=' . urlencode($feed) . '&release_date=' . urlencode($release_date) . '&shape_id=' . urlencode($shape_id) . '");</script>';
     }
     $duration = 0;
-    $request_ok = 0;
-    if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
-        $request_ok = 1;
-    }
     if ( $request_ok ) {
         $route_id         = GetGtfsRouteIdFromTripId( $feed, $release_date, $trip_id );
         $route_short_name = GetGtfsRouteShortNameFromTripId( $feed, $release_date, $trip_id );
