@@ -1,4 +1,4 @@
-<?php   header( "Status: 404", true, 404 ); exit(); ?><!DOCTYPE html>
+<!DOCTYPE html>
 <?php   include( '../script/globals.php'      );
         include( '../script/parse_query.php'  );
         $lang_dir="../$ptna_lang/";
