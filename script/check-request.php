@@ -29,7 +29,7 @@
                     $response_code = 200;
                 }
             }
-            setcookie( $script_name . '-count', $_SESSION[$script_name]['count'], time()+1, '/', $_SERVER['SERVER_NAME'] );
+            #setcookie( $script_name . '-count', $_SESSION[$script_name]['count'], time()+1, '/', $_SERVER['SERVER_NAME'] );
             #print_r( $matches );
             #print_r( $_SESSION );
             session_write_close();
