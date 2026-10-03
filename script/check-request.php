@@ -2,7 +2,7 @@
     # check whether request is OK
 
     $request_ok = 0;
-    $response_code = 404;
+    $response_code = 403;
     session_start();
 
     if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
