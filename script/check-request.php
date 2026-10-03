@@ -7,7 +7,7 @@
     if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
         if ( preg_match('/(compare|compare-[a-z]*s|routes|trips|single-trip|shape).php.*release_date=(latest|previous|long-term|20)/',$_SERVER['REQUEST_URI'],$matches)    ) {
             $script_name = $matches[1];
-            $session_id = join('.',array_reverse(explode('.',$_SERVER['SERVER_NAME'])));
+            $session_id = 'PTNA-session';
             session_id($session_id);
             session_start();
             $time_limit = 10; // max requests within 10 seconds
