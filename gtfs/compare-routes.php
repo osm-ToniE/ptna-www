@@ -79,9 +79,9 @@
                                 </tbody>
                                 <tfoot id="routes-table-tfoot" class="compare-routes-tfoot">
                                     <tr><td colspan=3>Please wait while we're loading and analyzing the data ...</td></tr>
-                                    <tr><td style="text-align: left;" class="compare-routes-left">Download Row Data:&nbsp;</td>   <td id="span-download-left"> <progress id="download_left"  value=0 max=2000></progress></td> <td id="download_left_text"  style="text-align: right"></td></tr>
-                                    <tr><td style="text-align: left;" class="compare-routes-left">Download Column Data:&nbsp;</td><td id="span-download-right"><progress id="download_right" value=0 max=2000></progress></td> <td id="download_right_text" style="text-align: right"></td></tr>
-                                    <tr><td style="text-align: left;" class="compare-routes-left">Analysis:&nbsp;</td>            <td id="span-analysis">      <progress id="analysis"       value=0 max=2000></progress></td> <td id="analysis_text"       style="text-align: right"></td></tr>
+                                    <tr><td style="text-align: left;" class="compare-routes-left">Download GTFS Data:&nbsp;</td>   <td id="span-download-left"> <progress id="download_left"  value=0 max=2000></progress></td> <td id="download_left_text"  style="text-align: right"></td></tr>
+                                    <tr><td style="text-align: left;" class="compare-routes-left">Download <?php if ( $osm_relation ) { echo "OSM"; } else { echo "GTFS"; } ?> Data:&nbsp;</td><td id="span-download-right"><progress id="download_right" value=0 max=2000></progress></td> <td id="download_right_text" style="text-align: right"></td></tr>
+                                    <tr><td style="text-align: left;" class="compare-routes-left">Analysis:&nbsp;</td>             <td id="span-analysis">      <progress id="analysis"       value=0 max=2000></progress></td> <td id="analysis_text"       style="text-align: right"></td></tr>
                                 </tfoot>
                             </table>
                         </div>
