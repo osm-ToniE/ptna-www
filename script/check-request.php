@@ -3,12 +3,13 @@
 
     $request_ok = 0;
     $response_code = 403;
-    session_start();
 
     if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
-        if ( preg_match('/(compare|compare-[a-z]*s|routes|trips|single-trip).php.*release_date=(latest|previous|long-term|20)/',$_SERVER['REQUEST_URI'],$matches)    ) {
+        if ( preg_match('/(compare|compare-[a-z]*s|routes|trips|single-trip|shape).php.*release_date=(latest|previous|long-term|20)/',$_SERVER['REQUEST_URI'],$matches)    ) {
             $script_name = $matches[1];
-            #print_r( $matches );
+            $session_id = join('.',array_reverse(explode('.',$_SERVER['SERVER_NAME'])));
+            session_id($session_id);
+            session_start();
             $time_limit = 10; // max requests within 10 seconds
             $max_requests = 5;
             if (!isset($_SESSION[$script_name]['count'])) {
@@ -28,6 +29,8 @@
                     $response_code = 200;
                 }
             }
+            setcookie( $script_name . '-count', $_SESSION[$script_name]['count'], time()+1, '/', $_SERVER['SERVER_NAME'] );
+            #print_r( $matches );
             #print_r( $_SESSION );
             session_write_close();
         } else {
