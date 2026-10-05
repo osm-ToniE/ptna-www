@@ -11,14 +11,14 @@
     if ( isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] ) {
         if ( preg_match('/(compare|compare-[a-z]*s|routes|trips|single-trip|shape).php.*release_date=(latest|previous|long-term|20)/',$_SERVER['REQUEST_URI'],$matches)    ) {
             $resource_name = $matches[1];
-            $max_requests = 5;
+            $max_requests = 3;
         } else {
             $request_ok = 1;
             $response_code = 200;
         }
     } else {
         $resource_name = 'no-referrer';
-        $max_requests  = 5;
+        $max_requests  = 3;
     }
 
     if ( $resource_name ) {
