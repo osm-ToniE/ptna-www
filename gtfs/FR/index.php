@@ -69,6 +69,7 @@
     $duration += CreateGtfsEntry( "FR-NAQ-RespiRe" );
     $duration += CreateGtfsEntry( "FR-NAQ-TBM" );
     $duration += CreateGtfsEntry( "FR-NAQ-Yelo" );
+    $duration += CreateGtfsEntry( "FR-NOR-Astuce" );
     $duration += CreateGtfsEntry( "FR-NOR-Atoumod" );
     $duration += CreateGtfsEntry( "FR-NOR-Cap_Cotentin" );
     $duration += CreateGtfsEntry( "FR-NOR-Cosibus" );
