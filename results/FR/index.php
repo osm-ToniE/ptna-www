@@ -139,6 +139,7 @@
                     <?php CreateNewFullEntry("FR-NAQ-TBM", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NAQ-Yelo", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Altobus", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-NOR-Astuce", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Cap_Cotentin", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Cosibus", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-NOR-Hobus", "fr", "Configuration" ); ?>
