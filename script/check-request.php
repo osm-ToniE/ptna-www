@@ -48,6 +48,7 @@
     }
 
     if ( $response_code >= 300 ) {
+        header( sprintf("Retry-After: %d",$time_limit*2) );
         header( sprintf("Status: %d",$response_code), true, $response_code );
         exit();
     }
