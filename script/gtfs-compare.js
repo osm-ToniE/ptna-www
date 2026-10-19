@@ -188,8 +188,33 @@ async function showtripcomparison() {
     layerplatformsroute  = { 'left': layerleftstopsroute, 'right': layerrightstopsroute };
     layershapes          = { 'left': layerleftshape,      'right': layerrightshape      };
 
-    await download_left_data().then( (data)  => parseHttpResponse( 'left', data ) );
-    await download_right_data().then( (data) => parseHttpResponse( 'right', data ) );
+    if ( http_request_type === 'POST' ) {
+        console.log( "http_request_type === 'POST'" );
+        if ( http_post_body_data !== '' ) {
+            console.log( "http_post_body_data" );
+            console.log( http_post_body_data );
+            console.log( "JSON_string" );
+            var JSON_string = decodeURIComponent(http_post_body_data.replace('data=','').replaceAll('+',' '));
+            console.log( JSON_string );
+
+            parseHttpResponse( 'left',  read_left_data(JSON_string)  );
+            parseHttpResponse( 'right', read_right_data(JSON_string) );
+        }
+    }
+
+    if ( !('generator' in JSON_data['left']) ) {
+        await download_left_data().then( (data)  => parseHttpResponse( 'left', data ) );
+    }
+    if ( !('generator' in JSON_data['right'] ) ) {
+        await download_right_data().then( (data) => parseHttpResponse( 'right', data ) );
+    }
+
+    if ( http_request_type !== 'GET' ) {
+        // in Browser's history, turn POST, ... request into GET request with same parameters
+        // this avoids reading (outdated) data from the body on "reload"
+        history.pushState({}, "", location.href );
+    }
+
 
     // console.log(DATA_Nodes);
     // console.log(DATA_Ways);
@@ -534,9 +559,9 @@ async function download_left_data() {
                  release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ||
                  release_date === 'previous'                ||
                  release_date === 'long-term'                  ) {
-                if ( route_id != '' || trip_id ) {
+                if ( route_id !== '' || trip_id !== '' ) {
                     var url = '';
-                    if ( route_id != '' ) {
+                    if ( route_id !== '' ) {
                         url     = PTNA_API_URL     +
                                   '?feed='         + encodeURIComponent(feed)         +
                                   '&release_date=' + encodeURIComponent(release_date) +
@@ -552,27 +577,41 @@ async function download_left_data() {
                     const d = new Date();
                     downloadstartms = d.getTime();
 
-                    var dSpanLeft       = document.getElementById('span-download-left');
-                    dSpanLeft.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+                    var dReadSpanLeft       = document.getElementById('download-or-read-left');
+                    dReadSpanLeft.innerHTML = 'Download';
+                    var dSpanLeft           = document.getElementById('span-download-left');
+                    dSpanLeft.innerHTML     = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
 
-                    const response = await fetch(url);
+                    try {
+                        const response = await fetch(url);
 
-                    if ( response.ok ) {
-                        const JsonResp = await response.json();
-                        const d = new Date();
-                        var usedms = d.getTime() - downloadstartms;
-                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
-                        dBarLeft.value = usedms;
-                        document.getElementById('download_left_text').innerText = usedms.toString() + ' ms';
-                        return JSON.stringify(JsonResp);
-                    } else {
+                        if ( response.ok ) {
+                            const JsonResp = await response.json();
+                            const d = new Date();
+                            var usedms = d.getTime() - downloadstartms;
+                            dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+                            dBarLeft.value = usedms;
+                            document.getElementById('download_left_text').innerText = usedms.toString() + ' ms';
+                            return JSON.stringify(JsonResp);
+                        } else {
+                            const d = new Date();
+                            var usedms = d.getTime() - downloadstartms;
+                            dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+                            dBarLeft.value = usedms;
+                            document.getElementById('download_left_text').innerText = 'failed';
+                            document.getElementById('analysis_text').innerText = 'aborted';
+                            alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
+                        }
+                    }
+                    catch ( error ) {
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
                         dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
                         dBarLeft.value = usedms;
                         document.getElementById('download_left_text').innerText = 'failed';
                         document.getElementById('analysis_text').innerText = 'aborted';
-                        alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
+                        alert( error + "\n\nThis can also be a:\n\n502 Bad Gateway\n\nPlease retry." );
+                        exit;
                     }
                 } else {
                     alert( "Neither parameter 'route_id' nor 'trip_id' is set" );
@@ -591,6 +630,60 @@ async function download_left_data() {
 }
 
 //
+// 'left' data is always GTFS data, for the time being only 'trip_id' data
+//
+function read_left_data( json_data_string ) {
+
+    var d = new Date();
+    downloadstartms = d.getTime();
+    var dReadSpanLeft       = document.getElementById('download-or-read-left');
+    dReadSpanLeft.innerHTML = 'Read';
+    var dSpanLeft           = document.getElementById('span-download-left');
+    dSpanLeft.innerHTML     = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
+    if ( feed ) {
+        if ( feed.match(/^[0-9A-Za-z_.-]+$/) ) {
+
+            if ( release_date === ''                        ||
+                 release_date.match(/^\d\d\d\d-\d\d-\d\d$/) ||
+                 release_date === 'previous'                ||
+                 release_date === 'long-term'                  ) {
+                if ( route_id !== '' || trip_id  !== '' ) {
+
+                    var json_data = JSON.parse( json_data_string );
+
+                    if ( 'left' in json_data ) {
+                        d = new Date();
+                        var usedms = d.getTime() - downloadstartms;
+                        dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+                        dBarLeft.value = usedms;
+                        document.getElementById('download_left_text').innerText = usedms.toString() + ' ms';
+                        return JSON.stringify( json_data['left'] );
+                    }
+                } else {
+                    console.log( "read_left_data(): Neither parameter 'route_id' nor 'trip_id' is set" );
+                }
+            } else {
+                console.log( "read_left_data(): Parameter 'release_date' is invalid (" + release_date + ")" );
+            }
+        } else {
+            console.log( "read_left_data(): Parameter 'feed' is invalid (" + feed + ")" );
+        }
+    } else {
+        console.log( "read_left_data(): Parameter 'feed' is not specified" );
+    }
+
+    d = new Date();
+    var usedms = d.getTime() - downloadstartms;
+    dSpanLeft.innerHTML = '<progress id="download_left" value=' + usedms + ' max=2000></progress>';
+    dBarLeft.value = usedms;
+    document.getElementById('download_left_text').innerText = 'failed';
+
+    return '';
+}
+
+
+//
 // 'right' data can be OSM relation or a second GTFS data set
 //
 async function download_right_data() {
@@ -601,27 +694,41 @@ async function download_right_data() {
             const d = new Date();
             downloadstartms = d.getTime();
 
-            var dSpanRight       = document.getElementById('span-download-right');
-            dSpanRight.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+            var dReadSpanRight       = document.getElementById('download-or-read-right');
+            dReadSpanRight.innerHTML = 'Download';
+            var dSpanRight           = document.getElementById('span-download-right');
+            dSpanRight.innerHTML     = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
 
-            const response = await fetch(url);
+            try {
+                const response = await fetch(url);
 
-            if ( response.ok ) {
-                const JsonResp = await response.json();
-                const d = new Date();
-                var usedms = d.getTime() - downloadstartms;
-                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
-                dBarRight.value = usedms;
-                document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
-                return JSON.stringify(JsonResp);
-            } else {
+                if ( response.ok ) {
+                    const JsonResp = await response.json();
+                    const d = new Date();
+                    var usedms = d.getTime() - downloadstartms;
+                    dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                    dBarRight.value = usedms;
+                    document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
+                    return JSON.stringify(JsonResp);
+                } else {
+                    const d = new Date();
+                    var usedms = d.getTime() - downloadstartms;
+                    dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                    dBarRight.value = usedms;
+                    document.getElementById('download_right_text').innerText = 'failed';
+                    document.getElementById('analysis_text').innerText = 'aborted';
+                    alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + response.status + " " + response.statusText );
+                }
+            }
+            catch ( error ) {
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
                 dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
                 dBarRight.value = usedms;
                 document.getElementById('download_right_text').innerText = 'failed';
                 document.getElementById('analysis_text').innerText = 'aborted';
-                alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + response.status + " " + response.statusText );
+                alert( error + "\n\nThis can also be a:\n\n502 Bad Gateway\n\nPlease retry." );
+                // throw error + "\n\nThis can also be a:\n\n502 Bad Gateway\n\nPlease retry.";
             }
         } else {
             alert( "Relation ID is not a number (" + relation_id + ")" );
@@ -650,27 +757,40 @@ async function download_right_data() {
                     const d = new Date();
                     downloadstartms = d.getTime();
 
-                    var dSpanRight       = document.getElementById('span-download-right');
-                    dSpanRight.innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+                    var dReadSpanRight       = document.getElementById('download-or-read-right');
+                    dReadSpanRight.innerHTML = 'Download';
+                    var dSpanRight           = document.getElementById('span-download-right');
+                    dSpanRight.innerHTML     = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
 
-                    const response = await fetch(url);
+                    try {
+                        const response = await fetch(url);
 
-                    if ( response.ok ) {
-                        const JsonResp = await response.json();
-                        const d = new Date();
-                        var usedms = d.getTime() - downloadstartms;
-                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
-                        dBarRight.value = usedms;
-                        document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
-                        return JSON.stringify(JsonResp);
-                    } else {
+                        if ( response.ok ) {
+                            const JsonResp = await response.json();
+                            const d = new Date();
+                            var usedms = d.getTime() - downloadstartms;
+                            dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                            dBarRight.value = usedms;
+                            document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
+                            return JSON.stringify(JsonResp);
+                        } else {
+                            const d = new Date();
+                            var usedms = d.getTime() - downloadstartms;
+                            dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                            dBarRight.value = usedms;
+                            document.getElementById('download_right_text').innerText = 'failed';
+                            document.getElementById('analysis_text').innerText = 'aborted';
+                            alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
+                        }
+                    }
+                    catch ( error ) {
                         const d = new Date();
                         var usedms = d.getTime() - downloadstartms;
                         dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
                         dBarRight.value = usedms;
                         document.getElementById('download_right_text').innerText = 'failed';
                         document.getElementById('analysis_text').innerText = 'aborted';
-                        alert( "PTNA server response:\n\n" + response.status + " " + response.statusText );
+                        alert( error + "\n\nThis can also be a:\n\n502 Bad Gateway\n\nPlease retry." );
                     }
                 } else {
                     alert( "Neither parameter 'route_id2' nor 'trip_id2' is set" );
@@ -684,6 +804,72 @@ async function download_right_data() {
     } else {
         alert( "Neither parameter 'feed2' nor parameter 'relation' is set" );
     }
+
+    return '';
+
+}
+//
+// 'right' data can be OSM relation or a second GTFS data set
+//
+function read_right_data( json_data_string ) {
+
+    var                      d = new Date();
+    var downloadstartms      = d.getTime();
+    var dReadSpanRight       = document.getElementById('download-or-read-right');
+    dReadSpanRight.innerHTML = 'Read';
+    var dSpanRight           = document.getElementById('span-download-right');
+    dSpanRight.innerHTML     = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
+
+    if ( relation_id !== '' ) {
+        if ( relation_id.match(/^\d+$/) ) {
+            var json_data = JSON.parse( json_data_string );
+
+            if ( 'right' in  json_data ) {
+                d = new Date();
+                var usedms = d.getTime() - downloadstartms;
+                dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                dBarRight.value = usedms;
+                document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
+                return JSON.stringify( json_data['right'] );
+            }
+        } else {
+            console.log( "read_right_data(): Relation ID is not a number (" + relation_id + ")" );
+        }
+    } else if ( feed2 !== '' ) {
+        if ( feed2.match(/^[0-9A-Za-z_.-]+$/) ) {
+            if ( release_date2 === ''                        ||
+                 release_date2.match(/^\d\d\d\d-\d\d-\d\d$/) ||
+                 release_date2 === 'previous'                ||
+                 release_date2 === 'long-term'                  ) {
+                if ( route_id2 !== '' || trip_id2 !== '' ) {
+                    var json_data = JSON.parse( json_data_string );
+
+                    if ( 'right' in  json_data ) {
+                        d = new Date();
+                        var usedms = d.getTime() - downloadstartms;
+                        dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+                        dBarRight.value = usedms;
+                        document.getElementById('download_right_text').innerText = usedms.toString() + ' ms';
+                        return JSON.stringify( json_data['right'] );
+                    }
+                } else {
+                    console.log( "read_right_data(): Neither parameter 'route_id2' nor 'trip_id2' is set" );
+                }
+            } else {
+                console.log( "read_right_data(): Parameter 'release_date2' is invalid (" + release_date2 + ")" );
+            }
+        } else {
+            console.log( "read_right_data(): Parameter 'feed2' is invalid (" + feed2 + ")" );
+        }
+    } else {
+        console.log( "read_right_data(): Neither parameter 'feed2' nor parameter 'relation' is set" );
+    }
+
+    d = new Date();
+    var usedms = d.getTime() - downloadstartms;
+    dSpanRight.innerHTML = '<progress id="download_right" value=' + usedms + ' max=2000></progress>';
+    dBarRight.value = usedms;
+    document.getElementById('download_right_text').innerText = 'failed';
 
     return '';
 
@@ -1669,11 +1855,16 @@ function CreateRoutesCompareTable( CompareTableRowInfo, CompareTableColInfo, Com
                         GTFS_trip_id_match_type = CompareTableRowInfo['type'] + '-' + CompareTableColInfo['type'];
                     }
                     if ( CompareTable[row][col]['score'] >= 0 ) {
+                        // the "SendPostRequestInNewWindow()" shall send a PUSH request to the target page, including 'our' current JSON_data
+                        // the target page uses a subset of 'our' JSON_data and does not need to download that by itself
+                        // a second click on this <a ...> will nevertheless send a GET request, target page has to downlaod the data
                         td.innerHTML = '<a href="' + GetRoutesScoreLink(CompareTableRowInfo,CompareTableColInfo,row,col) + '"' +
-                                       ' target="_blank"' +
-                                       ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col,GTFS_trip_id_match_type) + '">' +
-                                       htmlEscape(CompareTable[row][col]['score'].toString()) + '%' +
-                                       '</a>';
+                                        ' onclick="return SendPostRequestInNewWindow(this);"' +
+                                        ' data-row="' + row.toString() + '" data-col="' + col.toString() + '"' +
+                                        ' target="_blank"' +
+                                        ' title="' + GetScoreDetailsAsTitle(CompareTable,row,col,GTFS_trip_id_match_type) + '">' +
+                                        htmlEscape(CompareTable[row][col]['score'].toString()) + '%' +
+                                        '</a>';
                     } else {
                         td.innerHTML = 'n/a';
                     }
@@ -2312,6 +2503,58 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
         }
     }
     return ret_val;
+}
+
+
+function SendPostRequestInNewWindow( aObj ) {
+
+    if ( 'HaveSentPushRequest' in CompareTable[Number(aObj.dataset.row)][Number(aObj.dataset.col)] ) {
+        // we have already sent a POST request with pre-loaded data (GTFS, OSM) for this entry
+        // a second one might transmit outdated data
+        // true: href="..." will be executed sending a GET request, target page will download data
+        return true;
+    } else {
+        var regex = /\+/g;
+        var match_array = JSON.stringify(JSON_data).match(regex);
+        regex = /%2B/g;
+        if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '+'" ); }
+        match_array = JSON.stringify(JSON_data).match(regex);
+        if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '%2B'" ); }
+        console.log( "SendPostRequestInNewWindow:\n" + aObj.href +
+                     "\nJSON_data['left']:\n"  + JSON.stringify(JSON_data['left'])  +
+                     "\nJSON_data['right']:\n" + JSON.stringify(JSON_data['right']) +
+                     "\nrow=" + aObj.dataset.row + " col=" + aObj.dataset.col
+                   );
+
+        try {
+            var form = document.createElement("form");
+                form.action = aObj.href;
+                form.method = 'POST';
+                form.target = "_blank";
+            var input = document.createElement("textarea");
+                input.name = 'data';
+                input.value = JSON.stringify(JSON_data).replaceAll(/\+/g,'%2B');
+                form.appendChild(input);
+                form.style.display = 'none';
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+
+            CompareTable[Number(aObj.dataset.row)][Number(aObj.dataset.col)]['HaveSentPushRequest'] = true;
+
+            return false;
+        }
+        catch ( error ) {
+            alert( "Error:\n\n" + error );
+
+            CompareTable[Number(aObj.dataset.row)][Number(aObj.dataset.col)]['HaveSentPushRequest'] = true;
+
+            return true;
+        }
+    }
+    // true: do send a GET request using the href="..." data.
+
+    return true;
 }
 
 

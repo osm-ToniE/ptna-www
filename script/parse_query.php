@@ -87,4 +87,21 @@
     $route_id = isset($_GET['route_id']) ? $_GET['route_id'] : '';
     $trip_id  = isset($_GET['trip_id'])  ? $_GET['trip_id']  : '';
     $shape_id = isset($_GET['shape_id']) ? $_GET['shape_id'] : '';
+
+
+    # get the HTTP request type
+
+    function GetHttpRequestType() {
+        return $_SERVER["REQUEST_METHOD"];
+    }
+
+
+    # read the body of an HTTP POST request
+
+    function GetHttpPostRequestBody() {
+        if ( isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" ) {
+            return file_get_contents('php://input');
+        }
+        return '';
+    }
 ?>
