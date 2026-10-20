@@ -1,5 +1,5 @@
 <?php
-    include('../../script/details.php');
+    include_once('../../script/details.php');
 
     function PrintAnalysis( $network, $filename, $filepath ) {
         if ( $filename && file_exists($filepath) && filesize($filepath) > 0 ) {

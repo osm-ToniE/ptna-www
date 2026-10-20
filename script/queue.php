@@ -1,6 +1,6 @@
 <?php
 
-    include('../script/config.php');
+    include_once('../script/config.php');
 
     function FindAnalysisQueueSqliteDb() {
         global $path_to_work;

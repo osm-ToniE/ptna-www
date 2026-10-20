@@ -1,5 +1,5 @@
 <?php
-    include('../script/config.php');
+    include_once('../script/config.php');
 
     $download_total_secs        = 0;
     $filter_total_secs          = 0;
