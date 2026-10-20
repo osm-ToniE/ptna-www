@@ -181,19 +181,33 @@ function show_overpass_api_area( query, name ) {
                         alert( "Relation does not exist (" + relation_id + ")" );
                     } else if ( request.status === 0 ) {
                         document.getElementById('download_text').innerText = 'failed';
-                        alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
                         var type = request.getResponseHeader( "Content-Type" );
-                        if ( type.match(/application\/json/) ) {
+                        if ( type && type.match(/application\/json/) ) {
+                            alert( "Unexpected response from " + DEFAULT_OVERPASS_SERVER + "\n\n" + request.getAllResponseHeaders() );
                             readHttpResponse( request.responseText );
                         } else {
                             document.getElementById('download_text').innerText = 'failed';
-                            alert( url + " did not return JSON data but " + type );
+                            if ( type ) {
+                                alert( "Unexpected response from " + DEFAULT_OVERPASS_SERVER + "\n\n" + url + "\n\ndid not return JSON data but\n\n" + type );
+                            } else {
+                                alert( "Unexpected response from " + DEFAULT_OVERPASS_SERVER + "\n\n" + url + "\n\ndid not return JSON data" );
+                            }
                         }
                     } else {
                         document.getElementById('download_text').innerText = 'failed';
-                        alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText );
+                        var type = request.getResponseHeader( "Content-Type" );
+                        if ( request.statusText === '' && type && type.match(/text\/plain/) ) {
+                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + "\n\n" + request.getAllResponseHeaders() + "\n" +  request.responseText );
+                        } else {
+                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText + "\n\n" + request.getAllResponseHeaders() + "\n\n" + request.responseText );
+                        }
+                    }
+                } else if ( request.readyState === 2 ) {
+                    if ( request.status === 502 ) {
+                        ; // alert( "Unexpected response from " + DEFAULT_OVERPASS_SERVER + "\n\n" + request.statusText + "\n\n" + request.getAllResponseHeaders() );
                     }
                 }
+
             };
 
             const d = new Date();
