@@ -1,5 +1,5 @@
 <?php
-    include('../script/parse_query.php');
+    include('../script/parse-query.php');
     include('../script/details.php');
 
     $options_hash  = [];

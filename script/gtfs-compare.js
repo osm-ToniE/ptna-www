@@ -191,6 +191,8 @@ async function showtripcomparison() {
     if ( http_request_type === 'POST' ) {
         console.log( "http_request_type === 'POST'" );
         if ( http_post_body_data !== '' ) {
+            console.log( "http_post_body_data.length" );
+            console.log( http_post_body_data.length );
             console.log( "http_post_body_data" );
             console.log( http_post_body_data );
             console.log( "JSON_string" );
@@ -2520,7 +2522,8 @@ function SendPostRequestInNewWindow( aObj ) {
         if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '+'" ); }
         match_array = JSON.stringify(JSON_data).match(regex);
         if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '%2B'" ); }
-        console.log( "SendPostRequestInNewWindow:\n" + aObj.href +
+        console.log( "SendPostRequestInNewWindow:\n" + aObj.href                    +
+                     "\nlength=" + JSON.stringify(JSON_data).length                 +
                      "\nJSON_data['left']:\n"  + JSON.stringify(JSON_data['left'])  +
                      "\nJSON_data['right']:\n" + JSON.stringify(JSON_data['right']) +
                      "\nrow=" + aObj.dataset.row + " col=" + aObj.dataset.col

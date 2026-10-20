@@ -5,7 +5,7 @@
 <?php $title="Statistics"; include('html-head.inc'); ?>
 
 <?php
-    include('../script/parse_query.php');
+    include('../script/parse-query.php');
     include('../script/statistics.php');
     ?>
 

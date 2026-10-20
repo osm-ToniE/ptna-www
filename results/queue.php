@@ -1,7 +1,7 @@
 <?php include( '../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
-        include( '../script/parse_query.php' );
+        include( '../script/parse-query.php' );
         include( '../script/queue.php' );
         $lang_dir="../$ptna_lang/";
 ?>

@@ -1,7 +1,7 @@
 <?php include( '../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
-        include( '../script/parse_query.php' );
+        include( '../script/parse-query.php' );
         include( '../script/gtfs.php'        );
         $ptna_lang = "ru";
         $html_lang = "ru";

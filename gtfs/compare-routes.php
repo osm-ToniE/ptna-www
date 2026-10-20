@@ -1,7 +1,7 @@
 <?php include( '../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'      );
-        include( '../script/parse_query.php'  );
+        include( '../script/parse-query.php'  );
         $lang_dir="../$ptna_lang/";
 ?>
 <html lang="<?php echo $html_lang ?>">
@@ -27,8 +27,8 @@
         <script src="/script/gtfs-compare.js"></script>
         <script src="/script/sort-table.js"></script>
 
-        <script> const http_request_type   = '<?php echo GetHttpRequestType(); ?>';
-                 const http_post_body_data = '<?php echo GetHttpPostRequestBody(); ?>';
+        <script> const http_request_type   = '<?php echo $_SERVER["REQUEST_METHOD"]; ?>';
+                 const http_post_body_data = '<?php echo file_get_contents('php://input'); ?>';
         </script>
 
         <div id="wrapper">
