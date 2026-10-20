@@ -5,12 +5,21 @@ $before = memory_get_usage();
 
 include('../script/globals.php');
 
-if ( isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] != 'localhost' ) {
+if ( $_SERVER['SERVER_NAME'] ) {
     $old_limit = ini_set( "memory_limit", "-1" );
     set_time_limit( 300 );
-    define("PTNA_VERSION","PTNA " . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
-    define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
-    define("PTNA_URL","https://ptna.openstreetmap.de/api/gtfs.php");
+    if ( file_exists($path_to_www.'.git/ORIG_HEAD') ) {
+        define("PTNA_VERSION","PTNA " . substr(file_get_contents($path_to_www.'.git/ORIG_HEAD'),0,6));
+        define("PTNA_DATE",date("Y-m-d\TH:i:s\Z",filemtime($path_to_www.'.git/ORIG_HEAD')));
+    } else {
+        define("PTNA_VERSION","PTNA on " . $_SERVER['SERVER_NAME'] );
+        define("PTNA_DATE",date("Y-m-d\TH:i:s\Z"));
+    }
+    if ( $_SERVER['HTPPS'] ) {
+        define("PTNA_URL","https://" . $_SERVER['SERVER_NAME'] . "/api/gtfs.php");
+    } else {
+        define("PTNA_URL","http://"  . $_SERVER['SERVER_NAME'] . "/api/gtfs.php");
+    }
 } else {
     $old_limit = ini_set( "memory_limit", "-1" );
     set_time_limit( 300 );
