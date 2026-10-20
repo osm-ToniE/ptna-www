@@ -1,7 +1,6 @@
 <?php include( '../script/check-request.php' ); ?>
 <!DOCTYPE html>
 <?php   include( '../script/globals.php'     );
-        include( '../script/parse-query.php' );
         include( '../script/config.php' );
         $lang_dir="../$ptna_lang/";
         if ( !is_dir($lang_dir) ) {
