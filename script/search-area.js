@@ -159,14 +159,18 @@ function show_overpass_api_area( query, name ) {
             request.onprogress = function() {
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
-                dBar.value = usedms;
                 document.getElementById('download_text').innerText = usedms.toString() + ' ms';
+                document.getElementById('download_bar').innerHTML  = '<progress id="download" value=0 max=2000></progress>';
+                dBar        = document.getElementById('download');
+                dBar.value  = usedms;
             }
             request.onreadystatechange = function() {
                 const d = new Date();
                 var usedms = d.getTime() - downloadstartms;
-                dBar.value = usedms;
                 document.getElementById('download_text').innerText = usedms.toString() + ' ms';
+                document.getElementById('download_bar').innerHTML  = '<progress id="download" value=0 max=2000></progress>';
+                dBar        = document.getElementById('download');
+                dBar.value  = usedms;
                 if ( request.readyState === 4 ) {
                     if ( request.status === 200 ) {
                         var type = request.getResponseHeader( "Content-Type" );
@@ -196,10 +200,10 @@ function show_overpass_api_area( query, name ) {
                     } else {
                         document.getElementById('download_text').innerText = 'failed';
                         var type = request.getResponseHeader( "Content-Type" );
-                        if ( request.statusText === '' && type && type.match(/text\/plain/) ) {
-                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + "\n\n" + request.getAllResponseHeaders() + "\n" +  request.responseText );
+                        if ( type && type.match(/text\/plain/) ) {
+                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText + "\n\n" + request.getAllResponseHeaders() + "\n" +  request.responseText );
                         } else {
-                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText + "\n\n" + request.getAllResponseHeaders() + "\n\n" + request.responseText );
+                            alert( DEFAULT_OVERPASS_SERVER + " response:\n\n" + request.status + " " + request.statusText + "\n\n" + request.getAllResponseHeaders() );
                         }
                     }
                 } else if ( request.readyState === 2 ) {
@@ -212,8 +216,10 @@ function show_overpass_api_area( query, name ) {
 
             const d = new Date();
             downloadstartms = d.getTime();
+            document.getElementById('download_bar').innerHTML = '<img src="/img/LoadingBar.gif" alt="Progress" height="16" width="160"/>';
 
             request.send();
+
         } else if ( query.match(/^poly/) ) {
             var coordinates_string = decodeURIComponent(query.replace(/\+/g,' ')).replace(/^poly:'/,'').replace(/'$/,'');
             var latlngs = [];
