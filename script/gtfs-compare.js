@@ -196,7 +196,10 @@ async function showtripcomparison() {
             console.log( "http_post_body_data" );
             console.log( http_post_body_data );
             console.log( "JSON_string" );
-            var JSON_string = decodeURIComponent(http_post_body_data.replace('data=','').replaceAll('+',' '));
+            var storage_key = http_post_body_data.replace('storage_key=','');
+            var compressed = localStorage.getItem(storage_key);
+            localStorage.removeItem(storage_key);
+            var JSON_string = lzw_unpack(compressed);
             console.log( JSON_string );
 
             parseHttpResponse( 'left',  read_left_data(JSON_string)  );
@@ -2507,6 +2510,87 @@ function GetRoutesScoreLink( CompareTableRowInfo, CompareTableColInfo, row, col 
     return ret_val;
 }
 
+function lzw_pack(input) {
+    const bytes = new TextEncoder().encode(String(input));
+    let phrase = String.fromCharCode(bytes[0]);
+    const dict = Object.create(null);
+    const codes = [];
+    let nextCode = 256;
+    function addCode(phrase) {
+        let value = phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0);
+        while (value >= 128) {
+            codes.push((value & 0x7F) | 0x80);
+            value >>>= 7;
+        }
+        codes.push(value);
+    }
+    for (let i = 1; i < bytes.length; i++) {
+        const currChar = String.fromCharCode(bytes[i]);
+        const combined = phrase + currChar;
+        if (dict[combined]) {
+            phrase = combined;
+        } else {
+            addCode(phrase);
+            dict[combined] = nextCode++;
+            phrase = currChar;
+        }
+    }
+    addCode(phrase);
+    const out = [String.fromCharCode(codes.length & 1)];
+    for (let i = 0; i < codes.length; i += 2) out.push(String.fromCharCode(codes[i] | ((codes[i + 1] ?? 0) << 8)));
+    return out.join("");
+}
+function lzw_unpack(input) {
+    const odd = input.charCodeAt(0);
+    const bytes = new Uint8Array((input.length - 1) * 2 - odd);
+    let pos = 0;
+    let value;
+    for (let i = 1; i < input.length - 1; i++) {
+        value = input.charCodeAt(i);
+        bytes[pos++] = value & 0xFF;
+        bytes[pos++] = value >>> 8;
+    }
+    value = input.charCodeAt(input.length - 1);
+    bytes[pos++] = value & 0xFF;
+    if (odd === 0) bytes[pos++] = value >>> 8;
+    const codes = [];
+    value = 0;
+    let factor = 1;
+    for (const byte of bytes) {
+        value += (byte & 0x7F) * factor;
+        if (byte & 0x80) {
+            factor *= 128;
+        } else {
+            codes.push(value);
+            value = 0;
+            factor = 1;
+        }
+    }
+    const dict = Object.create(null);
+    let nextCode = 256;
+    pos = 0;
+    const firstCode = codes[pos++];
+    let oldPhrase = String.fromCharCode(firstCode);
+    const out = [oldPhrase];
+    while (pos < codes.length) {
+        const currCode = codes[pos++];
+        let phrase;
+        if (currCode < 256) {
+            phrase = String.fromCharCode(currCode);
+        } else if (dict[currCode]) {
+            phrase = dict[currCode];
+        } else if (currCode === nextCode) {
+            phrase = oldPhrase + oldPhrase.charAt(0);
+        }
+        out.push(phrase);
+        dict[nextCode++] = oldPhrase + phrase.charAt(0);
+        oldPhrase = phrase;
+    }
+    const byteString = out.join("");
+    const result = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i++) result[i] = byteString.charCodeAt(i);
+    return new TextDecoder("utf-8", { fatal: true }).decode(result);
+}
 
 function SendPostRequestInNewWindow( aObj ) {
 
@@ -2516,27 +2600,24 @@ function SendPostRequestInNewWindow( aObj ) {
         // true: href="..." will be executed sending a GET request, target page will download data
         return true;
     } else {
-        var regex = /\+/g;
-        var match_array = JSON.stringify(JSON_data).match(regex);
-        regex = /%2B/g;
-        if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '+'" ); }
-        match_array = JSON.stringify(JSON_data).match(regex);
-        if ( match_array ) { console.log( "JSON_data has " + match_array.length + " times '%2B'" ); }
-        console.log( "SendPostRequestInNewWindow:\n" + aObj.href                    +
-                     "\nlength=" + JSON.stringify(JSON_data).length                 +
-                     "\nJSON_data['left']:\n"  + JSON.stringify(JSON_data['left'])  +
-                     "\nJSON_data['right']:\n" + JSON.stringify(JSON_data['right']) +
+        var storage_key = 'ptna-' + crypto.randomUUID();
+        var stringified = JSON.stringify(JSON_data);
+        var compressed = lzw_pack(stringified);
+        console.log( "SendPostRequestInNewWindow:\n" + aObj.href +
+                     "\nlength=" + stringified.length            +
+                     "\ncompressed_length=" + compressed.length  +
                      "\nrow=" + aObj.dataset.row + " col=" + aObj.dataset.col
                    );
 
         try {
+            localStorage.setItem(storage_key, compressed);
             var form = document.createElement("form");
                 form.action = aObj.href;
                 form.method = 'POST';
                 form.target = "_blank";
-            var input = document.createElement("textarea");
-                input.name = 'data';
-                input.value = JSON.stringify(JSON_data).replaceAll(/\+/g,'%2B');
+            var input = document.createElement("input");
+                input.name = 'storage_key';
+                input.value = storage_key;
                 form.appendChild(input);
                 form.style.display = 'none';
             document.body.appendChild(form);
@@ -2548,6 +2629,7 @@ function SendPostRequestInNewWindow( aObj ) {
             return false;
         }
         catch ( error ) {
+            localStorage.removeItem(storage_key);
             alert( "Error:\n\n" + error );
 
             CompareTable[Number(aObj.dataset.row)][Number(aObj.dataset.col)]['HaveSentPushRequest'] = true;
