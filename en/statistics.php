@@ -116,7 +116,7 @@
                             <td class="statistics-name" rowspan="2">Asia</td>
 <?php } ?>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B08"    title="Show logs for timezone UTC+08 (CN, PH)">UTC+08</a></td>
-                            <td class="statistics-name">China, Pilippines</td>
+                            <td class="statistics-name">China, Philippines</td>
                         </tr>
                         <tr class="statistics-tablerow">
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B07"    title="Show logs for timezone UTC+07 (ID)">UTC+07</a></td>
