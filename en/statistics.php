@@ -64,7 +64,7 @@
 
             <hr />
 
-            <h3 id="priodic-analysis">Cron jobs for periodic analysis:</h3>
+            <h3 id="periodic-analysis">Cron jobs for periodic analysis:</h3>
                 <table id="analysis-table" class="js-sort-table">
                     <thead>
                         <tr class="statistics-tableheaderrow">
