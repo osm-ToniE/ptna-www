@@ -96,7 +96,7 @@
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                             title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
                             <td class="statistics-name" rowspan="4">20:05</td>
-                            <td class="statistics-name" rowspan="4">Asia, Oceania</td>
+                            <td class="statistics-name" rowspan="4">Asia<br />Oceania</td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-oceania.log') ) { ?>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?continent=oceania"    title="Show logs for continent handling: Oceania">Oceania</a></td>
@@ -132,7 +132,7 @@
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log')     ) { ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC%2B05.30"        title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="3">Africa, Asia</td>
+                            <td class="statistics-name" rowspan="3">Africa<br />Asia</td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-asia.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=asia"       title="Show logs for continent handling: Asia">Asia</a></td>
@@ -169,12 +169,11 @@
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+03.log')     ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC%2B03"        title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="8">Africa, Asia, Europe</td>
+                            <td class="statistics-name" rowspan="8">Africa<br />Asia<br />Europe</td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-africa.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=africa"    title="Show logs for continent handling: Africa">Africa</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="8">Africa, Asia, Europe</td>
                             <td class="statistics-name">Africa</td>
 <?php } ?>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?timezone=UTC%2B03"    title="Show logs for timezone UTC+03 (RU)">UTC+03</a></td>
@@ -248,7 +247,7 @@
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-03.log')     ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC-03"        title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="8">Central America, North America, South America</td>
+                            <td class="statistics-name" rowspan="8">Central America<br />North America<br />South America</td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
                             <td class="statistics-name"><a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
