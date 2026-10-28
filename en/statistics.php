@@ -95,7 +95,7 @@
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                             title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="4">20:05</td>
+                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia" title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
                             <td class="statistics-name" rowspan="4">Asia<br />Oceania</td>
 <?php } ?>
 <?php if ( file_exists($path_to_work.'ptna-handle-continent-oceania.log') ) { ?>
