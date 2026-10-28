@@ -79,8 +79,8 @@
                             <th class="statistics-name js-sort-none">Extract Regions</th>
 <?php } else { ?>
                             <th class="statistics-name js-sort-none"><a href="https://download.openstreetmap.fr/extracts/" target="_blank" title="Using extracts from French server">Data Source</a></th>
-                            <th class="statistics-name js-sort-none">Continents</th>
 <?php } ?>
+                            <th class="statistics-name js-sort-none">Continents/Regions</th>
                             <th class="statistics-name js-sort-none">Timezones (Standard Time)</th>
                             <th class="statistics-name js-sort-none">Countries</th>
                         </tr>
@@ -96,9 +96,9 @@
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                              title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia"  title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
+<?php } ?>
                             <td class="statistics-name" rowspan="4"><a href="showlogs.php?continent=asia"                               title="Show logs for continent handling: Asia">Asia</a><br />
                                                                     <a href="showlogs.php?continent=oceania"                            title="Show logs for continent handling: Oceania">Oceania</a></td>
-<?php } ?>
                             <td class="statistics-name" rowspan="2">Oceania</td>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B10"                                        title="Show logs for timezone UTC+10 (AU)">UTC+10</a></td>
                             <td class="statistics-name">Australia</td>
