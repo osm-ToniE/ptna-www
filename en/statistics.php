@@ -151,12 +151,11 @@
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+03.log')     ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC%2B03"                  title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="8"><a href="showlogs.php?timezone=UTC%2B03"                title="Show logs for timezone UTC+03 (RU)">UTC+03</a><br />
-                                                                    <a href="showlogs.php?continent=asia"                   title="Show logs for continent handling: Asia">Asia</a><br />
+                            <td class="statistics-name" rowspan="8"><a href="showlogs.php?continent=asia"                   title="Show logs for continent handling: Asia">Asia</a><br />
                                                                     <a href="showlogs.php?continent=europe"                 title="Show logs for continent handling: Europe">Europe</a></td>
 <?php } ?>
                             <td class="statistics-name">Africa</td>
-                            <td class="statistics-name" rowspan="2"></td>
+                            <td class="statistics-name" rowspan="2"><a href="showlogs.php?timezone=UTC%2B03"                title="Show logs for timezone UTC+03 (RU)">UTC+03</a></td>
                             <td class="statistics-name">Ethiopia, Madagascar</td>
                         </tr>
                         <tr class="statistics-tablerow">
