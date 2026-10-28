@@ -247,73 +247,43 @@
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-03.log')     ) { ?>
                             <td class="statistics-name" rowspan="8"><a href="showlogs.php?planet=UTC-03"        title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="8">Central America<br />North America<br />South America</td>
+                            <td class="statistics-name" rowspan="8"><a href="showlogs.php?continent=central-america"       title="Show logs for continent handling: Central America">Central America</a><br />
+                                                                    <a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a><br />
+                                                                    <a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
 <?php } ?>
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">South America</td>
-<?php } ?>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC-03"                 title="Show logs for timezone UTC-03 (AR, BR)">UTC-03</a></td>
                             <td class="statistics-name">Argentina, Brasil</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">North America</td>
-<?php } ?>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?timezone=UTC-04"     title="Show logs for timezone UTC-04 (BO, CA, CL)">UTC-04</a></td>
                             <td class="statistics-name">Canada</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">South America</td>
-<?php } ?>
                             <td class="statistics-name">Bolivia, Chile</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-central-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=central-america"       title="Show logs for continent handling: Central America">Central America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">Central America</td>
-<?php } ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?timezone=UTC-05"     title="Show logs for timezone UTC-05 (CA, CO, PA, USA)">UTC-05</a></td>
                             <td class="statistics-name">Panama</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">North America</td>
-<?php } ?>
-                            <td class="statistics-name">Canada, USA</td>
+<                            <td class="statistics-name">Canada, USA</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-south-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=south-america"         title="Show logs for continent handling: South America">South America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">South America</td>
-<?php } ?>
                             <td class="statistics-name">Columbia</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-central-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=central-america"       title="Show logs for continent handling: Central America">Central America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">Central America</td>
-<?php } ?>
                             <td class="statistics-name" rowspan="2"><a href="showlogs.php?timezone=UTC-06"     title="Show logs for timezone UTC-06 (CA, NI, US)">UTC-06</a></td>
                             <td class="statistics-name">Nicaragua</td>
                         </tr>
                         <tr class="statistics-tablerow">
-<?php if ( file_exists($path_to_work.'ptna-handle-continent-north-america.log') ) { ?>
-                            <td class="statistics-name"><a href="showlogs.php?continent=north-america"         title="Show logs for continent handling: North America">North America</a></td>
-<?php } else { ?>
                             <td class="statistics-name">North America</td>
-<?php } ?>
                             <td class="statistics-name">Canada, USA</td>
                         </tr>
 
