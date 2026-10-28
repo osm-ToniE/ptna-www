@@ -79,6 +79,7 @@
                             <th class="statistics-name js-sort-none">Extract Regions</th>
 <?php } else { ?>
                             <th class="statistics-name js-sort-none"><a href="https://download.openstreetmap.fr/extracts/" target="_blank" title="Using extracts from French server">Data Source</a></th>
+                            <th class="statistics-name js-sort-none">Continents</th>
 <?php } ?>
                             <th class="statistics-name js-sort-none">Timezones (Standard Time)</th>
                             <th class="statistics-name js-sort-none">Countries</th>
