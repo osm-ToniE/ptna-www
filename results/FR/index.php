@@ -73,6 +73,7 @@
                     <?php CreateNewFullEntry("FR-BRE-Lineotim", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-MAT", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-MOVA", "fr", "Configuration" ); ?>
+                    <?php CreateNewFullEntry("FR-BRE-OBC", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-PONDIBUS", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-QUB", "fr", "Configuration" ); ?>
                     <?php CreateNewFullEntry("FR-BRE-Star", "fr", "Configuration" ); ?>

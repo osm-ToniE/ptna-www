@@ -51,6 +51,7 @@
     $duration += CreateGtfsEntry( "FR-BRE-Lineotim" );
     $duration += CreateGtfsEntry( "FR-BRE-MAT" );
     $duration += CreateGtfsEntry( "FR-BRE-MOVA" );
+    $duration += CreateGtfsEntry( "FR-BRE-OBC" );
     $duration += CreateGtfsEntry( "FR-BRE-PONDIBUS" );
     $duration += CreateGtfsEntry( "FR-BRE-QUB" );
     $duration += CreateGtfsEntry( "FR-BRE-Star" );
