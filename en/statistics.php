@@ -87,16 +87,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 19:05 -->
+                        <!-- 18:05 -->
                         <tr class="statistics-tablerow">
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
                             <td class="statistics-name" rowspan="27"><a href="showlogs.php?job=all-in-one"                              title="Show logs for all time zones and continets">Manually</a></td>
                             <td class="statistics-name" rowspan="27"><a href="showlogs.php?planet=UTC-all"                              title="Show logs for Planet handling">Planet</a></td>
 <?php } else if ( file_exists($path_to_work.'ptna-handle-planet-UTC+12.log') ) { ?>
-                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, East and Southeast Asia">19:05</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, East and Southeast Asia">18:05</a></td>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC%2B12"                              title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, New Zealand">19:05</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, New Zealand">18:05</a></td>
 <?php } ?>
                             <td class="statistics-name" rowspan="3"><a href="showlogs.php?continent=oceania"                            title="Show logs for continent handling: Oceania">Oceania</a></td>
                             <td class="statistics-name" rowspan="3">Oceania</td>
