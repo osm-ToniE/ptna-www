@@ -70,7 +70,8 @@
                         <tr class="statistics-tableheaderrow">
                             <th class="statistics-name js-sort-none">Started at Munich, DE time</th>
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-all.log')   ||
-           file_exists($path_to_work.'ptna-handle-planet-UTC+10.log')    ||
+           file_exists($path_to_work.'ptna-handle-planet-UTC+12.log')    ||
+           file_exists($path_to_work.'ptna-handle-planet-UTC+08.log')    ||
            file_exists($path_to_work.'ptna-handle-planet-UTC+05.30.log') ||
            file_exists($path_to_work.'ptna-handle-planet-UTC+03.log')    ||
            file_exists($path_to_work.'ptna-handle-planet-UTC-03.log')    ||
@@ -86,20 +87,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 20:05 -->
+                        <!-- 19:05 -->
                         <tr class="statistics-tablerow">
 <?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC-all.log') ) { ?>
-                            <td class="statistics-name" rowspan="26"><a href="showlogs.php?job=all-in-one"                              title="Show logs for all time zones and continets">Manually</a></td>
-                            <td class="statistics-name" rowspan="26"><a href="showlogs.php?planet=UTC-all"                              title="Show logs for Planet handling">Planet</a></td>
-<?php } else if ( file_exists($path_to_work.'ptna-handle-planet-UTC+10.log') ) { ?>
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia"  title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?planet=UTC%2B10"                              title="Show logs for Planet handling">Planet</a></td>
+                            <td class="statistics-name" rowspan="27"><a href="showlogs.php?job=all-in-one"                              title="Show logs for all time zones and continets">Manually</a></td>
+                            <td class="statistics-name" rowspan="27"><a href="showlogs.php?planet=UTC-all"                              title="Show logs for Planet handling">Planet</a></td>
+<?php } else if ( file_exists($path_to_work.'ptna-handle-planet-UTC+12.log') ) { ?>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, East and Southeast Asia">19:05</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?planet=UTC%2B12"                              title="Show logs for Planet handling">Planet</a></td>
 <?php } else { ?>
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?job=australia-eastern-and-southeastern-asia"  title="Show logs for planet handling: Australia, East and Southeast Asia">20:05</a></td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?job=oceania"                                  title="Show logs for planet handling: Australia, New Zealand">19:05</a></td>
 <?php } ?>
-                            <td class="statistics-name" rowspan="4"><a href="showlogs.php?continent=asia"                               title="Show logs for continent handling: Asia">Asia</a><br />
-                                                                    <a href="showlogs.php?continent=oceania"                            title="Show logs for continent handling: Oceania">Oceania</a></td>
-                            <td class="statistics-name" rowspan="2">Oceania</td>
+                            <td class="statistics-name" rowspan="3"><a href="showlogs.php?continent=oceania"                            title="Show logs for continent handling: Oceania">Oceania</a></td>
+                            <td class="statistics-name" rowspan="3">Oceania</td>
+                            <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B12"                                        title="Show logs for timezone UTC+12 (NZ)">UTC+12</a></td>
+                            <td class="statistics-name">New Zealand</td>
+                        </tr>
+                        <tr class="statistics-tablerow">
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B10"                                        title="Show logs for timezone UTC+10 (AU)">UTC+10</a></td>
                             <td class="statistics-name">Australia</td>
                         </tr>
@@ -107,7 +111,17 @@
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B09.30"                                     title="Show logs for timezone UTC+09.30 (AU)">UTC+09.30</a></td>
                             <td class="statistics-name">Australia</td>
                         </tr>
+
+                        <!-- 20:05 -->
                         <tr class="statistics-tablerow">
+<?php if ( file_exists($path_to_work.'ptna-cron-eastern-southeastern-asia.log') ) { ?>
+                            <td class="statistics-name" rowspan="2"><a href="showlogs.php?job=eastern-southeastern-asia"                title="Show logs for planet handling: Show logs for planet handling:China, Indonesia, Philippines">20:05</a></td>
+<?php } ?>
+<?php if ( file_exists($path_to_work.'ptna-handle-planet-UTC+08.log')     ) { ?>
+                            <td class="statistics-name" rowspan="2"><a href="showlogs.php?planet=UTC%2B08"                              title="Show logs for Planet handling">Planet</a></td>
+<?php } else { ?>
+                            <td class="statistics-name" rowspan="2"><a href="showlogs.php?continent=asia"                               title="Show logs for continent handling: Asia">Asia</a></td>
+<?php } ?>
                             <td class="statistics-name" rowspan="2">Asia</td>
                             <td class="statistics-name"><a href="showlogs.php?timezone=UTC%2B08"                                        title="Show logs for timezone UTC+08 (CN, PH)">UTC+08</a></td>
                             <td class="statistics-name">China, Philippines</td>
