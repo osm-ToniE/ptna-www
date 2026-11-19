@@ -24,6 +24,7 @@
                     </thead>
                     <tbody>
 <?php
+    $duration += CreateGtfsEntry( "US-CA-OCTA" );
     $duration += CreateGtfsEntry( "US-MA-BAT" );
     $duration += CreateGtfsEntry( "US-MA-BRTA" );
     $duration += CreateGtfsEntry( "US-MA-CATA" );
